@@ -1088,32 +1088,6 @@ class ChannelInterfaceGroup(dbus.service.Interface):
         """
         return (self._members, self._local_pending, self._remote_pending)
 
-    @dbus.service.method(CHANNEL_INTERFACE_GROUP, in_signature='au',
-                                                  out_signature='au')
-    def GetHandleOwners(self, handles):
-        """
-        If the CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES flag is set on
-        the channel, then the handles of the group members are specific
-        to this channel, and are not meaningful in a connection-wide
-        context such as contact lists. This method allows you to find
-        the owner of the handle if it can be discovered in this channel,
-        or 0 if the owner is not available.
-
-        Parameters:
-        handles - a list of integer handles representing members of the
-            channel
-
-        Returns:
-        an array of integer handles representing the owner handle of
-            the the given room members, in the same order, or 0 if the
-            owner is not available
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidHandle, InvalidArgument (one
-        of the given handles is not a member)
-        """
-        pass
-
     @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauau')
     def MembersChanged(self, message, added, removed, local_pending, remote_pending):
         """
@@ -1123,12 +1097,27 @@ class ChannelInterfaceGroup(dbus.service.Interface):
         a message from the server regarding this change, which may be
         displayed to the user if desired.
 
+        The reason value will be one of the following:
+        0 - CHANNEL_GROUP_CHANGE_REASON_NONE
+            No reason was provided for this change.
+        1 - CHANNEL_GROUP_CHANGE_REASON_OFFLINE
+            The change is due to a user going offline.
+        2 - CHANNEL_GROUP_CHANGE_REASON_KICKED
+            The change is due to a kick operation.
+        3 - CHANNEL_GROUP_CHANGE_REASON_BUSY
+            The change is due to a busy indication.
+        4 - CHANNEL_GROUP_CHANGE_REASON_INVITED
+            The change is due to an invitation.
+
         Parameters:
         message - a string message from the server, or blank if not
         added - a list of members added to the channel
         removed - a list of members removed from the channel
         local_pending - a list of members who are pending local approval
         remote_pending - a list of members who are pending remote approval
+        actor - the contact handle of the person who made the change, or 0
+            if not known
+        reason - a reason for the change from one of the above values
         """
 
         self._members.update(added)
