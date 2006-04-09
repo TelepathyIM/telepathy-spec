@@ -950,13 +950,6 @@ class ChannelInterfaceGroup(dbus.service.Interface):
         128 - CHANNEL_GROUP_FLAG_MESSAGE_RESCIND
             A message may be sent to the server when calling RemoveMembers on
             contacts who are remote pending.
-        256 - CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES
-            The members of this group have handles which are specific to
-            this channel, and are not valid as general-purpose handles on
-            the connection. Depending on the channel, it may be possible to
-            call GetHandleOwners to find the owners of these handles, which
-            should be done if you wish to eg subscribe to the contact's
-            presence.
 
         Returns:
         an integer of flags or'd together
@@ -1088,8 +1081,8 @@ class ChannelInterfaceGroup(dbus.service.Interface):
         """
         return (self._members, self._local_pending, self._remote_pending)
 
-    @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauauuu')
-    def MembersChanged(self, message, added, removed, local_pending, remote_pending, actor, reason):
+    @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauau')
+    def MembersChanged(self, message, added, removed, local_pending, remote_pending):
         """
         Emitted when contacts join any of the three lists (members, local
         pending or remote pending).  Contacts are listed in the removed
