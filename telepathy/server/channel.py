@@ -1088,8 +1088,8 @@ class ChannelInterfaceGroup(dbus.service.Interface):
         """
         return (self._members, self._local_pending, self._remote_pending)
 
-    @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauau')
-    def MembersChanged(self, message, added, removed, local_pending, remote_pending):
+    @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauauuu')
+    def MembersChanged(self, message, added, removed, local_pending, remote_pending, actor, reason):
         """
         Emitted when contacts join any of the three lists (members, local
         pending or remote pending).  Contacts are listed in the removed
