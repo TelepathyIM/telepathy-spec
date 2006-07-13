@@ -32,9 +32,6 @@ class Connection(dbus.service.Object):
     receive channels of differing types (such as text channels or streaming
     media channels) which are used to carry out further communication.
 
-    A Connection object should always endeavour to remain connected to the
-    server until instructed to the contrary with the Disconnect method.
-
     As well as the methods and signatures below, arbitrary interfaces may be
     provided by the Connection object to represent extra connection-wide
     functionality, such as the Connection.Interface.Presence for receiving and
