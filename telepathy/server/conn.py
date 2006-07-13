@@ -237,7 +237,7 @@ class Connection(dbus.service.Object):
         3 - CONNECTION_HANDLE_TYPE_LIST
 
         Parameters:
-        type - an integer handle type
+        handle_type - an integer handle type (as defined in RequestHandle)
         name - the name of the entity to request a handle for
 
         Returns:
@@ -269,7 +269,7 @@ class Connection(dbus.service.Object):
         method is called, or the clients disappear from the bus.
 
         Parameters:
-        handle_type - an integer representing the handle type
+        handle_type - an integer handle type (as defined in RequestHandle)
         handle - an integer handle to hold
 
         Potential Errors:
@@ -292,7 +292,7 @@ class Connection(dbus.service.Object):
         referenced by any existing channels.
 
         Parameters:
-        handle_type - an integer representing the handle type
+        handle_type - an integer handle type (as defined in RequestHandle)
         handle - an integer handle being held by the client
 
         Potential Errors:
@@ -910,7 +910,7 @@ class ConnectionInterfacePresence(dbus.service.Interface):
     """
     This interface is for services which have a concept of presence which can
     be published for yourself and monitored on your contacts. Telepathy's
-    definition of presence based on that used by the Galago project
+    definition of presence is based on that used by the Galago project
     (see http://www.galago-project.org/).
 
     Presence on an individual (yourself or one of your contacts) is modelled as
