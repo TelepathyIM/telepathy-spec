@@ -342,7 +342,7 @@ class ChannelTypeStreamedMedia(Channel):
         """
         pass
 
-    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='uu')
+    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='uuu')
     def StreamAdded(self, stream_id, contact_handle, stream_type):
         """
         Emitted when a new stream has been added to this channel.
@@ -356,7 +356,7 @@ class ChannelTypeStreamedMedia(Channel):
         """
         pass
 
-    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='')
+    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='u')
     def StreamRemoved(self, stream_id):
         """
         Emitted when a stream has been removed from this channel.
@@ -366,7 +366,7 @@ class ChannelTypeStreamedMedia(Channel):
         """
         pass
 
-    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='uuu')
+    @dbus.service.signal(CHANNEL_TYPE_STREAMED_MEDIA, signature='uu')
     def StreamStateChanged(self, stream_id, stream_state):
         """
         Emitted when a member's stream's state changes.
