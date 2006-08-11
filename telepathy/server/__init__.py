@@ -24,6 +24,7 @@ from connmgr import *
 from conn import *
 from channel import *
 from handle import *
+from ice import *
 from properties import *
 
 from telepathy import version
