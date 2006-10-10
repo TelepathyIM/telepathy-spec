@@ -902,8 +902,9 @@ class ChannelInterfaceGroup(dbus.service.Interface):
             presence.
         512 - CHANNEL_GROUP_FLAG_ONLY_ONE_GROUP
             Placing a contact in multiple groups of this type is not allowed
-            (on services where contacts may only be in one user-defined
-            group, user-defined groups will have this flag).
+            and will raise NotAvailable (on services where contacts may only
+            be in one user-defined group, user-defined groups will have
+            this flag).
 
         Returns:
         an integer of flags or'd together
