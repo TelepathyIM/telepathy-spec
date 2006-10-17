@@ -271,7 +271,9 @@ class ChannelTypeContactList(Channel):
     the group is already empty. Closing a channel to a non-empty group is
     not allowed; its members must be set to the empty set first.
 
-    (FIXME: should the user contact groups have a different type?)
+    On some protocols (e.g. XMPP) empty groups are not represented on the
+    server, so disconnecting from the server and reconnecting might cause
+    empty groups to vanish.
     """
     _dbus_interfaces = [CHANNEL_TYPE_CONTACT_LIST]
 
