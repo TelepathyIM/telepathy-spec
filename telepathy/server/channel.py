@@ -243,7 +243,7 @@ class ChannelTypeContactList(Channel):
 
     There are currently two types of contact list:
     CONNECTION_HANDLE_TYPE_LIST is a "magic" server-defined list, and
-    CONNECTION_HANDLE_TYPE_USER_CONTACT_GROUP is a user-defined contact group.
+    CONNECTION_HANDLE_TYPE_GROUP is a user-defined contact group.
 
     For server-defined lists like the subscribe list, singleton instances
     of this channel type should be created by the connection manager at
@@ -264,7 +264,7 @@ class ChannelTypeContactList(Channel):
     be created by the connection manager at connection time for each group
     that exists on the server. New, empty groups can be created by calling
     RequestHandle with a handle type of
-    CONNECTION_HANDLE_TYPE_USER_CONTACT_GROUP and with the name set to the
+    CONNECTION_HANDLE_TYPE_GROUP and with the name set to the
     human-readable UTF-8 name of the group.
 
     User-defined groups may be deleted by closing the channel, but only if
