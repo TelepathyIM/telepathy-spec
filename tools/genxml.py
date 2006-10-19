@@ -8,10 +8,10 @@ except ImportError:
     print "You need to install ElementTree (http://effbot.org/zone/element-index.htm)"
     sys.exit(1)
 
+import dbus
+
 from xml.dom.minidom import parseString
 from telepathy.server import *
-
-import sys
 
 def strip (element):
     if element.text:
@@ -32,6 +32,7 @@ for line in defs:
     bases = eval(basenames)
     if type(bases) != tuple:
         bases = (bases,)
+    bases += (dbus.service.Object,)
     # classes half-baked to order... :)
     cls = type(name, bases, {'__init__':lambda self: None,
                              '__del__':lambda self: None,
