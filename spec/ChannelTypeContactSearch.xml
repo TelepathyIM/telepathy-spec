@@ -1,0 +1,118 @@
+<?xml version="1.0" ?>
+<node name="/ChannelTypeContactSearch" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Type.ContactSearch" tp:name-const="CHANNEL_TYPE_CONTACT_SEARCH">
+    <method name="GetSearchKeys">
+      <arg direction="out" type="s"/>
+      <arg direction="out" type="a{s(bg)}"/>
+      <tp:docstring>
+        Returns any instructions from the server along with a dictionary of
+        search key names to their types, and a boolean indicating if the key is
+        mandatory. The following well-known search key names should be used
+        where appropriate:
+         s:first - the desired contact's given name
+         s:last - the desired contact's family name
+         s:nick - the desired contact's nickname
+         s:email - the e-mail address of the desired contact
+
+        Returns:
+        a string with any instructions from the server
+        a dictionary mapping string search key names to an array of:
+            booleans indicating if the search key is mandatory
+            type signature of the value for this search key
+
+        Possible Errors:
+        Disconnected, NetworkError, NotAvailable
+      </tp:docstring>
+    </method>
+    <method name="GetSearchState">
+      <arg direction="out" type="u"/>
+      <tp:docstring>
+        Returns the current state of this search channel object. One of the
+        following values:
+        0 - CHANNEL_CONTACT_SEARCH_STATE_BEFORE
+            the search has not started
+        1 - CHANNEL_CONTACT_SEARCH_STATE_DURING
+            the search is in progress
+        2 - CHANNEL_CONTACT_SEARCH_STATE_AFTER
+            the search has been completed
+
+        Returns:
+        an integer representing the search state
+      </tp:docstring>
+    </method>
+    <method name="Search">
+      <arg direction="in" name="terms" type="a{sv}"/>
+      <tp:docstring>
+        Send a request to start a search for contacts on this connection. A
+        valid search request will cause the SearchStateChanged signal to be
+        emitted with the status CHANNEL_CONTACT_SEARCH_STATE_DURING.
+
+        Parameters:
+        a dictionary mapping search key names to the desired values
+
+        Possible Errors:
+        Disconnected, NetworkError, InvalidArgument
+      </tp:docstring>
+    </method>
+    <signal name="SearchResultReceived">
+      <arg name="contact" type="u"/>
+      <arg name="values" type="a{sv}"/>
+      <tp:docstring>
+        Emitted when a search result is received from the server.
+
+        Parameters:
+        an integer handle for the contact
+        a dictionary mapping search key names to values for this contact
+      </tp:docstring>
+    </signal>
+    <signal name="SearchStateChanged">
+      <arg name="state" type="u"/>
+      <tp:docstring>
+        Emitted when the search state (as returned by the GetSearchState
+        method) changes.
+
+        Parameters:
+        state - an integer representing the new search state
+      </tp:docstring>
+    </signal>
+    <tp:docstring>
+      A channel type for searching server-stored user directories. A new channel
+    should be requested by a client for each search attempt, and it should be
+    closed when the search is completed or the required result has been found
+    in order to free unused handles. The search can be cancelled at any time
+    by calling the channel Close method, although depending upon the protocol
+    the connection manager may not be able to prevent the server from sending
+    further results.
+
+    Before searching, the GetSearchKeys method should be used to discover any
+    instructions sent by the server, and the valid search keys which can be
+    provided to the Search method. A search request is then started by
+    providing some of these terms to the Search method, and the search status
+    will be set to CHANNEL_CONTACT_SEARCH_STATE_DURING. When results are
+    returned by the server, the SearchResultReceived signal is emitted for each
+    contact found, and when the search is complete, the search status will be
+    set to CHANNEL_SEARCH_STATE_AFTER.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<node name="/ChannelInterfaceMediaSignalling" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.MediaSignalling" tp:name-const="CHANNEL_INTERFACE_MEDIA_SIGNALLING">
+    <method name="GetSessionHandlers">
+      <arg direction="out" type="a(os)"/>
+      <tp:docstring>
+        Returns all currently active session handlers on this channel
+        as a list of (session_handler_path, type).
+      </tp:docstring>
+    </method>
+    <signal name="NewSessionHandler">
+      <arg name="session_handler" type="o"/>
+      <arg name="type" type="s"/>
+      <tp:docstring>
+        Signal that a session handler object has been created. The client
+        should create a session object and create streams for the streams
+        within.
+
+        Parameters:
+        session_handler - object path of the new MediaSessionHandler object
+        type - string indicating type of session, eg &quot;rtp&quot;
+      </tp:docstring>
+    </signal>
+    <tp:docstring>
+      An interface for signalling a channel containing synchronised media
+    sessions which can contain an arbitrary number of streams. The negotiation
+    interface is based closely around the API of the Farsight library
+    (http://farsight.sourceforge.net/). This in turn is based upon the IETF
+    MMusic ICE drafts where connections are established by signalling potential
+    connection candidates to the peer until a usable connection is found, and
+    codecs are negotiated with an SDP-style offer and answer. However, the
+    principles should be applicable to other media streaming methods and the
+    API re-used without difficulty.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

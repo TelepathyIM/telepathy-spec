@@ -1,0 +1,83 @@
+<?xml version="1.0" ?>
+<node name="/ConnectionInterfacePrivacy" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Privacy" tp:name-const="CONN_INTERFACE_PRIVACY">
+    <method name="GetPrivacyMode">
+      <arg direction="out" type="s"/>
+      <tp:docstring>
+        Return the current privacy mode, which must be one of the values
+        returned by GetPrivacyModes.
+
+        Returns:
+        a string of the current privacy mode
+
+        Possible Errors:
+        Disconnected, NetworkError
+      </tp:docstring>
+    </method>
+    <method name="GetPrivacyModes">
+      <arg direction="out" type="as"/>
+      <tp:docstring>
+        Returns the privacy modes available on this connection. The following
+        well-known names should be used where appropriate:
+         allow-all - any contact may initiate communication
+         allow-specified - only contacts on your 'allow' list may initiate communication
+         allow-subscribed - only contacts on your subscription list may initiate communication
+
+        Returns:
+        an array of valid privacy modes for this connection
+      </tp:docstring>
+    </method>
+    <signal name="PrivacyModeChanged">
+      <arg name="mode" type="s"/>
+      <tp:docstring>
+        Emitted when the privacy mode is changed or the value has been
+        initially received from the server.
+
+        Parameters:
+        mode - the current privacy mode
+      </tp:docstring>
+    </signal>
+    <method name="SetPrivacyMode">
+      <arg direction="in" name="mode" type="s"/>
+      <tp:docstring>
+        Request that the privacy mode be changed to the given value, which
+        must be one of the values returned by GetPrivacyModes. Success is
+        indicated by the method returning and the PrivacyModeChanged
+        signal being emitted.
+
+        Parameters:
+        mode - the desired privacy mode
+
+        Possible Errors:
+        Disconnected, NetworkError, PermissionDenied, InvalidArgument
+      </tp:docstring>
+    </method>
+    <tp:docstring>
+      An interface to support getting and setting privacy modes to configure
+    situations such as not being contactable by people who are not on your
+    subscribe list. If this interface is not implemented, the default can be
+    presumed to be allow-all (as defined in GetPrivacyModes).
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

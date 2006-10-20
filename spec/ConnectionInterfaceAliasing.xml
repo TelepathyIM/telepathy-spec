@@ -1,0 +1,100 @@
+<?xml version="1.0" ?>
+<node name="/ConnectionInterfaceAliasing" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Aliasing" tp:name-const="CONN_INTERFACE_ALIASING">
+    <signal name="AliasesChanged">
+      <arg name="aliases" type="a(us)"/>
+      <tp:docstring>
+        Signal emitted when a contact's alias (or that of the user) is changed.
+
+        Parameters:
+        aliases - an array containing structs of:
+            the handle representing the contact
+            the new alias
+      </tp:docstring>
+    </signal>
+    <method name="GetAliasFlags">
+      <arg direction="out" type="u"/>
+      <tp:docstring>
+        Return a logical OR of flags detailing the behaviour of aliases on this
+        connection. Valid flags are:
+        1 - CONNECTION_ALIAS_FLAG_USER_SET
+            The aliases of contacts on this connection are specified by the user
+            of the service, not the contacts themselves. This is the case on
+            eg Jabber.
+
+        Returns:
+        a integer with a logical OR of flags as defined above
+
+        Potential Errors:
+        Disconnected
+      </tp:docstring>
+    </method>
+    <method name="RequestAliases">
+      <arg direction="in" name="contacts" type="au"/>
+      <arg direction="out" type="as"/>
+      <tp:docstring>
+        Request the value of several contacts' aliases at once.
+
+        Parameters:
+        contacts - an array of the handle representing contacts
+
+        Returns:
+        a dictionary of contact handles to aliases in the same order
+
+        Possible Errors:
+        Disconnected, NetworkError, NotAvailable, InvalidHandle
+      </tp:docstring>
+    </method>
+    <method name="SetAliases">
+      <arg direction="in" name="aliases" type="a{us}"/>
+      <tp:docstring>
+        Request that the alias of the given contact be changed. Success will be
+        indicated by emitting an AliasUpdate signal. On connections where the
+        CONNECTION_ALIAS_FLAG_USER_SET flag is not set, this method will only
+        ever succeed if contact is the user's own handle (as returned by
+        GetSelfHandle on the Connection interface).
+
+        Parameters:
+        a dictionary mapping:
+            integer handles of contacts
+            strings of the new alias to set
+
+        Possible Errors:
+        Disconnected, NetworkError, InvalidArgument, NotAvailable, PermissionDenied
+      </tp:docstring>
+    </method>
+    <tp:docstring>
+      An interface on connections to support protocols where contacts have an
+    alias which they can change at will, but their underlying unique identifier
+    remains unchanged. Provides a method for the user to set their own alias,
+    and a signal which should be emitted when a contact's alias is changed
+    or first discovered.
+
+    On connections where the user is allowed to set aliases for contacts and
+    store them on the server, the GetAliasFlags method will have the
+    CONNECTION_ALIAS_FLAG_USER_SET flag set, and the SetAliases method
+    may be called on contact handles other than the user themselves.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

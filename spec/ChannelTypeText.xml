@@ -1,0 +1,187 @@
+<?xml version="1.0" ?>
+<node name="/ChannelTypeText" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Type.Text" tp:name-const="CHANNEL_TYPE_TEXT">
+    <method name="AcknowledgePendingMessages">
+      <arg direction="in" name="ids" type="au"/>
+      <tp:docstring>
+        Inform the channel that you have handled messages by displaying them to
+        the user (or equivalent), so they can be removed from the pending queue.
+
+        Parameters:
+        ids - the message to acknowledge
+
+        Possible Errors:
+        InvalidArgument (a given message ID was not found, no action taken)
+      </tp:docstring>
+    </method>
+    <method name="GetMessageTypes">
+      <arg direction="out" type="au"/>
+      <tp:docstring>
+        Return an array indicating which types of message may be sent on this
+        channel.
+
+        Returns:
+        an array of integer message types as defined above
+      </tp:docstring>
+    </method>
+    <method name="ListPendingMessages">
+      <arg direction="in" name="clear" type="b"/>
+      <arg direction="out" type="a(uuuuus)"/>
+      <tp:docstring>
+        List the messages currently in the pending queue, and optionally
+        remove then all.
+
+        Parameters:
+        clear - a boolean indicating whether the queue should be cleared
+
+        Returns:
+        an array of structs containing:
+            a numeric identifier
+            a unix timestamp indicating when the message was received
+            an integer handle of the contact who sent the message
+            an integer of the message type
+            a bitwise OR of the message flags
+            a string of the text of the message
+      </tp:docstring>
+    </method>
+    <signal name="LostMessage">
+      <tp:docstring>
+        This signal is emitted to indicate that an incoming message was
+        not able to be stored and forwarded by the connection manager
+        due to lack of memory.
+      </tp:docstring>
+    </signal>
+    <signal name="Received">
+      <arg name="id" type="u"/>
+      <arg name="timestamp" type="u"/>
+      <arg name="sender" type="u"/>
+      <arg name="type" type="u"/>
+      <arg name="flags" type="u"/>
+      <arg name="text" type="s"/>
+      <tp:docstring>
+        Signals that a message with the given id, timestamp, sender, type
+        and text has been received on this channel. Applications that catch
+        this signal and reliably inform the user of the message should
+        acknowledge that they have dealt with the message with the
+        AcknowledgePendingMessage method.
+
+        Parameters:
+        id - a numeric identifier for acknowledging the message
+        timestamp - a unix timestamp indicating when the message was received
+        sender - the handle of the contact who sent the message
+        type - the type of the message (normal, action, notice, etc)
+        flags - a bitwise OR of the message flags as defined above
+        text - the text of the message
+      </tp:docstring>
+    </signal>
+    <method name="Send">
+      <arg direction="in" name="type" type="u"/>
+      <arg direction="in" name="text" type="s"/>
+      <tp:docstring>
+        Request that a message be sent on this channel. The Sent signal will be
+        emitted when the message has been sent, and this method will return.
+
+        Parameters:
+        type - an integer indicating the type of the message
+        text - the message to send
+
+        Possible Errors:
+        Disconnected, NetworkError, InvalidArgument, PermissionDenied
+      </tp:docstring>
+    </method>
+    <signal name="SendError">
+      <arg name="error" type="u"/>
+      <arg name="timestamp" type="u"/>
+      <arg name="type" type="u"/>
+      <arg name="text" type="s"/>
+      <tp:docstring>
+        Signals that an outgoing message has failed to send. The error
+        will be one of the following values:
+        0 - CHANNEL_TEXT_SEND_ERROR_UNKNOWN
+            An unknown error occured.
+        1 - CHANNEL_TEXT_SEND_ERROR_OFFLINE
+            The requested contact was offline.
+        2 - CHANNEL_TEXT_SEND_ERROR_INVALID_CONTACT
+            The requested contact is not valid.
+        3 - CHANNEL_TEXT_SEND_ERROR_PERMISSION_DENIED
+            The user does not have permission to speak on this channel.
+        4 - CHANNEL_TEXT_SEND_ERROR_TOO_LONG
+            The outgoing message was too long and was rejected by the
+            server.
+
+        Parameters:
+        error - one of the above integer errors
+        timestamp - the unix timestamp indicating when the message was sent
+        type - the message the (normal, action, notice, etc)
+        text - the text of the message
+      </tp:docstring>
+    </signal>
+    <signal name="Sent">
+      <arg name="timestamp" type="u"/>
+      <arg name="type" type="u"/>
+      <arg name="text" type="s"/>
+      <tp:docstring>
+        Signals that a message has been sent on this channel.
+
+        Parameters:
+        timestamp - the unix timestamp indicating when the message was sent
+        type - the message type (normal, action, notice, etc)
+        text - the text of the message
+      </tp:docstring>
+    </signal>
+    <tp:docstring>
+      A channel type for sending and receiving messages in plain text, with no
+    formatting.
+
+    When a message is received, an identifier is assigned and a Received signal
+    emitted, and the message placed in a pending queue which can be inspected
+    with ListPendingMessages. A client which has handled the message by showing
+    it to the user (or equivalent) should acknowledge the receipt using the
+    AcknowledgePendingMessage method, and the message will then be removed from
+    the pending queue. Numeric identifiers for received messages may be reused
+    over the lifetime of the channel.
+
+    Each message has an associated 'type' value, which should be one of the
+    following:
+    0 - CHANNEL_TEXT_MESSAGE_TYPE_NORMAL
+        a standard message
+    1 - CHANNEL_TEXT_MESSAGE_TYPE_ACTION
+        an action which might be presented to the user as * &lt;sender&gt; &lt;action&gt;
+    2 - CHANNEL_TEXT_MESSAGE_TYPE_NOTICE
+        an one-off or automated message not necessarily expecting a reply
+    3 - CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY
+        an automatically-generated reply message
+
+    Each message also has a flags value, which is a bitwise OR of the
+    following:
+    1 - CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED
+        The incoming message was truncated to a shorter length by the
+        server or the connection manager.
+
+    Sending messages can be requested using the Send method, which will return
+    and cause the Sent signal to be emitted when the message has been delivered
+    to the server, or SendError if there is a failure.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
