@@ -129,7 +129,7 @@ class Channel(dbus.service.Object):
         return self._interfaces
 
 
-class ChannelTypeContactSearch(Channel):
+class ChannelTypeContactSearch(dbus.service.Object):
     """
     A channel type for searching server-stored user directories. A new channel
     should be requested by a client for each search attempt, and it should be
@@ -233,7 +233,7 @@ class ChannelTypeContactSearch(Channel):
         pass
 
 
-class ChannelTypeContactList(Channel):
+class ChannelTypeContactList(dbus.service.Object):
     """
     A channel type for representing a list of people on the server which is
     not used for communication. This is intended for use with the interface
@@ -287,7 +287,7 @@ class ChannelTypeContactList(Channel):
         Channel.__init__(self, connection, CHANNEL_TYPE_CONTACT_LIST, handle)
 
 
-class ChannelTypeStreamedMedia(Channel):
+class ChannelTypeStreamedMedia(dbus.service.Object):
     """
     A channel that can send and receive streamed media such as audio or video.
     Provides a number of methods for listing and requesting new streams, and
@@ -513,7 +513,7 @@ class ChannelTypeStreamedMedia(Channel):
         pass
 
 
-class ChannelTypeRoomList(Channel):
+class ChannelTypeRoomList(dbus.service.Object):
     """
     A channel type for listing named channels available on the server. Once the
     ListRooms method is called, it emits signals for rooms present on the
@@ -597,7 +597,7 @@ class ChannelTypeRoomList(Channel):
         pass
 
 
-class ChannelTypeText(Channel):
+class ChannelTypeText(dbus.service.Object):
     """
     A channel type for sending and receiving messages in plain text, with no
     formatting.
