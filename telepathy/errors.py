@@ -80,3 +80,14 @@ class ChannelInviteOnly(dbus.DBusException):
     The requested channel is invite only.
     """
     _dbus_error_name = _TELEPATHY_ERROR_IFACE + '.Channel.InviteOnly'
+
+if __name__ == '__main__':
+    def _check():
+        import telepathy._generated.errors as errors
+        for name in globals():
+            if name not in ('_check', '__doc__', '__builtins__',
+                            '__file__', '__name__', 'dbus',
+                            '_TELEPATHY_ERROR_IFACE'):
+                e = getattr(errors, name)
+                assert e._dbus_error_name == globals()[name]._dbus_error_name, name
+    _check()
