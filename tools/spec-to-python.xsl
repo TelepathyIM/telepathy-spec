@@ -27,7 +27,7 @@ class <xsl:value-of select="translate(/node/@name, '/', '')"/>(dbus.service.Inte
     def <xsl:value-of select="@name"/>(self<xsl:for-each select="arg">, <xsl:value-of select="@name"/></xsl:for-each>):
         """<xsl:value-of select="tp:docstring"/>
         """
-        raise NotImplementedError
+        pass
   </xsl:template>
 
   <xsl:template match="/"># Generated from the Telepathy spec
