@@ -43,5 +43,5 @@ class _Test(dbus.service.Interface):
         Emitted when stuff happened.
       
         """
-        raise NotImplementedError
+        pass
   
