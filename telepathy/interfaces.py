@@ -48,3 +48,13 @@ MEDIA_SESSION_HANDLER = 'org.freedesktop.Telepathy.Media.SessionHandler'
 MEDIA_STREAM_HANDLER = 'org.freedesktop.Telepathy.Media.StreamHandler'
 
 PROPERTIES_INTERFACE = 'org.freedesktop.Telepathy.Properties'
+
+if __name__ == '__main__':
+    import telepathy._generated.interfaces as interfaces
+    def _check():
+        for name in globals():
+            if name not in ('interfaces', '_check', '__doc__', '__builtins__',
+                            '__file__', '__name__'):
+                assert getattr(interfaces, name) == globals()[name], (
+                    name, globals()[name], getattr(interfaces, name))
+    _check()
