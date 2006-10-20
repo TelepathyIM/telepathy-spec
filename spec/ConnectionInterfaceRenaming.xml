@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<node name="/ConnectionInterfaceRenaming" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Renaming" tp:name-const="CONN_INTERFACE_RENAMING">
+    <signal name="Renamed">
+      <arg name="original" type="u"/>
+      <arg name="new" type="u"/>
+      <tp:docstring>
+        Emitted when the unique identifier of a contact on the server changes.
+
+        Parameters:
+        original - the handle of the original identifier
+        new - the handle of the new identifier
+      </tp:docstring>
+    </signal>
+    <method name="RequestRename">
+      <arg direction="in" name="name" type="s"/>
+      <tp:docstring>
+        Request that the users own identifier is changed on the server. Success
+        is indicated by a Renamed signal being emitted. A new handle will be
+        allocated for the user's new identifier, and remain valid for the
+        lifetime of the connection.
+
+        Parameters:
+        name - a string of the desired identifier
+
+        Possible Errors:
+        Disconnected, NetworkError, NotAvailable, InvalidArgument, PermissionDenied
+      </tp:docstring>
+    </method>
+    <tp:docstring>
+      An interface on connections to support protocols where the unique
+    identifiers of contacts can change. Because handles are immutable,
+    this is represented by a pair of handles, that representing the
+    old name, and that representing the new one.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<node name="/ConnectionInterfaceCapabilities" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Capabilities" tp:name-const="CONN_INTERFACE_CAPABILITIES">
+    <method name="AdvertiseCapabilities">
+      <arg direction="in" name="add" type="a(su)"/>
+      <arg direction="in" name="remove" type="as"/>
+      <arg direction="out" type="a(su)"/>
+      <tp:docstring>
+        Used by user interfaces to indicate which channel types they are able
+        to handle on this connection. Because these may be provided by
+        different client processes, this method accepts channel types to add
+        and remove from the set already advertised on this connection. The type
+        of advertised capabilities (create versus invite) is protocol-dependent
+        and hence cannot be set by the this method. In the case of a client
+        adding an already advertised channel type but with new channel type
+        specific flags, the connection manager should simply add the new flags
+        to the set of advertised capabilities.
+
+        Upon a successful invocation of this method, the CapabilitiesChanged
+        signal will be emitted for the user's own handle (as returned by
+        GetSelfHandle) the by the connection manager to indicate the changes
+        that have been made.  This signal should also be monitored to ensure
+        that the set is kept accurate - for example, a client may remove
+        capabilities or type specific capability flags when it exits
+        which are still provided by another client.
+
+        Parameters:
+        add - an array of structures containing:
+            a string channel type
+            a bitwise OR of type specific capability flags
+        remove - an array of D-Bus interface names of channel types to remove
+
+        Returns:
+        an array of structures describing the current capabilities containing:
+            a string channel type
+            a bitwise OR of type specific capability flags
+
+        Potential Errors:
+        NetworkError, Disconnected
+      </tp:docstring>
+    </method>
+    <signal name="CapabilitiesChanged">
+      <arg name="caps" type="a(usuuuu)"/>
+      <tp:docstring>
+        Announce that there has been a change of capabilities on the
+        given handle, or on the connection itself if the handle is zero.
+
+        Parameters:
+        an array of structures containing:
+            an integer handle representing the contact
+            a string channel type
+            a bitwise OR of the contact's old generic capability flags
+            a bitwise OR of the contact's new generic capability flags
+            a bitwise OR of the contact's old type specific capability flags
+            a bitwise OR of the contact's new type specific capability flags
+      </tp:docstring>
+    </signal>
+    <method name="GetCapabilities">
+      <arg direction="in" name="handles" type="au"/>
+      <arg direction="out" type="a(usuu)"/>
+      <tp:docstring>
+        Returns an array of capabilities for the given contact handles, or
+        the connection itself (where handle is zero).
+
+        Parameters:
+        handle - a contact handle for this connection, or zero for channel types available on the connection itself
+
+        Returns:
+        an array of structures containing:
+            an integer handle representing the contact
+            a string channel type
+            a bitwise OR of generic capability flags for the type
+            a bitwise OR of type specific capability flags for the type
+
+        Possible Errors:
+        Disconnected, NetworkError, InvalidHandle (the handle does not represent a contact), PermissionDenied
+      </tp:docstring>
+    </method>
+    <tp:docstring>
+      An interface for connections where it is possible to know what channel
+    types may be requested before the request is made to the connection object.
+    Each capability represents a commitment by the connection manager that it
+    will ordinarily be able to create a channel when given a request with the
+    given type and handle.
+
+    Capabilities can pertain to a certain contact handle, representing
+    activities such as having a text chat or a voice call with the user, or can
+    be on the connection itself (where the handle will be zero), where they
+    represent the ability to create channels for chat rooms or activities such
+    as searching and room listing. The activities are represented by the D-Bus
+    interface name of the channel type for that activity.
+
+    The following generic capability flags are defined:
+    1 - CONNECTION_CAPABILITY_FLAG_CREATE
+        The given channel type and handle can be given to RequestChannel to
+        create a new channel of this type.
+    2 - CONNECTION_CAPABILITY_FLAG_INVITE
+        The given contact can be invited to an existing channel of this type.
+
+    In addition, channel types may have type specific capability flags of their
+    own, which are described in the documentation for each channel type.
+
+    This interface also provides for user interfaces notifying the connection
+    manager of what capabilities to advertise for the user. This is done by
+    using the AdvertiseCapabilities method, and deals with the interface names
+    of channel types and the type specific flags pertaining to them which are
+    implemented by available client processes.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<node name="/ChannelTypeRoomList" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2005, 2006 Collabora Limited
+Copyright (C) 2005, 2006 Nokia Corporation
+Copyright (C) 2006 INdT
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Type.RoomList" tp:name-const="CHANNEL_TYPE_ROOM_LIST">
+    <method name="GetListingRooms">
+      <arg direction="out" type="b"/>
+      <tp:docstring>
+        Check to see if there is already a room list request in progress
+        on this channel.
+
+        Returns:
+        a boolean indicating if room listing is in progress
+      </tp:docstring>
+    </method>
+    <signal name="GotRooms">
+      <arg name="rooms" type="a(usa{sv})"/>
+      <tp:docstring>
+        Emitted when information about rooms on the server becomes available.
+        The array contains the room handle (as can be passed to the
+        RequestChannel method with CONNECTION_HANDLE_TYPE_ROOM), the channel
+        type, and a dictionary containing further information about the
+        room as available. The following well-known keys and types are
+        recommended for use where appropriate:
+         s:name - the name of the room if different from the handle
+         s:subject - the subject of the room
+         u:members - the number of members of the room
+         b:password - true if the room requires a password to enter
+         b:invite-only - true if you cannot join the room, but must be invited
+
+        Parameters:
+        rooms - an array of structs containing:
+            an integer room handle
+            a string representing the D-Bus interface name of the channel type
+            an dictionary mapping string keys to variant boxed information
+      </tp:docstring>
+    </signal>
+    <method name="ListRooms">
+      <tp:docstring>
+        Request the list of rooms from the server. The ListingRooms signal
+        should be emitted when this request is being processed, GotRooms when
+        any room information is received, and ListingRooms when the request
+        is complete.
+
+        Possible Errors:
+        Disconnected, NetworkError, NotAvailable, PermissionDenied
+      </tp:docstring>
+    </method>
+    <signal name="ListingRooms">
+      <arg name="listing" type="b"/>
+      <tp:docstring>
+        Emitted to indicate whether or not room listing request is currently
+        in progress.
+
+        Parameters:
+        listing - a boolean indicating if room listing is in progress
+      </tp:docstring>
+    </signal>
+    <tp:docstring>
+      A channel type for listing named channels available on the server. Once the
+    ListRooms method is called, it emits signals for rooms present on the
+    server, until you Close this channel. In some cases, it may not be possible
+    to stop the deluge of information from the server. This channel should be
+    closed when the room information is no longer being displayed, so that the
+    room handles can be freed.
+
+    This channel type may be implemented as a singleton on some protocols, so
+    clients should be prepared for the eventuality that they are given a
+    channel that is already in the middle of listing channels. The ListingRooms
+    signal, or GetListingRooms method, can be used to check this.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
