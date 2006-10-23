@@ -13,11 +13,18 @@ GENERATED_FILES = \
 	telepathy/_generated/interfaces.py \
 	telepathy/_generated/__init__.py \
 	telepathy/_generated/errors.py \
+	telepathy/_generated/constants.py \
 	$(INTERFACE_PY) $(INTROSPECT)
 
 doc/spec.html: $(filter-out spec/_Test.xml,$(wildcard spec/*.xml)) tools/doc-generator.xsl
 	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
 	$(XSLTPROC) tools/doc-generator.xsl spec/all_test.xml > test/spec.html
+
+telepathy/_generated/constants.py: $(wildcard spec/*.xml) tools/python-constants-generator.xsl
+	install -d telepathy/_generated
+	$(XSLTPROC) tools/python-constants-generator.xsl spec/all.xml > $@
+#test/interfaces.py: $(wildcard spec/*.xml) tools/python-interfaces-generator.xsl
+#	$(XSLTPROC) tools/python-interfaces-generator.xsl spec/all_test.xml > test/interfaces.py
 
 telepathy/_generated/interfaces.py: $(wildcard spec/*.xml) tools/python-interfaces-generator.xsl
 	install -d telepathy/_generated
