@@ -225,6 +225,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         1 - CONNECTION_HANDLE_TYPE_CONTACT
         2 - CONNECTION_HANDLE_TYPE_ROOM
         3 - CONNECTION_HANDLE_TYPE_LIST
+        4 - CONNECTION_HANDLE_TYPE_GROUP
 
         Parameters:
         handle_type - an integer handle type (as defined in RequestHandle)
