@@ -26,10 +26,26 @@ from telepathy import *
 from handle import Handle
 
 from telepathy._generated.Connection import Connection as _Connection
-from telepathy._generated.ConnectionInterfaceAliasing import ConnectionInterfaceAliasing as _ConnectionInterfaceAliasing
-from telepathy._generated.ConnectionInterfaceAvatars import ConnectionInterfaceAvatars
-from telepathy._generated.ConnectionInterfaceCapabilities import ConnectionInterfaceCapabilities as _ConnectionInterfaceCapabilities
-from telepathy._generated.ConnectionInterfaceContactInfo import ConnectionInterfaceContactInfo
+from telepathy._generated.ConnectionInterfaceAliasing \
+        import ConnectionInterfaceAliasing \
+        as _ConnectionInterfaceAliasing
+from telepathy._generated.ConnectionInterfaceAvatars \
+        import ConnectionInterfaceAvatars
+from telepathy._generated.ConnectionInterfaceCapabilities \
+        import ConnectionInterfaceCapabilities \
+        as _ConnectionInterfaceCapabilities
+from telepathy._generated.ConnectionInterfaceContactInfo \
+        import ConnectionInterfaceContactInfo
+from telepathy._generated.ConnectionInterfaceForwarding \
+        import ConnectionInterfaceForwarding \
+        as _ConnectionInterfaceForwarding
+from telepathy._generated.ConnectionInterfacePresence \
+        import ConnectionInterfacePresence
+from telepathy._generated.ConnectionInterfacePrivacy \
+        import ConnectionInterfacePrivacy \
+        as _ConnectionInterfacePrivacy
+from telepathy._generated.ConnectionInterfaceRenaming \
+        import ConnectionInterfaceRenaming
 
 class Connection(_Connection, dbus.service.Object):
     def __init__(self, proto, account):
@@ -282,53 +298,17 @@ class ConnectionInterfaceCapabilities(_ConnectionInterfaceCapabilities):
         self.AdvertisedCapabilitiesChanged(self._self_handle, add, remove)
 
 
-class ConnectionInterfaceForwarding(dbus.service.Interface):
-    """
-    A connection interface for services which can signal to contacts
-    that they should instead contact a different user ID, effectively
-    forwarding all incoming communication channels to another contact on
-    the service.
-    """
+class ConnectionInterfaceForwarding(_ConnectionInterfaceForwarding):
     def __init__(self):
-        self._interfaces.add(CONN_INTERFACE_FORWARDING)
+        _ConnectionInterfaceForwarding.__init__(self)
         self._forwarding_handle = 0
 
     @dbus.service.method(CONN_INTERFACE_FORWARDING, in_signature='', out_signature='u')
     def GetForwardingHandle(self):
-        """
-        Returns the current forwarding contact handle, or zero if none is set.
-
-        Returns:
-        an integer contact handle to whom incoming communication is forwarded
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable
-        """
         return self._forwarding_handle
-
-    @dbus.service.method(CONN_INTERFACE_FORWARDING, in_signature='u', out_signature='')
-    def SetForwardingHandle(self, forward_to):
-        """
-        Set a contact handle to forward incoming communications to. A zero
-        handle disables forwarding.
-
-        Parameters:
-        forward_to - an integer contact handle to forward incoming communications to
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, NotAvailable, InvalidHandle
-        """
-        pass
 
     @dbus.service.signal(CONN_INTERFACE_FORWARDING, signature='u')
     def ForwardingChanged(self, forward_to):
-        """
-        Emitted when the forwarding contact handle for this connection has been
-        changed. An zero handle indicates forwarding is disabled.
-
-        Parameters:
-        forward_to - an integer contact handle to forward communication to
-        """
         self._forwarding_handle = forward_to
 
 
@@ -430,19 +410,6 @@ class ConnectionInterfacePresence(dbus.service.Interface):
         Disconnected, NetworkError, InvalidHandle, PermissionDenied, NotAvailable (if the presence of the requested contacts is not reported to this connection)
         """
         pass
-
-    @dbus.service.method(CONN_INTERFACE_PRESENCE, in_signature='au', out_signature='a{u(ua{sa{sv}})}')
-    def GetPresence(self, contacts):
-        """
-        Get presence previously emitted by PresenceUpdate for the given
-        contacts. Data is returned in the same structure as the PresenceUpdate
-        signal. Using this method in favour of RequestPresence has the
-        advantage that it will not wake up each client connected to the
-        PresenceUpdate signal.
-
-        Possible Errors:
-        Disconnected, InvalidHandle, NotAvailable
-        """
 
     @dbus.service.signal(CONN_INTERFACE_PRESENCE, signature='a{u(ua{sa{sv}})}')
     def PresenceUpdate(self, presence):
@@ -557,100 +524,18 @@ class ConnectionInterfacePrivacy(dbus.service.Interface):
         Parameters:
         modes - a list of privacy modes available on this interface
         """
-        self._interfaces.add(CONN_INTERFACE_PRIVACY)
+        _ConnectionInterfacePrivacy.__init__(self)
         self._privacy_mode = ''
         self._privacy_modes = modes
 
     @dbus.service.method(CONN_INTERFACE_PRIVACY, in_signature='', out_signature='as')
     def GetPrivacyModes(self):
-        """
-        Returns the privacy modes available on this connection. The following
-        well-known names should be used where appropriate:
-         allow-all - any contact may initiate communication
-         allow-specified - only contacts on your 'allow' list may initiate communication
-         allow-subscribed - only contacts on your subscription list may initiate communication
-
-        Returns:
-        an array of valid privacy modes for this connection
-        """
         return self._privacy_modes
 
     @dbus.service.method(CONN_INTERFACE_PRIVACY, in_signature='', out_signature='s')
     def GetPrivacyMode(self):
-        """
-        Return the current privacy mode, which must be one of the values
-        returned by GetPrivacyModes.
-
-        Returns:
-        a string of the current privacy mode
-
-        Possible Errors:
-        Disconnected, NetworkError
-        """
         return self._privacy_mode
-
-    @dbus.service.method(CONN_INTERFACE_PRIVACY, in_signature='s', out_signature='')
-    def SetPrivacyMode(self, mode):
-        """
-        Request that the privacy mode be changed to the given value, which
-        must be one of the values returned by GetPrivacyModes. Success is
-        indicated by the method returning and the PrivacyModeChanged
-        signal being emitted.
-
-        Parameters:
-        mode - the desired privacy mode
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, InvalidArgument
-        """
-        pass
 
     @dbus.service.signal(CONN_INTERFACE_PRIVACY, signature='s')
     def PrivacyModeChanged(self, mode):
-        """
-        Emitted when the privacy mode is changed or the value has been
-        initially received from the server.
-
-        Parameters:
-        mode - the current privacy mode
-        """
         self._privacy_mode = mode
-
-
-class ConnectionInterfaceRenaming(dbus.service.Interface):
-    """
-    An interface on connections to support protocols where the unique
-    identifiers of contacts can change. Because handles are immutable,
-    this is represented by a pair of handles, that representing the
-    old name, and that representing the new one.
-    """
-    def __init__(self):
-        self._interfaces.add(CONN_INTERFACE_RENAMING)
-
-    @dbus.service.method(CONN_INTERFACE_RENAMING, in_signature='s', out_signature='')
-    def RequestRename(self, name):
-        """
-        Request that the users own identifier is changed on the server. Success
-        is indicated by a Renamed signal being emitted. A new handle will be
-        allocated for the user's new identifier, and remain valid for the
-        lifetime of the connection.
-
-        Parameters:
-        name - a string of the desired identifier
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable, InvalidArgument, PermissionDenied
-        """
-        pass
-
-    @dbus.service.signal(CONN_INTERFACE_RENAMING, signature='uu')
-    def Renamed(self, original, new):
-        """
-        Emitted when the unique identifier of a contact on the server changes.
-
-        Parameters:
-        original - the handle of the original identifier
-        new - the handle of the new identifier
-        """
-        pass
-
