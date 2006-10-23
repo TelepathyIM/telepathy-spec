@@ -44,6 +44,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, NetworkError, NotAvailable
       </tp:docstring>
     </method>
+    <tp:enum typename="ChannelContactSearchState">
+      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_BEFORE" value="0"/>
+      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_DURING" value="1"/>
+      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_AFTER" value="2"/>
+    </tp:enum>
     <method name="GetSearchState">
       <arg direction="out" type="u"/>
       <tp:docstring>

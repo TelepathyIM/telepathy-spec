@@ -58,6 +58,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, NetworkError
       </tp:docstring>
     </method>
+    <tp:flags typename="ChannelGroupFlags">
+      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_ADD" value="1"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_REMOVE" value="2"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_RESCIND" value="4"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_ADD" value="8"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_REMOVE" value="16"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_ACCEPT" value="32"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_REJECT" value="64"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_RESCIND" value="128"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES" value="256"/>
+      <tp:flag name="CHANNEL_GROUP_FLAG_ONLY_ONE_GROUP" value="512"/>
+    </tp:flags>
     <method name="GetGroupFlags">
       <arg direction="out" type="u"/>
       <tp:docstring>
@@ -190,6 +202,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         removed - a logical OR of the flags which have been cleared
       </tp:docstring>
     </signal>
+    <tp:enum typename="ChannelGroupChangeReason">
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_NONE" value="0"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_OFFLINE" value="1"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_KICKED" value="2"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BUSY" value="3"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_INVITED" value="4"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BANNED" value="5"/>
+    </tp:enum>
     <signal name="MembersChanged">
       <arg name="message" type="s"/>
       <arg name="added" type="au"/>
