@@ -214,8 +214,8 @@ class Connection(_Connection, dbus.service.Object):
             hand = self._handles[handle_type, handle]
             self.add_client_handle(hand, sender)
 
-    @dbus.service.method(CONN_INTERFACE, in_signature='uau', out_signature='')
-    def ReleaseHandles(self, handle_type, handles):
+    @dbus.service.method(CONN_INTERFACE, in_signature='uau', out_signature='', sender_keyword='sender')
+    def ReleaseHandles(self, handle_type, handles, sender):
         self.check_connected()
         self.check_handle_type(handle_type)
 
