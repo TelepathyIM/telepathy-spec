@@ -21,7 +21,7 @@ import dbus.service
 
 from telepathy._generated.ChannelInterfaceMediaSignalling import ChannelInterfaceMediaSignalling
 from telepathy._generated.MediaSessionHandler import MediaSessionHandler as _MediaSessionHandler
-from telepathy._generated.MediaSessionHandler import MediaStreamHandler as _MediaStreamHandler
+from telepathy._generated.MediaStreamHandler import MediaStreamHandler as _MediaStreamHandler
 
 class MediaSessionHandler(_MediaSessionHandler, dbus.service.Object):
     def __init__(self, bus_name, object_path):
