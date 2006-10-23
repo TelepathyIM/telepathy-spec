@@ -275,6 +275,7 @@ class ConnectionInterfaceCapabilities(_ConnectionInterfaceCapabilities):
         self._own_caps = set()
         self._caps = {}
 
+    # FIXME: this code is completely broken!
     @dbus.service.method(CONN_INTERFACE_CAPABILITIES, in_signature='au', out_signature='a(usuu)')
     def GetCapabilities(self, handles):
         if (handle != 0 and handle not in self._handles):
