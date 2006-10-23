@@ -32,6 +32,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
             the new alias
       </tp:docstring>
     </signal>
+    <tp:flags typename="ConnectionAliasFlags">
+      <tp:flag name="CONNECTION_ALIAS_FLAG_USER_SET" value="1"/>
+    </tp:flags>
     <method name="GetAliasFlags">
       <arg direction="out" type="u"/>
       <tp:docstring>

@@ -206,6 +206,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Channel.Banned, Channel.Full, Channel.InviteOnly
       </tp:docstring>
     </method>
+    <tp:enum typename="ConnectionHandleType">
+      <tp:enumvalue name="CONNECTION_HANDLE_TYPE_NONE" value="0"/>
+      <tp:enumvalue name="CONNECTION_HANDLE_TYPE_CONTACT" value="1"/>
+      <tp:enumvalue name="CONNECTION_HANDLE_TYPE_ROOM" value="2"/>
+      <tp:enumvalue name="CONNECTION_HANDLE_TYPE_LIST" value="3"/>
+      <tp:enumvalue name="CONNECTION_HANDLE_TYPE_GROUP" value="4"/>
+    </tp:enum>
     <method name="RequestHandles">
       <arg direction="in" name="handle_type" type="u"/>
       <arg direction="in" name="names" type="as"/>
@@ -238,6 +245,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, InvalidArgument (the given type is not valid), NotAvailable (the given name is not a valid entity of the given type)
       </tp:docstring>
     </method>
+    <tp:enum typename="ConnectionStatus">
+      <tp:enumvalue name="CONNECTION_STATUS_CONNECTED" value="0"/>
+      <tp:enumvalue name="CONNECTION_STATUS_CONNECTING" value="1"/>
+      <tp:enumvalue name="CONNECTION_STATUS_DISCONNECTED" value="2"/>
+    </tp:enum>
+    <tp:enum typename="ConnectionStatusReason">
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_NONE_SPECIFIED" value="0"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_REQUESTED" value="1"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_NETWORK_ERROR" value="2"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_AUTHENTICATION_FAILED" value="3"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_ENCRYPTION_ERROR" value="4"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_NAME_IN_USE" value="5"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_NOT_PROVIDED" value="6"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_UNTRUSTED" value="7"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_EXPIRED" value="8"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_NOT_ACTIVATED" value="9"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_HOSTNAME_MISMATCH" value="10"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_FINGERPRINT_MISMATCH" value="11"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_SELF_SIGNED" value="12"/>
+      <tp:enumvalue name="CONNECTION_STATUS_REASON_CERT_OTHER_ERROR" value="13"/>
+    </tp:enum>
     <signal name="StatusChanged">
       <arg name="status" type="u"/>
       <arg name="reason" type="u"/>

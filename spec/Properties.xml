@@ -142,6 +142,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         2 - PROPERTY_FLAG_WRITE
             the property can be written
     </tp:docstring>
+    <tp:flags typename="PropertyFlags">
+      <tp:flag name="PROPERTY_FLAG_READ" value="1"/>
+      <tp:flag name="PROPERTY_FLAG_WRITE" value="2"/>
+    </tp:flags>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

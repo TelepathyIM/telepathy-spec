@@ -205,6 +205,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     succeeds, a client may poll the server intermittently to update any display
     of presence information.
     </tp:docstring>
+    <tp:enum typename="ConnectionPresenceType">
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_UNSET" value="0"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_OFFLINE" value="1"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AVAILABLE" value="2"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AWAY" value="3"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_EXTENDED_AWAY" value="4"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_HIDDEN" value="5"/>
+    </tp:enum>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

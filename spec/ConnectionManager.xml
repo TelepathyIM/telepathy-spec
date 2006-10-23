@@ -21,6 +21,11 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.ConnectionManager" tp:name-const="CONN_MGR_INTERFACE">
+    <tp:flags typename="ConnMgrParamFlags">
+      <tp:flag name="CONN_MGR_PARAM_FLAG_REQUIRED" value="1"/>
+      <tp:flag name="CONN_MGR_PARAM_FLAG_REGISTER" value="2"/>
+      <tp:flag name="CONN_MGR_PARAM_FLAG_HAS_DEFAULT" value="4"/>
+    </tp:flags>
     <method name="GetParameters">
       <arg direction="in" name="proto" type="s"/>
       <arg direction="out" type="a(susv)"/>
