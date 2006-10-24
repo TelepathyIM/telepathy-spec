@@ -4,12 +4,12 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
-  <xsl:template match="tp:flags"># <xsl:value-of select="@typename"/><xsl:text>
+  <xsl:template match="tp:flags"># <xsl:value-of select="@name"/><xsl:text>
 </xsl:text><xsl:apply-templates/><xsl:text>
 </xsl:text>
   </xsl:template>
 
-  <xsl:template match="tp:enum"># <xsl:value-of select="@typename"/><xsl:text>
+  <xsl:template match="tp:enum"># <xsl:value-of select="@name"/><xsl:text>
 </xsl:text><xsl:apply-templates/><xsl:text>
 </xsl:text>
   </xsl:template>

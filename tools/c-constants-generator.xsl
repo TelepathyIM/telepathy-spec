@@ -5,12 +5,12 @@
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
   <xsl:template match="tp:flags">typedef enum
-<xsl:apply-templates/>} Tp<xsl:value-of select="@typename"/>;
+<xsl:apply-templates/>} Tp<xsl:value-of select="@name"/>;
 
 </xsl:template>
 
   <xsl:template match="tp:enum">typedef enum
-<xsl:apply-templates/>} Tp<xsl:value-of select="@typename"/>;
+<xsl:apply-templates/>} Tp<xsl:value-of select="@name"/>;
 
 </xsl:template>
 

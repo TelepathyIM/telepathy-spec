@@ -61,7 +61,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         message - string describing the error
       </tp:docstring>
     </method>
-    <tp:enum typename="MediaStreamError">
+    <tp:enum name="MediaStreamError">
       <tp:enumvalue name="MEDIA_STREAM_ERROR_UNKNOWN" value="0"/>
       <tp:enumvalue name="MEDIA_STREAM_ERROR_EOS" value="1"/>
     </tp:enum>
@@ -79,7 +79,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         has been discovered and streaming is in progress.
       </tp:docstring>
     </method>
-    <tp:enum typename="MediaStreamBaseProto">
+    <tp:enum name="MediaStreamBaseProto">
       <tp:enumvalue name="MEDIA_STREAM_BASE_PROTO_UDP" value="0"/>
       <tp:enumvalue name="MEDIA_STREAM_BASE_PROTO_TCP" value="1"/>
     </tp:enum>
@@ -117,7 +117,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
                      is required
       </tp:docstring>
     </method>
-    <tp:enum typename="MediaStreamTransportType">
+    <tp:enum name="MediaStreamTransportType">
       <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_LOCAL" value="0"/>
       <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_DERIVED" value="1"/>
       <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_RELAY" value="2"/>
