@@ -206,7 +206,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Channel.Banned, Channel.Full, Channel.InviteOnly
       </tp:docstring>
     </method>
-    <tp:enum typename="ConnectionHandleType">
+    <tp:enum name="ConnectionHandleType">
       <tp:enumvalue name="CONNECTION_HANDLE_TYPE_NONE" value="0"/>
       <tp:enumvalue name="CONNECTION_HANDLE_TYPE_CONTACT" value="1"/>
       <tp:enumvalue name="CONNECTION_HANDLE_TYPE_ROOM" value="2"/>
@@ -245,12 +245,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, InvalidArgument (the given type is not valid), NotAvailable (the given name is not a valid entity of the given type)
       </tp:docstring>
     </method>
-    <tp:enum typename="ConnectionStatus">
+    <tp:enum name="ConnectionStatus">
       <tp:enumvalue name="CONNECTION_STATUS_CONNECTED" value="0"/>
       <tp:enumvalue name="CONNECTION_STATUS_CONNECTING" value="1"/>
       <tp:enumvalue name="CONNECTION_STATUS_DISCONNECTED" value="2"/>
     </tp:enum>
-    <tp:enum typename="ConnectionStatusReason">
+    <tp:enum name="ConnectionStatusReason">
       <tp:enumvalue name="CONNECTION_STATUS_REASON_NONE_SPECIFIED" value="0"/>
       <tp:enumvalue name="CONNECTION_STATUS_REASON_REQUESTED" value="1"/>
       <tp:enumvalue name="CONNECTION_STATUS_REASON_NETWORK_ERROR" value="2"/>

@@ -109,7 +109,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, NetworkError, InvalidArgument, PermissionDenied
       </tp:docstring>
     </method>
-    <tp:enum typename="ChannelTextSendError">
+    <tp:enum name="ChannelTextSendError">
       <tp:enumvalue name="CHANNEL_SEND_ERROR_UNKNOWN" value="0"/>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_OFFLINE" value="1"/>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2"/>
@@ -156,13 +156,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         text - the text of the message
       </tp:docstring>
     </signal>
-    <tp:enum typename="ChannelTextMessageType">
+    <tp:enum name="ChannelTextMessageType">
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NORMAL" value="0"/>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_ACTION" value="1"/>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NOTICE" value="2"/>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY" value="3"/>
     </tp:enum>
-    <tp:flags typename="ChannelTextMessageFlags">
+    <tp:flags name="ChannelTextMessageFlags">
       <tp:flag name="CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED" value="1"/>
     </tp:flags>
     <tp:docstring>

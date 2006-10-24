@@ -20,7 +20,7 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
-  <tp:enum typename="ChannelHoldState">
+  <tp:enum name="ChannelHoldState">
     <tp:enumvalue name="CHANNEL_HOLD_STATE_NONE" value="0"/>
     <tp:enumvalue name="CHANNEL_HOLD_STATE_SEND_ONLY" value="1"/>
     <tp:enumvalue name="CHANNEL_HOLD_STATE_RECV_ONLY" value="2"/>
