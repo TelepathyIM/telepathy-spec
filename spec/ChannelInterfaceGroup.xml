@@ -209,6 +209,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BUSY" value="3"/>
       <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_INVITED" value="4"/>
       <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BANNED" value="5"/>
+      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_ERROR" value="6"/>
     </tp:enum>
     <signal name="MembersChanged">
       <arg name="message" type="s"/>
@@ -238,6 +239,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
             The change is due to an invitation.
         5 - CHANNEL_GROUP_CHANGE_REASON_BANNED
             The change is due to a kick+ban operation.
+        6 - CHANNEL_GROUP_CHANGE_REASON_ERROR
+            The change is due to an error occurring.
 
         Parameters:
         message - a string message from the server, or blank if not
