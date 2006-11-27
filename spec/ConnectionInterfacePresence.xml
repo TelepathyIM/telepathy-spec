@@ -48,6 +48,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Disconnected, NetworkError, PermissionDenied
       </tp:docstring>
     </method>
+    <method name="GetPresence">
+      <arg direction="in" name="contacts" type="au"/>
+      <arg direction="out" name="presence" type="a{u(ua{sa{sv}})}"/>
+      <tp:docstring>
+        Get presence previously emitted by PresenceUpdate for the given
+        contacts. Data is returned in the same structure as the PresenceUpdate
+        signal. Using this method in favour of RequestPresence has the
+        advantage that it will not wake up each client connected to the
+        PresenceUpdate signal.
+
+        Parameters:
+        contacts - an array of the contacts whose presence should be obtained
+
+        Possible Errors:
+        Disconnected, InvalidHandle, NotAvailable
+      </tp:docstring>
+    </method>
     <method name="GetStatuses">
       <arg direction="out" type="a{s(ubba{ss})}"/>
       <tp:docstring>
