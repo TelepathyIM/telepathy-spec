@@ -115,6 +115,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2"/>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_PERMISSION_DENIED" value="3"/>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_TOO_LONG" value="4"/>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_NOT_IMPLEMENTED" value="5"/>
     </tp:enum>
     <signal name="SendError">
       <arg name="error" type="u"/>
@@ -135,6 +136,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         4 - CHANNEL_TEXT_SEND_ERROR_TOO_LONG
             The outgoing message was too long and was rejected by the
             server.
+        5 - CHANNEL_TEXT_SEND_ERROR_NOT_IMPLEMENTED
+            The channel doesn't support sending text messages to requested
+            contact.
 
         Parameters:
         error - one of the above integer errors
