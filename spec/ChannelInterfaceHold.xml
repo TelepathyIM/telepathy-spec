@@ -6,7 +6,7 @@ Copyright (C) 2005, 2006 Nokia Corporation
 Copyright (C) 2006 INdT
   </tp:copyright>
   <tp:license>
-    This library is free software; you can redistribute it and/or
+This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version.
@@ -21,40 +21,43 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <tp:enum name="ChannelHoldState">
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_NONE" value="0"/>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_SEND_ONLY" value="1"/>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_RECV_ONLY" value="2"/>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_BOTH" value="3"/>
+    <tp:enumvalue name="CHANNEL_HOLD_STATE_NONE" value="0">
+            Neither the local user and the remote member are on hold, and media
+            is being sent bidirectionally.
+    </tp:enumvalue>
+    <tp:enumvalue name="CHANNEL_HOLD_STATE_SEND_ONLY" value="1">
+            The local user has put the remote member on hold, so is sending
+            media but has arranged not to receive any media streams.
+    </tp:enumvalue>
+    <tp:enumvalue name="CHANNEL_HOLD_STATE_RECV_ONLY" value="2">
+            The user has been put on hold by the remote member, so is receiving
+            media but has arranged not to send any media streams.
+    </tp:enumvalue>
+    <tp:enumvalue name="CHANNEL_HOLD_STATE_BOTH" value="3">
+            Both the local user and the remote member have agreed not to send
+            any media streams to each other.
+    </tp:enumvalue>
   </tp:enum>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Hold" tp:name-const="CHANNEL_INTERFACE_HOLD">
     <method name="GetHoldState">
-      <arg direction="in" name="member" type="u"/>
-      <arg direction="out" type="u"/>
+      <arg direction="in" name="member" type="u">
+        <tp:docstring>
+          The contact handle for a member of the channel
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="u">
+        <tp:docstring>
+          The member's current hold state as one of the values of
+          ChannelHoldState
+        </tp:docstring>
+      </arg>
       <tp:docstring>
-        Given a member of the channel, return their current hold state. This
-        can be one of the following values:
-        0 - CHANNEL_HOLD_STATE_NONE
-            Neither the local user and the remote member are on hold, and media
-            is being sent bidirectionally.
-        1 - CHANNEL_HOLD_STATE_SEND_ONLY
-            The local user has put the remote member on hold, so is sending
-            media but has arranged not to receive any media streams.
-        2 - CHANNEL_HOLD_STATE_RECV_ONLY
-            The user has been put on hold by the remote member, so is receiving
-            media but has arranged not to send any media streams.
-        3 - CHANNEL_HOLD_STATE_BOTH
-            Both the local user and the remote member have agreed not to send
-            any media streams to each other.
-
-        Parameters:
-        member - the handle of a member of the channel
-
-        Returns:
-        state - an integer representing the hold state, as defined above
-
-        Potential Errors:
-        Disconnected, InvalidHandle
+        Given a member of the channel, return their current hold state.
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+      </tp:possible-errors>
     </method>
     <signal name="HoldStateChanged">
       <arg name="member" type="u"/>
@@ -72,20 +75,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </signal>
     <method name="RequestHold">
-      <arg direction="in" name="member" type="u"/>
-      <arg direction="in" name="hold" type="b"/>
+      <arg direction="in" name="member" type="u">
+        <tp:docstring>
+          The contact handle for a member of the channel
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="hold" type="b">
+        <tp:docstring>
+          A boolean indicating whether or not the user should be on hold
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that a certain member be put on hold (be instructed not to send
         any media streams to you) or be taken off hold. Success is indicated
         by the HoldStateChanged signal being emitted.
-
-        Parameters:
-        member - the integer handle of a member of the channel
-        hold - an boolean indicating whether or not the user should be on hold
-
-        Potential Errors:
-        Disconnected, NetworkError, InvalidHandle
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       THIS INTERFACE IS DEPRECATED AND SHOULD NOT BE USED. Hold functionality

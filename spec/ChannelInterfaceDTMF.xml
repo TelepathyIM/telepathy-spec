@@ -22,29 +22,32 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.DTMF" tp:name-const="CHANNEL_INTERFACE_DTMF">
     <signal name="ReceivedDTMF">
-      <arg name="signal" type="u"/>
-      <arg name="duration" type="u"/>
+      <arg name="signal" type="u">
+        <tp:docstring>A numeric signal number</tp:docstring>
+      </arg>
+      <arg name="duration" type="u">
+        <tp:docstring>A numeric duration in milliseconds</tp:docstring>
+      </arg>
       <tp:docstring>
         Signals that this channel received a DTMF tone.
-
-        Parameters:
-        signal - a numeric signal number
-        duration - a numeric duration in milliseconds
       </tp:docstring>
     </signal>
     <method name="SendDTMF">
-      <arg direction="in" name="signal" type="u"/>
-      <arg direction="in" name="duration" type="u"/>
+      <arg direction="in" name="signal" type="u">
+        <tp:docstring>A numeric signal number</tp:docstring>
+      </arg>
+      <arg direction="in" name="duration" type="u">
+        <tp:docstring>A numeric duration in milliseconds</tp:docstring>
+      </arg>
       <tp:docstring>
         Requests that a DTMF tone is sent.
-
-        Parameters:
-        signal - a numeric signal number
-        duration - a numeric duration in milliseconds
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable, InvalidArgument
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface that gives a Channel the ability to send or receive DTMF

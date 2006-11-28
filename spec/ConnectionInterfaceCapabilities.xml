@@ -22,9 +22,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Capabilities" tp:name-const="CONN_INTERFACE_CAPABILITIES">
     <method name="AdvertiseCapabilities">
-      <arg direction="in" name="add" type="a(su)"/>
-      <arg direction="in" name="remove" type="as"/>
-      <arg direction="out" type="a(su)"/>
+      <arg direction="in" name="add" type="a(su)">
+        <tp:docstring>
+          An array of structures containing:
+          - a string channel type
+          - a bitwise OR of type specific capability flags
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="remove" type="as">
+        <tp:docstring>
+          An array of D-Bus interface names of channel types to remove
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="a(su)">
+        <tp:docstring>
+          An array of structures describing the current capabilities containing:
+          - a string channel type
+          - a bitwise OR of type specific capability flags
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Used by user interfaces to indicate which channel types they are able
         to handle on this connection. Because these may be provided by
@@ -43,58 +59,58 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         that the set is kept accurate - for example, a client may remove
         capabilities or type specific capability flags when it exits
         which are still provided by another client.
-
-        Parameters:
-        add - an array of structures containing:
-            a string channel type
-            a bitwise OR of type specific capability flags
-        remove - an array of D-Bus interface names of channel types to remove
-
-        Returns:
-        an array of structures describing the current capabilities containing:
-            a string channel type
-            a bitwise OR of type specific capability flags
-
-        Potential Errors:
-        NetworkError, Disconnected
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+      </tp:possible-errors>
     </method>
     <signal name="CapabilitiesChanged">
-      <arg name="caps" type="a(usuuuu)"/>
+      <arg name="caps" type="a(usuuuu)">
+        <tp:docstring>
+          An array of structures containing:
+          - an integer handle representing the contact
+          - a string channel type
+          - a bitwise OR of the contact's old generic capability flags
+          - a bitwise OR of the contact's new generic capability flags
+          - a bitwise OR of the contact's old type specific capability flags
+          - a bitwise OR of the contact's new type specific capability flags
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Announce that there has been a change of capabilities on the
         given handle, or on the connection itself if the handle is zero.
-
-        Parameters:
-        an array of structures containing:
-            an integer handle representing the contact
-            a string channel type
-            a bitwise OR of the contact's old generic capability flags
-            a bitwise OR of the contact's new generic capability flags
-            a bitwise OR of the contact's old type specific capability flags
-            a bitwise OR of the contact's new type specific capability flags
       </tp:docstring>
     </signal>
     <method name="GetCapabilities">
-      <arg direction="in" name="handles" type="au"/>
-      <arg direction="out" type="a(usuu)"/>
+      <arg direction="in" name="handles" type="au">
+        <tp:docstring>
+          An array of contact handles for this connection, or zero to query capabilities available on the connection itself
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="a(usuu)">
+        <tp:docstring>
+          An array of structures containing:
+          - an integer handle representing the contact
+          - a string channel type
+          - a bitwise OR of generic capability flags for the type
+          - a bitwise OR of type specific capability flags for the type
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Returns an array of capabilities for the given contact handles, or
         the connection itself (where handle is zero).
-
-        Parameters:
-        handle - a contact handle for this connection, or zero for channel types available on the connection itself
-
-        Returns:
-        an array of structures containing:
-            an integer handle representing the contact
-            a string channel type
-            a bitwise OR of generic capability flags for the type
-            a bitwise OR of type specific capability flags for the type
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidHandle (the handle does not represent a contact), PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+          <tp:docstring>
+            The handle does not represent a contact
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface for connections where it is possible to know what channel
@@ -110,12 +126,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     as searching and room listing. The activities are represented by the D-Bus
     interface name of the channel type for that activity.
 
-    The following generic capability flags are defined:
-    1 - CONNECTION_CAPABILITY_FLAG_CREATE
-        The given channel type and handle can be given to RequestChannel to
-        create a new channel of this type.
-    2 - CONNECTION_CAPABILITY_FLAG_INVITE
-        The given contact can be invited to an existing channel of this type.
+    The generic capability flags are defined by ConnectionCapabilityFlag.
 
     In addition, channel types may have type specific capability flags of their
     own, which are described in the documentation for each channel type.
@@ -128,8 +139,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </tp:docstring>
   </interface>
   <tp:flags name="ConnectionCapabilityFlag">
-    <tp:flag name="CONNECTION_CAPABILITY_FLAG_CREATE" value="1"/>
-    <tp:flag name="CONNECTION_CAPABILITY_FLAG_INVITE" value="2"/>
+    <tp:flag name="CONNECTION_CAPABILITY_FLAG_CREATE" value="1">
+      <tp:docstring>
+        The given channel type and handle can be given to RequestChannel to
+        create a new channel of this type.
+      </tp:docstring>
+    </tp:flag>
+    <tp:flag name="CONNECTION_CAPABILITY_FLAG_INVITE" value="2">
+      <tp:docstring>
+        The given contact can be invited to an existing channel of this type.
+      </tp:docstring>
+    </tp:flag>
   </tp:flags>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

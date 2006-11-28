@@ -22,20 +22,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Presence" tp:name-const="CONN_INTERFACE_PRESENCE">
     <method name="AddStatus">
-      <arg direction="in" name="status" type="s"/>
-      <arg direction="in" name="parms" type="a{sv}"/>
+      <arg direction="in" name="status" type="s">
+        <tp:docstring>
+          The string identifier of the desired status
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="parms" type="a{sv}">
+        <tp:docstring>
+          A dictionary of optional parameter names mapped to their variant-boxed values
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that a single presence status is published for the user, along
         with any desired parameters. Changes will be indicated by PresenceUpdate
         signals being emitted.
 
-        Parameters:
-        status - the string identifier of the desired status
-        parms - a dictionary of optional parameter names mapped to their variant-boxed values
-
         Possible Errors:
         Disconnected, NetworkError, InvalidArgument, NotAvailable, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <method name="ClearStatus">
       <tp:docstring>
@@ -43,108 +54,148 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         that this request may simply result in the statuses being replaced by a
         default available status. Changes will be indicated by PresenceUpdate
         signals being emitted.
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <method name="GetPresence">
-      <arg direction="in" name="contacts" type="au"/>
-      <arg direction="out" name="presence" type="a{u(ua{sa{sv}})}"/>
+      <arg direction="in" name="contacts" type="au">
+        <tp:docstring>
+          An array of the contacts whose presence should be obtained
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="presence" type="a{u(ua{sa{sv}})}">
+        <tp:docstring>
+          Presence information in the same format as for the PresenceUpdate
+          signal
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get presence previously emitted by PresenceUpdate for the given
         contacts. Data is returned in the same structure as the PresenceUpdate
         signal. Using this method in favour of RequestPresence has the
         advantage that it will not wake up each client connected to the
         PresenceUpdate signal.
-
-        Parameters:
-        contacts - an array of the contacts whose presence should be obtained
-
-        Possible Errors:
-        Disconnected, InvalidHandle, NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <method name="GetStatuses">
-      <arg direction="out" type="a{s(ubba{ss})}"/>
-      <tp:docstring>
-        Get a dictionary of the valid presence statuses for this connection.
-        This is only available when online because only some statuses will
-        be available on some servers.
-
-        Returns:
-        a dictionary of string identifiers mapped to a struct for each status, containing:
+      <arg direction="out" type="a{s(ubba{ss})}">
+        <tp:docstring>
+        A dictionary of string identifiers mapped to a struct for each status, containing:
         - a type value from one of the values above
         - a boolean to indicate if this status may be set on yourself
         - a boolean to indicate if this is an exclusive status which you may not set alongside any other
         - a dictionary of valid optional string argument names mapped to their types
-
-        Possible Errors:
-        Disconnected, NetworkError
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Get a dictionary of the valid presence statuses for this connection.
+        This is only available when online because only some statuses will
+        be available on some servers.
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
     <signal name="PresenceUpdate">
-      <arg name="presence" type="a{u(ua{sa{sv}})}"/>
+      <arg name="presence" type="a{u(ua{sa{sv}})}">
+        <tp:docstring>
+        A dictionary of contact handles mapped to a struct containing:
+        - a UNIX timestamp of the last activity time (in UTC)
+        - a dictionary mapping the contact's current status identifiers to:
+          a dictionary of optional parameter names mapped to their 
+          variant-boxed values
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         This signal should be emitted when your own presence has been changed,
         or the presence of the member of any of the connection's channels has
         been changed, or when the presence requested by RequestPresence is available.
 
-        Parameters:
-        a dictionary of contact handles mapped to a struct containing:
-        - a UNIX timestamp of the last activity time (in UTC)
-        - a dictionary mapping the contact's current status identifiers to:
-          a dictionary of optional parameter names mapped to their 
-          variant-boxed values
       </tp:docstring>
     </signal>
     <method name="RemoveStatus">
-      <arg direction="in" name="status" type="s"/>
+      <arg direction="in" name="status" type="s">
+        <tp:docstring>
+          The string identifier of the status not to publish anymore for the user
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that the given presence status is no longer published for the
         user. Changes will be indicated by PresenceUpdate signals being
         emitted. As with ClearStatus, removing a status may actually result in
         it being replaced by a default available status.
-
-        Parameters:
-        status - the string identifier of the status not to publish anymore for the user
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, InvalidArgument (if the status
-        requested is not currently set)
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>The status requested is not currently set</tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
     <method name="RequestPresence">
-      <arg direction="in" name="contacts" type="au"/>
+      <arg direction="in" name="contacts" type="au">
+        <tp:docstring>
+          An array of the contacts whose presence should be obtained
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request the presence for contacts on this connection. A PresenceUpdate
         signal will be emitted when they are received. This is not the same as
         subscribing to the presence of a contact, which must be done using the
         'subscription' Channel.Type.ContactList, and on some protocols presence
         information may not be available unless a subscription exists.
-
-        Parameters:
-        contacts - an array of the contacts whose presence should be obtained
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidHandle, PermissionDenied, NotAvailable (if the presence of the requested contacts is not reported to this connection)
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The presence of the requested contacts is not reported to this connection
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
     <method name="SetLastActivityTime">
-      <arg direction="in" name="time" type="u"/>
+      <arg direction="in" name="time" type="u">
+        <tp:docstring>
+          A UNIX timestamp of the user's last activity time (in UTC)
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that the recorded last activity time for the user be updated on
         the server.
-
-        Parameters:
-        time - a UNIX timestamp of the user's last activity time (in UTC)
-
-        Possible Errors:
-        Disconnected, NetworkError, NotImplemented (this protocol has no concept of idle time)
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            This protocol has no concept of idle time
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
     <method name="SetStatus">
-      <arg direction="in" name="statuses" type="a{sa{sv}}"/>
+      <arg direction="in" name="statuses" type="a{sa{sv}}">
+        <tp:docstring>
+          A dictionary mapping status identifiers to dictionaries, which
+          map optional parameter names to their variant-boxed values
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that the user's presence be changed to the given statuses and
         desired parameters. Changes will be reflected by PresenceUpdate
@@ -155,14 +206,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         NotAvailable will be returned and the connection will remain
         offline, or if the protocol does not support signing on with
         a certain status, Disconnected will be returned.
-
-        Parameters:
-        a dictionary of status identifiers mapped to:
-            a dictionary of optional parameter names mapped to their variant-boxed values
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidArgument, NotAvailable, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       This interface is for services which have a concept of presence which can
@@ -191,13 +242,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     - offline
 
     As well as these well-known status identifiers, every status also has a
-    numerical type value which can be used by the client to classify even
-    unknown statuses into different fundamental types:
-    1 - CONNECTION_PRESENCE_TYPE_OFFLINE
-    2 - CONNECTION_PRESENCE_TYPE_AVAILABLE
-    3 - CONNECTION_PRESENCE_TYPE_AWAY
-    4 - CONNECTION_PRESENCE_TYPE_EXTENDED_AWAY
-    5 - CONNECTION_PRESENCE_TYPE_HIDDEN
+    numerical type value chosen from ConnectionPresenceType which can be
+    used by the client to classify even unknown statuses into different
+    fundamental types.
 
     These numerical types exist so that even if a client does not understand
     the string identifier being used, and hence cannot present the presence to
@@ -223,12 +270,36 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     of presence information.
     </tp:docstring>
     <tp:enum name="ConnectionPresenceType">
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_UNSET" value="0"/>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_OFFLINE" value="1"/>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AVAILABLE" value="2"/>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AWAY" value="3"/>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_EXTENDED_AWAY" value="4"/>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_HIDDEN" value="5"/>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_UNSET" value="0">
+        <tp:docstring>
+          An invalid presence type used as a null value
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_OFFLINE" value="1">
+        <tp:docstring>
+          Offline
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AVAILABLE" value="2">
+        <tp:docstring>
+          Available
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AWAY" value="3">
+        <tp:docstring>
+          Away
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_EXTENDED_AWAY" value="4">
+        <tp:docstring>
+          Away for an extended time
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_HIDDEN" value="5">
+        <tp:docstring>
+          Hidden (invisible)
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
   </interface>
 </node>

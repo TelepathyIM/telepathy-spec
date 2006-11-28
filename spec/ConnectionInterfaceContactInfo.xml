@@ -22,30 +22,39 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo" tp:name-const="CONN_INTERFACE_CONTACT_INFO">
     <signal name="GotContactInfo">
-      <arg name="contact" type="u"/>
-      <arg name="vcard" type="s"/>
+      <arg name="contact" type="u">
+        <tp:docstring>
+          An integer handle of the contact ID on the server
+        </tp:docstring>
+      </arg>
+      <arg name="vcard" type="s">
+        <tp:docstring>
+          The XML string containing their vcard information
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when information has been received from the server with
         the details of a particular contact.
-
-        Parameters:
-        contact - an integer handle of the contact ID on the server
-        vcard - the XML string containing their vcard information
       </tp:docstring>
     </signal>
     <method name="RequestContactInfo">
-      <arg direction="in" name="contact" type="u"/>
+      <arg direction="in" name="contact" type="u">
+        <tp:docstring>
+          An integer handle for the contact to request info for
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request information for a given contact. The function will return
         after a GotContactInfo signal has been emitted for the contact, or
         an error returned.
-
-        Parameters:
-        contact - an integer handle for the contact to request info for
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidHandle, PermissionDenied, NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       THIS INTERFACE IS DEPRECATED AND SHOULD NOT BE USED. A new version

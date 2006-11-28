@@ -22,46 +22,52 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.Text" tp:name-const="CHANNEL_TYPE_TEXT">
     <method name="AcknowledgePendingMessages">
-      <arg direction="in" name="ids" type="au"/>
+      <arg direction="in" name="ids" type="au">
+        <tp:docstring>
+          The IDs of the messages to acknowledge
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Inform the channel that you have handled messages by displaying them to
         the user (or equivalent), so they can be removed from the pending queue.
-
-        Parameters:
-        ids - the message to acknowledge
-
-        Possible Errors:
-        InvalidArgument (a given message ID was not found, no action taken)
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          A given message ID was not found, so no action was taken
+        </tp:error>
+      </tp:possible-errors>
     </method>
     <method name="GetMessageTypes">
-      <arg direction="out" type="au"/>
+      <arg direction="out" type="au">
+        <tp:docstring>
+          An array of integer message types (ChannelTextMessageType)
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Return an array indicating which types of message may be sent on this
         channel.
-
-        Returns:
-        an array of integer message types as defined above
       </tp:docstring>
     </method>
     <method name="ListPendingMessages">
-      <arg direction="in" name="clear" type="b"/>
-      <arg direction="out" type="a(uuuuus)"/>
+      <arg direction="in" name="clear" type="b">
+        <tp:docstring>
+          If true, remove all messages from the queue
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="a(uuuuus)">
+        <tp:docstring>
+          An array of structs representing the pending queue. Each contains:
+          - a numeric identifier
+          - a Unix timestamp indicating when the message was received
+          - the contact handle for the contact who sent the message
+          - the message type, taken from ChannelTextMessageType
+          - the bitwise-OR of the message flags from ChannelTextMessageFlags
+          - the text of the message
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         List the messages currently in the pending queue, and optionally
         remove then all.
-
-        Parameters:
-        clear - a boolean indicating whether the queue should be cleared
-
-        Returns:
-        an array of structs containing:
-            a numeric identifier
-            a unix timestamp indicating when the message was received
-            an integer handle of the contact who sent the message
-            an integer of the message type
-            a bitwise OR of the message flags
-            a string of the text of the message
       </tp:docstring>
     </method>
     <signal name="LostMessage">
@@ -72,102 +78,156 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </signal>
     <signal name="Received">
-      <arg name="id" type="u"/>
-      <arg name="timestamp" type="u"/>
-      <arg name="sender" type="u"/>
-      <arg name="type" type="u"/>
-      <arg name="flags" type="u"/>
-      <arg name="text" type="s"/>
+      <arg name="id" type="u">
+        <tp:docstring>
+          A numeric identifier for acknowledging the message
+        </tp:docstring>
+      </arg>
+      <arg name="timestamp" type="u">
+        <tp:docstring>
+          A Unix timestamp indicating when the message was received
+        </tp:docstring>
+      </arg>
+      <arg name="sender" type="u">
+        <tp:docstring>
+          The handle of the contact who sent the message
+        </tp:docstring>
+      </arg>
+      <arg name="type" type="u">
+        <tp:docstring>
+          The type of the message (normal, action, notice, etc), from
+          ChannelTextMessageType
+        </tp:docstring>
+      </arg>
+      <arg name="flags" type="u">
+        <tp:docstring>
+          A bitwise OR of the message flags as defined by ChannelTextMessageFlags
+        </tp:docstring>
+      </arg>
+      <arg name="text" type="s">
+        <tp:docstring>
+          The text of the message
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Signals that a message with the given id, timestamp, sender, type
         and text has been received on this channel. Applications that catch
         this signal and reliably inform the user of the message should
         acknowledge that they have dealt with the message with the
         AcknowledgePendingMessage method.
-
-        Parameters:
-        id - a numeric identifier for acknowledging the message
-        timestamp - a unix timestamp indicating when the message was received
-        sender - the handle of the contact who sent the message
-        type - the type of the message (normal, action, notice, etc)
-        flags - a bitwise OR of the message flags as defined above
-        text - the text of the message
       </tp:docstring>
     </signal>
     <method name="Send">
-      <arg direction="in" name="type" type="u"/>
-      <arg direction="in" name="text" type="s"/>
+      <arg direction="in" name="type" type="u">
+        <tp:docstring>
+          An integer indicating the type of the message, from
+          ChannelTextMessageType
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="text" type="s">
+        <tp:docstring>
+          The message to send
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that a message be sent on this channel. The Sent signal will be
         emitted when the message has been sent, and this method will return.
-
-        Parameters:
-        type - an integer indicating the type of the message
-        text - the message to send
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidArgument, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <tp:enum name="ChannelTextSendError">
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_UNKNOWN" value="0"/>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_OFFLINE" value="1"/>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2"/>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_PERMISSION_DENIED" value="3"/>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_TOO_LONG" value="4"/>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_NOT_IMPLEMENTED" value="5"/>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_UNKNOWN" value="0">
+        An unknown error occurred
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_OFFLINE" value="1">
+        The requested contact was offline
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2">
+        The requested contact is not valid
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_PERMISSION_DENIED" value="3">
+        The user does not have permission to speak on this channel
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_TOO_LONG" value="4">
+        The outgoing message was too long and was rejected by the server
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_SEND_ERROR_NOT_IMPLEMENTED" value="5">
+        The channel doesn't support sending text messages to the requested
+        contact
+      </tp:enumvalue>
     </tp:enum>
     <signal name="SendError">
-      <arg name="error" type="u"/>
-      <arg name="timestamp" type="u"/>
-      <arg name="type" type="u"/>
-      <arg name="text" type="s"/>
+      <arg name="error" type="u">
+        <tp:docstring>
+          One of the values of ChannelTextSendError
+        </tp:docstring>
+      </arg>
+      <arg name="timestamp" type="u">
+        <tp:docstring>
+          The Unix timestamp indicating when the message was sent
+        </tp:docstring>
+      </arg>
+      <arg name="type" type="u">
+        <tp:docstring>
+          The message type from ChannelTextMessageType
+        </tp:docstring>
+      </arg>
+      <arg name="text" type="s">
+        <tp:docstring>
+          The text of the message
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Signals that an outgoing message has failed to send. The error
-        will be one of the following values:
-        0 - CHANNEL_TEXT_SEND_ERROR_UNKNOWN
-            An unknown error occured.
-        1 - CHANNEL_TEXT_SEND_ERROR_OFFLINE
-            The requested contact was offline.
-        2 - CHANNEL_TEXT_SEND_ERROR_INVALID_CONTACT
-            The requested contact is not valid.
-        3 - CHANNEL_TEXT_SEND_ERROR_PERMISSION_DENIED
-            The user does not have permission to speak on this channel.
-        4 - CHANNEL_TEXT_SEND_ERROR_TOO_LONG
-            The outgoing message was too long and was rejected by the
-            server.
-        5 - CHANNEL_TEXT_SEND_ERROR_NOT_IMPLEMENTED
-            The channel doesn't support sending text messages to requested
-            contact.
-
-        Parameters:
-        error - one of the above integer errors
-        timestamp - the unix timestamp indicating when the message was sent
-        type - the message the (normal, action, notice, etc)
-        text - the text of the message
+        will be one of the values from ChannelTextSendError.
       </tp:docstring>
     </signal>
     <signal name="Sent">
-      <arg name="timestamp" type="u"/>
-      <arg name="type" type="u"/>
-      <arg name="text" type="s"/>
+      <arg name="timestamp" type="u">
+        <tp:docstring>
+          Unix timestamp indicating when the message was sent
+        </tp:docstring>
+      </arg>
+      <arg name="type" type="u">
+        <tp:docstring>
+          The message type (normal, action, notice, etc) from
+          ChannelTextMessageType
+        </tp:docstring>
+      </arg>
+      <arg name="text" type="s">
+        <tp:docstring>
+          The text of the message
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Signals that a message has been sent on this channel.
-
-        Parameters:
-        timestamp - the unix timestamp indicating when the message was sent
-        type - the message type (normal, action, notice, etc)
-        text - the text of the message
       </tp:docstring>
     </signal>
     <tp:enum name="ChannelTextMessageType">
-      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NORMAL" value="0"/>
-      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_ACTION" value="1"/>
-      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NOTICE" value="2"/>
-      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY" value="3"/>
+      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NORMAL" value="0">
+        A standard message
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_ACTION" value="1">
+        An action which might be presented to the user as
+        "* &lt;sender&gt; &lt;action&gt;"
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NOTICE" value="2">
+        A one-off or automated message not necessarily expecting a reply
+      </tp:enumvalue>
+      <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY" value="3">
+        An automatically-generated reply message
+      </tp:enumvalue>
     </tp:enum>
     <tp:flags name="ChannelTextMessageFlags">
-      <tp:flag name="CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED" value="1"/>
+      <tp:flag name="CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED" value="1">
+        The incoming message was truncated to a shorter length by the
+        server or the connection manager.
+      </tp:flag>
     </tp:flags>
     <tp:docstring>
       A channel type for sending and receiving messages in plain text, with no
@@ -182,21 +242,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     over the lifetime of the channel.
 
     Each message has an associated 'type' value, which should be one of the
-    following:
-    0 - CHANNEL_TEXT_MESSAGE_TYPE_NORMAL
-        a standard message
-    1 - CHANNEL_TEXT_MESSAGE_TYPE_ACTION
-        an action which might be presented to the user as * &lt;sender&gt; &lt;action&gt;
-    2 - CHANNEL_TEXT_MESSAGE_TYPE_NOTICE
-        an one-off or automated message not necessarily expecting a reply
-    3 - CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY
-        an automatically-generated reply message
+    values allowed by ChannelTextMessageType.
 
     Each message also has a flags value, which is a bitwise OR of the
-    following:
-    1 - CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED
-        The incoming message was truncated to a shorter length by the
-        server or the connection manager.
+    flags given in ChannelTextMessageFlags.
 
     Sending messages can be requested using the Send method, which will return
     and cause the Sent signal to be emitted when the message has been delivered

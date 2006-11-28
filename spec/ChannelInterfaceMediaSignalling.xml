@@ -29,16 +29,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </method>
     <signal name="NewSessionHandler">
-      <arg name="session_handler" type="o"/>
-      <arg name="type" type="s"/>
+      <arg name="session_handler" type="o">
+        <tp:docstring>
+          Object path of the new MediaSessionHandler object
+        </tp:docstring>
+      </arg>
+      <arg name="type" type="s">
+        <tp:docstring>
+          String indicating type of session, eg &quot;rtp&quot;
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Signal that a session handler object has been created. The client
         should create a session object and create streams for the streams
         within.
-
-        Parameters:
-        session_handler - object path of the new MediaSessionHandler object
-        type - string indicating type of session, eg &quot;rtp&quot;
       </tp:docstring>
     </signal>
     <tp:docstring>

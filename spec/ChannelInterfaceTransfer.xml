@@ -22,19 +22,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Transfer" tp:name-const="CHANNEL_INTERFACE_TRANSFER">
     <method name="Transfer">
-      <arg direction="in" name="member" type="u"/>
-      <arg direction="in" name="destination" type="u"/>
+      <arg direction="in" name="member" type="u">
+        <tp:docstring>
+          The handle of the member to transfer
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="destination" type="u">
+        <tp:docstring>
+          The handle of the destination contact
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that the given channel member instead connects to a different
         contact ID.
-
-        Parameters:
-        member - the handle of the member to transfer
-        destination - the handle of the destination contact
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable, InvalidHandle, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface for channels where you may request that one of the members
