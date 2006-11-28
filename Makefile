@@ -1,6 +1,6 @@
 all:
 
-XSLTPROC = xsltproc
+XSLTPROC = xsltproc --xinclude
 CANONXML = xmllint --nsclean --noblanks --c14n
 
 XMLS = $(wildcard spec/*.xml)

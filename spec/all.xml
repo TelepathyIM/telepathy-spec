@@ -1,4 +1,6 @@
-<tp:spec xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<tp:spec
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <tp:version>0.5.0</tp:version>
 
@@ -22,32 +24,35 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 </tp:docstring>
 
-<tp:interface>ConnectionManager</tp:interface>
-<tp:interface>Connection</tp:interface>
-<tp:interface>Connection.Interface.Aliasing</tp:interface>
-<tp:interface>Connection.Interface.Avatars</tp:interface>
-<tp:interface>Connection.Interface.Capabilities</tp:interface>
-<tp:interface>Connection.Interface.ContactInfo</tp:interface>
-<tp:interface>Connection.Interface.Forwarding</tp:interface>
-<tp:interface>Connection.Interface.Presence</tp:interface>
-<tp:interface>Connection.Interface.Privacy</tp:interface>
-<tp:interface>Connection.Interface.Renaming</tp:interface>
-<tp:interface>Channel</tp:interface>
-<tp:interface>Channel.Type.ContactList</tp:interface>
-<tp:interface>Channel.Type.ContactSearch</tp:interface>
-<tp:interface>Channel.Type.StreamedMedia</tp:interface>
-<tp:interface>Channel.Type.RoomList</tp:interface>
-<tp:interface>Channel.Type.Text</tp:interface>
-<tp:interface>Channel.Interface.DTMF</tp:interface>
-<tp:interface>Channel.Interface.Group</tp:interface>
-<tp:interface>Channel.Interface.Hold</tp:interface>
-<tp:interface>Channel.Interface.Password</tp:interface>
-<tp:interface>Channel.Interface.Transfer</tp:interface>
-<tp:interface>Channel.Interface.MediaSignalling</tp:interface>
-<tp:interface>Media.SessionHandler</tp:interface>
-<tp:interface>Media.StreamHandler</tp:interface>
-<tp:interface>Properties</tp:interface>
+<xi:include href="ConnectionManager.xml"/>
+<xi:include href="Connection.xml"/>
+<xi:include href="ConnectionInterfaceAliasing.xml"/>
+<xi:include href="ConnectionInterfaceAvatars.xml"/>
+<xi:include href="ConnectionInterfaceCapabilities.xml"/>
+<xi:include href="ConnectionInterfaceContactInfo.xml"/>
+<xi:include href="ConnectionInterfaceForwarding.xml"/>
+<xi:include href="ConnectionInterfacePresence.xml"/>
+<xi:include href="ConnectionInterfacePrivacy.xml"/>
+<xi:include href="ConnectionInterfaceRenaming.xml"/>
 
-<tp:include-errors href="errors.xml"/>
+<xi:include href="Channel.xml"/>
+<xi:include href="ChannelTypeContactList.xml"/>
+<xi:include href="ChannelTypeContactSearch.xml"/>
+<xi:include href="ChannelTypeStreamedMedia.xml"/>
+<xi:include href="ChannelTypeRoomList.xml"/>
+<xi:include href="ChannelTypeText.xml"/>
+<xi:include href="ChannelInterfaceDTMF.xml"/>
+<xi:include href="ChannelInterfaceGroup.xml"/>
+<xi:include href="ChannelInterfaceHold.xml"/>
+<xi:include href="ChannelInterfacePassword.xml"/>
+<xi:include href="ChannelInterfaceTransfer.xml"/>
+<xi:include href="ChannelInterfaceMediaSignalling.xml"/>
+
+<xi:include href="MediaSessionHandler.xml"/>
+<xi:include href="MediaStreamHandler.xml"/>
+
+<xi:include href="Properties.xml"/>
+
+<xi:include href="errors.xml"/>
 
 </tp:spec>
