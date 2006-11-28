@@ -52,9 +52,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Return a bitwise OR of flags detailing the behaviour of aliases on this
         connection.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="RequestAliases">
       <arg direction="in" name="contacts" type="au">
@@ -70,12 +70,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:docstring>
         Request the value of several contacts' aliases at once.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="SetAliases">
       <arg direction="in" name="aliases" type="a{us}">
@@ -93,14 +93,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         ever succeed if the contact is the user's own handle (as returned by
         GetSelfHandle on the Connection interface).
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface on connections to support protocols where contacts have an
