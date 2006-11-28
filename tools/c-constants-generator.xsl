@@ -34,15 +34,11 @@
 
   <xsl:template match="text()"/>
 
-  <xsl:template match="tp:interface">
-    <xsl:apply-templates select="document(concat(translate(string(.), '.', ''), '.xml'), .)"/>
-  </xsl:template>
-
   <xsl:template match="/tp:spec">/* Generated from the Telepathy spec
 <xsl:value-of select="tp:docstring"/>
 */
 
-<xsl:apply-templates select="tp:interface"/>
+<xsl:apply-templates select="node"/>
 </xsl:template>
 
 </xsl:stylesheet>

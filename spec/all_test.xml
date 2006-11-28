@@ -1,4 +1,6 @@
-<tp:spec xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<tp:spec
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
 
 <tp:version>0.1.2</tp:version>
 
@@ -16,8 +18,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Library General Public License for more details.
 </tp:docstring>
 
-<tp:interface>_Test</tp:interface>
+<xi:include href="_Test.xml"/>
 
-<tp:include-errors href="errors_test.xml"/>
+<xi:include href="errors_test.xml"/>
 
 </tp:spec>

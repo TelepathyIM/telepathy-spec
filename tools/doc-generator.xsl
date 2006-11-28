@@ -5,18 +5,21 @@
   don't work ideally in the presence of two things that want to use the
   absence of a prefix, sadly. -->
 
-  <xsl:template match="tp:interface">
-    <xsl:apply-templates select="document(concat(translate(string(.), '.', ''), '.xml'), .)"/>
-  </xsl:template>
-
-  <xsl:template match="tp:include-errors">
-    <h1>Errors</h1>
-    <xsl:apply-templates select="document(@href, .)"/>
+  <xsl:template match="tp:errors">
+    <h1 xmlns="http://www.w3.org/1999/xhtml">Errors</h1>
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="tp:error">
     <h2 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h2>
     <pre xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring"/></pre>
+  </xsl:template>
+
+  <xsl:template match="/tp:spec/tp:copyright">
+    <xsl:apply-templates/>
+  </xsl:template>
+  <xsl:template match="/tp:spec/tp:license">
+    <xsl:apply-templates/>
   </xsl:template>
 
   <xsl:template match="tp:copyright"/>
