@@ -22,39 +22,48 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Forwarding" tp:name-const="CONN_INTERFACE_FORWARDING">
     <signal name="ForwardingChanged">
-      <arg name="forward_to" type="u"/>
+      <arg name="forward_to" type="u">
+        <tp:docstring>
+          An integer contact handle to forward communication to
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when the forwarding contact handle for this connection has been
         changed. An zero handle indicates forwarding is disabled.
-
-        Parameters:
-        forward_to - an integer contact handle to forward communication to
       </tp:docstring>
     </signal>
     <method name="GetForwardingHandle">
-      <arg direction="out" type="u"/>
+      <arg direction="out" type="u">
+        <tp:docstring>
+          An integer contact handle to whom incoming communication is forwarded
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Returns the current forwarding contact handle, or zero if none is set.
-
-        Returns:
-        an integer contact handle to whom incoming communication is forwarded
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <method name="SetForwardingHandle">
-      <arg direction="in" name="forward_to" type="u"/>
+      <arg direction="in" name="forward_to" type="u">
+        <tp:docstring>
+          An integer contact handle to forward incoming communications to
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Set a contact handle to forward incoming communications to. A zero
         handle disables forwarding.
-
-        Parameters:
-        forward_to - an integer contact handle to forward incoming communications to
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, NotAvailable, InvalidHandle
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       A connection interface for services which can signal to contacts

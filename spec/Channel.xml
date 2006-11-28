@@ -28,16 +28,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         manager this may simply remove you from the channel on the server,
         rather than causing it to stop existing entirely. Some channels
         such as contact list channels may not be closed.
-
-        Possible Errors:
-
-        * Disconnected
-        * NetworkError
-        * NotImplemented - this channel may never be closed, e.g. a contact
-          list
-        * NotAvailable - this channel is not currently in a state where
-          it can be closed, e.g. a non-empty user-defined contact group
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            This channel may never be closed, e.g. a contact list
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            This channel is not currently in a state where it can be closed,
+            e.g. a non-empty user-defined contact group
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
     <signal name="Closed">
       <tp:docstring>
@@ -48,14 +54,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </signal>
     <method name="GetChannelType">
-      <arg direction="out" type="s"/>
+      <arg direction="out" type="s">
+        <tp:docstring>The interface name</tp:docstring>
+      </arg>
       <tp:docstring>
         Returns the interface name for the type of this channel.
       </tp:docstring>
     </method>
     <method name="GetHandle">
-      <arg direction="out" type="u"/>
-      <arg direction="out" type="u"/>
+      <arg direction="out" type="u">
+        <tp:docstring>
+        The handle type, or zero if this channel does not correspond to any
+        particular handle
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="u">
+        <tp:docstring>
+        The handle, or zero if this channel does not correspond to any
+        particular handle
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Returns the handle type and number if this channel represents a
         communication with a particular contact, room or server-stored list, or
@@ -63,16 +81,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </method>
     <method name="GetInterfaces">
-      <arg direction="out" type="as"/>
+      <arg direction="out" type="as">
+        <tp:docstring>
+          An array of the D-Bus interface names
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get the optional interfaces implemented by the channel.
-
-        Returns:
-        an array of the D-Bus interface names
       </tp:docstring>
     </method>
     <tp:docstring>
-      All communication in the Telepathy framework is carried out via channel
+    All communication in the Telepathy framework is carried out via channel
     objects which are created and managed by connections. This interface must
     be implemented by all channel objects, along with one single channel type,
     such as Channel.Type.ContactList which represents a list of people (such

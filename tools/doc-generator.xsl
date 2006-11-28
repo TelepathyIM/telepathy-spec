@@ -49,6 +49,56 @@
       </xsl:otherwise>
     </xsl:choose>
 
+    <xsl:if test="tp:enum">
+      <h2 xmlns="http://www.w3.org/1999/xhtml">Enumerated types:</h2>
+      <xsl:apply-templates select="tp:enum"/>
+    </xsl:if>
+
+    <xsl:if test="tp:flags">
+      <h2 xmlns="http://www.w3.org/1999/xhtml">Sets of flags:</h2>
+      <xsl:apply-templates select="tp:flags"/>
+    </xsl:if>
+
+  </xsl:template>
+
+  <xsl:template match="tp:flags">
+    <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
+    <xsl:if test="tp:docstring">
+      <p xmlns="http://www.w3.org/1999/xhtml">
+        <xsl:value-of select="tp:docstring"/>
+      </p>
+    </xsl:if>
+    <xsl:for-each select="tp:flag">
+      <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
+      <xsl:choose>
+        <xsl:when test="tp:docstring">
+          <dd xmlns="http://www.w3.org/1999/xhtml"><pre><xsl:apply-templates select="tp:docstring"/></pre></dd>
+        </xsl:when>
+        <xsl:otherwise>
+          (Undocumented)
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="tp:enum">
+    <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
+    <xsl:if test="tp:docstring">
+      <p xmlns="http://www.w3.org/1999/xhtml">
+        <xsl:value-of select="tp:docstring"/>
+      </p>
+    </xsl:if>
+    <xsl:for-each select="tp:enumvalue">
+      <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></dt>
+      <xsl:choose>
+        <xsl:when test="tp:docstring">
+          <dd xmlns="http://www.w3.org/1999/xhtml"><pre><xsl:apply-templates select="tp:docstring"/></pre></dd>
+        </xsl:when>
+        <xsl:otherwise>
+          (Undocumented)
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="method">
@@ -58,7 +108,7 @@
           <xsl:value-of select="@type"/>: <xsl:value-of select="@name"/>
           <xsl:if test="position() != last()">, </xsl:if>
         </xsl:for-each>
-        ) ->
+        ) &#x2192;
         <xsl:choose>
           <xsl:when test="arg[@direction='out']">
             <xsl:for-each xmlns="" select="arg[@direction='out']">
@@ -69,8 +119,78 @@
           <xsl:otherwise>nothing</xsl:otherwise>
         </xsl:choose>
       </h3>
-      <pre xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring"/></pre>
+      <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
+        <pre><xsl:apply-templates select="tp:docstring"/></pre>
+      </div>
+
+      <xsl:if test="arg[@direction='in']">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h4>Parameters</h4>
+          <dl>
+            <xsl:apply-templates select="arg[@direction='in']"
+              mode="parameters-in-docstring"/>
+          </dl>
+        </div>
+      </xsl:if>
+
+      <xsl:if test="arg[@direction='out']">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h4>Returns</h4>
+          <xsl:apply-templates select="arg[@direction='out']"
+            mode="returns-in-docstring"/>
+        </div>
+      </xsl:if>
+
+      <xsl:if test="tp:possible-errors">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h4>Possible errors</h4>
+          <xsl:apply-templates select="tp:possible-errors/tp:error"/>
+        </div>
+      </xsl:if>
+
     </div>
+  </xsl:template>
+
+  <xsl:template match="arg" mode="parameters-in-docstring">
+    <dt xmlns="http://www.w3.org/1999/xhtml">
+      <code><xsl:value-of select="@name"/></code> -
+      <code><xsl:value-of select="@type"/></code>
+    </dt>
+    <dd xmlns="http://www.w3.org/1999/xhtml">
+      <pre><xsl:value-of select="tp:docstring"/></pre>
+    </dd>
+  </xsl:template>
+
+  <xsl:template match="arg" mode="returns-in-docstring">
+    <dt xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:if test="@name">
+        <code><xsl:value-of select="@name"/></code> -
+      </xsl:if>
+      <code><xsl:value-of select="@type"/></code>
+    </dt>
+    <dd xmlns="http://www.w3.org/1999/xhtml">
+      <pre><xsl:value-of select="tp:docstring"/></pre>
+    </dd>
+  </xsl:template>
+
+  <xsl:template match="tp:possible-errors/tp:error">
+    <dt xmlns="http://www.w3.org/1999/xhtml">
+      <code><xsl:value-of select="@name"/></code>
+    </dt>
+    <dd xmlns="http://www.w3.org/1999/xhtml">
+        <xsl:variable name="name" select="@name"/>
+        <xsl:choose>
+          <xsl:when test="tp:docstring">
+            <xsl:value-of select="tp:docstring"/>
+          </xsl:when>
+          <xsl:when test="//tp:errors/tp:error[@name=$name]/tp:docstring">
+            <xsl:value-of select="//tp:errors/tp:error[@name=$name]/tp:docstring"/> <em xmlns="http://www.w3.org/1999/xhtml">(generic description)</em>
+          </xsl:when>
+          <xsl:otherwise>
+            (Undocumented.)
+          </xsl:otherwise>
+        </xsl:choose>
+    </dd>
   </xsl:template>
 
   <xsl:template match="signal">
@@ -81,7 +201,18 @@
           <xsl:if test="position() != last()">, </xsl:if>
         </xsl:for-each>
         )</h3>
-      <pre xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring"/></pre>
+      <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
+        <pre><xsl:apply-templates select="tp:docstring"/></pre>
+      </div>
+
+      <xsl:if test="arg">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <h4>Parameters</h4>
+          <dl>
+            <xsl:apply-templates select="arg" mode="parameters-in-docstring"/>
+          </dl>
+        </div>
+      </xsl:if>
     </div>
   </xsl:template>
 
@@ -98,11 +229,15 @@
         </style>
       </head>
       <body>
-        <div class="topbox">Telepathy</div>
-        <h3>Version <xsl:apply-templates select="tp:version"/></h3>
-        <pre><xsl:apply-templates select="tp:docstring"/></pre>
-        <xsl:apply-templates select="tp:interface"/>
-        <xsl:apply-templates select="tp:include-errors"/>
+        <h1 class="topbox">Telepathy D-Bus Interface Specification</h1>
+        <h2>Version <xsl:apply-templates select="tp:version"/></h2>
+        <pre>
+          <xsl:apply-templates select="tp:copyright"/>
+          <xsl:apply-templates select="tp:license"/>
+          <xsl:apply-templates select="tp:docstring"/>
+        </pre>
+        <xsl:apply-templates select="node"/>
+        <xsl:apply-templates select="tp:errors"/>
       </body>
     </html>
   </xsl:template>

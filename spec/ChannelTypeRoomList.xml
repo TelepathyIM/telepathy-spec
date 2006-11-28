@@ -22,17 +22,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.RoomList" tp:name-const="CHANNEL_TYPE_ROOM_LIST">
     <method name="GetListingRooms">
-      <arg direction="out" type="b"/>
+      <arg direction="out" type="b">
+        <tp:docstring>
+          A boolean indicating if room listing is in progress
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Check to see if there is already a room list request in progress
         on this channel.
-
-        Returns:
-        a boolean indicating if room listing is in progress
       </tp:docstring>
     </method>
     <signal name="GotRooms">
-      <arg name="rooms" type="a(usa{sv})"/>
+      <arg name="rooms" type="a(usa{sv})">
+        <tp:docstring>
+          An array of structs containing:
+          - an integer room handle
+          - a string representing the D-Bus interface name of the channel type
+          - a dictionary mapping string keys to variant boxed information
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when information about rooms on the server becomes available.
         The array contains the room handle (as can be passed to the
@@ -45,12 +53,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
          u:members - the number of members of the room
          b:password - true if the room requires a password to enter
          b:invite-only - true if you cannot join the room, but must be invited
-
-        Parameters:
-        rooms - an array of structs containing:
-            an integer room handle
-            a string representing the D-Bus interface name of the channel type
-            an dictionary mapping string keys to variant boxed information
       </tp:docstring>
     </signal>
     <method name="ListRooms">
@@ -59,19 +61,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         should be emitted when this request is being processed, GotRooms when
         any room information is received, and ListingRooms when the request
         is complete.
-
-        Possible Errors:
-        Disconnected, NetworkError, NotAvailable, PermissionDenied
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
     </method>
     <signal name="ListingRooms">
-      <arg name="listing" type="b"/>
+      <arg name="listing" type="b">
+        <tp:docstring>A boolean indicating if room listing is in progress</tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted to indicate whether or not room listing request is currently
         in progress.
-
-        Parameters:
-        listing - a boolean indicating if room listing is in progress
       </tp:docstring>
     </signal>
     <tp:docstring>

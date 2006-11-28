@@ -22,101 +22,145 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Avatars" tp:name-const="CONN_INTERFACE_AVATARS">
     <signal name="AvatarUpdated">
-      <arg name="contact" type="u"/>
-      <arg name="new_avatar_token" type="s"/>
+      <arg name="contact" type="u">
+        <tp:docstring>
+          An integer handle for the contact whose avatar has changed
+        </tp:docstring>
+      </arg>
+      <arg name="new_avatar_token" type="s">
+        <tp:docstring>
+          Unique token for their new avatar
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when the avatar for a contact has been updated, or first
         discovered on this connection. If the token differs from the token
         associated with the client's cached avatar for this contact, the new
         avatar should be requested with RequestAvatar.
-
-        Parameters:
-        contact - an integer handle for the contact whose avatar has changed
-        new_avatar_token - unique token for their new avatar
       </tp:docstring>
     </signal>
     <method name="GetAvatarRequirements">
-      <arg direction="out" type="as"/>
-      <arg direction="out" type="q"/>
-      <arg direction="out" type="q"/>
-      <arg direction="out" type="q"/>
-      <arg direction="out" type="q"/>
-      <arg direction="out" type="u"/>
+      <arg direction="out" type="as">
+        <tp:docstring>
+          An array of supported MIME types (eg image/jpeg)
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="q">
+        <tp:docstring>
+          The minimum image width in pixels
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="q">
+        <tp:docstring>
+          The minimum image height in pixels
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="q">
+        <tp:docstring>
+          The maximum image width in pixels
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="q">
+        <tp:docstring>
+          The maximum image height in pixels
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="u">
+        <tp:docstring>
+          The maximum image size in bytes
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get the required format of avatars on this connection.
-
-        Returns:
-        an array of supported MIME types (eg image/jpeg)
-        the minimum image width in pixels
-        the minimum image height in pixels
-        the maximum image width in pixels
-        the maximum image height in pixels
-        the maximum image size in bytes
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <method name="GetAvatarTokens">
-      <arg direction="in" name="contacts" type="au"/>
-      <arg direction="out" type="as"/>
+      <arg direction="in" name="contacts" type="au">
+        <tp:docstring>
+        An array of handles representing contacts
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="as">
+        <tp:docstring>
+          An array of avatar tokens or empty strings (if no avatar is set) in the
+          same order as the given array of contact handles
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get the unique tokens for the given contacts' avatars. These tokens
         can be persisted across connections, and should be used by the client
         to check whether the avatars have been updated. A empty token means
         that no avatar is set for the given contact.
-
-        Parameters:
-        contacts - an array of handles representing contacts
-
-        Returns:
-        an array of avatar tokens or empty strings (if no avatar is set) in the
-            same order as the given array of contact handles
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidArgument, PermissionDenied,
-        NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <method name="RequestAvatar">
-      <arg direction="in" name="contact" type="u"/>
-      <arg direction="out" type="ay"/>
-      <arg direction="out" type="s"/>
+      <arg direction="in" name="contact" type="u">
+        <tp:docstring>
+          An integer handle for the contact to request the avatar for
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="ay">
+        <tp:docstring>
+          An array of bytes containing the image data
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="s">
+        <tp:docstring>
+        A string containing the image MIME type (eg image/jpeg), or empty if
+        unknown
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request the avatar for a given contact.
-
-        Parameters:
-        contact - an integer handle for the contact to request the avatar for
-
-        Returns:
-        an array of bytes containing the image data
-        a string containing the image MIME type (eg image/jpeg), or empty if
-            unknown
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidHandle, PermissionDenied,
-        NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <method name="SetAvatar">
-      <arg direction="in" name="avatar" type="ay"/>
-      <arg direction="in" name="mime_type" type="s"/>
-      <arg direction="out" type="s"/>
+      <arg direction="in" name="avatar" type="ay">
+        <tp:docstring>
+          An array of bytes representing the avatar image data
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="mime_type" type="s">
+        <tp:docstring>
+          A string representing the image MIME type
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="s">
+        <tp:docstring>
+          The string token of the new avatar
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Set a new avatar image for this connection. The avatar image must
         respect the requirements obtained by GetAvatarRequirements.
-
-        Parameters:
-        avatar - an array of bytes representing the avatar image data
-        mime_type - a string representing the image MIME type
-
-        Returns:
-        the string token of the new avatar
-
-        Possible Errors:
-        Disconnected, NetworkError, InvalidArgument, PermissionDenied,
-        NotAvailable
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface for requesting avatars for contacts on a given connection,

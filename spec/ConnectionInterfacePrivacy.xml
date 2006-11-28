@@ -22,55 +22,63 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Privacy" tp:name-const="CONN_INTERFACE_PRIVACY">
     <method name="GetPrivacyMode">
-      <arg direction="out" type="s"/>
+      <arg direction="out" type="s">
+        <tp:docstring>
+          A string representing the current privacy mode
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Return the current privacy mode, which must be one of the values
         returned by GetPrivacyModes.
-
-        Returns:
-        a string of the current privacy mode
-
-        Possible Errors:
-        Disconnected, NetworkError
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
     <method name="GetPrivacyModes">
-      <arg direction="out" type="as"/>
+      <arg direction="out" type="as">
+        <tp:docstring>
+          An array of valid privacy modes for this connection
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Returns the privacy modes available on this connection. The following
         well-known names should be used where appropriate:
          allow-all - any contact may initiate communication
          allow-specified - only contacts on your 'allow' list may initiate communication
          allow-subscribed - only contacts on your subscription list may initiate communication
-
-        Returns:
-        an array of valid privacy modes for this connection
       </tp:docstring>
     </method>
     <signal name="PrivacyModeChanged">
-      <arg name="mode" type="s"/>
+      <arg name="mode" type="s">
+        <tp:docstring>
+          The current privacy mode
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when the privacy mode is changed or the value has been
         initially received from the server.
-
-        Parameters:
-        mode - the current privacy mode
       </tp:docstring>
     </signal>
     <method name="SetPrivacyMode">
-      <arg direction="in" name="mode" type="s"/>
+      <arg direction="in" name="mode" type="s">
+        <tp:docstring>
+          The desired privacy mode
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request that the privacy mode be changed to the given value, which
         must be one of the values returned by GetPrivacyModes. Success is
         indicated by the method returning and the PrivacyModeChanged
         signal being emitted.
-
-        Parameters:
-        mode - the desired privacy mode
-
-        Possible Errors:
-        Disconnected, NetworkError, PermissionDenied, InvalidArgument
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       An interface to support getting and setting privacy modes to configure

@@ -22,43 +22,59 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <interface name="org.freedesktop.Telepathy.ConnectionManager" tp:name-const="CONN_MGR_INTERFACE">
     <tp:flags name="ConnMgrParamFlags">
-      <tp:flag name="CONN_MGR_PARAM_FLAG_REQUIRED" value="1"/>
-      <tp:flag name="CONN_MGR_PARAM_FLAG_REGISTER" value="2"/>
-      <tp:flag name="CONN_MGR_PARAM_FLAG_HAS_DEFAULT" value="4"/>
+      <tp:flag name="CONN_MGR_PARAM_FLAG_REQUIRED" value="1">
+        <tp:docstring>
+          This parameter is required for connecting to the server.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag name="CONN_MGR_PARAM_FLAG_REGISTER" value="2">
+        <tp:docstring>
+          This parameter is required for registering an account on the
+          server.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag name="CONN_MGR_PARAM_FLAG_HAS_DEFAULT" value="4">
+        <tp:docstring>
+          This parameter has a default value, which is returned in
+          GetParameters; not providing this parameter is equivalent to
+          providing the default.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
     <method name="GetParameters">
-      <arg direction="in" name="proto" type="s"/>
-      <arg direction="out" type="a(susv)"/>
+      <arg direction="in" name="proto" type="s">
+        <tp:docstring>
+          The required protocol name
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="a(susv)">
+        <tp:docstring>
+          An array of structs containing:
+          - a string parameter name
+          - a bitwise OR of the parameter flags (as defined above)
+          - a string D-Bus type signature
+          - a variant boxed default value (if the HAS_DEFAULT flag is not
+            present, there is no default and this takes some dummy value)
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get a list of the parameters which must or may be provided to the
         RequestConnection method when connecting to the given protocol,
-        or registering (the boolean &quot;register&quot; parameter is available, and
-        set to true).
-
-        Parameters may have the following flags:
-        1 - CONN_MGR_PARAM_FLAG_REQUIRED
-            This parameter is required for connecting to the server.
-        2 - CONN_MGR_PARAM_FLAG_REGISTER
-            This parameter is required for registering an account on the
-            server.
-        4 - CONN_MGR_PARAM_FLAG_HAS_DEFAULT
-            This parameter has a default value, which is returned; not
-            providing this parameter is equivalent to providing the default.
-
-        Returns:
-        an array of structs containing:
-            a string parameter name
-            a bitwise OR of the parameter flags (as defined above)
-            a string D-Bus type signature
-            a variant boxed default value (only relevant if the
-                HAS_DEFAULT flag is present)
-
-        Potential Errors:
-        NotImplemented (the requested protocol is not supported by this manager)
+        or registering (the boolean &quot;register&quot; parameter is available,
+        and set to true).
       </tp:docstring>
+      <tp:potential-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          The requested protocol is not supported by this manager
+        </tp:error>
+      </tp:potential-errors>
     </method>
     <method name="ListProtocols">
-      <arg direction="out" type="as"/>
+      <arg direction="out" type="as">
+        <tp:docstring>
+          A array of string protocol identifiers supported by this manager
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Get a list of protocol identifiers that are implemented by this
         connection manager. The following well-known values should be used
@@ -76,29 +92,49 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
          trepia - Trepia
          yahoo - Yahoo! Messenger
          zephyr - Zephyr
-
-        Returns:
-        an array of string protocol identifiers supported by this manager
       </tp:docstring>
     </method>
     <signal name="NewConnection">
-      <arg name="bus_name" type="s"/>
-      <arg name="object_path" type="o"/>
-      <arg name="proto" type="s"/>
+      <arg name="bus_name" type="s">
+        <tp:docstring>
+          The D-Bus service where the connection object can be found
+        </tp:docstring>
+      </arg>
+      <arg name="object_path" type="o">
+        <tp:docstring>
+          The object path of the Connection object on this service
+        </tp:docstring>
+      </arg>
+      <arg name="proto" type="s">
+        <tp:docstring>
+          The identifier for the protocol this connection uses
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when a new Connection object is created.
-
-        Parameters:
-        bus_name - the D-Bus service where the connection object can be found
-        object_path - the object path of the Connection object on this service
-        proto - the identifier for the protocol this connection uses
       </tp:docstring>
     </signal>
     <method name="RequestConnection">
-      <arg direction="in" name="proto" type="s"/>
-      <arg direction="in" name="parameters" type="a{sv}"/>
-      <arg direction="out" type="s"/>
-      <arg direction="out" type="o"/>
+      <arg direction="in" name="proto" type="s">
+        <tp:docstring>
+          The protocol identifier
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="parameters" type="a{sv}">
+        <tp:docstring>
+          A dictionary mapping parameter name to the variant boxed value
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="s">
+        <tp:docstring>
+          A D-Bus service name where the new Connection object can be found
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="o">
+        <tp:docstring>
+          The D-Bus object path to the Connection on this service
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Request a Connection object representing a given account on a given
         protocol with the given parameters. The method returns the bus name
@@ -108,7 +144,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Connect method.
 
         In order to allow Connection objects to be discovered by new clients,
-        the bus name and object path must be of the form:
+        the object path and bus name must be of the form:
          /org/freedesktop/Telepathy/Connection/manager/proto/account
         And:
          org.freedesktop.Telepathy.Connection.manager.proto.account
@@ -163,18 +199,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         independently of the emission of that signal. In that case this signal
         emission is most useful for, e.g. other processes that are monitoring
         the creation of new connections.
-
-        Parameters:
-        proto - the protocol identifier
-        parameters - a dictionary mapping parameter name to the variant boxed value
-
-        Returns:
-        a D-Bus service name where the new Connection object can be found
-        the D-Bus object path to the Connection on this service
-
-        Potential Errors:
-        NetworkError, NotImplemented (unknown protocol), NotAvailable (the requested connection already appears to exist), InvalidArgument (unrecognised connection parameters)
       </tp:docstring>
+      <tp:potential-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          The requested protocol is not supported by this manager
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          The requested connection already appears to exist
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          Unrecognised connection parameters
+        </tp:error>
+      </tp:potential-errors>
     </method>
     <tp:docstring>
       A D-Bus service which allows connections to be created. The manager
