@@ -27,11 +27,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         asynchronously and errors will be returned by emitting StatusChanged
         signals.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           The connection is already connecting or connected
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="Disconnect">
       <tp:docstring>
@@ -71,9 +71,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         remain valid for the lifetime of this connection or until the user's
         identifier changes. This is always a CONTACT type handle.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="GetStatus">
       <arg direction="out" type="u">
@@ -106,7 +106,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         have used this method to indicate it is in use until the ReleaseHandle
         method is called, or the clients disappear from the bus.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           The handle type is invalid
@@ -114,7 +114,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
           One of the given handles is not valid
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="InspectHandles">
       <arg direction="in" name="handle_type" type="u">
@@ -136,7 +136,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Return a string representation for a number of handles of a given
         type.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           The handle type is invalid
@@ -144,7 +144,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
           One of the given handles is not valid
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="ListChannels">
       <arg direction="out" type="a(osuu)">
@@ -159,9 +159,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:docstring>
         List all the channels which currently exist on this connection.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <signal name="NewChannel">
       <arg name="object_path" type="o">
@@ -213,7 +213,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         may be deallocated if they are not held by any other clients or
         referenced by any existing channels.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           The handle type is invalid
@@ -224,7 +224,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           One of the given handles is not held by this client
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="RequestChannel">
       <arg direction="in" name="type" type="s">
@@ -259,14 +259,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         may not be available depending on the protocol and channel type. May
         return an existing channel object, create a new channel, or fail if the
         request cannot be satisfied.
-
-        Possible Errors:
-        Disconnected, NetworkError, NotImplemented (unknown channel type),
-        InvalidHandle (the given handle does not exist or cannot be created),
-        NotAvailable (the requested channel type cannot be created with the given handle),
-        Channel.Banned, Channel.Full, Channel.InviteOnly
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
@@ -287,7 +281,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <tp:enum name="ConnectionHandleType">
       <tp:enumvalue name="CONNECTION_HANDLE_TYPE_NONE" value="0">
@@ -342,7 +336,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         in this connection manager, this handle should be returned instead.
         The handle number 0 must not be returned by the connection manager.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           The handle type is invalid
@@ -350,7 +344,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           The given name is not a valid entity of the given type
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <tp:enum name="ConnectionStatus">
       <tp:enumvalue name="CONNECTION_STATUS_CONNECTED" value="0">

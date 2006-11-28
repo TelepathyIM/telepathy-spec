@@ -63,11 +63,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         or registering (the boolean &quot;register&quot; parameter is available,
         and set to true).
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           The requested protocol is not supported by this manager
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <method name="ListProtocols">
       <arg direction="out" type="as">
@@ -200,7 +200,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         emission is most useful for, e.g. other processes that are monitoring
         the creation of new connections.
       </tp:docstring>
-      <tp:potential-errors>
+      <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           The requested protocol is not supported by this manager
@@ -211,7 +211,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           Unrecognised connection parameters
         </tp:error>
-      </tp:potential-errors>
+      </tp:possible-errors>
     </method>
     <tp:docstring>
       A D-Bus service which allows connections to be created. The manager
