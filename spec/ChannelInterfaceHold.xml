@@ -1,11 +1,9 @@
 <?xml version="1.0" ?>
 <node name="/ChannelInterfaceHold" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
@@ -22,20 +20,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
   <tp:enum name="ChannelHoldState">
     <tp:enumvalue name="CHANNEL_HOLD_STATE_NONE" value="0">
+      <tp:docstring>
             Neither the local user and the remote member are on hold, and media
             is being sent bidirectionally.
+      </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue name="CHANNEL_HOLD_STATE_SEND_ONLY" value="1">
+      <tp:docstring>
             The local user has put the remote member on hold, so is sending
             media but has arranged not to receive any media streams.
+      </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue name="CHANNEL_HOLD_STATE_RECV_ONLY" value="2">
+      <tp:docstring>
             The user has been put on hold by the remote member, so is receiving
             media but has arranged not to send any media streams.
+      </tp:docstring>
     </tp:enumvalue>
     <tp:enumvalue name="CHANNEL_HOLD_STATE_BOTH" value="3">
+      <tp:docstring>
             Both the local user and the remote member have agreed not to send
             any media streams to each other.
+      </tp:docstring>
     </tp:enumvalue>
   </tp:enum>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Hold" tp:name-const="CHANNEL_INTERFACE_HOLD">
@@ -60,18 +66,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:possible-errors>
     </method>
     <signal name="HoldStateChanged">
-      <arg name="member" type="u"/>
-      <arg name="state" type="u"/>
+      <arg name="member" type="u">
+        <tp:docstring>
+          The integer handle of a member of the channel
+        </tp:docstring>
+      </arg>
+      <arg name="state" type="u">
+        <tp:docstring>
+          An integer representing the new hold state
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted to indicate that the hold state (as defined in GetHoldState
         above) has changed for a member of this channel. This may occur as
         a consequence of you requesting a change with RequestHold, or the
         state changing as a result of a request from the remote member
         or another process.
-
-        Parameters:
-        member - the integer handle of a member of the channel
-        state - an integer representing the new hold state
       </tp:docstring>
     </signal>
     <method name="RequestHold">
@@ -96,16 +106,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
-    <tp:docstring>
-      THIS INTERFACE IS DEPRECATED AND SHOULD NOT BE USED. Hold functionality
-    should be added to the StreamedMedia channel in due course.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>THIS INTERFACE IS DEPRECATED AND SHOULD NOT BE USED. Hold functionality
+        should be added to the StreamedMedia channel in due course.</p>
 
-    Interface for channels where members may put you on hold, or you may put
+      <p>Interface for channels where members may put you on hold, or you may put
     members on hold. This usually only makes sense for channels where you are
     streaming media to or from the members. Hold is defined as requesting
     that you are not sent any media streams by another, so these states
     indicate whether or not you are sending and receiving media streams
-    to each member of the channel.
+    to each member of the channel.</p>
     </tp:docstring>
   </interface>
 </node>

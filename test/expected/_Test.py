@@ -1,8 +1,7 @@
 # Generated from the Telepathy spec
-"""\
-    Copyright (C) 2006 Collabora Limited
-  
-    This library is free software; you can redistribute it and/or
+"""Copyright (C) 2006 Collabora Limited
+
+This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version.
@@ -29,7 +28,7 @@ class _Test(dbus.service.Interface):
         self._interfaces.add(TEST_INTERFACE)
 
 
-    @dbus.service.method(TEST_INTERFACE, in_signature='ba{sv}s', out_signature='asa(uv)')
+    @dbus.service.method(TEST_INTERFACE, in_signature='ba{sv}s', out_signature='a(uv)')
     def DoStuff(self, badger, mushroom, snake):
         """
         Does stuff.

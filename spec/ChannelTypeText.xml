@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/ChannelTypeText" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.Text" tp:name-const="CHANNEL_TYPE_TEXT">
     <method name="AcknowledgePendingMessages">
@@ -57,12 +55,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <arg direction="out" type="a(uuuuus)">
         <tp:docstring>
           An array of structs representing the pending queue. Each contains:
-          - a numeric identifier
-          - a Unix timestamp indicating when the message was received
-          - the contact handle for the contact who sent the message
-          - the message type, taken from ChannelTextMessageType
-          - the bitwise-OR of the message flags from ChannelTextMessageFlags
-          - the text of the message
+          <ul>
+            <li>a numeric identifier</li>
+            <li>a Unix timestamp indicating when the message was received</li>
+            <li>the contact handle for the contact who sent the message</li>
+            <li>the message type, taken from ChannelTextMessageType</li>
+            <li>the bitwise-OR of the message flags from ChannelTextMessageFlags</li>
+            <li>the text of the message</li>
+          </ul>
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -142,23 +142,35 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </method>
     <tp:enum name="ChannelTextSendError">
       <tp:enumvalue name="CHANNEL_SEND_ERROR_UNKNOWN" value="0">
+        <tp:docstring>
         An unknown error occurred
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_OFFLINE" value="1">
+        <tp:docstring>
         The requested contact was offline
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2">
+        <tp:docstring>
         The requested contact is not valid
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_PERMISSION_DENIED" value="3">
+        <tp:docstring>
         The user does not have permission to speak on this channel
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_TOO_LONG" value="4">
+        <tp:docstring>
         The outgoing message was too long and was rejected by the server
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_SEND_ERROR_NOT_IMPLEMENTED" value="5">
+        <tp:docstring>
         The channel doesn't support sending text messages to the requested
         contact
+        </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
     <signal name="SendError">
@@ -210,46 +222,56 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </signal>
     <tp:enum name="ChannelTextMessageType">
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NORMAL" value="0">
+        <tp:docstring>
         A standard message
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_ACTION" value="1">
+        <tp:docstring>
         An action which might be presented to the user as
         "* &lt;sender&gt; &lt;action&gt;"
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_NOTICE" value="2">
+        <tp:docstring>
         A one-off or automated message not necessarily expecting a reply
+        </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="CHANNEL_TEXT_MESSAGE_TYPE_AUTO_REPLY" value="3">
+        <tp:docstring>
         An automatically-generated reply message
+        </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
     <tp:flags name="ChannelTextMessageFlags">
       <tp:flag name="CHANNEL_TEXT_MESSAGE_FLAG_TRUNCATED" value="1">
+        <tp:docstring>
         The incoming message was truncated to a shorter length by the
         server or the connection manager.
+        </tp:docstring>
       </tp:flag>
     </tp:flags>
-    <tp:docstring>
-      A channel type for sending and receiving messages in plain text, with no
-    formatting.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A channel type for sending and receiving messages in plain text, with no
+        formatting.</p>
 
-    When a message is received, an identifier is assigned and a Received signal
-    emitted, and the message placed in a pending queue which can be inspected
-    with ListPendingMessages. A client which has handled the message by showing
-    it to the user (or equivalent) should acknowledge the receipt using the
-    AcknowledgePendingMessage method, and the message will then be removed from
-    the pending queue. Numeric identifiers for received messages may be reused
-    over the lifetime of the channel.
+      <p>When a message is received, an identifier is assigned and a Received signal
+      emitted, and the message placed in a pending queue which can be inspected
+      with ListPendingMessages. A client which has handled the message by showing
+      it to the user (or equivalent) should acknowledge the receipt using the
+      AcknowledgePendingMessage method, and the message will then be removed from
+      the pending queue. Numeric identifiers for received messages may be reused
+      over the lifetime of the channel.</p>
 
-    Each message has an associated 'type' value, which should be one of the
-    values allowed by ChannelTextMessageType.
+      <p>Each message has an associated 'type' value, which should be one of the
+      values allowed by ChannelTextMessageType.</p>
 
-    Each message also has a flags value, which is a bitwise OR of the
-    flags given in ChannelTextMessageFlags.
+      <p>Each message also has a flags value, which is a bitwise OR of the
+      flags given in ChannelTextMessageFlags.</p>
 
-    Sending messages can be requested using the Send method, which will return
-    and cause the Sent signal to be emitted when the message has been delivered
-    to the server, or SendError if there is a failure.
+      <p>Sending messages can be requested using the Send method, which will return
+      and cause the Sent signal to be emitted when the message has been delivered
+      to the server, or SendError if there is a failure.</p>
     </tp:docstring>
   </interface>
 </node>

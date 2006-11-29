@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/ChannelTypeRoomList" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.RoomList" tp:name-const="CHANNEL_TYPE_ROOM_LIST">
     <method name="GetListingRooms">
@@ -34,25 +32,30 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </method>
     <signal name="GotRooms">
       <arg name="rooms" type="a(usa{sv})">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structs containing:
-          - an integer room handle
-          - a string representing the D-Bus interface name of the channel type
-          - a dictionary mapping string keys to variant boxed information
+          <ul>
+            <li>an integer room handle</li>
+            <li>a string representing the D-Bus interface name of the channel type</li>
+            <li>a dictionary mapping string keys to variant boxed information</li>
+          </ul>
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when information about rooms on the server becomes available.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when information about rooms on the server becomes available.
         The array contains the room handle (as can be passed to the
         RequestChannel method with CONNECTION_HANDLE_TYPE_ROOM), the channel
         type, and a dictionary containing further information about the
         room as available. The following well-known keys and types are
-        recommended for use where appropriate:
-         s:name - the name of the room if different from the handle
-         s:subject - the subject of the room
-         u:members - the number of members of the room
-         b:password - true if the room requires a password to enter
-         b:invite-only - true if you cannot join the room, but must be invited
+        recommended for use where appropriate:</p>
+
+        <dl>
+          <dt>s:name</dt><dd>The name of the room if different from the handle</dd>
+          <dt>s:subject</dt><dd>The subject of the room</dd>
+          <dt>u:members</dt><dd>The number of members of the room</dd>
+          <dt>b:password</dt><dd>True if the room requires a password to enter</dd>
+          <dt>b:invite-only</dt><dd>True if you cannot join the room, but must be invited</dd>
+        </dl>
       </tp:docstring>
     </signal>
     <method name="ListRooms">
@@ -78,18 +81,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         in progress.
       </tp:docstring>
     </signal>
-    <tp:docstring>
-      A channel type for listing named channels available on the server. Once the
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A channel type for listing named channels available on the server. Once the
     ListRooms method is called, it emits signals for rooms present on the
     server, until you Close this channel. In some cases, it may not be possible
     to stop the deluge of information from the server. This channel should be
     closed when the room information is no longer being displayed, so that the
-    room handles can be freed.
+    room handles can be freed.</p>
 
-    This channel type may be implemented as a singleton on some protocols, so
+    <p>This channel type may be implemented as a singleton on some protocols, so
     clients should be prepared for the eventuality that they are given a
     channel that is already in the middle of listing channels. The ListingRooms
-    signal, or GetListingRooms method, can be used to check this.
+    signal, or GetListingRooms method, can be used to check this.</p>
     </tp:docstring>
   </interface>
 </node>

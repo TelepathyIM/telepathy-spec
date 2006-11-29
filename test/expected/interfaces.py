@@ -1,6 +1,7 @@
-# Generated from the Telepathy spec
-"""\
+"""List of interfaces, generated from the Telepathy spec version 0.1.2
+
 Copyright (C) 2006 Collabora Limited
+
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/Channel" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright>Copyright (C) 2005, 2006 Collabora Limited</tp:copyright>
+  <tp:copyright>Copyright (C) 2005, 2006 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright (C) 2006 INdT</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel" tp:name-const="CHANNEL_INTERFACE">
     <method name="Close">
@@ -90,38 +88,38 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         Get the optional interfaces implemented by the channel.
       </tp:docstring>
     </method>
-    <tp:docstring>
-    All communication in the Telepathy framework is carried out via channel
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>All communication in the Telepathy framework is carried out via channel
     objects which are created and managed by connections. This interface must
     be implemented by all channel objects, along with one single channel type,
     such as Channel.Type.ContactList which represents a list of people (such
     as a buddy list) or a Channel.Type.Text which represents a channel over
-    which textual messages are sent and received.
+    which textual messages are sent and received.</p>
 
-    Each channel may have an immutable handle associated with it, which may
+    <p>Each channel may have an immutable handle associated with it, which may
     be any handle type, such as a contact, room or list handle, indicating
     that the channel is for communicating with that handle. If a channel does
     not have a handle, it means that the channel is defined by some other
     terms, such as it may be a transient group defined only by its members
-    as visible through the Channel.Interface.Group interface.
+    as visible through the Channel.Interface.Group interface.</p>
 
-    Other optional interfaces can be implemented to indicate other available
+    <p>Other optional interfaces can be implemented to indicate other available
     functionality, such as Channel.Interface.Group if the channel contains
     a number of contacts, Channel.Interface.Password to indicate
     that a channel may have a password set to require entry, and
     Properties for extra data about channels which represent chat
     rooms or voice calls. The interfaces implemented may not vary after the
     channel's creation has been signalled to the bus (with the connection's
-    NewChannel signal).
+    NewChannel signal).</p>
 
-    Specific connection manager implementations may implement channel types and
+    <p>Specific connection manager implementations may implement channel types and
     interfaces which are not contained within this specification in order to
     support further functionality. To aid interoperability between client and
     connection manager implementations, the interfaces specified here should be
     used wherever applicable, and new interfaces made protocol-independent
     wherever possible. Because of the potential for 3rd party interfaces adding
     methods or signals with conflicting names, the D-Bus interface names should
-    always be used to invoke methods and bind signals.
+    always be used to invoke methods and bind signals.</p>
     </tp:docstring>
   </interface>
 </node>

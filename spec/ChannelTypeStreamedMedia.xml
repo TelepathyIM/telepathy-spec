@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/ChannelTypeStreamedMedia" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.StreamedMedia" tp:name-const="CHANNEL_TYPE_STREAMED_MEDIA">
     <tp:enum name="MediaStreamType">
@@ -74,15 +72,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </tp:flags>
     <method name="ListStreams">
       <arg direction="out" type="a(uuuuuu)">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structs containing:
-          - the stream identifier
-          - the contact handle who the stream is with (or 0 if the stream
-                represents more than a single member)
-          - the type of the stream
-          - the current stream state
-          - the current direction of the stream
-          - the current pending send flags
+          <ul>
+          <li>the stream identifier</li>
+          <li>the contact handle who the stream is with (or 0 if the stream
+            represents more than a single member)</li>
+          <li>the type of the stream</li>
+          <li>the current stream state</li>
+          <li>the current direction of the stream</li>
+          <li>the current pending send flags</li>
+          </ul>
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -117,13 +117,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
           The desired stream direction (a value of MediaStreamDirection)
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request a change in the direction of an existing stream. In particular,
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request a change in the direction of an existing stream. In particular,
         this might be useful to stop sending media of a particular type,
         or inform the peer that you are no longer using media that is being
-        sent to you.
+        sent to you.</p>
 
-        Depending on the protocol, streams which are no longer sending in
+        <p>Depending on the protocol, streams which are no longer sending in
         either direction should be removed and a StreamRemoved signal emitted.
         Some direction changes can be enforced locally (for example,
         BIDIRECTIONAL -&gt; RECEIVE can be achieved by merely stopping sending),
@@ -131,7 +131,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         from the remote end. In this case, the MEDIA_STREAM_PENDING_REMOTE_SEND
         flag will be set in the StreamDirectionChanged signal, and the signal
         emitted again without the flag to indicate the resulting direction when
-        the remote end has accepted or rejected the change.
+        the remote end has accepted or rejected the change.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
@@ -154,20 +154,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         </tp:docstring>
       </arg>
       <arg direction="out" type="a(uuuuuu)">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structs (in the same order as the given stream types)
           containing:
-          - the stream identifier
-          - the contact handle who the stream is with (or 0 if the stream
-            represents more than a single member)
-          - the type of the stream
-          - the current stream state
-          - the current direction of the stream
-          - the current pending send flags
+          <ul>
+            <li>the stream identifier</li>
+            <li>the contact handle who the stream is with (or 0 if the stream
+              represents more than a single member)</li>
+            <li>the type of the stream</li>
+            <li>the current stream state</li>
+            <li>the current direction of the stream</li>
+            <li>the current pending send flags</li>
+          </ul>
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request that streams be established to exchange the given types of
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that streams be established to exchange the given types of
         media with the given member. In general this will try and establish a
         bidirectional stream, but on some protocols it may not be possible to
         indicate to the peer that you would like to receive media, so a
@@ -175,7 +177,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         stream requires remote agreement (eg you wish to receive media from
         them), the StreamDirectionChanged signal will be emitted with the
         MEDIA_STREAM_PENDING_REMOTE_SEND flag set, and the signal emitted again
-        with the flag cleared when the remote end has replied.
+        with the flag cleared when the remote end has replied.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
@@ -211,14 +213,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     <signal name="StreamDirectionChanged">
       <arg name="stream_id" type="u">
         <tp:docstring>
+        The stream identifier (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <arg name="stream_direction" type="u">
         <tp:docstring>
+        The new stream direction (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <arg name="pending_flags" type="u">
         <tp:docstring>
+        The new pending send flags (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -226,81 +231,66 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         the MEDIA_STREAM_PENDING_LOCAL_SEND flag is set, the remote user has
         requested that we begin sending on this stream. RequestStreamDirection
         should be called to indicate whether or not this change is acceptable.
-
-        Parameters:
-        stream_id - the stream identifier (as defined in ListStreams)
-        stream_direction - the new stream direction (as defined in ListStreams)
-        pending_flags - the new pending send flags (as defined in ListStreams)
       </tp:docstring>
     </signal>
     <signal name="StreamError">
       <arg name="stream_id" type="u">
         <tp:docstring>
+        The stream identifier (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <arg name="errno" type="u">
         <tp:docstring>
+          A stream error number, one of the values of MediaStreamError
         </tp:docstring>
       </arg>
       <arg name="message" type="s">
         <tp:docstring>
+          A string describing the error (for debugging purposes only)
         </tp:docstring>
       </arg>
       <tp:docstring>
         Emitted when a stream encounters an error.
-
-        Parameters:
-        stream_id - the stream identifier (as defined in ListStreams)
-        errno - a stream error number, one of the following:
-          MEDIA_STREAM_ERROR_UNKNOWN = 0
-            An unknown error occured.
-          MEDIA_STREAM_ERROR_EOS = 1
-            The end of the stream was reached.
-        message - a string describing the error (for debugging purposes only)
       </tp:docstring>
     </signal>
     <signal name="StreamRemoved">
       <arg name="stream_id" type="u">
         <tp:docstring>
+        stream_id - the stream identifier (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <tp:docstring>
         Emitted when a stream has been removed from this channel.
-
-        Parameters:
-        stream_id - the stream identifier (as defined in ListStreams)
       </tp:docstring>
     </signal>
     <signal name="StreamStateChanged">
       <arg name="stream_id" type="u">
         <tp:docstring>
+          The stream identifier (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <arg name="stream_state" type="u">
         <tp:docstring>
+          The new stream state (as defined in ListStreams)
         </tp:docstring>
       </arg>
       <tp:docstring>
         Emitted when a member's stream's state changes.
-
-        Parameters:
-        stream_id - the stream identifier (as defined in ListStreams)
-        stream_state - the new stream state (as defined in ListStreams)
       </tp:docstring>
     </signal>
-    <tp:docstring>
-      A channel that can send and receive streamed media such as audio or video.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A channel that can send and receive streamed media such as audio or video.
     Provides a number of methods for listing and requesting new streams, and
     signals to indicate when streams have been added, removed and changed
-    status.
+    status.</p>
 
-    In general this should always be used in conjunction with the IceSignalling
+    <p>In general this should always be used in conjunction with the IceSignalling
     interface to exchange connection candidates and codec choices with
     whichever component is responsible for the streams. However, in certain
     applications where no candidate exchange is necessary (eg the streams are
     handled by specialised hardware which is controlled directly by the
     connection manager), the signalling interface can be omitted and this
-    channel type used simply to control the streams.
+    channel type used simply to control the streams.</p>
     </tp:docstring>
     <tp:flags name="ChannelMediaCapability">
       <tp:docstring>

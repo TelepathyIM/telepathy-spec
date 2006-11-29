@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/ChannelTypeContactSearch" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.ContactSearch" tp:name-const="CHANNEL_TYPE_CONTACT_SEARCH">
     <method name="GetSearchKeys">
@@ -28,21 +26,25 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         </tp:docstring>
       </arg>
       <arg direction="out" type="a{s(bg)}">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           A dictionary mapping string search key names to an array of:
-          - booleans indicating if the search key is mandatory
-          - type signature of the value for this search key
+          <ul>
+            <li>booleans indicating if the search key is mandatory</li>
+            <li>type signature of the value for this search key</li>
+          </ul>
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Returns any instructions from the server along with a dictionary of
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Returns any instructions from the server along with a dictionary of
         search key names to their types, and a boolean indicating if the key is
         mandatory. The following well-known search key names should be used
-        where appropriate:
-         s:first - the desired contact's given name
-         s:last - the desired contact's family name
-         s:nick - the desired contact's nickname
-         s:email - the e-mail address of the desired contact
+        where appropriate:</p>
+        <dl>
+          <dt>s:first</dt><dd>The desired contact's given name</dd>
+          <dt>s:last</dt><dd>The desired contact's family name</dd>
+          <dt>s:nick</dt><dd>The desired contact's nickname</dd>
+          <dt>s:email</dt><dd>The e-mail address of the desired contact</dd>
+        </dl>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -107,23 +109,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         method) changes.
       </tp:docstring>
     </signal>
-    <tp:docstring>
-      A channel type for searching server-stored user directories. A new channel
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>A channel type for searching server-stored user directories. A new channel
     should be requested by a client for each search attempt, and it should be
     closed when the search is completed or the required result has been found
     in order to free unused handles. The search can be cancelled at any time
     by calling the channel Close method, although depending upon the protocol
     the connection manager may not be able to prevent the server from sending
-    further results.
+    further results.</p>
 
-    Before searching, the GetSearchKeys method should be used to discover any
+    <p>Before searching, the GetSearchKeys method should be used to discover any
     instructions sent by the server, and the valid search keys which can be
     provided to the Search method. A search request is then started by
     providing some of these terms to the Search method, and the search status
     will be set to CHANNEL_CONTACT_SEARCH_STATE_DURING. When results are
     returned by the server, the SearchResultReceived signal is emitted for each
     contact found, and when the search is complete, the search status will be
-    set to CHANNEL_SEARCH_STATE_AFTER.
+    set to CHANNEL_SEARCH_STATE_AFTER.</p>
     </tp:docstring>
   </interface>
 </node>
