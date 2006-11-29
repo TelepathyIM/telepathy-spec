@@ -5,6 +5,16 @@
   don't work ideally in the presence of two things that want to use the
   absence of a prefix, sadly. -->
 
+  <xsl:template match="*" mode="identity">
+    <xsl:copy>
+      <xsl:apply-templates mode="identity"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="tp:docstring">
+    <xsl:apply-templates select="node()" mode="identity"/>
+  </xsl:template>
+
   <xsl:template match="tp:errors">
     <h1 xmlns="http://www.w3.org/1999/xhtml">Errors</h1>
     <xsl:apply-templates/>
@@ -12,14 +22,18 @@
 
   <xsl:template match="tp:error">
     <h2 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h2>
-    <pre xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring"/></pre>
+    <xsl:apply-templates select="tp:docstring"/>
   </xsl:template>
 
   <xsl:template match="/tp:spec/tp:copyright">
-    <xsl:apply-templates/>
+    <div xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:apply-templates/>
+    </div>
   </xsl:template>
   <xsl:template match="/tp:spec/tp:license">
-    <xsl:apply-templates/>
+    <div xmlns="http://www.w3.org/1999/xhtml" class="license">
+      <xsl:apply-templates mode="identity"/>
+    </div>
   </xsl:template>
 
   <xsl:template match="tp:copyright"/>
@@ -27,7 +41,7 @@
 
   <xsl:template match="interface">
     <h1 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h1>
-    <pre xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring"/></pre>
+    <xsl:apply-templates select="tp:docstring" />
 
     <xsl:choose>
       <xsl:when test="method">
@@ -63,16 +77,12 @@
 
   <xsl:template match="tp:flags">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
-    <xsl:if test="tp:docstring">
-      <p xmlns="http://www.w3.org/1999/xhtml">
-        <xsl:value-of select="tp:docstring"/>
-      </p>
-    </xsl:if>
+    <xsl:apply-templates select="tp:docstring" />
     <xsl:for-each select="tp:flag">
       <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
       <xsl:choose>
         <xsl:when test="tp:docstring">
-          <dd xmlns="http://www.w3.org/1999/xhtml"><pre><xsl:apply-templates select="tp:docstring"/></pre></dd>
+          <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
         </xsl:when>
         <xsl:otherwise>
           (Undocumented)
@@ -83,16 +93,12 @@
 
   <xsl:template match="tp:enum">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
-    <xsl:if test="tp:docstring">
-      <p xmlns="http://www.w3.org/1999/xhtml">
-        <xsl:value-of select="tp:docstring"/>
-      </p>
-    </xsl:if>
+    <xsl:apply-templates select="tp:docstring" />
     <xsl:for-each select="tp:enumvalue">
       <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></dt>
       <xsl:choose>
         <xsl:when test="tp:docstring">
-          <dd xmlns="http://www.w3.org/1999/xhtml"><pre><xsl:apply-templates select="tp:docstring"/></pre></dd>
+          <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
         </xsl:when>
         <xsl:otherwise>
           (Undocumented)
@@ -120,7 +126,7 @@
         </xsl:choose>
       </h3>
       <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
-        <pre><xsl:apply-templates select="tp:docstring"/></pre>
+        <xsl:apply-templates select="tp:docstring" />
       </div>
 
       <xsl:if test="arg[@direction='in']">
@@ -157,7 +163,7 @@
       <code><xsl:value-of select="@type"/></code>
     </dt>
     <dd xmlns="http://www.w3.org/1999/xhtml">
-      <pre><xsl:value-of select="tp:docstring"/></pre>
+      <xsl:apply-templates select="tp:docstring" />
     </dd>
   </xsl:template>
 
@@ -169,7 +175,7 @@
       <code><xsl:value-of select="@type"/></code>
     </dt>
     <dd xmlns="http://www.w3.org/1999/xhtml">
-      <pre><xsl:value-of select="tp:docstring"/></pre>
+      <xsl:apply-templates select="tp:docstring"/>
     </dd>
   </xsl:template>
 
@@ -181,10 +187,10 @@
         <xsl:variable name="name" select="@name"/>
         <xsl:choose>
           <xsl:when test="tp:docstring">
-            <xsl:value-of select="tp:docstring"/>
+            <xsl:apply-templates select="tp:docstring"/>
           </xsl:when>
           <xsl:when test="//tp:errors/tp:error[@name=$name]/tp:docstring">
-            <xsl:value-of select="//tp:errors/tp:error[@name=$name]/tp:docstring"/> <em xmlns="http://www.w3.org/1999/xhtml">(generic description)</em>
+            <xsl:apply-templates select="//tp:errors/tp:error[@name=$name]/tp:docstring"/> <em xmlns="http://www.w3.org/1999/xhtml">(generic description)</em>
           </xsl:when>
           <xsl:otherwise>
             (Undocumented.)
@@ -202,7 +208,7 @@
         </xsl:for-each>
         )</h3>
       <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
-        <pre><xsl:apply-templates select="tp:docstring"/></pre>
+        <xsl:apply-templates select="tp:docstring"/>
       </div>
 
       <xsl:if test="arg">
@@ -231,11 +237,9 @@
       <body>
         <h1 class="topbox">Telepathy D-Bus Interface Specification</h1>
         <h2>Version <xsl:apply-templates select="tp:version"/></h2>
-        <pre>
-          <xsl:apply-templates select="tp:copyright"/>
-          <xsl:apply-templates select="tp:license"/>
-          <xsl:apply-templates select="tp:docstring"/>
-        </pre>
+        <xsl:apply-templates select="tp:copyright"/>
+        <xsl:apply-templates select="tp:license"/>
+        <xsl:apply-templates select="tp:docstring"/>
         <xsl:apply-templates select="node"/>
         <xsl:apply-templates select="tp:errors"/>
       </body>
