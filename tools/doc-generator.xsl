@@ -78,33 +78,37 @@
   <xsl:template match="tp:flags">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
-    <xsl:for-each select="tp:flag">
-      <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
-      <xsl:choose>
-        <xsl:when test="tp:docstring">
-          <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
-        </xsl:when>
-        <xsl:otherwise>
-          (Undocumented)
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
+    <dl>
+      <xsl:for-each select="tp:flag">
+        <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
+        <xsl:choose>
+          <xsl:when test="tp:docstring">
+            <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
+          </xsl:when>
+          <xsl:otherwise>
+            (Undocumented)
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </dl>
   </xsl:template>
 
   <xsl:template match="tp:enum">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
-    <xsl:for-each select="tp:enumvalue">
-      <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></dt>
-      <xsl:choose>
-        <xsl:when test="tp:docstring">
-          <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
-        </xsl:when>
-        <xsl:otherwise>
-          (Undocumented)
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
+    <dl>
+      <xsl:for-each select="tp:enumvalue">
+        <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></dt>
+        <xsl:choose>
+          <xsl:when test="tp:docstring">
+            <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
+          </xsl:when>
+          <xsl:otherwise>
+            (Undocumented)
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </dl>
   </xsl:template>
 
   <xsl:template match="method">
