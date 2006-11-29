@@ -88,7 +88,9 @@ $(TEST_INTERFACE_PY): $(TEST_INTERFACE_XMLS) tools/spec-to-python.xsl
 all: $(GENERATED_FILES)
 
 check: all $(TEST_GENERATED_FILES)
+	diff -u test/expected/errors.h test/output/errors.h
 	diff -u test/expected/errors.py test/output/errors.py
+	diff -u test/expected/interfaces.h test/output/interfaces.h
 	diff -u test/expected/interfaces.py test/output/interfaces.py
 	$(CANONXML) test/output/spec.html > test/output/spec.html.canon
 	diff -u test/expected/spec.html.canon test/output/spec.html.canon
