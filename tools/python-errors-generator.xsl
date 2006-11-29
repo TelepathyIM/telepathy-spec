@@ -23,9 +23,14 @@ class <xsl:value-of select="$python"/>(DBusException):
 
   <xsl:template match="text()"/>
 
-  <xsl:template match="/tp:errors"># Generated from the Telepathy spec
-"""\<xsl:value-of select="tp:copyright"/>
-<xsl:value-of select="tp:license"/>
+  <xsl:template match="/tp:errors">"""Exception classes, generated from the Telepathy spec
+
+<xsl:for-each select="tp:copyright">
+<xsl:value-of select="."/><xsl:text>
+</xsl:text></xsl:for-each><xsl:text>
+</xsl:text><xsl:value-of select="tp:license"/>
+
+<xsl:value-of select="tp:docstring"/>
 """
 
 from dbus import DBusException

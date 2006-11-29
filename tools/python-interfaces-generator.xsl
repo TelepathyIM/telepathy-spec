@@ -9,8 +9,14 @@
 
   <xsl:template match="text()"/>
 
-  <xsl:template match="/tp:spec"># Generated from the Telepathy spec
-"""\<xsl:value-of select="tp:docstring"/>
+  <xsl:template match="/tp:spec">"""List of interfaces, generated from the Telepathy spec version <xsl:value-of select="tp:version"/><xsl:text>
+
+</xsl:text><xsl:for-each select="tp:copyright">
+<xsl:value-of select="."/><xsl:text>
+</xsl:text></xsl:for-each><xsl:text>
+</xsl:text><xsl:value-of select="tp:license"/>
+
+<xsl:value-of select="tp:docstring"/>
 """
 <xsl:apply-templates select="node"/>
 </xsl:template>
