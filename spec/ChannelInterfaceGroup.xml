@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/ChannelInterfaceGroup" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright>Copyright (C) 2005, 2006 Collabora Limited</tp:copyright>
+  <tp:copyright>Copyright (C) 2005, 2006 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright (C) 2006 INdT</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Group" tp:name-const="CHANNEL_INTERFACE_GROUP">
     <method name="AddMembers">
@@ -32,14 +30,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
           A string message, which can be blank if desired
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Invite all the given contacts into the channel, or accept requests for
-        channel membership for contacts on the pending local list.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Invite all the given contacts into the channel, or accept requests for
+          channel membership for contacts on the pending local list.</p>
         
-        A message may be provided along with the request, which will be sent
+        <p>A message may be provided along with the request, which will be sent
         to the server if supported. See the CHANNEL_GROUP_FLAG_MESSAGE_ADD and
         CHANNEL_GROUP_FLAG_MESSAGE_ACCEPT flags to see in which cases this
-        message should be provided.
+        message should be provided.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -368,13 +366,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
-    <tp:docstring>
-    Interface for channels which have multiple members, and where the members
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Interface for channels which have multiple members, and where the members
     of the channel can change during its lifetime. Your presence in the channel
     cannot be presumed by the channel's existence (for example, a channel you
-    may request membership of but your request may not be granted).
+    may request membership of but your request may not be granted).</p>
 
-    This interface implements three lists: a list of current members, and two
+  <p>This interface implements three lists: a list of current members, and two
     lists of local pending and remote pending members. Contacts on the remote
     pending list have been invited to the channel, but the remote user has not
     accepted the invitation. Contacts on the local pending list have requested
@@ -382,26 +380,26 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     their request before they may join. A single contact should never appear on
     more than one of the three lists. The lists are empty when the channel is
     created, and the MembersChanged signal should be emitted when information
-    is retrieved from the server, or changes occur.
+    is retrieved from the server, or changes occur.</p>
 
-    Addition of members to the channel may be requested by using AddMembers. If
+  <p>Addition of members to the channel may be requested by using AddMembers. If
     remote acknowledgement is required, use of the AddMembers method will cause
     users to appear on the remote pending list. If no acknowledgement is
     required, AddMembers will add contacts to the member list directly.  If a
     contact is awaiting authorisation on the local pending list, AddMembers
-    will grant their membership request.
+    will grant their membership request.</p>
 
-    Removal of contacts from the channel may be requested by using
+  <p>Removal of contacts from the channel may be requested by using
     RemoveMembers.  If a contact is awaiting authorisation on the local pending
     list, RemoveMembers will refuse their membership request. If a contact is
     on the remote pending list but has not yet accepted the invitation,
-    RemoveMembers will rescind the request if possible.
+    RemoveMembers will rescind the request if possible.</p>
 
-    It should not be presumed that the requester of a channel implementing this
+  <p>It should not be presumed that the requester of a channel implementing this
     interface is immediately granted membership, or indeed that they are a
     member at all, unless they appear in the list. They may, for instance,
     be placed into the remote pending list until a connection has been
-    established or the request acknowledged remotely.
+    established or the request acknowledged remotely.</p>
     </tp:docstring>
   </interface>
 </node>

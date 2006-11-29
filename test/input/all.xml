@@ -4,22 +4,21 @@
 
 <tp:version>0.1.2</tp:version>
 
-<tp:docstring>
-Copyright (C) 2006 Collabora Limited
-
-This library is free software; you can redistribute it and/or
+<tp:copyright>Copyright (C) 2006 Collabora Limited</tp:copyright>
+<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 </tp:docstring>
 
 <xi:include href="_Test.xml"/>
 
-<xi:include href="errors_test.xml"/>
+<xi:include href="errors.xml"/>
 
 </tp:spec>

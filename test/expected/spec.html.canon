@@ -1,28 +1,42 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=ascii" http-equiv="Content-Type"></meta><title>Telepathy D-Bus Interface Specification</title><style type="text/css" xml:space="preserve"></style></head><body><div class="topbox">Telepathy</div><h3>Version 0.1.2</h3><pre xml:space="preserve">
-Copyright (C) 2006 Collabora Limited
-
-This library is free software; you can redistribute it and/or
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=ascii" http-equiv="Content-Type"></meta><title>Telepathy D-Bus Interface Specification</title><style type="text/css" xml:space="preserve"></style></head><body><h1 class="topbox">Telepathy D-Bus Interface Specification</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
-
-This library is distributed in the hope that it will be useful,
+version 2.1 of the License, or (at your option) any later version.</p><p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
-</pre><h1><a id="org.freedesktop.Telepathy.SpecAutoGenTest" name="org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest</h1><pre xml:space="preserve">
+Library General Public License for more details.</p><h1><a id="org.freedesktop.Telepathy.SpecAutoGenTest" name="org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest</h1>
       A test case for the spec processing.
-    </pre><h2>Methods:</h2><div class="method"><h3>DoStuff (
+    <h2>Methods:</h2><div class="method"><h3>DoStuff (
         b: badger, a{sv}: mushroom, s: snake
-        ) -&gt;
-        asa(uv)</h3><pre xml:space="preserve">
+        ) →
+        a(uv)</h3><div class="docstring">
         Does stuff.
-      </pre></div><h2>Signals:</h2><div class="signal"><h3>StuffHappened ( 
+      </div><div><h4>Parameters</h4><dl><dt><code>badger</code> -
+      <code>b</code></dt><dd>A badger, which MAY be breezy.</dd><dt><code>mushroom</code> -
+      <code>a{sv}</code></dt><dd>Use of hallucinogenic mushrooms will lead to undefined behaviour.</dd><dt><code>snake</code> -
+      <code>s</code></dt><dd>A snake, it's a snake.</dd></dl></div><div><h4>Returns</h4><dt><code>a(uv)</code></dt><dd>Array of structs containing whatever seems appropriate.</dd></div></div><h2>Signals:</h2><div class="signal"><h3>StuffHappened ( 
         ay: stoat, s: ferret, b: weasel
-        )</h3><pre xml:space="preserve">
+        )</h3><div class="docstring">
         Emitted when stuff happened.
-      </pre></div><h1 xmlns="">Errors</h1><h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</h2><pre xml:space="preserve">
+      </div><div><h4>Parameters</h4><dl><dt><code>stoat</code> -
+      <code>ay</code></dt><dd>
+          <em xmlns="">Mustela erminea</em>
+        </dd><dt><code>ferret</code> -
+      <code>s</code></dt><dd>
+          <em xmlns="">Mustela putorius furo</em>
+        </dd><dt><code>weasel</code> -
+      <code>b</code></dt><dd>
+          <em xmlns="">Mustela nivalis</em> (or compatible)
+        </dd></dl></div></div>
+<h1>Errors</h1>
+  <h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</h2>
       Raised whenever appropriate.
-    </pre><h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</h2><pre xml:space="preserve">
+    
+
+  <h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</h2>
       Raised at all other times.
-    </pre></body></html>
+    
+
+  
+  
+</body></html>

@@ -1,24 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/MediaSessionHandler" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005, 2006 Collabora Limited
-Copyright (C) 2005, 2006 Nokia Corporation
-Copyright (C) 2006 INdT
-  </tp:copyright>
-  <tp:license>
-    This library is free software; you can redistribute it and/or
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
+version 2.1 of the License, or (at your option) any later version.</p>
 
-This library is distributed in the hope that it will be useful,
+<p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.
+Library General Public License for more details.</p>
 
-You should have received a copy of the GNU Lesser General Public
+<p>You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Media.SessionHandler" tp:name-const="MEDIA_SESSION_HANDLER">
     <method name="Error">
@@ -34,25 +32,31 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:docstring>
     </method>
     <signal name="NewStreamHandler">
-      <arg name="stream_handler" type="o"/>
-      <arg name="id" type="u"/>
-      <arg name="media_type" type="u"/>
-      <arg name="direction" type="u"/>
+      <arg name="stream_handler" type="o">
+        <tp:docstring>
+          An object path to a new MediaStreamHandler
+        </tp:docstring>
+      </arg>
+      <arg name="id" type="u">
+        <tp:docstring>
+          The unique ID of the new stream
+        </tp:docstring>
+      </arg>
+      <arg name="media_type" type="u">
+        <tp:docstring>
+          Enum for type of media that this stream should handle
+          (a value from MediaStreamType)
+        </tp:docstring>
+      </arg>
+      <arg name="direction" type="u">
+        <tp:docstring>
+          Enum for direction of this stream (a value from
+          MediaStreamDirection)
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when a new stream handler has been created for this
         session.
-
-        Parameters:
-        stream_handler - an object path to a new MediaStreamHandler
-        id - the unique ID of the new stream
-        media_type - enum for type of media that this stream should handle
-          MEDIA_STREAM_TYPE_AUDIO = 0
-          MEDIA_STREAM_TYPE_VIDEO = 1
-        direction - enum for direction of this stream
-          MEDIA_STREAM_DIRECTION_NONE = 0
-          MEDIA_STREAM_DIRECTION_SEND = 1
-          MEDIA_STREAM_DIRECTION_RECEIVE = 2
-          MEDIA_STREAM_DIRECTION_BIDIRECTIONAL = 3
       </tp:docstring>
     </signal>
     <method name="Ready">
