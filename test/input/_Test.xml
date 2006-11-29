@@ -30,6 +30,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       <arg direction="out" type="a(uv)">
         <tp:docstring>Array of structs containing whatever seems appropriate.</tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError"/>
+        <tp:error name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError">
+          <tp:docstring>Raised if the badger or the snake eats the mushrooms</tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
       <tp:docstring>
         Does stuff.
       </tp:docstring>

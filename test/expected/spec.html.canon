@@ -14,7 +14,9 @@ Library General Public License for more details.</p><h1><a id="org.freedesktop.T
       </div><div><h4>Parameters</h4><dl><dt><code>badger</code> -
       <code>b</code></dt><dd>A badger, which MAY be breezy.</dd><dt><code>mushroom</code> -
       <code>a{sv}</code></dt><dd>Use of hallucinogenic mushrooms will lead to undefined behaviour.</dd><dt><code>snake</code> -
-      <code>s</code></dt><dd>A snake, it's a snake.</dd></dl></div><div><h4>Returns</h4><dl><dt><code>a(uv)</code></dt><dd>Array of structs containing whatever seems appropriate.</dd></dl></div></div><h2>Signals:</h2><div class="signal"><h3>StuffHappened ( 
+      <code>s</code></dt><dd>A snake, it's a snake.</dd></dl></div><div><h4>Returns</h4><dl><dt><code>a(uv)</code></dt><dd>Array of structs containing whatever seems appropriate.</dd></dl></div><div><h4>Possible errors</h4><dl><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</code></dt><dd>
+      Raised whenever appropriate.
+    <em>(generic description)</em></dd><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</code></dt><dd>Raised if the badger or the snake eats the mushrooms</dd></dl></div></div><h2>Signals:</h2><div class="signal"><h3>StuffHappened ( 
         ay: stoat, s: ferret, b: weasel
         )</h3><div class="docstring">
         Emitted when stuff happened.
