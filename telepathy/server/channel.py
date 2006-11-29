@@ -198,43 +198,6 @@ class ChannelTypeText(_ChannelTypeText, Channel):
         messages.sort(cmp=lambda x,y:cmp(x[1], y[1]))
         return messages
 
-    @dbus.service.signal(CHANNEL_TYPE_TEXT, signature='uus')
-    def Sent(self, timestamp, type, text):
-        """
-        Signals that a message has been sent on this channel.
-
-        Parameters:
-        timestamp - the unix timestamp indicating when the message was sent
-        type - the message type (normal, action, notice, etc)
-        text - the text of the message
-        """
-        pass
-
-    @dbus.service.signal(CHANNEL_TYPE_TEXT, signature='uuus')
-    def SendError(self, error, timestamp, type, text):
-        """
-        Signals that an outgoing message has failed to send. The error
-        will be one of the following values:
-        0 - CHANNEL_TEXT_SEND_ERROR_UNKNOWN
-            An unknown error occured.
-        1 - CHANNEL_TEXT_SEND_ERROR_OFFLINE
-            The requested contact was offline.
-        2 - CHANNEL_TEXT_SEND_ERROR_INVALID_CONTACT
-            The requested contact is not valid.
-        3 - CHANNEL_TEXT_SEND_ERROR_PERMISSION_DENIED
-            The user does not have permission to speak on this channel.
-        4 - CHANNEL_TEXT_SEND_ERROR_TOO_LONG
-            The outgoing message was too long and was rejected by the
-            server.
-
-        Parameters:
-        error - one of the above integer errors
-        timestamp - the unix timestamp indicating when the message was sent
-        type - the message the (normal, action, notice, etc)
-        text - the text of the message
-        """
-        pass
-
     @dbus.service.signal(CHANNEL_TYPE_TEXT, signature='uuuuus')
     def Received(self, id, timestamp, sender, type, flags, text):
         """
@@ -300,37 +263,6 @@ class ChannelInterfaceGroup(_ChannelInterfaceGroup):
 
     @dbus.service.signal(CHANNEL_INTERFACE_GROUP, signature='sauauauauuu')
     def MembersChanged(self, message, added, removed, local_pending, remote_pending, actor, reason):
-        """
-        Emitted when contacts join any of the three lists (members, local
-        pending or remote pending).  Contacts are listed in the removed
-        list when they leave any of the three lists. There may also be
-        a message from the server regarding this change, which may be
-        displayed to the user if desired.
-
-        The reason value will be one of the following:
-        0 - CHANNEL_GROUP_CHANGE_REASON_NONE
-            No reason was provided for this change.
-        1 - CHANNEL_GROUP_CHANGE_REASON_OFFLINE
-            The change is due to a user going offline.
-        2 - CHANNEL_GROUP_CHANGE_REASON_KICKED
-            The change is due to a kick operation.
-        3 - CHANNEL_GROUP_CHANGE_REASON_BUSY
-            The change is due to a busy indication.
-        4 - CHANNEL_GROUP_CHANGE_REASON_INVITED
-            The change is due to an invitation.
-        5 - CHANNEL_GROUP_CHANGE_REASON_BANNED
-            The change is due to a kick+ban operation.
-
-        Parameters:
-        message - a string message from the server, or blank if not
-        added - a list of members added to the channel
-        removed - a list of members removed from the channel
-        local_pending - a list of members who are pending local approval
-        remote_pending - a list of members who are pending remote approval
-        actor - the contact handle of the person who made the change, or 0
-            if not known
-        reason - a reason for the change from one of the above values
-        """
 
         self._members.update(added)
         self._members.difference_update(removed)
