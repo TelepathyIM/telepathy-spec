@@ -31,7 +31,9 @@ class <xsl:value-of select="translate(/node/@name, '/', '')"/>(dbus.service.Inte
   </xsl:template>
 
   <xsl:template match="/"># Generated from the Telepathy spec
-"""\<xsl:apply-templates select="node/tp:copyright"/>
+"""<xsl:for-each select="node/tp:copyright">
+  <xsl:apply-templates/><xsl:text>
+</xsl:text></xsl:for-each>
 <xsl:apply-templates select="node/tp:license"/>
 """
 

@@ -23,12 +23,23 @@
   <xsl:template match="text()"/>
 
   <xsl:template match="/tp:errors">/* Generated from the Telepathy spec
-<xsl:value-of select="tp:copyright"/>
-<xsl:value-of select="tp:license"/>
+
+<xsl:for-each select="tp:copyright">
+<xsl:value-of select="."/><xsl:text>
+</xsl:text></xsl:for-each><xsl:text>
+</xsl:text><xsl:value-of select="tp:license"/>
 */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef enum {
 <xsl:apply-templates select="tp:error"/>} TelepathyErrors;
+
+#ifdef __cplusplus
+}
+#endif
 </xsl:template>
 
 </xsl:stylesheet>

@@ -20,20 +20,16 @@
   <xsl:template match="tp:enum/tp:enumvalue"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
 </xsl:text></xsl:template>
 
-  <xsl:template match="tp:flag"># at top level
-<xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
-
-</xsl:text></xsl:template>
-
-  <xsl:template match="tp:enumvalue"># at top level
-<xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
-
-</xsl:text></xsl:template>
-
   <xsl:template match="text()"/>
 
-  <xsl:template match="/tp:spec"># Generated from the Telepathy spec
-"""\<xsl:value-of select="tp:docstring"/>
+  <xsl:template match="/tp:spec">"""List of constants, generated from the Telepathy spec version <xsl:value-of select="tp:version"/><xsl:text>
+
+</xsl:text><xsl:for-each select="tp:copyright">
+<xsl:value-of select="."/><xsl:text>
+</xsl:text></xsl:for-each><xsl:text>
+</xsl:text><xsl:value-of select="tp:license"/>
+
+<xsl:value-of select="tp:docstring"/>
 """
 <xsl:apply-templates select="node"/>
 </xsl:template>
