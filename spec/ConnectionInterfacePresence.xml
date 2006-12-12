@@ -225,7 +225,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     (see http://www.galago-project.org/).</p>
 
     <p>Presence on an individual (yourself or one of your contacts) is modelled as
-    an last activity time along with a set of zero or more statuses, each of
+    a last activity time along with a set of zero or more statuses, each of
     which may have arbitrary key/value parameters. Valid statuses are defined
     per connection, and a list of them can be obtained with the GetStatuses
     method.</p>
