@@ -39,7 +39,8 @@ typedef enum {
 <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
 <xsl:apply-templates/>
-  <xsl:if test="@value-prefix">#   define LAST_<xsl:value-of select="concat($upper-case-prefix, @value-prefix)"/> (<xsl:value-of select="tp:enumvalue[position() = last()]/@value"/>)
+    <xsl:if test="@value-prefix">    LAST_<xsl:value-of select="concat($upper-case-prefix, @value-prefix)"/> = <xsl:value-of select="tp:enumvalue[position() = last()]/@value"/><xsl:text>
+</xsl:text>
 </xsl:if>} <xsl:value-of select="$mixed-case-prefix"/>
     <xsl:value-of select="@name"/>;
 
@@ -48,7 +49,6 @@ typedef enum {
   <xsl:template match="tp:flags/tp:flag">
     <xsl:variable name="name" select="concat($upper-case-prefix, @name)"/>
     <xsl:text>    </xsl:text><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/>,
-#   define <xsl:value-of select="$name"/> (<xsl:value-of select="$name"/>)
 </xsl:template>
 
   <xsl:template match="tp:enum/tp:enumvalue">
@@ -72,7 +72,6 @@ but <xsl:value-of select="$name"/> is less than the previous value
     </xsl:if>
 
     <xsl:text>    </xsl:text><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/>,
-#   define <xsl:value-of select="$name"/> (<xsl:value-of select="$name"/>)
 </xsl:template>
 
   <xsl:template match="tp:flag">

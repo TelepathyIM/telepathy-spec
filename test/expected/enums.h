@@ -24,9 +24,7 @@ extern "C" {
 /* A set of flags */
 typedef enum {
     TP_TEST_LOWBIT = 1,
-#   define TP_TEST_LOWBIT (TP_TEST_LOWBIT)
     TP_TEST_HIGHBIT = 128,
-#   define TP_TEST_HIGHBIT (TP_TEST_HIGHBIT)
 } TpTestFlags;
 
 
@@ -34,9 +32,7 @@ typedef enum {
 /* Adjectives which may be applied to a specification */
 typedef enum {
     TP_LEVERAGING = 0,
-#   define TP_LEVERAGING (TP_LEVERAGING)
     TP_SYNERGISTIC = 1,
-#   define TP_SYNERGISTIC (TP_SYNERGISTIC)
 } TpAdjective;
 
 
@@ -44,10 +40,8 @@ typedef enum {
 /* A test case for enums with a prefix/suffix structure */
 typedef enum {
     TP_PREFIX_TEST_ALPHA = 0,
-#   define TP_PREFIX_TEST_ALPHA (TP_PREFIX_TEST_ALPHA)
     TP_PREFIX_TEST_BETA = 1,
-#   define TP_PREFIX_TEST_BETA (TP_PREFIX_TEST_BETA)
-#   define LAST_TP_PREFIX_TEST (1)
+    LAST_TP_PREFIX_TEST = 1
 } TpPrefixTest;
 
 
