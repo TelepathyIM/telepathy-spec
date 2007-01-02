@@ -54,7 +54,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:docstring>Media are being sent and received</tp:docstring>
       </tp:enumvalue>
     </tp:enum>
-    <tp:flags name="MediaStreamPendingFlags">
+    <tp:flags name="MediaStreamPendingSend">
       <tp:flag name="MEDIA_STREAM_PENDING_LOCAL_SEND" value="1">
         <tp:docstring>
             The local user has been asked to send media by the remote user.
