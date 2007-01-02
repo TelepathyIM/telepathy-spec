@@ -11,11 +11,11 @@
 </arg>
 </method>
 <signal name="StuffHappened">
-<arg direction="in" name="stoat" type="ay">
+<arg name="stoat" type="ay">
 </arg>
-<arg direction="in" name="ferret" type="s">
+<arg name="ferret" type="s">
 </arg>
-<arg direction="in" name="weasel" type="b">
+<arg name="weasel" type="b">
 </arg>
 </signal>
 </interface>

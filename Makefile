@@ -1,7 +1,7 @@
 all:
 
-XSLTPROC = xsltproc --xinclude
-CANONXML = xmllint --nsclean --noblanks --c14n
+XSLTPROC = xsltproc --xinclude --nonet
+CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
 
 XMLS = $(wildcard spec/*.xml)
