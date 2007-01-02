@@ -285,7 +285,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
       </tp:possible-errors>
     </method>
-    <tp:enum name="ConnectionHandleType" value-prefix="CONNECTION_HANDLE_TYPE">
+    <tp:enum name="ConnectionHandleType" value-prefix="HANDLE_TYPE">
       <tp:enumvalue suffix="NONE" value="0">
         <tp:docstring>
           A "null" handle type used to indicate the absence of a handle

@@ -1,6 +1,6 @@
 # telepathy-spec - Base classes defining the interfaces of the Telepathy framework
 #
-# Copyright (C) 2005,2006 Collabora Limited
+# Copyright (C) 2005,2006,2007 Collabora Limited
 # Copyright (C) 2005,2006 Nokia Corporation
 #
 # This library is free software; you can redistribute it and/or
@@ -27,11 +27,11 @@ from telepathy._generated.constants import \
         CONNECTION_CAPABILITY_FLAG_CREATE, \
         CONNECTION_CAPABILITY_FLAG_INVITE, \
         \
-        CONNECTION_HANDLE_TYPE_NONE, \
-        CONNECTION_HANDLE_TYPE_CONTACT, \
-        CONNECTION_HANDLE_TYPE_ROOM, \
-        CONNECTION_HANDLE_TYPE_LIST, \
-        CONNECTION_HANDLE_TYPE_GROUP, \
+        HANDLE_TYPE_NONE, \
+        HANDLE_TYPE_CONTACT, \
+        HANDLE_TYPE_ROOM, \
+        HANDLE_TYPE_LIST, \
+        HANDLE_TYPE_GROUP, \
         \
         CONNECTION_PRESENCE_TYPE_UNSET, \
         CONNECTION_PRESENCE_TYPE_OFFLINE, \
@@ -137,3 +137,11 @@ from telepathy._generated.constants import \
         \
         PROPERTY_FLAG_READ, \
         PROPERTY_FLAG_WRITE
+
+# Backwards compatibility
+from telepathy._generated.constants import \
+        HANDLE_TYPE_NONE as CONNECTION_HANDLE_TYPE_NONE, \
+        HANDLE_TYPE_CONTACT as CONNECTION_HANDLE_TYPE_CONTACT, \
+        HANDLE_TYPE_ROOM as CONNECTION_HANDLE_TYPE_ROOM, \
+        HANDLE_TYPE_LIST as CONNECTION_HANDLE_TYPE_LIST, \
+        HANDLE_TYPE_GROUP as CONNECTION_HANDLE_TYPE_GROUP
