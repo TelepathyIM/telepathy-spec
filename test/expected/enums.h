@@ -40,6 +40,17 @@ typedef enum {
 } TpAdjective;
 
 
+/* TpPrefixTest (enum) */
+/* A test case for enums with a prefix/suffix structure */
+typedef enum {
+    TP_PREFIX_TEST_ALPHA = 0,
+#   define TP_PREFIX_TEST_ALPHA (TP_PREFIX_TEST_ALPHA)
+    TP_PREFIX_TEST_BETA = 1,
+#   define TP_PREFIX_TEST_BETA (TP_PREFIX_TEST_BETA)
+#   define LAST_TP_PREFIX_TEST (1)
+} TpPrefixTest;
+
+
 
 #ifdef __cplusplus
 }
