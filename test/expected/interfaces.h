@@ -16,4 +16,4 @@ Library General Public License for more details.
 */
 
 #define TP_IFACE_TEST_INTERFACE \
-        "org.freedesktop.Telepathy.SpecAutoGenTest";
+        "org.freedesktop.Telepathy.SpecAutoGenTest"

@@ -5,7 +5,7 @@
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
   <xsl:template match="interface">#define TP_IFACE_<xsl:value-of select="@tp:name-const"/> \
-        "<xsl:value-of select="@name"/>";
+        "<xsl:value-of select="@name"/>"
 </xsl:template>
 
   <xsl:template match="text()"/>
