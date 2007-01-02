@@ -88,7 +88,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <method name="HoldHandles">
       <arg direction="in" name="handle_type" type="u">
         <tp:docstring>
-          An integer handle type (as defined in ConnectionHandleType)
+          An integer handle type (as defined in HandleType)
         </tp:docstring>
       </arg>
       <arg direction="in" name="handles" type="au">
@@ -119,7 +119,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <method name="InspectHandles">
       <arg direction="in" name="handle_type" type="u">
         <tp:docstring>
-          An integer handle type (as defined in ConnectionHandleType)
+          An integer handle type (as defined in HandleType)
         </tp:docstring>
       </arg>
       <arg direction="in" name="handles" type="au">
@@ -285,7 +285,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
       </tp:possible-errors>
     </method>
-    <tp:enum name="ConnectionHandleType" value-prefix="HANDLE_TYPE">
+    <tp:enum name="HandleType" value-prefix="HANDLE_TYPE">
       <tp:enumvalue suffix="NONE" value="0">
         <tp:docstring>
           A "null" handle type used to indicate the absence of a handle
@@ -315,7 +315,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <method name="RequestHandles">
       <arg direction="in" name="handle_type" type="u">
         <tp:docstring>
-          An integer handle type (as defined in ConnectionHandleType)
+          An integer handle type (as defined in HandleType)
         </tp:docstring>
       </arg>
       <arg direction="in" name="names" type="as">
