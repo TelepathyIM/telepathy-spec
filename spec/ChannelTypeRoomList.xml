@@ -44,7 +44,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when information about rooms on the server becomes available.
         The array contains the room handle (as can be passed to the
-        RequestChannel method with CONNECTION_HANDLE_TYPE_ROOM), the channel
+        RequestChannel method with HANDLE_TYPE_ROOM), the channel
         type, and a dictionary containing further information about the
         room as available. The following well-known keys and types are
         recommended for use where appropriate:</p>
