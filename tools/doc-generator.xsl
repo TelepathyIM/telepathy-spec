@@ -78,7 +78,7 @@
   <xsl:template match="tp:flags">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
-    <dl>
+    <dl xmlns="http://www.w3.org/1999/xhtml">
       <xsl:for-each select="tp:flag">
         <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
         <xsl:choose>
@@ -86,7 +86,7 @@
             <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
           </xsl:when>
           <xsl:otherwise>
-            (Undocumented)
+            <dd xmlns="http://www.w3.org/1999/xhtml">(Undocumented)</dd>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
@@ -96,15 +96,25 @@
   <xsl:template match="tp:enum">
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
-    <dl>
+    <dl xmlns="http://www.w3.org/1999/xhtml">
       <xsl:for-each select="tp:enumvalue">
-        <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></dt>
+        <xsl:variable name="name">
+          <xsl:choose>
+            <xsl:when test="../@value-prefix and @suffix">
+              <xsl:value-of select="concat(../@value-prefix, '_', @suffix)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@name"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/></dt>
         <xsl:choose>
           <xsl:when test="tp:docstring">
             <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
           </xsl:when>
           <xsl:otherwise>
-            (Undocumented)
+            <dd xmlns="http://www.w3.org/1999/xhtml">(Undocumented)</dd>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>

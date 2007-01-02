@@ -17,8 +17,22 @@
   <xsl:template match="tp:flags/tp:flag"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
 </xsl:text></xsl:template>
 
-  <xsl:template match="tp:enum/tp:enumvalue"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
-</xsl:text></xsl:template>
+  <xsl:template match="tp:enum/tp:enumvalue">
+
+    <xsl:variable name="name">
+      <xsl:choose>
+        <xsl:when test="../@value-prefix and @suffix">
+          <xsl:value-of select="concat(../@value-prefix, '_', @suffix)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:value-of select="$name"/> = <xsl:value-of select="@value"/><xsl:text>
+</xsl:text>
+    </xsl:template>
 
   <xsl:template match="text()"/>
 
