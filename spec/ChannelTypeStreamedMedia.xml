@@ -292,7 +292,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     connection manager), the signalling interface can be omitted and this
     channel type used simply to control the streams.</p>
     </tp:docstring>
-    <tp:flags name="ChannelMediaCapability">
+    <tp:flags name="ChannelMediaCapabilities">
       <tp:docstring>
         The channel-type-specific capability flags used for
         Channel.Type.StreamedMedia in the Connection.Interface.Capabilities
