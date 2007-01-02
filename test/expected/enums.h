@@ -19,6 +19,8 @@ Library General Public License for more details.
 extern "C" {
 #endif
 
+
+/* TpTestFlags (bitfield/set of flags, 0 for none) */
 /* A set of flags */
 typedef enum {
     TP_TEST_LOWBIT = 1,
@@ -27,6 +29,8 @@ typedef enum {
 #   define TP_TEST_HIGHBIT (TP_TEST_HIGHBIT)
 } TpTestFlags;
 
+
+/* TpAdjective (enum) */
 /* Adjectives which may be applied to a specification */
 typedef enum {
     TP_LEVERAGING = 0,

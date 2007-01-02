@@ -8,15 +8,16 @@
   <xsl:param name="upper-case-prefix" select="'TP_'"/>
 
   <xsl:template match="tp:flags">
-    <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
+/* <xsl:value-of select="concat($mixed-case-prefix, @name)"/> (bitfield/set of flags, 0 for none) */
+<xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
-<xsl:apply-templates/>} <xsl:value-of select="$mixed-case-prefix"/>
-    <xsl:value-of select="@name"/>;
+<xsl:apply-templates/>} <xsl:value-of select="concat($mixed-case-prefix, @name)"/>;
 
 </xsl:template>
 
   <xsl:template match="tp:enum">
-    <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
+/* <xsl:value-of select="concat($mixed-case-prefix, @name)"/> (enum) */
+<xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
 <xsl:apply-templates/>} <xsl:value-of select="$mixed-case-prefix"/>
     <xsl:value-of select="@name"/>;
