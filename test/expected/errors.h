@@ -28,12 +28,12 @@ typedef enum {
     /* org.freedesktop.Telepathy.SpecAutoGenTest.MiscError
       Raised whenever appropriate.
      */
-    MiscError,
+    TpError_MiscError,
 
     /* org.freedesktop.Telepathy.SpecAutoGenTest.OtherError
       Raised at all other times.
      */
-    OtherError,
+    TpError_OtherError,
 } TelepathyErrors;
 
 #ifdef __cplusplus

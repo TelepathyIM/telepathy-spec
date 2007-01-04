@@ -17,7 +17,7 @@
     </xsl:variable>
     /* <xsl:value-of select="@name"/>
 <xsl:value-of select="tp:docstring"/> */
-<xsl:text>    </xsl:text><xsl:value-of select="$python"/>,
+<xsl:text>    TpError_</xsl:text><xsl:value-of select="$python"/>,
 </xsl:template>
 
   <xsl:template match="text()"/>
