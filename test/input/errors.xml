@@ -1,18 +1,18 @@
 <?xml version="1.0" ?>
-<tp:errors xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:error name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" python="MiscError">
+<tp:errors xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace='org.freedesktop.Telepathy'>
+  <tp:error name="Spec AutoGen Test.Misc Error">
     <tp:docstring>
       Raised whenever appropriate.
     </tp:docstring>
   </tp:error>
 
-  <tp:error name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" python="OtherError">
+  <tp:error name="Spec AutoGen Test.Other Error">
     <tp:docstring>
       Raised at all other times.
     </tp:docstring>
   </tp:error>
 
-  <tp:copyright>Copyright (C) 2006 Collabora Limited</tp:copyright>
+  <tp:copyright>Copyright (C) 2006, 2007 Collabora Limited</tp:copyright>
   <tp:license>
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

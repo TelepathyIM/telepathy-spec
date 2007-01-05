@@ -1,6 +1,6 @@
 """Exception classes, generated from the Telepathy spec
 
-Copyright (C) 2006 Collabora Limited
+Copyright (C) 2006, 2007 Collabora Limited
 
 
 This library is free software; you can redistribute it and/or
@@ -22,14 +22,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 from dbus import DBusException
 
 
-class MiscError(DBusException):
+class SpecAutoGenTestMiscError(DBusException):
     """\
       Raised whenever appropriate.
     
     """
     _dbus_error_name = 'org.freedesktop.Telepathy.SpecAutoGenTest.MiscError'
   
-class OtherError(DBusException):
+class SpecAutoGenTestOtherError(DBusException):
     """\
       Raised at all other times.
     

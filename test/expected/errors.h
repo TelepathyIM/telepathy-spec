@@ -1,6 +1,6 @@
 /* Generated from the Telepathy spec
 
-Copyright (C) 2006 Collabora Limited
+Copyright (C) 2006, 2007 Collabora Limited
 
 
 This library is free software; you can redistribute it and/or
@@ -28,13 +28,13 @@ typedef enum {
     /* org.freedesktop.Telepathy.SpecAutoGenTest.MiscError
       Raised whenever appropriate.
      */
-    TpError_MiscError,
+    TP_ERROR_SPEC_AUTOGEN_TEST_MISC_ERROR,
 
     /* org.freedesktop.Telepathy.SpecAutoGenTest.OtherError
       Raised at all other times.
      */
-    TpError_OtherError,
-} TelepathyErrors;
+    TP_ERROR_SPEC_AUTOGEN_TEST_OTHER_ERROR,
+} TpError;
 
 #ifdef __cplusplus
 }

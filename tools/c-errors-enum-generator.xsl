@@ -5,19 +5,9 @@
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
   <xsl:template match="tp:error">
-    <xsl:variable name="python">
-      <xsl:choose>
-        <xsl:when test="@python">
-          <xsl:value-of select="@python"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="substring-after(@name, 'org.freedesktop.Telepathy.Error.')"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    /* <xsl:value-of select="@name"/>
+    /* <xsl:value-of select="concat(../@namespace, '.', translate(@name, ' ', ''))"/>
 <xsl:value-of select="tp:docstring"/> */
-<xsl:text>    TpError_</xsl:text><xsl:value-of select="$python"/>,
+<xsl:text>    TP_ERROR_</xsl:text><xsl:value-of select="translate(@name, 'abcdefghijklmnopqrstuvwxyz .', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ__')"/>,
 </xsl:template>
 
   <xsl:template match="text()"/>
@@ -35,7 +25,7 @@ extern "C" {
 #endif
 
 typedef enum {
-<xsl:apply-templates select="tp:error"/>} TelepathyErrors;
+<xsl:apply-templates select="tp:error"/>} TpError;
 
 #ifdef __cplusplus
 }

@@ -5,20 +5,10 @@
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
   <xsl:template match="tp:error">
-    <xsl:variable name="python">
-      <xsl:choose>
-        <xsl:when test="@python">
-          <xsl:value-of select="@python"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="substring-after(@name, 'org.freedesktop.Telepathy.Error.')"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-class <xsl:value-of select="$python"/>(DBusException):
+class <xsl:value-of select="translate(@name, '. ', '')"/>(DBusException):
     """\<xsl:value-of select="tp:docstring"/>
     """
-    _dbus_error_name = '<xsl:value-of select="@name"/>'
+    _dbus_error_name = '<xsl:value-of select="concat(../@namespace, '.', translate(@name, ' ', ''))"/>'
   </xsl:template>
 
   <xsl:template match="text()"/>

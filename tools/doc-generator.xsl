@@ -21,7 +21,7 @@
   </xsl:template>
 
   <xsl:template match="tp:error">
-    <h2 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h2>
+    <h2 xmlns="http://www.w3.org/1999/xhtml"><a name="{concat(../@namespace, '.', translate(@name, ' ', ''))}"></a><xsl:value-of select="concat(../@namespace, '.', translate(@name, ' ', ''))"/></h2>
     <xsl:apply-templates select="tp:docstring"/>
   </xsl:template>
 
@@ -207,8 +207,8 @@
           <xsl:when test="tp:docstring">
             <xsl:apply-templates select="tp:docstring"/>
           </xsl:when>
-          <xsl:when test="//tp:errors/tp:error[@name=$name]/tp:docstring">
-            <xsl:apply-templates select="//tp:errors/tp:error[@name=$name]/tp:docstring"/> <em xmlns="http://www.w3.org/1999/xhtml">(generic description)</em>
+          <xsl:when test="//tp:errors/tp:error[concat(../@namespace, '.', translate(@name, ' ', ''))=$name]/tp:docstring">
+            <xsl:apply-templates select="//tp:errors/tp:error[concat(../@namespace, '.', translate(@name, ' ', ''))=$name]/tp:docstring"/> <em xmlns="http://www.w3.org/1999/xhtml">(generic description)</em>
           </xsl:when>
           <xsl:otherwise>
             (Undocumented.)
