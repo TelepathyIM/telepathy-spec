@@ -44,17 +44,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
     <signal name="StuffHappened">
       <arg name="stoat" type="ay">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <em>Mustela erminea</em>
         </tp:docstring>
       </arg>
       <arg name="ferret" type="s">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <em>Mustela putorius furo</em>
         </tp:docstring>
       </arg>
       <arg name="weasel" type="b">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <em>Mustela nivalis</em> (or compatible)
         </tp:docstring>
       </arg>

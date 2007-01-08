@@ -121,13 +121,13 @@ Library General Public License for more details.</p><h1><a id="org.freedesktop.T
         Emitted when stuff happened.
       </div><div><h4>Parameters</h4><dl><dt><code>stoat</code> -
       <code>ay</code></dt><dd>
-          <em xmlns="">Mustela erminea</em>
+          <em>Mustela erminea</em>
         </dd><dt><code>ferret</code> -
       <code>s</code></dt><dd>
-          <em xmlns="">Mustela putorius furo</em>
+          <em>Mustela putorius furo</em>
         </dd><dt><code>weasel</code> -
       <code>b</code></dt><dd>
-          <em xmlns="">Mustela nivalis</em> (or compatible)
+          <em>Mustela nivalis</em> (or compatible)
         </dd></dl></div></div><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt>LEVERAGING = 0</dt><dd>
           Can leverage synergy
         </dd><dt>SYNERGISTIC = 1</dt><dd>

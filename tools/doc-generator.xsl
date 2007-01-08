@@ -146,7 +146,7 @@
       <xsl:if test="arg[@direction='in']">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <h4>Parameters</h4>
-          <dl>
+          <dl xmlns="http://www.w3.org/1999/xhtml">
             <xsl:apply-templates select="arg[@direction='in']"
               mode="parameters-in-docstring"/>
           </dl>
@@ -156,7 +156,7 @@
       <xsl:if test="arg[@direction='out']">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <h4>Returns</h4>
-          <dl>
+          <dl xmlns="http://www.w3.org/1999/xhtml">
             <xsl:apply-templates select="arg[@direction='out']"
               mode="returns-in-docstring"/>
           </dl>
@@ -166,7 +166,7 @@
       <xsl:if test="tp:possible-errors">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <h4>Possible errors</h4>
-          <dl>
+          <dl xmlns="http://www.w3.org/1999/xhtml">
             <xsl:apply-templates select="tp:possible-errors/tp:error"/>
           </dl>
         </div>
@@ -232,7 +232,7 @@
       <xsl:if test="arg">
         <div xmlns="http://www.w3.org/1999/xhtml">
           <h4>Parameters</h4>
-          <dl>
+          <dl xmlns="http://www.w3.org/1999/xhtml">
             <xsl:apply-templates select="arg" mode="parameters-in-docstring"/>
           </dl>
         </div>
