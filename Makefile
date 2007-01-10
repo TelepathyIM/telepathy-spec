@@ -100,18 +100,26 @@ $(TEST_INTERFACE_PY): $(TEST_INTERFACE_XMLS) tools/spec-to-python.xsl
 
 all: $(GENERATED_FILES)
 
-check: all $(TEST_GENERATED_FILES)
-	diff -u test/expected/enums.h test/output/enums.h
-	diff -u test/expected/constants.py test/output/constants.py
-	diff -u test/expected/errors.h test/output/errors.h
-	diff -u test/expected/errors.py test/output/errors.py
-	diff -u test/expected/interfaces.h test/output/interfaces.h
-	diff -u test/expected/interfaces.py test/output/interfaces.py
-	$(CANONXML) test/output/spec.html > test/output/spec.html.canon
-	diff -u test/expected/spec.html.canon test/output/spec.html.canon
-	$(CANONXML) test/output/_Test.introspect.xml | $(XML_LINEBREAKS) > test/output/introspect.canon
-	diff -u test/expected/introspect.canon test/output/introspect.canon
-	diff -u test/expected/_Test.py test/output/_Test.py
+TEST_CANONICALIZED_FILES = test/output/spec.html.canon \
+			   test/output/introspect.canon
+
+test/output/spec.html.canon: test/output/spec.html
+	$(CANONXML) $< > $@
+test/output/introspect.canon: test/output/_Test.introspect.xml
+	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
+
+check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
+	@e=0; \
+	diff -u test/expected/enums.h test/output/enums.h || e=1; \
+	diff -u test/expected/constants.py test/output/constants.py || e=1; \
+	diff -u test/expected/errors.h test/output/errors.h || e=1; \
+	diff -u test/expected/errors.py test/output/errors.py || e=1; \
+	diff -u test/expected/interfaces.h test/output/interfaces.h || e=1; \
+	diff -u test/expected/interfaces.py test/output/interfaces.py || e=1; \
+	diff -u test/expected/spec.html.canon test/output/spec.html.canon || e=1; \
+	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
+	diff -u test/expected/_Test.py test/output/_Test.py || e=1; \
+	exit $$e
 
 clean:
 	rm -f $(GENERATED_FILES)
