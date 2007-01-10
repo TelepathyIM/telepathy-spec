@@ -1,4 +1,4 @@
-<node xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" name="/_Test">
+<node name="/_Test">
 <interface name="org.freedesktop.Telepathy.SpecAutoGenTest">
 <method name="DoStuff">
 <arg direction="in" name="badger" type="b">

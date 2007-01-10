@@ -3,6 +3,7 @@ all:
 XSLTPROC = xsltproc --xinclude --nonet
 CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
+DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
 
 XMLS = $(wildcard spec/*.xml)
 INTERFACE_XMLS = $(filter-out spec/all%.xml,$(filter-out spec/errors%.xml,$(XMLS)))
@@ -85,10 +86,10 @@ test/output/errors.h: test/input/errors.xml tools/c-errors-enum-generator.xsl
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 	install -d introspect
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< > $@
+	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
 $(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
 	install -d test/output
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< > $@
+	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
 
 $(INTERFACE_PY): telepathy/_generated/%.py: spec/%.xml tools/spec-to-python.xsl
 	install -d telepathy/_generated
