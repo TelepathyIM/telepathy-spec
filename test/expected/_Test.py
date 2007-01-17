@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 import dbus.service
 from telepathy._generated.interfaces import TEST_INTERFACE
 
-class _Test(dbus.service.Interface):
+class Test(dbus.service.Interface):
     """\
       A test case for the spec processing.
     """

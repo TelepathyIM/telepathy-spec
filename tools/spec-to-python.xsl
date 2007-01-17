@@ -5,7 +5,7 @@
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
   <xsl:template match="interface">
-class <xsl:value-of select="translate(/node/@name, '/', '')"/>(dbus.service.Interface):
+class <xsl:value-of select="translate(/node/@name, '/_', '')"/>(dbus.service.Interface):
     """\<xsl:value-of select="tp:docstring"/>"""
     def __init__(self):
         self._interfaces.add(<xsl:value-of select="@tp:name-const"/>)
