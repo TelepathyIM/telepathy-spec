@@ -153,6 +153,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         codecs.
       </tp:docstring>
     </method>
+    <method name="SetLocalCodecs">
+      <arg name="codecs" type="a(usuuua{ss})" direction="in">
+        <tp:docstring>Codecs in the same format as for
+          SupportedCodecs, which have the same semantics as the
+          local codecs passed to Ready</tp:docstring>
+      </arg>
+      <tp:docstring>
+        Used to provide codecs after Ready(), so the media client can go
+        ready for an incoming call and exchange candidates/codecs before
+        knowing what local codecs are available.
+      </tp:docstring>
+    </method>
     <signal name="RemoveRemoteCandidate">
       <arg name="candidate_id" type="s">
         <tp:docstring>
