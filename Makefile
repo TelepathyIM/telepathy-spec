@@ -9,17 +9,31 @@ XMLS = $(wildcard spec/*.xml)
 INTERFACE_XMLS = $(filter-out spec/all%.xml,$(filter-out spec/errors%.xml,$(XMLS)))
 INTERFACE_PY = $(INTERFACE_XMLS:spec/%.xml=telepathy/_generated/%.py)
 INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
+ASYNC_INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/async/%.xml)
+CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
+
+GLIB_GLUE_STAMPS = $(INTERFACE_XMLS:spec/%.xml=tmp/stamp-%-glue)
+GOBJECT_STAMPS = $(INTERFACE_XMLS:spec/%.xml=tmp/stamp-%-gobject)
+GINTERFACE_STAMPS = $(INTERFACE_XMLS:spec/%.xml=tmp/stamp-%-ginterface)
+
+$(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
+	@install -d tmp
+	python tools/extract-nodename.py $< > $@
+	tr a-z A-Z < $@ > $@.upper
+	tr A-Z a-z < $@ > $@.lower
+	tr -d _ < $@ > $@.camel
 
 TEST_XMLS = $(wildcard test/input/*.xml)
 TEST_INTERFACE_XMLS = test/input/_Test.xml
 TEST_INTERFACE_PY = test/output/_Test.py
 TEST_INTROSPECT = test/output/_Test.introspect.xml
+TEST_ASYNC_INTROSPECT = test/output/_Test.async-introspect.xml
 TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	test/output/errors.h test/output/errors.py \
 	test/output/interfaces.h test/output/interfaces.py \
 	test/output/constants.py test/output/enums.h \
-	$(TEST_INTROSPECT) $(TEST_INTERFACE_PY)
+	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT) $(TEST_INTERFACE_PY)
 
 GENERATED_FILES = \
 	doc/spec.html \
@@ -30,7 +44,9 @@ GENERATED_FILES = \
 	c/telepathy-enums.h \
 	c/telepathy-errors.h \
 	c/telepathy-interfaces.h \
-	$(INTERFACE_PY) $(INTROSPECT)
+	$(INTERFACE_PY) $(INTROSPECT) $(ASYNC_INTROSPECT) \
+	$(CANONICAL_NAMES) \
+	$(GLIB_GLUE_STAMPS) $(GOBJECT_STAMPS) $(GINTERFACE_STAMPS)
 
 doc/spec.html: $(XMLS) tools/doc-generator.xsl
 	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
@@ -90,6 +106,30 @@ $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 $(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
 	@install -d test/output
 	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
+
+$(ASYNC_INTROSPECT): introspect/async/%.xml: introspect/%.xml tools/make_all_async.py
+	@install -d introspect/async
+	python tools/make_all_async.py $< $@
+$(TEST_ASYNC_INTROSPECT): $(TEST_INTROSPECT) tools/make_all_async.py
+	@install -d test/output
+	python tools/make_all_async.py $< $@
+
+$(GLIB_GLUE_STAMPS): tmp/stamp-%-glue: introspect/async/%.xml Makefile tmp/%.name
+	@install -d c/ginterfaces tmp
+	dbus-binding-tool --mode=glib-server --output=c/ginterfaces/$(shell tr _ - < tmp/$*.name.lower)-service-iface-glue.h --prefix=tp_$(shell cat tmp/$*.name.lower)_service_iface $<
+	touch $@
+
+$(GOBJECT_STAMPS): tmp/stamp-%-gobject: introspect/async/%.xml tools/gengobject.py tmp/%.name
+	@install -d c/gobjects tmp
+	cd c/gobjects && \
+	python ../../tools/gengobject.py ../../$< Tp$(shell cat tmp/$*.name.camel)Impl tp-$(shell tr _ - < tmp/$*.name.lower)-impl
+	touch $@
+
+$(GINTERFACE_STAMPS): tmp/stamp-%-ginterface: spec/%.xml tools/genginterface.py tmp/%.name
+	@install -d c/ginterfaces tmp
+	cd c/ginterfaces && \
+	python ../../tools/genginterface.py ../../$< Tp$(shell cat tmp/$*.name.camel)ServiceIface $(shell tr _ - < tmp/$*.name.lower)-service-iface _tp
+	touch $@
 
 $(INTERFACE_PY): telepathy/_generated/%.py: spec/%.xml tools/spec-to-python.xsl
 	@install -d telepathy/_generated
