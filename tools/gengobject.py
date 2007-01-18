@@ -54,6 +54,8 @@ def type_to_gtype(s):
         return ("gdouble ", "G_TYPE_DOUBLE","DOUBLE", False)
     elif s == 's': #string
         return ("gchar *", "G_TYPE_STRING", "STRING", True)
+    elif s == 'g': #signature - FIXME
+        return ("gchar *", "DBUS_TYPE_G_SIGNATURE", "STRING", True)
     elif s == 'o': #object path
         return ("gchar *", "DBUS_TYPE_G_OBJECT_PATH", "STRING", True)
     elif s == 'v':  #variant
@@ -80,7 +82,7 @@ def type_to_gtype(s):
     elif s == 'a{ss}': #hash table of string to string
         return ("GHashTable *", "DBUS_TYPE_G_STRING_STRING_HASHTABLE", "BOXED", False)
     elif s[:2] == 'a{':  #some arbitrary hash tables
-        if s[2] not in ('y', 'b', 'n', 'q', 'i', 'u', 's'):
+        if s[2] not in ('y', 'b', 'n', 'q', 'i', 'u', 's', 'o', 'g'):
             raise Exception, "can't index a hashtable off non-basic type " + s
         first = type_to_gtype(s[2])
         second = type_to_gtype(s[3:-1])
@@ -218,7 +220,11 @@ if __name__ == '__main__':
         cmdline_error()
 
     prefix = camelcase_to_lower(classname)
-    basename = prefix.replace('_','-')
+    if len(sys.argv) > 3:
+        basename = sys.argv[3]
+    else:
+        basename = prefix.replace('_','-')
+
     outname_header = basename + ".h"
     outname_body = basename + ".c"
     outname_signal_marshal = basename + "-signals-marshal.list"
