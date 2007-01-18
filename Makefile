@@ -126,3 +126,5 @@ clean:
 	rm -fr telepathy/_generated
 	rm -fr introspect
 	rm -rf test/output
+	rm -rf c
+	rm -rf tmp
