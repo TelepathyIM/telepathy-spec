@@ -191,7 +191,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:docstring>As for SupportedCodecs</tp:docstring>
       </arg>
       <tp:docstring>
-        Signal emitted when the connectoin manager wishes to inform the
+        Signal emitted when the connection manager wishes to inform the
         client of the codecs supported by the remote end.
       </tp:docstring>
     </signal>
