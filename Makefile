@@ -35,67 +35,67 @@ GENERATED_FILES = \
 doc/spec.html: $(XMLS) tools/doc-generator.xsl
 	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
 test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > $@
 
 telepathy/_generated/constants.py: $(XMLS) tools/python-constants-generator.xsl
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	$(XSLTPROC) tools/python-constants-generator.xsl spec/all.xml > $@
 test/output/constants.py: $(XMLS) tools/python-constants-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/python-constants-generator.xsl test/input/all.xml > $@
 
 c/telepathy-enums.h: $(XMLS) tools/c-constants-generator.xsl
-	install -d c
+	@install -d c
 	$(XSLTPROC) tools/c-constants-generator.xsl spec/all.xml > $@
 test/output/enums.h: $(TEST_XMLS) tools/c-constants-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/c-constants-generator.xsl test/input/all.xml > $@
 
 telepathy/_generated/interfaces.py: $(XMLS) tools/python-interfaces-generator.xsl
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	$(XSLTPROC) tools/python-interfaces-generator.xsl spec/all.xml > $@
 test/output/interfaces.py: $(TEST_XMLS) tools/python-interfaces-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/python-interfaces-generator.xsl test/input/all.xml > $@
 
 c/telepathy-interfaces.h: $(XMLS) tools/c-interfaces-generator.xsl
-	install -d c
+	@install -d c
 	$(XSLTPROC) tools/c-interfaces-generator.xsl spec/all.xml > $@
 test/output/interfaces.h: $(TEST_XMLS) tools/c-interfaces-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/c-interfaces-generator.xsl test/input/all.xml > $@
 
 telepathy/_generated/__init__.py:
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	touch $@
 
 telepathy/_generated/errors.py: spec/errors.xml tools/python-errors-generator.xsl
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	$(XSLTPROC) tools/python-errors-generator.xsl spec/errors.xml > $@
 test/output/errors.py: test/input/errors.xml tools/python-errors-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/python-errors-generator.xsl test/input/errors.xml > $@
 
 c/telepathy-errors.h: spec/errors.xml tools/c-errors-enum-generator.xsl
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	$(XSLTPROC) tools/c-errors-enum-generator.xsl spec/errors.xml > $@
 test/output/errors.h: test/input/errors.xml tools/c-errors-enum-generator.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/c-errors-enum-generator.xsl test/input/errors.xml > $@
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
-	install -d introspect
+	@install -d introspect
 	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
 $(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
 
 $(INTERFACE_PY): telepathy/_generated/%.py: spec/%.xml tools/spec-to-python.xsl
-	install -d telepathy/_generated
+	@install -d telepathy/_generated
 	$(XSLTPROC) tools/spec-to-python.xsl $< > $@
 $(TEST_INTERFACE_PY): $(TEST_INTERFACE_XMLS) tools/spec-to-python.xsl
-	install -d test/output
+	@install -d test/output
 	$(XSLTPROC) tools/spec-to-python.xsl $< > $@
 
 all: $(GENERATED_FILES)
