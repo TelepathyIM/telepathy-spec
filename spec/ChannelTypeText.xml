@@ -141,32 +141,32 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:possible-errors>
     </method>
     <tp:enum name="ChannelTextSendError">
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_UNKNOWN" value="0">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_UNKNOWN" value="0">
         <tp:docstring>
         An unknown error occurred
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_OFFLINE" value="1">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_OFFLINE" value="1">
         <tp:docstring>
         The requested contact was offline
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_INVALID_CONTACT" value="2">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_INVALID_CONTACT" value="2">
         <tp:docstring>
         The requested contact is not valid
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_PERMISSION_DENIED" value="3">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_PERMISSION_DENIED" value="3">
         <tp:docstring>
         The user does not have permission to speak on this channel
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_TOO_LONG" value="4">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_TOO_LONG" value="4">
         <tp:docstring>
         The outgoing message was too long and was rejected by the server
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_SEND_ERROR_NOT_IMPLEMENTED" value="5">
+      <tp:enumvalue name="CHANNEL_TEXT_SEND_ERROR_NOT_IMPLEMENTED" value="5">
         <tp:docstring>
         The channel doesn't support sending text messages to the requested
         contact
