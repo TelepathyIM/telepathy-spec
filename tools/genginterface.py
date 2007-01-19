@@ -293,7 +293,7 @@ def do_method(method):
         gtype = type_to_gtype(type)[0]
         if direction == "out" and not async:
             gtype+='*'
-        elif direction == "in":
+        else:
             if type_to_gtype(type)[3]:
                 gtype="const "+gtype
         if not async or direction != "out":
