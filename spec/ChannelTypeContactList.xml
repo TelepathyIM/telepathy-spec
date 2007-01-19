@@ -19,6 +19,8 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.ContactList" tp:name-const="CHANNEL_TYPE_CONTACT_LIST">
+    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Group"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel type for representing a list of people on the server which is
     not used for communication. This is intended for use with the interface

@@ -45,6 +45,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
     </tp:enumvalue>
   </tp:enum>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Hold" tp:name-const="CHANNEL_INTERFACE_HOLD">
+    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <method name="GetHoldState">
       <arg direction="in" name="member" type="u">
         <tp:docstring>

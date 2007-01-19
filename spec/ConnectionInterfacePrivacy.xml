@@ -19,6 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Privacy" tp:name-const="CONN_INTERFACE_PRIVACY">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
     <method name="GetPrivacyMode">
       <arg direction="out" type="s">
         <tp:docstring>
