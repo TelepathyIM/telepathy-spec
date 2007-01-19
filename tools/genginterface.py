@@ -167,7 +167,7 @@ def print_header_begin(stream, prefix):
     stream.write ("#ifndef "+guardname+"\n")
     stream.write ("#define "+guardname+"\n\n")
 
-    stream.write ("#include <glib-object.h>\n\n")
+    stream.write ("#include <glib-object.h>\n#include <dbus/dbus-glib.h>\n\n")
     stream.write ("G_BEGIN_DECLS\n\n")
 
 def print_header_end(stream, prefix):
@@ -396,8 +396,7 @@ if __name__ == '__main__':
     print_class_defn(header, prefix, classname, methods)
 
     body.write(
-"""#include <dbus/dbus-glib.h>
-#include <stdio.h>
+"""#include <stdio.h>
 #include <stdlib.h>
 
 #include "%s"
