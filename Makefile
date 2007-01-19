@@ -116,7 +116,7 @@ $(TEST_ASYNC_INTROSPECT): $(TEST_INTROSPECT) tools/make_all_async.py
 
 $(GLIB_GLUE_STAMPS): tmp/stamp-%-glue: introspect/async/%.xml Makefile tmp/%.name
 	@install -d c/ginterfaces tmp
-	dbus-binding-tool --mode=glib-server --output=c/ginterfaces/$(shell tr _ - < tmp/$*.name.lower)-service-iface-glue.h --prefix=tp_$(shell cat tmp/$*.name.lower)_service_iface $<
+	dbus-binding-tool --mode=glib-server --output=c/ginterfaces/svc-$(shell tr _ - < tmp/$*.name.lower)-glue.h --prefix=tp_svc_$(shell cat tmp/$*.name.lower) $<
 	touch $@
 
 $(GOBJECT_STAMPS): tmp/stamp-%-gobject: introspect/async/%.xml tools/gengobject.py tmp/%.name
@@ -128,7 +128,7 @@ $(GOBJECT_STAMPS): tmp/stamp-%-gobject: introspect/async/%.xml tools/gengobject.
 $(GINTERFACE_STAMPS): tmp/stamp-%-ginterface: spec/%.xml tools/genginterface.py tmp/%.name
 	@install -d c/ginterfaces tmp
 	cd c/ginterfaces && \
-	python ../../tools/genginterface.py ../../$< Tp$(shell cat tmp/$*.name.camel)ServiceIface $(shell tr _ - < tmp/$*.name.lower)-service-iface _tp
+	python ../../tools/genginterface.py ../../$< TpSvc$(shell cat tmp/$*.name.camel) svc-$(shell tr _ - < tmp/$*.name.lower) _tp
 	touch $@
 
 $(INTERFACE_PY): telepathy/_generated/%.py: spec/%.xml tools/spec-to-python.xsl
