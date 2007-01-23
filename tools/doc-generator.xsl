@@ -41,6 +41,16 @@
 
   <xsl:template match="interface">
     <h1 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h1>
+
+    <xsl:if test="tp:requires">
+      <p>Implementations of this interface must also implement:</p>
+      <ul xmlns="http://www.w3.org/1999/xhtml">
+        <xsl:for-each select="tp:requires">
+          <li><code><xsl:value-of select="@interface"/></code></li>
+        </xsl:for-each>
+      </ul>
+    </xsl:if>
+
     <xsl:apply-templates select="tp:docstring" />
 
     <xsl:choose>
