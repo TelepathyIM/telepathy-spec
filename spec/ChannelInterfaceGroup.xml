@@ -76,56 +76,56 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
-    <tp:flags name="ChannelGroupFlags">
-      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_ADD" value="1">
+    <tp:flags name="Channel_Group_Flags" value-prefix="Channel_Group_Flag">
+      <tp:flag suffix="Can_Add" value="1">
         <tp:docstring>
             The AddMembers method can be used to add or invite members who are
             not already in the local pending list (which is always valid).
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_REMOVE" value="2">
+      <tp:flag suffix="Can_Remove" value="2">
         <tp:docstring>
             The RemoveMembers method can be used to remove channel members
             (removing those on the pending local list is always valid).
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_CAN_RESCIND" value="4">
+      <tp:flag suffix="Can_Rescind" value="4">
         <tp:docstring>
             The RemoveMembers method can be used on people on the remote
             pending list.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_ADD" value="8">
+      <tp:flag suffix="Message_Add" value="8">
         <tp:docstring>
             A message may be sent to the server when calling AddMembers on
             contacts who are not currently pending members.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_REMOVE" value="16">
+      <tp:flag suffix="Message_Remove" value="16">
         <tp:docstring>
             A message may be sent to the server when calling RemoveMembers on
             contacts who are currently channel members.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_ACCEPT" value="32">
+      <tp:flag suffix="Message_Accept" value="32">
         <tp:docstring>
             A message may be sent to the server when calling AddMembers on
             contacts who are locally pending.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_REJECT" value="64">
+      <tp:flag suffix="Message_Reject" value="64">
         <tp:docstring>
             A message may be sent to the server when calling RemoveMembers on
             contacts who are locally pending.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_MESSAGE_RESCIND" value="128">
+      <tp:flag suffix="Message_Rescind" value="128">
         <tp:docstring>
             A message may be sent to the server when calling RemoveMembers on
             contacts who are remote pending.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES" value="256">
+      <tp:flag suffix="Channel_Specific_Handles" value="256">
         <tp:docstring>
             The members of this group have handles which are specific to
             this channel, and are not valid as general-purpose handles on
@@ -135,7 +135,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
             presence.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CHANNEL_GROUP_FLAG_ONLY_ONE_GROUP" value="512">
+      <tp:flag suffix="Only_One_Group" value="512">
         <tp:docstring>
             Placing a contact in multiple groups of this type is not allowed
             and will raise NotAvailable (on services where contacts may only
@@ -255,38 +255,38 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         The user interface should be updated as appropriate.
       </tp:docstring>
     </signal>
-    <tp:enum name="ChannelGroupChangeReason">
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_NONE" value="0">
+    <tp:enum name="Channel_Group_Change_Reason">
+      <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
             No reason was provided for this change.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_OFFLINE" value="1">
+      <tp:enumvalue suffix="Offline" value="1">
         <tp:docstring>
             The change is due to a user going offline.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_KICKED" value="2">
+      <tp:enumvalue suffix="Kicked" value="2">
         <tp:docstring>
             The change is due to a kick operation.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BUSY" value="3">
+      <tp:enumvalue suffix="Busy" value="3">
         <tp:docstring>
             The change is due to a busy indication.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_INVITED" value="4">
+      <tp:enumvalue suffix="Invited" value="4">
         <tp:docstring>
             The change is due to an invitation.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_BANNED" value="5">
+      <tp:enumvalue suffix="Banned" value="5">
         <tp:docstring>
             The change is due to a kick+ban operation.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_GROUP_CHANGE_REASON_ERROR" value="6">
+      <tp:enumvalue suffix="Error" value="6">
         <tp:docstring>
             The change is due to an error occurring.
         </tp:docstring>

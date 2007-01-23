@@ -31,18 +31,10 @@ typedef enum {
 /* TpAdjective (enum) */
 /* Adjectives which may be applied to a specification */
 typedef enum {
-    TP_LEVERAGING = 0,
-    TP_SYNERGISTIC = 1,
+    TP_ADJECTIVE_LEVERAGING = 0,
+    TP_ADJECTIVE_SYNERGISTIC = 1,
+    LAST_TP_ADJECTIVE = 1
 } TpAdjective;
-
-
-/* TpPrefixTest (enum) */
-/* A test case for enums with a prefix/suffix structure */
-typedef enum {
-    TP_PREFIX_TEST_ALPHA = 0,
-    TP_PREFIX_TEST_BETA = 1,
-    LAST_TP_PREFIX_TEST = 1
-} TpPrefixTest;
 
 
 

@@ -19,19 +19,19 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.ConnectionManager" tp:name-const="CONN_MGR_INTERFACE">
-    <tp:flags name="ConnMgrParamFlags">
-      <tp:flag name="CONN_MGR_PARAM_FLAG_REQUIRED" value="1">
+    <tp:flags name="Conn_Mgr_Param_Flags" value-prefix="Conn_Mgr_Param_Flag">
+      <tp:flag suffix="Required" value="1">
         <tp:docstring>
           This parameter is required for connecting to the server.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CONN_MGR_PARAM_FLAG_REGISTER" value="2">
+      <tp:flag suffix="Register" value="2">
         <tp:docstring>
           This parameter is required for registering an account on the
           server.
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="CONN_MGR_PARAM_FLAG_HAS_DEFAULT" value="4">
+      <tp:flag suffix="Has_Default" value="4">
         <tp:docstring>
           This parameter has a default value, which is returned in
           GetParameters; not providing this parameter is equivalent to

@@ -65,13 +65,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         the relevant channel, and remove the stream from the session.
       </tp:docstring>
     </method>
-    <tp:enum name="MediaStreamError">
-      <tp:enumvalue name="MEDIA_STREAM_ERROR_UNKNOWN" value="0">
+    <tp:enum name="Media_Stream_Error">
+      <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring>
         An unknown error occured.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="MEDIA_STREAM_ERROR_EOS" value="1">
+      <tp:enumvalue suffix="EOS" value="1">
         <tp:docstring>
         The end of the stream was reached.
         </tp:docstring>
@@ -91,9 +91,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         has been discovered and streaming is in progress.
       </tp:docstring>
     </method>
-    <tp:enum name="MediaStreamBaseProto">
-      <tp:enumvalue name="MEDIA_STREAM_BASE_PROTO_UDP" value="0"/>
-      <tp:enumvalue name="MEDIA_STREAM_BASE_PROTO_TCP" value="1"/>
+    <tp:enum name="Media_Stream_Base_Proto">
+      <tp:enumvalue suffix="UDP" value="0"/>
+      <tp:enumvalue suffix="TCP" value="1"/>
     </tp:enum>
     <method name="NewNativeCandidate">
       <arg direction="in" name="candidate_id" type="s">
@@ -124,18 +124,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         has been ascertained.
       </tp:docstring>
     </method>
-    <tp:enum name="MediaStreamTransportType">
-      <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_LOCAL" value="0">
+    <tp:enum name="Media_Stream_Transport_Type">
+      <tp:enumvalue suffix="Local" value="0">
         <tp:docstring>
           A local address
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_DERIVED" value="1">
+      <tp:enumvalue suffix="Derived" value="1">
         <tp:docstring>
           An external address derived by a method such as STUN
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="MEDIA_STREAM_TRANSPORT_TYPE_RELAY" value="2">
+      <tp:enumvalue suffix="Relay" value="2">
         <tp:docstring>
           An external stream relay
         </tp:docstring>

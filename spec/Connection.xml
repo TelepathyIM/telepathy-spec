@@ -285,28 +285,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
       </tp:possible-errors>
     </method>
-    <tp:enum name="HandleType" value-prefix="HANDLE_TYPE">
-      <tp:enumvalue suffix="NONE" value="0">
+    <tp:enum name="Handle_Type">
+      <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
           A "null" handle type used to indicate the absence of a handle
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CONTACT" value="1">
+      <tp:enumvalue suffix="Contact" value="1">
         <tp:docstring>
           A contact
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="ROOM" value="2">
+      <tp:enumvalue suffix="Room" value="2">
         <tp:docstring>
           A chat room
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="LIST" value="3">
+      <tp:enumvalue suffix="List" value="3">
         <tp:docstring>
           A server-generated contact list (see Channel.Interface.Group)
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="GROUP" value="4">
+      <tp:enumvalue suffix="Group" value="4">
         <tp:docstring>
           A user-defined contact list (see Channel.Interface.Group)
         </tp:docstring>
@@ -348,97 +348,97 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         </tp:error>
       </tp:possible-errors>
     </method>
-    <tp:enum name="ConnectionStatus" value-prefix="CONNECTION_STATUS">
-      <tp:enumvalue suffix="CONNECTED" value="0">
+    <tp:enum name="Connection_Status">
+      <tp:enumvalue suffix="Connected" value="0">
         <tp:docstring>
             The connection is alive and all methods are available.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CONNECTING" value="1">
+      <tp:enumvalue suffix="Connecting" value="1">
         <tp:docstring>
             The connection has not yet been established, or has been
             severed and reconnection is being attempted. Some methods may fail
             until the connection has been established.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="DISCONNECTED" value="2">
+      <tp:enumvalue suffix="Disconnected" value="2">
         <tp:docstring>
             The connection has been severed and no method calls are
             valid. The object may be removed from the bus at any time.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
-    <tp:enum name="ConnectionStatusReason" value-prefix="CONNECTION_STATUS_REASON">
-      <tp:enumvalue suffix="NONE_SPECIFIED" value="0">
+    <tp:enum name="Connection_Status_Reason">
+      <tp:enumvalue suffix="None_Specified" value="0">
         <tp:docstring>
             There is no reason set for this state change.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="REQUESTED" value="1">
+      <tp:enumvalue suffix="Requested" value="1">
         <tp:docstring>
             The change is in response to a user request.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="NETWORK_ERROR" value="2">
+      <tp:enumvalue suffix="Network_Error" value="2">
         <tp:docstring>
             There was an error sending or receiving on the network socket.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="AUTHENTICATION_FAILED" value="3">
+      <tp:enumvalue suffix="Authentication_Failed" value="3">
         <tp:docstring>
             The username or password was invalid.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="ENCRYPTION_ERROR" value="4">
+      <tp:enumvalue suffix="Encryption_Error" value="4">
         <tp:docstring>
             There was an error negotiating SSL on this connection, or
             encryption was unavailable and require-encryption was set when the
             connection was created.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="NAME_IN_USE" value="5">
+      <tp:enumvalue suffix="Name_In_Use" value="5">
         <tp:docstring>
             Someone is already connected to the server using the name
             you are trying to connect with.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_NOT_PROVIDED" value="6">
+      <tp:enumvalue suffix="Cert_Not_Provided" value="6">
         <tp:docstring>
             The server did not provide a SSL certificate.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_UNTRUSTED" value="7">
+      <tp:enumvalue suffix="Cert_Untrusted" value="7">
         <tp:docstring>
             The server's SSL certificate could not be trusted.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_EXPIRED" value="8">
+      <tp:enumvalue suffix="Cert_Expired" value="8">
         <tp:docstring>
             The server's SSL certificate has expired.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_NOT_ACTIVATED" value="9">
+      <tp:enumvalue suffix="Cert_Not_Activated" value="9">
         <tp:docstring>
             The server's SSL certificate is not yet valid.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_HOSTNAME_MISMATCH" value="10">
+      <tp:enumvalue suffix="Cert_Hostname_Mismatch" value="10">
         <tp:docstring>
             The server's SSL certificate did not match its hostname.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_FINGERPRINT_MISMATCH" value="11">
+      <tp:enumvalue suffix="Cert_Fingerprint_Mismatch" value="11">
         <tp:docstring>
             The server's SSL certificate does not have the expected
             fingerprint.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_SELF_SIGNED" value="12">
+      <tp:enumvalue suffix="Cert_Self_Signed" value="12">
         <tp:docstring>
             The server's SSL certificate is self-signed.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="CERT_OTHER_ERROR" value="13">
+      <tp:enumvalue suffix="Cert_Other_Error" value="13">
         <tp:docstring>
             There was some other error validating the server's SSL certificate.
         </tp:docstring>

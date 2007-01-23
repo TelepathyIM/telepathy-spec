@@ -26,44 +26,69 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   <xsl:param name="mixed-case-prefix" select="'Tp'"/>
   <xsl:param name="upper-case-prefix" select="'TP_'"/>
 
+  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+
   <xsl:template match="tp:flags">
-/* <xsl:value-of select="concat($mixed-case-prefix, @name)"/> (bitfield/set of flags, 0 for none) */
+    <xsl:variable name="value-prefix">
+      <xsl:choose>
+        <xsl:when test="@value-prefix">
+          <xsl:value-of select="@value-prefix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+/* <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/> (bitfield/set of flags, 0 for none) */
 <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
-<xsl:apply-templates/>} <xsl:value-of select="concat($mixed-case-prefix, @name)"/>;
+<xsl:apply-templates>
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates>} <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/>;
 
 </xsl:template>
 
   <xsl:template match="tp:enum">
-/* <xsl:value-of select="concat($mixed-case-prefix, @name)"/> (enum) */
+    <xsl:variable name="value-prefix">
+      <xsl:choose>
+        <xsl:when test="@value-prefix">
+          <xsl:value-of select="@value-prefix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+/* <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/> (enum) */
 <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
-<xsl:apply-templates/>
-    <xsl:if test="@value-prefix">    LAST_<xsl:value-of select="concat($upper-case-prefix, @value-prefix)"/> = <xsl:value-of select="tp:enumvalue[position() = last()]/@value"/><xsl:text>
-</xsl:text>
-</xsl:if>} <xsl:value-of select="$mixed-case-prefix"/>
-    <xsl:value-of select="@name"/>;
+<xsl:apply-templates>
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates>    LAST_<xsl:value-of select="translate(concat($upper-case-prefix, $value-prefix), $lower, $upper)"/> = <xsl:value-of select="tp:enumvalue[position() = last()]/@value"/>
+} <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/>;
 
 </xsl:template>
 
   <xsl:template match="tp:flags/tp:flag">
-    <xsl:variable name="name" select="concat($upper-case-prefix, @name)"/>
+    <xsl:param name="value-prefix"/>
+    <xsl:if test="@name or not(@suffix)">
+      <xsl:message terminate="yes">Flag still has a name attr, or lacks suffix
+</xsl:message>
+    </xsl:if>
+
+    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
     <xsl:text>    </xsl:text><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/>,
 </xsl:template>
 
   <xsl:template match="tp:enum/tp:enumvalue">
+    <xsl:param name="value-prefix"/>
+    <xsl:if test="@name or not(@suffix)">
+      <xsl:message terminate="yes">enumvalue has a name attr, or lacks suffix
+</xsl:message>
+    </xsl:if>
 
-    <xsl:variable name="name">
-      <xsl:choose>
-        <xsl:when test="../@value-prefix and @suffix">
-          <xsl:value-of select="concat($upper-case-prefix, ../@value-prefix,
-                                '_', @suffix)"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="concat($upper-case-prefix, @name)"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
+    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
 
     <xsl:if test="preceding-sibling::tp:enumvalue and number(preceding-sibling::tp:enumvalue[1]/@value) > number(@value)">
       <xsl:message terminate="yes">Enum values must be in ascending numeric order,

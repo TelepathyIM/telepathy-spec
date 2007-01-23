@@ -79,8 +79,18 @@
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
     <dl xmlns="http://www.w3.org/1999/xhtml">
+        <xsl:variable name="value-prefix">
+          <xsl:choose>
+            <xsl:when test="@value-prefix">
+              <xsl:value-of select="@value-prefix"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@name"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
       <xsl:for-each select="tp:flag">
-        <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/></code></dt>
+        <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="concat($value-prefix, '_', @suffix)"/> = <xsl:value-of select="@value"/></code></dt>
         <xsl:choose>
           <xsl:when test="tp:docstring">
             <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>
@@ -97,18 +107,18 @@
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
     <dl xmlns="http://www.w3.org/1999/xhtml">
-      <xsl:for-each select="tp:enumvalue">
-        <xsl:variable name="name">
+        <xsl:variable name="value-prefix">
           <xsl:choose>
-            <xsl:when test="../@value-prefix and @suffix">
-              <xsl:value-of select="concat(../@value-prefix, '_', @suffix)"/>
+            <xsl:when test="@value-prefix">
+              <xsl:value-of select="@value-prefix"/>
             </xsl:when>
             <xsl:otherwise>
               <xsl:value-of select="@name"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
-        <dt xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/></dt>
+      <xsl:for-each select="tp:enumvalue">
+        <dt xmlns="http://www.w3.org/1999/xhtml"><code><xsl:value-of select="concat($value-prefix, '_', @suffix)"/> = <xsl:value-of select="@value"/></code></dt>
         <xsl:choose>
           <xsl:when test="tp:docstring">
             <dd xmlns="http://www.w3.org/1999/xhtml"><xsl:apply-templates select="tp:docstring" /></dd>

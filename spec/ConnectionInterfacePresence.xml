@@ -276,33 +276,33 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     succeeds, a client may poll the server intermittently to update any display
     of presence information.</p>
     </tp:docstring>
-    <tp:enum name="ConnectionPresenceType">
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_UNSET" value="0">
+    <tp:enum name="Connection_Presence_Type">
+      <tp:enumvalue suffix="Unset" value="0">
         <tp:docstring>
           An invalid presence type used as a null value
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_OFFLINE" value="1">
+      <tp:enumvalue suffix="Offline" value="1">
         <tp:docstring>
           Offline
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AVAILABLE" value="2">
+      <tp:enumvalue suffix="Available" value="2">
         <tp:docstring>
           Available
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_AWAY" value="3">
+      <tp:enumvalue suffix="Away" value="3">
         <tp:docstring>
           Away
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_EXTENDED_AWAY" value="4">
+      <tp:enumvalue suffix="Extended_Away" value="4">
         <tp:docstring>
           Away for an extended time
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CONNECTION_PRESENCE_TYPE_HIDDEN" value="5">
+      <tp:enumvalue suffix="Hidden" value="5">
         <tp:docstring>
           Hidden (invisible)
         </tp:docstring>

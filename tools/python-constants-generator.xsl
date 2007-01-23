@@ -4,32 +4,54 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
-  <xsl:template match="tp:flags"># <xsl:value-of select="@name"/><xsl:text>
-</xsl:text><xsl:apply-templates/><xsl:text>
-</xsl:text>
-  </xsl:template>
+  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
 
-  <xsl:template match="tp:enum"># <xsl:value-of select="@name"/><xsl:text>
-</xsl:text><xsl:apply-templates/><xsl:text>
-</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="tp:flags/tp:flag"><xsl:value-of select="@name"/> = <xsl:value-of select="@value"/><xsl:text>
-</xsl:text></xsl:template>
-
-  <xsl:template match="tp:enum/tp:enumvalue">
-
-    <xsl:variable name="name">
+  <xsl:template match="tp:flags">
+    <xsl:variable name="value-prefix">
       <xsl:choose>
-        <xsl:when test="../@value-prefix and @suffix">
-          <xsl:value-of select="concat(../@value-prefix, '_', @suffix)"/>
+        <xsl:when test="@value-prefix">
+          <xsl:value-of select="@value-prefix"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="@name"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+# <xsl:value-of select="@name"/> (bitfield/set of flags, 0 for none)<xsl:text>
+</xsl:text><xsl:apply-templates>
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates>
+      <xsl:text>
+</xsl:text>
+  </xsl:template>
 
+  <xsl:template match="tp:enum">
+    <xsl:variable name="value-prefix">
+      <xsl:choose>
+        <xsl:when test="@value-prefix">
+          <xsl:value-of select="@value-prefix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+# <xsl:value-of select="@name"/><xsl:text>
+</xsl:text><xsl:apply-templates>
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates>LAST_<xsl:value-of select="translate($value-prefix, $lower, $upper)"/> = <xsl:value-of select="tp:enumvalue[position() = last()]/@value"/>
+  </xsl:template>
+
+  <xsl:template match="tp:flags/tp:flag">
+    <xsl:param name="value-prefix"/>
+    <xsl:variable name="name" select="translate(concat($value-prefix, '_', @suffix), $lower, $upper)"/>
+    <xsl:value-of select="$name"/> = <xsl:value-of select="@value"/><xsl:text>
+</xsl:text></xsl:template>
+
+  <xsl:template match="tp:enum/tp:enumvalue">
+    <xsl:param name="value-prefix"/>
+    <xsl:variable name="name" select="translate(concat($value-prefix, '_', @suffix), $lower, $upper)"/>
     <xsl:value-of select="$name"/> = <xsl:value-of select="@value"/><xsl:text>
 </xsl:text>
     </xsl:template>

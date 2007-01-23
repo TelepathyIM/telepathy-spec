@@ -53,14 +53,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <tp:enum name="ChannelContactSearchState">
-      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_BEFORE" value="0">
+    <tp:enum name="Channel_Contact_Search_State">
+      <tp:enumvalue suffix="Before" value="0">
         <tp:docstring>The search has not started</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_DURING" value="1">
+      <tp:enumvalue suffix="During" value="1">
         <tp:docstring>The search is in progress</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="CHANNEL_CONTACT_SEARCH_STATE_AFTER" value="2">
+      <tp:enumvalue suffix="After" value="2">
         <tp:docstring>The search has been completed</tp:docstring>
       </tp:enumvalue>
     </tp:enum>

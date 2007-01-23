@@ -63,14 +63,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:docstring>
     </signal>
 
-    <tp:flags name="TestFlags">
+    <tp:flags name="Test_Flags" value-prefix="Test">
       <tp:docstring>A set of flags</tp:docstring>
-      <tp:flag name="TEST_LOWBIT" value="1">
+      <tp:flag suffix="LowBit" value="1">
         <tp:docstring>
           A bit
         </tp:docstring>
       </tp:flag>
-      <tp:flag name="TEST_HIGHBIT" value="128">
+      <tp:flag suffix="HighBit" value="128">
         <tp:docstring>
           Another bit
         </tp:docstring>
@@ -79,22 +79,16 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
     <tp:enum name="Adjective">
       <tp:docstring>Adjectives which may be applied to a specification</tp:docstring>
-      <tp:enumvalue name="LEVERAGING" value="0">
+      <tp:enumvalue suffix="Leveraging" value="0">
         <tp:docstring>
           Can leverage synergy
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="SYNERGISTIC" value="1">
+      <tp:enumvalue suffix="Synergistic" value="1">
         <tp:docstring>
           Can synergize with leverage
         </tp:docstring>
       </tp:enumvalue>
-    </tp:enum>
-
-    <tp:enum name="PrefixTest" value-prefix="PREFIX_TEST">
-      <tp:docstring>A test case for enums with a prefix/suffix structure</tp:docstring>
-      <tp:enumvalue suffix="ALPHA" value="0"/>
-      <tp:enumvalue suffix="BETA" value="1"/>
     </tp:enum>
 
     <tp:docstring>

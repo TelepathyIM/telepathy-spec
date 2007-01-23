@@ -128,13 +128,13 @@ Library General Public License for more details.</p><h1><a id="org.freedesktop.T
         </dd><dt><code>weasel</code> -
       <code>b</code></dt><dd>
           <em>Mustela nivalis</em> (or compatible)
-        </dd></dl></div></div><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt>LEVERAGING = 0</dt><dd>
+        </dd></dl></div></div><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
-        </dd><dt>SYNERGISTIC = 1</dt><dd>
+        </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage
-        </dd></dl><h3>PrefixTest</h3>A test case for enums with a prefix/suffix structure<dl><dt>PREFIX_TEST_ALPHA = 0</dt><dd>(Undocumented)</dd><dt>PREFIX_TEST_BETA = 1</dt><dd>(Undocumented)</dd></dl><h2>Sets of flags:</h2><h3>TestFlags</h3>A set of flags<dl><dt><code>TEST_LOWBIT = 1</code></dt><dd>
+        </dd></dl><h2>Sets of flags:</h2><h3>Test_Flags</h3>A set of flags<dl><dt><code>Test_LowBit = 1</code></dt><dd>
           A bit
-        </dd><dt><code>TEST_HIGHBIT = 128</code></dt><dd>
+        </dd><dt><code>Test_HighBit = 128</code></dt><dd>
           Another bit
         </dd></dl>
 <h1>Errors</h1>

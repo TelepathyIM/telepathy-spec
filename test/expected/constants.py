@@ -14,15 +14,13 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Library General Public License for more details.
 
 """
-# TestFlags
+
+# Test_Flags (bitfield/set of flags, 0 for none)
 TEST_LOWBIT = 1
 TEST_HIGHBIT = 128
 
+
 # Adjective
-LEVERAGING = 0
-SYNERGISTIC = 1
-
-# PrefixTest
-PREFIX_TEST_ALPHA = 0
-PREFIX_TEST_BETA = 1
-
+ADJECTIVE_LEVERAGING = 0
+ADJECTIVE_SYNERGISTIC = 1
+LAST_ADJECTIVE = 1

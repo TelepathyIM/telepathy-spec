@@ -18,26 +18,26 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   </tp:license>
-  <tp:enum name="ChannelHoldState">
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_NONE" value="0">
+  <tp:enum name="Channel_Hold_State">
+    <tp:enumvalue suffix="None" value="0">
       <tp:docstring>
             Neither the local user and the remote member are on hold, and media
             is being sent bidirectionally.
       </tp:docstring>
     </tp:enumvalue>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_SEND_ONLY" value="1">
+    <tp:enumvalue suffix="Send_Only" value="1">
       <tp:docstring>
             The local user has put the remote member on hold, so is sending
             media but has arranged not to receive any media streams.
       </tp:docstring>
     </tp:enumvalue>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_RECV_ONLY" value="2">
+    <tp:enumvalue suffix="Recv_Only" value="2">
       <tp:docstring>
             The user has been put on hold by the remote member, so is receiving
             media but has arranged not to send any media streams.
       </tp:docstring>
     </tp:enumvalue>
-    <tp:enumvalue name="CHANNEL_HOLD_STATE_BOTH" value="3">
+    <tp:enumvalue suffix="Both" value="3">
       <tp:docstring>
             Both the local user and the remote member have agreed not to send
             any media streams to each other.

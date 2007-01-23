@@ -34,8 +34,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         Signal emitted when a contact's alias (or that of the user) is changed.
       </tp:docstring>
     </signal>
-    <tp:flags name="ConnectionAliasFlags">
-      <tp:flag name="CONNECTION_ALIAS_FLAG_USER_SET" value="1">
+    <tp:flags name="Connection_Alias_Flags" value-prefix="Connection_Alias_Flag">
+      <tp:flag suffix="User_Set" value="1">
         <tp:docstring>
           The aliases of contacts on this connection are specified by the user
           of the service, not the contacts themselves. This is the case on
