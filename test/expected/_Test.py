@@ -18,17 +18,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 """
 
 import dbus.service
-from telepathy._generated.interfaces import TEST_INTERFACE
+
 
 class Test(dbus.service.Interface):
     """\
       A test case for the spec processing.
     """
     def __init__(self):
-        self._interfaces.add(TEST_INTERFACE)
+        self._interfaces.add('org.freedesktop.Telepathy.SpecAutoGenTest')
 
 
-    @dbus.service.method(TEST_INTERFACE, in_signature='ba{sv}s', out_signature='a(uv)')
+    @dbus.service.method('org.freedesktop.Telepathy.SpecAutoGenTest', in_signature='ba{sv}s', out_signature='a(uv)')
     def DoStuff(self, badger, mushroom, snake):
         """
         Does stuff.
@@ -36,7 +36,7 @@ class Test(dbus.service.Interface):
         """
         raise NotImplementedError
   
-    @dbus.service.signal(TEST_INTERFACE, signature='aysb')
+    @dbus.service.signal('org.freedesktop.Telepathy.SpecAutoGenTest', signature='aysb')
     def StuffHappened(self, stoat, ferret, weasel):
         """
         Emitted when stuff happened.

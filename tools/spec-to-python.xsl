@@ -4,18 +4,22 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
+  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+
   <xsl:template match="interface">
+    <xsl:variable name="u" select="translate(../@name, concat($lower, '/'), $upper)"/>
 class <xsl:value-of select="translate(/node/@name, '/_', '')"/>(dbus.service.Interface):
     """\<xsl:value-of select="tp:docstring"/>"""
     def __init__(self):
-        self._interfaces.add(<xsl:value-of select="@tp:name-const"/>)
+        self._interfaces.add('<xsl:value-of select="@name"/>')
 
 <xsl:apply-templates select="method"/>
 <xsl:apply-templates select="signal"/>
   </xsl:template>
 
   <xsl:template match="method">
-    @dbus.service.method(<xsl:value-of select="/node/interface/@tp:name-const"/>, in_signature='<xsl:for-each select="arg[@direction='in']"><xsl:value-of select="@type"/></xsl:for-each>', out_signature='<xsl:for-each select="arg[@direction='out']"><xsl:value-of select="@type"/></xsl:for-each>')
+    @dbus.service.method('<xsl:value-of select="../@name"/>', in_signature='<xsl:for-each select="arg[@direction='in']"><xsl:value-of select="@type"/></xsl:for-each>', out_signature='<xsl:for-each select="arg[@direction='out']"><xsl:value-of select="@type"/></xsl:for-each>')
     def <xsl:value-of select="@name"/>(self<xsl:for-each select="arg[@direction='in']">, <xsl:value-of select="@name"/></xsl:for-each>):
         """<xsl:value-of select="tp:docstring"/>
         """
@@ -23,7 +27,7 @@ class <xsl:value-of select="translate(/node/@name, '/_', '')"/>(dbus.service.Int
   </xsl:template>
 
   <xsl:template match="signal">
-    @dbus.service.signal(<xsl:value-of select="/node/interface/@tp:name-const"/>, signature='<xsl:for-each select="arg"><xsl:value-of select="@type"/></xsl:for-each>')
+    @dbus.service.signal('<xsl:value-of select="../@name"/>', signature='<xsl:for-each select="arg"><xsl:value-of select="@type"/></xsl:for-each>')
     def <xsl:value-of select="@name"/>(self<xsl:for-each select="arg">, <xsl:value-of select="@name"/></xsl:for-each>):
         """<xsl:value-of select="tp:docstring"/>
         """
@@ -38,9 +42,6 @@ class <xsl:value-of select="translate(/node/@name, '/_', '')"/>(dbus.service.Int
 """
 
 import dbus.service
-<xsl:for-each select="node/interface">from telepathy._generated.interfaces import <xsl:value-of select="@tp:name-const"/><xsl:text>
-</xsl:text>
-</xsl:for-each>
 
 <xsl:apply-templates select="node/interface"/>
 
