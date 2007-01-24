@@ -18,7 +18,7 @@ Library General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Media.SessionHandler" tp:name-const="MEDIA_SESSION_HANDLER">
+  <interface name="org.freedesktop.Telepathy.Media.SessionHandler">
     <method name="Error">
       <arg direction="in" name="errno" type="u"/>
       <arg direction="in" name="message" type="s"/>

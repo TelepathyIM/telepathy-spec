@@ -18,7 +18,7 @@ Library General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Properties" tp:name-const="PROPERTIES_INTERFACE">
+  <interface name="org.freedesktop.Telepathy.Properties">
     <method name="GetProperties">
       <tp:docstring>
         Returns a dictionary of variants containing the current values of the
