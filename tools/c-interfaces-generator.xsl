@@ -4,7 +4,10 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
-  <xsl:template match="interface">#define TP_IFACE_<xsl:value-of select="@tp:name-const"/> \
+  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+
+  <xsl:template match="interface">#define TP_IFACE_<xsl:value-of select="translate(../@name, concat($lower, '/'), $upper)"/> \
         "<xsl:value-of select="@name"/>"
 </xsl:template>
 
