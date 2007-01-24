@@ -4,7 +4,12 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
-  <xsl:template match="interface"><xsl:value-of select="@tp:name-const"/> = '<xsl:value-of select="@name"/>'
+  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+
+  <xsl:template match="interface">
+    <xsl:variable name="u" select="translate(../@name, concat($lower, '/'), $upper)"/>
+    <xsl:value-of select="$u"/> = '<xsl:value-of select="@name"/>'
 </xsl:template>
 
   <xsl:template match="text()"/>

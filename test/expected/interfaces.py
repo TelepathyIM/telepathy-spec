@@ -14,4 +14,4 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Library General Public License for more details.
 
 """
-TEST_INTERFACE = 'org.freedesktop.Telepathy.SpecAutoGenTest'
+_TEST = 'org.freedesktop.Telepathy.SpecAutoGenTest'
