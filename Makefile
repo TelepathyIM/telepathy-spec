@@ -149,6 +149,8 @@ test/output/introspect.canon: test/output/_Test.introspect.xml
 	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
 
 check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
+	PYTHONPATH=. python telepathy/server/__init__.py
+	PYTHONPATH=. python telepathy/__init__.py
 	@e=0; \
 	diff -u test/expected/enums.h test/output/enums.h || e=1; \
 	diff -u test/expected/constants.py test/output/constants.py || e=1; \
