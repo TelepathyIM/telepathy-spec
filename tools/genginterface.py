@@ -154,29 +154,26 @@ def signal_to_gtype_list(signal):
     return gtype
 
 
-def print_license(stream, filename, description):
+def print_license(stream, filename, description, dom):
     stream.write(
 """/*
  * %s - %s
- * Copyright (C) 2005 Collabora Ltd.
- * Copyright (C) 2005 Nokia Corporation
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+""" % (filename, description))
+
+    for c in dom.getElementsByTagName('tp:copyright'):
+        # assume all child nodes are text
+        stream.write(' * %s\n' % ''.join([n.data for n in c.childNodes
+                                            if n.nodeType in (n.TEXT_NODE,
+                                                n.CDATA_SECTION_NODE)]))
+
+    stream.write("""\
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * This file may be distributed under the same terms as the specification
+ * from which it is generated.
  */
 
-""" % (filename, description))
+""")
 
 def print_header_begin(stream, prefix):
     guardname = '__'+prefix.upper()+'_H__'
@@ -411,8 +408,8 @@ if __name__ == '__main__':
     methods = dom.getElementsByTagName("method")
     methods.sort(key=lambda n: n.getAttributeNode("name").nodeValue)
 
-    print_license(header, outname_header, "Header for " + classname)
-    print_license(body, outname_body, "Source for " + classname)
+    print_license(header, outname_header, "Header for " + classname, dom)
+    print_license(body, outname_body, "Source for " + classname, dom)
     print_header_begin(header,prefix)
 
     print_class_defn(header, prefix, classname, methods)
