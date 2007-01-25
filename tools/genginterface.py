@@ -190,7 +190,7 @@ def print_header_end(stream, prefix):
 
 def print_class_defn(stream, prefix, classname, methods):
     stream.write ("/* dummy struct representing any implementation */\n")
-    stream.write ("typedef struct _%s %s;\n" % (classname,classname))
+    stream.write ("typedef struct _%s %s;\n\n" % (classname,classname))
     stream.write ("typedef struct _%sClass %sClass;\n\n" % (classname,classname))
     stream.write ("struct _%sClass {\n" % classname)
     stream.write ("    GObjectClass parent_class;\n")
