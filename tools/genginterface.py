@@ -9,6 +9,22 @@ def cmdline_error():
     print "usage: gen-ginterface xmlfile classname [output_basename]"
     sys.exit(1)
 
+def dbus_gutils_wincaps_to_uscore(s):
+    """Bug-for-bug compatible Python port of _dbus_gutils_wincaps_to_uscore
+    which gets sequences of capital letters wrong in the same way.
+    (e.g. in Telepathy, SendDTMF -> send_dt_mf)
+    """
+    ret = ''
+    for c in s:
+        if c >= 'A' and c <= 'Z':
+            length = len(ret)
+            if length > 0 and (length < 2 or ret[length-2] != '_'):
+                ret += '_'
+            ret += c.lower()
+        else:
+            ret += c
+    return ret
+
 def camelcase_to_lower(s):
     out ="";
     out += s[0].lower()
@@ -350,6 +366,12 @@ def do_method(method):
             camelcase_to_lower(dbus_method_name), args))
     else:
         body += (c_decl+"\n{\n  return TRUE;\n}\n\n")
+
+    dg_method_name = prefix + '_' + dbus_gutils_wincaps_to_uscore(dbus_method_name)
+    if dg_method_name != c_method_name:
+        header += '/* for compatibility with dbus-binding-tool */\n'
+        header += '#define %s %s\n\n' % (dg_method_name, c_method_name)
+
     return (method_decl, header, body)
 
 if __name__ == '__main__':
