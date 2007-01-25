@@ -35,7 +35,7 @@ from telepathy._generated.Channel_Type_Streamed_Media \
 from telepathy._generated.Channel_Type_Room_List \
         import ChannelTypeRoomList \
         as _ChannelTypeRoomList
-from telepathy._generated.ChannelTypeText \
+from telepathy._generated.Channel_Type_Text \
         import ChannelTypeText \
         as _ChannelTypeText
 
