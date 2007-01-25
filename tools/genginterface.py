@@ -231,7 +231,7 @@ GType %(prefix)s_get_type(void);
 def signal_emit_stub(signal):
     dbus_name = signal.getAttributeNode("name").nodeValue
     c_emitter_name = prefix + '_emit_' + camelcase_to_lower(dbus_name)
-    c_signal_name = (camelcase_to_lower(dbus_name)).replace('_','-')
+    c_signal_name = (dbus_gutils_wincaps_to_uscore(dbus_name)).replace('_','-')
 
     decl = 'void ' + c_emitter_name + ' (' + classname + ' *self'
     args = ''
@@ -250,6 +250,7 @@ def signal_emit_stub(signal):
     header = decl + ';\n\n'
     body = decl + ('\n{\n  g_signal_emit_by_name (self, "%s"%s);\n}\n\n'
                    % (c_signal_name, args))
+
     return header, body
 
 
@@ -464,7 +465,7 @@ static void
                 %s,
                 G_TYPE_NONE, %s);
 """ % (
-            (camelcase_to_lower(dbus_name)).replace('_','-'),
+            (dbus_gutils_wincaps_to_uscore(dbus_name)).replace('_','-'),
             marshal_name,
             ', '.join([str(len(gtypelist))] + gtypelist)))
 
