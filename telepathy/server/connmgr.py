@@ -22,7 +22,7 @@ import dbus.service
 
 from telepathy import *
 
-from telepathy._generated.ConnectionManager import ConnectionManager as _ConnectionManager
+from telepathy._generated.Connection_Manager import ConnectionManager as _ConnectionManager
 
 class ConnectionManager(_ConnectionManager, dbus.service.Object):
     def __init__(self, name):

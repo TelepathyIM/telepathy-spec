@@ -26,25 +26,25 @@ from telepathy import *
 from handle import Handle
 
 from telepathy._generated.Connection import Connection as _Connection
-from telepathy._generated.ConnectionInterfaceAliasing \
+from telepathy._generated.Connection_Interface_Aliasing \
         import ConnectionInterfaceAliasing \
         as _ConnectionInterfaceAliasing
-from telepathy._generated.ConnectionInterfaceAvatars \
+from telepathy._generated.Connection_Interface_Avatars \
         import ConnectionInterfaceAvatars
-from telepathy._generated.ConnectionInterfaceCapabilities \
+from telepathy._generated.Connection_Interface_Capabilities \
         import ConnectionInterfaceCapabilities \
         as _ConnectionInterfaceCapabilities
-from telepathy._generated.ConnectionInterfaceContactInfo \
+from telepathy._generated.Connection_Interface_Contact_Info \
         import ConnectionInterfaceContactInfo
-from telepathy._generated.ConnectionInterfaceForwarding \
+from telepathy._generated.Connection_Interface_Forwarding \
         import ConnectionInterfaceForwarding \
         as _ConnectionInterfaceForwarding
-from telepathy._generated.ConnectionInterfacePresence \
+from telepathy._generated.Connection_Interface_Presence \
         import ConnectionInterfacePresence
-from telepathy._generated.ConnectionInterfacePrivacy \
+from telepathy._generated.Connection_Interface_Privacy \
         import ConnectionInterfacePrivacy \
         as _ConnectionInterfacePrivacy
-from telepathy._generated.ConnectionInterfaceRenaming \
+from telepathy._generated.Connection_Interface_Renaming \
         import ConnectionInterfaceRenaming
 
 class Connection(_Connection, dbus.service.Object):

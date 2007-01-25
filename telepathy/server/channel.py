@@ -23,33 +23,33 @@ from telepathy import *
 
 from telepathy._generated.Channel import Channel as _Channel
 
-from telepathy._generated.ChannelTypeContactSearch \
+from telepathy._generated.Channel_Type_Contact_Search \
         import ChannelTypeContactSearch \
         as _ChannelTypeContactSearch
-from telepathy._generated.ChannelTypeContactList \
+from telepathy._generated.Channel_Type_Contact_List \
         import ChannelTypeContactList \
         as _ChannelTypeContactList
-from telepathy._generated.ChannelTypeStreamedMedia \
+from telepathy._generated.Channel_Type_Streamed_Media \
         import ChannelTypeStreamedMedia \
         as _ChannelTypeStreamedMedia
-from telepathy._generated.ChannelTypeRoomList \
+from telepathy._generated.Channel_Type_Room_List \
         import ChannelTypeRoomList \
         as _ChannelTypeRoomList
 from telepathy._generated.ChannelTypeText \
         import ChannelTypeText \
         as _ChannelTypeText
 
-from telepathy._generated.ChannelInterfaceDTMF \
+from telepathy._generated.Channel_Interface_DTMF \
         import ChannelInterfaceDTMF
-from telepathy._generated.ChannelInterfaceHold \
+from telepathy._generated.Channel_Interface_Hold \
         import ChannelInterfaceHold
-from telepathy._generated.ChannelInterfacePassword \
+from telepathy._generated.Channel_Interface_Password \
         import ChannelInterfacePassword \
         as _ChannelInterfacePassword
-from telepathy._generated.ChannelInterfaceGroup \
+from telepathy._generated.Channel_Interface_Group \
         import ChannelInterfaceGroup \
         as _ChannelInterfaceGroup
-from telepathy._generated.ChannelInterfaceTransfer \
+from telepathy._generated.Channel_Interface_Transfer \
         import ChannelInterfaceTransfer
 
 class Channel(_Channel, dbus.service.Object):
