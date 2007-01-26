@@ -223,7 +223,7 @@ GType %(prefix)s_get_type(void);
 def signal_emit_stub(signal):
     dbus_name = signal.getAttributeNode("name").nodeValue
     c_emitter_name = prefix + '_emit_' + camelcase_to_lower(dbus_name)
-    c_signal_name = (dbus_gutils_wincaps_to_uscore(dbus_name)).replace('_','-')
+    c_signal_const_name = 'SIGNAL_' + dbus_name
 
     decl = 'void ' + c_emitter_name + ' (' + classname + ' *self'
     args = ''
@@ -240,8 +240,8 @@ def signal_emit_stub(signal):
     decl += ')'
 
     header = decl + ';\n\n'
-    body = decl + ('\n{\n  g_signal_emit_by_name (self, "%s"%s);\n}\n\n'
-                   % (c_signal_name, args))
+    body = decl + ('\n{\n  g_signal_emit (self, signals[%s], 0%s);\n}\n\n'
+                   % (c_signal_const_name, args))
 
     return header, body
 
@@ -470,6 +470,13 @@ if __name__ == '__main__':
 
     print_class_definition(body, prefix, classname, methods)
 
+    if signals:
+        body.write('enum {\n')
+        for signal in signals:
+            dbus_name = signal.getAttributeNode("name").nodeValue
+            body.write('    SIGNAL_%s,\n' % (dbus_name))
+        body.write('    N_SIGNALS\n};\nstatic guint signals[N_SIGNALS] = {0};\n\n')
+
     gtypename = '_TYPE_'.join(prefix.upper().split('_',1))
 
     body.write(
@@ -494,6 +501,7 @@ static void
 
         body.write(
 """
+      signals[SIGNAL_%s] =
       g_signal_new ("%s",
                     G_OBJECT_CLASS_TYPE (klass),
                     G_SIGNAL_RUN_LAST | G_SIGNAL_DETAILED,
@@ -501,10 +509,10 @@ static void
                     NULL, NULL,
                     %s,
                     G_TYPE_NONE, %s);
-""" % (
-            (dbus_gutils_wincaps_to_uscore(dbus_name)).replace('_','-'),
-            marshal_name,
-            ', '.join([str(len(gtypelist))] + gtypelist)))
+""" % (dbus_name,
+       (dbus_gutils_wincaps_to_uscore(dbus_name)).replace('_','-'),
+       marshal_name,
+       ', '.join([str(len(gtypelist))] + gtypelist)))
 
         if not marshal_name.startswith('g_cclosure_marshal_VOID__'):
             mtype = signal_to_marshal_type(signal)
