@@ -203,6 +203,36 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
+    <method name="GetLocalPendingMembersWithInfo">
+      <tp:docstring>
+        Returns an array of structs containing handles representing contacts
+        requesting channel membership and awaiting local approval with
+        AddMembers.  
+      </tp:docstring>
+      <arg direction="out" type="a(uuus)">
+        <tp:docstring>
+          An array of struct containing:
+          <ul>
+            <li>
+              A handle representing a contact requesting channel membership
+            </li>
+            <li>A handle containing the contact requested the request</li>
+            <li>
+              The reason of the request: one of the values of
+              ChannelGroupChangeReason
+            </li>
+            <li> 
+              A string message containing the reason of the request if any (or
+              blank if none)
+            </li>
+          </ul>
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
     <method name="GetMembers">
       <arg direction="out" type="au"/>
       <tp:docstring>
