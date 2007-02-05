@@ -211,18 +211,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:docstring>
       <arg direction="out" type="a(uuus)">
         <tp:docstring>
-          An array of struct containing:
+          An array of structs containing:
           <ul>
             <li>
-              A handle representing a contact requesting channel membership
+              A handle representing the contact requesting channel membership
             </li>
-            <li>A handle containing the contact requested the request</li>
             <li>
-              The reason of the request: one of the values of
+              A handle representing the contact making the request, or 0 if
+              unknown
+            </li>
+            <li>
+              The reason for the request: one of the values of
               ChannelGroupChangeReason
             </li>
             <li> 
-              A string message containing the reason of the request if any (or
+              A string message containing the reason for the request if any (or
               blank if none)
             </li>
           </ul>
