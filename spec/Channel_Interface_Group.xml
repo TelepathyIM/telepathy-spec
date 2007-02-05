@@ -325,6 +325,21 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
             The change is due to an error occurring.
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Not_Found" value="7">
+        <tp:docstring>
+            The change is due to the user not found indication.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Unavailable" value="8">
+        <tp:docstring>
+            The change is due to the user not available indication.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Rejected" value="9">
+        <tp:docstring>
+            The change is due to the user rejecting participation.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
     <signal name="MembersChanged">
       <arg name="message" type="s">
