@@ -21,4 +21,4 @@ import dbus.service
 
 from telepathy import *
 
-from telepathy._generated.Properties import PropertiesInterface
+from telepathy._generated.Properties_Interface import PropertiesInterface
