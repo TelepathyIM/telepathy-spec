@@ -128,7 +128,10 @@ Library General Public License for more details.</p><h1><a id="org.freedesktop.T
         </dd><dt><code>weasel</code> -
       <code>b</code></dt><dd>
           <em>Mustela nivalis</em> (or compatible)
-        </dd></dl></div></div><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
+        </dd></dl></div></div><h2>Properties:</h2><dl><dt><code>wobbly</code> -
+      <code>b</code></dt><dd>
+        Whether or not this badger is wobbly.
+      </dd></dl><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
         </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage

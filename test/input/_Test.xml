@@ -63,6 +63,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:docstring>
     </signal>
 
+    <tp:property name="wobbly" type="b">
+      <tp:docstring>
+        Whether or not this badger is wobbly.
+      </tp:docstring>
+    </tp:property>
+
     <tp:flags name="Test_Flags" value-prefix="Test">
       <tp:docstring>A set of flags</tp:docstring>
       <tp:flag suffix="LowBit" value="1">
