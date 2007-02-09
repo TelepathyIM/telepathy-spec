@@ -252,6 +252,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
+    <tp:property name="anonymous" type="b">
+      <tp:docstring>
+      True if people may join the channel without other members being made of
+      their identity.
+      </tp:docstring>
+    </tp:property>
     <tp:property name="invite-only" type="b">
       <tp:docstring>
       True if people may not join the channel until they have been invited.
@@ -274,7 +280,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     </tp:property>
     <tp:property name="name" type="s">
       <tp:docstring>
-      A human-visible name for the channel, if it differs to the handle.
+      A human-visible name for the channel, if it differs from the string
+      version of the channel's handle.
+      </tp:docstring>
+    </tp:property>
+    <tp:property name="description" type="s">
+      <tp:docstring>
+      A human-readable description of the channel's purpose.
       </tp:docstring>
     </tp:property>
     <tp:property name="password" type="s">
@@ -287,6 +299,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       True if a password must be provided to enter the channel.
       </tp:docstring>
     </tp:property>
+    <tp:property name="persistent" type="b">
+      <tp:docstring>
+      True if the channel will remain in existence on the server after all
+      members have left it.
+      </tp:docstring>
+    </tp:property>
     <tp:property name="private" type="b">
       <tp:docstring>
       True if the channel is not visible to non-members.
@@ -294,17 +312,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     </tp:property>
     <tp:property name="subject" type="s">
       <tp:docstring>
-      A human-readable description of the channel.
+      A human-readable description of the current subject of conversation in
+      the channel.
+      </tp:docstring>
+    </tp:property>
+    <tp:property name="subject-contact" type="u">
+      <tp:docstring>
+      A contact handle representing who last modified the subject.
       </tp:docstring>
     </tp:property>
     <tp:property name="subject-timestamp" type="u">
       <tp:docstring>
       A unix timestamp indicating when the subject was last modified.
-      </tp:docstring>
-    </tp:property>
-    <tp:property name="subject-timestamp" type="u">
-      <tp:docstring>
-      A contact handle representing who last modified the subject.
       </tp:docstring>
     </tp:property>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
