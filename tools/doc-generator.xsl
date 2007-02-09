@@ -69,7 +69,19 @@
         <xsl:apply-templates select="signal"/>
       </xsl:when>
       <xsl:otherwise>
-        <p>Interface has no signals.</p>
+        <p xmlns="http://www.w3.org/1999/xhtml">Interface has no signals.</p>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <xsl:choose>
+      <xsl:when test="tp:property">
+        <h2 xmlns="http://www.w3.org/1999/xhtml">Properties:</h2>
+        <dl xmlns="http://www.w3.org/1999/xhtml">
+          <xsl:apply-templates select="tp:property"/>
+        </dl>
+      </xsl:when>
+      <xsl:otherwise>
+        <p xmlns="http://www.w3.org/1999/xhtml">Interface has no properties.</p>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -139,6 +151,18 @@
         </xsl:choose>
       </xsl:for-each>
     </dl>
+  </xsl:template>
+
+  <xsl:template match="tp:property">
+    <dt xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:if test="@name">
+        <code><xsl:value-of select="@name"/></code> -
+      </xsl:if>
+      <code><xsl:value-of select="@type"/></code>
+    </dt>
+    <dd xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:apply-templates select="tp:docstring"/>
+    </dd>
   </xsl:template>
 
   <xsl:template match="method">
