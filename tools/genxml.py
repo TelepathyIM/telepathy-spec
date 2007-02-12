@@ -3,7 +3,11 @@
 import sys
 
 try:
-    from elementtree.ElementTree import fromstring, tostring
+    try:
+        # it's in this package in python2.5
+        from xml.etree.ElementTree import fromstring, tostring
+    except ImportError:
+        from elementtree.ElementTree import fromstring, tostring
 except ImportError:
     print "You need to install ElementTree (http://effbot.org/zone/element-index.htm)"
     sys.exit(1)
