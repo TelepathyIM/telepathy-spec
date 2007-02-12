@@ -199,8 +199,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     self handle, and set the avatar if it is an empty string (and may
     optionally replace it if the token corresponds to a different avatar).</p>
 
-    <p>To remove published avatar on protocols which have persistent avatars,
-    a client should use ClearAvatar method. This methods can safely be used
+    <p>To remove the published avatar on protocols which have persistent avatars,
+    a client should use the ClearAvatar method. This method can safely be used
     even if there is no avatar for this connection.</p>
     </tp:docstring>
   </interface>
