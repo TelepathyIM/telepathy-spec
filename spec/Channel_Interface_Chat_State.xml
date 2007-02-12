@@ -29,11 +29,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         has changed.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
     <signal name="ChatStateChanged">
@@ -92,6 +90,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <li>It is implictly set when the channel is closed</li>
         <li>It may not be explicitly set</li>
       </ul>
+
+      <p>The different states are defined by XEP-0085, but may be applied to any suitable protocol.</p>
     </tp:docstring>
   </interface>
 </node>
