@@ -286,7 +286,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     </tp:property>
     <tp:property name="description" type="s">
       <tp:docstring>
-      A human-readable description of the channel's purpose.
+      A human-readable description of the channel's overall purpose.
       </tp:docstring>
     </tp:property>
     <tp:property name="password" type="s">
@@ -313,7 +313,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <tp:property name="subject" type="s">
       <tp:docstring>
       A human-readable description of the current subject of conversation in
-      the channel.
+      the channel, similar to /topic in IRC.
       </tp:docstring>
     </tp:property>
     <tp:property name="subject-contact" type="u">
