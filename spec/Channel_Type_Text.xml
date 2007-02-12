@@ -254,8 +254,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     </tp:flags>
     <tp:property name="anonymous" type="b">
       <tp:docstring>
-      True if people may join the channel without other members being made of
-      their identity.
+      True if people may join the channel without other members being made
+      aware of their identity.
       </tp:docstring>
     </tp:property>
     <tp:property name="invite-only" type="b">
