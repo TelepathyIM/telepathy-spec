@@ -4,7 +4,7 @@
 
   <xsl:output method="text" indent="no" encoding="ascii"/>
 
-  <xsl:template match="tp:error">
+  <xsl:template match="tp:errors/tp:error">
 class <xsl:value-of select="translate(@name, '. ', '')"/>(DBusException):
     """\<xsl:value-of select="tp:docstring"/>
     """
@@ -13,7 +13,11 @@ class <xsl:value-of select="translate(@name, '. ', '')"/>(DBusException):
 
   <xsl:template match="text()"/>
 
-  <xsl:template match="/tp:errors">"""Exception classes, generated from the Telepathy spec
+  <xsl:template match="/">
+    <xsl:apply-templates select="//tp:errors"/>
+  </xsl:template>
+
+  <xsl:template match="tp:errors">"""Exception classes, generated from the Telepathy spec
 
 <xsl:for-each select="tp:copyright">
 <xsl:value-of select="."/><xsl:text>
