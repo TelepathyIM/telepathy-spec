@@ -3,7 +3,6 @@
 import sys
 import os.path
 import xml.dom.minidom
-import dbus
 
 def cmdline_error():
     print "usage: gen-ginterface xmlfile classname [output_basename]"
@@ -48,6 +47,66 @@ def camelcase_to_lower(s):
 
 def camelcase_to_upper(s):
     return camelcase_to_lower(s).upper()
+
+class SignatureIter:
+    """Iterator over a D-Bus signature. Copied from dbus-python 0.71 so we
+    can run genginterface in a limited environment with only Python
+    (like Scratchbox).
+    """
+    def __init__(self, string):
+        self.remaining = string
+
+    def next(self):
+        if self.remaining == '':
+            raise StopIteration
+
+        signature = self.remaining
+        block_depth = 0
+        block_type = None
+        end = len(signature)
+
+        for marker in range(0, end):
+            cur_sig = signature[marker]
+
+            if cur_sig == 'a':
+                pass
+            elif cur_sig == '{' or cur_sig == '(':
+                if block_type == None:
+                    block_type = cur_sig
+
+                if block_type == cur_sig:
+                    block_depth = block_depth + 1
+
+            elif cur_sig == '}':
+                if block_type == '{':
+                    block_depth = block_depth - 1
+
+                if block_depth == 0:
+                    end = marker
+                    break
+
+            elif cur_sig == ')':
+                if block_type == '(':
+                    block_depth = block_depth - 1
+
+                if block_depth == 0:
+                    end = marker
+                    break
+
+            else:
+                if block_depth == 0:
+                    end = marker
+                    break
+
+        end = end + 1
+        self.remaining = signature[end:]
+        return Signature(signature[0:end])
+
+
+class Signature(str):
+    def __iter__(self):
+        return SignatureIter(self)
+
 
 def type_to_gtype(s):
     if s == 'y': #byte
@@ -105,7 +164,7 @@ def type_to_gtype(s):
         return ("GHashTable *", "(dbus_g_type_get_map (\"GHashTable\", " + first[1] + ", " + second[1] + "))", "BOXED", False)
     elif s[:1] == '(': #struct
         gtype = "(dbus_g_type_get_struct (\"GValueArray\", "
-        for subsig in dbus.Signature(s[1:-1]):
+        for subsig in Signature(s[1:-1]):
             gtype = gtype + type_to_gtype(subsig)[1] + ", "
         gtype = gtype + "G_TYPE_INVALID))"
         return ("GValueArray *", gtype, "BOXED", True)
@@ -128,10 +187,10 @@ def signal_to_marshal_type(signal):
     return mtype
 
 def signal_to_marshal_name(signal, prefix):
-    glib_marshallers = set(['VOID', 'BOOLEAN', 'CHAR', 'UCHAR', 'INT',
+    glib_marshallers = ['VOID', 'BOOLEAN', 'CHAR', 'UCHAR', 'INT',
             'STRING', 'UINT', 'LONG', 'ULONG', 'ENUM', 'FLAGS', 'FLOAT',
             'DOUBLE', 'STRING', 'PARAM', 'BOXED', 'POINTER', 'OBJECT',
-            'UINT_POINTER'])
+            'UINT_POINTER']
 
     mtype = signal_to_marshal_type(signal)
     if len(mtype):
@@ -221,11 +280,16 @@ GType %(prefix)s_get_type(void);
  
 
 def signal_emit_stub(signal):
+    # for signal: org.freedesktop.Telepathy.Thing::StuffHappened (s, u)
+    # emit: void tp_svc_thing_emit_stuff_happened (gpointer instance,
+    #           const char *arg, guint arg2)
     dbus_name = signal.getAttributeNode("name").nodeValue
     c_emitter_name = prefix + '_emit_' + camelcase_to_lower(dbus_name)
     c_signal_const_name = 'SIGNAL_' + dbus_name
 
-    decl = 'void ' + c_emitter_name + ' (' + classname + ' *self'
+    macro_prefix = prefix.upper().split('_',1)
+
+    decl = 'void ' + c_emitter_name + ' (gpointer instance'
     args = ''
 
     for i in signal.getElementsByTagName("arg"):
@@ -240,8 +304,12 @@ def signal_emit_stub(signal):
     decl += ')'
 
     header = decl + ';\n\n'
-    body = decl + ('\n{\n  g_signal_emit (self, signals[%s], 0%s);\n}\n\n'
-                   % (c_signal_const_name, args))
+    body = decl + ('\n{\n'
+                   '  g_assert (%s_IS_%s (instance));\n'
+                   '  g_signal_emit (instance, signals[%s], 0%s);\n'
+                   '}\n\n'
+                   % (macro_prefix[0], macro_prefix[1], c_signal_const_name,
+                      args))
 
     return header, body
 
@@ -257,6 +325,11 @@ def print_class_definition(stream, prefix, classname, methods):
         stream.write('    %s %s;\n' % (c_impl_name, lc_method_name))
 
     stream.write ("};\n\n")
+
+
+def cmp_by_name(node1, node2):
+    return cmp(node1.getAttributeNode("name").nodeValue,
+               node2.getAttributeNode("name").nodeValue)
 
 
 def do_method(method):
@@ -436,9 +509,9 @@ if __name__ == '__main__':
         cmdline_error()
 
     signals = dom.getElementsByTagName("signal")
-    signals.sort(key=lambda n: n.getAttributeNode("name").nodeValue)
+    signals.sort(cmp_by_name)
     methods = dom.getElementsByTagName("method")
-    methods.sort(key=lambda n: n.getAttributeNode("name").nodeValue)
+    methods.sort(cmp_by_name)
 
     print_license(header, outname_header, "Header for " + classname, dom)
     print_license(body, outname_body, "Source for " + classname, dom)
@@ -493,7 +566,7 @@ static void
 
     header.write("\n")
 
-    marshallers = set()
+    marshallers = {}
     for signal in signals:
         dbus_name = signal.getAttributeNode("name").nodeValue
         gtypelist = signal_to_gtype_list(signal)
@@ -517,7 +590,7 @@ static void
         if not marshal_name.startswith('g_cclosure_marshal_VOID__'):
             mtype = signal_to_marshal_type(signal)
             assert(len(mtype))
-            marshallers.add(','.join(mtype))
+            marshallers[','.join(mtype)] = True
 
     for marshaller in marshallers:
         signal_marshal.write("VOID:"+marshaller+"\n")
