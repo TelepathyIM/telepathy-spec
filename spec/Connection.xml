@@ -49,6 +49,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Get the optional interfaces supported by this connection.
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+      </tp:possible-errors>
     </method>
     <method name="GetProtocol">
       <arg direction="out" type="s">
