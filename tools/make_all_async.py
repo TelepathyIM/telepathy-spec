@@ -13,7 +13,6 @@ except ImportError:
     sys.exit(1)
 
 from xml.dom.minidom import parseString
-from telepathy.server import *
 
 import sys
 
