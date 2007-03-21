@@ -240,12 +240,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
     <method name="GetDBusNames">
       <tp:docstring>
-        For a D-Bus tube, obtain a mapping between bus addresses and contacts.
+        For a D-Bus tube, obtain a mapping between contact handles and their
+        unique bus names on this tube.
       </tp:docstring>
       <arg direction="out" type="a(us)">
         <tp:docstring>
           An array of structures, each containing a contact handle and a D-Bus
-          connection name.
+          bus name.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
