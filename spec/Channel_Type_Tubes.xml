@@ -243,6 +243,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         For a D-Bus tube, obtain a mapping between contact handles and their
         unique bus names on this tube.
       </tp:docstring>
+      <arg direction="in" name="id" type="u">
+        <tp:docstring>
+          The ID of the tube to get names for.
+        </tp:docstring>
+      </arg>
       <arg direction="out" type="a(us)">
         <tp:docstring>
           An array of structures, each containing a contact handle and a D-Bus
@@ -263,6 +268,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:docstring>
         Emitted on a D-Bus tube when a participant opens or closes the tube.
       </tp:docstring>
+      <arg name="id" type="u">
+        <tp:docstring>
+          The ID of the tube whose names have changed.
+        </tp:docstring>
+      </arg>
       <arg name="added" type="a(us)">
         <tp:docstring>
           Array of handles and D-Bus names of new participants.
