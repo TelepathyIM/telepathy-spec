@@ -237,6 +237,37 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </tp:possible-errors>
     </method>
 
+    <method name="GetDBusNames">
+      <tp:docstring>
+        For a D-Bus tube, obtain a mapping between bus addresses and contacts.
+      </tp:docstring>
+      <arg direction="out" type="a(us)">
+        <tp:docstring>
+          An array of structures, each containing a contact handle and a D-Bus
+          connection name.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          The tube is not a D-Bus tube.
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          This tube is not in the "open" state.
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="DBusNamesChanged">
+      <tp:docstring>
+        Emitted on a D-Bus tube when a participant opens or closes the tube.
+      </tp:docstring>
+      <arg name="names" type="a(us)">
+        <tp:docstring>
+          As for GetDBusNames.
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 
 </node>
