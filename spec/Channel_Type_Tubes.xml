@@ -262,9 +262,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <tp:docstring>
         Emitted on a D-Bus tube when a participant opens or closes the tube.
       </tp:docstring>
-      <arg name="names" type="a(us)">
+      <arg name="added" type="a(us)">
         <tp:docstring>
-          As for GetDBusNames.
+          Array of handles and D-Bus names of new participants.
+        </tp:docstring>
+      </arg>
+      <arg name="removed" type="au">
+        <tp:docstring>
+          Array of handles of former participants.
         </tp:docstring>
       </arg>
     </signal>
