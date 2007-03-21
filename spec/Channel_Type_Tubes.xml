@@ -201,17 +201,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       </arg>
     </method>
 
-    <method name="TubeClosed">
+    <signal name="TubeClosed">
       <tp:docstring>
        Emitted when a tube has been closed. The ID of a closed tube is no
        longer valid. The ID may later be reused for a new tube.
       </tp:docstring>
-      <arg direction="in" name="id" type="u">
+      <arg name="id" type="u">
         <tp:docstring>
           The ID of the tube that was closed.
         </tp:docstring>
       </arg>
-    </method>
+    </signal>
 
     <method name="GetDBusServerAddress">
       <tp:docstring>
