@@ -19,39 +19,54 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.DTMF">
-    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <signal name="ReceivedDTMF">
-      <arg name="signal" type="u">
-        <tp:docstring>A numeric signal number</tp:docstring>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
+    <method name="StartTone">
+      <arg direction="in" name="stream_id" type="u">
+        <tp:docstring>A stream ID as defined in the StreamedMedia channel type</tp:docstring>
       </arg>
-      <arg name="duration" type="u">
-        <tp:docstring>A numeric duration in milliseconds</tp:docstring>
+      <arg direction="in" name="event" type="u">
+        <tp:docstring>A numeric event code</tp:docstring>
       </arg>
-      <tp:docstring>
-        Signals that this channel received a DTMF tone.
-      </tp:docstring>
-    </signal>
-    <method name="SendDTMF">
-      <arg direction="in" name="signal" type="u">
-        <tp:docstring>A numeric signal number</tp:docstring>
-      </arg>
-      <arg direction="in" name="duration" type="u">
-        <tp:docstring>A numeric duration in milliseconds</tp:docstring>
-      </arg>
-      <tp:docstring>
-        Requests that a DTMF tone is sent.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start sending a DTMF tone on this stream. Where possible, the tone
+        will continue until StopTone is called. On certain protocols, it may
+        only be possible to send events with a predetermined length. In this
+        case, the implementation may emit a fixed-length tone and ignore the
+        StopTone method call.</p>
+
+        <p>In common with RFC4733, the event codes are defined as follows:</p>
+        <table>
+          <tr><th>Event</th><th>Code</th></tr>
+          <tr><td>0 - 9</td><td>0 - 9</td></tr>
+          <tr><td>*</td><td>10</td></tr>
+          <tr><td>#</td><td>11</td></tr>
+          <tr><td>A - D</td><td>12 - 15</td></tr>
+        </table>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError" />
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable" />
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+      </tp:possible-errors>
+    </method>
+    <method name="StopTone">
+      <arg direction="in" name="stream_id" type="u">
+        <tp:docstring>A stream ID as defined in the StreamedMedia channel type</tp:docstring>
+      </arg>
+      <tp:docstring>
+        Stop sending any DTMF tone which has been started using the StartTone
+        method.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError" />
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable" />
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
       </tp:possible-errors>
     </method>
     <tp:docstring>
-      An interface that gives a Channel the ability to send or receive DTMF
-    signalling tones. This usually only makes sense for channels transporting
-    audio.
+    An interface that gives a Channel the ability to send DTMF signalling tones
+    over audio streams which have been established using the StreamedMedia
+    channel type.
     </tp:docstring>
   </interface>
 </node>
