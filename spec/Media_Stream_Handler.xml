@@ -92,8 +92,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:docstring>
     </method>
     <tp:enum name="Media_Stream_Base_Proto">
-      <tp:enumvalue suffix="UDP" value="0"/>
-      <tp:enumvalue suffix="TCP" value="1"/>
+      <tp:enumvalue suffix="UDP" value="0">
+        <tp:docstring>UDP (User Datagram Protocol)</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="TCP" value="1">
+        <tp:docstring>TCP (Transmission Control Protocol)</tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
     <method name="NewNativeCandidate">
       <arg direction="in" name="candidate_id" type="s">
