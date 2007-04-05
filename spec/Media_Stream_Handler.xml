@@ -92,8 +92,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
     <tp:enum name="Media_Stream_Base_Proto">
-      <tp:enumvalue suffix="UDP" value="0"/>
-      <tp:enumvalue suffix="TCP" value="1"/>
+      <tp:enumvalue suffix="UDP" value="0">
+        <tp:docstring>UDP (User Datagram Protocol)</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="TCP" value="1">
+        <tp:docstring>TCP (Transmission Control Protocol)</tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
     <method name="NewNativeCandidate">
       <arg direction="in" name="candidate_id" type="s">
