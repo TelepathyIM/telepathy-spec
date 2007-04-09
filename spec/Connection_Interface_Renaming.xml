@@ -41,11 +41,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The desired identifier
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request that the users own identifier is changed on the server. Success
-        is indicated by a Renamed signal being emitted. A new handle will be
-        allocated for the user's new identifier, and remain valid for the
-        lifetime of the connection.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the user's own identifier is changed on the server.
+          If successful, a Renamed signal will be emitted for the current
+          "self handle" as returned by GetSelfHandle.</p>
+        <p>It is protocol-dependent how the identifier that's actually
+          used will be derived from the supplied identifier; some sort of
+          normalization might take place.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
