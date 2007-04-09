@@ -71,8 +71,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Get the handle which represents the user on this connection, which will
-        remain valid for the lifetime of this connection or until the user's
-        identifier changes. This is always a CONTACT type handle.
+        remain valid for the lifetime of this connection, or until a change
+        in the user's identifier is signalled by the Renamed signal on the
+        Renaming interface (if present). This is always a CONTACT type handle.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
