@@ -100,15 +100,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A array of integer handles to hold
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Notify the connection manger that your client is holding a copy
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Notify the connection manger that your client is holding a copy
         of handles which may not be in use in any existing channel or
         list, and were not obtained by using the RequestHandles method. For
         example, a handle observed in an emitted signal, or displayed
         somewhere in the UI that is not associated with a channel. The
         connection manager must not deallocate a handle where any clients
         have used this method to indicate it is in use until the ReleaseHandle
-        method is called, or the clients disappear from the bus.
+        method is called, or the clients disappear from the bus.</p>
+
+        <p>Note that HoldHandles is idempotent - calling it multiple times
+          is equivalent to calling it once. If a handle is "referenced" by
+          several components which share a D-Bus unique name, the client
+          should perform reference counting internally, and only call
+          ReleaseHandles when none of the cooperating components need the
+          handle any longer.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -217,7 +224,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Explicitly notify the connection manager that your client is no
         longer holding any references to the given handles, and that they
         may be deallocated if they are not held by any other clients or
-        referenced by any existing channels.
+        referenced by any existing channels. See HoldHandles for notes.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
