@@ -22,10 +22,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
     <method name="StartTone">
       <arg direction="in" name="stream_id" type="u">
-        <tp:docstring>A stream ID as defined in the StreamedMedia channel type</tp:docstring>
+        <tp:docstring>A stream ID as defined in the StreamedMedia channel type.</tp:docstring>
       </arg>
       <arg direction="in" name="event" type="u">
-        <tp:docstring>A numeric event code</tp:docstring>
+        <tp:docstring>A numeric event code.</tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start sending a DTMF tone on this stream. Where possible, the tone
@@ -59,7 +59,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     </method>
     <method name="StopTone">
       <arg direction="in" name="stream_id" type="u">
-        <tp:docstring>A stream ID as defined in the StreamedMedia channel type</tp:docstring>
+        <tp:docstring>A stream ID as defined in the StreamedMedia channel type.</tp:docstring>
       </arg>
       <tp:docstring>
         Stop sending any DTMF tone which has been started using the StartTone
