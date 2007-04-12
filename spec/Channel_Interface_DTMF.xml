@@ -31,8 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Start sending a DTMF tone on this stream. Where possible, the tone
         will continue until StopTone is called. On certain protocols, it may
         only be possible to send events with a predetermined length. In this
-        case, the implementation may emit a fixed-length tone and ignore the
-        StopTone method call.</p>
+        case, the implementation may emit a fixed-length tone, and the StopTone
+        method call should return NotAvailable.</p>
 
         <p>In common with RFC4733, the event codes are defined as follows:</p>
         <table>
@@ -45,8 +45,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError" />
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable" />
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given stream ID was invalid.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The requested event is not available on this stream.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
     <method name="StopTone">
@@ -55,18 +63,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Stop sending any DTMF tone which has been started using the StartTone
-        method.
+        method. If there is no current tone, this method will do nothing.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError" />
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable" />
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given stream ID was invalid.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Continuous tones are not supported by this stream.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
     <tp:docstring>
-    An interface that gives a Channel the ability to send DTMF signalling tones
-    over audio streams which have been established using the StreamedMedia
-    channel type.
+      An interface that gives a Channel the ability to send DTMF signalling tones
+      over audio streams which have been established using the StreamedMedia
+      channel type.
     </tp:docstring>
   </interface>
 </node>
