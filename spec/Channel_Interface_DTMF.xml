@@ -34,7 +34,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         case, the implementation may emit a fixed-length tone, and the StopTone
         method call should return NotAvailable.</p>
 
-        <p>In common with RFC4733, the event codes are defined as follows:</p>
+        <p>In common with <a href="http://www.rfc-editor.org/rfc/rfc4733.txt">
+        RFC4733</a>, the event codes are defined as follows:</p>
         <table>
           <tr><th>Event</th><th>Code</th></tr>
           <tr><td>0 - 9</td><td>0 - 9</td></tr>
