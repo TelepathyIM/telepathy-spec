@@ -225,6 +225,28 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         the stream sends to the remote end.
       </tp:docstring>
     </signal>
+    <signal name="StartTelephonyEvent">
+      <arg name="event" type="u">
+        <tp:docstring>
+          A telephony event code as defined by RFC 4733.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Request that a telephony event (as defined by RFC 4733) is transmitted
+        over this stream until StopTelephonyEvent is called.
+      </tp:docstring>
+    </signal>
+    <signal name="StopTelephonyEvent">
+      <arg name="event" type="u">
+        <tp:docstring>
+          A telephony event code as defined by RFC 4733.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Request that any ongoing telephony events (as defined by RFC 4733)
+        being transmitted over this stream are stopped.
+      </tp:docstring>
+    </signal>
     <method name="StreamState">
       <arg direction="in" name="state" type="u"/>
       <tp:docstring>
