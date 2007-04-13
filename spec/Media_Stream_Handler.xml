@@ -226,7 +226,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="StartTelephonyEvent">
-      <arg name="event" type="u">
+      <arg name="event" type="y">
         <tp:docstring>
           A telephony event code as defined by RFC 4733.
         </tp:docstring>
