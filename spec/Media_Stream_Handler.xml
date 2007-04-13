@@ -65,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the relevant channel, and remove the stream from the session.
       </tp:docstring>
     </method>
-    <tp:enum name="Media_Stream_Error">
+    <tp:enum name="Media_Stream_Error" type="u">
       <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring>
         An unknown error occured.
@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         has been discovered and streaming is in progress.
       </tp:docstring>
     </method>
-    <tp:enum name="Media_Stream_Base_Proto">
+    <tp:enum name="Media_Stream_Base_Proto" type="u">
       <tp:enumvalue suffix="UDP" value="0">
         <tp:docstring>UDP (User Datagram Protocol)</tp:docstring>
       </tp:enumvalue>
@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         has been ascertained.
       </tp:docstring>
     </method>
-    <tp:enum name="Media_Stream_Transport_Type">
+    <tp:enum name="Media_Stream_Transport_Type" type="u">
       <tp:enumvalue suffix="Local" value="0">
         <tp:docstring>
           A local address

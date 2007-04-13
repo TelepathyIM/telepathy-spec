@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <tp:enum name="Channel_Contact_Search_State">
+    <tp:enum name="Channel_Contact_Search_State" type="u">
       <tp:enumvalue suffix="Before" value="0">
         <tp:docstring>The search has not started</tp:docstring>
       </tp:enumvalue>
