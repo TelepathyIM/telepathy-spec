@@ -226,7 +226,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       </tp:docstring>
     </signal>
     <signal name="StartTelephonyEvent">
-      <arg name="event" type="u">
+      <arg name="event" type="y">
         <tp:docstring>
           A telephony event code as defined by RFC 4733.
         </tp:docstring>
