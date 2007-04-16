@@ -385,7 +385,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-    <tp:enum name="Connection_Status" type="u">
+    <tp:enum name="Connection_Status" plural="Connection_Statuses" type="u">
       <tp:enumvalue suffix="Connected" value="0">
         <tp:docstring>
             The connection is alive and all methods are available.
