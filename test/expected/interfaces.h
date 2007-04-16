@@ -15,5 +15,11 @@ Library General Public License for more details.
 
 */
 
+/**
+ * TP_IFACE__TEST:
+ * 
+ * The Telepathy interface name "org.freedesktop.Telepathy.SpecAutoGenTest"
+ */
 #define TP_IFACE__TEST \
-        "org.freedesktop.Telepathy.SpecAutoGenTest"
+"org.freedesktop.Telepathy.SpecAutoGenTest"
+

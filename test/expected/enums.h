@@ -20,21 +20,44 @@ extern "C" {
 #endif
 
 
-/* TpTestFlags (bitfield/set of flags, 0 for none) */
-/* A set of flags */
+/**
+ * TpTestFlags:
+ * @TP_TEST_LOWBIT:            A bit         
+ * @TP_TEST_HIGHBIT:            Another bit         
+ *
+
+ * A set of flags
+ *
+ * Bitfield/set of flags generated from the Telepathy specification.
+ */
 typedef enum {
     TP_TEST_LOWBIT = 1,
     TP_TEST_HIGHBIT = 128,
 } TpTestFlags;
 
 
-/* TpAdjective (enum) */
+/**
+ * TpAdjective:
+ * @TP_ADJECTIVE_LEVERAGING:            Can leverage synergy         
+ * @TP_ADJECTIVE_SYNERGISTIC:            Can synergize with leverage         
+ *
+
+ * Adjectives which may be applied to a specification
+ *
+ * Enumeration generated from the Telepathy specification.
+ */
 /* Adjectives which may be applied to a specification */
 typedef enum {
     TP_ADJECTIVE_LEVERAGING = 0,
     TP_ADJECTIVE_SYNERGISTIC = 1,
-    LAST_TP_ADJECTIVE = 1
 } TpAdjective;
+
+/**
+ * NUM_TP_ADJECTIVES:
+ *
+ * 1 higher than the highest valid value of #TpAdjective.
+ */
+#define NUM_TP_ADJECTIVES (1+1)
 
 
 

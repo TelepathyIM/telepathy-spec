@@ -30,8 +30,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'"/>
 
   <xsl:template match="tp:flags">
+    <xsl:variable name="name">
+      <xsl:choose>
+        <xsl:when test="@plural">
+          <xsl:value-of select="@plural"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="value-prefix">
       <xsl:choose>
+        <xsl:when test="@singular">
+          <xsl:value-of select="@singular"/>
+        </xsl:when>
         <xsl:when test="@value-prefix">
           <xsl:value-of select="@value-prefix"/>
         </xsl:when>
@@ -40,18 +53,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-/* <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/> (bitfield/set of flags, 0 for none) */
-<xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
+/**
+ * <xsl:value-of select="translate(concat($mixed-case-prefix, $name), '_', '')"/>:
+<xsl:apply-templates mode="flag-or-enumvalue-gtkdoc">
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates> *
+<xsl:if test="tp:docstring">
+ * <xsl:value-of select="translate(string (tp:docstring), '&#13;&#10;', '  ')"/>
+ *
+</xsl:if> * Bitfield/set of flags generated from the Telepathy specification.
+ */
 typedef enum {
 <xsl:apply-templates>
   <xsl:with-param name="value-prefix" select="$value-prefix"/>
-</xsl:apply-templates>} <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/>;
+</xsl:apply-templates>} <xsl:value-of select="translate(concat($mixed-case-prefix, $name), '_', '')"/>;
 
 </xsl:template>
 
+  <xsl:template match="text()" mode="flag-or-enumvalue-gtkdoc"/>
+
+  <xsl:template match="tp:enumvalue" mode="flag-or-enumvalue-gtkdoc">
+    <xsl:param name="value-prefix"/>
+    <xsl:text> * @</xsl:text>
+    <xsl:value-of select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
+    <xsl:text>: </xsl:text>
+    <xsl:value-of select="translate(string(tp:docstring), '&#13;&#10;', '  ')"/>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="tp:flag" mode="flag-or-enumvalue-gtkdoc">
+    <xsl:param name="value-prefix"/>
+    <xsl:text> * @</xsl:text>
+    <xsl:value-of select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
+    <xsl:text>: </xsl:text>
+    <xsl:value-of select="translate(string(tp:docstring), '&#13;&#10;', '  ')"/>
+    <xsl:text>&#10;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="tp:enum">
+    <xsl:variable name="name">
+      <xsl:choose>
+        <xsl:when test="@singular">
+          <xsl:value-of select="@singular"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="value-prefix">
       <xsl:choose>
+        <xsl:when test="@singular">
+          <xsl:value-of select="@singular"/>
+        </xsl:when>
         <xsl:when test="@value-prefix">
           <xsl:value-of select="@value-prefix"/>
         </xsl:when>
@@ -60,35 +114,84 @@ typedef enum {
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-/* <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/> (enum) */
+    <xsl:variable name="name-plural">
+      <xsl:choose>
+        <xsl:when test="@plural">
+          <xsl:value-of select="@plural"/>
+        </xsl:when>
+        <!-- hack, remove these next 3 lines when the spec gets plurals -->
+        <xsl:when test="@name = 'Connection_Status'">
+          <xsl:text>Connection_Statuses</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/><xsl:text>s</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+/**
+ * <xsl:value-of select="translate(concat($mixed-case-prefix, $name), '_', '')"/>:
+<xsl:apply-templates mode="flag-or-enumvalue-gtkdoc">
+  <xsl:with-param name="value-prefix" select="$value-prefix"/>
+</xsl:apply-templates> *
+<xsl:if test="tp:docstring">
+ * <xsl:value-of select="translate(string (tp:docstring), '&#13;&#10;', '  ')"/>
+ *
+</xsl:if> * Enumeration generated from the Telepathy specification.
+ */
 <xsl:if test="tp:docstring">/* <xsl:value-of select="tp:docstring"/> */</xsl:if>
 typedef enum {
 <xsl:apply-templates>
   <xsl:with-param name="value-prefix" select="$value-prefix"/>
-</xsl:apply-templates>    LAST_<xsl:value-of select="translate(concat($upper-case-prefix, $value-prefix), $lower, $upper)"/> = <xsl:value-of select="tp:enumvalue[position() = last()]/@value"/>
-} <xsl:value-of select="translate(concat($mixed-case-prefix, @name), '_', '')"/>;
+</xsl:apply-templates>} <xsl:value-of select="translate(concat($mixed-case-prefix, $name), '_', '')"/>;
+
+/**
+ * NUM_<xsl:value-of select="translate(concat($upper-case-prefix, $name-plural), $lower, $upper)"/>:
+ *
+ * 1 higher than the highest valid value of #<xsl:value-of select="translate(concat($mixed-case-prefix, $name), '_', '')"/>.
+ */
+#define NUM_<xsl:value-of select="translate(concat($upper-case-prefix, $name-plural), $lower, $upper)"/> (<xsl:value-of select="tp:enumvalue[position() = last()]/@value"/>+1)
 
 </xsl:template>
 
   <xsl:template match="tp:flags/tp:flag">
     <xsl:param name="value-prefix"/>
-    <xsl:if test="@name or not(@suffix)">
-      <xsl:message terminate="yes">Flag still has a name attr, or lacks suffix
+    <xsl:variable name="suffix">
+      <xsl:choose>
+        <xsl:when test="@suffix">
+          <xsl:value-of select="@suffix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', $suffix), $lower, $upper)"/>
+
+    <xsl:if test="@name and @suffix and @name != @suffix">
+      <xsl:message terminate="yes">Flag name <xsl:value-of select="@name"/> != suffix <xsl:value-of select="@suffix"/>
 </xsl:message>
     </xsl:if>
-
-    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
     <xsl:text>    </xsl:text><xsl:value-of select="$name"/> = <xsl:value-of select="@value"/>,
 </xsl:template>
 
   <xsl:template match="tp:enum/tp:enumvalue">
     <xsl:param name="value-prefix"/>
-    <xsl:if test="@name or not(@suffix)">
-      <xsl:message terminate="yes">enumvalue has a name attr, or lacks suffix
+    <xsl:variable name="suffix">
+      <xsl:choose>
+        <xsl:when test="@suffix">
+          <xsl:value-of select="@suffix"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="@name"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', $suffix), $lower, $upper)"/>
+
+    <xsl:if test="@name and @suffix and @name != @suffix">
+      <xsl:message terminate="yes">Flag name <xsl:value-of select="@name"/> != suffix <xsl:value-of select="@suffix"/>
 </xsl:message>
     </xsl:if>
-
-    <xsl:variable name="name" select="translate(concat($upper-case-prefix, $value-prefix, '_', @suffix), $lower, $upper)"/>
 
     <xsl:if test="preceding-sibling::tp:enumvalue and number(preceding-sibling::tp:enumvalue[1]/@value) > number(@value)">
       <xsl:message terminate="yes">Enum values must be in ascending numeric order,
