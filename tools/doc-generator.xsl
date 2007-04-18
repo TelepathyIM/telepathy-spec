@@ -46,7 +46,7 @@
       <p>Implementations of this interface must also implement:</p>
       <ul xmlns="http://www.w3.org/1999/xhtml">
         <xsl:for-each select="tp:requires">
-          <li><code><xsl:value-of select="@interface"/></code></li>
+          <li><code><a href="#{@interface}"><xsl:value-of select="@interface"/></a></code></li>
         </xsl:for-each>
       </ul>
     </xsl:if>
