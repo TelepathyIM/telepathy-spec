@@ -400,6 +400,12 @@
         <xsl:apply-templates select="tp:copyright"/>
         <xsl:apply-templates select="tp:license"/>
         <xsl:apply-templates select="tp:docstring"/>
+	<h2>Interfaces</h2>
+	<ul>
+	  <xsl:for-each select="node/interface">
+            <li><code><a href="#{@name}"><xsl:value-of select="@name"/></a></code></li>
+	  </xsl:for-each>
+	</ul>
         <xsl:apply-templates select="node"/>
         <xsl:apply-templates select="tp:errors"/>
       </body>
