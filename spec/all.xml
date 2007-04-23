@@ -58,4 +58,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
 <xi:include href="errors.xml"/>
 
+<xi:include href="extensions.xml">
+	<xi:fallback>
+		<!-- absence of non-spec extensions is OK -->
+	</xi:fallback>
+</xi:include>
+
 </tp:spec>
