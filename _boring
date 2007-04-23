@@ -35,8 +35,6 @@
 (^|/)autom4te\.cache($|/)
 # End of generic boring regexps
 ^(\./)?introspect(/|$)
-^(\./)?telepathy/_generated(/|$)
 ^(\./)?test/output(/|$)
-^(\./)?c(/|$)
 ^(\./)?doc/spec\.html$
 ^(\./)?tmp(/|$)
