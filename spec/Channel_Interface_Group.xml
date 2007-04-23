@@ -342,6 +342,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             The change is because the requested contact did not respond.
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Renamed" value="9">
+        <tp:docstring>
+          The change is because a contact's unique identifier changed.
+          There must be exactly one handle in the removed set and exactly
+          one handle in one of the added sets. The Renamed signal on the
+          Renaming interface will have been emitted for the same handles,
+          shortly before this MembersChanged signal is emitted.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
     <signal name="MembersChanged">
       <arg name="message" type="s">
