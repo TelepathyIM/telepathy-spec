@@ -35,15 +35,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Emitted when the unique identifier of a contact on the server
           changes.</p>
 
-        <p>Each channel for which GetHandle() would return the original
-          handle should no longer be used to send messages, etc., but
-          should remain open so that pending messages can be retrieved.
-          Clients which are aware of Renaming may open a channel to the
-          new handle; for example, if a GUI client associates text
+        <p>Any channels associated with the contact's original handle will
+          continue to be to that handle, and so are no longer useful (unless
+          the contact renames back, or another contact connects with that
+          unique ID). Clients may open a similar channel associated with the
+          new handle to continue communicating with the contact.</p>
+
+        <p>For example, if a GUI client associates text
           channels with chat windows, it should detach the old channel
-          from the chat window (retrieving all pending messages first),
-          and associate a channel to the new handle with the same window.
-        </p>
+          from the chat window, closing it, and associate a channel to the
+          new handle with the same window.</p>
 
         <p>If the contact's old handle is in any of the member lists of
           a channel which has the groups interface, it will be removed from
