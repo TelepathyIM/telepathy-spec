@@ -31,8 +31,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The handle of the new identifier
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when the unique identifier of a contact on the server changes.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when the unique identifier of a contact on the server
+          changes.</p>
+
+        <p>Each channel for which GetHandle() would return the original
+          handle should no longer be used to send messages, etc., but
+          should remain open so that pending messages can be retrieved.
+          Clients which are aware of Renaming may open a channel to the
+          new handle; for example, if a GUI client associates text
+          channels with chat windows, it should detach the old channel
+          from the chat window (retrieving all pending messages first),
+          and associate a channel to the new handle with the same window.
+        </p>
+
+        <p>If the contact's old handle is in any of the member lists of
+          a channel which has the groups interface, it will be removed from
+          the channel and the new handle will be added. The resulting
+          MembersChanged signal must be emitted <em>after</em> the Renamed
+          signal; the reason should be RENAMED.
+        </p>
+
+        <p>The handles may be either general-purpose or channel-specific.
+          If the original handle is general-purpose, the new handle must be
+          general-purpose; if the original handle is channel-specific, the
+          new handle must be channel-specific in the same channel.
+        </p>
       </tp:docstring>
     </signal>
     <method name="RequestRename">
