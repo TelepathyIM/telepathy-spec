@@ -164,8 +164,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="AcceptTube">
       <tp:docstring>
-        Accept a tube that's in the "local pending" state. The tube becomes
-        open after this method is called.
+        Accept a tube that's in the "local pending" state. The connection
+        manager will attempt to open the tube. The tube remains in the
+        "local pending" state until the TubeStateChanged signal is emitted.
       </tp:docstring>
       <arg direction="in" name="id" type="u">
         <tp:docstring>
