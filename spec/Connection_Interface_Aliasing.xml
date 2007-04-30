@@ -103,10 +103,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface on connections to support protocols where contacts have an
-    alias which they can change at will, but their underlying unique identifier
-    remains unchanged. Provides a method for the user to set their own alias,
-    and a signal which should be emitted when a contact's alias is changed
-    or first discovered.</p>
+    alias which they can change at will. Provides a method for the user to set
+    their own alias, and a signal which should be emitted when a contact's
+    alias is changed or first discovered.</p>
 
     <p>On connections where the user is allowed to set aliases for contacts and
     store them on the server, the GetAliasFlags method will have the
