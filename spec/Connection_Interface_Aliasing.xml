@@ -111,6 +111,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     store them on the server, the GetAliasFlags method will have the
     CONNECTION_ALIAS_FLAG_USER_SET flag set, and the SetAliases method
     may be called on contact handles other than the user themselves.</p>
+
+    <p>Aliases are intended to be used as the main displayed name for the
+    contact, where available.</p>
     </tp:docstring>
   </interface>
 </node>
