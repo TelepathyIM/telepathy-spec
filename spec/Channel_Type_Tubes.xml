@@ -41,8 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           For each D-Bus tube, the connection manager listens on a D-Bus
           server address, as detailed in the D-Bus specification. On this
           address, it emulates a bus upon which each tube participant appears
-          as an endpoint. The service name of a D-Bus tube should be a
-          well-known D-Bus service name, of the form com.example.ServiceName.
+          as an endpoint.
 
           The objects and interfaces which are expected to exist on the
           emulated bus depend on the well-known name; typically, either the
@@ -122,7 +121,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg direction="in" name="service" type="s">
         <tp:docstring>
-          A string representing the service that will be used over the tube.
+          A string representing the service name that will be used over the tube.
+          It should be a well-known D-Bus service name, of the form
+          com.example.ServiceName.
         </tp:docstring>
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
