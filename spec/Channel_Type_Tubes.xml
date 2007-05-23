@@ -268,10 +268,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          The tube is not a D-Bus tube.
+          <tp:docstring>
+            The tube is not a D-Bus tube.
+          </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          This tube is not in the "open" state.
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
@@ -294,10 +298,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          The tube is not a D-Bus tube.
+          <tp:docstring>
+            The tube is not a D-Bus tube.
+          </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          This tube is not in the "open" state.
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
