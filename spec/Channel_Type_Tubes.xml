@@ -331,6 +331,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
+    <method name="GetStreamSocketAddress">
+      <tp:docstring>
+        For a Stream tube, obtain the path of the UNIX socket
+        used to communicate over this tube.
+      </tp:docstring>
+      <arg direction="in" name="id" type="u">
+        <tp:docstring>
+          The ID of the tube to get the socket for.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="s">
+        <tp:docstring>
+          A string containing the path of the UNIX socket.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The tube is not a Stream tube.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
   </interface>
 
 </node>
