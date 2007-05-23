@@ -224,6 +224,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube to accept.
         </tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+      </tp:possible-errors>
     </method>
 
     <signal name="TubeStateChanged">
@@ -251,6 +254,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube to close.
         </tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+      </tp:possible-errors>
     </method>
 
     <signal name="TubeClosed">
