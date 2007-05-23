@@ -98,17 +98,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </method>
 
-    <method name="OfferTube">
+    <method name="OfferDBusTube">
       <tp:docstring>
-        Offers a tube providing the service specified, over a tube of the
-        specified type.
+        Offers a D-Bus tube providing the service specified.
       </tp:docstring>
-      <arg direction="in" name="type" type="u" tp:type="Tube_Type">
-        <tp:docstring>
-          The type of tube wanted, one of the values from
-          the Tube_Type enum.
-        </tp:docstring>
-      </arg>
       <arg direction="in" name="service" type="s">
         <tp:docstring>
           A string representing the service that will be used over the tube.
