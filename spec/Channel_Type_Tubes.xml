@@ -137,6 +137,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </method>
 
+    <method name="OfferStreamTube">
+      <tp:docstring>
+        Offers a Stream tube exporting the local UNIX socket specified.
+      </tp:docstring>
+      <arg direction="in" name="service" type="s">
+        <tp:docstring>
+          A string representing the protocol that will be used over the tube.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="socket" type="s">
+        <tp:docstring>
+          The path of the local UNIX socket exported over the tube.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="parameters" type="a{sv}">
+        <tp:docstring>
+          A dicionary of properties for the new tube.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="u">
+        <tp:docstring>
+          The ID of the new tube.
+        </tp:docstring>
+      </arg>
+    </method>
+
     <signal name="NewTube">
       <tp:docstring>
         Emitted when a tube is created.
