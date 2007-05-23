@@ -52,6 +52,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           objects/interfaces.
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Stream" value="1">
+        <tp:docstring>
+          An ordered reliable transport, for transporting TCP traffic.
+
+          For each Stream tube offered, the connection managers exports a local
+          UNIX socket to the participants of the tube.
+          When accepting a Stream tube, a new listenning local socket is
+          created. Each time the client connects to this socket, the connection
+          manager of the initiator of the tube opens a new connection to its
+          local socket. Both sides can then use these pair of sockets to communicate
+          together.
+
+          The service name of a Stream tube should be a well-known protocol
+          name.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:enum name="Tube_State">
