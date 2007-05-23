@@ -168,6 +168,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the new tube.
         </tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            Connection Manager doesn't support Stream tubes.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <signal name="NewTube">
