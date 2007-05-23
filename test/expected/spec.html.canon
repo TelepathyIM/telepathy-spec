@@ -1,4 +1,4 @@
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=ascii" http-equiv="Content-Type"></meta><title>Telepathy D-Bus Interface Specification</title><style type="text/css" xml:space="preserve">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta content="text/html; charset=ascii" http-equiv="Content-Type"></meta><title>telepathy-spec tools test case version 0.1.2</title><style type="text/css" xml:space="preserve">
 
           body {
             font-family: sans-serif;
@@ -97,13 +97,13 @@
             margin-right: 4em;
           }
 
-        </style></head><body><h1 class="topbox">Telepathy D-Bus Interface Specification</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
+        </style></head><body><h1 class="topbox">telepathy-spec tools test case</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2.1 of the License, or (at your option) any later version.</p><p>This library is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Library General Public License for more details.</p><h1><a id="org.freedesktop.Telepathy.SpecAutoGenTest" name="org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest</h1>
+Library General Public License for more details.</p><h2>Interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h1><a id="org.freedesktop.Telepathy.SpecAutoGenTest" name="org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest</h1>
       A test case for the spec processing.
     <h2>Methods:</h2><div class="method"><h3>DoStuff (
         b: badger, a{sv}: mushroom, s: snake
