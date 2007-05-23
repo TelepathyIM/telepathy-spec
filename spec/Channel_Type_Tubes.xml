@@ -63,9 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           manager of the initiator of the tube opens a new connection to its
           local socket. Both sides can then use these pair of sockets to communicate
           together.
-
-          The service name of a Stream tube should be a well-known protocol
-          name.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -151,7 +148,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg direction="in" name="service" type="s">
         <tp:docstring>
-          A string representing the protocol that will be used over the tube.
+          A string representing the service name that will be used over the tube.
+          It should be a well-known TCP service name as defined by
+          http://www.dns-sd.org/ServiceTypes.html.
         </tp:docstring>
       </arg>
       <arg direction="in" name="socket" type="s">
