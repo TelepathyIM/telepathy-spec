@@ -395,8 +395,12 @@
         </style>
       </head>
       <body>
-        <h1 class="topbox">Telepathy D-Bus Interface Specification</h1>
-        <h2>Version <xsl:apply-templates select="tp:version"/></h2>
+        <h1 class="topbox">
+          <xsl:value-of select="tp:title" />
+        </h1>
+        <xsl:if test="tp:version">
+          <h2>Version <xsl:apply-templates select="tp:version"/></h2>
+        </xsl:if>
         <xsl:apply-templates select="tp:copyright"/>
         <xsl:apply-templates select="tp:license"/>
         <xsl:apply-templates select="tp:docstring"/>
