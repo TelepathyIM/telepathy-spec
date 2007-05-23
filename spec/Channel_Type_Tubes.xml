@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
           For each Stream tube offered, the connection managers exports a local
           UNIX socket to the participants of the tube.
-          When accepting a Stream tube, a new listenning local socket is
+          When accepting a Stream tube, a new listening local socket is
           created. Each time the client connects to this socket, the connection
           manager of the initiator of the tube opens a new connection to its
           local socket. Both sides can then use these pair of sockets to communicate
