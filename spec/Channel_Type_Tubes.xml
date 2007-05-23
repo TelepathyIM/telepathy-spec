@@ -360,6 +360,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
+    <signal name="StreamSocketNewConnection">
+      <tp:docstring>
+        Emitted on a Stream tube when a participant opens a new connection
+        to its socket.
+      </tp:docstring>
+      <arg name="id" type="u">
+        <tp:docstring>
+          The ID of the tube
+        </tp:docstring>
+      </arg>
+      <arg name="handle" type="u">
+        <tp:docstring>
+          The handle of the participant who opened the new connection
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 
 </node>
