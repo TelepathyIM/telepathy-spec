@@ -435,6 +435,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
+    <method name="RemoveMembersWithReason">
+      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          An array of contact handles to remove from the channel
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="message" type="s">
+        <tp:docstring>
+          A string message, which can be blank if desired
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="reason" type="u"
+           tp:type="Channel_Group_Change_Reason">
+        <tp:docstring>
+          A reason for the change: one of the values of
+          ChannelGroupChangeReason
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        As RemoveMembers, but a reason code may be provided where
+        appropriate. The reason code may be ignored if the underlying
+        protocol is unable to represent the given reason.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The provided reason code was invalid.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Interface for channels which have multiple members, and where the members
     of the channel can change during its lifetime. Your presence in the channel
