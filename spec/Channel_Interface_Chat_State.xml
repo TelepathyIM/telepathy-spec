@@ -86,9 +86,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>The Channel_Chat_State_Gone state is treated differently to other states:</p>
       <ul>
-        <li>It is not used for multi-user chats</li>
-        <li>It is implictly set when the channel is closed</li>
-        <li>It may not be explicitly set</li>
+        <li>It may not be used for multi-user chats</li>
+        <li>It may not be explicitly sent</li>
+        <li>It should be automatically sent when the channel is closed</li>
+        <li>It must not be sent to the peer if a channel is closed without being used</li>
+        <li>Receiving it must not cause a new channel to be opened</li>
       </ul>
 
       <p>The different states are defined by XEP-0085, but may be applied to any suitable protocol.</p>
