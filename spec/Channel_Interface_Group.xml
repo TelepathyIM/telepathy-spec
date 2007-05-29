@@ -223,7 +223,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Returns an array of structs containing handles representing contacts
         requesting channel membership and awaiting local approval with
-        AddMembers.  
+        AddMembers.
       </tp:docstring>
       <arg direction="out" type="a(uuus)">
         <tp:docstring>
@@ -240,7 +240,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               The reason for the request: one of the values of
               ChannelGroupChangeReason
             </li>
-            <li> 
+            <li>
               A string message containing the reason for the request if any (or
               blank if none)
             </li>
