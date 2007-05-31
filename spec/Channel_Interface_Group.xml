@@ -359,6 +359,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           shortly before this MembersChanged signal is emitted.
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Permission_Denied" value="10">
+        <tp:docstring>
+            The change is because there was no permission to contact the
+            requested handle.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
     <signal name="MembersChanged">
       <arg name="message" type="s">
