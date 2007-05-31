@@ -219,7 +219,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="SetStreamSending">
-      <arg name="playing" type="b"/>
+      <arg name="sending" type="b"/>
       <tp:docstring>
         Signal emitted when the connection manager wishes to set whether or not
         the stream sends to the remote end.
