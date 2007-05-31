@@ -155,7 +155,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           In rooms with channel specific handles (ie Channel_Specific_Handles
           flag is set), this flag indicates that none of the handle owners are
-          available, and the GetHandleOwners method will always return 0.
+          available, and that GetHandleOwners method will always return 0 for
+          channel members other than the self handle.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
