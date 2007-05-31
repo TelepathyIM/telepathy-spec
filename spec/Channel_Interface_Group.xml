@@ -151,6 +151,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             this flag).
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Handle_Owners_Not_Available" value="1024">
+        <tp:docstring>
+          In rooms with channel specific handles (ie Channel_Specific_Handles
+          flag is set), this flag indicates that none of the handle owners are
+          available, and the GetHandleOwners method will always return 0.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
     <method name="GetGroupFlags">
       <arg direction="out" type="u" tp:type="Channel_Group_Flags">
