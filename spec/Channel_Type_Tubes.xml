@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="StreamUnix" value="1">
+      <tp:enumvalue suffix="Stream_Unix" value="1">
         <tp:docstring>
           An ordered reliable transport, for transporting TCP traffic through
           Unix socket.
