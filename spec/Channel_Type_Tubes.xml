@@ -52,17 +52,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Stream" value="1">
+      <tp:enumvalue suffix="StreamUnix" value="1">
         <tp:docstring>
-          An ordered reliable transport, for transporting TCP traffic.
+          An ordered reliable transport, for transporting TCP traffic through
+          Unix socket.
 
-          For each Stream tube offered, the connection managers exports a local
-          UNIX socket to the participants of the tube.
-          When accepting a Stream tube, a new listening local socket is
+          For each Stream Unix tube offered, the connection managers exports a
+          local Unix socket to the participants of the tube.
+          When accepting a Stream Unix tube, a new listening local socket is
           created. Each time the client connects to this socket, the connection
           manager of the initiator of the tube opens a new connection to its
-          local socket. Both sides can then use these pair of sockets to communicate
-          together.
+          local socket. Both sides can then use these pair of sockets to
+          communicate together.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -118,7 +119,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg direction="in" name="service" type="s">
         <tp:docstring>
-          A string representing the service name that will be used over the tube.
+          A string representing the service name that will be used over the
+          tube.
           It should be a well-known D-Bus service name, of the form
           com.example.ServiceName.
         </tp:docstring>
@@ -149,20 +151,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <method name="OfferStreamTube">
+    <method name="OfferStreamUnixTube">
       <tp:docstring>
-        Offers a Stream tube exporting the local UNIX socket specified.
+        Offers a Stream Unix tube exporting the local socket specified.
       </tp:docstring>
       <arg direction="in" name="service" type="s">
         <tp:docstring>
-          A string representing the service name that will be used over the tube.
+          A string representing the service name that will be used over the
+          tube.
           It should be a well-known TCP service name as defined by
           http://www.dns-sd.org/ServiceTypes.html.
         </tp:docstring>
       </arg>
       <arg direction="in" name="socket" type="s">
         <tp:docstring>
-          The path of the local UNIX socket exported over the tube.
+          The path of the local Unix socket exported over the tube.
         </tp:docstring>
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
@@ -185,7 +188,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            Connection Manager doesn't support Stream tubes.
+            Connection Manager doesn't support Stream Unix tubes.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -365,9 +368,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
-    <method name="GetStreamSocketAddress">
+    <method name="GetStreamUnixSocketAddress">
       <tp:docstring>
-        For a Stream tube, obtain the path of the UNIX socket
+        For a Stream Unix tube, obtain the path of the Unix socket
         used to communicate over this tube.
       </tp:docstring>
       <arg direction="in" name="id" type="u">
@@ -377,13 +380,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="out" type="s">
         <tp:docstring>
-          A string containing the path of the UNIX socket.
+          A string containing the path of the Unix socket.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The tube is not a Stream tube.
+            The tube is not a Stream Unix tube.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
@@ -394,9 +397,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <signal name="StreamSocketNewConnection">
+    <signal name="StreamUnixSocketNewConnection">
       <tp:docstring>
-        Emitted on a Stream tube when a participant opens a new connection
+        Emitted on a Stream Unix tube when a participant opens a new connection
         to its socket.
       </tp:docstring>
       <arg name="id" type="u">
