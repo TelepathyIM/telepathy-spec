@@ -35,20 +35,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:enum name="Tube_Type">
       <tp:enumvalue suffix="DBus" value="0">
-        <tp:docstring>
-          An ordered reliable transport, for transporting D-Bus traffic.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>An ordered reliable transport, for transporting D-Bus
+            traffic.</p>
 
-          For each D-Bus tube, the connection manager listens on a D-Bus
-          server address, as detailed in the D-Bus specification. On this
-          address, it emulates a bus upon which each tube participant appears
-          as an endpoint.
+          <p>For each D-Bus tube, the connection manager listens on a D-Bus
+            server address, as detailed in the D-Bus specification. On this
+            address, it emulates a bus upon which each tube participant appears
+            as an endpoint.</p>
 
-          The objects and interfaces which are expected to exist on the
-          emulated bus depend on the well-known name; typically, either the
-          participant who initiated the tube is expected to export the same
-          objects/interfaces that would be exported by a service of that name
-          on a bus, or all participants are expected to export those
-          objects/interfaces.
+          <p>The objects and interfaces which are expected to exist on the
+            emulated bus depend on the well-known name; typically, either the
+            participant who initiated the tube is expected to export the same
+            objects/interfaces that would be exported by a service of that name
+            on a bus, or all participants are expected to export those
+            objects/interfaces.</p>
         </tp:docstring>
       </tp:enumvalue>
 
