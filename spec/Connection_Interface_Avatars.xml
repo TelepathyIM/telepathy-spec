@@ -82,17 +82,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg direction="out" type="q">
         <tp:docstring>
-          The maximum image width in pixels
+          The maximum image width in pixels, or 0 if there is no limit
         </tp:docstring>
       </arg>
       <arg direction="out" type="q">
         <tp:docstring>
-          The maximum image height in pixels
+          The maximum image height in pixels, or 0 if there is no limit
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
         <tp:docstring>
-          The maximum image size in bytes
+          The maximum image size in bytes, or 0 if there is no limit
         </tp:docstring>
       </arg>
       <tp:docstring>
