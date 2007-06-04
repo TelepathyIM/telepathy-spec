@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       has a service name, which is a string specifying the kind of
       communication that takes place over it, and a dictionary of arbitrary
       parameters. Tube parameters are commonly used for bootstrap information
-      such as usernames and passwords. Each tube is identified by a locally unique
-      identifier.
+      such as usernames and passwords. Each tube is identified by a locally
+      unique identifier.
 
       The Tubes channel type may be requested for handles of type
       HANDLE_TYPE_CONTACT and HANDLE_TYPE_ROOM.
