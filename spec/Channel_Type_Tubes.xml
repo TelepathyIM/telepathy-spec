@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
         <tp:docstring>
-          A dicionary of properties for the new tube.
+          A dictionary of properties for the new tube.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
@@ -171,7 +171,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
         <tp:docstring>
-          A dicionary of properties for the new tube.
+          A dictionary of properties for the new tube.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
