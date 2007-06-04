@@ -157,11 +157,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         Offers a Stream Unix tube exporting the local socket specified.
       </tp:docstring>
       <arg direction="in" name="service" type="s">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           A string representing the service name that will be used over the
           tube.
           It should be a well-known TCP service name as defined by
-          http://www.dns-sd.org/ServiceTypes.html.
+          <a href="http://www.dns-sd.org/ServiceTypes.html">
+            http://www.dns-sd.org/ServiceTypes.html</a>.
         </tp:docstring>
       </arg>
       <arg direction="in" name="socket" type="s">
