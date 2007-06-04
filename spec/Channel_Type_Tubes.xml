@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>An ordered reliable transport, for transporting TCP traffic
             through a Unix stream socket.</p>
 
-          <p>For each Stream Unix tube offered, the connection managers exports
+          <p>For each Stream Unix tube offered, the connection manager exports
             a local Unix socket to the participants of the tube.
             When accepting a Stream Unix tube, a new listening local socket is
             created. Each time the client connects to this socket, the
