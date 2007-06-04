@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             When accepting a Stream Unix tube, a new listening local socket is
             created. Each time the client connects to this socket, the
             connection manager of the initiator of the tube opens a new
-            connection to its local socket. Both sides can then use these pair
+            connection to its local socket. Both sides can then use this pair
             of sockets to communicate together.</p>
         </tp:docstring>
       </tp:enumvalue>
