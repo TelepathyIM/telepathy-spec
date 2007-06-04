@@ -146,7 +146,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            Connection Manager doesn't support D-Bus tubes.
+            The connection manager doesn't support D-Bus tubes.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -189,7 +189,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            Connection Manager doesn't support Stream Unix tubes.
+            The connection manager doesn't support Stream Unix tubes.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
