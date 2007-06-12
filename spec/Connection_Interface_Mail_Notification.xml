@@ -108,7 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </dl>
       </tp:docstring>
     </signal>
-    <signal name="UnreadMessageStatusChanged">
+    <signal name="UnreadMailStatusChanged">
       <arg direction="out" name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox
