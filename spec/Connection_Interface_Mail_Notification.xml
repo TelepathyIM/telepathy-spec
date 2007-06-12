@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The URL to use for displaying the message, or none if the user should
           be directed to the inbox previously emitted by
-          UnreadMessageStatusChanged
+          UnreadMailStatusChanged
         </tp:docstring>
       </arg>
       <arg name="cookies" type="a(ss)">
