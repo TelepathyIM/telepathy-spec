@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Mail_Notification"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
+  >
+  <tp:copyright> Copyright (C) 2007 Collabora Limited </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.MailNotification">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <method name="GetUnreadMailStatus">
+      <arg direction="out" name="count" type="u">
+        <tp:docstring>
+          Number of unread messages in the inbox
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="url" type="s">
+        <tp:docstring>
+          URL of the inbox
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="cookies" type="a(ss)">
+        <tp:docstring>
+          Array of name-value pair structs of the cookies to use when opening
+          the inbox, if any
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Get unread message status previously emitted by
+        UnreadMailStatusChanged.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+    <signal name="MailReceived">
+      <arg name="url" type="s">
+        <tp:docstring>
+          The URL to use for displaying the message, or none if the user should
+          be directed to the inbox previously emitted by
+          UnreadMessageStatusChanged
+        </tp:docstring>
+      </arg>
+      <arg name="cookies" type="a(ss)">
+        <tp:docstring>
+          Array of name-value pair structs of the cookies to use when displaying
+          the message, if any
+        </tp:docstring>
+      </arg>
+      <arg name="details" type="a{sv}">
+        <tp:docstring>
+          A mapping of well known string keys to variant values of details of
+          the message.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Emitted when a new e-mail message arrives to the inbox associated with
+        this connection. The notification may have detailed information in the
+        details hash table. For this information, the following well-known
+        string keys and types should be used where appropriate:
+
+        <dl>
+          <dt>s:sender-address</dt>
+          <dd>The email address of the sender.</dd>
+
+          <dt>s:sender-displayname</dt>
+          <dd>The display name of the sender.</dd>
+
+          <dt>s:to-addresses</dt>
+          <dd>A comma-separated string list of e-mail addresses of the recipients.</dd>
+
+          <dt>s:cc-addresses</dt>
+          <dd>A comma-separated string list of e-mail addresses of the carbon copy recipients.</dd>
+
+          <dt>s:subject</dt>
+          <dd>The subject of the message.</dd>
+
+          <dt>u:sent-timestamp</dt>
+          <dd>A UNIX timestamp of when the message has been sent.</dd>
+
+          <dt>u:received-timestamp</dt>
+          <dd>A UNIX timestamp of when the message has been received.</dd>
+
+          <dt>b:has-attachments</dt>
+          <dd>A boolean of whether this message has attachments.</dd>
+
+          <dt>s:priority</dt>
+          <dd>Priority of the message (1, 2, 3, low, medium, high, ...)</dd>
+
+          <dt>s:content-type</dt>
+          <dd>MIME type of the message contents.</dd>
+
+          <dt>s:body</dt>
+          <dd>The body of the message.</dd>
+        </dl>
+      </tp:docstring>
+    </signal>
+    <signal name="UnreadMessageStatusChanged">
+      <arg direction="out" name="count" type="u">
+        <tp:docstring>
+          Number of unread messages in the inbox
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="url" type="s">
+        <tp:docstring>
+          URL of the inbox
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="cookies" type="a(ss)">
+        <tp:docstring>
+          Array of name-value pair structs of the cookies to use when opening
+          the inbox, if any
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Emitted when the unread message status for the user's inbox changes or
+        the value has been initially received from the server.
+      </tp:docstring>
+    </signal>
+    <tp:docstring>
+      An interface to support receiving notifications about a e-mail account
+    associated with this connection. It is intended that the connection
+    manager has the means to provide necessary information (URL, cookies) so
+    that the client is able to open the user's inbox and possibly invidual
+    messages without having to re-authenticate.
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
+
