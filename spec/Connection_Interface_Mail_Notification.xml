@@ -109,17 +109,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="UnreadMailStatusChanged">
-      <arg direction="out" name="count" type="u">
+      <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox
         </tp:docstring>
       </arg>
-      <arg direction="out" name="url" type="s">
+      <arg name="url" type="s">
         <tp:docstring>
           URL of the inbox
         </tp:docstring>
       </arg>
-      <arg direction="out" name="cookies" type="a(ss)">
+      <arg name="cookies" type="a(ss)">
         <tp:docstring>
           Array of name-value pair structs of the cookies to use when opening
           the inbox, if any
