@@ -20,17 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.Tubes" tp:name-const="CHANNEL_TYPE_TUBES">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:docstring>
-      A "tube" is a mechanism for arbitrary data transfer. Currently, one kind
-      of data transfer is specified, namely that of D-Bus messages. Each tube
-      has a service name, which is a string specifying the kind of
-      communication that takes place over it, and a dictionary of arbitrary
-      parameters. Tube parameters are commonly used for bootstrap information
-      such as usernames and passwords. Each tube is identified by a locally
-      unique identifier.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A "tube" is a mechanism for arbitrary data transfer. Currently, one
+        kind of data transfer is specified, namely that of D-Bus messages.
+        Each tube has a service name, which is a string specifying the kind of
+        communication that takes place over it, and a dictionary of arbitrary
+        parameters. Tube parameters are commonly used for bootstrap
+        information such as usernames and passwords. Each tube is identified
+        by a locally unique identifier.</p>
 
-      The Tubes channel type may be requested for handles of type
-      HANDLE_TYPE_CONTACT and HANDLE_TYPE_ROOM.
+       <p>The Tubes channel type may be requested for handles of type
+         HANDLE_TYPE_CONTACT and HANDLE_TYPE_ROOM.</p>
     </tp:docstring>
 
     <tp:enum name="Tube_Type">
