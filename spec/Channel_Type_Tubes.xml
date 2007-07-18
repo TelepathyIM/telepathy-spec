@@ -432,19 +432,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
-    <method name="GetStreamUnixSocketAddress">
+    <method name="GetStreamTubeSocketAddress">
       <tp:docstring>
         For a stream tube, obtain the address of the socket used to
         communicate over this tube.
       </tp:docstring>
       <arg direction="in" name="id" type="u">
         <tp:docstring>
-          The ID of the tube to get the socket for.
+          The ID of the stream tube to get the socket for.
         </tp:docstring>
       </arg>
-      <arg direction="out" type="s">
+      <arg direction="out" name="address" type="uv">
         <tp:docstring>
-          A string containing the path of the Unix socket.
+          The address of the socket.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
