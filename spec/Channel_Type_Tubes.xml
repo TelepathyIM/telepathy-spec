@@ -62,9 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>A transport for ordered, reliable data transfer, similar to
             SOCK_STREAM sockets.</p>
 
-          <p>For each Stream Unix tube offered, the connection manager exports
-            a local Unix socket to the participants of the tube.
-            When accepting a Stream Unix tube, a new listening local socket is
+          <p>When accepting a Stream Unix tube, a new listening local socket is
             created. Each time the client connects to this socket, the
             connection manager of the initiator of the tube opens a new
             connection to its local socket. Both sides can then use this pair
