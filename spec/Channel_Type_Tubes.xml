@@ -22,19 +22,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A "tube" is a mechanism for arbitrary data transfer. Two types of
-        data transfer are specified: D-Bus messages, and streams of bytes.
-        Each tube has a service name, which is a string specifying the kind of
-        communication that takes place over it, and a dictionary of arbitrary
-        parameters. Tube parameters are commonly used for bootstrap
+        data transfer are currently specified: D-Bus messages, and streams of
+        bytes. Each tube has a service name, which is a string specifying the
+        kind of communication that takes place over it, and a dictionary of
+        arbitrary parameters. Tube parameters are commonly used for bootstrap
         information such as usernames and passwords. Each tube is identified
         by a locally unique identifier.</p>
 
        <p>The Tubes channel type may be requested for handles of type
          HANDLE_TYPE_CONTACT and HANDLE_TYPE_ROOM.</p>
 
-       <p>Stream tubes specify listening addresses using structs (uv), where u
-         is a member of Tube_Stream_Address_Type, and the v is dependent on
-         the type of address.</p>
+       <p>Stream tubes specify listening addresses using pairs of parameters
+         with signature 'u', 'v', where the integer 'u' is a member of
+         Tube_Address_Type and the v is dependent on the type of address.</p>
     </tp:docstring>
 
     <tp:enum name="Tube_Type">
@@ -89,25 +89,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="Tube_Stream_Address_Type">
+    <tp:enum name="Tube_Address_Type">
       <tp:enumvalue suffix="Unix" value="0">
         <tp:docstring>
-          A Unix socket. The address is a string containing the path of the
-          socket.
+          A Unix socket. The address is a byte-array, signature 'ay',
+          containing the path of the socket.
         </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Abstract_Unix" value="1">
         <tp:docstring>
-          An abstract Unix socket. The address is a string containing the path
-          of the socket. There is no leading null byte.
+          An abstract Unix socket. The address is a byte-array, signature 'ay',
+          containing the path of the socket without the leading null byte.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="TCP" value="2">
+      <tp:enumvalue suffix="IP" value="2">
         <tp:docstring>
-          A TCP socket. The address has signature (su), containing the
-          hostname and the port number respectively.
+          An IPv4 or IPv6 socket. The address is a struct with signature (sq)
+          in which the string is either a dotted-quad IPv4 address literal,
+          an IPv6 address literal in the conventional format recommended by
+          RFC2373, or a hostname, while the 16-bit unsigned integer is the port
+          number.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -153,7 +156,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
         <tp:docstring>
-          A dictionary of properties for the new tube.
+          A dictionary of properties for the new tube; the allowable keys,
+          types and values are defined by the service. Connection managers
+          must support the value being any primitive (non-container)
+          D-Bus type, or a byte array 'ay'.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
@@ -187,17 +193,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           tube.
           It should be a well-known TCP service name as defined by
           <a href="http://www.dns-sd.org/ServiceTypes.html">
-            http://www.dns-sd.org/ServiceTypes.html</a>.
+            http://www.dns-sd.org/ServiceTypes.html</a>, for instance
+          "rsync" or "daap".
         </tp:docstring>
       </arg>
       <arg direction="in" name="parameters" type="a{sv}">
-        <tp:docstring>
-          A dictionary of properties for the new tube.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary of properties for the new tube; the allowable keys,
+          types and values are defined by the service. Connection managers
+          must support the value being any primitive (non-container)
+          D-Bus type, or a byte array 'ay'.</p>
+          <p>These should usually be the same key-value pairs specified for
+          use in the DNS-SD TXT record for that service.</p>
         </tp:docstring>
       </arg>
-      <arg direction="in" name="address" type="(uv)">
+      <arg direction="in" name="address_type" type="u" tp:type="Tube_Address_Type">
         <tp:docstring>
-          The listening address of the local service.
+          The type of the listening address of the local service, as a member of
+          Tube_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address" type="v">
+        <tp:docstring>
+          The listening address of the local service, as indicated by the
+          address_type.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
@@ -292,7 +311,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube to accept.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="address_type" type="u">
+      <arg direction="in" name="address_type" type="u" tp:type="Tube_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
         </tp:docstring>
@@ -440,9 +459,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the stream tube to get the socket for.
         </tp:docstring>
       </arg>
-      <arg direction="out" name="address" type="uv">
+      <arg direction="out" name="address_type" type="u" tp:type="Tube_Address_Type">
         <tp:docstring>
-          The address of the socket.
+          The type of the listening address of the socket, as a member of
+          Tube_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The listening address of the socket, as indicated by the
+          address_type.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
@@ -469,7 +495,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube
         </tp:docstring>
       </arg>
-      <arg name="handle" type="u">
+      <arg name="handle" type="u" tp_type="Contact_Handle">
         <tp:docstring>
           The handle of the participant who opened the new connection
         </tp:docstring>
