@@ -27,11 +27,14 @@ TEST_GENERATED_FILES = \
 
 GENERATED_FILES = \
 	doc/spec.html \
+	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: $(XMLS) tools/doc-generator.xsl
 	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
+doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
+	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > $@
 test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
 	@install -d test/output
 	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > $@

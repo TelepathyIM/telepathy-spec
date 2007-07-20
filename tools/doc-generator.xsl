@@ -126,6 +126,7 @@
   </xsl:template>
 
   <xsl:template match="tp:enum">
+    <a name="{concat(../@name, concat('.', @name))}"></a>
     <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
     <xsl:apply-templates select="tp:docstring" />
     <dl xmlns="http://www.w3.org/1999/xhtml">
@@ -167,6 +168,7 @@
 
   <xsl:template match="method">
     <div xmlns="http://www.w3.org/1999/xhtml" class="method">
+      <a name="{concat(../@name, concat('.', @name))}"></a>
       <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> (
         <xsl:for-each xmlns="" select="arg[@direction='in']">
           <xsl:value-of select="@type"/>: <xsl:value-of select="@name"/>
@@ -263,6 +265,7 @@
 
   <xsl:template match="signal">
     <div xmlns="http://www.w3.org/1999/xhtml" class="signal">
+      <a name="{concat(../@name, concat('.', @name))}"></a>
       <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> ( 
         <xsl:for-each xmlns="" select="arg">
           <xsl:value-of select="@type"/>: <xsl:value-of select="@name"/>

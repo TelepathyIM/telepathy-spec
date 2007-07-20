@@ -37,4 +37,5 @@
 ^(\./)?introspect(/|$)
 ^(\./)?test/output(/|$)
 ^(\./)?doc/spec\.html$
+^(\./)?doc/telepathy-spec.devhelp2$
 ^(\./)?tmp(/|$)
