@@ -149,7 +149,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Request the avatar for a given contact.
+        Request the avatar for a given contact. Using this method in new
+        Telepathy clients is deprecated; use RequestAvatars instead.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
