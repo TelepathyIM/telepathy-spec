@@ -173,8 +173,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Request avatars for a number of contacts. The AvatarRetrieved signal
-        is emitted for each avatar retrieved. If retrieving an avatar fails,
-        the AvatarRetrieved signal is not emitted.
+        is emitted for each avatar retrieved. If retrieving an avatar fails
+        (for any reason, including the contact not having an avatar)
+        the AvatarRetrieved signal is not emitted for that contact.
       </tp:docstring>
     </method>
     <method name="SetAvatar">
