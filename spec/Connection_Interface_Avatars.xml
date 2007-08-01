@@ -177,6 +177,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         (for any reason, including the contact not having an avatar)
         the AvatarRetrieved signal is not emitted for that contact.
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+      </tp:possible-errors>
     </method>
     <method name="SetAvatar">
       <arg direction="in" name="avatar" type="ay">
