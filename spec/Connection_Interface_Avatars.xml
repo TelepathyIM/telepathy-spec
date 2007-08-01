@@ -173,12 +173,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Request avatars for a number of contacts. The AvatarRetrieved signal
-        is emitted for each avatar retrieved. If retrieving an avatar fails
-        (for any reason, including the contact not having an avatar)
-        the AvatarRetrieved signal is not emitted for that contact.
+        is emitted for each avatar retrieved. If the handles are valid but
+        retrieving an avatar fails (for any reason, including the contact not
+        having an avatar) the AvatarRetrieved signal is not emitted for that
+        contact.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
     <method name="SetAvatar">
