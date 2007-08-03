@@ -92,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:enum name="Tube_Address_Type">
       <tp:enumvalue suffix="Unix" value="0">
         <tp:docstring>
-          A Unix socket. The address is a byte-array, signature 'ay',
+          A Unix socket. The variant contains a byte-array, signature 'ay',
           containing the path of the socket.
         </tp:docstring>
       </tp:enumvalue>
