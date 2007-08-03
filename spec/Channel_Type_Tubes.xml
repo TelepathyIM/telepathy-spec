@@ -99,8 +99,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:enumvalue suffix="Abstract_Unix" value="1">
         <tp:docstring>
-          An abstract Unix socket. The address is a byte-array, signature 'ay',
-          containing the path of the socket without the leading null byte.
+          An abstract Unix socket. The variant contains a byte-array,
+          signature 'ay', containing the path of the socket including the
+          leading null byte.
         </tp:docstring>
       </tp:enumvalue>
 
