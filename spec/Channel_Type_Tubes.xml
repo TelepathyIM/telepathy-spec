@@ -107,18 +107,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:enumvalue suffix="IPv4" value="2">
         <tp:docstring>
-          An IPv4 socket. The variant contains a struct with signature (ayq)
-          in which the byte-array is 4 bytes long and contains the address
-          in network byte order, while the 16-bit unsigned integer is the port
-          number.
+          An IPv4 socket. The variant contains a struct with signature (sq)
+          in which the string is an IPv4 dotted-quad address literal
+          (and must not be a DNS name), while the 16-bit unsigned integer is
+          the port number.
         </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="IPv6" value="3">
         <tp:docstring>
-          An IPv6 socket. The variant contains a struct with signature (ayq)
-          in which the byte-array is 16 bytes long and contains the address,
-          while the 16-bit unsigned integer is the port number.
+          An IPv6 socket. The variant contains a struct with signature (sq)
+          in which the string is an IPv6 address literal as specified in
+          RFC2373 (and must not be a DNS name), while the 16-bit unsigned
+          integer is the port number.
         </tp:docstring>
       </tp:enumvalue>
 
