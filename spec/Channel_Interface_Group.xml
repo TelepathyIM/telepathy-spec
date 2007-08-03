@@ -392,7 +392,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>Note that from the added contacts' perspective, they have been
             in the group all along, and the contacts we indicate to be in
             the group (including the local user) have just rejoined
-            the group with reason Rejoined. Application protocols in Tubes
+            the group with reason Separated. Application protocols in Tubes
             should be prepared to cope with this situation.
           </p>
         </tp:docstring>
