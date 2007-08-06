@@ -74,3 +74,10 @@ clean:
 	rm -fr introspect
 	rm -rf test/output
 	rm -rf tmp
+
+maintainer-upload-snapshot: doc/spec.html
+	cp doc/spec.html tmp/spec.html
+	sed -i~ -e 's,\(<h2>Version [0-9][0-9.]*\)\(</h2>\),\1 (darcs snapshot '`date +%Y%m%d`')\2,' \
+		tmp/spec.html
+	scp tmp/spec.html \
+		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
