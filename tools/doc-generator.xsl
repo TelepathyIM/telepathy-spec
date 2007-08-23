@@ -126,8 +126,11 @@
   </xsl:template>
 
   <xsl:template match="tp:enum">
-    <a name="{concat(../@name, concat('.', @name))}"></a>
-    <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/></h3>
+    <h3 xmlns="http://www.w3.org/1999/xhtml">
+      <a name="{concat(../@name, concat('.', @name))}">
+        <xsl:value-of select="@name"/>
+      </a>
+    </h3>
     <xsl:apply-templates select="tp:docstring" />
     <dl xmlns="http://www.w3.org/1999/xhtml">
         <xsl:variable name="value-prefix">
@@ -168,8 +171,10 @@
 
   <xsl:template match="method">
     <div xmlns="http://www.w3.org/1999/xhtml" class="method">
-      <a name="{concat(../@name, concat('.', @name))}"></a>
-      <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> (
+      <h3 xmlns="http://www.w3.org/1999/xhtml">
+        <a name="{concat(../@name, concat('.', @name))}">
+          <xsl:value-of select="@name"/>
+        </a> (
         <xsl:for-each xmlns="" select="arg[@direction='in']">
           <xsl:value-of select="@type"/>: <xsl:value-of select="@name"/>
           <xsl:if test="position() != last()">, </xsl:if>
@@ -265,8 +270,10 @@
 
   <xsl:template match="signal">
     <div xmlns="http://www.w3.org/1999/xhtml" class="signal">
-      <a name="{concat(../@name, concat('.', @name))}"></a>
-      <h3 xmlns="http://www.w3.org/1999/xhtml"><xsl:value-of select="@name"/> ( 
+      <h3 xmlns="http://www.w3.org/1999/xhtml">
+        <a name="{concat(../@name, concat('.', @name))}">
+          <xsl:value-of select="@name"/>
+        </a> (
         <xsl:for-each xmlns="" select="arg">
           <xsl:value-of select="@type"/>: <xsl:value-of select="@name"/>
           <xsl:if test="position() != last()">, </xsl:if>
