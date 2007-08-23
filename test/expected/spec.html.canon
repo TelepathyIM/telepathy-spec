@@ -105,7 +105,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 Library General Public License for more details.</p><h2>Interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h1><a id="org.freedesktop.Telepathy.SpecAutoGenTest" name="org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest</h1>
       A test case for the spec processing.
-    <h2>Methods:</h2><div class="method"><h3>DoStuff (
+    <h2>Methods:</h2><div class="method"><h3><a id="org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff" name="org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff" shape="rect">DoStuff</a> (
         b: badger, a{sv}: mushroom, s: snake
         ) →
         a(uv)</h3><div class="docstring">
@@ -115,7 +115,7 @@ Library General Public License for more details.</p><h2>Interfaces</h2><ul><li><
       <code>a{sv}</code></dt><dd>Use of hallucinogenic mushrooms will lead to undefined behaviour.</dd><dt><code>snake</code> -
       <code>s</code></dt><dd>A snake, it's a snake.</dd></dl></div><div><h4>Returns</h4><dl><dt><code>a(uv)</code></dt><dd>Array of structs containing whatever seems appropriate.</dd></dl></div><div><h4>Possible errors</h4><dl><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</code></dt><dd>
       Raised whenever appropriate.
-    <em>(generic description)</em></dd><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</code></dt><dd>Raised if the badger or the snake eats the mushrooms</dd></dl></div></div><h2>Signals:</h2><div class="signal"><h3>StuffHappened ( 
+    <em>(generic description)</em></dd><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</code></dt><dd>Raised if the badger or the snake eats the mushrooms</dd></dl></div></div><h2>Signals:</h2><div class="signal"><h3><a id="org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened" name="org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened" shape="rect">StuffHappened</a> (
         ay: stoat, s: ferret, b: weasel
         )</h3><div class="docstring">
         Emitted when stuff happened.
@@ -131,7 +131,7 @@ Library General Public License for more details.</p><h2>Interfaces</h2><ul><li><
         </dd></dl></div></div><h2>Properties:</h2><dl><dt><code>wobbly</code> -
       <code>b</code></dt><dd>
         Whether or not this badger is wobbly.
-      </dd></dl><h2>Enumerated types:</h2><h3>Adjective</h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
+      </dd></dl><h2>Enumerated types:</h2><h3><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Adjective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
         </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage
