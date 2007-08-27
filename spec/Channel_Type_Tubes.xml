@@ -131,8 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The IP or Unix socket can be accessed by any local user (e.g.
           a Unix socket that accepts all local connections, or an IP socket
           listening on 127.0.0.1 (or ::1) or rejecting connections not from
-          that address). The associated variant must contain the Boolean value
-          FALSE.
+          that address). The associated variant must be ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Port" value="1">
@@ -166,7 +165,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             can determine by OS-specific means that the connecting process
             has the same user ID as the listening process.</p>
 
-          <p>The associated variant must contain the Boolean value FALSE.</p>
+          <p>The associated variant must be ignored.</p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
