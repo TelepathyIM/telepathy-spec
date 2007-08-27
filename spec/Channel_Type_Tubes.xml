@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
        <p>Stream tubes specify listening addresses using pairs of parameters
          with signature 'u', 'v', where the integer 'u' is a member of
-         Tube_Address_Type and the v is dependent on the type of address.</p>
+         Socket_Address_Type and the v is dependent on the type of address.</p>
     </tp:docstring>
 
     <tp:enum name="Tube_Type">
@@ -89,7 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="Tube_Address_Type">
+    <tp:enum name="Socket_Address_Type">
       <tp:enumvalue suffix="Unix" value="0">
         <tp:docstring>
           A Unix socket. The variant contains a byte-array, signature 'ay',
@@ -125,7 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:enum>
 
-    <tp:enum name="Tube_Access_Control">
+    <tp:enum name="Socket_Access_Control">
       <tp:enumvalue suffix="Localhost" value="0">
         <tp:docstring>
           The IP or Unix socket can be accessed by any local user (e.g.
@@ -175,8 +175,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         for stream tubes.</tp:docstring>
       <arg direction="out" type="a{uau}">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A mapping from address types (members of Tube_Address_Type) to
-          arrays of access-control type (members of Tube_Access_Control)
+          <p>A mapping from address types (members of Socket_Address_Type) to
+          arrays of access-control type (members of Socket_Access_Control)
           that the connection manager supports for stream tubes with that
           address type. For simplicity, if a CM supports offering a
           particular type of tube, it is assumed to support accepting it.</p>
@@ -185,11 +185,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
           <pre>
             {
-              Tube_Address_Type_IPv4:
-                [Tube_Access_Control_Localhost, Tube_Access_Control_Port,
-                 Tube_Access_Control_Netmask],
-              Tube_Address_Type_Unix:
-                [Tube_Access_Control_Localhost, Tube_Access_Control_Credentials]
+              Socket_Address_Type_IPv4:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Port,
+                 Socket_Access_Control_Netmask],
+              Socket_Address_Type_Unix:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
             }
           </pre>
 
@@ -291,10 +291,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           use in the DNS-SD TXT record for that service.</p>
         </tp:docstring>
       </arg>
-      <arg direction="in" name="address_type" type="u" tp:type="Tube_Address_Type">
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of the listening address of the local service, as a member of
-          Tube_Address_Type.
+          Socket_Address_Type.
         </tp:docstring>
       </arg>
       <arg direction="in" name="address" type="v">
@@ -303,7 +303,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           address_type.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control" type="u" tp:type="Tube_Access_Control">
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
           The access control the local service applies to the local socket,
           specified so the connection manager can behave appropriately
@@ -313,7 +313,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg direction="in" name="access_control_param" type="v">
         <tp:docstring>
           A parameter for the access control type, to be interpreted as
-          specified in the documentation for the Tube_Access_Control enum.
+          specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u">
@@ -414,12 +414,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube to accept.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="address_type" type="u" tp:type="Tube_Address_Type">
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control" type="u" tp:type="Tube_Access_Control">
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
           The type of access control the connection manager should apply to
           the socket.
@@ -428,7 +428,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg direction="in" name="access_control_param" type="v">
         <tp:docstring>
           A parameter for the access control type, to be interpreted as
-          specified in the documentation for the Tube_Access_Control enum.
+          specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
       <arg direction="out" name="address" type="v">
@@ -586,10 +586,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the stream tube to get the socket for.
         </tp:docstring>
       </arg>
-      <arg direction="out" name="address_type" type="u" tp:type="Tube_Address_Type">
+      <arg direction="out" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of the listening address of the socket, as a member of
-          Tube_Address_Type.
+          Socket_Address_Type.
         </tp:docstring>
       </arg>
       <arg direction="out" name="address" type="v">
