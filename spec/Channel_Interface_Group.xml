@@ -320,7 +320,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Offline" value="1">
         <tp:docstring>
-            The change is due to a user going offline.
+            The change is due to a user going offline. Also used when
+            user is already offline, but this wasn't known previously.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Kicked" value="2">
