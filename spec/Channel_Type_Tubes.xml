@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
          Socket_Address_Type and the v is dependent on the type of address.</p>
     </tp:docstring>
 
-    <tp:enum name="Tube_Type">
+    <tp:enum name="Tube_Type" type="u">
       <tp:enumvalue suffix="DBus" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An ordered reliable transport, for transporting D-Bus
@@ -86,7 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="Tube_State">
+    <tp:enum name="Tube_State" type="u">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>
           The tube is waiting to be accepted/closed locally.
@@ -104,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="Socket_Address_Type">
+    <tp:enum name="Socket_Address_Type" type="u">
       <tp:enumvalue suffix="Unix" value="0">
         <tp:docstring>
           A Unix socket. The variant contains a byte-array, signature 'ay',
@@ -140,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:enum>
 
-    <tp:enum name="Socket_Access_Control">
+    <tp:enum name="Socket_Access_Control" type="u">
       <tp:enumvalue suffix="Localhost" value="0">
         <tp:docstring>
           The IP or Unix socket can be accessed by any local user (e.g.
