@@ -37,6 +37,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
          Socket_Address_Type and the v is dependent on the type of address.</p>
     </tp:docstring>
 
+    <tp:simple-type name="Tube_ID" type="u">
+      <tp:docstring>An identifier for a tube. These are local to a Tubes
+        channel, and may not be assumed to be the same as the other
+        participants' idea of the tube identifier.</tp:docstring>
+    </tp:simple-type>
+
+    <tp:struct name="Tube_List_Entry" array-name="Tube_List">
+      <tp:docstring>A struct (tube ID, initiator handle, tube type,
+        service name, parameters, state) representing a tube, as returned
+        by ListTubes on the Tubes channel type.</tp:docstring>
+      <tp:member type="u" name="Tube_ID"/>
+      <tp:member type="u" tp:type="Contact_Handle" name="Initiator"/>
+      <tp:member type="u" tp:type="Tube_Type" name="Type"/>
+      <tp:member type="s" name="Service"/>
+      <tp:member type="a{sv}" tp:type="String_Variant_Map" name="Parameters"/>
+      <tp:member type="u" tp:type="Tube_State" name="State"/>
+    </tp:struct>
+
+    <tp:struct name="DBus_Tube_Member" array-name="DBus_Tube_Member_List">
+      <tp:docstring>A struct (handle, unique name) representing a participant
+        in a D-Bus tube, as returned by GetDBusNames on the Tubes channel
+        type, and as seen in the DBusNamesChanged signal.</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
+      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name"/>
+    </tp:struct>
+
     <tp:enum name="Tube_Type" type="u">
       <tp:enumvalue suffix="DBus" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -185,10 +211,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:mapping name="Supported_Socket_Map">
+      <tp:docstring>The supported socket address and access-control types
+        for tubes. See GetAvailableStreamTubeTypes.</tp:docstring>
+      <tp:member name="Address_Type" type="u" tp:type="Socket_Address_Type"/>
+      <tp:member name="Access_Control" type="au"
+        tp:type="Socket_Access_Control[]"/>
+    </tp:mapping>
+
     <method name="GetAvailableStreamTubeTypes">
       <tp:docstring>List the available address types and access-control types
         for stream tubes.</tp:docstring>
-      <arg direction="out" type="a{uau}">
+      <arg direction="out" type="a{uau}" tp:type="Supported_Socket_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A mapping from address types (members of Socket_Address_Type) to
           arrays of access-control type (members of Socket_Access_Control)
@@ -224,7 +258,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <method name="ListTubes">
-      <arg direction="out" type="a(uuusa{sv}u)">
+      <arg direction="out" type="a(uuusa{sv}u)" tp:type="Tube_List_Entry[]">
         <tp:docstring>
          Return an array of tuples, each representing a tube, with the
          following members:
@@ -253,7 +287,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           com.example.ServiceName.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="parameters" type="a{sv}">
+      <arg direction="in" name="parameters" type="a{sv}"
+        tp:type="String_Variant_Map">
         <tp:docstring>
           A dictionary of properties for the new tube; the allowable keys,
           types and values are defined by the service. Connection managers
@@ -296,7 +331,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           "rsync" or "daap".
         </tp:docstring>
       </arg>
-      <arg direction="in" name="parameters" type="a{sv}">
+      <arg direction="in" name="parameters" type="a{sv}"
+        tp:type="String_Variant_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary of properties for the new tube; the allowable keys,
           types and values are defined by the service. Connection managers
@@ -377,7 +413,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           A string representing the service that will be used over the tube.
         </tp:docstring>
       </arg>
-      <arg name="parameters" type="a{sv}">
+      <arg name="parameters" type="a{sv}" tp:type="String_Variant_Map">
         <tp:docstring>
           The new tube's properties.
         </tp:docstring>
@@ -550,7 +586,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube to get names for.
         </tp:docstring>
       </arg>
-      <arg direction="out" type="a(us)">
+      <arg direction="out" type="a(us)" tp:type="DBus_Tube_Member[]">
         <tp:docstring>
           An array of structures, each containing a contact handle and a D-Bus
           bus name.
@@ -580,7 +616,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The ID of the tube whose names have changed.
         </tp:docstring>
       </arg>
-      <arg name="added" type="a(us)">
+      <arg name="added" type="a(us)" tp:type="DBus_Tube_Member[]">
         <tp:docstring>
           Array of handles and D-Bus names of new participants.
         </tp:docstring>
