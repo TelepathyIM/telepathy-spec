@@ -21,6 +21,27 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection">
+
+    <tp:struct name="Channel_List_Entry" array-name="Channel_List">
+      <tp:docstring>A struct representing a channel, as returned by
+        ListChannels on the Connection interface.</tp:docstring>
+      <tp:member type="o" name="Channel">
+        <tp:docstring>The object path of the channel, which is on the
+          same bus name as the connection</tp:docstring>
+      </tp:member>
+      <tp:member type="s" tp:type="DBus_Interface" name="Channel_Type">
+        <tp:docstring>The channel's type</tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Handle_Type" name="Handle_Type">
+        <tp:docstring>The type of the handle that the channel communicates
+          with, or 0 if there is no associated handle</tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Handle" name="Handle">
+        <tp:docstring>The handle that the channel communicates with,
+          or 0 if there is no associated handle</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
     <method name="Connect">
       <tp:docstring>
         Request that the connection be established. This will be done
@@ -158,15 +179,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="ListChannels">
-      <arg direction="out" type="a(osuu)">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>An array of structs containing:</p>
-          <ul>
-            <li>a D-Bus object path for the channel object on this service</li>
-            <li>a D-Bus interface name representing the channel type</li>
-            <li>an integer representing the handle type this channel communicates with, or zero</li>
-            <li>an integer handle representing the contact, room or list this channel communicates with, or zero</li>
-          </ul>
+      <arg direction="out" type="a(osuu)" tp:type="Channel_List_Entry[]">
+        <tp:docstring>
+          An array of structs representing channels.
         </tp:docstring>
       </arg>
       <tp:docstring>
