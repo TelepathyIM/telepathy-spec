@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </ul>
         </tp:docstring>
       </arg>
-      <arg direction="in" name="remove" type="as" tp:type="Interface[]">
+      <arg direction="in" name="remove" type="as" tp:type="DBus_Interface[]">
         <tp:docstring>
           An array of D-Bus interface names of channel types to remove
         </tp:docstring>

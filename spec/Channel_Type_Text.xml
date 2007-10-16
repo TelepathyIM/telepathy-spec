@@ -84,7 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A numeric identifier for acknowledging the message
         </tp:docstring>
       </arg>
-      <arg name="timestamp" type="u" tp:type="Timestamp">
+      <arg name="timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           A Unix timestamp indicating when the message was received
         </tp:docstring>
@@ -180,7 +180,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           One of the values of ChannelTextSendError
         </tp:docstring>
       </arg>
-      <arg name="timestamp" type="u" tp:type="Timestamp">
+      <arg name="timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           The Unix timestamp indicating when the message was sent
         </tp:docstring>
@@ -201,7 +201,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="Sent">
-      <arg name="timestamp" type="u" tp:type="Timestamp">
+      <arg name="timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           Unix timestamp indicating when the message was sent
         </tp:docstring>
@@ -322,7 +322,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       if it isn't known.
       </tp:docstring>
     </tp:property>
-    <tp:property name="subject-timestamp" type="u" tp:type="Timestamp">
+    <tp:property name="subject-timestamp" type="u" tp:type="Unix_Timestamp">
       <tp:docstring>
       A unix timestamp indicating when the subject was last modified.
       </tp:docstring>

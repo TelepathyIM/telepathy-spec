@@ -98,7 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
     <signal name="NewConnection">
-      <arg name="bus_name" type="s">
+      <arg name="bus_name" type="s" tp:type="DBus_Bus_Name">
         <tp:docstring>
           The D-Bus service where the connection object can be found
         </tp:docstring>
