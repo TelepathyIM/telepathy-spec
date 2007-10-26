@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection">
 
-    <tp:struct name="Channel_List_Entry" array-name="Channel_List">
+    <tp:struct name="Channel_Info" array-name="Channel_Info_List">
       <tp:docstring>A struct representing a channel, as returned by
         ListChannels on the Connection interface.</tp:docstring>
       <tp:member type="o" name="Channel">
@@ -179,7 +179,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="ListChannels">
-      <arg direction="out" type="a(osuu)" tp:type="Channel_List_Entry[]">
+      <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]">
         <tp:docstring>
           An array of structs representing channels.
         </tp:docstring>
