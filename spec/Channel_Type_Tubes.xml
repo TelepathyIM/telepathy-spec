@@ -86,8 +86,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:struct>
 
-    <tp:struct name="Socket_Address_IPv4">
-      <tp:docstring>An IPv4 address and port.</tp:docstring>
+    <tp:struct name="Socket_Netmask_IPv4">
+      <tp:docstring>An IPv4 network or subnet.</tp:docstring>
       <tp:member type="s" name="Address">
         <tp:docstring>A dotted-quad IPv4 address literal: four ASCII decimal
           numbers, each between 0 and 255 inclusive, e.g.
@@ -100,8 +100,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:struct>
 
-    <tp:struct name="Socket_Address_IPv6">
-      <tp:docstring>An IPv6 address and port.</tp:docstring>
+    <tp:struct name="Socket_Netmask_IPv6">
+      <tp:docstring>An IPv6 network or subnet.</tp:docstring>
       <tp:member type="s" name="Address">
         <tp:docstring>An IPv6 address literal as specified by RFC2373
           section 2.2, e.g. "2001:DB8::8:800:200C:4171".</tp:docstring>
