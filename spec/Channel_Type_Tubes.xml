@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         participants' idea of the tube identifier.</tp:docstring>
     </tp:simple-type>
 
-    <tp:struct name="Tube_List_Entry" array-name="Tube_List">
+    <tp:struct name="Tube_Info" array-name="Tube_Info_List">
       <tp:docstring>A struct (tube ID, initiator handle, tube type,
         service name, parameters, state) representing a tube, as returned
         by ListTubes on the Tubes channel type.</tp:docstring>
@@ -258,7 +258,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <method name="ListTubes">
-      <arg direction="out" type="a(uuusa{sv}u)" tp:type="Tube_List_Entry[]">
+      <arg direction="out" type="a(uuusa{sv}u)" tp:type="Tube_Info[]">
         <tp:docstring>
          Return an array of tuples, each representing a tube, with the
          following members:
