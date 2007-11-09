@@ -95,6 +95,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
   <xsl:template match="interface">
     <h1 xmlns="http://www.w3.org/1999/xhtml"><a name="{@name}"></a><xsl:value-of select="@name"/></h1>
 
+    <xsl:if test="@tp:causes-havoc">
+      <p xmlns="http://www.w3.org/1999/xhtml" class="causes-havoc">
+        This interface is <xsl:value-of select="@tp:causes-havoc"/>
+        and is likely to cause havoc to your API/ABI if bindings are generated.
+        Don't include it in libraries that care about compatibility.
+      </p>
+    </xsl:if>
+
     <xsl:if test="tp:requires">
       <p>Implementations of this interface must also implement:</p>
       <ul xmlns="http://www.w3.org/1999/xhtml">
