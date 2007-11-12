@@ -113,7 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="HoldHandles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
-          An integer handle type (as defined in HandleType)
+          The type of handle to be held
         </tp:docstring>
       </arg>
       <arg direction="in" name="handles" type="au" tp:type="Handle[]">
@@ -151,7 +151,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="InspectHandles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
-          An integer handle type (as defined in HandleType)
+          The type of handle to be inspected
         </tp:docstring>
       </arg>
       <arg direction="in" name="handles" type="au" tp:type="Handle[]">
@@ -367,7 +367,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="RequestHandles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
-          An integer handle type (as defined in HandleType)
+          The type of handle required
         </tp:docstring>
       </arg>
       <arg direction="in" name="names" type="as">
