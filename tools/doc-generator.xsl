@@ -282,7 +282,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <dt>
         <a name="type-{@name}">
           <xsl:value-of select="@name"/>
-        </a>
+        </a> - <xsl:value-of select="@type"/>
       </dt>
       <dd>Defined by: <xsl:value-of select="@from"/></dd>
     </div>
