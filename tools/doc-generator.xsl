@@ -71,6 +71,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <h2 xmlns="http://www.w3.org/1999/xhtml">Mapping types</h2>
       <xsl:apply-templates select="tp:mapping"/>
     </xsl:if>
+
+    <xsl:if test="tp:external-type">
+      <h2 xmlns="http://www.w3.org/1999/xhtml">Types defined elsewhere</h2>
+      <dl><xsl:apply-templates select="tp:external-type"/></dl>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="tp:error">
@@ -254,7 +259,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
   <xsl:template match="tp:docstring" mode="in-index"/>
 
-  <xsl:template match="tp:simple-type | tp:enum | tp:flags" mode="in-index">
+  <xsl:template match="tp:simple-type | tp:enum | tp:flags | tp:external-type"
+    mode="in-index">
     - <xsl:value-of select="@type"/>
   </xsl:template>
 
@@ -268,6 +274,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
       <div class="docstring">
         <xsl:apply-templates select="tp:docstring"/>
       </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template match="tp:external-type">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="external-type">
+      <dt>
+        <a name="type-{@name}">
+          <xsl:value-of select="@name"/>
+        </a>
+      </dt>
+      <dd>Defined by: <xsl:value-of select="@from"/></dd>
     </div>
   </xsl:template>
 
@@ -402,6 +419,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         <xsl:when test="//tp:flags[@name=$tp-type]" />
         <xsl:when test="//tp:flags[concat(@name, '[]')=$tp-type]" />
         <xsl:when test="//tp:mapping[@name=$tp-type]" />
+        <xsl:when test="//tp:external-type[concat(@name, '[]')=$tp-type]" />
+        <xsl:when test="//tp:external-type[@name=$tp-type]" />
         <xsl:otherwise>
           <xsl:message terminate="yes">
             <xsl:text>ERR: Unable to find type '</xsl:text>
@@ -649,7 +668,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
         </ul>
         <h2>Index of types</h2>
         <ul>
-          <xsl:for-each select="//tp:simple-type | //tp:enum | //tp:flags | //tp:mapping | //tp:struct">
+          <xsl:for-each select="//tp:simple-type | //tp:enum | //tp:flags | //tp:mapping | //tp:struct | //tp:external-type">
             <xsl:sort select="@name"/>
             <li>
               <code>
