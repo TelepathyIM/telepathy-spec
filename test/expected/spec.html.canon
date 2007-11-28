@@ -131,11 +131,11 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
         </dd></dl></div></div><h2>Properties:</h2><dl><dt><code>wobbly</code> -
       <code>b</code></dt><dd>
         Whether or not this badger is wobbly.
-      </dd></dl><h2>Enumerated types:</h2><h3><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Adjective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
+      </dd></dl><h2>Enumerated types:</h2><h3><a id="type-Adjective" name="type-Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
         </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage
-        </dd></dl><h2>Sets of flags:</h2><h3>Test_Flags</h3>A set of flags<dl><dt><code>Test_LowBit = 1</code></dt><dd>
+        </dd></dl><h2>Sets of flags:</h2><h3 xmlns=""><a id="type-Test_Flags" name="type-Test_Flags" shape="rect">Test_Flags</a></h3>A set of flags<dl><dt><code>Test_LowBit = 1</code></dt><dd>
           A bit
         </dd><dt><code>Test_HighBit = 128</code></dt><dd>
           Another bit
@@ -151,4 +151,6 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
 
   
   
-</body></html>
+<h1>Index</h1><h2>Index of interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h2>Index of types</h2><ul><li><code><a href="#type-Adjective" shape="rect">Adjective</a></code>
+    - </li><li><code><a href="#type-Test_Flags" shape="rect">Test_Flags</a></code>
+    - </li></ul></body></html>
