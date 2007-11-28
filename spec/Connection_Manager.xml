@@ -28,19 +28,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           chosen from the following well-known values:</p>
 
         <ul>
-          <li>aim - AOL Instant Messenger</li>
+          <li>aim - AOL Instant Messenger (OSCAR or TOC)</li>
           <li>gadugadu - Gadu-Gadu</li>
           <li>groupwise - Novell Groupwise</li>
-          <li>icq - ICQ</li>
-          <li>irc - Internet Relay Chat</li>
-          <li>jabber - Jabber (XMPP)</li>
-          <li>local-xmpp - Link-local XMPP (XEP-0174, Bonjour, Salut)</li>
-          <li>msn - MSN Messenger</li>
+          <li>icq - ICQ (OSCAR or TOC)</li>
+          <li>irc - Internet Relay Chat (RFC 1459, 2810-2813)</li>
+          <li>jabber - XMPP (RFC 3920, 3921) or Jabber</li>
+          <li>local-xmpp - Link-local XMPP (XEP-0174) (Bonjour, Salut)</li>
+          <li>msn - MSNP (Windows Live Messenger)</li>
+          <li>myspace - MySpaceIM</li>
           <li>napster - Napster</li>
+          <li>qq - Tencent QQ</li>
           <li>silc - SILC</li>
           <li>sip - Session Initiation Protocol (SIP)</li>
           <li>trepia - Trepia</li>
-          <li>yahoo - Yahoo! Messenger</li>
+          <li>yahoo - YMSG (Yahoo! Messenger)</li>
           <li>zephyr - Zephyr</li>
         </ul>
       </tp:docstring>
