@@ -22,8 +22,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:simple-type name="Protocol" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>An instant messaging protocol. Where possible, this SHOULD be
-        chosen from the following well-known values:</p>
+        <p>An instant messaging protocol. It must consist only of ASCII
+          letters, digits and hyphen/minus signs (U+002D "-"), and must start
+          with a letter. Where possible, this SHOULD be
+          chosen from the following well-known values:</p>
+
         <ul>
           <li>aim - AOL Instant Messenger</li>
           <li>gadugadu - Gadu-Gadu</li>
