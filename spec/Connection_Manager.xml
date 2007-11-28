@@ -174,17 +174,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Connect method.</p>
 
         <p>In order to allow Connection objects to be discovered by new clients,
-        the object path and bus name must be of the form:</p>
-        <pre>/org/freedesktop/Telepathy/Connection/manager/proto/account</pre>
-        <p>And:</p>
-        <pre>org.freedesktop.Telepathy.Connection.manager.proto.account</pre>
-        <p>Where manager and proto are the identifiers for this manager and this
-        protocol, and account is a series of elements formed such that any
-        valid distinct connection instance on this protocol has a distinct
-        name. This might be formed by including the server name followed by the
-        user name, or on protocols where connecting multiple times is
-        permissable, a per-connection identifier is also necessary to ensure
-        uniqueness.</p>
+        the object path and well-known bus name must be of the form
+        <code>/org/freedesktop/Telepathy/Connection/cmname/proto/account</code>
+        and
+        <code>org.freedesktop.Telepathy.Connection.cmname.proto.account</code>
+        where:</p>
+
+        <ul>
+          <li><em>cmname</em> is the same connection manager name that appears
+            in the connection manager's object path and well-known bus name</li>
+          <li><em>proto</em> is the protocol name as seen in
+            ListProtocols, but with "-" replaced with "_" to get a valid
+            object path/bus name</li>
+          <li><em>account</em> SHOULD be a series of elements formed such that
+            any valid distinct connection instance on this protocol has a
+            distinct name; this might be formed by including the server name
+            followed by the user name (escaped via some suitable mechanism like
+            telepathy-glib's tp_escape_as_identifier() function to preserve
+            uniqueness), or on protocols where connecting multiple times
+            is permissable, a per-connection identifier might be necessary to
+            ensure uniqueness</li>
+        </ul>
+
+        <p>Clients MUST NOT attempt to parse the <em>account</em> part of the
+          bus name. Connection managers MAY use any unique string for this
+          part.</p>
 
         <p>The parameters which must and may be provided in the parameters
         dictionary can be discovered with the GetParameters method. These
