@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>aim - AOL Instant Messenger (OSCAR or TOC)</li>
           <li>gadugadu - Gadu-Gadu</li>
           <li>groupwise - Novell Groupwise</li>
-          <li>icq - ICQ (OSCAR or TOC)</li>
+          <li>icq - ICQ (OSCAR)</li>
           <li>irc - Internet Relay Chat (RFC 1459, 2810-2813)</li>
           <li>jabber - XMPP (RFC 3920, 3921) or Jabber</li>
           <li>local-xmpp - Link-local XMPP (XEP-0174) (Bonjour, Salut)</li>
