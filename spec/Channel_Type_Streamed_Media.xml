@@ -197,7 +197,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel's Group interface. If so, that handle will be added to the
           remote-pending set when an indication is received that the remote
           contact has actually been contacted (e.g. when the 180 Ringing
-          status is received in SIP).<p>
+          status is received in SIP).</p>
 
         <p>If a call to a contact who is not yet in remote-pending fails
           (the first indication we have that they've been contacted
