@@ -52,22 +52,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
-          Neither the local user and the remote member are on hold.
+          Neither the local user nor a remote member have placed the call on
+          hold.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Local" value="1">
         <tp:docstring>
-          The local user has put the remote member on hold.
+          The local user has put the call on hold.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Remote" value="2">
         <tp:docstring>
-          The local user has been put on hold by a remote member.
+          The call has been put on hold by a remote member.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Both" value="3">
         <tp:docstring>
-          The local user and a remote member have placed each other
+          The local user and a remote member have both placed the call
           on hold.
         </tp:docstring>
       </tp:enumvalue>
