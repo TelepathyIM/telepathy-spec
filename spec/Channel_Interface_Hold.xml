@@ -47,6 +47,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:docstring>
 
     <tp:enum name="Channel_Hold_State" type="u">
+      <tp:docstring>
+        The possible hold states of a call.
+      </tp:docstring>
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
           Neither the local user and the remote member are on hold.
