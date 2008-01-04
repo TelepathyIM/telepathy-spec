@@ -77,8 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="GetHoldState">
       <arg direction="out" type="u" tp:type="Channel_Hold_State">
         <tp:docstring>
-          The channel's current hold state as one of the values of
-          ChannelHoldState
+          The channel's current hold state
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -93,11 +92,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted to indicate that the hold state (as defined in GetHoldState
-        above) has changed for this channel. This may occur as
-        a consequence of you requesting a change with RequestHold, or the
-        state changing as a result of a request from a remote member
-        or another process.
+        Emitted to indicate that the hold state has changed for this channel.
+        This may occur as a consequence of you requesting a change with
+        RequestHold, or the state changing as a result of a request from a
+        remote member or another process.
       </tp:docstring>
     </signal>
 
