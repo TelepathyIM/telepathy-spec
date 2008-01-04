@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <node name="/Channel_Type_Streamed_Media" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
-  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2005-2008 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005-2008 Nokia Corporation </tp:copyright>
   <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
     <p>This library is free software; you can redistribute it and/or
@@ -191,6 +191,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         them), the StreamDirectionChanged signal will be emitted with the
         MEDIA_STREAM_PENDING_REMOTE_SEND flag set, and the signal emitted again
         with the flag cleared when the remote end has replied.</p>
+
+        <p>As of version 0.17.1, it is valid, and indeed recommended, to
+          use a handle which is neither a current nor pending member in this
+          channel's Group interface. If so, that handle will be added to the
+          remote-pending set when an indication is received that the remote
+          contact has actually been contacted (e.g. when the 180 Ringing
+          status is received in SIP).<p>
+
+        <p>If a call to a contact who is not yet in remote-pending fails
+          (the first indication we have that they've been contacted
+          at all is that the call has failed), then the connection manager
+          must emit MembersChanged twice - once to add the contact to
+          remote-pending, then immediately a second time to remove them again
+          with an appropriate reason code (e.g. Busy).</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
