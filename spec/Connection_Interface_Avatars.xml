@@ -269,9 +269,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     a changed token implies the contact's avatar has changed, but the strings
     should otherwise be considered opaque by clients.</p>
 
-    <p>A client should use GetAvatarTokens to request the tokens for the avatars
-    of all the contacts it is interested in when it connects. The avatars can
-    then be retreived using RequestAvatar for the corresponding contact.
+    <p>A client should use GetKnownAvatarTokens to request the tokens for the
+    avatars of all the contacts it is interested in when it connects. The
+    avatars can then be requested using RequestAvatars for the contacts.
     Clients should bind to the AvatarChanged signal and request a new copy of
     the avatar when a contacts' avatar token changes. Clients should cache the
     token and data of each contact's avatar between connections, to avoid
