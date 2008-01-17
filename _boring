@@ -39,3 +39,4 @@
 ^(\./)?doc/spec\.html$
 ^(\./)?doc/telepathy-spec.devhelp2$
 ^(\./)?tmp(/|$)
+^(\./)?telepathy-spec-[.0-9]+(\.tar\.gz)?$
