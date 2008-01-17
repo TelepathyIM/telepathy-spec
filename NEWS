@@ -1,0 +1,34 @@
+This file contains the same edited highlights as the announcement emails.
+For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
+checkouts.
+
+telepathy-spec 0.17.1
+=====================
+
+* Add Channel.Interface.CallMerging for manipulating PBX, GSM, etc. multi-party
+  conversations
+* Channel.Interface.Hold is now per channel, not per member
+* Document .manager files
+* Document exactly how to form Connection and ConnectionManager bus names and
+  object paths
+* Connection manager names must now match [A-Za-z][A-Za-z0-9_]*
+* Protocol names must now match [A-Za-z][A-Za-z0-9-]*
+* More well-known protocol names (qq, sametime, myspace)
+* Clarifications include:
+  - avatars interface
+  - Group.AddMembers() must not complain if you re-add people who're already
+    present
+  - clients shouldn't call MediaSessionHandler.Ready until they've connected
+    to NewStreamHandler
+* Tools and code generation:
+  - spec format improvements to support other specs that reference this one
+  - added ls-interfaces.xsl
+
+telepathy-spec 0.17.0
+=====================
+
+* Add a "Busy" presence type, to align Telepathy with Mission Control
+* Annotate unstable/deprecated interfaces likely to cause havoc in APIs
+* Annotate types of just about everything
+* Name structure etc. types for easy reference
+* Add ChannelHandler, which is used by Nokia's Mission Control
