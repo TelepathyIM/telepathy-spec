@@ -81,3 +81,17 @@ maintainer-upload-snapshot: doc/spec.html
 		tmp/spec.html
 	scp tmp/spec.html \
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
+
+dist:
+	set -e ;\
+	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
+	distname="telepathy-spec-$$version";\
+	darcs dist -d dist;\
+	tar -zxf- -C tmp < dist.tar.gz;\
+	darcs changes > tmp/dist/ChangeLog;\
+	rm -rf tmp/"$$distname";\
+	mv tmp/dist tmp/"$$distname";\
+	tar -zcvf- -C tmp "$$distname" > tmp/"$$distname".tar.gz;\
+	mv tmp/"$$distname".tar.gz .;\
+	rm -rf tmp/"$$distname";\
+	rm -f dist.tar.gz
