@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when the avatar for a contact has been updated, or first
         discovered on this connection. If the token differs from the token
         associated with the client's cached avatar for this contact, the new
-        avatar should be requested with RequestAvatar.
+        avatar should be requested with RequestAvatars.
       </tp:docstring>
     </signal>
     <signal name="AvatarRetrieved">
