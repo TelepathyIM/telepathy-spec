@@ -88,6 +88,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           providing the default.
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Secret" value="8">
+        <tp:docstring>
+          This parameter should be considered private or secret; for instance,
+          clients should store it in a "password safe" like gnome-keyring or
+          kwallet, omit it from debug logs, and use a text input widget that
+          hides the value of the parameter. For compatibility with connection
+          managers older than this specification, clients should also treat
+          any parameter whose name contains "password" as though it had this
+          flag.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
     <method name="GetParameters">
       <arg direction="in" name="proto" type="s" tp:type="Protocol">
@@ -321,10 +332,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       .manager file contains a key <code>param-<em>p</em></code> with a value
       consisting of a D-Bus signature (a single complete type), optionally
       followed by a space and a space-separated list of flags. The supported
-      flags are <code>required</code>, corresponding to
-      Conn_Mgr_Param_Flag_Required, and <code>register</code>, corresponding
-      to Conn_Mgr_Param_Flag_Register.
-    </p>
+      flags are:</p>
+
+    <ul>
+      <li><code>required</code>, corresponding to
+        Conn_Mgr_Param_Flag_Required</li>
+      <li><code>register</code>, corresponding
+        to Conn_Mgr_Param_Flag_Register</li>
+      <li><code>secret</code>, corresponding
+        to Conn_Mgr_Param_Flag_Secret</li>
+    </li>
 
     <p>The group may also contain a key <code>default-<em>p</em></code>
       whose value is a string form of the default value for the parameter.
