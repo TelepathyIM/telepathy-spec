@@ -324,7 +324,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <code>telepathy/managers/<em>cmname</em>.manager</code> that can be
       read without error. This file has the same syntax as a
       <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html">freedesktop.org Desktop Entry file</a>.</p>
-    
+
+    <p>Clients must still support connection managers for which no
+      <code>.manager</code> file can be found, which they can do by activating
+      the connection manager and calling its methods; the
+      <code>.manager</code> file is merely an optimization. Connection managers
+      whose list of protocols can change at any time (for instance, via
+      a plugin architecture) should not install a <code>.manager</code>
+      file.</p>
+
     <p>For each protocol name <em>proto</em> that would be returned by
       ListProtocols, the .manager file contains a group
       headed <code>[Protocol <em>proto</em>]</code>. For each parameter
