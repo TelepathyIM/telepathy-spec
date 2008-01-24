@@ -89,14 +89,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Secret" value="8">
-        <tp:docstring>
-          This parameter should be considered private or secret; for instance,
-          clients should store it in a "password safe" like gnome-keyring or
-          kwallet, omit it from debug logs, and use a text input widget that
-          hides the value of the parameter. For compatibility with connection
-          managers older than this specification, clients should also treat
-          any parameter whose name contains "password" as though it had this
-          flag.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>This parameter should be considered private or secret; for
+            instance, clients should store it in a "password safe" like
+            gnome-keyring or kwallet, omit it from debug logs, and use a
+            text input widget that hides the value of the parameter.</p>
+
+          <p>(Clients that support older connection managers may also treat
+            any parameter whose name contains "password" as though it had this
+            flag.)</p>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
