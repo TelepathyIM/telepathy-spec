@@ -20,6 +20,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.ConnectionManager">
 
+    <tp:simple-type name="Connection_Manager_Name" type="s">
+      <tp:docstring>
+        The name of a connection manager, found in its well-known
+        bus name and object path. This must be a non-empty string of
+        ASCII letters, digits and underscores, starting with a letter.
+        This is typically the name of the executable with any "telepathy-"
+        prefix removed, and any hyphen/minus signs replaced by
+        underscores.
+      </tp:docstring>
+    </tp:simple-type>
+
     <tp:simple-type name="Protocol" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>An instant messaging protocol. It must consist only of ASCII
@@ -283,10 +294,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       processes are intended to be started by D-Bus service activation.</p>
 
     <p>For service discovery, each Telepathy connection manager must have
-      a <em>connection manager name</em>, which is a non-empty string of
-      ASCII letters, digits and underscores, starting with a letter. This
-      is typically the name of the executable with any "telepathy-" prefix
-      removed.</p>
+      a <em>connection manager name</em> (see Connection_Manager_Name for
+      syntax).</p>
 
     <p>The connection manager must then provide a well-known bus name of
       <code>org.freedesktop.Telepathy.ConnectionManager.<em>cmname</em></code>
