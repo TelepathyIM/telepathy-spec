@@ -350,7 +350,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to Conn_Mgr_Param_Flag_Register</li>
       <li><code>secret</code>, corresponding
         to Conn_Mgr_Param_Flag_Secret</li>
-    </li>
+    </ul>
 
     <p>The group may also contain a key <code>default-<em>p</em></code>
       whose value is a string form of the default value for the parameter.
