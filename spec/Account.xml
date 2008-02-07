@@ -368,6 +368,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         The reason for the last change to Connection_Status.
         The account manager is expected to set this by observing signals
         from the Connection.
+
+        <tp:rationale>
+          If you weren't watching the Connection at the time it failed,
+          you can't tell why - unless the AM can tell you. This is part
+          of GetCurrentStatus in NMC 4.x.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
