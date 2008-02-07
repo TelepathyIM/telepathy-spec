@@ -52,6 +52,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         A list of the valid (complete, usable) accounts. Change notification
         is via AccountValidityChanged.
+
+        <tp:rationale>
+          This split between valid and invalid accounts makes it easy to
+          ignore the invalid ones. The only things that should be manipulating
+          invalid accounts are account-editing UIs, which might be able to
+          rescue them.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
@@ -65,6 +72,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="AccountRemoved">
       <tp:docstring>
         The given account has been removed.
+
+        <tp:rationale>
+          This is effectively change notification for the valid and invalid
+          accounts lists.
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Account" type="o">
@@ -79,6 +91,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         The validity of the given account has changed. New accounts are
         also indicated by this signal, as an account validity change
         (usually to True) on an account that did not previously exist.
+
+        <tp:rationale>
+          This is effectively change notification for the valid and invalid
+          accounts lists.
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Account" type="o">
