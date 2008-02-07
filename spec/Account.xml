@@ -107,6 +107,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="Removed">
       <tp:docstring>
         This account has been removed.
+
+        <tp:rationale>
+          This is redundant with AccountRemoved, but it's still worth having,
+          to avoid having to bind to AccountManager.AccountRemoved to tell
+          you whether your Account is valid - ideally, an account-editing UI
+          should only care about a single Account.
+        </tp:rationale>
       </tp:docstring>
     </signal>
 
