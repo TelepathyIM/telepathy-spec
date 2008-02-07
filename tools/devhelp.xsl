@@ -75,4 +75,5 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       link="{concat('spec.html#type-', @name)}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
+
 </xsl:stylesheet>
