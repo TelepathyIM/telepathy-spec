@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   <xsl:template match="//tp:enum | //tp:simple-type | //tp:mapping | //tp:flags">
     <xsl:text>  </xsl:text>
     <keyword type="enum" xmlns="http://www.devhelp.net/book" name="{@name}"
-      link="{concat('spec.html#', concat(../@name, concat('.', @name)))}" />
+      link="{concat('spec.html#type-', @name)}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 </xsl:stylesheet>
