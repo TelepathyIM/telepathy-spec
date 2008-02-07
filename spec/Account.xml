@@ -196,6 +196,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           name for them in our contact list (a "handle" or "pet name" as
           described in XEP-0165 and its references). The terminology change
           from alias to nickname here is a step in that direction.
+          This corresponds to NMC 4.x mc_account_get_alias.
         </tp:rationale>
       </tp:docstring>
     </property>
