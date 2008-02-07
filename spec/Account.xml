@@ -344,7 +344,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="Connection_Status" type="u" access="read">
+    <property name="ConnectionStatus" type="u" access="read">
       <tp:docstring>
         If the Connection property is non-empty, the status of that connection.
         If the Connection property is the empty string, this property may
@@ -363,7 +363,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="Connection_Status_Reason" type="u" access="read">
+    <property name="ConnectionStatusReason" type="u" access="read">
       <tp:docstring>
         The reason for the last change to Connection_Status.
         The account manager is expected to set this by observing signals
