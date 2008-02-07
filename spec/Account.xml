@@ -170,6 +170,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         complete and usable. If false, user action is required to make it
         usable, and it will never attempt to connect (for instance, this
         might be caused by the absence of a required parameter).
+
+        <tp:rationale>
+          For connection managers with a plugin architecture, like
+          telepathy-haze, we have little or no control over the parameters
+          offered; for platforms with package management, we have little or
+          no control over the CMs offered. NMC 4.x would just pretend the
+          account didn't exist in these circumstances, but silent data loss
+          is bad, and UIs with CM-specific knowledge (or a user filling in
+          newly-required parameters) might be able to rescue a broken account.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
