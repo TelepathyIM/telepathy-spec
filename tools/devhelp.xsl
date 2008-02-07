@@ -48,6 +48,13 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="//property">
+    <xsl:text>  </xsl:text>
+    <keyword type="function" xmlns="http://www.devhelp.net/book" name="{@name}"
+      link="{concat('spec.html#', concat(../@name, concat('.', @name)))}" />
+    <xsl:text>&#x000a;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="//method">
     <xsl:text>  </xsl:text>
     <keyword type="function" xmlns="http://www.devhelp.net/book" name="{@name}"
