@@ -31,6 +31,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         AccountManager interface.</p>
     </tp:docstring>
 
+    <!-- Missing functionality compared with NMC 4.x:
+    * look up accounts by conditions (can be done client-side, less
+      efficiently, so not a blocker)
+    * global presence/... changes (can be done client-side, less efficiently -
+      we should add this)
+    * count used channels (what's this for?)
+    * get "average" status (not well-defined, UIs can do this)
+    * request channels (out of scope: Channel Dispatcher will do this)
+    * register filters (completely out of scope: Channel Dispatcher again)
+    -->
+
     <property name="Interfaces" type="as" access="read">
       <tp:docstring>
         A list of the interfaces provided by the account manager object.
