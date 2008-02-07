@@ -154,6 +154,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         or the empty string to not specify an icon. If the icon is set to
         an empty string, the account manager or any client MAY derive a
         default icon, for instance from the protocol.
+
+        <tp:rationale>
+          This approximately corresponds to mc_profile_get_icon_name
+          (or possibly mc_profile_get_branding_icon_name) in NMC 4.x.
+          It's accessed via the account rather than the profile because
+          we no longer have profiles as a core concept.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
