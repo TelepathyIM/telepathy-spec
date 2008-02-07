@@ -71,6 +71,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:docstring>
 
+    <!-- Missing functionality compared with NMC 4.x account + profile,
+    apart from as listed above:
+
+    * vCard field, + default profile for each vCard field
+      (meaningless with presets, probably)
+    * "normalized name" (normalized handle?)
+    * branding icon (what's this?)
+    * configuration UI (not our problem - perhaps the UI should special-case
+      by cm,protocol,preset tuples?)
+    * default account domain (somewhat meaningless in general; UI can
+      hard-code this for all we care)
+    * SPLIT_ACCOUNT (pseudo-capability)
+
+    Missing functionality compared with Decibel accounts:
+
+    * we don't really know, they take arbitrary key/value pairs...
+      but display name, protocol, presence/message, current, autoreconnect
+      are the ones given special status by the source, and we have all of them
+    -->
+
     <property name="Interfaces" type="as" access="read">
       <tp:docstring>
         A list of the extra interfaces provided by this account.
