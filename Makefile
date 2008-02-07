@@ -6,7 +6,7 @@ XML_LINEBREAKS = perl -pe 's/>/>\n/g'
 DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
 
 XMLS = $(wildcard spec/*.xml)
-INTERFACE_XMLS = $(filter spec/[CMP]%.xml,$(XMLS))
+INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
 INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
 ASYNC_INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/async/%.xml)
 CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
