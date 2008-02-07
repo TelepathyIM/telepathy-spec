@@ -1,0 +1,307 @@
+<?xml version="1.0" ?>
+<node name="/Account"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Account">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An Account object encapsulates the necessary details to make a
+        Telepathy connection.</p>
+
+      <p>Accounts are uniquely identified by object path. The object path
+        of an Account MUST take the form
+        <code>/org/freedesktop/Telepathy/Account/<em>cm</em>/<em>proto</em>/<em>acct</em></code>, where:</p>
+
+      <ul>
+        <li><em>cm</em> is the same connection manager name that appears
+          in the connection manager's well-known bus name and object path</li>
+        <li><em>proto</em> is the protocol name as seen in
+          ConnectionManager.ListProtocols, but with "-" replaced with "_"
+          (i.e. the same as in the object-path of a Connection)</li>
+        <li><em>acct</em> is an arbitrary string of ASCII letters, digits
+          and underscores, starting with a letter or underscore, which
+          uniquely identifies this account</li>
+        <li>Clients SHOULD parse the object path to discover the
+          connection manager and protocol</li>
+        <li>Clients MUST NOT attempt to parse <em>acct</em></li>
+        <li>Clients MUST NOT assume that <em>acct</em> matches
+          the connection-specific part of a Connection's object-path and
+          bus name</li>
+        <li>The account manager SHOULD choose <em>acct</em> such that if
+          an account is deleted, its object path will be re-used if and only
+          if the new account is in some sense "the same"
+          (incorporating the 'account' parameter in some way is
+          recommended)</li>
+      </ul>
+
+      <tp:rationale>
+        <p>This API avoids specifying the "profiles" used in Mission Control
+          4.x or the "presets" that have been proposed to replace them. An
+          optional interface will be provided for AM implementations
+          that want to provide presets.</p>
+
+        <p>There is deliberately no functionality here for opening channels;
+          we intend to provide that in the channel dispatcher.</p>
+
+        <p>Other missing features which would be better in their own
+          interfaces:</p>
+
+        <ul>
+          <li>saved server capabilities</li>
+          <li>account conditions</li>
+          <li>account grouping</li>
+        </ul>
+      </tp:rationale>
+
+    </tp:docstring>
+
+    <property name="Interfaces" type="as" access="read">
+      <tp:docstring>
+        A list of the extra interfaces provided by this account.
+      </tp:docstring>
+    </property>
+
+    <method name="Remove">
+      <tp:docstring>Delete the account.</tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="Removed">
+      <tp:docstring>
+        This account has been removed.
+      </tp:docstring>
+    </signal>
+
+    <signal name="AccountPropertyChanged">
+      <tp:docstring>
+        The values of one or more properties on this interface (that do not
+        specify that this signal does not apply to them) may have changed.
+        This does not cover properties of other interfaces, which must
+        provide their own change notification if appropriate.
+      </tp:docstring>
+
+      <arg name="Properties" type="a{sv}">
+        <tp:docstring>
+          A map from property names in this namespace (e.g. Nickname) to
+          values. Properties whose values have not changed SHOULD be
+          omitted, but this need not be done.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="DisplayName" type="s" access="readwrite">
+      <tp:docstring>
+        The user-visible name of this account. This SHOULD be chosen by the
+        user at account creation time. The account creation user interface
+        is responsible for setting a reasonable default value in the user's
+        locale; something like "Jabber (bob@example.com)" would be sensible.
+      </tp:docstring>
+    </property>
+
+    <property name="Icon" type="s" access="readwrite">
+      <tp:docstring>
+        The name of an icon in the system's icon theme, such as "im-msn",
+        or the empty string to not specify an icon. If the icon is set to
+        an empty string, the account manager or any client MAY derive a
+        default icon, for instance from the protocol.
+      </tp:docstring>
+    </property>
+
+    <property name="Valid" type="b" access="read">
+      <tp:docstring>
+        If true, this account is considered by the account manager to be
+        complete and usable. If false, user action is required to make it
+        usable, and it will never attempt to connect (for instance, this
+        might be caused by the absence of a required parameter).
+      </tp:docstring>
+    </property>
+
+    <property name="Nickname" type="as" access="readwrite">
+      <tp:docstring>
+        The nickname to set on this account for display to other contacts,
+        as set by the user. When the account becomes connected, the
+        account manager SHOULD set this as the user's alias using SetAliases
+        if appropriate.
+
+        <tp:rationale>
+          In a later specification revision, we plan to separate the concepts
+          of a contact's nickname as set by themselves, and the local
+          name for them in our contact list (a "handle" or "pet name" as
+          described in XEP-0165 and its references). The terminology change
+          from alias to nickname here is a step in that direction.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <property name="Avatar" type="(ays)" access="readwrite">
+      <tp:docstring>
+        The avatar to set on this account for display to other contacts,
+        represented as a structure containing the bytes of the avatar,
+        and the MIME type as a string; may be set to an empty byte-array and
+        an empty string to indicate no avatar. When the account becomes
+        connected, the account manager SHOULD set this avatar using SetAvatar
+        if appropriate.
+      </tp:docstring>
+    </property>
+
+    <property name="Parameters" type="a{sv}" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A map from connection manager parameter names (as in the
+          ConnectionManager interface) to their values. This property includes
+          only those parameters that are stored for this account, and SHOULD
+          only include those parameters that the user has explicitly set.
+          To get the complete arguments to RequestConnection, clients must
+          also look at the PresetParameters property.
+        </p>
+        <p>This property cannot be altered using Set() - use
+          UpdateParameters instead.</p>
+      </tp:docstring>
+    </property>
+
+    <method name="UpdateParameters">
+      <tp:docstring>
+        Change the value of the Parameters property.
+      </tp:docstring>
+
+      <arg name="Set" type="a{sv}" direction="in">
+        <tp:docstring>
+          A mapping from parameter names to their values. These parameters
+          should be stored for future use.
+        </tp:docstring>
+      </arg>
+      <arg name="Unset" type="as" direction="in">
+        <tp:docstring>
+          A list of the names of parameters to be removed from the set of
+          stored values, allowing the default values to be used.
+          If the given parameters were not, in fact, stored, or even if they
+          do not exist at all, the account manager MUST accept this without
+          error.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
+    </method>
+
+    <property name="PresetParameters" type="a{sv}" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A map from connection manager parameter names (see the
+          ConnectionManager interface) to pre-set values. This MAY include
+          parameters that have a default in the connection manager, and
+          parameters that have a default due to some implementation-specific
+          account preset or profile mechanism.</p>
+
+        <p>Clients can obtain the mapping that would be passed to
+          RequestConnection by taking a copy of the PresetParameters
+          property, then merging in the values from the Parameters property,
+          overwriting existing values if necessary. Clients SHOULD NOT
+          call RequestConnection directly, though.</p>
+
+        <p>It is implementation-specific whether changes to the underlying
+          information for this property will immediately cause an
+          AccountPropertyChanged signal; implementations MAY refrain from
+          re-reading the information source until required to do so for
+          some other reason.</p>
+
+        <tp:rationale>
+          This provides just enough of the functionality of presets that
+          a lowest-common-denominator client can interact correctly with a
+          preset-capable account manager.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <property name="DesiredPresence" type="(uss)" access="readwrite">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The presence status that this account should have if it is brought
+          online, as a structure containing a Connection_Presence_Type,
+          the connection-manager-specific string identifier of the presence
+          status, and the status message. The value might for instance be
+          (Connection_Presence_Type_Away, "brb", "Back soon!").</p>
+
+        <p>Setting this property while the account is connected SHOULD
+          cause the account manager to change the account's status
+          immediately.</p>
+
+        <p>Setting this property while the account is not connected
+          SHOULD NOT cause an attempt to connect.</p>
+
+        <p>The Connection_Presence_Type in the structure SHOULD NOT
+          be Offline or Unset.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="ConnectAutomatically" type="b" access="readwrite">
+      <tp:docstring>
+        If true, the account manager SHOULD attempt to put this account
+        online with the DesiredPresence whenever possible (in the base
+        Account interface this is deliberately left vague). If false,
+        it MUST NOT put the account online automatically in response to,
+        for instance, connectivity changes, but SHOULD still put the account
+        online with the DesiredPresence if requested by the user (for instance,
+        if the user tries to start a conversation using this account).
+      </tp:docstring>
+    </property>
+
+    <property name="Connection" type="(suu)" access="read">
+      <tp:docstring>
+        Either the well-known bus name of the connection to this account,
+        or the empty string if there is no connection.
+      </tp:docstring>
+    </property>
+
+    <property name="Connection_Status" type="u" access="read">
+      <tp:docstring>
+        If the Connection property is non-empty, the status of that connection.
+        If the Connection property is the empty string, this property may
+        either be Disconnected (indicating that the account manager is not
+        attempting to bring it online), or Connecting (indicating that the
+        account manager is attempting to connect).
+        The account manager is expected to set this by observing signals
+        from the Connection.
+      </tp:docstring>
+    </property>
+
+    <property name="Connection_Status_Reason" type="u" access="read">
+      <tp:docstring>
+        The reason for the last change to Connection_Status.
+        The account manager is expected to set this by observing signals
+        from the Connection.
+      </tp:docstring>
+    </property>
+
+    <property name="CurrentPresence" type="(uss)" access="read">
+      <tp:docstring>
+        The actual presence, in the same format as DesiredPresence.
+        If the connection is not online, this should be
+        (Connection_Presence_Type_Offline, "", "").
+        If the connection is online but does not support the Presence
+        interface, this should be (Connection_Presence_Type_Unset, "", "").
+        The account manager is expected to set this by observing signals
+        from the Connection.
+      </tp:docstring>
+    </property>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
