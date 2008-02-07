@@ -227,6 +227,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </p>
         <p>This property cannot be altered using Set() - use
           UpdateParameters instead.</p>
+
+        <tp:rationale>
+          This avoids NMC being tied to gconf as a matter of API.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
