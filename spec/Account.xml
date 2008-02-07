@@ -236,7 +236,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="UpdateParameters">
       <tp:docstring>
-        Change the value of the Parameters property.
+        Change the value of the Parameters property. Any changes will not
+        take effect until the next time the account is disconnected and
+        reconnected.
+
+        <tp:rationale>
+          Migration tools that twiddle the settings of all accounts shouldn't
+          cause an automatic disconnect and reconnect, probably. I could be
+          persuaded otherwise, though. Or we could add a Reconnect() method.
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Set" type="a{sv}" direction="in">
