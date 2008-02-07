@@ -21,10 +21,17 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
-  exclude-result-prefixes="tp">
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  exclude-result-prefixes="tp html">
   <!--Don't move the declaration of the HTML namespace up here - XMLNSs
   don't work ideally in the presence of two things that want to use the
   absence of a prefix, sadly. -->
+
+  <xsl:template match="html:*" mode="html">
+    <xsl:copy>
+      <xsl:apply-templates mode="html"/>
+    </xsl:copy>
+  </xsl:template>
 
   <xsl:template match="*" mode="identity">
     <xsl:copy>
@@ -33,7 +40,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:docstring">
-    <xsl:apply-templates select="node()" mode="identity"/>
+    <xsl:apply-templates select="text() | html:*" mode="html"/>
+    <xsl:apply-templates select="tp:rationale"/>
+  </xsl:template>
+
+  <xsl:template match="tp:rationale">
+    <div class="rationale">
+      <xsl:apply-templates select="node()" mode="html"/>
+    </div>
   </xsl:template>
 
   <xsl:template match="tp:errors">
@@ -90,7 +104,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
   <xsl:template match="/tp:spec/tp:license">
     <div xmlns="http://www.w3.org/1999/xhtml" class="license">
-      <xsl:apply-templates mode="identity"/>
+      <xsl:apply-templates mode="html"/>
     </div>
   </xsl:template>
 
