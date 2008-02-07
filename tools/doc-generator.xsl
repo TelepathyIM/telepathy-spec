@@ -689,13 +689,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
             float: right;
             font-style: italic;
           }
-          .method {
+          .method, .signal, .property {
             margin-left: 1em;
             margin-right: 4em;
           }
-          .signal {
-            margin-left: 1em;
-            margin-right: 4em;
+          .rationale {
+            font-style: italic;
+            border-left: 0.25em solid #808080;
+            padding-left: 0.5em;
           }
 
         </style>
