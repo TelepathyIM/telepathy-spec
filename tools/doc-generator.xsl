@@ -155,13 +155,32 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
     <xsl:choose>
       <xsl:when test="tp:property">
-        <h2 xmlns="http://www.w3.org/1999/xhtml">Properties:</h2>
+        <h2 xmlns="http://www.w3.org/1999/xhtml">Telepathy Properties:</h2>
+        <p xmlns="http://www.w3.org/1999/xhtml">Accessed using the
+          <a href="#org.freedesktop.Telepathy.Properties">Telepathy
+            Properties</a> interface.</p>
         <dl xmlns="http://www.w3.org/1999/xhtml">
           <xsl:apply-templates select="tp:property"/>
         </dl>
       </xsl:when>
       <xsl:otherwise>
-        <p xmlns="http://www.w3.org/1999/xhtml">Interface has no properties.</p>
+        <p xmlns="http://www.w3.org/1999/xhtml">Interface has no Telepathy
+          properties.</p>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <xsl:choose>
+      <xsl:when test="property">
+        <h2 xmlns="http://www.w3.org/1999/xhtml">D-Bus core Properties:</h2>
+        <p xmlns="http://www.w3.org/1999/xhtml">Accessed using the
+          org.freedesktop.DBus.Properties interface.</p>
+        <dl xmlns="http://www.w3.org/1999/xhtml">
+          <xsl:apply-templates select="property"/>
+        </dl>
+      </xsl:when>
+      <xsl:otherwise>
+        <p xmlns="http://www.w3.org/1999/xhtml">Interface has no D-Bus core
+          properties.</p>
       </xsl:otherwise>
     </xsl:choose>
 
@@ -231,6 +250,36 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
         </xsl:choose>
       </xsl:for-each>
     </dl>
+  </xsl:template>
+
+  <xsl:template match="property">
+    <dt xmlns="http://www.w3.org/1999/xhtml">
+      <a name="{concat(../@name, '.', @name)}">
+        <code><xsl:value-of select="@name"/></code>
+      </a>
+      <xsl:text> - </xsl:text>
+      <code><xsl:value-of select="@type"/></code>
+      <xsl:call-template name="parenthesized-tp-type"/>
+      <xsl:text>, </xsl:text>
+      <xsl:choose>
+        <xsl:when test="@access = 'read'">
+          <xsl:text>read-only</xsl:text>
+        </xsl:when>
+        <xsl:when test="@access = 'write'">
+          <xsl:text>write-only</xsl:text>
+        </xsl:when>
+        <xsl:when test="@access = 'readwrite'">
+          <xsl:text>read/write</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>access: </xsl:text>
+          <code><xsl:value-of select="@access"/></code>
+        </xsl:otherwise>
+      </xsl:choose>
+    </dt>
+    <dd xmlns="http://www.w3.org/1999/xhtml">
+      <xsl:apply-templates select="tp:docstring"/>
+    </dd>
   </xsl:template>
 
   <xsl:template match="tp:property">
