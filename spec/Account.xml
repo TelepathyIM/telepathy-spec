@@ -353,6 +353,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         account manager is attempting to connect).
         The account manager is expected to set this by observing signals
         from the Connection.
+
+        <tp:rationale>
+          If the AM is doing some sort of backoff/delay on reconnection
+          attempts, the account's status is conceptually "Connecting" even
+          though there is no Connection. This vaguely corresponds to
+          GetCurrentStatus in NMC 4.x.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
