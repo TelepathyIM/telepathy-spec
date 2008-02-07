@@ -140,6 +140,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         user at account creation time. The account creation user interface
         is responsible for setting a reasonable default value in the user's
         locale; something like "Jabber (bob@example.com)" would be sensible.
+
+        <tp:rationale>
+          This approximately corresponds to "display name" in NMC 4.x and
+          Decibel.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
