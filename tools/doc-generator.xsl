@@ -2,7 +2,7 @@
 The master copy of this stylesheet is in the Telepathy spec repository -
 please make any changes there.
 
-Copyright (C) 2006, 2007 Collabora Limited
+Copyright (C) 2006-2008 Collabora Limited
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
