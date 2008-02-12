@@ -88,13 +88,14 @@
             float: right;
             font-style: italic;
           }
-          .method {
+          .method, .signal, .property {
             margin-left: 1em;
             margin-right: 4em;
           }
-          .signal {
-            margin-left: 1em;
-            margin-right: 4em;
+          .rationale {
+            font-style: italic;
+            border-left: 0.25em solid #808080;
+            padding-left: 0.5em;
           }
 
         </style></head><body><h1 class="topbox">telepathy-spec tools test case</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
@@ -128,10 +129,19 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
         </dd><dt><code>weasel</code> -
       <code>b</code></dt><dd>
           <em>Mustela nivalis</em> (or compatible)
-        </dd></dl></div></div><h2>Properties:</h2><dl><dt><code>wobbly</code> -
+        </dd></dl></div></div><h2>Telepathy Properties:</h2><p>Accessed using the
+          <a href="#org.freedesktop.Telepathy.Properties" shape="rect">Telepathy
+            Properties</a> interface.</p><dl><dt><code>wobbly</code> -
       <code>b</code></dt><dd>
         Whether or not this badger is wobbly.
-      </dd></dl><h2>Enumerated types:</h2><h3><a id="type-Adjective" name="type-Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
+      </dd></dl><h2>D-Bus core Properties:</h2><p>Accessed using the
+          org.freedesktop.DBus.Properties interface.</p><dl><dt><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" shape="rect"><code>Introspective</code></a> - <code>b</code>, read-only</dt><dd>
+        True if the badger is introspective.
+
+        
+      <div class="rationale">
+          Goths can be mistaken for badgers in poor lighting conditions.
+        </div></dd></dl><h2>Enumerated types:</h2><h3><a id="type-Adjective" name="type-Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
         </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage

@@ -18,5 +18,7 @@
 <arg name="weasel" type="b">
 </arg>
 </signal>
+<property access="read" name="Introspective" type="b">
+</property>
 </interface>
 </node>
