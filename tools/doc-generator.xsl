@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:rationale">
-    <div class="rationale">
+    <div xmlns="http://www.w3.org/1999/xhtml" class="rationale">
       <xsl:apply-templates select="node()" mode="html"/>
     </div>
   </xsl:template>
