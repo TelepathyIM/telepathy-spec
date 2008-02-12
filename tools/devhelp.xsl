@@ -35,44 +35,56 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
         <xsl:text>&#x000a;</xsl:text>
         <xsl:apply-templates select="//method" />
         <xsl:apply-templates select="//signal" />
+        <xsl:apply-templates select="//property" />
         <xsl:apply-templates select="//tp:enum" />
+        <xsl:apply-templates select="//tp:simple-type" />
+        <xsl:apply-templates select="//tp:mapping" />
+        <xsl:apply-templates select="//tp:flags" />
+        <xsl:apply-templates select="//tp:struct" />
       </functions>
       <xsl:text>&#x000a;</xsl:text>
     </book>
   </xsl:template>
 
-  <xsl:template match="//interface">
+  <xsl:template match="interface">
     <xsl:text>  </xsl:text>
     <sub xmlns="http://www.devhelp.net/book" name="{@name}"
       link="{concat('spec.html#', @name)}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="//property">
+  <xsl:template match="method">
     <xsl:text>  </xsl:text>
     <keyword type="function" xmlns="http://www.devhelp.net/book" name="{@name}"
-      link="{concat('spec.html#', concat(../@name, concat('.', @name)))}" />
+      link="spec.html#{../@name}.{@name}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="//method">
-    <xsl:text>  </xsl:text>
-    <keyword type="function" xmlns="http://www.devhelp.net/book" name="{@name}"
-      link="{concat('spec.html#', concat(../@name, concat('.', @name)))}" />
-    <xsl:text>&#x000a;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="//signal">
+  <xsl:template match="signal | property">
     <xsl:text>  </xsl:text>
     <keyword type="" xmlns="http://www.devhelp.net/book" name="{@name}"
-      link="{concat('spec.html#', concat(../@name, concat('.', @name)))}" />
+      link="spec.html#{../@name}.{@name}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="//tp:enum | //tp:simple-type | //tp:mapping | //tp:flags">
+  <xsl:template match="tp:simple-type">
+    <xsl:text>  </xsl:text>
+    <keyword type="typedef" xmlns="http://www.devhelp.net/book" name="{@name}"
+      link="spec.html#type-{@name}" />
+    <xsl:text>&#x000a;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="tp:enum | tp:flags">
     <xsl:text>  </xsl:text>
     <keyword type="enum" xmlns="http://www.devhelp.net/book" name="{@name}"
-      link="{concat('spec.html#type-', @name)}" />
+      link="spec.html#type-{@name}" />
+    <xsl:text>&#x000a;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="tp:mapping | tp:struct">
+    <xsl:text>  </xsl:text>
+    <keyword type="struct" xmlns="http://www.devhelp.net/book" name="{@name}"
+      link="spec.html#type-{@name}" />
     <xsl:text>&#x000a;</xsl:text>
   </xsl:template>
 
