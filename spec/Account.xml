@@ -421,11 +421,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="RequestedPresence" type="(uss)" access="readwrite"
       tp:type="Account_Presence">
-      <tp:docstring>
-        The requested presence for this account. When this is changed, the
-        account manager should attempt to manipulate the connection manager
-        to make CurrentPresence match RequestedPresence as closely as possible.
-        It should not be saved to any sort of persistent storage.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The requested presence for this account. When this is changed, the
+          account manager should attempt to manipulate the connection manager
+          to make CurrentPresence match RequestedPresence as closely as
+          possible. It should not be saved to any sort of persistent
+          storage.</p>
+
+        <p>When the account manager automatically connects an account,
+          it must signal this by setting the RequestedPresence to the same
+          thing as the AutomaticPresence.</p>
 
         <tp:rationale>
           This corresponds to e.g. GetPresence and GetPresenceMessage
