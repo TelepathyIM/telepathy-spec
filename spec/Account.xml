@@ -63,6 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           interfaces:</p>
 
         <ul>
+          <li>dynamic parameter-providing (aka provisioning)</li>
           <li>saved server capabilities</li>
           <li>account conditions</li>
           <li>account grouping</li>
@@ -268,34 +269,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
       </tp:possible-errors>
     </method>
-
-    <property name="PresetParameters" type="a{sv}" access="read">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A map from connection manager parameter names (see the
-          ConnectionManager interface) to pre-set values. This MAY include
-          parameters that have a default in the connection manager, and
-          parameters that have a default due to some implementation-specific
-          account preset or profile mechanism.</p>
-
-        <p>Clients can obtain the mapping that would be passed to
-          RequestConnection by taking a copy of the PresetParameters
-          property, then merging in the values from the Parameters property,
-          overwriting existing values if necessary. Clients SHOULD NOT
-          call RequestConnection directly, though.</p>
-
-        <p>It is implementation-specific whether changes to the underlying
-          information for this property will immediately cause an
-          AccountPropertyChanged signal; implementations MAY refrain from
-          re-reading the information source until required to do so for
-          some other reason.</p>
-
-        <tp:rationale>
-          This provides just enough of the functionality of presets that
-          a lowest-common-denominator client can interact correctly with a
-          preset-capable account manager.
-        </tp:rationale>
-      </tp:docstring>
-    </property>
 
     <tp:struct name="Account_Presence">
       <tp:docstring>
