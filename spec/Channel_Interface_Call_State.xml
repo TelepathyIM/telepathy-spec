@@ -75,6 +75,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:mapping>
 
     <tp:flags name="Channel_Call_State_Flags" type="u">
+      <tp:docstring>
+        A set of flags representing call states.
+
+        <tp:rationale>
+          While there is currently only one flag, more flags are likely to be
+          added later, for example for call-waiting.
+        </tp:rationale>
+      </tp:docstring>
+
       <tp:flag suffix="Ringing" value="1">
         <tp:docstring>
           The contact has been alerted about the call but has not responded
