@@ -192,12 +192,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         MEDIA_STREAM_PENDING_REMOTE_SEND flag set, and the signal emitted again
         with the flag cleared when the remote end has replied.</p>
 
-        <p>As of version 0.17.1, it is valid, and indeed recommended, to
-          use a handle which is neither a current nor pending member in this
-          channel's Group interface. If so, that handle will be added to the
-          remote-pending set when an indication is received that the remote
-          contact has actually been contacted (e.g. when the 180 Ringing
-          status is received in SIP).</p>
+        <p>As of version 0.17.2, it is valid to use a handle which is neither
+          a current nor pending member in this channel's Group interface. If
+          so, that handle will be added to the remote-pending set only when
+          an attempt has actually been made to contact them. For further
+          call-state notification, use the CallState interface, if
+          supported.</p>
 
         <p>If a call to a contact who is not yet in remote-pending fails
           (the first indication we have that they've been contacted
