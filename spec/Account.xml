@@ -418,7 +418,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           in NMC 4.x.
         </tp:rationale>
       </tp:docstring>
-    </method>
+    </property>
 
   </interface>
 </node>
