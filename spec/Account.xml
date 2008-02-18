@@ -76,14 +76,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     apart from as listed above:
 
     * vCard field, + default profile for each vCard field
-      (meaningless with presets, probably)
+      (vCard field is per protocol and should be chosen by the
+      Telepathy <-> address-book bridge?; default profile is now
+      meaningless)
+
     * "normalized name" (normalized handle?)
-    * branding icon (what's this?)
-    * configuration UI (not our problem - perhaps the UI should special-case
+
+    * branding icon (what's this and how does it differ from the icon?)
+
+    * configuration UI (not our problem - perhaps the UI could special-case
       by cm,protocol,preset tuples?)
-    * default account domain (somewhat meaningless in general; UI can
-      hard-code this for all we care)
-    * SPLIT_ACCOUNT (pseudo-capability)
+
+    * default account domain (somewhat meaningless in general; specialized
+      account config UI can hard-code this)
+
+    * SPLIT_ACCOUNT (pseudo-capability - this is a property of the protocol,
+      not the profile, and in any case only the account config UI cares)
 
     Missing functionality compared with Decibel accounts:
 
