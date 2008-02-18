@@ -22,7 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring>
       An interface for streamed media channels that can indicate call
-      progress or call states.
+      progress or call states. The presence of this interface is no guarantee
+      that call states will actually be signalled (for instance, SIP
+      implementations are not guaranteed to generate status 180 Ringing,
+      so a call can be accepted without the Ringing flag ever having been set).
     </tp:docstring>
 
     <method name="GetCallStates">
