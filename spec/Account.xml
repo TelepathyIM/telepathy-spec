@@ -231,8 +231,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           ConnectionManager interface) to their values. This property includes
           only those parameters that are stored for this account, and SHOULD
           only include those parameters that the user has explicitly set.
-          To get the complete arguments to RequestConnection, clients must
-          also look at the PresetParameters property.
         </p>
         <p>This property cannot be altered using Set() - use
           UpdateParameters instead.</p>
