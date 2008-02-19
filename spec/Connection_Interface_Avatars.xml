@@ -156,8 +156,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         can be persisted across connections, and should be used by the client
         to check whether the avatars have been updated.  A CM must always have
         the tokens for the self handle if one is set (even if it is set to no
-        avatar). Otherwise, only tokens that are already known or that can be
-        discovered without retrieving the complete avatar are returned. An
+        avatar). Otherwise, only tokens that are already known are returned. An
         empty token means the given contact has no avatar.
       </tp:docstring>
       <tp:possible-errors>
