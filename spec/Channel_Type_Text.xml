@@ -21,13 +21,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Channel.Type.Text">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
 
+    <tp:simple-type name="Message_ID" type="u"/>
+
     <tp:struct name="Pending_Text_Message" array-name="Pending_Text_Message_List">
       <tp:docstring>A struct (message ID, timestamp in seconds since
         1970-01-01 00:00 UTC, sender's handle, message type, flags, text)
         representing a pending text message, as returned by ListPendingMessages
         on the Text channel type. The arguments of the Received signal
         also match this struct's signature.</tp:docstring>
-      <tp:member type="u" name="Message_ID"/>
+      <tp:member type="u" tp:type="Message_ID" name="Identifier"/>
       <tp:member type="u" name="Unix_Timestamp"/>
       <tp:member type="u" tp:type="Contact_Handle" name="Sender"/>
       <tp:member type="u" tp:type="Channel_Text_Message_Type"
@@ -37,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:struct>
 
     <method name="AcknowledgePendingMessages">
-      <arg direction="in" name="ids" type="au">
+      <arg direction="in" name="ids" type="au" tp:type="Message_ID[]">
         <tp:docstring>
           The IDs of the messages to acknowledge
         </tp:docstring>

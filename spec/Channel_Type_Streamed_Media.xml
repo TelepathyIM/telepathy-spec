@@ -70,6 +70,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
     </tp:flags>
+
+    <tp:struct name="Media_Stream_Info" array-name="Media_Stream_Info_List">
+      <tp:member type="u" tp:type="Stream_ID" name="Identifier"/>
+      <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
+      <tp:member type="u" tp:type="Media_Stream_Type" name="Type"/>
+      <tp:member type="u" tp:type="Media_Stream_State" name="State"/>
+      <tp:member type="u" tp:type="Media_Stream_Direction" name="Direction"/>
+      <tp:member type="u" tp:type="Media_Stream_Pending_Send"
+        name="Pending_Send_Flags"/>
+    </tp:struct>
+
+    <tp:simple-type name="Stream_ID" type="u"/>
+
     <method name="ListStreams">
       <arg direction="out" type="a(uuuuuu)" tp:type="Media_Stream_Info[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -92,7 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
     <method name="RemoveStreams">
-      <arg direction="in" name="streams" type="au">
+      <arg direction="in" name="streams" type="au" tp:type="Stream_ID[]">
         <tp:docstring>
           An array of stream identifiers (as defined in ListStreams)
         </tp:docstring>
@@ -148,7 +161,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A contact handle with whom to establish the streams
         </tp:docstring>
       </arg>
-      <arg direction="in" name="types" type="au">
+      <arg direction="in" name="types" type="au" tp:type="Media_Stream_Type[]">
         <tp:docstring>
           An array of stream types (values of MediaStreamType)
         </tp:docstring>
@@ -334,17 +347,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
     </tp:flags>
-
-    <tp:struct name="Media_Stream_Info" array-name="Media_Stream_Info_List">
-      <tp:member type="u" name="Identifier"/>
-      <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
-      <tp:member type="u" tp:type="Media_Stream_Type" name="Type"/>
-      <tp:member type="u" tp:type="Media_Stream_State" name="State"/>
-      <tp:member type="u" tp:type="Media_Stream_Direction" name="Direction"/>
-      <tp:member type="u" tp:type="Media_Stream_Pending_Send"
-        name="Pending_Send_Flags"/>
-    </tp:struct>
-
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
