@@ -22,14 +22,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
 
+    <tp:simple-type name="Session_Handler_Type" type="s"/>
     <tp:struct name="Session_Handler_Info">
       <tp:docstring>A struct representing a active session handler.</tp:docstring>
       <tp:member type="o" name="Session_Handler">
         <tp:docstring>The object path of the session handler, which is on the
           same bus name as the channel.</tp:docstring>
       </tp:member>
-      <tp:member type="s" tp:type="DBus_Interface" name="Session_Handler_Type">
-        <tp:docstring>The session handler's type.</tp:docstring>
+      <tp:member type="s" tp:type="Session_Handler_Type" name="Session_Handler_Type">
+        <tp:docstring>The session handler's type (e.g. &quot;&quot;).</tp:docstring>
       </tp:member>
     </tp:struct>
 
@@ -46,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Object path of the new MediaSessionHandler object
         </tp:docstring>
       </arg>
-      <arg name="type" type="s">
+      <arg name="type" tp:type="Session_Handler_Type" type="s">
         <tp:docstring>
           String indicating type of session, eg &quot;rtp&quot;
         </tp:docstring>
