@@ -350,7 +350,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           D-Bus type, or a byte array 'ay'.
         </tp:docstring>
       </arg>
-      <arg direction="out" type="u">
+      <arg direction="out" type="u" tp:type="Tube_ID">
         <tp:docstring>
           The ID of the new tube.
         </tp:docstring>
