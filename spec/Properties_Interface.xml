@@ -39,7 +39,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="u" name="New_Flags"/>
     </tp:struct>
 
-    <tp:simple-type name="Property_ID" type="u"/>
+    <tp:simple-type name="Property_ID" type="u">
+      <tp:docstring>
+        An unsigned integer used to represent a Telepathy property.
+      </tp:docstring>
+    </tp:simple-type>
 
     <tp:struct name="Property_Value" array-name="Property_Value_List">
       <tp:docstring>A struct (property ID, value) representing a
