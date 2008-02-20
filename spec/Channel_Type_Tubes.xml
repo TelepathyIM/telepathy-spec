@@ -423,7 +423,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
-      <arg direction="out" type="u">
+      <arg direction="out" type="u" tp:type="Tube_ID">
         <tp:docstring>
           The ID of the new tube.
         </tp:docstring>
