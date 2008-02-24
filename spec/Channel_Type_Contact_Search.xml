@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     tp:causes-havoc='not well-tested'>
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
  
-    <tp:struct name="Search_Key_Info" array-name="Search_Key_Info_List">
+    <tp:struct name="Search_Key_Info">
       <tp:docstring>A struct representing details on search strings.</tp:docstring>
       <tp:member type="b" name="Is_Mandatory">
         <tp:docstring>Booleans indicating if the search key is mandatory.
