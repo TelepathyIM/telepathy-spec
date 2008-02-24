@@ -74,7 +74,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
-    <tp:flags name="Channel_Call_State_Flags" type="u">
+    <tp:flags name="Channel_Call_State_Flags" value-prefix="Channel_Call_State" type="u">
       <tp:docstring>
         A set of flags representing call states.
 
