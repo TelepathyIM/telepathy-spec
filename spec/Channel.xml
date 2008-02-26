@@ -19,6 +19,30 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel">
+
+    <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The contact who initiated the channel. For channels requested by the
+          local user, this MUST be the same thing as would be returned
+          by Connection.GetSelfHandle() (this can be used to detect whether a
+          channel is "incoming" or "outgoing"). For channels requested by a
+          remote user, this MUST be their handle. If unavailable or not
+          applicable, this MUST be 0.</p>
+
+        <p>For channels with the Group interface, this SHOULD be the same
+          contact who is signalled as the "Actor" causing the self-handle
+          to be placed in the local-pending set.</p>
+
+        <tp:rationale>
+          <p>The careful wording about the self-handle is because the Renaming
+            interface can cause the return from Connection.GetSelfHandle to
+            change. It's something of a specification bug that we don't signal
+            this in the Connection interface yet.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
     <method name="Close">
       <tp:docstring>
         Request that the channel be closed. This is not the case until
