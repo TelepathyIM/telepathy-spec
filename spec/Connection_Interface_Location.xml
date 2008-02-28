@@ -1,0 +1,174 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Location"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Location"
+    tp:causes-havoc='experimental'>
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    </tp:docstring>
+
+    <tp:enum name="Location_Accuracy_Level" type="i">
+      <tp:docstring>
+        A location accuracy level. This should be kept in sync with
+        GeoclueAccuracyLevel in the Geoclue project.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="None" value="0"/>
+      <tp:enumvalue suffix="Country" value="1"/>
+      <tp:enumvalue suffix="Region" value="2"/>
+      <tp:enumvalue suffix="Locality" value="3"/>
+      <tp:enumvalue suffix="PostalCode" value="4"/>
+      <tp:enumvalue suffix="Street" value="5"/>
+      <tp:enumvalue suffix="Detailed" value="6"/>
+    </tp:enum>
+
+    <tp:mapping name="Location">
+      <tp:docstring>
+      </tp:docstring>
+
+      <tp:member name="Key" type="s">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+
+          <p>Civic addresses are represented by the following well-known
+            keys (all of which have string values), which should be kept in
+            sync with those used in XEP-0080 and in the Geoclue project:</p>
+
+          <ul>
+            <li>countrycode - s: an ISO-3166-1 alpha-2 (two-letter) country
+              code, e.g. "us", "gb", "fr"</li>
+            <li>country - s: a country name in unspecified locale, e.g.
+              "USA"</li>
+            <li>region - s: an administrative region of the nation, such as a
+              state or province</li>
+            <li>locality - s: a locality within the administrative region, such
+              as a town or city</li>
+            <li>area - s: a named area such as a campus or neighborhood</li>
+            <li>postalcode - s: a code used for postal delivery</li>
+            <li>street - s: a thoroughfare within the locality, or a crossing of
+              two thoroughfares</li>
+          </ul>
+
+          <p>The following address keys are defined in XEP-0080 but not by
+            Geoclue, and are also allowed:</p>
+
+          <ul>
+            <li>building - s: a specific building on a street or in an area</li>
+            <li>floor - s: a particular floor in a building</li>
+            <li>room - s: a particular room in a building</li>
+            <li>text - s: any more specific information, e.g.
+              "Northwest corner of the lobby"</li>
+            <li>description - s: A natural-language name for or description of
+              the location, e.g. "Bill's house"</li>
+            <li>uri - s: a URI representing the location or pointing to more
+              information about it</li>
+          </ul>
+
+          <p>Positions are represented by the following well-known keys:</p>
+
+          <ul>
+            <li>lat - d: latitude in decimal degrees north, -90 to +90</li>
+            <li>lat - d: latitude in decimal degrees east, -180 to +180</li>
+            <li>alt - d: altitude in metres above sea level (may be negative
+              if below sea level)</li>
+            <li>accuracy - i (Location_Accuracy_Level): an indication of
+              accuracy, which SHOULD be omitted if it would be
+              Location_Accuracy_Level_None or
+              Location_Accuracy_Level_Detailed</li>
+            <li>error - d: horizontal position error in arc-minutes (1/60
+              degree) if known</li>
+            <li>alt-error - d: vertical position error in metres if known</li>
+          </ul>
+
+          <p>Velocities are represented by the following well-known keys:</p>
+
+          <ul>
+            <li>speed - d: speed in metres per second</li>
+            <li>bearing - d: direction of movement in decimal degrees
+              relative to true north [Geoclue: is this the same as your
+              "direction"?]</li>
+            <li>climb - d: [Geoclue: please define?]</li>
+          </ul>
+
+          <p>Other well-known keys:</p>
+
+          <ul>
+            <li>timestamp - u (Unix_Timestamp): the time that the contact was
+              at this location</li>
+          </ul>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Value" type="v">
+        <tp:docstring>
+          The value corresponding to the well-known key.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:mapping name="Contact_Locations" type="a{ua{sv}}">
+      <tp:member name="Contact" type="u" tp:type="Contact_Handle">
+      </tp:member>
+      <tp:member name="Location" type="a{sv}" tp:type="Location">
+      </tp:member>
+    </tp:mapping>
+
+    <method name="GetLocations">
+      <tp:docstring>
+      </tp:docstring>
+
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" name="Locations" type="a{ua{sv}}"
+        tp:type="Contact_Locations">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="LocationUpdate">
+      <tp:docstring>
+      </tp:docstring>
+
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+      <arg name="Location" type="a{sv}" tp:type="Location">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="SetLocation">
+      <tp:docstring>
+      </tp:docstring>
+
+      <arg direction="in" name="Location" type="a{sv}">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+    </method>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
