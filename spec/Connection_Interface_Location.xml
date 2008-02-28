@@ -169,6 +169,70 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
     </method>
+
+    <!-- FIXME: we may want to give this a more generic name, since it's
+    basically the list of pubsub access control mechanisms, and could be
+    re-used for other PEPish things -->
+    <tp:enum name="Location_Access_Control_Type" type="u">
+      <tp:docstring>
+
+      </tp:docstring>
+
+      <tp:enumvalue name="Whitelist">
+        <tp:docstring>
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can see the user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Publish_List">
+        <tp:docstring>
+          All contacts in the user's 'publish' contact list can see the
+          user's location. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Group">
+        <tp:docstring>
+          The associated variant is a handle of type Group (signature 'u',
+          Group_Handle) representing a group of contacts who can see the
+          user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Open">
+        <tp:docstring>
+          Anyone with access to the service can see the user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:struct name="Location_Access_Control">
+      <tp:member name="Type" type="Location_Access_Control_Type">
+        <tp:docstring>
+          The type of access control to apply to the user's location.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="Detail" type="v">
+        <tp:docstring>
+          Any additional information required by the Type. The required
+          type and semantics are defined for each
+          Location_Access_Control_Type.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <property name="LocationAccessControlTypes" type="au" access="read"
+      tp:type="Location_Access_Control_Types[]">
+      <tp:docstring>The types of access control that are supported by this
+        connection.</tp:docstring>
+    </property>
+
+    <property name="LocationAccessControl" type="(uv)" access="readwrite"
+      tp:type="Location_Access_Control">
+      <tp:docstring>The current access control mechanism and settings
+        for this connection. Before publishing location for the first time,
+        if this has not been set by a client, implementations SHOULD
+        set it to be as restrictive as possible (an empty whitelist, if
+        supported).</tp:docstring>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
