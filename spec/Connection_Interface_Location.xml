@@ -220,7 +220,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:struct>
 
     <property name="LocationAccessControlTypes" type="au" access="read"
-      tp:type="Location_Access_Control_Types[]">
+      tp:type="Location_Access_Control_Type[]">
       <tp:docstring>The types of access control that are supported by this
         connection.</tp:docstring>
     </property>
