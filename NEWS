@@ -2,6 +2,34 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
+telepathy-spec 0.17.2 (2008-03-06)
+==================================
+
+Significant API changes:
+
+* Alter usage of StreamedMedia channels to not abuse Group semantics,
+  and allow better call state signalling - RequestStreams is now allowed on
+  contacts not in the channel, and will add them to remote-pending state
+  when an attempt has been made to contact them
+* Explicitly say that clients must support CMs with no .manager file
+  (telepathy-glib implements the required semantics, libtelepathy does not)
+* Explicitly specify that IANA service names are valid and recommended
+  for stream-tube service names (with dns-sd.org as a secondary source)
+* Some avatar-related clarifications
+
+New APIs:
+
+* Add Account, AccountManager interfaces (a D-Bus API for the account
+  management functionality in Mission Control)
+* Add CallState interface (SIP 180 Ringing, 182 Queued, etc., or equivalent)
+* Add Conn_Mgr_Param_Flag_Secret, a generic way to indicate passwords etc.
+  in connection manager parameters
+
+Tools changes:
+
+* Support <tp:rationale> in docstrings
+* Support D-Bus core Properties
+
 telepathy-spec 0.17.1
 =====================
 
