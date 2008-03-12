@@ -153,9 +153,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Request that a message be sent on this channel. When the message has
-        been submitted to the server for delivery and the server has taken
-        responsibility for it, this method will return and the Sent signal
-        will be emitted.
+        been submitted for delivery, this method will return and the Sent
+        signal will be emitted. If the message cannot be submitted for
+        delivery, the method returns an error and no signal is emitted.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -224,11 +224,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Signals that an outgoing message has failed to send. The error
           will be one of the values from ChannelTextSendError.</p>
 
-        <p>This signal is emitted instead of Sent if Send returns an error.
-          It can also be emitted for a message for which Sent has already
-          been emitted and Send has already returned success, to signify
-          that after the server took responsibility for the message, it was
-          unable to deliver it.</p>
+        <p>This signal should only be emitted for messages for which
+          Sent has already been emitted and Send has already returned
+          success.</p>
       </tp:docstring>
     </signal>
 
@@ -250,8 +248,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Signals that a message has been submitted to the server for sending,
-        and that the server is now responsible for delivering it.
+        Signals that a message has been submitted for sending.
       </tp:docstring>
     </signal>
 
@@ -287,6 +284,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
     </tp:flags>
+
     <tp:property name="anonymous" type="b">
       <tp:docstring>
       True if people may join the channel without other members being made
@@ -386,8 +384,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Sending messages can be requested using the Send method, which will
         return successfully and emit the Sent signal when the message has
-        been delivered to the server, or return an error and emit SendError
-        if there is a failure.</p>
+        been delivered to the server, or return an error with no signal
+        emission if there is a failure. If a message is sent but delivery
+        of the message later fails, this is indicated with the SendError
+        signal.</p>
 
       <p>On protocols where additional contacts cannot be invited into
         a one-to-one chat, or where a one-to-one chat is just a series of
