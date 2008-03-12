@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         on the Text channel type. The arguments of the Received signal
         also match this struct's signature.</tp:docstring>
       <tp:member type="u" tp:type="Message_ID" name="Identifier"/>
-      <tp:member type="u" name="Unix_Timestamp"/>
+      <tp:member type="u" tp:type="Unix_Timestamp" name="Unix_Timestamp"/>
       <tp:member type="u" tp:type="Contact_Handle" name="Sender"/>
       <tp:member type="u" tp:type="Channel_Text_Message_Type"
                  name="Message_Type"/>
