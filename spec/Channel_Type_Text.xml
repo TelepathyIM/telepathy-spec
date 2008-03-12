@@ -118,13 +118,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg name="type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
-          The type of the message (normal, action, notice, etc), from
-          ChannelTextMessageType
+          The type of the message (normal, action, notice, etc.)
         </tp:docstring>
       </arg>
       <arg name="flags" type="u" tp:type="Channel_Text_Message_Flags">
         <tp:docstring>
-          A bitwise OR of the message flags as defined by ChannelTextMessageFlags
+          A bitwise OR of the message flags
         </tp:docstring>
       </arg>
       <arg name="text" type="s">
@@ -144,8 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="Send">
       <arg direction="in" name="type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
-          An integer indicating the type of the message, from
-          ChannelTextMessageType
+          An integer indicating the type of the message
         </tp:docstring>
       </arg>
       <arg direction="in" name="text" type="s">
