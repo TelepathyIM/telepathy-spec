@@ -40,11 +40,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:docstring">
-    <xsl:apply-templates select="text() | html:*" mode="html"/>
-    <xsl:apply-templates select="tp:rationale"/>
+    <xsl:apply-templates select="text() | html:* | tp:rationale" mode="html"/>
   </xsl:template>
 
-  <xsl:template match="tp:rationale">
+  <xsl:template match="tp:rationale" mode="html">
     <div xmlns="http://www.w3.org/1999/xhtml" class="rationale">
       <xsl:apply-templates select="node()" mode="html"/>
     </div>
