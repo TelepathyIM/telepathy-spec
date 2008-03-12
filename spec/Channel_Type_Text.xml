@@ -54,6 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
+
     <method name="GetMessageTypes">
       <arg direction="out" type="au" tp:type="Channel_Text_Message_Type[]">
         <tp:docstring>
@@ -65,6 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channel.
       </tp:docstring>
     </method>
+
     <method name="ListPendingMessages">
       <arg direction="in" name="clear" type="b">
         <tp:docstring>
@@ -89,6 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         remove then all.
       </tp:docstring>
     </method>
+
     <signal name="LostMessage">
       <tp:docstring>
         This signal is emitted to indicate that an incoming message was
@@ -96,6 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         due to lack of memory.
       </tp:docstring>
     </signal>
+
     <signal name="Received">
       <arg name="id" type="u">
         <tp:docstring>
@@ -136,6 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         AcknowledgePendingMessage method.
       </tp:docstring>
     </signal>
+
     <method name="Send">
       <arg direction="in" name="type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
@@ -159,6 +164,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
+
     <tp:enum name="Channel_Text_Send_Error" type="u">
       <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring>
@@ -192,6 +198,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
+
     <signal name="SendError">
       <arg name="error" type="u">
         <tp:docstring>
@@ -218,6 +225,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         will be one of the values from ChannelTextSendError.
       </tp:docstring>
     </signal>
+
     <signal name="Sent">
       <arg name="timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
@@ -239,6 +247,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Signals that a message has been sent on this channel.
       </tp:docstring>
     </signal>
+
     <tp:enum name="Channel_Text_Message_Type" type="u">
       <tp:enumvalue suffix="Normal" value="0">
         <tp:docstring>
@@ -262,6 +271,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
+
     <tp:flags name="Channel_Text_Message_Flags" value-prefix="Channel_Text_Message_Flag" type="u">
       <tp:flag suffix="Truncated" value="1">
         <tp:docstring>
@@ -345,6 +355,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       A unix timestamp indicating when the subject was last modified.
       </tp:docstring>
     </tp:property>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel type for sending and receiving messages in plain text,
         with no formatting.</p>
