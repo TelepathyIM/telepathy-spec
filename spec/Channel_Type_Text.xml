@@ -261,7 +261,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Action" value="1">
         <tp:docstring>
         An action which might be presented to the user as
-        "* &lt;sender&gt; &lt;action&gt;"
+        "* &lt;sender&gt; &lt;action&gt;", such as an IRC CTCP
+        ACTION (typically selected by the "/me" command). For example, the
+        text of the message might be "drinks more coffee".
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Notice" value="2">
