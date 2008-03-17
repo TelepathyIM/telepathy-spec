@@ -337,6 +337,131 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:mapping>
 
 
+    <tp:simple-type type="s" name="Sent_Message_Token">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An opaque token used to identify sent messages. As a special case,
+          the empty string indicates that there is no particular
+          identification for a message.</p>
+
+        <p>CM implementations SHOULD use an identifier expected to be unique,
+          such as a UUID, if possible.</p>
+
+        <p>Some protocols can only track a limited number of sent messages
+          in a small message-ID space. As a result, clients MUST NOT assume
+          that message tokens will not be re-used, and SHOULD use some
+          reasonable heuristic to assign delivery reports to messages, such
+          as matching on message content or timestamp (if available), or
+          assuming that the delivery report refers to the most recent message
+          with that ID.</p>
+
+        <tp:rationale>
+          <p>This is a hook for the DeliveryReports interface,
+            to avoid having to introduce a
+            SendMultiPartMessageAndReturnToken method in that interface.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </tp:simple-type>
+
+    <method name="SendMessage">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Submit a message to the server for sending.
+        If this method returns successfully, the message has been submitted
+        to the server and the MessageSent signal is emitted. If this method
+        fails, message submission to the server has failed and no signal on
+        this interface (or the Text interface) is emitted.</p>
+      </tp:docstring>
+
+      <arg direction="in" type="u" tp:type="Channel_Text_Message_Type"
+        name="Message_Type">
+        <tp:docstring>
+          The type of message.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" type="aa{sv}" tp:type="Message_Part[]"
+        name="Content">
+        <tp:docstring>
+          The message content, including any attachments or alternatives.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="Flags" type="u"
+        tp:type="Message_Sending_Flags">
+        <tp:docstring>
+          Flags affecting how the message is sent.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" type="s" tp:type="Sent_Message_Token">
+        <tp:docstring>
+          An opaque token used to match any incoming delivery or failure
+          reports against this message, or an empty string if the message
+          is not readily identifiable.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <tp:flags name="Message_Sending_Flags" value-prefix="Message_Sending_Flag">
+      <tp:docstring>
+        Flags altering the way a message is sent. The "most usual" action
+        should always be to have these flags unset.
+      </tp:docstring>
+
+      <tp:flag suffix="Report_Delivery" value="1">
+        <tp:docstring>
+          Provide a delivery report via the DeliveryReports interface, if
+          possible, even if this is not the default for this protocol.
+          Ignored if delivery reports are not possible on this protocol.
+
+          <tp:rationale>
+            In some protocols, like XMPP, it is not conventional to request
+            or send delivery notifications.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+    <signal name="MessageSent">
+      <tp:docstring>
+        Signals that a message has been submitted for sending. This
+        MUST be emitted whenever the Text interface's Sent signal is;
+        whenever this signal is emitted for a message with a text/plain
+        part, the Text interface's Sent signal must also be emitted.
+
+        <tp:rationale>
+          This signal allows a process that is not the caller of
+          SendMessage to log sent messages. The double signal-emission
+          means that clients can safely follow the following rule:
+          if the channel has the MessageParts interface, listen for
+          MessageParts.MessageSent only; otherwise, listen for Text.Sent only.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg type="u" tp:type="Channel_Text_Message_Type"
+        name="Message_Type">
+        <tp:docstring>
+          The type of message
+        </tp:docstring>
+      </arg>
+
+      <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The message content (see Multiple_Part_Message for full details).
+          If the message that was passed to SendMessage has a formatted text
+          part that the connection manager recognises, but no text/plain
+          alternative, the CM MUST use the formatted text part to generate a
+          text/plain alternative which is also included in this signal
+          argument.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Message_Token" type="s" tp:type="Sent_Message_Token">
+        <tp:docstring>
+          An opaque token used to match any incoming delivery or failure
+          reports against this message, or an empty string if the message
+          is not readily identifiable.
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
