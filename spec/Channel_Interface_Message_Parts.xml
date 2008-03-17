@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>This interface extends the Text interface to support messages with
         attachments (like MIME multipart/mixed) and alternatives (like MIME
         multipart/alternative); it also provides a hook for improved sent
-        message status notification, to be used by a future
-        DeliveryNotification interface.</p>
+        message status notification, to be used by the DeliveryReporting
+        interface.</p>
 
       <p>Although this specification supports formatted (rich-text)
         messages with unformatted alternatives, implementations SHOULD NOT
@@ -379,7 +379,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           with that ID.</p>
 
         <tp:rationale>
-          <p>This is a hook for the DeliveryReports interface,
+          <p>This is a hook for the DeliveryReporting interface,
             to avoid having to introduce a
             SendMultiPartMessageAndReturnToken method in that interface.</p>
         </tp:rationale>
@@ -431,7 +431,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:flag suffix="Report_Delivery" value="1">
         <tp:docstring>
-          Provide a delivery report via the DeliveryReports interface, if
+          Provide a delivery report via the DeliveryReporting interface, if
           possible, even if this is not the default for this protocol.
           Ignored if delivery reports are not possible on this protocol.
 
