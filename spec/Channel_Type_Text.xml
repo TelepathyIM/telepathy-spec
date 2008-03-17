@@ -51,7 +51,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          A given message ID was not found, so no action was taken
+          <tp:docstring>
+            A given message ID was not found, so no action was taken
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
