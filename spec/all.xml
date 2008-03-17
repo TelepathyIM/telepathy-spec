@@ -58,6 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 <!-- Causes havoc, never implemented, unclear requirements
 <xi:include href="Channel_Interface_Transfer.xml"/> -->
 <xi:include href="Channel_Interface_Media_Signalling.xml"/>
+<xi:include href="Channel_Interface_Message_Parts.xml"/>
 
 <xi:include href="Media_Session_Handler.xml"/>
 <xi:include href="Media_Stream_Handler.xml"/>
