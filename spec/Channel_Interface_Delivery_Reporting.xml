@@ -230,9 +230,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           The double-emission behaviour ensures that old clients
-          that do not support MessageStatus will receive all possible failure
-          reports, and so will new clients that follow this rule:
-          listen for DeliveryReport if the MessageStatus interface is
+          that do not support DeliveryReporting will receive all possible
+          failure reports, and so will new clients that follow this rule:
+          listen for DeliveryReport if the DeliveryReporting interface is
           present, or SendError otherwise.
         </tp:rationale>
       </tp:docstring>
