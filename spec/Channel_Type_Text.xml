@@ -47,6 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Inform the channel that you have handled messages by displaying them to
         the user (or equivalent), so they can be removed from the pending queue.
+        If appropriate, receipt of the messages SHOULD be acknowledged.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
