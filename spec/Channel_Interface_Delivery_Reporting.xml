@@ -205,6 +205,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
+    <property name="DeliveryReports" type="a{ua{sv})" access="read"
+      tp:type="Delivery_Report_Map">
+      <tp:docstring>
+        A mapping containing incoming delivery reports that have not yet been
+        acknowledged. The keys are incoming message IDs (which come from the
+        same pool as those used by the Text and MessageParts interfaces)
+        and the values are Delivery_Report mappings. Delivery reports can
+        be removed from this mapping using AcknowledgePendingMessages
+        on the Text interface.
+      </tp:docstring>
+    </property>
+
+    <signal name="DeliveryReport">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A new delivery report has been added to the DeliveryReports mapping.
+          It may be acknowledged using the AcknowledgePendingMessages method
+          on the Text interface.</p>
+
+        <p>Whenever this signal is emitted for a delivery error report,
+          Channel.Type.Text.SendError SHOULD also be emitted; whenever
+          Channel.Type.Text.SendError is emitted, this signal MUST also be
+          emitted.</p>
+
+        <tp:rationale>
+          The double-emission behaviour ensures that old clients
+          that do not support MessageStatus will receive all possible failure
+          reports, and so will new clients that follow this rule:
+          listen for DeliveryReport if the MessageStatus interface is
+          present, or SendError otherwise.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="ID" type="u" tp:type="Message_ID">
+        <tp:docstring>
+          The message ID to be used to acknowledge the incoming delivery report
+          and remove it from the DeliveryReports mapping.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Report" type="a{sv}" tp:type="Delivery_Report">
+        <tp:docstring>
+          The delivery report's contents.
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
