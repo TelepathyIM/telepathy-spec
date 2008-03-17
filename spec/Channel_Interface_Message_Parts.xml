@@ -462,6 +462,91 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
+    <property name="PendingMessages" type="a(uuuaa{sv})" access="read"
+      tp:type="Multiple_Part_Message[]">
+      <tp:docstring>
+        A list of incoming messages that have neither been acknowledged nor
+        rejected. This list is a superset of the one returned by
+        ListPendingMessages on the Text interface; its items can be removed
+        using AcknowledgePendingMessages on that interface.
+      </tp:docstring>
+    </property>
+
+    <method name="GetPendingMessageContent">
+      <tp:docstring>
+        Retrieve the content of one or more parts of a pending message.
+        Note that this function may take a considerable amount of time
+        to return if the part's 'needs-retrieval' flag is true; consider
+        extending the default D-Bus method call timeout. Additional API is
+        likely to be added in future, to stream large message parts.
+      </tp:docstring>
+
+      <arg name="Message_ID" type="u" tp:type="Message_ID" direction="in">
+        <tp:docstring>
+          The ID of a pending message
+        </tp:docstring>
+      </arg>
+
+      <arg name="Parts" type="au" direction="in">
+        <tp:docstring>The desired entries in the array of message
+          parts, identified by their position (starting from 0)
+        </tp:docstring>
+      </arg>
+
+      <arg name="Content" type="a{uv}" direction="out">
+        <tp:docstring>
+          The content of the requested parts. The keys in this mapping
+          are positions in the array of message parts; the values are
+          either of type 's' or 'ay' (UTF-8 text string, or byte array),
+          following the same rules as for the value of the 'content' key in
+          the Message_Part mappings.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="MessageReceived">
+      <tp:docstring>
+        Signals that a message has been received and added to the pending
+        messages queue. This MUST be emitted whenever the Text interface's
+        Received signal is; whenever this signal is emitted for a message
+        with a text/plain part, the Text interface's Received signal MUST
+        also be emitted.
+
+        <tp:rationale>
+          The double signal-emission means that clients can safely follow
+          the following rule: if the channel has the MessageParts interface,
+          listen for MessageParts.MessageReceived only; otherwise, listen for
+          Text.Received only.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg type="u" tp:type="Unix_Timestamp" name="Timestamp">
+        <tp:docstring>
+          The time the message was sent (if available) or received (if the
+          time it was sent is not available).
+        </tp:docstring>
+      </arg>
+
+      <arg type="u" tp:type="Contact_Handle" name="Sender">
+        <tp:docstring>
+          The contact who sent the message.
+        </tp:docstring>
+      </arg>
+
+      <arg type="u" tp:type="Channel_Text_Message_Type"
+        name="Message_Type">
+        <tp:docstring>
+          The type of message
+        </tp:docstring>
+      </arg>
+
+      <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The message content (see Multiple_Part_Message for full details)
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
