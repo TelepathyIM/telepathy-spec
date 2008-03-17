@@ -44,6 +44,71 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
     </tp:docstring>
 
+    <property name="SupportedContentTypes" type="as" access="read">
+      <tp:docstring>
+        A list of MIME types supported by this channel, with more preferred
+        MIME types appearing earlier in the list. The list MAY include "*/*"
+        to indicate that attachments with arbitrary MIME types can be sent.
+        If the list is empty, this indicates that messages may only include
+        a single "text/plain" part.
+      </tp:docstring>
+    </property>
+
+    <property name="MessagePartSupportFlags" type="u"
+      tp:type="Message_Part_Support_Flags"
+      access="read">
+      <tp:docstring>
+        Flags indicating the level of support for message parts on this
+        channel.
+      </tp:docstring>
+    </property>
+
+    <tp:flags name="Message_Part_Support_Flags"
+      value-prefix="Message_Part_Support_Flag">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Flags indicating the level of support for message parts on this
+          channel. They are designed such that setting more flags always
+          implies that the channel has more capabilities.</p>
+
+        <p>It is assumed that messages containing a textual message body
+          (only) are always supported.</p>
+
+        <p>There is no flag indicating support for alternatives. This is
+          because the SendMessage implementation can always accept messages
+          containing alternatives, even if the underlying protocol does not,
+          by deleting all alternatives except the first (most preferred)
+          that is supported.</p>
+      </tp:docstring>
+
+      <tp:flag suffix="Data_Only" value="1">
+        <tp:docstring>
+          SendMessage will accept messages containing a single part of any
+          type listed in the SupportedContentTypes property, with no
+          accompanying text.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="One_Attachment" value="2">
+        <tp:docstring>
+          SendMessage will accept messages containing a textual message body,
+          plus a single attachment of any type listed in the
+          SupportedContentTypes property. It does not make sense for this
+          flag to be set if Message_Part_Support_Flag_Data_Only is not also set
+          (because the connection manager can trivially provide an empty text
+          part if necessary).
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Multiple_Attachments" value="4">
+        <tp:docstring>
+          SendMessage will accept messages containing a textual message body,
+          plus an arbitrary number of attachments of any type listed in the
+          SupportedContentTypes property. It does not make sense for this
+          flag to be set if Message_Part_Support_Flag_One_Attachment is not
+          also set.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
