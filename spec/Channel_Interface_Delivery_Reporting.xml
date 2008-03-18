@@ -36,6 +36,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           that incoming delivery reports are not lost if there is not
           currently a process handling them).
         </tp:rationale>
+
+      <p>If this interface is present, clients that support it SHOULD
+        listen for the DeliveryReport signal, and ignore the SendError signal
+        on the Text interface (which is guaranteed to duplicate a signal
+        on this interface).</p>
     </tp:docstring>
 
     <tp:mapping name="Delivery_Report">
