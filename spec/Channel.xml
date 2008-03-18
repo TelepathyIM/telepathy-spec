@@ -59,6 +59,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Returns the interface name for the type of this channel.
+        Clients SHOULD use the ChannelType property instead, falling back
+        to this method only if necessary.
+
+        <tp:rationale>
+          The GetAll method lets clients retrieve all properties in one
+          round-trip.
+        </tp:rationale>
       </tp:docstring>
     </method>
 
