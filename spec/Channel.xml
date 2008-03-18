@@ -72,20 +72,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="GetHandle">
       <arg direction="out" type="u" tp:type="Handle_Type">
         <tp:docstring>
-        The handle type, or zero if this channel does not correspond to any
-        particular handle
+          The same as TargetHandleType.
         </tp:docstring>
       </arg>
       <arg direction="out" type="u" tp:type="Handle">
         <tp:docstring>
-        The handle, or zero if this channel does not correspond to any
-        particular handle
+          The same as TargetHandle.
         </tp:docstring>
       </arg>
       <tp:docstring>
         Returns the handle type and number if this channel represents a
         communication with a particular contact, room or server-stored list, or
-        zero if it is transient and defined only by its contents.
+        zero if it is transient and defined only by its contents. Clients
+        SHOULD use the TargetHandle and TargetHandleType properties instead,
+        falling back to this method only if necessary.
+
+        <tp:rationale>
+          The GetAll method lets clients retrieve all properties in one
+          round-trip.
+        </tp:rationale>
       </tp:docstring>
     </method>
 
