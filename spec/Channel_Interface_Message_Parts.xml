@@ -42,6 +42,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Until we can tell UIs what controls to offer to the user, it's
         unfriendly to offer the user controls that may have no effect.
       </tp:rationale>
+
+      <p>If this interface is present, clients that support it SHOULD
+        listen for the MessageSent and MessageReceived signals, and
+        ignore the Sent and Received signal on the Text interface
+        (which are guaranteed to duplicate signals from this interface).</p>
     </tp:docstring>
 
     <property name="SupportedContentTypes" type="as" access="read">
