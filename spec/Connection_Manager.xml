@@ -143,10 +143,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A array of string protocol identifiers supported by this manager
         </tp:docstring>
       </arg>
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <tp:docstring>
         Get a list of protocol identifiers that are implemented by this
-        connection manager. The following well-known values should be used
-        when applicable:
+        connection manager.
       </tp:docstring>
     </method>
 
