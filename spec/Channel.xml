@@ -20,6 +20,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel">
 
+    <property name="ChannelType" type="s" tp:type="DBus_Interface"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The channel's type. This cannot change once the channel has
+          been created.</p>
+
+        <p>For compatibility between older connection managers and newer
+          clients, if this is unavailable or is an empty string,
+          clients MUST use the result of calling GetChannelType.</p>
+
+        <tp:rationale>
+          The GetAll method lets clients retrieve all properties in one
+          round-trip, which is desirable.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <property name="Interfaces" type="as" tp:type="DBus_Interface[]"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Extra interfaces provided by this channel. This SHOULD NOT include
+          the channel type and the Channel interface itself, and cannot
+          change once the channel has been created.</p>
+
+        <p>For compatibility between older connection managers and newer
+          clients, if this is unavailable, or if this is an empty list and
+          ChannelType is an empty string, clients MUST use the result of
+          calling GetInterfaces instead. If this is an empty list but
+          ChannelType is non-empty, clients SHOULD NOT call GetInterfaces;
+          this implies that connection managers that implement the
+          ChannelType property MUST also implement the Interfaces property
+          correctly.</p>
+
+        <tp:rationale>
+          The GetAll method lets clients retrieve all properties in one
+          round-trip, which is desirable.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
     <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
       access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
