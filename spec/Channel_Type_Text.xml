@@ -76,11 +76,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="ListPendingMessages">
       <arg direction="in" name="clear" type="b">
         <tp:docstring>
-          If true, remove all messages from the queue. Setting this to
-          true is NOT RECOMMENDED for clients that have some sort of
-          persistent message storage - clients SHOULD only acknowledge
-          messages after they have actually stored them, which is impossible
-          if this flag is true.
+          If true, behave as if AcknowledgePendingMessages had also been
+          called. Setting this to true is NOT RECOMMENDED for clients that
+          have some sort of persistent message storage - clients SHOULD only
+          acknowledge messages after they have actually stored them, which is
+          impossible if this flag is true.
         </tp:docstring>
       </arg>
       <arg direction="out" type="a(uuuuus)" tp:type="Pending_Text_Message[]">
