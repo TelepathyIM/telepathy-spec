@@ -407,6 +407,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:simple-type name="Handle" type="u">
+      <tp:docstring>An unsigned 32-bit integer representing a
+        handle</tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="Contact_Handle" type="u">
+      <tp:docstring>An unsigned 32-bit integer representing a handle of type
+        Handle_Type_Contact</tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="Room_Handle" type="u">
+      <tp:docstring>An unsigned 32-bit integer representing a handle of type
+        Handle_Type_Room</tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="List_Handle" type="u">
+      <tp:docstring>An unsigned 32-bit integer representing a handle of type
+        Handle_Type_List</tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="Group_Handle" type="u">
+      <tp:docstring>An unsigned 32-bit integer representing a handle of type
+        Handle_Type_Group</tp:docstring>
+    </tp:simple-type>
+
     <method name="RequestHandles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
