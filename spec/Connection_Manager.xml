@@ -182,7 +182,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A dictionary mapping parameter name to the variant boxed value
         </tp:docstring>
       </arg>
-      <arg direction="out" type="s">
+      <arg direction="out" type="s" tp:type="DBus_Bus_Name">
         <tp:docstring>
           A D-Bus service name where the new Connection object can be found
         </tp:docstring>
