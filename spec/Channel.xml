@@ -120,17 +120,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     as a buddy list) or a Channel.Type.Text which represents a channel over
     which textual messages are sent and received.</p>
 
-    <p>Each channel may have an immutable handle associated with it, which
-      may be any handle type, such as a contact, room or list handle,
-      indicating that the channel is for communicating with that handle.
-      There can be at most one channel for each combination of
-      (channel type, handle type, handle) with nonzero handle type.</p>
-    
-    <p>If a channel does not have a handle (an "anonymous channel"), it
-      means that the channel is defined by some other terms, such as it
-      may be a transient group defined only by its members as visible
-      through the Channel.Interface.Group interface. There can be any number
-      of anonymous channels of the same channel type.</p>
+    <p>As of specification version 0.17.FIXME, there is no longer any
+      particular uniqueness guarantee - there may now be more than one
+      channel with a given (channel type, handle type, handle) combination.
+      This is necessary to support parallel messaging threads in SIP and
+      XMPP.</p>
 
     <p>Other optional interfaces can be implemented to indicate other available
     functionality, such as Channel.Interface.Group if the channel contains
