@@ -93,7 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="GetSelfHandle">
-      <arg direction="out" type="u">
+      <arg direction="out" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle representing the user
         </tp:docstring>
