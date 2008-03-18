@@ -2,6 +2,28 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
+telepathy-spec 0.17.3 (unreleased)
+==================================
+
+API changes:
+
+* Change documented semantics of SendError to match what Gabble and Haze
+  have always done: Send emits Sent when the message is submitted, or no
+  signal on failure, and SendError is emitted *after* Sent if an error is
+  detected later
+* Explain that AcknowledgePendingMessages is where "message received"
+  acknowledgements should be sent
+
+Deprecations:
+
+* Passing clear=TRUE to ListPendingMessages (the client cannot guarantee that
+  the messages will actually be shown to the user or logged, if this is done)
+
+Tools changes:
+
+* Allow arrays of mappings
+* Allow rationale to be interleaved with HTML in docstrings
+
 telepathy-spec 0.17.2 (2008-03-06)
 ==================================
 
