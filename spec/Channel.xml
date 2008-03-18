@@ -60,6 +60,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="TargetHandle" type="u" access="read" tp:type="Handle">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The handle (a representation for the identifier) of the contact,
+          chatroom, etc. with which this handle communicates. Its type
+          is given by the TargetHandleType property.</p>
+
+        <p>This is fixed for the lifetime of the channel, so channels which
+          could potentially be used to communicate with multiple contacts
+          (such as streamed media calls defined by their members, or ad-hoc
+          chatrooms like MSN switchboards) must have TargetHandleType set
+          to Handle_Type_None and TargetHandle set to 0.</p>
+
+        <p>Unlike in the telepathy-spec 0.16 API, there is no particular
+          uniqueness guarantee - there can be many channels with the same
+          (channel type, handle type, handle) tuple. This is necessary
+          to support conversation threads in XMPP and SIP, for example.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="TargetHandleType" type="u" access="read"
+      tp:type="Handle_Type">
+      <tp:docstring>
+        The type of TargetHandle.
+      </tp:docstring>
+    </property>
+
     <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
       access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
