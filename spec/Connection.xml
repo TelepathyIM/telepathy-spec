@@ -590,7 +590,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <p>Zero as a handle value is sometimes used as a "null" value to mean
     the absence of a contact, room, etc.</p>
-  
+
     <p>Handles have per-type uniqueness, meaning that
     every (handle type, handle number) tuple is guaranteed to be unique within
     a connection and that a handle alone (without its type) is meaningless or
