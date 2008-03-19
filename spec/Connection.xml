@@ -232,13 +232,15 @@ USA.</p>
 
       <arg name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
-          An integer representing the type of handle this channel communicates with, which is zero if no handle is specified
+          An integer representing the type of handle this channel
+          communicates with, or Handle_Type_None if no handle is specified
         </tp:docstring>
       </arg>
 
       <arg name="handle" type="u" tp:type="Handle">
         <tp:docstring>
-          A handle indicating the specific contact, room or list this channel communicates with, or zero if it is an anonymous channel
+          A handle indicating the specific contact, room or list this
+          channel communicates with, or zero if no handle is specified
         </tp:docstring>
       </arg>
 
