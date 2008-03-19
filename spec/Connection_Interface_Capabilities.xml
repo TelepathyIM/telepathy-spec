@@ -147,6 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
+
     <signal name="CapabilitiesChanged">
       <arg name="caps" type="a(usuuuu)" tp:type="Capability_Change[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -166,6 +167,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         given handle, or on the connection itself if the handle is zero.
       </tp:docstring>
     </signal>
+
     <method name="GetCapabilities">
       <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
