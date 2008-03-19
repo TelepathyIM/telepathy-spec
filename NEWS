@@ -13,6 +13,22 @@ API changes:
   detected later
 * Explain that AcknowledgePendingMessages is where "message received"
   acknowledgements should be sent
+* Some interfaces we've never actually implemented, which we do not believe
+  are necessarily very well thought-out, have been removed from the HTML
+  specification to reduce confusion:
+  - ContactInfo (XML vCards over D-Bus... what were we thinking?)
+  - ContactSearch (server-side searches like XEP-0055)
+  - Forwarding (an incomplete implementation of call-forwarding in telephony)
+  - Privacy (a much more complex version of the 'block' API)
+  - Transfer (transferring contacts between calls in telephony)
+
+API additions:
+
+* Media.StreamHandler now has a SetStreamHeld signal to ask streaming clients
+  (stream-engine) to release or acquire the necessary resources for media
+  streaming, and HoldState and UnholdFailure methods so the streaming client
+  can indicate success or failure; these can be used to implement the
+  Hold interface
 
 Deprecations:
 
