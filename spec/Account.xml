@@ -418,6 +418,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <property name="NormalizedName" type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The normalized name of the account. This is the string returned by
+        the connection's InspectHandle method called on the self handle. It can
+        be an empty string, if this value is not known yet (which will always
+        be the case for account that never went online).</p>
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
