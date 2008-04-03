@@ -138,10 +138,10 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
           org.freedesktop.DBus.Properties interface.</p><dl><dt><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" shape="rect"><code>Introspective</code></a> - <code>b</code>, read-only</dt><dd>
         True if the badger is introspective.
 
-        
-      <div class="rationale">
+        <div class="rationale">
           Goths can be mistaken for badgers in poor lighting conditions.
-        </div></dd></dl><h2>Enumerated types:</h2><h3><a id="type-Adjective" name="type-Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
+        </div>
+      </dd></dl><h2>Enumerated types:</h2><h3><a id="type-Adjective" name="type-Adjective" shape="rect">Adjective</a></h3>Adjectives which may be applied to a specification<dl><dt><code>Adjective_Leveraging = 0</code></dt><dd>
           Can leverage synergy
         </dd><dt><code>Adjective_Synergistic = 1</code></dt><dd>
           Can synergize with leverage
