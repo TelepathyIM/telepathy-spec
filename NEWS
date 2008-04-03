@@ -5,14 +5,18 @@ checkouts.
 telepathy-spec 0.17.3 (unreleased)
 ==================================
 
+The "please hold" release.
+
 API changes:
 
 * Change documented semantics of SendError to match what Gabble and Haze
   have always done: Send emits Sent when the message is submitted, or no
   signal on failure, and SendError is emitted *after* Sent if an error is
   detected later
+
 * Explain that AcknowledgePendingMessages is where "message received"
   acknowledgements should be sent
+
 * Some interfaces we've never actually implemented, which we do not believe
   are necessarily very well thought-out, have been removed from the HTML
   specification to reduce confusion:
@@ -22,6 +26,12 @@ API changes:
   - Privacy (a much more complex version of the 'block' API)
   - Transfer (transferring contacts between calls in telephony)
 
+* The scope of the Hold interface has been reduced; it now only manipulates
+  whether we have put the call on hold, not whether other people have put
+  us on hold
+
+* Whether other people have put us on hold is now signalled as a call state
+
 API additions:
 
 * Media.StreamHandler now has a SetStreamHeld signal to ask streaming clients
@@ -29,6 +39,8 @@ API additions:
   streaming, and HoldState and UnholdFailure methods so the streaming client
   can indicate success or failure; these can be used to implement the
   Hold interface
+
+* The newly simplified Hold interface is now considered to be API-stable
 
 Deprecations:
 
@@ -38,6 +50,7 @@ Deprecations:
 Tools changes:
 
 * Allow arrays of mappings
+
 * Allow rationale to be interleaved with HTML in docstrings
 
 telepathy-spec 0.17.2 (2008-03-06)
