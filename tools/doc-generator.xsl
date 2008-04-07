@@ -821,7 +821,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
           <xsl:value-of select="tp:title" />
         </h1>
         <xsl:if test="tp:version">
-          <h2>Version <xsl:apply-templates select="tp:version"/></h2>
+          <h2>Version <xsl:value-of select="string(tp:version)"/></h2>
         </xsl:if>
         <xsl:apply-templates select="tp:copyright"/>
         <xsl:apply-templates select="tp:license"/>
