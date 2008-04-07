@@ -138,6 +138,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </dl>
         </tp:docstring>
       </tp:member>
+
+      <tp:member name="Value" type="v">
+        <tp:docstring>
+          The value corresponding to the given key, which must be of one of
+          the types indicated.
+        </tp:docstring>
+      </tp:member>
     </tp:mapping>
 
     <tp:enum name="Delivery_Status" value-prefix="Delivery_Status">
