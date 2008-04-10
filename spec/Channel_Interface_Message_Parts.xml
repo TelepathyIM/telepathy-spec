@@ -169,12 +169,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The message content, including any attachments or
             alternatives.</p>
 
-          <p>In any group of parts with the same identifier (which
-            represent alternative versions of the same content),
-            more faithful versions of the intended message MUST come before
-            less faithful versions (note that this order is the opposite of
-            MIME "multipart/alternative" parts). Clients SHOULD display the
-            first alternative that they understand.</p>
+          <p>In any group of parts with the same non-empty value for the
+            "alternative" key (which represent alternative versions of the
+            same content), more faithful versions of the intended message MUST
+            come before less faithful versions (note that this order is the
+            opposite of MIME "multipart/alternative" parts). Clients SHOULD
+            display the first alternative that they understand.</p>
 
           <tp:rationale>
             Specifying the preference order means that if the underlying
@@ -188,13 +188,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <pre>
 [
-  { 'identifier': 'main',
+  { 'alternative': 'main',
     'type': 'text/html',
     'text': 'Here is a photo of my cat:&lt;br /&gt;' +
             '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
             '&lt;br /&gt;Isn't it cute?',
   },
-  { 'identifier': 'main',
+  { 'alternative': 'main',
     'type': 'text/plain',
     'text': 'Here is a photo of my cat:\n[IMG: lol!]\nIsn't it cute?',
   },
@@ -206,10 +206,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 ]
           </pre>
 
-          <p>Clients SHOULD present all parts that have distinct identifiers,
-            in the order they appear in this array, possibly excluding parts
-            that are referenced by another displayed part. It is
-            implementation-specific how the parts are presented to the
+          <p>Clients SHOULD present all parts that are not redundant
+            alternatives in the order they appear in this array, possibly
+            excluding parts that are referenced by another displayed part.
+            It is implementation-specific how the parts are presented to the
             user.</p>
 
           <tp:rationale>
@@ -252,16 +252,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dl>
             <dt>identifier (s)</dt>
             <dd>An opaque identifier for this part.
-              All parts of the same message with the same identifier are
-              alternatives, and clients SHOULD only display one of them
-              (this is expected to be used for XHTML messages in a future
-              version of this specification). All parts with distinct
-              identifiers SHOULD be presented by clients. This key is optional;
-              if omitted, clients MUST behave as if each part without
-              an identifier had a unique identifier.
               Parts of a message MAY reference other parts by treating
               this identifier as if it were a MIME Content-ID and using
               the cid: URI scheme.</dd>
+
+            <dt>alternative (s)</dt>
+            <dd>
+              <p>If present, this part of the message is an alternative for
+                all other parts with the same value for "alternative".
+                Clients SHOULD only display one of them (this is expected to
+                be used for XHTML messages in a future version of this
+                specification).</p>
+
+              <p>If omitted, this part is not an alternative for any other
+                part.</p>
+
+              <p>Parts of a message MAY reference the group of alternatives
+                as a whole (i.e. a reference to whichever of them is chosen)
+                by treating this identifier as if it were the MIME Content-ID
+                of a multipart/alternative part, and using the cid: URI
+                scheme.</p>
+            </dd>
 
             <dt>type (s)</dt>
             <dd>
