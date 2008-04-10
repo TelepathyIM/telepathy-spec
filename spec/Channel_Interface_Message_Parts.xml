@@ -190,13 +190,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 [
   { 'alternative': 'main',
     'type': 'text/html',
-    'text': 'Here is a photo of my cat:&lt;br /&gt;' +
-            '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
-            '&lt;br /&gt;Isn't it cute?',
+    'content': 'Here is a photo of my cat:&lt;br /&gt;' +
+               '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
+               '&lt;br /&gt;Isn't it cute?',
   },
   { 'alternative': 'main',
     'type': 'text/plain',
-    'text': 'Here is a photo of my cat:\n[IMG: lol!]\nIsn't it cute?',
+    'content': 'Here is a photo of my cat:\n[IMG: lol!]\nIsn't it cute?',
   },
   { 'identifier': 'catphoto',
     'type': 'image/jpeg',
