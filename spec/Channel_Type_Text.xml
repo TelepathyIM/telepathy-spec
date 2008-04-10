@@ -308,6 +308,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         server or the connection manager.
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Non_Text_Content" value="2">
+        <tp:docstring>
+          <p>The incoming message contained non-text content which cannot be
+            represented by this interface, but might have been signalled
+            in the MessageParts interface.</p>
+
+          <p>Connection managers SHOULD only set this flag if the non-text
+            content appears to be relatively significant (exactly how
+            significant is up to the implementor). The intention is that
+            if this flag is set, clients using this interface SHOULD inform
+            the user that part of the message was not understood.</p>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <tp:property name="anonymous" type="b">
