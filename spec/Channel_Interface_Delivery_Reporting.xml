@@ -54,6 +54,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>Well-known keys, and the corresponding value types, include:</p>
 
           <dl>
+            <dt>recipient (u - Contact_Handle)</dt>
+            <dd>
+              The intended recipient of the message.
+            </dd>
+
             <dt>status (u - Delivery_Status)</dt>
             <dd>
               The status of the message. This key is required.
