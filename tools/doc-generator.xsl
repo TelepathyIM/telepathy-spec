@@ -863,6 +863,18 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </html>
   </xsl:template>
 
+  <xsl:template match="node">
+      <xsl:apply-templates />
+  </xsl:template>
+
+  <xsl:template match="*">
+      <xsl:message terminate="yes">
+         <xsl:text>Unrecognised element: {</xsl:text>
+         <xsl:value-of select="namespace-uri(.)" />
+         <xsl:text>}</xsl:text>
+         <xsl:value-of select="local-name(.)" />
+      </xsl:message>
+  </xsl:template>
 </xsl:stylesheet>
 
 <!-- vim:set sw=2 sts=2 et: -->
