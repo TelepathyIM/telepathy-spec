@@ -48,16 +48,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         listen for the MessageSent and MessageReceived signals, and
         ignore the Sent and Received signal on the Text interface
         (which are guaranteed to duplicate signals from this interface).</p>
-
-      <p>FIXME: this interface shouldn't be used for messages that are not
-        "basically text". If it is, then either they must be signalled as Text
-        messages with empty content (in which case pre-MessageParts clients
-        cheerfully acknowledge them, leading to quiet data loss) or they must
-        not be signalled on the Text interface (in which case pre-MessageParts
-        clients do not acknowledge them, and they pile up forever). Either
-        way, we lose. We could mitigate this by knowing the user's locale and
-        injecting _("unsupported attachment deleted") into the Text message,
-        but that's lame.</p>
     </tp:docstring>
 
     <property name="SupportedContentTypes" type="as" access="read">
@@ -131,20 +121,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           (for example, a message with attached data, or a message with
           plain-text and XHTML alternatives).</p>
 
-        <p>Messages containing a human-readable text message (as handled
-          by the Text channel type) MUST include a part with type
-          "text/plain", which MAY have an alternative that uses formatted
-          text.</p>
+        <p>Messages containing a human-readable text message MUST include a
+          part with type "text/plain", which MAY have an alternative that uses
+          formatted text.</p>
 
-        <p>Messages containing a non-empty part with type "text/plain" MUST
-          be signalled (redundantly) via the Text channel type, with the
-          same message ID (if incoming) and content.</p>
+        <tp:rationale>
+          <p>Clients should be able to rely on the presence of a
+            lowest-common-denominator plain text part.</p>
+        </tp:rationale>
+
+        <p>Messages MUST be signalled (redundantly) via the Text channel type,
+          with the same message ID and as much as possible of the content.</p>
 
         <p>Conversely, for every message signalled via the
           Text channel type, there MUST be a corresponding multi-part message
-          with the same message ID (if incoming), and with a "text/plain"
-          part with the same content (it need not have any other parts),
-          in this interface.</p>
+          with the same message ID and the same or additional content.</p>
       </tp:docstring>
 
       <tp:member type="u" tp:type="Message_ID" name="Identifier">
@@ -444,9 +435,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MessageSent">
       <tp:docstring>
         Signals that a message has been submitted for sending. This
-        MUST be emitted whenever the Text interface's Sent signal is;
-        whenever this signal is emitted for a message with a text/plain
-        part, the Text interface's Sent signal must also be emitted.
+        MUST be emitted exactly once per emission of the Sent signal on the
+        Text interface.
 
         <tp:rationale>
           This signal allows a process that is not the caller of
@@ -529,10 +519,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MessageReceived">
       <tp:docstring>
         Signals that a message has been received and added to the pending
-        messages queue. This MUST be emitted whenever the Text interface's
-        Received signal is; whenever this signal is emitted for a message
-        with a text/plain part, the Text interface's Received signal MUST
-        also be emitted.
+        messages queue. This MUST be emitted exactly once per emission of the
+        Received signal on the Text interface.
 
         <tp:rationale>
           The double signal-emission means that clients can safely follow
