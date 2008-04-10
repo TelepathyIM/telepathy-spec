@@ -47,6 +47,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         listen for the MessageSent and MessageReceived signals, and
         ignore the Sent and Received signal on the Text interface
         (which are guaranteed to duplicate signals from this interface).</p>
+
+      <p>FIXME: this interface shouldn't be used for messages that are not
+        "basically text". If it is, then either they must be signalled as Text
+        messages with empty content (in which case pre-MessageParts clients
+        cheerfully acknowledge them, leading to quiet data loss) or they must
+        not be signalled on the Text interface (in which case pre-MessageParts
+        clients do not acknowledge them, and they pile up forever). Either
+        way, we lose. We could mitigate this by knowing the user's locale and
+        injecting _("unsupported attachment deleted") into the Text message,
+        but that's lame.</p>
     </tp:docstring>
 
     <property name="SupportedContentTypes" type="as" access="read">
