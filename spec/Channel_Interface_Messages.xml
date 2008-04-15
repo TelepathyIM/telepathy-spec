@@ -124,8 +124,8 @@ USA.</p>
       </tp:flag>
     </tp:flags>
 
-    <tp:struct name="Pending_Multiple_Part_Message"
-      array-name="Pending_Multiple_Part_Message_List">
+    <tp:struct name="Pending_Message"
+      array-name="Pending_Message_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Mapping representing a message which can have multiple parts
           (for example, a message with attached data, or a message with
@@ -496,7 +496,7 @@ USA.</p>
     </signal>
 
     <property name="PendingMessages" type="a(uuuuaa{sv})" access="read"
-      tp:type="Pending_Multiple_Part_Message[]">
+      tp:type="Pending_Message[]">
       <tp:docstring>
         A list of incoming messages that have neither been acknowledged nor
         rejected. This list is a superset of the one returned by
@@ -579,7 +579,7 @@ USA.</p>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The message content (see Pending_Multiple_Part_Message for full
+          The message content (see Pending_Message for full
           details)
         </tp:docstring>
       </arg>
