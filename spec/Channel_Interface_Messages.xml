@@ -510,6 +510,26 @@ USA.</p>
       </tp:docstring>
     </property>
 
+    <signal name="PendingMessagesRemoved">
+      <tp:docstring>
+        The messages with the given IDs have been removed from the
+        PendingMessages list. Clients SHOULD NOT attempt to acknowledge
+        those messages.
+
+        <tp:rationale>
+          If AcknowledgePendingMessages partially succeeds (possible if
+          acknowledgement results in network activity), it's useful to
+          be able to know which messages are still unacknowledged.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Message_IDs" type="au" tp:type="Message_ID[]">
+        <tp:docstring>
+          The messages that have been removed from the pending message list.
+        </tp:docstring>
+      </arg>
+    </signal>
+
     <method name="GetPendingMessageContent">
       <tp:docstring>
         Retrieve the content of one or more parts of a pending message.
