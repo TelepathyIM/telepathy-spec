@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Interface_Message_Parts"
+<node name="/Channel_Interface_Messages"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
   <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface
-    name="org.freedesktop.Telepathy.Channel.Interface.MessageParts.DRAFT">
+    name="org.freedesktop.Telepathy.Channel.Interface.Messages.DRAFT">
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Text"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
