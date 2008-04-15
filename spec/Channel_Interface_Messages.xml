@@ -253,10 +253,8 @@ USA.</p>
         <p>For the 'content' key, "sufficiently small to include" is not
           currently defined; we should add some API so clients can tell the
           CM how large a message it should emit in the signal.</p>
-      </tp:docstring>
 
-      <tp:member name="Key" type="s">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <div>
           <p>Well-known keys, and the corresponding value types, include:</p>
 
           <dl>
@@ -359,6 +357,13 @@ USA.</p>
               transcoding fails or the source charset is not known.</dd>
           </dl>
 
+        </div>
+      </tp:docstring>
+
+      <tp:member name="Key" type="s">
+        <tp:docstring>
+          A key, which SHOULD be one of the well-known keys specified, if
+          possible.
         </tp:docstring>
       </tp:member>
 
