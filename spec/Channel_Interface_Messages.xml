@@ -24,15 +24,23 @@ USA.</p>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Text"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface extends the Text interface to support messages with
-        attachments (like MIME multipart/mixed) and alternatives (like MIME
-        multipart/alternative); it also provides a hook for improved sent
+      <p>This interface extends the Text interface to support more general
+        messages, including:</p>
+
+      <ul>
+        <li>messages with attachments (like MIME multipart/mixed)</li>
+        <li>groups of alternatives (like MIME multipart/alternative)</li>
+        <li>delivery reports</li>
+        <li>any extra types of message we need in future</li>
+      </ul>
+
+      <p>It also provides a hook for improved sent
         message status notification, to be used by the DeliveryReporting
         interface.</p>
 
       <p>Although this specification supports formatted (rich-text)
         messages with unformatted alternatives, implementations SHOULD NOT
-        attempt to use formatted messages until the Telepathy specification
+        attempt to send formatted messages until the Telepathy specification
         has also been extended to cover capability discovery for message
         formatting.</p>
 
@@ -78,7 +86,8 @@ USA.</p>
           implies that the channel has more capabilities.</p>
 
         <p>It is assumed that messages containing a textual message body
-          (only) are always supported.</p>
+          (only), like the messages the Text interface was designed for, are
+          always supported.</p>
 
         <p>There is no flag indicating support for alternatives. This is
           because the SendMessage implementation can always accept messages
