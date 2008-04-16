@@ -517,9 +517,9 @@ USA.</p>
         those messages.
 
         <tp:rationale>
-          If AcknowledgePendingMessages partially succeeds (possible if
-          acknowledgement results in network activity), it's useful to
-          be able to know which messages are still unacknowledged.
+          This completes change notification for the PendingMessages property
+          (previously, there was change notification when pending messages
+          were added, but not when they were removed).
         </tp:rationale>
       </tp:docstring>
 
