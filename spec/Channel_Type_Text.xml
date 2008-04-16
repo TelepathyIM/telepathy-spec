@@ -54,9 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Inform the channel that you have handled messages by displaying them to
         the user (or equivalent), so they can be removed from the pending queue.
-        If appropriate, the connection manager SHOULD send an acknowledgement
-        of receipt of the messages to the server when the client calls this
-        method.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
@@ -64,7 +61,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             A given message ID was not found, so no action was taken
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
 
