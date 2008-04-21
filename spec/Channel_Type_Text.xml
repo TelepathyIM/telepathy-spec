@@ -299,7 +299,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:enumvalue suffix="Auto_Reply" value="3">
         <tp:docstring>
-        An automatically-generated reply message
+        An automatically-generated reply message.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Delivery_Report" value="4">
+        <tp:docstring>
+          This message type MUST NOT appear unless the channel supports the
+          DeliveryReporting interface. The message MUST be as defined by
+          the DeliveryReporting interface.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
