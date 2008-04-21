@@ -163,7 +163,8 @@ USA.</p>
 
       <tp:member type="u" tp:type="Contact_Handle" name="Sender">
         <tp:docstring>
-          The contact who sent the message.
+          The contact who sent the message, or zero if this could not be
+          determined.
         </tp:docstring>
       </tp:member>
 
