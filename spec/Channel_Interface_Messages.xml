@@ -356,6 +356,10 @@ USA.</p>
               transcoding from another charset to UTF-8 if necessary, but
               MAY be a byte-array (of unspecified character set) if
               transcoding fails or the source charset is not known.</dd>
+
+            <dt>interface (s - DBus_Interface_Name)</dt>
+            <dd>This part is specific to the given interface, which is neither
+              Text nor Messages.</dd>
           </dl>
 
         </div>
