@@ -278,9 +278,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:enumvalue suffix="Normal" value="0">
         <tp:docstring>
-        A standard message
+        An ordinary chat message. Unknown types SHOULD be treated like this.
         </tp:docstring>
       </tp:enumvalue>
+
       <tp:enumvalue suffix="Action" value="1">
         <tp:docstring>
         An action which might be presented to the user as
@@ -289,11 +290,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         text of the message might be "drinks more coffee".
         </tp:docstring>
       </tp:enumvalue>
+
       <tp:enumvalue suffix="Notice" value="2">
         <tp:docstring>
         A one-off or automated message not necessarily expecting a reply
         </tp:docstring>
       </tp:enumvalue>
+
       <tp:enumvalue suffix="Auto_Reply" value="3">
         <tp:docstring>
         An automatically-generated reply message
