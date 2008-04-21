@@ -21,150 +21,152 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface
     name="org.freedesktop.Telepathy.Channel.Interface.DeliveryReporting.DRAFT">
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Text"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Messages"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface extends the Text interface with improved sent-message
-        status reporting. Channels implementing this interface
-        SHOULD also implement the MessageParts interface; clients supporting
-        this interface SHOULD also have at least basic support for the
-        MessageParts interface.</p>
+      <p>This interface extends the Text and Messages interfaces with improved
+        sent-message status reporting.</p>
 
-        <tp:rationale>
-          This interface replaces Text.SendError, adding support for protocols
-          where the message content is not echoed back to the sender on
-          failure. It also adds support for receiving positive
-          acknowledgements, and has properties for state recovery (ensuring
-          that incoming delivery reports are not lost if there is not
-          currently a process handling them).
-        </tp:rationale>
+      <p>This interface replaces Text.SendError, adding support for protocols
+        where the message content is not echoed back to the sender on
+        failure. It also adds support for receiving positive
+        acknowledgements, and uses the Messages queue for state-recovery
+        (ensuring that incoming delivery reports are not lost if there is not
+        currently a process handling them).</p>
 
-      <p>If this interface is present, clients that support it SHOULD
-        listen for the DeliveryReport signal, and ignore the SendError signal
-        on the Text interface (which is guaranteed to duplicate a signal
-        on this interface).</p>
+      <p>If this interface and the Messages interface are both present,
+        clients that support it SHOULD listen for the MessageReceived signal
+        to get delivery reports, and ignore the SendError signal on the Text
+        interface.</p>
+
+      <p>Delivery reports appear as messages of type
+        Channel_Text_Message_Type_Delivery_Report in the Text and Messages
+        interfaces. The message in the Text interface SHOULD have the
+        Non_Text_Content flag.</p>
+
+      <p>Whenever a message of type Channel_Text_Message_Type_Delivery_Report
+        is signalled for a delivery error report, Channel.Type.Text.SendError
+        SHOULD also be emitted; whenever Channel.Type.Text.SendError is
+        emitted by a channel which supports this interface, a message of type
+        Channel_Text_Message_Type_Delivery_Report MUST also be emitted.</p>
+
+      <p>The corresponding message in the Messages interface MUST take the
+        following form:</p>
+
+      <ul>
+        <li>The Timestamp MUST either be the time the delivery report was
+          sent, if available, or the time it was received by the CM
+          otherwise.</li>
+
+        <li>The Sender MUST be the intended recipient of the message, if
+          available, or zero otherwise; this is true even if the delivery
+          report actually came from an intermediate server. (If this
+          distinction needs to be made in future, we will add additional
+          delivery-* keys).</li>
+
+        <li>The first Message_Part contains "headers" for the delivery report,
+          as specified below. It MUST NOT have the 'type', 'content',
+          'needs-retrieval' or 'size' keys.</li>
+
+        <li>The second and subsequent Message_Part dictionaries, if present,
+          are a human-readable report from the connection manager or IM
+          service. This MAY appear in multiple alternative languages.</li>
+      </ul>
+
+      <p>This interface defines the following additional keys which SHOULD
+        appear in the first Message_Part of a delivery report, if the
+        necessary information is available:</p>
+
+      <dl>
+        <dt>interface (s)</dt>
+        <dd>MUST be the name of this interface.</dd>
+
+        <dt>delivery-status (u - Delivery_Status)</dt>
+        <dd>The status of the message. All delivery reports MUST contain
+          this key in the first Message_Part.</dd>
+
+        <dt>delivery-token (s - Sent_Message_Token)</dt>
+
+        <dd>
+          <p>An identifier for the message to which this delivery report
+            refers. MUST NOT be an empty string. Omitted if not
+            available.</p>
+
+          <p>Clients may match this against the token produced by the
+            SendMessage method and MessageSent signal on the Messages
+            interface. A status report with no token could match any sent
+            message, and a sent message with an empty token could match
+            any status report. If multiple sent messages match, clients
+            SHOULD use some reasonable heuristic.</p>
+
+          <tp:rationale>
+            In an ideal world, we could unambiguously match reports
+            against messages; however, deployed protocols are not ideal,
+            and not all reports and messages can be matched.
+          </tp:rationale>
+        </dd>
+
+        <dt>delivery-error (u - Channel_Text_Send_Error)</dt>
+        <dd>
+          The reason for the failure. MUST be omitted if this was a
+          successful delivery; SHOULD be omitted if it would be
+          Channel_Text_Send_Error_Unknown.
+        </dd>
+
+        <dt>delivery-echo (aa{sv} - Message_Part[])</dt>
+        <dd>
+          <p>The message content, as defined by the Messages interface.
+            Omitted if no content is available. Content MAY have been
+            truncated, message parts MAY have been removed, and message
+            parts MAY have had their content removed (i.e. the message part
+            metadata is present, but the 'content' key is not).</p>
+
+          <tp:rationale>
+            Some protocols, like XMPP, echo the failing message back to
+            the sender. This is sometimes the only way to match it
+            against the sent message, so we include it here.
+          </tp:rationale>
+
+          <p>Unlike in the Messages interface, content not visible
+            in the value for this key cannot be retrieved by another
+            means, so the connection manager SHOULD be more
+            aggressive about including (possibly truncated) message
+            content in the 'content' key.</p>
+
+          <tp:rationale>
+            The Messages interface needs to allow all content to be
+            retrieved, but in this interface, the content we provide is
+            merely a hint; so some is better than none, and it doesn't
+            seem worth providing an API as complex as Messages.
+          </tp:rationale>
+        </dd>
+
+      </dl>
+
+      <p>It is an error for this interface to appear on channels of type
+        other than Text, or on Text channels without the Messages interface.
+        Clients MUST recover from this error by ignoring the presence
+        of the DeliveryReporting interface.</p>
     </tp:docstring>
-
-    <tp:mapping name="Delivery_Report">
-      <tp:docstring>
-        A delivery report, indicating success or failure while delivering
-        a previously sent message.
-      </tp:docstring>
-
-      <tp:member name="Key" type="s">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Well-known keys, and the corresponding value types, include:</p>
-
-          <dl>
-            <dt>recipient (u - Contact_Handle)</dt>
-            <dd>
-              The intended recipient of the message.
-            </dd>
-
-            <dt>status (u - Delivery_Status)</dt>
-            <dd>
-              The status of the message. This key is required.
-            </dd>
-
-            <dt>timestamp (u - Unix_Timestamp)</dt>
-            <dd>
-              The time the delivery report was sent (if available) or
-              received (otherwise). Providing this key is strongly
-              recommended.
-            </dd>
-
-            <dt>token (s)</dt>
-            <dd>
-              <p>An identifier for the message to which this delivery report
-                refers. MUST NOT be an empty string. Omitted if not
-                available.</p>
-
-              <p>Clients may match this against the token produced by the
-                SendMessage method and MessageSent signal on the MessageParts
-                interface. A status report with no token could match any sent
-                message, and a sent message with an empty token could match
-                any status report.</p>
-
-                <tp:rationale>
-                  In an ideal world, we could unambiguously match reports
-                  against messages; however, deployed protocols are not ideal,
-                  and not all reports and messages can be matched.
-                </tp:rationale>
-            </dd>
-
-            <dt>parts (aa{sv} - Message_Part[])</dt>
-            <dd>
-              <p>The message content, as defined by the MessageParts interface.
-                Omitted if no content is available, or if it would contain
-                only a single "text/plain" part (in which case the 'content'
-                key is sufficient). Content MAY have been
-                truncated, message parts MAY have been removed, and message
-                parts MAY have had their content removed (i.e. the message part
-                metadata is present, but the 'content' key is not).</p>
-
-              <tp:rationale>
-                Some protocols, like XMPP, echo the failing message back to
-                the sender. This is sometimes the only way to match it
-                against the sent message, so we include it here.
-              </tp:rationale>
-
-              <p>Unlike in the MessageParts interface, content not visible
-                in the value for this key cannot be retrieved by another
-                means, so the connection manager SHOULD be more
-                aggressive about including (possibly truncated) message
-                content in the 'content' key.</p>
-
-              <tp:rationale>
-                The MessageParts interface needs to allow all content to be
-                retrieved, but in this interface, the content we provide is
-                merely a hint; so some is better than none, and it doesn't
-                seem worth providing an API as complex as MessageParts.
-              </tp:rationale>
-            </dd>
-
-            <dt>send-error (u - Channel_Text_Send_Error)</dt>
-            <dd>
-              The reason for the failure. MUST be omitted if this was a
-              successful delivery; MAY be omitted if it would be
-              Channel_Text_Send_Error_Unknown.
-            </dd>
-
-            <dt>report (aa{sv} - Message_Part[])</dt>
-            <dd>
-              A human-readable error report from the server or from the remote
-              contact's client, to be interpreted as in the MessageParts
-              interface. Omitted if none is available.
-
-              <tp:rationale>
-                Some protocols, like XMPP, allow the server to send back a
-                human-readable description of the error (possibly even in
-                multiple languages as alternatives, hence we support multiple
-                parts here).
-              </tp:rationale>
-            </dd>
-          </dl>
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Value" type="v">
-        <tp:docstring>
-          The value corresponding to the given key, which must be of one of
-          the types indicated.
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
 
     <tp:enum name="Delivery_Status" value-prefix="Delivery_Status">
       <tp:docstring>
-        The status of a message as indicated by a delivery report.
-        If this enum is extended in future specifications, this should
-        only be to add new non-overlapping conditions (i.e. all failures
-        should still be signalled as either Temporarily_Failed
-        or Permanently_Failed).
+        <p>The status of a message as indicated by a delivery report.</p>
+
+        <p>If this enum is extended in future specifications, this should
+          only be to add new, non-overlapping conditions (i.e. all failures
+          should still be signalled as either Temporarily_Failed
+          or Permanently_Failed). If additional detail is required (e.g.
+          distinguishing between the various types of permanent failure) this
+          will be done using additional keys in the Message_Part.</p>
       </tp:docstring>
 
       <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring>
           The message's disposition is unknown.
+          Clients SHOULD consider all messages to have status
+          Delivery_Status_Unknown unless otherwise specified; connection
+          managers SHOULD NOT signal this delivery status explicitly.
         </tp:docstring>
       </tp:enumvalue>
 
@@ -201,73 +203,123 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:mapping name="Delivery_Report_Map">
+    <tp:flags name="Delivery_Reporting_Support_Flags"
+      value-prefix="Delivery_Reporting_Support_Flag">
       <tp:docstring>
-        A mapping containing incoming delivery reports that have not yet been
-        acknowledged.
+        Flags indicating the level of support for delivery reporting on this
+        channel. Any future flags added to this set will conform to the
+        convention that the presence of an extra flag implies that
+        more operations will succeed.
       </tp:docstring>
 
-      <tp:member name="ID" type="u" tp:type="Message_ID">
+      <tp:flag suffix="Receive_Failures" value="1">
         <tp:docstring>
-          An incoming message ID, taken from the same per-channel pool as
-          those used in the Text and MessageParts interfaces, which can be
-          used to acknowledge the delivery report and remove it from the
-          mapping
+          Clients MAY expect to receive negative delivery reports if
+          Message_Sending_Flag_Report_Delivery is specified when sending.
         </tp:docstring>
-      </tp:member>
+      </tp:flag>
 
-      <tp:member name="Report" type="a{sv}" tp:type="Delivery_Report">
+      <tp:flag suffix="Receive_Successes" value="2">
         <tp:docstring>
-          A delivery report
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
+          Clients MAY expect to receive positive delivery reports if
+          Message_Sending_Flag_Report_Delivery is specified when sending.
 
-    <property name="DeliveryReports" type="a{ua{sv})" access="read"
-      tp:type="Delivery_Report_Map">
+          <tp:rationale>
+            If senders want delivery reports, they should ask for them.
+            If they don't want delivery reports, they can just ignore them,
+            so there's no need to have capability discovery for what will
+            happen if a delivery report isn't requested.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Send_Failures" value="4">
+        <tp:docstring>
+          Clients MAY expect that sending a negative delivery report will
+          succeed, and will actually get a message to the sender.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Send_Successes" value="8">
+        <tp:docstring>
+          Clients MAY expect that sending a positive delivery report will
+          succeed, and will actually get a message to the sender.
+        </tp:docstring>
+      </tp:flag>
+
+    </tp:flags>
+
+    <property name="DeliveryReportingSupport" access="read"
+      tp:type="Delivery_Reporting_Support_Flags" type="u">
       <tp:docstring>
-        A mapping containing incoming delivery reports that have not yet been
-        acknowledged. The keys are incoming message IDs (which come from the
-        same pool as those used by the Text and MessageParts interfaces)
-        and the values are Delivery_Report mappings. Delivery reports can
-        be removed from this mapping using AcknowledgePendingMessages
-        on the Text interface.
+        A bitfield indicating features supported by this channel.
       </tp:docstring>
     </property>
 
-    <signal name="DeliveryReport">
+    <method name="SendDeliveryReport">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A new delivery report has been added to the DeliveryReports mapping.
-          It may be acknowledged using the AcknowledgePendingMessages method
-          on the Text interface.</p>
-
-        <p>Whenever this signal is emitted for a delivery error report,
-          Channel.Type.Text.SendError SHOULD also be emitted; whenever
-          Channel.Type.Text.SendError is emitted, this signal MUST also be
-          emitted.</p>
+        <p>Request that a delivery report is sent for the specified pending
+          incoming message. Delivery reports cannot currently be sent for
+          messages that have already been acknowledged.</p>
 
         <tp:rationale>
-          The double-emission behaviour ensures that old clients
-          that do not support DeliveryReporting will receive all possible
-          failure reports, and so will new clients that follow this rule:
-          listen for DeliveryReport if the DeliveryReporting interface is
-          present, or SendError otherwise.
+          <p>The only use-case I can see for delivery reports on non-pending
+            messages is a "read receipt" like in email's RFC 3798. Delivery
+            reports on non-pending messages will also need a more complex
+            API.</p>
+
+          <p>If they turn out to be needed, we can add a method like
+            SendDeliveryReportByContent(u: timestamp, u: sender,
+            u: message_type, aa{sv}: parts) and add a flag to
+            Delivery_Reporting_Support_Flags indicating that this method is
+            implemented.</p>
         </tp:rationale>
+
+        <p>Clients SHOULD NOT attempt to send delivery reports that are
+          not indicated to be supported using the DeliveryReportingSupport
+          property.</p>
       </tp:docstring>
 
-      <arg name="ID" type="u" tp:type="Message_ID">
+      <arg name="Messages" type="au" tp:type="Message_ID[]" direction="in">
         <tp:docstring>
-          The message ID to be used to acknowledge the incoming delivery report
-          and remove it from the DeliveryReports mapping.
+          The IDs of one or more unacknowledged messages.
         </tp:docstring>
       </arg>
 
-      <arg name="Report" type="a{sv}" tp:type="Delivery_Report">
+      <arg name="Status" direction="in">
         <tp:docstring>
-          The delivery report's contents.
+          The status to be reported.
         </tp:docstring>
       </arg>
-    </signal>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError">
+        </tp:error>
+
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            One of the specified message IDs was invalid. No delivery reports
+            were sent.
+          </tp:docstring>
+        </tp:error>
+
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The requested message status could not be reported to the sender
+            (for instance, this will be raised if a positive delivery report
+            is requested on a protocol that only supports negative delivery
+            reports). Clients MUST treat this error as non-fatal.
+          </tp:docstring>
+        </tp:error>
+
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            This channel cannot report message status back to the sender
+            at all. Do not call this method on this channel again.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
 
   </interface>
 </node>
