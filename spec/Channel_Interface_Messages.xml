@@ -473,8 +473,8 @@ USA.</p>
           This signal allows a process that is not the caller of
           SendMessage to log sent messages. The double signal-emission
           means that clients can safely follow the following rule:
-          if the channel has the MessageParts interface, listen for
-          MessageParts.MessageSent only; otherwise, listen for Text.Sent only.
+          if the channel has the Messages interface, listen for
+          Messages.MessageSent only; otherwise, listen for Text.Sent only.
         </tp:rationale>
       </tp:docstring>
 
@@ -575,8 +575,8 @@ USA.</p>
 
         <tp:rationale>
           The double signal-emission means that clients can safely follow
-          the following rule: if the channel has the MessageParts interface,
-          listen for MessageParts.MessageReceived only; otherwise, listen for
+          the following rule: if the channel has the Messages interface,
+          listen for Messages.MessageReceived only; otherwise, listen for
           Text.Received only.
         </tp:rationale>
       </tp:docstring>
