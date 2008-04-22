@@ -286,7 +286,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
 
-      <arg name="Status" direction="in">
+      <arg name="Status" direction="in" type="u" tp:type="Delivery_Status">
         <tp:docstring>
           The status to be reported.
         </tp:docstring>
