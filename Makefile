@@ -4,6 +4,7 @@ XSLTPROC = xsltproc --xinclude --nonet
 CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
 DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
+RST2HTML = rst2html
 
 XMLS = $(wildcard spec/*.xml)
 INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
@@ -25,7 +26,12 @@ TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
+doc/request.html doc/dispatch.html: %.html: %.txt
+	$(RST2HTML) < $< > $@
+
 GENERATED_FILES = \
+	doc/request.html \
+	doc/dispatch.html \
 	doc/spec.html \
 	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \

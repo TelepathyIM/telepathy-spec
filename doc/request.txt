@@ -1,0 +1,293 @@
+Requesting channels
+===================
+
+.. contents::
+
+Outgoing 1-1 text chat
+----------------------
+
+_`req1`: Chat from chat UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo has a chat or IM UI open already, and wants to use it to chat to Juliet.
+He selects Juliet from a contact list or types in her username on some IM
+service.
+
+Current implementation::
+
+    if a channel with GetHandle() -> (CONTACT, juliet) exists:
+        foreground its window or tab
+    else:
+        RequestChannel (Text, CONTACT, juliet, suppress_handler=TRUE)
+
+_`req2`: Chat from elsewhere
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet wants to talk to Romeo. She chooses his entry in an address book
+or other list of people (not necessarily Telepathy-centric) and is presented
+with a list of possible ways to talk to him. She decides to use text chat.
+
+Current implementation::
+
+    address book asks Mission Control for a channel with
+        (Text, CONTACT, romeo)
+    Mission Control calls RequestChannel (Text, CONTACT, romeo,
+        suppress_handler=FALSE) on CM
+    Mission Control dispatches the channel to the default/only handler
+
+    if the channel is new:
+        the channel handler creates a new window or tab
+    else:
+        the channel handler puts the existing window or tab in the foreground
+
+Problems:
+
+* It's rather bizarre that Mission Control re-dispatches an existing channel
+  as though it was new
+
+* It's very bizarre that the channel handler interprets HandleChannel on a
+  channel it's already handling as "put it in the foreground". If we mean
+  "put this in the foreground" we should say so.
+
+_`req3`: collaborative app
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is collaborating on a document with Mercutio, and wants to have a chat
+embedded in his AbiWord instance, separate from any other chat with Mercutio
+that may be ongoing.
+
+Current implementation: impossible, even in protocols supporting
+conversation threads, because the spec can't represent them
+
+Outgoing VoIP call
+------------------
+
+_`req4`: Call from call UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo has a VoIP UI open already, and wants to use it to chat to Juliet.
+He selects Juliet from a contact list or types in her username on some IM
+service.
+
+Theoretical implementation::
+
+    if a channel containing handle juliet exists:
+        foreground its window or tab
+    else:
+        RequestChannel (StreamedMedia, NONE, 0, suppress_handler=TRUE)
+        RequestStreams (juliet, [AUDIO, VIDEO])
+
+Problems:
+
+* This is what the spec says we should do, but it doesn't actually work yet,
+  at least in telepathy-gabble
+  <https://bugs.freedesktop.org/show_bug.cgi?id=14602>
+* Finding out whether a channel containing juliet's handle exists is
+  needlessly laborious
+* Unless the VoIP UI keeps a table of (handle => channel) (which can't
+  necessarily be done - some protocols allow "parallel" calls), the following
+  race condition::
+
+    choose to call Juliet
+    RequestChannel (StreamedMedia, NONE, 0, suppress_handler=TRUE) (request A)
+    choose to call Juliet
+    RequestChannel (StreamedMedia, NONE, 0, suppress_handler=TRUE) (request B)
+    Request A returns /.../ChannelA
+    Request B returns /.../ChannelB
+
+  can result in unnecessarily opening two parallel calls to the same contact
+
+Practical implementation::
+
+    if a channel containing handle juliet exists:
+        foreground its window or tab
+    else:
+        RequestChannel (StreamedMedia, NONE, 0, suppress_handler=TRUE)
+        AddMembers ([juliet])
+        RequestStreams (juliet, [AUDIO, VIDEO])
+
+Problems:
+
+* Same needlessly laborious processing as in the theoretical implementation
+* Same race condition as in the theoretical implementation
+* Juliet appears in the remote-pending set before any attempt has really
+  been made to call her, which is misleading
+
+Deprecated implementation::
+
+    if a channel containing handle juliet exists:
+        foreground its window or tab
+    else:
+        RequestChannel (StreamedMedia, CONTACT, juliet, suppress_handler=TRUE)
+        RequestStreams (juliet, [AUDIO, VIDEO])
+
+Problems:
+
+* All the problems of the practical implementation
+* Implementors might be misled into thinking that the semantics resemble
+  text channels more closely than they really do
+
+_`req5`: Call from elsewhere
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet wants to talk to Romeo. She chooses his entry in an address book
+or other list of people (not necessarily Telepathy-centric) and is presented
+with a list of possible ways to talk to him. She decides to use a VoIP call.
+
+Current implementation::
+
+    RequestChannel (StreamedMedia, NONE, 0, suppress_handler=FALSE)
+    perhaps AddMembers ([romeo])
+    RequestStreams (romeo, [AUDIO, VIDEO])
+
+    The channel handler creates a new window or tab for the new channel
+
+Problems:
+
+* The requester has to keep interacting with the channel, it's not
+  "fire and forget"
+* Creates a new channel, which is unlikely to be what Juliet wanted
+
+Deprecated (?) implementation::
+
+    ask Mission Control for a channel (StreamedMedia, CONTACT, romeo)
+    Mission Control does... something?
+
+Problems:
+
+* Mission Control doesn't know whether to use an existing channel to Romeo,
+  or create a new one (using an existing channel is *probably* right)
+* Looking for channels to talk to Romeo is hard (have to interact with lots of
+  group interfaces)
+
+_`req6`: collaborative app
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is collaborating on a document with Mercutio, and wants to have a chat
+embedded in his AbiWord instance, separate from any other chat with Mercutio
+that may be ongoing.
+
+Current implementation: same as req5_
+
+Problems: same as req5_
+
+Joining a chatroom by request
+-----------------------------
+
+_`req7`: joining chatroom from chatroom UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tybalt starts an IRC-style chatroom client and wants to join a chatroom, either
+by explicit request or because his client auto-joins his favourite rooms.
+
+Current implementation::
+
+    if a channel with GetHandle() -> (ROOM, chatroom_handle) exists:
+        foreground its window or tab
+    else:
+        RequestChannel (Text, ROOM, chatroom_handle, suppress_handler=TRUE)
+
+Problems:
+
+* Tybalt doesn't get a chance to choose his nickname before joining
+
+_`req8`: joining chatroom from elsewhere
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Benvolio chooses to rejoin a recently-used chatroom from (hypothetical
+functionality of) the GNOME Places menu.
+
+Current implementation::
+
+    GNOME menu asks Mission Control for a channel with
+        (Text, ROOM, chatroom_handle)
+    Mission Control calls RequestChannel (Text, ROOM, chatroom_handle,
+        suppress_handler=FALSE) on CM
+    Mission Control dispatches the channel to the default/only handler
+
+    if the channel is new:
+        the channel handler creates a new window or tab
+    else:
+        the channel handler puts the existing window or tab in the foreground
+
+Problems:
+
+* As for req7_, Benvolio doesn't get a chance to choose his nickname before
+  joining
+
+* As for req2_, it's rather bizarre that Mission Control re-dispatches an
+  existing channel as though it was new
+
+* As for req2_, it's very bizarre that the channel handler interprets
+  HandleChannel on a channel it's already handling as "put it in the
+  foreground"
+
+Listing chatrooms
+-----------------
+
+_`req9`: listing chatrooms on "home" server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo wants to list all the chatrooms on the server or service that hosts his
+account.
+
+Current implementation::
+
+    RequestChannel (RoomList, NONE, 0, suppress_handler=TRUE)
+
+Notes:
+
+* There doesn't seem to be any use case for suppress_handler=FALSE here,
+  since a default handler for chatroom lists doesn't really make sense
+
+Problems:
+
+* Gabble implements this badly, by treating the room list as a singleton
+
+* Some protocols (IRC!) are terrible, and on these, the room list actually
+  *is* a singleton
+
+_`req10`: listing chatrooms on "foreign" server
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo wants to list all the chatrooms on the server that hosts Juliet's
+account.
+
+Current implementation: impossible
+
+Contact lists
+-------------
+
+_`req11`: typical contact list UI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Current best-practice to get contact lists (should not use ListChannels
+and NewChannel, cf my conversation with Zdra in #telepathy on 2008-04-25)::
+
+    RequestChannel (ContactList, CONTACT_LIST, handle("subscribe"))
+    RequestChannel (ContactList, CONTACT_LIST, handle("publish"))
+    RequestChannel (ContactList, CONTACT_LIST, handle("hide"))
+    RequestChannel (ContactList, CONTACT_LIST, handle("allow"))
+    RequestChannel (ContactList, CONTACT_LIST, handle("deny"))
+
+Current best-practice to get initial user-defined groups::
+
+    ListChannels ()
+
+(finding new groups will be part of the "incoming" use cases list)
+
+Problems:
+
+* Slightly unclear whether suppress_handler should be TRUE or FALSE -
+  depends on "incoming" use cases
+
+_`req12`: creating a user-defined contact group
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Current implementation::
+
+    RequestChannel (ContactList, GROUP, handle("Colleagues"),
+        suppress_handler=FALSE)
+
+..
+  vim:set sw=4 sts=4 et:
