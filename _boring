@@ -36,7 +36,7 @@
 # End of generic boring regexps
 ^(\./)?introspect(/|$)
 ^(\./)?test/output(/|$)
-^(\./)?doc/spec\.html$
+^(\./)?doc/.*\.html$
 ^(\./)?doc/telepathy-spec.devhelp2$
 ^(\./)?tmp(/|$)
 ^(\./)?telepathy-spec-[.0-9]+(\.tar\.gz)?$
