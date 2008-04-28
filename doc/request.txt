@@ -171,8 +171,8 @@ Current implementation: same as req5_
 
 Problems: same as req5_
 
-Joining a chatroom by request
------------------------------
+Joining a named chatroom by request
+-----------------------------------
 
 _`req7`: joining chatroom from chatroom UI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -222,8 +222,8 @@ Problems:
   HandleChannel on a channel it's already handling as "put it in the
   foreground"
 
-Listing chatrooms
------------------
+Listing named chatrooms
+-----------------------
 
 _`req9`: listing chatrooms on "home" server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -288,6 +288,21 @@ Current implementation::
 
     RequestChannel (ContactList, GROUP, handle("Colleagues"),
         suppress_handler=FALSE)
+
+Ad-hoc chatrooms
+----------------
+
+FIXME: there are quite a few cases here.
+
+File transfers
+--------------
+
+FIXME: ... are hard
+
+Tubes
+-----
+
+FIXME: ... are hard (see also, OLPC's Activity model)
 
 ..
   vim:set sw=4 sts=4 et:
