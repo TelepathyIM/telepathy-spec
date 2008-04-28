@@ -91,7 +91,7 @@ Problems:
 * If the chat UI is not currently visible, as currently implemented it
   cannot necessarily use the same mechanism to notify the user that would
   be used for a new channel, because it doesn't "own" the notification
-  mechanism for the new-channel case (this would be fixed by dis1a_)
+  mechanism for the new-channel case (this would be fixed by dis1impl2_)
   (call this _`dis2problem2`)
 
 _`dis3`: Incoming 1-1 text message with window closed
@@ -224,7 +224,7 @@ Problems:
   (https://bugs.freedesktop.org/show_bug.cgi?id=14606)
 
 _`dis10`: Incoming VoIP call related to some other channel
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet is talking to Romeo over text chat. Romeo decides that he can't bear
 to not hear her voice, and starts a VoIP call. Juliet wants controls for the
