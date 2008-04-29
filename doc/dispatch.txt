@@ -396,7 +396,7 @@ Tubes
 -----
 
 _`dis21`: Invited to One Laptop per Child Activities, as of early 2008
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 An OLPC Activity instance encapsulates an instance of an application,
 zero or more D-Bus tubes and zero or more stream tubes to transfer messages
