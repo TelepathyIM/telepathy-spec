@@ -472,7 +472,24 @@ server)?
 File transfers
 --------------
 
-FIXME: ... are hard
+_`req20`: Sending a file in the context of a conversation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is talking to Juliet using a text or VoIP UI, and wishes to
+send Juliet a file in the context of that conversation.
+
+_`req21`: Sending a file from a file manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo right-clicks on a file in his file manager, chooses a "Send to User"
+option and chooses to send it to Juliet.
+
+_`req22`: Sending a file automatically in a collaborative application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+While collaborating on a document with Mercutio, Romeo inserts an embedded
+image into the document. The collaborative application could usefully choose
+to represent this by a file transfer.
 
 Tubes
 -----
