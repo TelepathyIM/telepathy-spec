@@ -494,7 +494,44 @@ to represent this by a file transfer.
 Tubes
 -----
 
-FIXME: ... are hard (see also, OLPC's Activity model)
+_`req23`: One Laptop per Child Activities, as of early 2008
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An OLPC Activity instance encapsulates an instance of an application,
+zero or more D-Bus tubes and zero or more stream tubes to transfer messages
+or state between participants, and a text chatroom to discuss the activity.
+
+In the "1.0" protocol used in early 2008, each Activity instance is backed
+by an XMPP or Clique_ MUC (chatroom).
+
+Current implementation: we assume that the channels (Tubes, ROOM, foo)
+and (Text, ROOM, foo) correspond 1:1. Activity discovery is done out-of-band
+using OLPC-specific extensions, although we'd like to make some of it
+more standard (mainly invitations).
+
+Problems:
+
+* we don't want Tubes channels in their current form, since dispatching them
+  is likely to be a bit of a nightmare if we can't rely on OLPC assumptions;
+  we want one channel per Tube instead
+
+* in a less constrained environment, two different collaborative applications
+  could conceivably share a MUC (the OLPC UI can't cause this to happen, but
+  would likely get incredibly confused if it did)
+
+.. _Clique: http://telepathy.freedesktop.org/xmpp/clique.html
+
+_`req24`: Existing UDP/TCP client/server protocol, one client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tybalt asks Juliet to help him fix a problem with his computer. He offers
+her a VNC connection to his computer so she can interact with his desktop.
+
+_`req25`: Existing UDP/TCP client/server protocol, many clients
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo offers Mercutio and Benvolio access to an OpenArena server running
+on his local computer.
 
 ..
   vim:set sw=4 sts=4 et:
