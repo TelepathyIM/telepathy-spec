@@ -521,14 +521,14 @@ Problems:
 
 .. _Clique: http://telepathy.freedesktop.org/xmpp/clique.html
 
-_`req24`: Existing UDP/TCP client/server protocol, one client
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`req24`: Existing UDP/TCP client/server protocol, serving one client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tybalt asks Juliet to help him fix a problem with his computer. He offers
 her a VNC connection to his computer so she can interact with his desktop.
 
-_`req25`: Existing UDP/TCP client/server protocol, many clients
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`req25`: Existing UDP/TCP client/server protocol, serving many clients
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo offers Mercutio and Benvolio access to an OpenArena server running
 on his local computer.
