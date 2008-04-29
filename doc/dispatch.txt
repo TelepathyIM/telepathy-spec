@@ -186,13 +186,25 @@ Current implementation::
     NewChannel (Text, ROOM, handle("The Capulets' ball"),
         suppress_handler=FALSE)
 
-    Mission Control runs filters, which include the blinking "new message"
+    Mission Control runs filters, which include a notification
     icon in the system tray
 
     When the tray icon is clicked, Mission Control continues processing
     filters and eventually dispatches to the channel handler
 
+    The channel handler moves Romeo from local-pending to members.
+
 Problems and variations: same as dis1_
+
+_`dis14`: Forcibly joining a chatroom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Benvolio connects to an irssi-proxy or other IRC bouncer running on some colo
+box somewhere. The proxy informs his client that he is already in #telepathy
+and #farsight.
+
+Current implementation: same as dis7_, but Benvolio is already in the members
+set for those channels
 
 Incoming VoIP calls
 -------------------
