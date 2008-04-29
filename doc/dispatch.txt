@@ -319,7 +319,43 @@ Possible solution: same as dis12_
 Invitations to ad-hoc chatrooms
 -------------------------------
 
-FIXME: there are quite a few cases here.
+_`dis15`: Invitation to an ad-hoc chatroom with one user
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet receives a message from Romeo using MSN,
+in which "1-1" conversations are actually ad-hoc chatrooms with exactly
+two members. She would like this to be indistinguishable from Romeo sending
+her a message over XMPP, in which 1-1 conversations are really 1-1.
+
+Current implementation::
+
+    NewChannel (Text, NONE, 0, suppress_handler=FALSE)
+
+    The channel is passed through filters, etc.
+
+Problems:
+
+* Same as dis8_ and dis1_ combined
+
+* It's unclear whether Juliet should be in member or local-pending state
+  in the new channel
+
+_`dis16`: Invitation to an ad-hoc chatroom with multiple users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo receives an invitation to join an ad-hoc chatroom currently
+containing Mercutio and Benvolio.
+
+Current implementation::
+
+    NewChannel (Text, NONE, 0, suppress_handler=FALSE)
+
+    The channel is passed through filters, etc.
+
+Problems:
+
+* Same as dis15_, but the desired state (member vs local pending) might be
+  different
 
 File transfers
 --------------
