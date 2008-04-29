@@ -368,7 +368,29 @@ Current implementation: none
 File transfers
 --------------
 
-FIXME: ... are hard
+_`dis18`: Receiving a file in the context of a conversation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet is talking to Romeo using a text or VoIP UI when he sends her
+a file in the context of that conversation. If it implements file transfer
+functionality, the text or VoIP UI should handle the file transfer; otherwise,
+the channel dispatcher should fall back to launching a standalone file
+transfer handler.
+
+_`dis19`: Receiving a file unexpectedly
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet is not interacting with Romeo when he sends her a file. Some
+appropriate UI needs to be launched to indicate that the file has been
+offered.
+
+_`dis20`: Receiving a file in a collaborative application
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+File transfers might be a useful model for collaborative applications
+to use to transfer snapshots of state, or to transfer related files
+(e.g. in a word processor, you could receive an inline image that is
+embedded in the document).
 
 Tubes
 -----
