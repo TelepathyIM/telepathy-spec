@@ -357,6 +357,14 @@ Problems:
 * Same as dis15_, but the desired state (member vs local pending) might be
   different
 
+_`dis17`: Upgrading a 1-1 chat to a named or ad-hoc chatroom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mercutio is talking to Benvolio in a 1-1 chat. Benvolio upgrades the
+chat to a chatroom in order to invite Romeo to join in.
+
+Current implementation: none
+
 File transfers
 --------------
 
