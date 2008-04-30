@@ -425,6 +425,67 @@ Problems:
 * Determining whether we already have a channel to Juliet becomes harder
   than in req1_
 
+_`req31`: Recovering from disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is talking to Juliet using text chat, but is disconnected due to network
+instability. After reconnecting, he wants to keep using the same window to
+talk to Juliet.
+
+A solution for this use case should work correctly (and result in
+a single channel) if there is a "mid-air collision" with Juliet doing the
+same thing, with Juliet sending messages to Romeo while he is still
+offline (on store-and-forward protocols like XMPP), or with Juliet
+recovering from Romeo's disconnection as per req33_ (on protocols that
+do not allow offline messages).
+
+Current implementation: same as req13_
+
+Problems:
+
+* the two conversations are unrelated (Juliet cannot distinguish
+  between this case and req13_)
+
+* A mid-air collision is highly likely to result in two parallel
+  conversations with the same members (if this is even allowed by the
+  protocol)
+
+* the interaction with offline messages is quite scary
+
+_`req32`: Resuming a conversation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo chooses a past conversation with Juliet in a log browser and wants
+to resume it. (The definition of threading in XMPP expects that this is
+possible.)
+
+This is basically req31_ but for a different reason; I expect that the
+solution can be similar.
+
+Current implementation: same as req13_
+
+Problems: Juliet cannot distinguish between this case and req13_
+
+_`req33`: Recovering from other's disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet is talking to Romeo using text chat when Romeo is disconnected
+due to network instability. The protocol is one that does not
+allow offline messages to be sent, like IRC. After reconnecting, Juliet
+wants to keep using the same window to talk to Romeo.
+
+A solution for this use case should work correctly (and result in
+a single channel) if there is a "mid-air collision" with Romeo doing the
+same thing, or with Romeo recovering from disconnection as per req31_.
+
+Current implementation: unclear
+
+Problems:
+
+* A mid-air collision is highly likely to result in two parallel
+  conversations with the same members (if this is even allowed by the
+  protocol)
+
 _`req14`: Ad-hoc chatroom from chat UI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
