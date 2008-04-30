@@ -226,6 +226,49 @@ Current implementation: same as req5_
 
 Problems: same as req5_
 
+_`req29`: Recovering from disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is talking to Juliet using VoIP, but is disconnected due to network
+instability. After reconnecting, he wants to keep using the same window to
+talk to Juliet.
+
+A solution for this use case should ideally work correctly (and result in
+a single channel) if there is a "mid-air collision" with Juliet doing the
+same thing, or with Juliet recovering from Romeo's disconnection as per
+req30_.
+
+Current implementation: same as req4_
+
+Problems:
+
+* the two conversations are unrelated (Juliet cannot distinguish
+  between this case and req4_)
+
+* if Juliet calls Romeo at the same time that Romeo calls Juliet, a
+  collision occurs and both calls probably fail with error BUSY
+
+_`req30`: Recovering from other's disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet is talking to Romeo using VoIP when Romeo is disconnected
+due to network instability. After reconnecting, Juliet
+wants to keep using the same window to talk to Romeo.
+
+A solution for this use case should ideally work correctly (and result in
+a single channel) if there is a "mid-air collision" with Romeo doing the
+same thing, or with Romeo recovering from disconnection as per req29_.
+
+Current implementation: same as req4_
+
+Problems:
+
+* the two conversations are unrelated (Romeo cannot distinguish
+  between this case and req4_)
+
+* if Juliet calls Romeo at the same time that Romeo calls Juliet, a
+  collision occurs and both calls probably fail with error BUSY
+
 Joining a named chatroom by request
 -----------------------------------
 
