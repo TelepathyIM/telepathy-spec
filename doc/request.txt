@@ -73,6 +73,8 @@ offline (on store-and-forward protocols like XMPP), or with Juliet
 recovering from Romeo's disconnection as per req28_ (on protocols that
 do not allow offline messages).
 
+(Recovering from a connection manager crash is equivalent to this.)
+
 Current implementation: same as req1_
 
 Problems:
@@ -108,6 +110,8 @@ wants to keep using the same window to talk to Romeo.
 A solution for this use case should work correctly (and result in
 a single channel) if there is a "mid-air collision" with Romeo doing the
 same thing, or with Romeo recovering from disconnection as per req26_.
+
+(Recovering from a connection manager crash is equivalent to this.)
 
 Current implementation: Juliet's text channel does not close, but
 she cannot send messages. When Romeo reconnects, because of 1-1 chat
@@ -238,6 +242,8 @@ a single channel) if there is a "mid-air collision" with Juliet doing the
 same thing, or with Juliet recovering from Romeo's disconnection as per
 req30_.
 
+(Recovering from a connection manager crash is equivalent to this.)
+
 Current implementation: same as req4_
 
 Problems:
@@ -258,6 +264,8 @@ wants to keep using the same window to talk to Romeo.
 A solution for this use case should ideally work correctly (and result in
 a single channel) if there is a "mid-air collision" with Romeo doing the
 same thing, or with Romeo recovering from disconnection as per req29_.
+
+(Recovering from a connection manager crash is equivalent to this.)
 
 Current implementation: same as req4_
 
@@ -439,6 +447,8 @@ offline (on store-and-forward protocols like XMPP), or with Juliet
 recovering from Romeo's disconnection as per req33_ (on protocols that
 do not allow offline messages).
 
+(Recovering from a connection manager crash is equivalent to this.)
+
 Current implementation: same as req13_
 
 Problems:
@@ -477,6 +487,8 @@ wants to keep using the same window to talk to Romeo.
 A solution for this use case should work correctly (and result in
 a single channel) if there is a "mid-air collision" with Romeo doing the
 same thing, or with Romeo recovering from disconnection as per req31_.
+
+(Recovering from a connection manager crash is equivalent to this.)
 
 Current implementation: unclear
 
