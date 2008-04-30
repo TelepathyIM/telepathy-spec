@@ -422,7 +422,7 @@ Problems:
 
 .. _Clique: http://telepathy.freedesktop.org/xmpp/clique.html
 
-_`dis`: Invited to be a client in an existing UDP/TCP client/server protocol
+_`dis22`: Invited to be a client in an existing UDP/TCP client/server protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 (Use-cases req24, req25)
