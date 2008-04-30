@@ -59,6 +59,61 @@ that may be ongoing.
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
 
+_`req26`: Recovering from disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo is talking to Juliet using text chat, but is disconnected due to network
+instability. After reconnecting, he wants to keep using the same window to
+talk to Juliet.
+
+A solution for this use case should work correctly (and result in
+a single channel) if there is a "mid-air collision" with Juliet doing the
+same thing, with Juliet sending messages to Romeo while he is still
+offline (on store-and-forward protocols like XMPP), or with Juliet
+recovering from Romeo's disconnection as per req28_ (on protocols that
+do not allow offline messages).
+
+Current implementation: same as req1_
+
+Problems:
+
+* the two conversations are unrelated (Juliet cannot distinguish
+  between this case and req1_)
+
+Sketch of a proposed solution: give both conversations a thread UUID, and
+let the UI provide the same thread UUID when reconnecting
+
+_`req27`: Resuming a conversation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo chooses a past conversation with Juliet in a log browser and wants
+to resume it. (The definition of threading in XMPP expects that this is
+possible.)
+
+This is basically req26_ but for a different reason; I expect that the
+solution can be similar.
+
+Current implementation: same as req2_
+
+Problems: Juliet cannot distinguish between this case and req2_
+
+_`req28`: Recovering from other's disconnection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet is talking to Romeo using text chat when Romeo is disconnected
+due to network instability. The protocol is one that does not
+allow offline messages to be sent, like IRC. After reconnecting, Juliet
+wants to keep using the same window to talk to Romeo.
+
+A solution for this use case should work correctly (and result in
+a single channel) if there is a "mid-air collision" with Romeo doing the
+same thing, or with Romeo recovering from disconnection as per req26_.
+
+Current implementation: Juliet's text channel does not close, but
+she cannot send messages. When Romeo reconnects, because of 1-1 chat
+uniqueness, Juliet's client continues to use the same channel and there
+is no disconnection.
+
 Outgoing VoIP call
 ------------------
 
