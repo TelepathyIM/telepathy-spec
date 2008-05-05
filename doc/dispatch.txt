@@ -435,5 +435,50 @@ her a VNC connection to his computer so she can interact with his desktop.
 Romeo offers Mercutio and Benvolio access to an OpenArena server running
 on his local computer.
 
+Failures and other exceptional cases
+------------------------------------
+
+_`dis23`: Client-side blocking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Rosalind has blocked messages and calls from Romeo. However, her IM service
+does not support server-side blocking, so her client must implement blocking
+on the client side.
+
+(A similar approach can be used to implement other privacy models, such as
+"only allow messages from contacts on my publish list".)
+
+Current implementation: a filter in Mission Control 4.x
+
+Miscellaneous
+-------------
+
+_`dis24`: multiple notification mechanisms
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+(From Frederic Peters on the mailing list)
+
+Frederic wants to see IM messages appear as some sort of overlay when Totem
+is running full-screen.
+
+Problems:
+
+* Having Totem, mplayer, OpenArena and every other full-screen app know about
+  Telepathy messages, gnome-power-manager low-battery warnings and every other
+  source of notifications doesn't really scale. Can't we solve this at the
+  level of the fd.o Desktop Notification spec instead?
+
+_`dis25`: brightness on portable devices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+(From the Nokia Internet Tablets, but also generally applicable)
+
+Naba's Internet tablet dims the screen when not in use. When a message
+or call comes in, the screen backlight should come up to normal brightness.
+
+Current implementation: a filter in Mission Control 4.x?
+
+Problems: is this really just a special case of dis24_?
+
 ..
   vim:set sw=4 sts=4 et:
