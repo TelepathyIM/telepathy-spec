@@ -277,6 +277,28 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
+_`req33`: Cancelling outgoing call
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet starts a VoIP call to Tybalt, but then thinks better of it and
+cancels the call before the channel has actually been opened.
+
+Current implementation (NMC 4.x)::
+
+    UI calls mission_control_cancel_channel_request()
+
+    if dispatching of the channel has already begun:
+        cancellation succeeds
+    else:
+        cancellation fails
+        the UI is asked to handle the channel
+
+Problems:
+
+* In NMC 4.x the UI cannot distinguish between the channel that it no longer
+  cares about and should close/refuse (this use case), and a channel requested
+  by another process but handled by it (req5_)
+
 Joining a named chatroom by request
 -----------------------------------
 
@@ -703,6 +725,33 @@ _`req25`: Existing UDP/TCP client/server protocol, serving many clients
 
 Romeo offers Mercutio and Benvolio access to an OpenArena server running
 on his local computer.
+
+Failures and other exceptional cases
+------------------------------------
+
+_`req34`: failing to send a text message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo opens a text channel to Juliet to send a message, but Juliet's server
+is down and Romeo's server signals failure. (This is mostly applicable to
+decentralized protocols like XMPP and SIP.)
+
+Current implementation::
+
+    the message is sent
+    SendError (and soon DeliveryReporting) report the failure
+    the channel remains open
+
+_`req35`: failing to make a call
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo makes a VoIP call to Juliet, but Juliet's server crashes and failure
+is signalled.
+
+Current implementation::
+
+    Juliet is removed from the Group interface, with an error for the reason
+    the StreamedMedia channel closes
 
 ..
   vim:set sw=4 sts=4 et:
