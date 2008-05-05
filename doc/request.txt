@@ -277,28 +277,6 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
-_`req33`: Cancelling outgoing call
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Juliet starts a VoIP call to Tybalt, but then thinks better of it and
-cancels the call before the channel has actually been opened.
-
-Current implementation (NMC 4.x)::
-
-    UI calls mission_control_cancel_channel_request()
-
-    if dispatching of the channel has already begun:
-        cancellation succeeds
-    else:
-        cancellation fails
-        the UI is asked to handle the channel
-
-Problems:
-
-* In NMC 4.x the UI cannot distinguish between the channel that it no longer
-  cares about and should close/refuse (this use case), and a channel requested
-  by another process but handled by it (req5_)
-
 Joining a named chatroom by request
 -----------------------------------
 
@@ -752,6 +730,28 @@ Current implementation::
 
     Juliet is removed from the Group interface, with an error for the reason
     the StreamedMedia channel closes
+
+_`req36`: Cancelling outgoing call
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Juliet starts a VoIP call to Tybalt, but then thinks better of it and
+cancels the call before the channel has actually been opened.
+
+Current implementation (NMC 4.x)::
+
+    UI calls mission_control_cancel_channel_request()
+
+    if dispatching of the channel has already begun:
+        cancellation succeeds
+    else:
+        cancellation fails
+        the UI is asked to handle the channel
+
+Problems:
+
+* In NMC 4.x the UI cannot distinguish between the channel that it no longer
+  cares about and should close/refuse (this use case), and a channel requested
+  by another process but handled by it (req5_)
 
 ..
   vim:set sw=4 sts=4 et:
