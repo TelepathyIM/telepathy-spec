@@ -50,36 +50,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         emitted by a channel which supports this interface, a message of type
         Channel_Text_Message_Type_Delivery_Report MUST also be emitted.</p>
 
-      <p>The corresponding message in the Messages interface MUST take the
-        following form:</p>
-
-      <ul>
-        <li>The Timestamp MUST either be the time the delivery report was
-          sent, if available, or the time it was received by the CM
-          otherwise.</li>
-
-        <li>The Sender MUST be the intended recipient of the message, if
-          available, or zero otherwise; this is true even if the delivery
-          report actually came from an intermediate server. (If this
-          distinction needs to be made in future, we will add additional
-          delivery-* keys).</li>
-
-        <li>The first Message_Part contains "headers" for the delivery report,
-          as specified below. It MUST NOT have the 'type', 'content',
-          'needs-retrieval' or 'size' keys.</li>
-
-        <li>The second and subsequent Message_Part dictionaries, if present,
-          are a human-readable report from the connection manager or IM
-          service. This MAY appear in multiple alternative languages.</li>
-      </ul>
-
-      <p>This interface defines the following additional keys which SHOULD
-        appear in the first Message_Part of a delivery report, if the
-        necessary information is available:</p>
+      <p>The corresponding message in the Messages interface MUST contain
+        "headers" for the delivery report, as specified below, in its
+        first Message_Part.</p>
 
       <dl>
-        <dt>interface (s)</dt>
+        <dt>type, content, needs-retrieval, size (as defined in the Messages
+          interface)</dt>
+        <dd>These keys MUST NOT be present in the first Message_Part.</dd>
+
+        <dt>interface (s - DBus_Interface, as defined in the Messages
+          interface)</dt>
         <dd>MUST be the name of this interface.</dd>
+
+        <dt>message-sender (u - Contact_Handle, as defined in the Messages
+          interface)</dt>
+        <dd>MUST be the intended recipient of the original message, if
+          available (zero or omitted otherwise), even if the delivery report
+          actually came from an intermediate server.</dd>
+
+        <dt>message-type (u - Channel_Text_Message_Type, as defined in the
+          Messages interface)</dt>
+        <dd>MUST be Channel_Text_Message_Type_Delivery_Report.</dd>
 
         <dt>delivery-status (u - Delivery_Status)</dt>
         <dd>The status of the message. All delivery reports MUST contain
@@ -142,6 +134,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </dd>
 
       </dl>
+
+      <p>The second and subsequent Message_Part dictionaries, if present,
+        are a human-readable report from the connection manager or IM
+        service. This MAY appear in multiple alternative languages.</p>
 
       <p>It is an error for this interface to appear on channels of type
         other than Text, or on Text channels without the Messages interface.
@@ -273,8 +269,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             API.</p>
 
           <p>If they turn out to be needed, we can add a method like
-            SendDeliveryReportByContent(u: timestamp, u: sender,
-            u: message_type, aa{sv}: parts) and add a flag to
+            SendDeliveryReportByContent(aa{sv}: message) and add a flag to
             Delivery_Reporting_Support_Flags indicating that this method is
             implemented.</p>
         </tp:rationale>
