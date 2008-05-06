@@ -384,7 +384,6 @@ USA.</p>
           <p>It is an error for a connection manager to put these keys
             in the first Message_Part, but clients MUST be able to recover
             from this error by ignoring these keys in the first part.</p>
-        </div>
 
         </div>
       </tp:docstring>
