@@ -216,6 +216,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           Clients MAY expect to receive negative delivery reports if
           Message_Sending_Flag_Report_Delivery is specified when sending.
+
+          <tp:rationale>
+            If senders want delivery reports, they should ask for them.
+            If they don't want delivery reports, they can just ignore them,
+            so there's no need to have capability discovery for what will
+            happen if a delivery report isn't requested.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
@@ -225,10 +232,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Message_Sending_Flag_Report_Delivery is specified when sending.
 
           <tp:rationale>
-            If senders want delivery reports, they should ask for them.
-            If they don't want delivery reports, they can just ignore them,
-            so there's no need to have capability discovery for what will
-            happen if a delivery report isn't requested.
+            Same rationale as Receive_Failures.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
