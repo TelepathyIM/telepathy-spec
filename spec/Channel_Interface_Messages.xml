@@ -577,20 +577,40 @@ USA.</p>
       </arg>
 
       <arg name="Parts" type="au" direction="in">
-        <tp:docstring>The desired entries in the array of message
-          parts, identified by their position (starting from 0)
+        <tp:docstring>
+          The desired entries in the array of message parts, identified by
+          their position. The "headers" part (which is not a valid argument
+          to this method) is considered to be part 0, so the valid part
+          numbers start at 1 (for the second Message_Part).
         </tp:docstring>
       </arg>
 
       <arg name="Content" type="a{uv}" direction="out">
-        <tp:docstring>
-          The content of the requested parts. The keys in this mapping
-          are positions in the array of message parts; the values are
-          either of type 's' or 'ay' (UTF-8 text string, or byte array),
-          following the same rules as for the value of the 'content' key in
-          the Message_Part mappings.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The content of the requested parts. The keys in this mapping
+            are positions in the array of message parts; the values are
+            either of type 's' or 'ay' (UTF-8 text string, or byte array),
+            following the same rules as for the value of the 'content' key in
+            the Message_Part mappings.</p>
+
+          <p>If the one of the requested part numbers was greater than zero
+            but referred to a part that had no content (i.e. it had no 'type'
+            key), it is simply omitted from this mapping; this is not
+            considered to be an error condition.</p>
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+            Either there is no pending message with the given message ID,
+            or one of the part numbers given was 0 or too large.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
 
     <signal name="MessageReceived">
