@@ -477,18 +477,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
         </xsl:choose>
       </xsl:variable>
       <xsl:choose>
-        <xsl:when test="//tp:simple-type[@name=$tp-type]" />
-        <xsl:when test="//tp:simple-type[concat(@name, '[]')=$tp-type]" />
-        <xsl:when test="//tp:struct[concat(@name, '[]')=$tp-type][string(@array-name) != '']" />
-        <xsl:when test="//tp:mapping[concat(@name, '[]')=$tp-type][string(@array-name) != '']" />
-        <xsl:when test="//tp:struct[@name=$tp-type]" />
-        <xsl:when test="//tp:enum[@name=$tp-type]" />
-        <xsl:when test="//tp:enum[concat(@name, '[]')=$tp-type]" />
-        <xsl:when test="//tp:flags[@name=$tp-type]" />
-        <xsl:when test="//tp:flags[concat(@name, '[]')=$tp-type]" />
-        <xsl:when test="//tp:mapping[@name=$tp-type]" />
-        <xsl:when test="//tp:external-type[concat(@name, '[]')=$tp-type]" />
-        <xsl:when test="//tp:external-type[@name=$tp-type]" />
+        <xsl:when test="//tp:simple-type[@name=$single-type]" />
+        <xsl:when test="//tp:struct[@name=$single-type]" />
+        <xsl:when test="//tp:enum[@name=$single-type]" />
+        <xsl:when test="//tp:flags[@name=$single-type]" />
+        <xsl:when test="//tp:mapping[@name=$single-type]" />
+        <xsl:when test="//tp:external-type[@name=$single-type]" />
         <xsl:otherwise>
           <xsl:message terminate="yes">
             <xsl:text>ERR: Unable to find type '</xsl:text>
