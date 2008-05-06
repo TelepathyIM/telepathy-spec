@@ -137,37 +137,23 @@ USA.</p>
           appears in isolation - messages are represented by a list of
           Message_Part mappings.</p>
 
-        <div>
-          <p>In any group of parts with the same non-empty value for the
-            "alternative" key (which represent alternative versions of the
-            same content), more faithful versions of the intended message MUST
-            come before less faithful versions (note that this order is the
-            opposite of MIME "multipart/alternative" parts). Clients SHOULD
-            display the first alternative that they understand.</p>
-
-          <tp:rationale>
-            Specifying the preference order means that if the underlying
-            protocol doesn't support alternatives, the CM can safely delete
-            everything apart from the first supported alternative when sending
-            messages.
-          </tp:rationale>
-
-          <p>An example of how a message might
-            look, in a Python-like syntax:</p>
+        <p>An example of how a message might
+          look, in a Python-like syntax:</p>
 
           <pre>
 [
-  { 'alternative': 'main',
-    'type': 'text/html',
-    'content': 'Here is a photo of my cat:&lt;br /&gt;' +
-               '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
-               '&lt;br /&gt;Isn't it cute?',
-    # these apply to the entire message, not just this part
+  {
     'message-sender': 42,
     'message-sent': 1210067943,
     'message-received': 1210067947,
     'message-type': 0,
     'pending-message-id': 437,
+  },
+  { 'alternative': 'main',
+    'type': 'text/html',
+    'content': 'Here is a photo of my cat:&lt;br /&gt;' +
+               '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
+               '&lt;br /&gt;Isn't it cute?',
   },
   { 'alternative': 'main',
     'type': 'text/plain',
@@ -181,41 +167,9 @@ USA.</p>
 ]
           </pre>
 
-          <p>Clients SHOULD present all parts that are not redundant
-            alternatives in the order they appear in this array, possibly
-            excluding parts that are referenced by another displayed part.
-            It is implementation-specific how the parts are presented to the
-            user.</p>
-
-          <tp:rationale>
-            <p>This allows CMs to assume that all parts are actually shown to
-              the user, even if they are not explicitly referenced - we do
-              not yet recommend formatted text, and there is no way for
-              plain text to reference an attachment since it has no concept of
-              markup or references. This also forces clients to do something
-              sensible with messages that consist entirely of "attachments",
-              with no "body" at all.</p>
-
-            <p>For instance, when displaying the above example, a client that
-              understands the HTML part should display the JPEG image once,
-              between the two lines "Here is a photo of my cat:" and
-              "Isn't it cute?"; it may additionally present the image in some
-              way for a second time, after "Isn't it cute?", or may choose
-              not to.</p>
-
-            <p>A client that does not understand HTML, displaying the same
-              message, should display the plain-text part, followed by the JPEG
-              image.</p>
-          </tp:rationale>
-        </div>
-
         <div>
-          <p>Certain keys apply to the message as a whole, and may only
-            appear in the first Message_Part in the array. If that
-            Message_Part is otherwise ignored (for instance because it has an
-            unsupported MIME type), but any later part is processed, then keys
-            in the first part that apply to the entire message MUST still be
-            processed.</p>
+          <p>The first part of the message contains "headers" which refer
+            to the entire message.</p>
 
           <p>It is an error for a connection manager to put keys referring
             to the message as a whole in the second or subsequent
@@ -256,11 +210,65 @@ USA.</p>
             <dd>The incoming message ID. This MUST NOT be present on outgoing
               messages. Clients SHOULD NOT store this key - it is only valid
               for as long as the message remains unacknowledged.</dd>
+
+            <dt>interface (s - DBus_Interface_Name)</dt>
+            <dd>This message is specific to the given interface, which is
+              neither Text nor Messages. It SHOULD be ignored if that
+              interface is not supported. (Note that an 'interface' key
+              can also appear on the second and subsequent parts, where
+              it indicates that that part (only) should be ignored if
+              unsupported.)</dd>
           </dl>
         </div>
 
         <div>
-          <p>Well-known keys, and the corresponding value types, include:</p>
+          <p>The second and subsequent parts contain the message's
+            content, including plain text, formatted text and/or attached
+            files.</p>
+
+          <p>In any group of parts with the same non-empty value for the
+            "alternative" key (which represent alternative versions of the
+            same content), more faithful versions of the intended message MUST
+            come before less faithful versions (note that this order is the
+            opposite of MIME "multipart/alternative" parts). Clients SHOULD
+            display the first alternative that they understand.</p>
+
+          <tp:rationale>
+            Specifying the preference order means that if the underlying
+            protocol doesn't support alternatives, the CM can safely delete
+            everything apart from the first supported alternative when sending
+            messages.
+          </tp:rationale>
+
+          <p>Clients SHOULD present all parts that are not redundant
+            alternatives in the order they appear in this array, possibly
+            excluding parts that are referenced by another displayed part.
+            It is implementation-specific how the parts are presented to the
+            user.</p>
+
+          <tp:rationale>
+            <p>This allows CMs to assume that all parts are actually shown to
+              the user, even if they are not explicitly referenced - we do
+              not yet recommend formatted text, and there is no way for
+              plain text to reference an attachment since it has no concept of
+              markup or references. This also forces clients to do something
+              sensible with messages that consist entirely of "attachments",
+              with no "body" at all.</p>
+
+            <p>For instance, when displaying the above example, a client that
+              understands the HTML part should display the JPEG image once,
+              between the two lines "Here is a photo of my cat:" and
+              "Isn't it cute?"; it may additionally present the image in some
+              way for a second time, after "Isn't it cute?", or may choose
+              not to.</p>
+
+            <p>A client that does not understand HTML, displaying the same
+              message, should display the plain-text part, followed by the JPEG
+              image.</p>
+          </tp:rationale>
+
+          <p>Well-known keys for the second and subsequent parts, and the
+            corresponding value types, include:</p>
 
           <dl>
             <dt>identifier (s)</dt>
@@ -366,9 +374,17 @@ USA.</p>
                 CM how large a message it should emit in the signal.-->
 
             <dt>interface (s - DBus_Interface_Name)</dt>
-            <dd>This part is specific to the given interface, which is neither
-              Text nor Messages.</dd>
+            <dd>This part is specific to the given interface, which is
+              neither Text nor Messages. It SHOULD be ignored if that
+              interface is not supported. (Note that an 'interface' key
+              can also appear on the first part, where it indicates that the
+              entire message should be ignored if unsupported.)</dd>
           </dl>
+
+          <p>It is an error for a connection manager to put these keys
+            in the first Message_Part, but clients MUST be able to recover
+            from this error by ignoring these keys in the first part.</p>
+        </div>
 
         </div>
       </tp:docstring>
