@@ -131,62 +131,13 @@ USA.</p>
       </tp:flag>
     </tp:flags>
 
-    <tp:struct name="Pending_Message"
-      array-name="Pending_Message_List">
+    <tp:mapping name="Message_Part" array-name="Message_Part_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Mapping representing a message which can have multiple parts
-          (for example, a message with attached data, or a message with
-          plain-text and XHTML alternatives).</p>
+        <p>Part of a message's content. In practice, this mapping never
+          appears in isolation - messages are represented by a list of
+          Message_Part mappings.</p>
 
-        <p>Messages containing a human-readable text message MUST include a
-          part with type "text/plain", which MAY have an alternative that uses
-          formatted text.</p>
-
-        <tp:rationale>
-          <p>Clients should be able to rely on the presence of a
-            lowest-common-denominator plain text part.</p>
-        </tp:rationale>
-
-        <p>Messages MUST be signalled (redundantly) via the Text channel type,
-          with the same message ID and as much as possible of the content.</p>
-
-        <p>Conversely, for every message signalled via the
-          Text channel type, there MUST be a corresponding multi-part message
-          with the same message ID and the same or additional content.</p>
-      </tp:docstring>
-
-      <tp:member type="u" tp:type="Message_ID" name="Identifier">
-        <tp:docstring>
-          The incoming message ID.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="u" tp:type="Unix_Timestamp" name="Timestamp">
-        <tp:docstring>
-          The time the message was sent (if available) or received (if the
-          time it was sent is not available).
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="u" tp:type="Contact_Handle" name="Sender">
-        <tp:docstring>
-          The contact who sent the message, or zero if this could not be
-          determined.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="u" tp:type="Channel_Text_Message_Type"
-        name="Message_Type">
-        <tp:docstring>
-          The type of message.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="aa{sv}" tp:type="Message_Part[]" name="Content">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The message content, including any attachments or
-            alternatives.</p>
-
+        <div>
           <p>In any group of parts with the same non-empty value for the
             "alternative" key (which represent alternative versions of the
             same content), more faithful versions of the intended message MUST
@@ -201,7 +152,7 @@ USA.</p>
             messages.
           </tp:rationale>
 
-          <p>An example of how the Content member of a message might
+          <p>An example of how a message might
             look, in a Python-like syntax:</p>
 
           <pre>
@@ -211,6 +162,12 @@ USA.</p>
     'content': 'Here is a photo of my cat:&lt;br /&gt;' +
                '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
                '&lt;br /&gt;Isn't it cute?',
+    # these apply to the entire message, not just this part
+    'message-sender': 42,
+    'message-sent': 1210067943,
+    'message-received': 1210067947,
+    'message-type': 0,
+    'pending-message-id': 437,
   },
   { 'alternative': 'main',
     'type': 'text/plain',
@@ -250,13 +207,57 @@ USA.</p>
               message, should display the plain-text part, followed by the JPEG
               image.</p>
           </tp:rationale>
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
+        </div>
 
-    <tp:mapping name="Message_Part" array-name="Message_Part_List">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Part of a message's content.</p>
+        <div>
+          <p>Certain keys apply to the message as a whole, and may only
+            appear in the first Message_Part in the array. If that
+            Message_Part is otherwise ignored (for instance because it has an
+            unsupported MIME type), but any later part is processed, then keys
+            in the first part that apply to the entire message MUST still be
+            processed.</p>
+
+          <p>It is an error for a connection manager to put keys referring
+            to the message as a whole in the second or subsequent
+            Message_Part, but clients MUST recover from this error by ignoring
+            these keys in the second and subsequent parts.</p>
+
+          <p>Well-known keys for the message as a whole, and the corresponding
+            value types, include:</p>
+
+          <dl>
+            <!-- FIXME: if needed we could add:
+            <dt>message-identifier (s)</dt>
+            <dd>An opaque, globally-unique identifier for the entire message.
+              This MAY be treated as if it were a MIME Message-ID, e.g. for
+              the mid: and cid: URI schemes. If omitted, there is no suitable
+              identifier.</dd>
+            -->
+
+            <dt>message-sent (u - Unix_Timestamp)</dt>
+            <dd>The time the message was sent (if unavailable, the time
+              it arrived at a central server MAY be used). Omitted if no
+              reasonable approximation is available</dd>
+
+            <dt>message-received (u - Unix_Timestamp)</dt>
+            <dd>The time the message was received locally. SHOULD always
+              be present.</dd>
+
+            <dt>message-sender (u - Contact_Handle)</dt>
+            <dd>The contact who sent the message. If 0 or omitted, the contact
+              who sent the message could not be determined.</dd>
+
+            <dt>message-type (u - Channel_Text_Message_Type)</dt>
+            <dd>The type of message; if omitted,
+              Channel_Text_Message_Type_Normal MUST be assumed. SHOULD
+              be omitted for normal chat messages.</dd>
+
+            <dt>pending-message-id (u - Message_ID)</dt>
+            <dd>The incoming message ID. This MUST NOT be present on outgoing
+              messages. Clients SHOULD NOT store this key - it is only valid
+              for as long as the message remains unacknowledged.</dd>
+          </dl>
+        </div>
 
         <div>
           <p>Well-known keys, and the corresponding value types, include:</p>
@@ -425,16 +426,10 @@ USA.</p>
           emitted.</p>
       </tp:docstring>
 
-      <arg direction="in" type="u" tp:type="Channel_Text_Message_Type"
-        name="Message_Type">
-        <tp:docstring>
-          The type of message.
-        </tp:docstring>
-      </arg>
       <arg direction="in" type="aa{sv}" tp:type="Message_Part[]"
-        name="Content">
+        name="Message">
         <tp:docstring>
-          The message content, including any attachments or alternatives.
+          The message content, including any attachments or alternatives
         </tp:docstring>
       </arg>
       <arg direction="in" name="Flags" type="u"
@@ -488,16 +483,9 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg type="u" tp:type="Channel_Text_Message_Type"
-        name="Message_Type">
-        <tp:docstring>
-          The type of message
-        </tp:docstring>
-      </arg>
-
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The message content (see Pending_Multiple_Part_Message for full
+          The message content (see Message_Part for full
           details). If the message that was passed to SendMessage has a
           formatted text part that the connection manager recognises, but no
           text/plain alternative, the CM MUST use the formatted text part to
@@ -515,8 +503,8 @@ USA.</p>
       </arg>
     </signal>
 
-    <property name="PendingMessages" type="a(uuuuaa{sv})" access="read"
-      tp:type="Pending_Message[]">
+    <property name="PendingMessages" type="aaa{sv}" access="read"
+      tp:type="Message_Part[][]">
       <tp:docstring>
         A list of incoming messages that have neither been acknowledged nor
         rejected. This list is a superset of the one returned by
@@ -591,36 +579,9 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg type="u" tp:type="Message_ID" name="Identifier">
-        <tp:docstring>
-          The incoming message ID.
-        </tp:docstring>
-      </arg>
-
-      <arg type="u" tp:type="Unix_Timestamp" name="Timestamp">
-        <tp:docstring>
-          The time the message was sent (if available) or received (if the
-          time it was sent is not available).
-        </tp:docstring>
-      </arg>
-
-      <arg type="u" tp:type="Contact_Handle" name="Sender">
-        <tp:docstring>
-          The contact who sent the message.
-        </tp:docstring>
-      </arg>
-
-      <arg type="u" tp:type="Channel_Text_Message_Type"
-        name="Message_Type">
-        <tp:docstring>
-          The type of message
-        </tp:docstring>
-      </arg>
-
-      <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
+      <arg type="aa{sv}" tp:type="Message_Part[]" name="Message">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The message content (see Pending_Message for full
-          details)
+          The message content, including any attachments or alternatives
         </tp:docstring>
       </arg>
     </signal>
