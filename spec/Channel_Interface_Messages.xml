@@ -251,10 +251,6 @@ USA.</p>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Part of a message's content.</p>
 
-        <p>For the 'content' key, "sufficiently small to include" is not
-          currently defined; we should add some API so clients can tell the
-          CM how large a message it should emit in the signal.</p>
-
         <div>
           <p>Well-known keys, and the corresponding value types, include:</p>
 
@@ -356,6 +352,10 @@ USA.</p>
               transcoding from another charset to UTF-8 if necessary, but
               MAY be a byte-array (of unspecified character set) if
               transcoding fails or the source charset is not known.</dd>
+
+              <!-- FIXME: "sufficiently small to include" is not currently
+              defined; we should add some API so clients can tell the
+                CM how large a message it should emit in the signal.-->
 
             <dt>interface (s - DBus_Interface_Name)</dt>
             <dd>This part is specific to the given interface, which is neither
