@@ -94,6 +94,13 @@ USA.</p>
           containing alternatives, even if the underlying protocol does not,
           by deleting all alternatives except the first (most preferred)
           that is supported.</p>
+
+        <tp:rationale>
+          Each of the flags 1, 2, 4 implies the previous flag, so we could
+          have used a simple enumeration here; however, we've defined
+          the message-part support indicator as a flag set for future
+          expansion.
+        </tp:rationale>
       </tp:docstring>
 
       <tp:flag suffix="Data_Only" value="1">
