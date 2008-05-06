@@ -55,10 +55,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         first Message_Part.</p>
 
       <dl>
-        <dt>type, content, needs-retrieval, size (as defined in the Messages
-          interface)</dt>
-        <dd>These keys MUST NOT be present in the first Message_Part.</dd>
-
         <dt>interface (s - DBus_Interface, as defined in the Messages
           interface)</dt>
         <dd>MUST be the name of this interface.</dd>
