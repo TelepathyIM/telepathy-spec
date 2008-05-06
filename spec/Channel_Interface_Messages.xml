@@ -409,10 +409,13 @@ USA.</p>
     <method name="SendMessage">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Submit a message to the server for sending.
-        If this method returns successfully, the message has been submitted
-        to the server and the MessageSent signal is emitted. If this method
-        fails, message submission to the server has failed and no signal on
-        this interface (or the Text interface) is emitted.</p>
+          If this method returns successfully, the message has been submitted
+          to the server and the MessageSent signal is emitted. A corresponding
+          Sent signal on the Text interface MUST also be emitted.</p>
+
+        <p>If this method fails, message submission to the server has failed
+          and no signal on this interface (or the Text interface) is
+          emitted.</p>
       </tp:docstring>
 
       <arg direction="in" type="u" tp:type="Channel_Text_Message_Type"
