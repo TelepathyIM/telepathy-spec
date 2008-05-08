@@ -2,6 +2,32 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
+telepathy-spec 0.17.4 (unreleased)
+==================================
+
+API changes:
+
+* Improve the Hold interface: instead of a boolean "held?" we now have
+  a quad-state arrangement (unheld, held, trying to hold, trying to unhold)
+  which turns out to be more useful for clients. This API has been
+  implemented as an extension in telepathy-gabble 0.7.3 and in
+  telepathy-sofiasip 0.5.8.
+
+API additions:
+
+* Add the Enabled and NormalizedName properties to the Account interface
+
+Fixes:
+
+* Explain the intended interaction between the Hold API presented to
+  streaming clients (MediaStreamHandler), and signalling to the remote contact
+
+* ListPendingMessages documentation shows up correctly in the HTML spec
+
+Tools changes:
+
+* Some simplifications in doc-generator.xsl
+
 telepathy-spec 0.17.3 (2008-04-03)
 ==================================
 
