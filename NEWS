@@ -9,13 +9,15 @@ API changes:
 
 * Improve the Hold interface: instead of a boolean "held?" we now have
   a quad-state arrangement (unheld, held, trying to hold, trying to unhold)
-  which turns out to be more useful for clients. This API has been
+  which turns out to be more useful for clients. This API has already been
   implemented as an extension in telepathy-gabble 0.7.3 and in
   telepathy-sofiasip 0.5.8.
 
 API additions:
 
 * Add the Enabled and NormalizedName properties to the Account interface
+
+* The Hold interface is now marked as stable, please include it in bindings
 
 Fixes:
 
