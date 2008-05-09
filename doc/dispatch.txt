@@ -480,5 +480,18 @@ Current implementation: a filter in Mission Control 4.x?
 
 Problems: is this really just a special case of dis24_?
 
+_`dis26`: multiple channel handers available
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo has both Kopette and Empathy installed on his system and both clients are
+able to handle text channels. Romeo wants to be able to choose between kopette
+and empathy just like he can choose between epiphany and firefox to handle html
+files.
+
+Problems:
+
+* There is no way currently to choose between channel handlers, Mission Control
+  4.x only accepts one chandler.
+
 ..
   vim:set sw=4 sts=4 et:
