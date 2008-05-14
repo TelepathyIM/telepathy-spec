@@ -480,8 +480,8 @@ Current implementation: a filter in Mission Control 4.x?
 
 Problems: is this really just a special case of dis24_?
 
-_`dis26`: multiple channel handers available
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`dis26`: multiple channel handers available - 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo has both Kopette and Empathy installed on his system and both clients are
 able to handle text channels. Romeo wants to be able to choose between kopette
@@ -492,6 +492,21 @@ Problems:
 
 * There is no way currently to choose between channel handlers, Mission Control
   4.x only accepts one chandler.
+
+_`dis27`: multiple channel handers available - 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo has both Empathy and Elisa installed. When elisa is running fullscreen he
+wants it to handle outgoing and incoming calls, otherwise he wants empathy to
+handle them.
+
+Problems:
+
+* There is no way currently to choose between channel handlers, Mission Control
+  4.x only accepts one chandler.
+* Empathy's filter will get the media channel before elisa's chandler, so the
+  status icon will blink and Romeo won't see it because elisa is running
+  fullscreen.
 
 ..
   vim:set sw=4 sts=4 et:
