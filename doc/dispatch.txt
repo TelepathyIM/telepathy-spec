@@ -485,8 +485,8 @@ _`dis26`: multiple channel handers available - 1
 
 Romeo has both Kopette and Empathy installed on his system and both clients are
 able to handle text channels. Romeo wants to be able to choose between kopette
-and empathy just like he can choose between epiphany and firefox to handle html
-files.
+and empathy just like he can choose between epiphany and firefox to handle http
+urls (see gnome-default-applications-properties).
 
 Problems:
 
