@@ -121,10 +121,35 @@ USA.</p>
       </tp:docstring>
     </method>
 
+    <signal name="SelfHandleChanged">
+      <tp:docstring>
+        Emitted whenever the SelfHandle property changes. If the connection
+        is not yet in the CONNECTED state, this signal is not guaranteed
+        to be emitted. (New in 0.17.UNRELEASED)
+      </tp:docstring>
+
+      <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
+        <tp:docstring>
+          The new value of the SelfHandle property.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="SelfHandle" type="u" tp:type="Contact_Handle"
+      access="read">
+      <tp:docstring>
+        The handle which represents the user on this connection, which will
+        remain valid for the lifetime of this connection, or until a change
+        in the user's identifier is signalled by the SelfHandleChanged signal.
+        If the connection is not yet in the CONNECTED state, the value of
+        this property MAY be zero. (New in 0.17.UNRELEASED)
+      </tp:docstring>
+    </property>
+
     <method name="GetSelfHandle">
       <arg direction="out" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          An integer handle representing the user
+          The value of the SelfHandle property
         </tp:docstring>
       </arg>
 
@@ -132,7 +157,7 @@ USA.</p>
         Get the handle which represents the user on this connection, which will
         remain valid for the lifetime of this connection, or until a change
         in the user's identifier is signalled by the Renamed signal on the
-        Renaming interface (if present).
+        Renaming interface (if present). This is always a CONTACT type handle.
       </tp:docstring>
 
       <tp:possible-errors>
