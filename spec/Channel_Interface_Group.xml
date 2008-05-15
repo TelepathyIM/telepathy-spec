@@ -179,16 +179,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
     </tp:flags>
 
+    <property name="GroupFlags" type="u" tp:type="Channel_Group_Flags"
+      access="read">
+      <tp:docstring>
+        An integer representing the bitwise-OR of flags on this
+        channel. The user interface can use this to present information about
+        which operations are currently valid. Change notification is via
+        the GroupFlagsChanged signal. (New in 0.17.UNRELEASED)
+      </tp:docstring>
+    </property>
+
     <method name="GetGroupFlags">
       <arg direction="out" type="u" tp:type="Channel_Group_Flags">
         <tp:docstring>
-          The bitwise OR of zero or more values from ChannelGroupFlags
+          The value of the GroupFlags property
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Returns an integer representing the bitwise-OR of flags on this
-        channel. The user interface can use this to present information about
-        which operations are currently valid.
+        Returns the value of the GroupFlags property. Deprecated since
+        0.17.UNRELEASED: use GetAll on the Properties interface instead,
+        falling back to this method if needed.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
