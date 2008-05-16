@@ -1,0 +1,219 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Requests"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
+  >
+  <tp:copyright>Copyright (C) 2008 Collabora Limited</tp:copyright>
+  <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Requests">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An enhanced version of the Telepathy connection interface, which can
+        represent bundles of channels that should be dispatched together, and
+        does not assume any particular properties by which channels are
+        uniquely identifiable.</p>
+
+      <p>New in 0.17.UNRELEASED.</p>
+    </tp:docstring>
+
+    <tp:flags name="Channel_Announcement_Flags"
+      value-prefix="Channel_Announcement_Flag">
+      <tp:docstring>
+        Flags that can appear when new channels are announced or when
+        RequestChannels returns.
+      </tp:docstring>
+
+      <tp:flag name="Suppress_Handler" value="1">
+        <tp:docstring>
+          The requesting client has taken responsibility for presenting the
+          channel(s) to the user, so no other user interface should be
+          activated.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag name="Reused" value="2">
+        <tp:docstring>
+          The channel already existed (and should be assumed to have been
+          handled) before the request was made. This flag MUST NOT appear
+          in NewChannels signals (where the channels are always new)
+          or the Channels property (where the channels always already exist)
+          - it only makes sense to return it from RequestChannels.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+    <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag">
+      <tp:docstring>
+        Flags that can be set when requesting channels.
+      </tp:docstring>
+
+      <tp:flag name="Suppress_Handler" value="1">
+        <tp:docstring>
+          The requesting client intends to take responsibility for presenting
+          the channel(s) to the user, so
+          Channel_Announcement_Flag_Suppress_Handler should be set on them.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag name="Prefer_Reuse" value="2">
+        <tp:docstring>
+          The requesting client would prefer to re-use an existing channel
+          that meets its requirements. The default behaviour is to create a
+          new channel whenever possible.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+    <tp:struct name="Channel_Details" array-name="Channel_Details_List">
+      <tp:docstring>
+        Enough details of a channel that clients can work out how to dispatch
+        or handle it.
+      </tp:docstring>
+
+      <tp:member name="Channel" type="o">
+        <tp:docstring>
+          The object path of the channel.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="Properties" type="aa{sv}">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Properties of the channel.</p>
+
+          <p>Connection managers MUST NOT include properties in this mapping
+            if their values can change. Clients MUST ignore properties
+            that appear in this mapping if their values can change.</p>
+
+          <tp:rationale>
+            <p>If properties that could change were included, the following
+              race condition would be likely to exist in some cases:</p>
+
+            <ul>
+              <li>NewChannels or Get("Channels") includes a property P with
+                value V1</li>
+              <li>Client creates a proxy object for the channel</li>
+              <li>The value of P changes to V2</li>
+              <li>Client connects to PChanged signal</li>
+              <li>Client should call Get("P") or GetAll here, to avoid the
+                race, but client's author has forgotten to do so</li>
+              <li>Proxy object thinks P == V1, but actually P == V2</li>
+            </ul>
+
+            <p>We've taken the opportunity to make the API encourage the
+              client author to get it right. Where possible, we intend that
+              properties whose value will be used in channel dispatching
+              or other "early" processing will be defined so that they are
+              immutable (can never change).</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <method name="RequestChannels">
+      <tp:docstring>
+      </tp:docstring>
+
+      <arg direction="in" name="Request_Flags" type="u"
+        tp:type="Channel_Request_Flags">
+        <tp:docstring>
+          Flags affecting the connection manager's behaviour while satisfying
+          this request.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Requests" type="aa{sv}">
+        <tp:docstring>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Flags" direction="out" type="u"
+        tp:type="Channel_Announcement_Flags">
+        <tp:docstring>
+          Flags with which the new channels were created.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Channels" direction="out" type="a(oa{sv})"
+        tp:type="Channel_Details[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The channels that were produced. Although the connection manager
+            will attempt to satisfy the request, they are not guaranteed to
+            match what the client requested; the client is responsible for
+            verifying that the returned channels are suitable.</p>
+
+          <p>The output channels MUST be in the same order as the requests.
+            If the requests caused additional unrequested channels in the
+            same bundle to be created as a side-effect, then this array will
+            be longer than the array of requests, and the unrequested channels
+            MUST appear at the end.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="NewChannels">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        New channels have been created. The connection manager SHOULD emit
+        a single signal for any group of closely related channels that are
+        created at the same time, so that the channel dispatcher can try to
+        dispatch them to a handler as a unit.
+      </tp:docstring>
+
+      <arg name="Flags" type="u" tp:type="Channel_Announcement_Flags">
+        <tp:docstring>
+          Flags with which these channels were created.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
+        <tp:docstring>
+          The channels and their details. All channels that are signalled
+          together like this MUST have the same Bundle property, which may
+          either refer to an existing bundle, or establish a new bundle.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="Channels" type="a(oa{sv})" access="read"
+      tp:type="Channel_Details[]">
+      <tp:docstring>
+        A list of all the channels which currently exist on this connection.
+        Change notification is via the NewChannels and ChannelsClosed signals.
+      </tp:docstring>
+    </property>
+
+    <signal name="ChannelsClosed">
+      <tp:docstring>
+        Emitted when channels are closed and hence disappear from the
+        Channels property.
+
+        <tp:rationale>
+          This is redundant with the Close signal on the channel itself, but
+          it does provide full change notification for the Channels property.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Removed" type="ao">
+        <tp:docstring>
+          The channels which have been removed from the Channels property
+        </tp:docstring>
+      </arg>
+    </signal>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
