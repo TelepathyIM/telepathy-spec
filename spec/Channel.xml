@@ -122,6 +122,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>For channels with the Group interface, this SHOULD be the same
           contact who is signalled as the "Actor" causing the self-handle
           to be placed in the local-pending set.</p>
+
+        <p>This SHOULD NOT be a channel-specific handle, if possible.
+      </tp:docstring>
+    </property>
+
+    <property name="InitiatorID" type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The string that would result from inspecting the InitiatorHandle
+          property (i.e. the initiator's identifier in the IM protocol).</p>
+
+        <tp:rationale>
+          <p>The presence of this property avoids the following race
+            condition:</p>
+
+          <ul>
+            <li>New StreamedMedia channel C is signalled with initiator
+              handle I</li>
+            <li>Client calls InspectHandles(CONTACT, [I])</li>
+            <li>Channel C closes, removing the last reference to handle I</li>
+            <li>InspectHandles(CONTACT, [I]) returns an error</li>
+            <li>Client can indicate that a call was missed, but not who
+              called!</li>
+          </ul>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
