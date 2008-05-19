@@ -594,8 +594,8 @@ USA.</p>
 
           <p>If the one of the requested part numbers was greater than zero
             but referred to a part that had no content (i.e. it had no 'type'
-            key), it is simply omitted from this mapping; this is not
-            considered to be an error condition.</p>
+            key or no 'content' key), it is simply omitted from this mapping;
+            this is not considered to be an error condition.</p>
         </tp:docstring>
       </arg>
 
