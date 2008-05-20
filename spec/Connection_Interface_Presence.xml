@@ -381,6 +381,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
+
+    <tp:enum name="Rich_Presence_Access_Control_Type" type="u">
+      <tp:docstring>
+        A type of access control for Rich_Presence_Access_Control.
+        For most types, the exact access control is given by an associated
+        variant.
+      </tp:docstring>
+
+      <tp:enumvalue name="Whitelist">
+        <tp:docstring>
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can see the user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Publish_List">
+        <tp:docstring>
+          All contacts in the user's 'publish' contact list can see the
+          user's location. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Group">
+        <tp:docstring>
+          The associated variant is a handle of type Group (signature 'u',
+          Group_Handle) representing a group of contacts who can see the
+          user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue name="Open">
+        <tp:docstring>
+          Anyone with access to the service can see the user's location.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:struct name="Rich_Presence_Access_Control">
+      <tp:docstring>
+        An access control mode for extended presence items like geolocation.
+        This type isn't actually used by the core Presence interface, but
+        it's included here so it can be referenced by other specifications.
+      </tp:docstring>
+
+      <tp:member name="Type" type="Rich_Presence_Access_Control_Type">
+        <tp:docstring>
+          The type of access control to apply.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="Detail" type="v">
+        <tp:docstring>
+          Any additional information required by the Type. The required
+          type and semantics are defined for each
+          Rich_Presence_Access_Control_Type.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
