@@ -380,6 +380,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Clients SHOULD NOT attempt to send delivery reports that are
           not indicated to be supported using the DeliveryReportingSupport
           property.</p>
+
+        <p>Clients SHOULD NOT attempt to send delivery reports using the
+          SendMessage method in the Messages API, and connection managers
+          SHOULD NOT allow this to be done.</p>
       </tp:docstring>
 
       <arg name="Messages" type="au" tp:type="Message_ID[]" direction="in">
