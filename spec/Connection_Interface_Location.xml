@@ -60,6 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:mapping name="Location">
       <tp:docstring>
+        A user's location, represented as an extensible mapping.
       </tp:docstring>
 
       <tp:member name="Key" type="s">
@@ -150,40 +151,86 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="GetLocations">
       <tp:docstring>
+        Return the current locations of the given contacts, if they are
+        already known. This method does not make any network requests.
       </tp:docstring>
 
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
+          The contacts whose locations should be returned.
         </tp:docstring>
       </arg>
 
       <arg direction="out" name="Locations" type="a{ua{sv}}"
         tp:type="Contact_Locations">
         <tp:docstring>
+          The contacts' locations, if known. Contacts whose locations
+          are not already known are omitted from the mapping; contacts known
+          to have no location information appear in the mapping with an empty
+          Location dictionary.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="RequestLocations">
+      <tp:docstring>
+        Return the current locations of the given contacts, if they are
+        already known. If any of the given contacts' locations are not known,
+        request their current locations, and later emit LocationUpdate for
+        them; the LocationUpdate signal for contacts whose location could
+        not be determined will have an empty Location.
+      </tp:docstring>
+
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          The contacts whose locations should be returned or signalled.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" name="Locations" type="a{ua{sv}}"
+        tp:type="Contact_Locations">
+        <tp:docstring>
+          The contacts' locations, if already known. Contacts whose locations
+          are not already known are omitted from the mapping; contacts known
+          to have no location information appear in the mapping with an empty
+          Location dictionary.
         </tp:docstring>
       </arg>
     </method>
 
     <signal name="LocationUpdate">
       <tp:docstring>
+        Emitted when a contact's location changes or becomes known.
       </tp:docstring>
 
       <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
+          The contact
         </tp:docstring>
       </arg>
       <arg name="Location" type="a{sv}" tp:type="Location">
         <tp:docstring>
+          The contact's location, or empty to indicate that nothing is known
+          about the contact's location.
         </tp:docstring>
       </arg>
     </signal>
 
     <method name="SetLocation">
       <tp:docstring>
+        Set the local user's own location.
       </tp:docstring>
 
       <arg direction="in" name="Location" type="a{sv}">
         <tp:docstring>
+          The location to advertise. If the user wants to obscure their
+          exact location by reducing the precision or accuracy, clients
+          MUST do this themselves, rather than relying on the connection
+          manager to do so. Clients that interact with more than one
+          connection SHOULD advertise the same reduced-accuracy location
+          to all of them, so that contacts cannot obtain an undesirably
+          accurate location by assuming that random errors have been added
+          and averaging the locations advertised on multiple connections.
         </tp:docstring>
       </arg>
     </method>
