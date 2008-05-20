@@ -121,6 +121,12 @@ USA.</p>
               or other "early" processing will be defined so that they are
               immutable (can never change).</p>
           </tp:rationale>
+
+          <p>Each dictionary MUST contain the keys
+            <code>org.freedesktop.Telepathy.Channel.ChannelType</code>,
+            <code>org.freedesktop.Telepathy.Channel.TargetHandleType</code>
+            and <code>org.freedesktop.Telepathy.Channel.TargetHandle</code>.
+          </p>
         </tp:docstring>
       </tp:member>
     </tp:struct>
