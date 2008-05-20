@@ -23,23 +23,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>An interface on connections to support protocols which allow users to
-    publish their current geographical location, and subscribe to the current
-    location of their contacts.</p>
+      <p>An interface on connections to support protocols which allow users to
+        publish their current geographical location, and subscribe to the
+        current location of their contacts.</p>
 
-    <p>This interface is geared strongly towards automatic propogation and use
-    of this information, so focuses on latitude, longitude and altitude which
-    can be determined by GPS, although provision is also included for an
-    optional human-readable description of locations. All co-ordinate
-    information is required to be relative to the WGS84 datum.</p>
+      <p>This interface is geared strongly towards automatic propogation and
+        use of this information, so focuses on latitude, longitude and
+        altitude which can be determined by GPS, although provision is also
+        included for an optional human-readable description of locations. All
+        co-ordinate information is required to be relative to the WGS84
+        datum.</p>
 
-    <p>The information published through this interface is intended to have the
-    same scope as presence information, so will normally be made available to
-    those individuals on the user's "publish" contact list. Even so, user
-    interfaces should not automatically publish location information without
-    the consent of the user, and it is recommended that an option is made
-    available to reduce the accuracy of the reported information to allow the
-    user to maintain their privacy.</p>
+      <p>The information published through this interface is intended to have
+        the same scope as presence information, so will normally be made
+        available to those individuals on the user's "publish" contact list.
+        Even so, user interfaces should not automatically publish location
+        information without the consent of the user, and it is recommended
+        that an option is made available to reduce the accuracy of the
+        reported information to allow the user to maintain their privacy.</p>
     </tp:docstring>
 
     <tp:enum name="Location_Accuracy_Level" type="i">
