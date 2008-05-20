@@ -126,7 +126,8 @@ USA.</p>
     </tp:struct>
 
     <method name="RequestChannels">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that channels are created.</p>
       </tp:docstring>
 
       <arg direction="in" name="Request_Flags" type="u"
@@ -137,8 +138,29 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="Requests" type="aa{sv}">
-        <tp:docstring>
+      <arg direction="in" name="Requests" type="aa{sv}"
+        tp:type="Namespaced_Property_Value_Map[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Dictionaries containing desirable properties.</p>
+
+          <p>Each dictionary MUST contain the key
+            <code>org.freedesktop.Telepathy.Channel.ChannelType</code>,
+            indicating the desired channel type. The connection manager
+            MUST NOT return channels that do not have the desired type.</p>
+
+          <p>Each dictionary SHOULD contain the keys
+            <code>org.freedesktop.Telepathy.Channel.TargetHandleType</code>
+            and <code>org.freedesktop.Telepathy.Channel.TargetHandle</code>,
+            indicating who the channel should communicate with. If these
+            keys are not provided, the connection manager MAY assume
+            handle type Handle_Type_None and handle 0. The connection
+            manager SHOULD NOT return channels that do not have the desired
+            handle type or handle.</p>
+
+          <p>Any other keys in the dictionary are treated as hints. The
+            connection manager SHOULD attempt to satisfy the client's
+            requirements, but MAY return a channel for which the given
+            properties are not as requested.</p>
         </tp:docstring>
       </arg>
 
@@ -164,6 +186,25 @@ USA.</p>
             MUST appear at the end.</p>
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+          <tp:docstring>
+            The given handle does not exist or cannot be created
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The requested channel type cannot be created with the given handle
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
+      </tp:possible-errors>
     </method>
 
     <signal name="NewChannels">
