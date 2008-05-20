@@ -91,7 +91,8 @@ USA.</p>
           The object path of the channel.
         </tp:docstring>
       </tp:member>
-      <tp:member name="Properties" type="aa{sv}">
+      <tp:member name="Properties" type="aa{sv}"
+        tp:type="Namespaced_Property_Value_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Properties of the channel.</p>
 
