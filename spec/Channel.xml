@@ -123,7 +123,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           contact who is signalled as the "Actor" causing the self-handle
           to be placed in the local-pending set.</p>
 
-        <p>This SHOULD NOT be a channel-specific handle, if possible.
+        <p>This SHOULD NOT be a channel-specific handle, if possible.</p>
+
+        <p>It does not make sense for this property to be passed to the
+          RequestChannels method on Channel.Interface.Requests.</p>
       </tp:docstring>
     </property>
 
@@ -146,6 +149,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               called!</li>
           </ul>
         </tp:rationale>
+
+        <p>It does not make sense for this property to be passed to the
+          RequestChannels method on Channel.Interface.Requests.</p>
       </tp:docstring>
     </property>
 
