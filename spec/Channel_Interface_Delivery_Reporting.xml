@@ -140,6 +140,112 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         other than Text, or on Text channels without the Messages interface.
         Clients MUST recover from this error by ignoring the presence
         of the DeliveryReporting interface.</p>
+
+      <p>Some example delivery reports in a Python-like syntax (in which
+        arrays are indicated by [a, b] and dictionaries by {k1: v1, k2: v2})
+        follow.</p>
+
+      <dl>
+        <dt>A minimal delivery report indicating permanent failure of the
+          sent message whose token was
+          <code>b9a991bd-8845-4d7f-a704-215186f43bb4</code> for an unknown
+          reason</dt>
+        <dd><pre>
+[{
+# header
+'interface': 'org.freedesktop.Telepathy.Channel.Interface.DeliveryReporting',
+'message-sender': 123,
+'message-type': Channel_Text_Message_Type_Delivery_Report,
+'delivery-status': Delivery_Status_Permanently_Failed,
+'delivery-token': 'b9a991bd-8845-4d7f-a704-215186f43bb4',
+}
+# no body
+]
+</pre></dd>
+
+        <dt>A delivery report where the failed message is echoed back to the
+          sender rather than being referenced by ID, and the failure reason
+          is that this protocol cannot send messages to offline contacts
+          such as the contact with handle 123</dt>
+        <dd><pre>
+[{ # header
+'interface': 'org.freedesktop.Telepathy.Channel.Interface.DeliveryReporting',
+'message-sender': 123,
+'message-type': Channel_Text_Message_Type_Delivery_Report,
+'delivery-status': Delivery_Status_Temporarily_Failed,
+'delivery-error': Channel_Text_Send_Error_Offline,
+'delivery-echo':
+    [{ # header of original message
+    'message-sender': 1,
+    'message-sent': 1210067943,
+    },
+    { # body of original message
+    'type': 'text/plain',
+    'content': 'Hello, world!',
+    }]
+  ],
+
+# no body
+]
+</pre></dd>
+
+        <dt>A maximally complex delivery report: the server reports a bilingual
+          human-readable failure message because the user sent a message
+          "Hello, world!" with token
+          <code>b9a991bd-8845-4d7f-a704-215186f43bb4</code> to a contact
+          with handle 123, but that handle represents a contact who does not
+          actually exist</dt>
+        <dd><pre>
+[{ # header
+'interface': 'org.freedesktop.Telepathy.Channel.Interface.DeliveryReporting',
+'message-sender': 123,
+'message-type': Channel_Text_Message_Type_Delivery_Report,
+'delivery-status': Delivery_Status_Permanently_Failed,
+'delivery-error': Channel_Text_Send_Error_Invalid_Contact,
+'delivery-token': 'b9a991bd-8845-4d7f-a704-215186f43bb4',
+'delivery-echo':
+    [{ # header of original message
+    'message-sender': 1,
+    'message-sent': 1210067943,
+    },
+    { # body of original message
+    'type': 'text/plain',
+    'content': 'Hello, world!',
+    }]
+  ],
+},
+{ # message from server (alternative in English)
+'alternative': '404',
+'type': 'text/plain',
+'lang': 'en',
+'content': 'I have no contact with that name',
+},
+{ # message from server (alternative in German)
+'alternative': '404'.
+'type': 'text/plain',
+'lang': 'de',
+'content', 'Ich habe keinen Kontakt mit diesem Namen',
+}
+]
+</pre></dd>
+
+        <dt>A minimal delivery report indicating successful delivery
+          of the sent message whose token was
+          <code>b9a991bd-8845-4d7f-a704-215186f43bb4</code></dt>
+        <dd><pre>
+[{
+# header
+'interface': 'org.freedesktop.Telepathy.Channel.Interface.DeliveryReporting',
+'message-sender': 123,
+'message-type': Channel_Text_Message_Type_Delivery_Report,
+'delivery-status': Delivery_Status_Delivered,
+'delivery-token': 'b9a991bd-8845-4d7f-a704-215186f43bb4',
+}
+# no body
+]
+</pre></dd>
+
+      </dl>
     </tp:docstring>
 
     <tp:enum name="Delivery_Status" value-prefix="Delivery_Status">
