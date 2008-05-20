@@ -387,30 +387,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A type of access control for Rich_Presence_Access_Control.
         For most types, the exact access control is given by an associated
         variant.
+
+        <tp:rationale>
+          These are the access control types from XMPP publish/subscribe
+          (XEP-0060).
+        </tp:rationale>
       </tp:docstring>
 
       <tp:enumvalue name="Whitelist">
         <tp:docstring>
           The associated variant is a list of contacts (signature 'au',
-          Contact_Handle[]) who can see the user's location.
+          Contact_Handle[]) who can see the extended presence information.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="Publish_List">
         <tp:docstring>
           All contacts in the user's 'publish' contact list can see the
-          user's location. The associated variant is ignored.
+          extended presence information. The associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="Group">
         <tp:docstring>
           The associated variant is a handle of type Group (signature 'u',
           Group_Handle) representing a group of contacts who can see the
-          user's location.
+          extended presence information.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue name="Open">
         <tp:docstring>
-          Anyone with access to the service can see the user's location.
+          Anyone with access to the service can see the extended presence
+          information.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
