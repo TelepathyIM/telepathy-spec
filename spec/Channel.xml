@@ -59,6 +59,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The GetAll method lets clients retrieve all properties in one
           round-trip, which is desirable.
         </tp:rationale>
+
+        <p>When this property is used with the RequestChannels method on
+          Channel.Interface.Requests, the connection manager SHOULD attempt
+          to return a channel that implements at least the requested
+          interfaces. (FIXME: if it can't, should it fail the request?)</p>
       </tp:docstring>
     </property>
 
