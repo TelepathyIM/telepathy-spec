@@ -125,7 +125,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             The Messages interface needs to allow all content to be
             retrieved, but in this interface, the content we provide is
             merely a hint; so some is better than none, and it doesn't
-            seem worth providing an API as complex as Messages.
+            seem worth providing an API as complex as Messages'
+            GetPendingMessageContent for the echoed message.
           </tp:rationale>
         </dd>
 
