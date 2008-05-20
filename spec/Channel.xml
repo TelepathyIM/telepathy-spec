@@ -79,6 +79,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="TargetID" type="s" access="read">
+      <tp:docstring>
+        The string that would result from inspecting the TargetHandle
+        property (i.e. the identifier in the IM protocol of the contact,
+        room, etc. with which this channel communicates).
+
+        <tp:rationale>
+          See InitiatorID; the rationale is the same.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
     <property name="TargetHandleType" type="u" access="read"
       tp:type="Handle_Type">
       <tp:docstring>
