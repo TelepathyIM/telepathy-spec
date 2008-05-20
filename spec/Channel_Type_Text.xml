@@ -77,11 +77,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="clear" type="b">
         <tp:docstring>
           If true, behave as if AcknowledgePendingMessages had also been
-          called. Setting this to true is NOT RECOMMENDED for clients that
+          called.
+        </tp:docstring>
+        <tp:deprecated since="0.17.3">
+          Setting this to true is NOT RECOMMENDED for clients that
           have some sort of persistent message storage - clients SHOULD only
           acknowledge messages after they have actually stored them, which is
-          impossible if this flag is true.
-        </tp:docstring>
+          impossible if this flag is true.</tp:deprecated>
       </arg>
       <arg direction="out" type="a(uuuuus)" tp:type="Pending_Text_Message[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -238,6 +240,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Sent has already been emitted and Send has already returned
           success.</p>
       </tp:docstring>
+      <tp:changed version="0.17.3">older spec versions claimed that SendError
+        was emitted <em>instead of</em> Sent, rather than <em>in addition
+        to</em> Sent. However, the 0.17.3+ semantics were what we'd always
+        actually implemented.</tp:changed>
     </signal>
 
     <signal name="Sent">
