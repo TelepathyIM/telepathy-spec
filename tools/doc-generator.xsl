@@ -43,14 +43,28 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     <xsl:apply-templates select="text() | html:* | tp:rationale" mode="html"/>
   </xsl:template>
 
-  <xsl:template match="tp:since">
-    <p class="since">Since:
+  <xsl:template match="tp:added">
+    <p class="added">Added in version <xsl:value-of select="@version"/>.
       <xsl:apply-templates select="node()" mode="html"/></p>
   </xsl:template>
 
+  <xsl:template match="tp:changed">
+    <xsl:choose>
+      <xsl:when test="node()">
+        <p class="changed">Changed in version <xsl:value-of select="@version"/>:
+          <xsl:apply-templates select="node()" mode="html"/></p>
+      </xsl:when>
+      <xsl:otherwise>
+        <p class="changed">Changed in version
+          <xsl:value-of select="@version"/></p>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="tp:deprecated">
-    <p class="deprecated">
-      Deprecated: <xsl:apply-templates select="node()" mode="html"/></p>
+    <p class="deprecated">Deprecated since version
+      <xsl:value-of select="@version"/>.
+      <xsl:apply-templates select="node()" mode="html"/></p>
   </xsl:template>
 
   <xsl:template match="tp:rationale" mode="html">
@@ -104,7 +118,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   <xsl:template match="tp:error">
     <h2 xmlns="http://www.w3.org/1999/xhtml"><a name="{concat(../@namespace, '.', translate(@name, ' ', ''))}"></a><xsl:value-of select="concat(../@namespace, '.', translate(@name, ' ', ''))"/></h2>
     <xsl:apply-templates select="tp:docstring"/>
-    <xsl:apply-templates select="tp:since"/>
+    <xsl:apply-templates select="tp:added"/>
+    <xsl:apply-templates select="tp:changed"/>
     <xsl:apply-templates select="tp:deprecated"/>
   </xsl:template>
 
@@ -143,7 +158,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </xsl:if>
 
     <xsl:apply-templates select="tp:docstring" />
-    <xsl:apply-templates select="tp:since"/>
+    <xsl:apply-templates select="tp:added"/>
+    <xsl:apply-templates select="tp:changed"/>
     <xsl:apply-templates select="tp:deprecated"/>
 
     <xsl:choose>
@@ -208,7 +224,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </a>
     </h3>
     <xsl:apply-templates select="tp:docstring" />
-    <xsl:apply-templates select="tp:since"/>
+    <xsl:apply-templates select="tp:added"/>
+    <xsl:apply-templates select="tp:changed"/>
     <xsl:apply-templates select="tp:deprecated"/>
     <dl xmlns="http://www.w3.org/1999/xhtml">
         <xsl:variable name="value-prefix">
@@ -227,7 +244,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
           <xsl:when test="tp:docstring">
             <dd xmlns="http://www.w3.org/1999/xhtml">
               <xsl:apply-templates select="tp:docstring" />
-              <xsl:apply-templates select="tp:since"/>
+              <xsl:apply-templates select="tp:added"/>
+              <xsl:apply-templates select="tp:changed"/>
               <xsl:apply-templates select="tp:deprecated"/>
             </dd>
           </xsl:when>
@@ -246,7 +264,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </a>
     </h3>
     <xsl:apply-templates select="tp:docstring" />
-    <xsl:apply-templates select="tp:since"/>
+    <xsl:apply-templates select="tp:added"/>
+    <xsl:apply-templates select="tp:changed"/>
     <xsl:apply-templates select="tp:deprecated"/>
     <dl xmlns="http://www.w3.org/1999/xhtml">
         <xsl:variable name="value-prefix">
@@ -265,7 +284,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
           <xsl:when test="tp:docstring">
             <dd xmlns="http://www.w3.org/1999/xhtml">
               <xsl:apply-templates select="tp:docstring" />
-              <xsl:apply-templates select="tp:since"/>
+              <xsl:apply-templates select="tp:added"/>
+              <xsl:apply-templates select="tp:changed"/>
               <xsl:apply-templates select="tp:deprecated"/>
             </dd>
           </xsl:when>
@@ -304,7 +324,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </dt>
     <dd xmlns="http://www.w3.org/1999/xhtml">
       <xsl:apply-templates select="tp:docstring"/>
-      <xsl:apply-templates select="tp:since"/>
+      <xsl:apply-templates select="tp:added"/>
+      <xsl:apply-templates select="tp:changed"/>
       <xsl:apply-templates select="tp:deprecated"/>
     </dd>
   </xsl:template>
@@ -318,7 +339,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </dt>
     <dd xmlns="http://www.w3.org/1999/xhtml">
       <xsl:apply-templates select="tp:docstring"/>
-      <xsl:apply-templates select="tp:since"/>
+      <xsl:apply-templates select="tp:added"/>
+      <xsl:apply-templates select="tp:changed"/>
       <xsl:apply-templates select="tp:deprecated"/>
     </dd>
   </xsl:template>
@@ -370,7 +392,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </h3>
       <div class="docstring">
         <xsl:apply-templates select="tp:docstring"/>
-        <xsl:apply-templates select="tp:since"/>
+        <xsl:apply-templates select="tp:added"/>
+        <xsl:apply-templates select="tp:changed"/>
         <xsl:apply-templates select="tp:deprecated"/>
       </div>
     </div>
@@ -417,7 +440,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </h3>
       <div class="docstring">
         <xsl:apply-templates select="tp:docstring"/>
-        <xsl:apply-templates select="tp:since"/>
+        <xsl:apply-templates select="tp:added"/>
+        <xsl:apply-templates select="tp:changed"/>
         <xsl:apply-templates select="tp:deprecated"/>
       </div>
       <xsl:choose>
@@ -463,7 +487,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </h3>
       <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
         <xsl:apply-templates select="tp:docstring" />
-        <xsl:apply-templates select="tp:since"/>
+        <xsl:apply-templates select="tp:added"/>
+        <xsl:apply-templates select="tp:changed"/>
         <xsl:apply-templates select="tp:deprecated"/>
       </div>
 
@@ -607,7 +632,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
       <div xmlns="http://www.w3.org/1999/xhtml" class="docstring">
         <xsl:apply-templates select="tp:docstring"/>
-        <xsl:apply-templates select="tp:since"/>
+        <xsl:apply-templates select="tp:added"/>
+        <xsl:apply-templates select="tp:changed"/>
         <xsl:apply-templates select="tp:deprecated"/>
       </div>
 
@@ -737,7 +763,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
             padding-left: 0.5em;
           }
 
-          .since {
+          .added {
             color: #006600;
             background: #ffffff;
           }
