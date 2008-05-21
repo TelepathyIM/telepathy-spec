@@ -98,6 +98,15 @@
             padding-left: 0.5em;
           }
 
+          .added {
+            color: #006600;
+            background: #ffffff;
+          }
+          .deprecated {
+            color: #ff0000;
+            background: #ffffff;
+          }
+
         </style></head><body><h1 class="topbox">telepathy-spec tools test case</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
