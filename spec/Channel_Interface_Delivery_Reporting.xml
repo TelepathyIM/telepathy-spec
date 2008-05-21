@@ -398,6 +398,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
 
+      <arg name="Reason" direction="in" type="u"
+        tp:type="Channel_Text_Send_Error">
+        <tp:docstring>
+          If the status to be reported is a failure, the reason for that
+          failure. If the status to be reported is not an error, this MUST be
+          Channel_Text_Send_Error_Unknown.
+        </tp:docstring>
+      </arg>
+
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError">
         </tp:error>
