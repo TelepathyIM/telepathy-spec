@@ -55,13 +55,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         GeoclueAccuracyLevel in the Geoclue project.
       </tp:docstring>
 
-      <tp:enumvalue suffix="None" value="0"/>
-      <tp:enumvalue suffix="Country" value="1"/>
-      <tp:enumvalue suffix="Region" value="2"/>
-      <tp:enumvalue suffix="Locality" value="3"/>
-      <tp:enumvalue suffix="PostalCode" value="4"/>
-      <tp:enumvalue suffix="Street" value="5"/>
-      <tp:enumvalue suffix="Detailed" value="6"/>
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring>
+          The accuracy is unspecified.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Country" value="1">
+        <tp:docstring>
+          The location indicates the contact's country.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Region" value="2">
+        <tp:docstring>
+          The location indicates the contact's region within a country.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Locality" value="3">
+        <tp:docstring>
+          The location indicates the contact's locality within a region
+          (e.g. the correct city).
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="PostalCode" value="4">
+        <tp:docstring>
+          The location indicates the correct postal code.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Street" value="5">
+        <tp:docstring>
+          The location indicates the correct street.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Detailed" value="6">
+        <tp:docstring>
+          The location's accuracy is given by the error, horizontal-error-m
+          and/or vertical-error-m keys.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:mapping name="Location">
