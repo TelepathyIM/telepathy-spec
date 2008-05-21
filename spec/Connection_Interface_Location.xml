@@ -41,6 +41,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         information without the consent of the user, and it is recommended
         that an option is made available to reduce the accuracy of the
         reported information to allow the user to maintain their privacy.</p>
+
+      <p>Location information is represented using the terminology of XMPP's
+        <a href="http://www.xmpp.org/extensions/xep-0080.html">XEP-0080</a>
+        or the XEP-0080-derived
+        <a href="http://geoclue.freedesktop.org/">Geoclue</a> API where
+        possible.</p>
     </tp:docstring>
 
     <tp:enum name="Location_Accuracy_Level" type="i">
