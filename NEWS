@@ -2,8 +2,19 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
-telepathy-spec 0.17.5 (unreleased)
+telepathy-spec 0.17.5 (2008-05-21)
 ==================================
+
+The "Channel.Type.Text 2.0 (beta)" release.
+
+New experimental APIs:
+
+* Channel.Interface.Messages: extensible version of Text with support for
+  MIME-style attachments, alternatives, etc. and extensible metadata
+* Channel.Interface.HTML: a brief sketch of how we intend to use Messages
+  to get formatted message support in future (unfinished!)
+* Channel.Interface.DeliveryReporting: an enhanced version of the Text
+  interface's rather simplistic SendError signal
 
 Clarifications:
 
