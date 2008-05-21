@@ -133,8 +133,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </dl>
 
       <p>The second and subsequent Message_Part dictionaries, if present,
-        are a human-readable report from the connection manager or IM
-        service. This MAY appear in multiple alternative languages.</p>
+        are a human-readable report from the IM service.</p>
 
       <p>It is an error for this interface to appear on channels of type
         other than Text, or on Text channels without the Messages interface.
