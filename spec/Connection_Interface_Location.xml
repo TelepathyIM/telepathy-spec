@@ -139,34 +139,96 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>Positions are represented by the following well-known keys:</p>
 
           <ul>
-            <li>lat - d: latitude in decimal degrees north, -90 to +90</li>
-            <li>lat - d: latitude in decimal degrees east, -180 to +180</li>
-            <li>alt - d: altitude in metres above sea level (may be negative
-              if below sea level)</li>
-            <li>accuracy - i (Location_Accuracy_Level): an indication of
+            <li>lat - d: latitude in decimal degrees north, -90 to +90,
+              relative to the WGS-84 datum
+              <tp:rationale>
+                This is from XEP-0080; the XEP allows use of a different
+                datum, but recommends this one. We enforce sanity by requiring
+                a consistent datum: a minimal compliant implementation of this
+                specification in terms of XEP-0080 would simply ignore the
+                &lt;lat&gt; and &lt;lon&gt; elements if &lt;datum&gt; exists
+                and has a value other than WGS-84, while an advanced
+                implementation might correct for the different datum.
+              </tp:rationale>
+            </li>
+            <li>lon - d: Longitude in decimal degrees east, -180 to +180,
+              relative to the WGS-84 datum
+              <tp:rationale>
+                Same rationale as 'lat'
+              </tp:rationale>
+            </li>
+            <li>alt - d: altitude in metres above sea level (negative
+              if below sea level)
+              <tp:rationale>
+                This is from XEP-0080
+              </tp:rationale>
+            </li>
+            <li>accuracy-class - i (Location_Accuracy_Level): an indication of
               accuracy, which SHOULD be omitted if it would be
               Location_Accuracy_Level_None or
-              Location_Accuracy_Level_Detailed</li>
+              Location_Accuracy_Level_Detailed
+              <tp:rationale>
+                This is a struct field in GeoClue; the name is new in this
+                specification, and was chosen in an attempt to avoid clashing
+                with any future XEP-0080 terminology.
+              </tp:rationale>
+            </li>
             <li>error - d: horizontal position error in arc-minutes (1/60
-              degree) if known</li>
-            <li>alt-error - d: vertical position error in metres if known</li>
+              degree) if known
+              <tp:rationale>
+                This is from XEP-0080
+              </tp:rationale>
+            </li>
+            <li>vertical-error-m - d: vertical position error in metres if
+              known
+              <tp:rationale>
+                This exists as a struct field in GeoClue; the name is new
+                in this specification.
+              </tp:rationale>
+            </li>
+            <li>horizontal-error-m - d: vertical position error in metres if
+              known
+              <tp:rationale>
+                This exists as a struct field in GeoClue; the name is new
+                in this specification.
+              </tp:rationale>
+            </li>
           </ul>
 
           <p>Velocities are represented by the following well-known keys:</p>
 
           <ul>
-            <li>speed - d: speed in metres per second</li>
-            <li>bearing - d: direction of movement in decimal degrees
-              relative to true north [Geoclue: is this the same as your
-              "direction"?]</li>
-            <li>climb - d: [Geoclue: please define?]</li>
+            <li>speed - d: speed in metres per second
+              <tp:rationale>
+                This is from XEP-0080
+              </tp:rationale>
+            </li>
+            <li>bearing - d: direction of movement in decimal degrees,
+              where North is 0 and East is 90
+              <tp:rationale>
+                This is from XEP-0080, and is equivalent to the struct field
+                called "direction" in GeoClue
+              </tp:rationale>
+            </li>
+            <li>climb - d: rate of change of 'alt' in metres per second
+              <tp:rationale>
+                This is a struct field in GeoClue; the name is new to this
+                specification, but seems uncontroversial
+              </tp:rationale>
+            </li>
           </ul>
 
           <p>Other well-known keys:</p>
 
           <ul>
             <li>timestamp - u (Unix_Timestamp): the time that the contact was
-              at this location</li>
+              at this location, in seconds since 1970-01-01T00:00Z (i.e. the
+              beginning of 1970 in UTC)
+              <tp:rationale>
+                XEP-0080 uses an ISO 8601 string for this, but a number of
+                seconds since the epoch is probably easier to work with.
+              </tp:rationale>
+            </li>
           </ul>
         </tp:docstring>
       </tp:member>
