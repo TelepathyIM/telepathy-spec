@@ -258,9 +258,9 @@ USA.</p>
             (a typical use-case is an address-book viewer that does not itself
             implement chat or VoIP functionality, starting a channel that
             will be handled by the same user interface that would handle
-            incoming calls).</p>
+            incoming channels).</p>
 
-          <p>Clients MUST NOT assume that only incoming calls will have
+          <p>Clients MUST NOT assume that only incoming channels will have
             this flag set to false.</p>
         </tp:docstring>
       </arg>
