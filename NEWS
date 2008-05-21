@@ -5,6 +5,16 @@ checkouts.
 telepathy-spec 0.17.5 (unreleased)
 ==================================
 
+Clarifications:
+
+* Make it completely clear that suppress_handler does NOT mean incoming vs
+  outgoing channels
+* Annotate a lot of changes with the version in which they were introduced
+
+Tools changes:
+
+* Show when things were added/changed/deprecated in the HTML spec
+
 telepathy-spec 0.17.4 (2008-05-09)
 ==================================
 
