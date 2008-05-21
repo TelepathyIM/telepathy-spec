@@ -309,13 +309,6 @@ USA.</p>
 
               <p>Clients MUST ignore parts without a 'type' key, which are
                 reserved for future expansion.</p>
-
-              <tp:rationale>
-                <p>The Pending_Multiple_Part_Message structure is not
-                  extensible, to keep its nesting depth manageable. If we need
-                  message-wide extensions in future, we can use parts without
-                  a 'type' key.</p>
-              </tp:rationale>
             </dd>
 
             <dt>lang (s)</dt>
