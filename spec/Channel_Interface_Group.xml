@@ -192,6 +192,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel members other than the self handle.
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Properties" value="2048">
+        <tp:docstring>
+          This flag indicates that all the properties introduced in
+          specification 0.17.UNRELEASED are fully supported.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <property name="GroupFlags" type="u" tp:type="Channel_Group_Flags"
