@@ -392,7 +392,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="ConnectionStatusReason" type="u" access="read">
       <tp:docstring>
-        The reason for the last change to Connection_Status.
+        The reason for the last change to ConnectionStatus.
         The account manager is expected to set this by observing signals
         from the Connection.
 
