@@ -33,6 +33,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="tp:type" mode="html">
+    <xsl:call-template name="tp-type">
+      <xsl:with-param name="tp-type" select="string(.)"/>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="*" mode="identity">
     <xsl:copy>
       <xsl:apply-templates mode="identity"/>
@@ -524,35 +530,46 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </div>
   </xsl:template>
 
-  <xsl:template name="parenthesized-tp-type">
-    <xsl:if test="@tp:type">
-      <xsl:variable name="tp-type" select="@tp:type"/>
-      <xsl:variable name="single-type">
-        <xsl:choose>
-          <xsl:when test="contains($tp-type, '[]')">
-            <xsl:value-of select="substring-before($tp-type, '[]')"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$tp-type"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
+  <xsl:template name="tp-type">
+    <xsl:param name="tp-type"/>
+
+    <xsl:variable name="single-type">
       <xsl:choose>
-        <xsl:when test="//tp:simple-type[@name=$single-type]" />
-        <xsl:when test="//tp:struct[@name=$single-type]" />
-        <xsl:when test="//tp:enum[@name=$single-type]" />
-        <xsl:when test="//tp:flags[@name=$single-type]" />
-        <xsl:when test="//tp:mapping[@name=$single-type]" />
-        <xsl:when test="//tp:external-type[@name=$single-type]" />
+        <xsl:when test="contains($tp-type, '[]')">
+          <xsl:value-of select="substring-before($tp-type, '[]')"/>
+        </xsl:when>
         <xsl:otherwise>
-          <xsl:message terminate="yes">
-            <xsl:text>ERR: Unable to find type '</xsl:text>
-            <xsl:value-of select="$tp-type"/>
-            <xsl:text>'&#10;</xsl:text>
-          </xsl:message>
+          <xsl:value-of select="$tp-type"/>
         </xsl:otherwise>
       </xsl:choose>
-      (<a href="#type-{$single-type}"><xsl:value-of select="$tp-type"/></a>)
+    </xsl:variable>
+
+    <xsl:choose>
+      <xsl:when test="//tp:simple-type[@name=$single-type]" />
+      <xsl:when test="//tp:struct[@name=$single-type]" />
+      <xsl:when test="//tp:enum[@name=$single-type]" />
+      <xsl:when test="//tp:flags[@name=$single-type]" />
+      <xsl:when test="//tp:mapping[@name=$single-type]" />
+      <xsl:when test="//tp:external-type[@name=$single-type]" />
+      <xsl:otherwise>
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: Unable to find type '</xsl:text>
+          <xsl:value-of select="$tp-type"/>
+          <xsl:text>'&#10;</xsl:text>
+        </xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+    <a href="#type-{$single-type}"><xsl:value-of select="$tp-type"/></a>
+
+  </xsl:template>
+
+  <xsl:template name="parenthesized-tp-type">
+    <xsl:if test="@tp:type">
+      <xsl:text>(</xsl:text>
+      <xsl:call-template name="tp-type">
+        <xsl:with-param name="tp-type" select="@tp:type"/>
+      </xsl:call-template>
+      <xsl:text>)</xsl:text>
     </xsl:if>
   </xsl:template>
 
