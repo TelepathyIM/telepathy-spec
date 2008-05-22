@@ -29,9 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <code>/org/freedesktop/Telepathy/Account/<em>cm</em>/<em>proto</em>/<em>acct</em></code>, where:</p>
 
       <ul>
-        <li><em>cm</em> is the same connection manager name that appears
-          in the connection manager's well-known bus name and object path</li>
-        <li><em>proto</em> is the protocol name as seen in
+        <li><em>cm</em> is the same <tp:type>Connection_Manager_Name</tp:type>
+          that appears in the connection manager's well-known bus name and
+          object path</li>
+        <li><em>proto</em> is the <tp:type>Protocol</tp:type> name as seen in
           ConnectionManager.ListProtocols, but with "-" replaced with "_"
           (i.e. the same as in the object-path of a Connection)</li>
         <li><em>acct</em> is an arbitrary string of ASCII letters, digits
@@ -334,8 +335,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Setting this property MUST NOT actually change the account's
           status until the next time it is (re)connected for some reason.</p>
 
-        <p>The Connection_Presence_Type in the structure SHOULD NOT
-          be Offline or Unset.</p>
+        <p>The <tp:type>Connection_Presence_Type</tp:type> in the structure
+          SHOULD NOT be Offline or Unset.</p>
 
         <tp:rationale>
           In ITOS2007 and ITOS2008 this is a global preference, not visible
