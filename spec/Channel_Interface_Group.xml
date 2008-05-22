@@ -319,7 +319,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:deprecated version="0.17.UNRELEASED">Clients should use the
         HandleOwners property and HandleOwnersChanged signal if
-        Channel_Group_Flag_Properties is present.</tp:added>
+        Channel_Group_Flag_Properties is present.</tp:deprecated>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
@@ -399,11 +399,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         not present, clients should fall back to using the
         deprecated GetLocalPendingMembersWithInfo method, or fall back
         from that to the deprecated GetAllMembers method.</tp:added>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
+    </property>
 
     <property name="Members" access="read" type="au" tp:type="Contact_Handle[]">
       <tp:docstring>
@@ -486,7 +482,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:deprecated version="0.17.UNRELEASED">Clients should retrieve the
         SelfHandle property using GetAll instead,
-        if Channel_Group_Flag_Properties is present.</tp:added>
+        if Channel_Group_Flag_Properties is present.</tp:deprecated>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
