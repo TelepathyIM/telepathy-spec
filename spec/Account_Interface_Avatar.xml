@@ -33,6 +33,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:rationale>
 
     </tp:docstring>
+    <tp:added version="0.17.6"/>
 
     <property name="Avatar" type="(ays)" access="readwrite">
       <tp:docstring>
