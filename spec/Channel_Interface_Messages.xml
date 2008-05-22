@@ -22,6 +22,7 @@ USA.</p>
   <interface
     name="org.freedesktop.Telepathy.Channel.Interface.Messages.DRAFT">
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Text"/>
+    <tp:added version="0.17.5">(draft version, not API-stable)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface extends the Text interface to support more general
