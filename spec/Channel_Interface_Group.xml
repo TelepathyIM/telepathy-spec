@@ -84,6 +84,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="GetAllMembers">
+      <tp:deprecated version="0.17.UNRELEASED">Use GetAll on the D-Bus
+        Properties D-Bus interface to get properties including Members,
+        RemotePendingMembers and LocalPendingMembers instead, falling back to
+        this method and GetLocalPendingMembers if necessary.</tp:deprecated>
+
       <arg direction="out" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           array of handles of current members
@@ -337,9 +342,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="GetLocalPendingMembers">
       <arg direction="out" type="au" tp:type="Contact_Handle[]"/>
       <tp:docstring>
-        Returns an array of handles representing contacts requesting
-        channel membership and awaiting local approval with AddMembers.
+        Returns the To_Be_Added handle (only) for each structure in the
+        LocalPendingMembers property.
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Use the LocalPendingMembers
+        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
@@ -349,10 +356,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="GetLocalPendingMembersWithInfo">
       <tp:added version="0.15.0" />
       <tp:docstring>
-        Returns an array of structs containing handles representing contacts
-        requesting channel membership and awaiting local approval with
-        AddMembers.
+        Returns the LocalPendingMembers property.
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Use the LocalPendingMembers
+        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
       <arg direction="out" type="a(uuus)" tp:type="Local_Pending_Info[]">
         <tp:docstring>
           An array of structs containing:
@@ -381,16 +388,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="GetMembers">
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"/>
+    <property name="LocalPendingMembers" access="read"
+      type="a(uuus)" tp:type="Local_Pending_Info[]">
       <tp:docstring>
-        Returns an array of handles for the members of this channel.
+        An array of structs containing handles representing contacts
+        requesting channel membership and awaiting local approval with
+        AddMembers.
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">If Channel_Group_Flag_Properties is
+        not present, clients should fall back to using the
+        deprecated GetLocalPendingMembersWithInfo method, or fall back
+        from that to the deprecated GetAllMembers method.</tp:added>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
+
+    <property name="Members" access="read" type="au" tp:type="Contact_Handle[]">
+      <tp:docstring>
+        The members of this channel.
+      </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">If Channel_Group_Flag_Properties
+        is not set, fall back to calling GetAllMembers.</tp:added>
+    </property>
+
+    <method name="GetMembers">
+      <arg direction="out" type="au" tp:type="Contact_Handle[]"/>
+      <tp:docstring>
+        Returns the Members property.
+      </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Use the Members
+        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
+
+    <property name="RemotePendingMembers" access="read" type="au"
+      tp:type="Contact_Handle[]">
+      <tp:docstring>
+        An array of handles representing contacts who have been
+        invited to the channel and are awaiting remote approval.
+      </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">If Channel_Group_Flag_Properties
+        is not set, fall back to calling GetAllMembers.</tp:added>
+    </property>
 
     <method name="GetRemotePendingMembers">
       <arg direction="out" type="au" tp:type="Contact_Handle[]"/>
@@ -398,6 +442,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Returns an array of handles representing contacts who have been
         invited to the channel and are awaiting remote approval.
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Use the RemotePendingMembers
+        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
