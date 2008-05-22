@@ -227,7 +227,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg name="type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
-          The message type from ChannelTextMessageType
+          The message type
         </tp:docstring>
       </arg>
       <arg name="text" type="s">
