@@ -206,8 +206,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         An integer representing the bitwise-OR of flags on this
         channel. The user interface can use this to present information about
         which operations are currently valid. Change notification is via
-        the GroupFlagsChanged signal. (New in 0.17.UNRELEASED)
+        the GroupFlagsChanged signal.
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">For backwards compatibility,
+        clients should fall back to calling GetGroupFlags if
+        Channel_Group_Flag_Properties is not present.</tp:added>
     </property>
 
     <method name="GetGroupFlags">
@@ -217,10 +220,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Returns the value of the GroupFlags property. Deprecated since
-        0.17.UNRELEASED: use GetAll on the Properties interface instead,
-        falling back to this method if needed.
+        Returns the value of the GroupFlags property.
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Use GetAll on the D-Bus
+        Properties D-Bus interface to get properties including GroupFlags
+        instead, falling back to this method if necessary.</tp:deprecated>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
@@ -229,9 +233,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:mapping name="Handle_Owner_Map">
       <tp:docstring>
-        A map from channel-specific handles to their owners. (New in
-        spec 0.17.UNRELEASED)
+        A map from channel-specific handles to their owners.
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">For backwards compatibility,
+        clients should fall back to calling GetHandleOwners if
+        Channel_Group_Flag_Properties is not present.</tp:added>
 
       <tp:member type="u" name="Channel_Specific_Handle"
         tp:type="Contact_Handle">
@@ -257,16 +263,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Handles which are channel-specific, but for which the owner is
         unknown, MUST appear in this mapping with 0 as owner. Change
         notification is via the HandleOwnersChanged signal.
-        (New in 0.17.UNRELEASED)
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED"/>
     </property>
 
     <signal name="HandleOwnersChanged">
       <tp:docstring>
         Emitted whenever the HandleOwners property changes.
-        (New in 0.17.UNRELEASED; clients MAY assume that this signal will be
-        emitted if the HandleOwners property exists)
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">This signal should not be relied on
+        unless Channel_Group_Flag_Properties is present.</tp:added>
 
       <arg name="Added" type="a{uu}" tp:type="Handle_Owner_Map">
         <tp:docstring>
@@ -304,10 +310,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to this channel, and are not meaningful in a connection-wide
         context such as contact lists. This method allows you to find
         the owner of the handle if it can be discovered in this channel,
-        or 0 if the owner is not available. Deprecated since 0.17.UNRELEASED -
-        use the HandleOwners property and the HandleOwnersChanged signal if
-        available, falling back to use of this method.
+        or 0 if the owner is not available.
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Clients should use the
+        HandleOwners property and HandleOwnersChanged signal if
+        Channel_Group_Flag_Properties is present.</tp:added>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
@@ -400,8 +407,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="SelfHandleChanged">
       <tp:docstring>
         Emitted whenever the SelfHandle property changes.
-        (New in 0.17.UNRELEASED)
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">This signal should not be relied on
+        unless Channel_Group_Flag_Properties is present.</tp:added>
 
       <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
         <tp:docstring>
@@ -419,17 +427,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channels). Note that this is different from the connection
         GetSelfHandle on some protocols, so the value of this handle should
         always be used with the methods of this interface.
-        (New in 0.17.UNRELEASED)
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED">For backwards compatibility,
+        clients should fall back to calling GetSelfHandle if
+        Channel_Group_Flag_Properties is not present.</tp:added>
     </property>
 
     <method name="GetSelfHandle">
       <arg direction="out" type="u" tp:type="Contact_Handle"/>
       <tp:docstring>
         Returns the value of the SelfHandle property.
-        (Deprecated since 0.17.UNRELEASED, use GetAll to get the SelfHandle
-        property instead)
       </tp:docstring>
+      <tp:deprecated version="0.17.UNRELEASED">Clients should retrieve the
+        SelfHandle property using GetAll instead,
+        if Channel_Group_Flag_Properties is present.</tp:added>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
