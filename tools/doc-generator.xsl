@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   don't work ideally in the presence of two things that want to use the
   absence of a prefix, sadly. -->
 
-  <xsl:template match="html:*" mode="html">
+  <xsl:template match="html:* | @*" mode="html">
     <xsl:copy>
       <xsl:apply-templates mode="html"/>
     </xsl:copy>
