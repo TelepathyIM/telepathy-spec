@@ -163,8 +163,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 This is from XEP-0080
               </tp:rationale>
             </li>
-            <li>accuracy-class - i (Location_Accuracy_Level): an indication of
-              accuracy, which SHOULD be omitted if it would be
+            <li>accuracy-class - i (<tp:type>Location_Accuracy_Level</tp:type>):
+              an indication of accuracy, which SHOULD be omitted if it would be
               Location_Accuracy_Level_None or
               Location_Accuracy_Level_Detailed
               <tp:rationale>
@@ -221,9 +221,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>Other well-known keys:</p>
 
           <ul>
-            <li>timestamp - u (Unix_Timestamp): the time that the contact was
-              at this location, in seconds since 1970-01-01T00:00Z (i.e. the
-              beginning of 1970 in UTC)
+            <li>timestamp - u (<tp:type>Unix_Timestamp</tp:type>): the time
+              that the contact was at this location, in seconds since
+              1970-01-01T00:00:00Z (i.e. the beginning of 1970 in UTC)
               <tp:rationale>
                 XEP-0080 uses an ISO 8601 string for this, but a number of
                 seconds since the epoch is probably easier to work with.
