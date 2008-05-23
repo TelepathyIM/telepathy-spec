@@ -120,11 +120,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     as a buddy list) or a Channel.Type.Text which represents a channel over
     which textual messages are sent and received.</p>
 
-    <p>As of specification version 0.17.FIXME, there is no longer any
-      particular uniqueness guarantee - there may now be more than one
-      channel with a given (channel type, handle type, handle) combination.
-      This is necessary to support parallel messaging threads in SIP and
-      XMPP.</p>
+    <p>Each channel may have an immutable handle associated with it, which
+      may be any handle type, such as a contact, room or list handle,
+      indicating that the channel is for communicating with that handle.</p>
+
+    <p>If a channel does not have a handle (an "anonymous channel" with
+      Target_Handle = 0 and Target_Handle_Type = Handle_Type_None), it
+      means that the channel is defined by some other terms, such as it
+      may be a transient group defined only by its members as visible
+      through the Channel.Interface.Group interface.</p>
 
     <p>Other optional interfaces can be implemented to indicate other available
     functionality, such as Channel.Interface.Group if the channel contains
@@ -144,6 +148,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     methods or signals with conflicting names, the D-Bus interface names should
     always be used to invoke methods and bind signals.</p>
     </tp:docstring>
+
+    <tp:changed version="0.17.UNRELEASED">Previously we guaranteed that, for
+      any handle type other than Handle_Type_None, and for any channel type
+      and any handle, there would be no more than one channel with that
+      combination of channel type, handle type and handle. This guarantee
+      has now been removed in order to accommodate features like message
+      threads.
+    </tp:changed>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
