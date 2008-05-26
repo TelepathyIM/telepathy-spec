@@ -2,6 +2,40 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
+telepathy-spec 0.17.6 (2008-05-26)
+==================================
+
+The "GetAll()" release.
+
+API changes:
+
+* The core Account interface no longer has an Avatar property, so that clients
+  can safely call GetAll for properties without flooding the bus with avatars
+
+API additions:
+
+* Group interface state is now in terms of properties, so you can use GetAll
+  to get a full state snapshot:
+  - Group.GroupFlags property (deprecating GetGroupFlags method)
+  - Group.SelfHandle property and Group.SelfHandleChanged signal (deprecating
+    GetSelfHandle method, and adding change-notification)
+  - Group.HandleOwners property and Group.HandleOwnersChanged signal
+    (deprecating GetHandleOwners method, and adding change-notification)
+  - Group.LocalPendingMembers, Group.Members, Group.RemotePendingMembers
+    properties (deprecating GetMembers, GetLocalPendingMembers,
+    GetLocalPendingMembersWithInfo, GetRemotePendingMembers and GetAllMembers
+    methods)
+* Account.Interface.Avatar replaces the Account.Avatar property
+
+Fixes:
+
+* Messages, DeliveryReporting are correctly marked as experimental
+
+Tools changes:
+
+* Correctly pass through HTML attributes into the HTML spec
+* Add markup <tp:type>Name_Of_Type</tp:type> which generates HTML links
+
 telepathy-spec 0.17.5 (2008-05-21)
 ==================================
 
