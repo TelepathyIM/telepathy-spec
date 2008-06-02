@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<node name="/Client"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Client.DRAFT"
+    tp:causes-havoc="experimental">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Telepathy clients use connection managers, the channel dispatcher
+        and optionally the account manager to provide useful
+        functionality.</p>
+
+      <p>User interface processes are the obvious example of Telepathy
+        clients, but they can provide other functionality, such as
+        address-book synchronization.</p>
+
+      <p>The Client D-Bus interface mainly represents a process to which the
+        channel dispatcher can dispatch channels.</p>
+
+      <!-- FIXME: or does it represent any of observer, approver or
+      channel handler? We just don't know -->
+    </tp:docstring>
+
+    <property name="Interfaces" type="as" access="read"
+      tp:type="DBus_Interface[]">
+      <tp:docstring>
+        A list of the extra interfaces provided by this client.
+      </tp:docstring>
+    </property>
+
+    <property name="HandledChannelClasses" access="read" type="a(su)">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      </tp:docstring>
+
+      <!-- FIXME: invent and document a tp:type when it's clearer what we
+      need. This is conjectured to be an array of (channel type, handle type)
+      for now, hence a(su) -->
+    </property>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
