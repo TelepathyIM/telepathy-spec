@@ -35,6 +35,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <method name="Reject">
+      <tp:docstring>
+        Called by an approver to reject a channel bundle. The channel
+        dispatcher should close the channels. If successful, this method
+        will cause the ChannelDispatch object to disappear, causing the
+        ChannelDispatcher to emit DispatchCompleted.
+        However, this method may fail because the dispatch has already been
+        completed and the object has already gone.
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
+    </method>
+
+    <method name="HandleWith">
+      <tp:docstring>
+        Called by an approver to accept a channel bundle and request that
+        the given handler be used to handle it. If successful, this method
+        will cause the ChannelDispatch object to disappear, causing the
+        ChannelDispatcher to emit DispatchCompleted.
+        However, this method may fail because the dispatch has already been
+        completed and the object has already gone.
+      </tp:docstring>
+
+      <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
+      </arg>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
+    </method>
+
+    <method name="Claim">
+      <tp:docstring>
+        Called by an approver to accept a channel bundle and request that
+        the approver be allowed to handle the channel internally (for cases
+        where the approver and the desired handler are the same process).
+        If successful, this method will cause the ChannelDispatch object to
+        disappear, causing the ChannelDispatcher to emit DispatchCompleted.
+        However, this method may fail because the dispatch has already been
+        completed and the object has already gone - if this occurs, the
+        approver MUST NOT proceed to handle the channel internally.
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
+    </method>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
