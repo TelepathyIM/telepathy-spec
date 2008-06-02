@@ -267,6 +267,72 @@ USA.</p>
       </arg>
     </signal>
 
+    <tp:struct name="Channel_Class" array-name="Channel_Class_List">
+      <tp:docstring>
+        Structure representing a class of channels that can be requested,
+        identified by a pair (channel type, handle type).
+      </tp:docstring>
+
+      <tp:member name="Channel_Type" type="s" tp:type="DBus_Interface">
+        <tp:docstring>
+          The channel type to be requested (a value for the
+          Channel.ChannelType property)
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Handle_Type" type="u" tp:type="Handle_Type">
+        <tp:docstring>
+          The handle type (a value for the Channel.TargetHandleType property)
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Properties" type="as" tp:type="DBus_Member[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Properties that can be set when requesting a channel of this
+            channel type and handle type.</p>
+
+          <p>If this array contains the Channel.Bundle property, then this
+            class of channel can be combined with other channels with that
+            property in a request, or added to an existing bundle. If not,
+            this signifies that the connection manager is unable to mark
+            channels of this class as part of a bundle - this means that
+            to the remote contact they are likely to be indistinguishable
+            from channels requested separately.</p>
+        </tp:docstring>
+      </tp:member>
+
+      <!-- FIXME: add an "aas" of sets of mandatory parameters, from which
+      clients must choose and satisfy one? I can't think of a good use-case
+      though -->
+
+      <!-- FIXME: add an "as" of interfaces that will/might be supported? -->
+
+      <!-- FIXME: add an "a{sv}" for future expansion? :-) -->
+    </tp:struct>
+
+    <property name="AvailableChannelClasses" access="read"
+      type="a(suas)" tp:type="Channel_Class[]">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The classes of channel that are expected to be available on this
+          connection, i.e. those for which RequestChannels can reasonably
+          be expected to succeed. User interfaces can use this information
+          to show or hide UI components.</p>
+
+        <p>This property cannot change after the connection has gone to
+          state Connection_Status_Connected, so there is no change
+          notification (if the connection has context-dependent capabilities,
+          it SHOULD advertise support for all classes of channel that it might
+          support during its lifetime). Before this state has been reached,
+          the value of this property is undefined.</p>
+
+        <tp:rationale>This is not on an optional interface, because
+          connection managers can always offer some sort of clue about
+          the channel classes they expect to support (at worst, they can
+          announce support for everything for which they have code).
+          </tp:rationale>
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
