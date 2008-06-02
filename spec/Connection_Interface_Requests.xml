@@ -161,7 +161,11 @@ USA.</p>
             keys are not provided, the connection manager MAY assume
             handle type Handle_Type_None and handle 0. The connection
             manager SHOULD NOT return channels that do not have the desired
-            handle type or handle.</p>
+            handle type or handle, with the exception that when a particular
+            handle is requested, the connection manager MAY instead return
+            a channel with handle type Handle_Type_None and handle 0, which
+            is related in some way to the requested handle (e.g. has the
+            requested contact handle in its Group interface).</p>
 
           <p>Any other keys in the dictionary are treated as hints. The
             connection manager SHOULD attempt to satisfy the client's
