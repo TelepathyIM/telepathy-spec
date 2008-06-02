@@ -320,6 +320,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <property name="Interfaces" type="as" access="read">
+      <tp:docstring>
+        A list of the extra interfaces provided by this connection manager
+        (i.e. extra functionality that can be provided even before a
+        connection has been created). No interfaces suitable for listing in
+        this property are currently defined; it's provided as a hook for
+        possible future functionality.
+      </tp:docstring>
+    </property>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A D-Bus service which allows connections to be created. The manager
       processes are intended to be started by D-Bus service activation.</p>
