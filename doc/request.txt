@@ -389,6 +389,15 @@ Problems:
 
 * Tybalt doesn't get a chance to choose his nickname before joining
 
+Proposed implementation: some new interface for this functionality is
+created, like Chan.I.Chatroom. RequestChannels arguments contain::
+
+    {'...Channel.ChannelType': '...Channel.Type.Text',
+     '...Channel.TargetHandleType': ROOM,
+     '...Channel.TargetHandle': chatroom_handle,
+     '...Channel.Interface.Chatroom.Nickname': 'the Prince of Cats',
+    }
+
 _`req8`: joining chatroom from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
