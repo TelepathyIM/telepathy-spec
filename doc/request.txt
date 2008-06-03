@@ -20,6 +20,30 @@ Current implementation::
     else:
         RequestChannel (Text, CONTACT, juliet, suppress_handler=TRUE)
 
+Proposed implementation::
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (
+        SUPRESS_HANDLER | PREFER_REUSE,
+        [
+            {'...ChannelType': '...Text',
+             '...TargetHandleType': CONTACT,
+             '...TargetHandle': juliet
+            }
+        ])
+
+    if the channel that is returned has the EXISTING flag:
+        ChannelDispatcher returns it to the UI
+        UI foregrounds its window or tab
+    else:
+        channel observers run
+        ChannelDispatcher returns it to the UI
+        UI makes a new window or tab for it
+
+    channel approvers do not run
+    channel handler does not run
+
 _`req2`: Chat from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
