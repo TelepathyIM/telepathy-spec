@@ -454,6 +454,8 @@ Problems:
 * Some protocols (IRC!) are terrible, and on these, the room list actually
   *is* a singleton
 
+Proposed implementation: a straightforward port of the current API
+
 _`req10`: listing chatrooms on "foreign" server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -461,6 +463,9 @@ Romeo wants to list all the chatrooms on the server that hosts Juliet's
 account.
 
 Current implementation: impossible
+
+Proposed implementation: in the request, set the Channel.Type.RoomList.Server
+property to the desired DNS name
 
 Contact lists
 -------------
