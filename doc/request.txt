@@ -107,6 +107,31 @@ that may be ongoing.
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
 
+Proposed implementation::
+
+    bundle_id = ...Bundle property of AbiWord Tube channel
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
+        [
+            {'...ChannelType': '...Text',
+             '...TargetHandleType': CONTACT,
+             '...TargetHandle': mercutio,
+             '...Bundle': bundle_id,
+             }
+        ])
+
+    channel observers run if the channel did not already exist
+    channel approvers/handler do not run
+    ChannelDispatcher returns channel to AbiWord
+
+    if channel has the requested bundle ID:
+        AbiWord uses it
+    else:
+        AbiWord ignores it (on the basis that someone else is already using
+        it)? FIXME: is this always true?
+
 _`req26`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
