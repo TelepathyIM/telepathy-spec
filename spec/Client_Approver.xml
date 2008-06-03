@@ -73,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Handlers" type="as">
+      <arg name="Handlers" type="as" direction="in">
         <tp:docstring>
           The list of clients that could handle this channel. The channel
           dispatcher SHOULD order them with the "most preferred" handler
@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <!-- FIXME: what type is a client? An object path? A bus name? -->
       </arg>
 
-      <arg name="Dispatch" type="o">
+      <arg name="Dispatch" type="o" direction="in">
         <tp:docstring>
           The channel dispatch operation, which is an object inside the
           channel dispatcher (and hence has the same bus name as the
@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Connection" type="o">
+      <arg name="Connection" type="o" direction="in">
         <tp:docstring>
           The Telepathy connection. Its well-known bus name can be derived
           from its object path by replacing all '/' with '.' and removing
@@ -98,7 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" type="a(oa{sv})">
+      <arg name="Channels" type="a(oa{sv})" direction="in">
         <tp:docstring>
           The channel bundle. The well-known bus name for all these channels
           is the same as for the Connection.

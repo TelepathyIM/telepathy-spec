@@ -36,12 +36,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           this client should handle this channel.</p>
       </tp:docstring>
 
-      <arg name="Connection" type="o">
+      <arg name="Connection" type="o" direction="in">
         <tp:docstring>
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" type="a(oa{sv})">
+      <arg name="Channels" type="a(oa{sv})" direction="in">
         <tp:docstring>
         </tp:docstring>
       </arg>

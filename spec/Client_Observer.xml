@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           It MAY accept replies asynchronously for logging purposes.</p>
       </tp:docstring>
 
-      <arg name="Connection" type="o">
+      <arg name="Connection" type="o" direction="in">
         <tp:docstring>
           The Telepathy connection. Its well-known bus name can be derived
           from its object path by replacing all '/' with '.' and removing
@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Channel" type="o">
+      <arg name="Channel" type="o" direction="in">
         <tp:docstring>
           The channel. Its well-known bus name is the same as that of the
           Connection.
@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <!-- FIXME: or should observers be invoked per bundle? -->
 
-      <arg name="Properties" type="a{sv}">
+      <arg name="Properties" type="a{sv}" direction="in">
         <tp:docstring>
           Immutable properties of the channel.
         </tp:docstring>
