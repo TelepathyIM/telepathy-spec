@@ -73,6 +73,30 @@ Problems:
   channel it's already handling as "put it in the foreground". If we mean
   "put this in the foreground" we should say so.
 
+Proposed implementation::
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (PREFER_REUSE,
+        [
+            {'...ChannelType': '...Text',
+             '...TargetHandleType': CONTACT,
+             '...TargetHandle': juliet
+            }
+        ])
+
+    if the channel that is returned has the EXISTING flag:
+        ChannelDispatcher returns it to the address book, which does nothing
+            much with it
+        FIXME: how do we tell the UI to foreground it?
+        channel observers/approvers/handler do not run
+    else:
+        channel observers run
+        ChannelDispatcher returns it to the address book, which does nothing
+            much with it
+        FIXME: channel approvers probably do not run?
+        FIXME: how do we choose which channel handler should take it?
+
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
