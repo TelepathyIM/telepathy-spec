@@ -76,6 +76,14 @@ Problems with this alternative implementation:
   executes the real handler as a subprocess, via exec(2) or via dlopen(3) if
   needed
 
+Proposed implementation:
+
+* The logger is an Client and a Client.Observer
+
+* The tray icon is a Client and a Client.Approver
+
+* The chat UI is a Client and a Client.ChannelHandler
+
 _`dis2`: Incoming 1-1 text message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
