@@ -29,18 +29,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>User interface processes are the obvious example of Telepathy
         clients, but they can provide other functionality, such as
         address-book synchronization.</p>
-
-      <p>The Client D-Bus interface mainly represents a process to which the
-        channel dispatcher can dispatch channels.</p>
-
-      <!-- FIXME: or does it represent any of observer, approver or
-      channel handler? We just don't know -->
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
       tp:type="DBus_Interface[]">
       <tp:docstring>
         A list of the extra interfaces provided by this client.
+        This SHOULD include at least one of Client.Approver,
+        Client.Observer or Client.ChannelHandler.
       </tp:docstring>
     </property>
 
