@@ -102,6 +102,20 @@ Problems:
   mechanism for the new-channel case (this would be fixed by dis1impl2_)
   (call this _`dis2problem2`)
 
+Alternative implementation, _`dis2impl2`:
+
+* When a ChannelHandler that was handling a channel closes, the channel
+  dispatcher forcibly closes that channel
+
+Problems:
+
+* Incoming messages might be lost (there is a race)
+
+Alternative implementation, _`dis2impl3`:
+
+* When a ChannelHandler that was handling a channel closes, the channel
+  dispatcher re-dispatches that channel (to the same or a different handler)
+
 _`dis3`: Incoming 1-1 text message with window closed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
