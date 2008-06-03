@@ -155,8 +155,25 @@ Problems:
 * the two conversations are unrelated (Juliet cannot distinguish
   between this case and req1_)
 
-Sketch of a proposed solution: give both conversations a thread UUID, and
-let the UI provide the same thread UUID when reconnecting
+Proposed implementation (with a new Chan.I.Thread)::
+
+    Romeo's chat UI (or incoming message database) automatically saves the
+    ...Channel.Interface.Thread.ThreadID property of the old channel
+
+    Disconnect/reconnect occurs
+
+    Client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (SUPRESS_HANDLER,
+        [
+            {'...Channel.ChannelType': '...Text',
+             '...Channel.TargetHandleType': CONTACT,
+             '...Channel.TargetHandle': juliet,
+             '...Channel.Interface.Thread.ThreadID': thread_id,
+             }
+        ])
+
+    from here onwards, same as req1
 
 _`req27`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,12 +182,12 @@ Romeo chooses a past conversation with Juliet in a log browser and wants
 to resume it. (The definition of threading in XMPP expects that this is
 possible.)
 
-This is basically req26_ but for a different reason; I expect that the
-solution can be similar.
-
 Current implementation: same as req2_
 
 Problems: Juliet cannot distinguish between this case and req2_
+
+Proposed implementation: same as req26_, except that it resembles
+req2_ instead of req1_ (i.e. no SUPRESS_HANDLER flag)
 
 _`req28`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
