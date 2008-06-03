@@ -208,6 +208,8 @@ she cannot send messages. When Romeo reconnects, because of 1-1 chat
 uniqueness, Juliet's client continues to use the same channel and there
 is no disconnection.
 
+Proposed implementation: Juliet's client continues to use the same channel
+
 Outgoing VoIP call
 ------------------
 
