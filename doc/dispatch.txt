@@ -186,12 +186,69 @@ _`dis5`: Incoming 1-1 text chat thread related to a VoIP call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet is talking to Romeo over VoIP; there is no text channel open between
-them. Romeo sends Juliet a text chat message (e.g. to send her a URI
-instead of having to spell it out verbally), which should appear in the same
-UI as the VoIP call.
+them. Romeo sends Juliet a text chat message (e.g. to send her a URI instead of
+having to spell it out verbally), which should appear in the same
+UI as the VoIP call if possible.
 
 Current implementation: impossible, we have no representation for related
 channels
+
+Sub-cases exist, some of which are more problematic:
+
+_`dis5a`: Juliet's VoIP UI also supports Text
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation:
+
+* The new Text channel is announced with the same bundle ID as the old
+  VoIP channel; observers are invoked
+
+* The channel dispatcher notices that Juliet's UI (which is the
+  handler for this bundle) supports Text channels, and tells it to handle
+  the new Text channel too. Approvers are not invoked
+
+_`dis5b`: Juliet's VoIP UI does not support Text
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation:
+
+* The new Text channel is announced with the same bundle ID as the old
+  VoIP channel; observers are invoked
+
+* The channel dispatcher notices that Juliet's UI (which is the
+  handler for this bundle) does not support Text channels, and falls back
+  to splitting the channel bundle: the new channel goes to approvers and to
+  a channel handler
+
+_`dis5c`: "the same UI" is not unique
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Suppose Juliet has two channel handlers:
+
+* Empathy: supports text and VoIP, currently in use for VoIP
+* TChat: supports text and file transfers
+
+Suppose that Romeo sends Juliet a file transfer offer, then a Text message.
+Juliet's channel dispatcher sees the following:
+
+* initially, there is a VoIP channel C1 in a bundle B, handled by Empathy
+* next, there is a FT channel C2 in a bundle B. Empathy cannot handle it,
+  so according to `dis5b`_, only TChat is offered to approvers.
+  Juliet accepts the file transfer and it is handled by TChat
+* now the Text channel, C3, appears. What happens to it? Is it handled by
+  Empathy or by TChat without running approvers, or are they both offered to
+  approvers?
+
+_`dis5d`: not a channel handler
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Suppose that Juliet's UI got the channel via use-case req1_. No approver
+or handler was ever invoked, so how does Juliet's channel dispatcher
+know that that UI should get subsequent channels?
+
+(The same issue exists in the proposed API if an approver calls Claim().)
+
+.. _req1: request.html#req1
 
 _`dis6`: Incoming 1-1 text chat thread related to a collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
