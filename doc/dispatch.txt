@@ -600,6 +600,9 @@ on the client side.
 
 Current implementation: a filter in Mission Control 4.x
 
+Proposed implementation: a filter (dlopen()ed or hard-coded) in Mission
+Control 5.x - we do not propose to allow this sort of thing over D-Bus
+
 Miscellaneous
 -------------
 
