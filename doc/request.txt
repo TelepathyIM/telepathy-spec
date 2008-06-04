@@ -890,6 +890,10 @@ Problems:
 
 .. _Clique: http://telepathy.freedesktop.org/xmpp/clique.html
 
+Proposed implementation:
+
+* Associate each Activity with a ChannelBundle using XMPP threading
+
 _`req24`: Existing UDP/TCP client/server protocol, serving one client
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
