@@ -556,6 +556,18 @@ Problems:
 
 .. _Clique: http://telepathy.freedesktop.org/xmpp/clique.html
 
+Proposed implementation:
+
+* Each Tube is its own channel
+
+* OLPC Activities map 1:1 to conversation threads
+
+* For compatibility with older OLPC code, we place each activity thread
+  in a new chatroom
+
+* For compatibility with older OLPC code, the Tubes channel type still exists
+  in a deprecated state
+
 _`dis22`: Invited to be a client in an existing UDP/TCP client/server protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
