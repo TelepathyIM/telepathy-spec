@@ -196,15 +196,29 @@ Current implementation::
 
 Problems and variations: same as dis1_
 
-_`dis14`: Forcibly joining a chatroom
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`dis14`, _`dis28`: Forcibly joining a chatroom
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Benvolio connects to an irssi-proxy or other IRC bouncer running on some colo
-box somewhere. The proxy informs his client that he is already in #telepathy
-and #farsight.
+Benvolio connects to an irssi-proxy, bip or other IRC bouncer running on some
+colo box somewhere. The proxy informs his client that he is already in
+#telepathy and #farsight.
 
 Current implementation: same as dis7_, but Benvolio is already in the members
-set for those channels
+set for those channels.
+
+Problems:
+
+* Empathy's filter (notification icon) considers these channels to be incoming
+  and waits for the first received message before blinking the status icon,
+  which means Benvolio thinks his proxy instance has lost its connection
+  to those channels
+
+Issues to bear in mind:
+
+* These Text channels are neither incoming nor outgoing - they are in
+  a third state, "automatically created". In the current version of
+  tp-spec-smcv-requests they would have state Channel_Direction_Automatic,
+  the same as contact groups and contact lists.
 
 Incoming VoIP calls
 -------------------
@@ -507,21 +521,6 @@ Problems:
 * Empathy's filter will get the media channel before elisa's chandler, so the
   status icon will blink and Romeo won't see it because elisa is running
   fullscreen.
-
-_`dis28`: Automatic Text channels when connecting to a bip IRC server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Romeo wants to chat on IRC and have a Bip server to which logs messages when he
-is offline. When he connects to his Bip server he expects all channels to get
-opened even if no message were received on that channel since his last
-disconnection.
-
-Problems:
-
-* Those Text channels are not INCOMING or OUTGOING.
-* They are currently concidered INCOMING so empathy waits for the first received
-  message before blinking the status icon to notify a new conversation. Empathy
-  shouldn't filter such channels and open an UI as soon as channels are created.
 
 ..
   vim:set sw=4 sts=4 et:
