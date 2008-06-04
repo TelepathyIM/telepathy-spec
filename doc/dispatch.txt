@@ -581,6 +581,10 @@ her a VNC connection to his computer so she can interact with his desktop.
 Romeo offers Mercutio and Benvolio access to an OpenArena server running
 on his local computer.
 
+Proposed implementation:
+
+* Each TCP/UDP Tube is its own channel, with a thread ID associated with it
+
 Failures and other exceptional cases
 ------------------------------------
 
