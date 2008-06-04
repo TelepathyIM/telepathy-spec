@@ -520,6 +520,12 @@ to use to transfer snapshots of state, or to transfer related files
 (e.g. in a word processor, you could receive an inline image that is
 embedded in the document).
 
+Proposed implementation: same as dis6_
+
+Additional problems: if the file transfer is part of the word processor's
+IPC mechanism, then it *really* wants to get the file transfer, rather than
+having another process get it as a result of a situation like dis5c_
+
 Tubes
 -----
 
