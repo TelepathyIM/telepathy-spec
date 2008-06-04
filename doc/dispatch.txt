@@ -501,6 +501,8 @@ functionality, the text or VoIP UI should handle the file transfer; otherwise,
 the channel dispatcher should fall back to launching a standalone file
 transfer handler.
 
+Proposed implementation and problems: same as dis5_
+
 _`dis19`: Receiving a file unexpectedly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
