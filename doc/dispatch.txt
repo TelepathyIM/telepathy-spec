@@ -683,5 +683,11 @@ Problems:
   status icon will blink and Romeo won't see it because elisa is running
   fullscreen.
 
+Proposed implementation:
+
+* elisa is an Approver which claims incoming channels using Claim(). The
+  Empathy status icon blinks momentarily, but this is not visible, and because
+  there is no user action, Empathy never approves anything
+
 ..
   vim:set sw=4 sts=4 et:
