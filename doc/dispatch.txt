@@ -260,6 +260,8 @@ comments, which should appear in a chat UI embedded inside AbiWord.
 Current implementation: impossible, we have no representation for related
 channels
 
+Proposed implementation: the same as dis5_, with the same problems
+
 Invitations to named chatrooms
 ------------------------------
 
