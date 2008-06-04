@@ -539,6 +539,11 @@ Problems:
 * Determining whether we already have a channel to Juliet becomes harder
   than in req1_
 
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed; then this reduces to req1_
+
 _`req31`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -568,6 +573,11 @@ Problems:
 
 * the interaction with offline messages is quite scary
 
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed; then this reduces to req26_
+
 _`req32`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -581,6 +591,11 @@ solution can be similar.
 Current implementation: same as req13_
 
 Problems: Juliet cannot distinguish between this case and req13_
+
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed; then this reduces to req27_
 
 _`req33`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -603,6 +618,11 @@ Problems:
 * A mid-air collision is highly likely to result in two parallel
   conversations with the same members (if this is even allowed by the
   protocol)
+
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed; then this reduces to req28_
 
 _`req14`: Ad-hoc chatroom from chat UI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -651,6 +671,16 @@ Problems:
 * The UI can't know that the user would prefer an ad-hoc chatroom, so in
   practice it would always have to do this
 
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed
+
+* Create a 1-1 channel for the conversation with Mercutio
+
+* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
+  create an ad-hoc chatroom in the same bundle
+
 _`req16`: Chat from address book (MSN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -687,6 +717,13 @@ Problems:
 * If both 1-1 and ad-hoc-chatroom channels are available, this would provide
   a true 1-1 channel - what if an ad-hoc chatroom was preferred?
 
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed
+
+* Create a 1-1 channel for the conversation with Romeo, the same as req2_
+
 _`req17`: Ad-hoc chatroom from address book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -713,6 +750,16 @@ Problems:
 
 * Do protocols like MSN allow us to have two channels with the same members?
 
+Proposed implementation:
+
+* Rethink our opinion of how MSN should work, and require butterfly to
+  behave as if true 1-1 channels existed
+
+* Create a 1-1 channel for the conversation with Mercutio
+
+* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
+  create an ad-hoc chatroom in the same bundle
+
 _`req18`: Ad-hoc chatroom embedded in collaboraborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -731,6 +778,8 @@ Problems:
 
 * Are we allowed to have two MSN switchboards with the same two members?
 
+Proposed implementation: same as req3_
+
 _`req19`: Upgrading a 1-1 chat to a named or ad-hoc chatroom
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -739,12 +788,8 @@ by using thread IDs.
 
 Current implementation: can't be done
 
-Hypothetical implementation: smcv has some ideas involving thread UUIDs.
-
-Perhaps the various ad-hoc-chatroom cases would become simpler if we
-"upgraded" from a 1-1 chat to an ad-hoc chatroom when necessary (with this
-just being a Telepathy API fiction rather than an operation on the
-server)?
+Hypothetical implementation: request a chatroom channel with the same thread
+ID and bundle ID as the 1-1 chat
 
 File transfers
 --------------
