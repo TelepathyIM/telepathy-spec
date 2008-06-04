@@ -361,6 +361,8 @@ Current implementation: the call is indistinguishable from dis8_
 
 Problems: Juliet can't get the UI she wants
 
+Proposed implementation: the reverse of dis5_, with the same issues
+
 Contact lists
 -------------
 
