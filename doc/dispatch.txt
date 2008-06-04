@@ -663,6 +663,11 @@ Problems:
 * There is no way currently to choose between channel handlers, Mission Control
   4.x only accepts one chandler.
 
+Proposed implementation:
+
+* Approvers can select which one to use from among several possible channel
+  handlers
+
 _`dis27`: multiple channel handers available - 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
