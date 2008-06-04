@@ -647,6 +647,9 @@ Current implementation: a filter in Mission Control 4.x?
 
 Problems: is this really just a special case of dis24_?
 
+Proposed implementation: either a filter in Mission Control 5.x, or the
+device-state service (which handles the backlight) can be made an Observer
+
 _`dis26`: multiple channel handers available - 1
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
