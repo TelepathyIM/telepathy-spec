@@ -510,6 +510,8 @@ Juliet is not interacting with Romeo when he sends her a file. Some
 appropriate UI needs to be launched to indicate that the file has been
 offered.
 
+Proposed implementation: same as dis1_
+
 _`dis20`: Receiving a file in a collaborative application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
