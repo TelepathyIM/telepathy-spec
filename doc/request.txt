@@ -900,11 +900,19 @@ _`req24`: Existing UDP/TCP client/server protocol, serving one client
 Tybalt asks Juliet to help him fix a problem with his computer. He offers
 her a VNC connection to his computer so she can interact with his desktop.
 
+Proposed implementation:
+
+* The TCP tube is a channel; much like req1_ or req2_
+
 _`req25`: Existing UDP/TCP client/server protocol, serving many clients
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo offers Mercutio and Benvolio access to an OpenArena server running
 on his local computer.
+
+Proposed implementation:
+
+* The UDP tube is a channel; much like req1_ or req2_
 
 Failures and other exceptional cases
 ------------------------------------
