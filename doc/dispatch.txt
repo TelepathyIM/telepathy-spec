@@ -387,9 +387,16 @@ Problems:
   process with a contact-list UI might be interested in them - or not, since
   best practice is to request the contact lists that you want to use
 
-Best-practice solution: clients SHOULD NOT be channel handlers for contact
-lists; clients SHOULD explicitly request any contact list channels that they
-want to use
+* On Maemo devices, the address-book synchronization process is currently
+  a handler for contact lists - this excludes the possibility of a third-party
+  process that does the same thing
+
+Best-practice solution:
+
+* Clients SHOULD NOT be channel handlers for contact lists; clients SHOULD
+  explicitly request any contact list channels that they want to use
+
+* Perhaps clients interested in contact lists should be observers instead?
 
 _`dis12`: A user-defined contact group is found during login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
