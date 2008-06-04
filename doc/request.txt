@@ -930,6 +930,8 @@ Current implementation::
     SendError (and soon DeliveryReporting) report the failure
     the channel remains open
 
+Proposed implementation: keep the current implementation
+
 _`req35`: failing to make a call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -940,6 +942,8 @@ Current implementation::
 
     Juliet is removed from the Group interface, with an error for the reason
     the StreamedMedia channel closes
+
+Proposed implementation: keep the current implementation?
 
 _`req36`: Cancelling outgoing call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
