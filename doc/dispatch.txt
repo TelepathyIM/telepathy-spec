@@ -325,6 +325,12 @@ Problems:
 
 * The Group interface is unnecessarily complex just to find out who's calling
 
+Proposed implementation:
+
+* The channel has properties ...Channel.InitiatorHandle,
+  ...Channel.InitiatorID which indicate Juliet's handle and ID
+  (JID, SIP URI, etc.) immediately
+
 _`dis9`: Missed incoming VoIP call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -337,6 +343,12 @@ Problems:
 
 * Information can be lost, depending on timing
   (https://bugs.freedesktop.org/show_bug.cgi?id=14606)
+
+Proposed implementation:
+
+* The channel has properties ...Channel.InitiatorHandle,
+  ...Channel.InitiatorID which indicate Juliet's handle and ID
+  (JID, SIP URI, etc.) immediately
 
 _`dis10`: Incoming VoIP call related to some other channel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
