@@ -806,12 +806,59 @@ _`req21`: Sending a file from a file manager
 Romeo right-clicks on a file in his file manager, chooses a "Send to User"
 option and chooses to send it to Juliet.
 
+Proposed implementation::
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (
+        0,
+        [
+            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
+             '...Channel.TargetHandleType': CONTACT,
+             '...Channel.TargetHandle': juliet,
+             # exact attributes of file offers undecided, but might include:
+             '...Channel.Type.FileTransfer.ContentType': 'image/png',
+             ...
+            }
+        ])
+
+    channel observers run
+    ChannelDispatcher returns it to the address book, which does nothing
+        much with it
+    FIXME: channel approvers probably do not run?
+    FIXME: how do we choose which channel handler should take it?
+
 _`req22`: Sending a file automatically in a collaborative application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 While collaborating on a document with Mercutio, Romeo inserts an embedded
 image into the document. The collaborative application could usefully choose
 to represent this by a file transfer.
+
+Proposed implementation::
+
+    bundle_id = ...Bundle property of AbiWord Tube channel
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
+        [
+            {'...ChannelType': '...FileTransfer',
+             '...TargetHandleType': CONTACT,
+             '...TargetHandle': mercutio,
+             '...Bundle': bundle_id,
+             ...
+             }
+        ])
+
+    channel observers run if the channel did not already exist
+    channel approvers/handler do not run
+    ChannelDispatcher returns channel to AbiWord
+
+    if channel has the requested bundle ID:
+        AbiWord uses it
+    else:
+        ??? FIXME
 
 Tubes
 -----
