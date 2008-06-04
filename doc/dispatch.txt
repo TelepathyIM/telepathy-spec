@@ -621,6 +621,20 @@ Problems:
   source of notifications doesn't really scale. Can't we solve this at the
   level of the fd.o Desktop Notification spec instead?
 
+Proposed implementation:
+
+* any application that really wants to know about Telepathy channels can be
+  an Approver
+
+_`dis29`: multiple notification mechanisms (2)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A Telepathy gnome-panel applet needs to be able to indicate incoming calls or
+channels. The Empathy contact list window should also be able to indicate
+incoming calls or channels, e.g. by highlighting the contact.
+
+Proposed implementation: they're both Approvers
+
 _`dis25`: brightness on portable devices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
