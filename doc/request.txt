@@ -235,6 +235,9 @@ Problems:
   <https://bugs.freedesktop.org/show_bug.cgi?id=14602>
 * Finding out whether a channel containing juliet's handle exists is
   needlessly laborious
+
+Resolved problems:
+
 * Unless the VoIP UI keeps a table of (handle => channel) (which can't
   necessarily be done - some protocols allow "parallel" calls), the following
   race condition::
@@ -246,7 +249,15 @@ Problems:
     Request A returns /.../ChannelA
     Request B returns /.../ChannelB
 
-  can result in unnecessarily opening two parallel calls to the same contact
+  can result in unnecessarily opening two parallel calls to the same contact.
+
+  (For instance: Empathy users sometimes incorrectly double-click on the
+  Call button, resulting in two calls.)
+
+  Resolution: UIs are responsible for not doing this. For instance, Empathy
+  should disable (make insensitive) the Call button just before requesting
+  a streamed media channel, and re-enable it when the request has either
+  failed or succeeded.
 
 Practical implementation::
 
