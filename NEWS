@@ -11,9 +11,6 @@ API changes:
 
   - TargetHandleType/TargetHandle (the same thing that GetHandle returns),
     deprecating GetHandle
-  - TargetHandleID (the ID obtained by inspecting the TargetHandle)
-  - InitiatorHandle (the initiator of the channel)
-  - InitiatorID (the ID obtained by inspecting the InitiatorHandle)
   - ChannelType (the same thing that GetChannelType returns), deprecating
     GetChannelType
   - Interfaces (the same thing that GetInterfaces returns), deprecating
@@ -21,6 +18,15 @@ API changes:
 
 * Channels are no longer guaranteed unique per (channel type, handle type,
   handle) triple, even when the handle type is nonzero
+
+New experimental API:
+
+* The Channel.FUTURE interface contains functionality targeted for inclusion
+  in the core Channel interface after we have some implementation experience:
+
+  - TargetHandleID (the ID obtained by inspecting the TargetHandle)
+  - InitiatorHandle (the initiator of the channel)
+  - InitiatorID (the ID obtained by inspecting the InitiatorHandle)
 
 Fixes:
 
