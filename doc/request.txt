@@ -978,5 +978,23 @@ Problems:
   cares about and should close/refuse (this use case), and a channel requested
   by another process but handled by it (req5_)
 
+_`req37`: Requesting a channel takes time
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Romeo makes a VoIP call to Juliet from a Maemo device at a time when he has no
+connectivity. Mission Control (the ChannelDispatcher implementation) on Maemo
+is able to request that the device obtains some sort of connection when
+needed, so it does so. However, Romeo is not near a wireless LAN access
+point, and it takes a couple of minutes for him to walk towards one.
+
+Naive implementation: the request is a method call, the request being
+satisfied is a response
+
+Problems: the D-Bus method call will time out after around 25 seconds
+unless special action is taken
+
+Proposed implementation: the ChannelDispatcher creates a request "cursor"
+object for the duration of the request
+
 ..
   vim:set sw=4 sts=4 et:
