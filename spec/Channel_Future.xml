@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:docstring>
 
     <property name="TargetID" type="s" access="read">
-      <tp:added version="0.17.UNRELEASED">(in Channel.FUTURE
+      <tp:added version="0.17.7">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring>
         The string that would result from inspecting the TargetHandle
@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
       access="read">
-      <tp:added version="0.17.UNRELEASED">(in Channel.FUTURE
+      <tp:added version="0.17.7">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The contact who initiated the channel. For channels requested by the
@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="InitiatorID" type="s" access="read">
-      <tp:added version="0.17.UNRELEASED">(in Channel.FUTURE
+      <tp:added version="0.17.7">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The string that would result from inspecting the InitiatorHandle

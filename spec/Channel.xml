@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="ChannelType" type="s" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The channel's type. This cannot change once the channel has
           been created.</p>
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="Interfaces" type="as" tp:type="DBus_Interface[]"
       access="read">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this channel. This SHOULD NOT include
           the channel type and the Channel interface itself, and cannot
@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="TargetHandle" type="u" access="read" tp:type="Handle">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The handle (a representation for the identifier) of the contact,
           chatroom, etc. with which this handle communicates. Its type
@@ -84,7 +84,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="TargetHandleType" type="u" access="read"
       tp:type="Handle_Type">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.7"/>
       <tp:docstring>
         The type of TargetHandle.
       </tp:docstring>
@@ -125,7 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="GetChannelType">
-      <tp:deprecated version="0.17.UNRELEASED">Use the ChannelType
+      <tp:deprecated version="0.17.7">Use the ChannelType
         property if possible.</tp:deprecated>
       <arg direction="out" type="s" tp:type="DBus_Interface">
         <tp:docstring>The interface name</tp:docstring>
@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="GetHandle">
-      <tp:deprecated version="0.17.UNRELEASED">Use the TargetHandleType
+      <tp:deprecated version="0.17.7">Use the TargetHandleType
         and TargetHandle properties if possible.</tp:deprecated>
       <arg direction="out" type="u" tp:type="Handle_Type">
         <tp:docstring>
@@ -170,7 +170,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="GetInterfaces">
-      <tp:deprecated version="0.17.UNRELEASED">Use the Interfaces
+      <tp:deprecated version="0.17.7">Use the Interfaces
         property if possible.</tp:deprecated>
       <arg direction="out" type="as" tp:type="DBus_Interface[]">
         <tp:docstring>
@@ -226,7 +226,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     always be used to invoke methods and bind signals.</p>
     </tp:docstring>
 
-    <tp:changed version="0.17.UNRELEASED">Previously we guaranteed that, for
+    <tp:changed version="0.17.7">Previously we guaranteed that, for
       any handle type other than Handle_Type_None, and for any channel type
       and any handle, there would be no more than one channel with that
       combination of channel type, handle type and handle. This guarantee
