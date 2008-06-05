@@ -34,6 +34,17 @@ Fixes:
 * Mark things that were added or deprecated in 0.17.6 as such, rather than
   saying "0.17.UNRELEASED"
 
+Additional documentation:
+
+* Lists of use-cases for future functionality have been added. Please discuss
+  these on the Telepathy mailing list, and see http://monkey.collabora.co.uk/
+  for implementation proposals.
+
+Notes to packagers:
+
+* Compiling the dispatch/request use-cases to HTML requires rst2html
+  from the Python docutils package (python-docutils in Debian and Fedora).
+
 telepathy-spec 0.17.6 (2008-05-26)
 ==================================
 
