@@ -36,9 +36,12 @@ Fixes:
 
 Additional documentation:
 
-* Lists of use-cases for future functionality have been added. Please discuss
-  these on the Telepathy mailing list, and see http://monkey.collabora.co.uk/
-  for implementation proposals.
+* Lists of use-cases for future functionality have been added, and we've
+  started to propose implementations for use in the future Requests API.
+  Please discuss these on the Telepathy mailing list
+  <mailto:telepathy@lists.freedesktop.org> or in #telepathy on
+  irc.freenode.net, and see http://monkey.collabora.co.uk/
+  for further use-cases and implementation proposals.
 
 Notes to packagers:
 
