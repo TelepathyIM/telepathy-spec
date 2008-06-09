@@ -242,12 +242,21 @@ Romeo chooses a past conversation with Juliet in a log browser and wants
 to resume it. (The definition of threading in XMPP expects that this is
 possible.)
 
+:New vs. existing:
+    Existing channel preferred, new channel acceptable
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet,
+    ThreadID is the same as before
+
 Current implementation: same as req2_
 
-Problems: Juliet cannot distinguish between this case and req2_
+Problems addressed by proposed implementation: Juliet cannot distinguish
+between this case and req2_
 
 Proposed implementation: same as req26_, except that it resembles
 req2_ instead of req1_ (i.e. no SUPRESS_HANDLER flag)
+
+Problems remaining: same as req26_ (including a potential race, like req26b_)
 
 _`req28`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
