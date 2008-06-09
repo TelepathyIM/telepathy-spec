@@ -26,13 +26,13 @@ TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
-doc/cmcaps.html doc/request.html doc/dispatch.html: %.html: %.txt
+RST = doc/cmcaps.txt doc/clientcaps.txt doc/request.txt doc/dispatch.txt
+
+$(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
 	$(RST2HTML) < $< > $@
 
 GENERATED_FILES = \
-	doc/cmcaps.html \
-	doc/request.html \
-	doc/dispatch.html \
+	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \
