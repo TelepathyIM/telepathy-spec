@@ -13,6 +13,15 @@ Romeo has a chat or IM UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
 
+:New vs. existing:
+    New channel required [#]_
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet
+
+.. [#] If the chat UI is already handling a suitable channel, it can
+    reasonably be expected to work this out without the channel dispatcher's
+    help
+
 Current implementation::
 
     if a channel with GetHandle() -> (CONTACT, juliet) exists:
@@ -22,27 +31,30 @@ Current implementation::
 
 Proposed implementation::
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
-
-    ChannelDispatcher calls RequestChannels (
-        SUPRESS_HANDLER | PREFER_REUSE,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': juliet
-            }
-        ])
-
-    if the channel that is returned has the EXISTING flag:
-        ChannelDispatcher returns it to the UI
-        UI foregrounds its window or tab
+    if a channel with GetHandle() -> (CONTACT, juliet) exists:
+        foreground its window or tab (no interaction with the
+        ChannelDispatcher)
     else:
-        channel observers run
-        ChannelDispatcher returns it to the UI
-        UI makes a new window or tab for it
+        client calls some unspecified method on ChannelDispatcher (FIXME)
 
-    channel approvers do not run
-    channel handler does not run
+        ChannelDispatcher calls RequestChannels (
+            SUPRESS_HANDLER,
+            [
+                {'...ChannelType': '...Text',
+                 '...TargetHandleType': CONTACT,
+                 '...TargetHandle': juliet
+                }
+            ])
+
+        if the channel that is returned has the EXISTING flag:
+            UI fails with "already talking to Juliet in another application"
+        else:
+            channel observers run
+            ChannelDispatcher returns it to the UI
+            UI makes a new window or tab for it
+
+        channel approvers do not run
+        channel handler does not run
 
 _`req2`: Chat from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
