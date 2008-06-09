@@ -291,6 +291,11 @@ Romeo has a VoIP UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
 
+:New vs. existing:
+    New channel required (same reasoning as req1_)
+:Definition of channel identity:
+    ???
+
 Theoretical implementation::
 
     if a channel containing handle juliet exists:
@@ -368,6 +373,11 @@ _`req5`: Call from elsewhere
 Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use a VoIP call.
+
+:New vs. existing:
+    Existing channel preferred? New channel acceptable
+:Definition of channel identity:
+    ???
 
 Current implementation::
 
