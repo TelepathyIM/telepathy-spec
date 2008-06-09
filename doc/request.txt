@@ -1143,5 +1143,36 @@ unless special action is taken
 Proposed implementation: the ChannelDispatcher creates a request "cursor"
 object for the duration of the request
 
+General issues
+--------------
+
+Selecting new or existing channels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We assume that creating a channel has visible side-effects, and that this
+is undesirable in some cases.
+
+When requesting a single channel, there are four possibilities:
+
+* A: Only a new channel is acceptable
+
+* B: Creating a new channel is preferable, but returning an existing channel
+  would be OK too
+
+* C: Returning an existing channel is preferable, but creating a new channel
+  would be OK too
+
+* D: Only an existing channel is acceptable - creating a new channel is to be
+  avoided
+
+Case A is actually irrelevant - the client can make request B, then fail
+internally if an existing channel was returned (there is no side-effect).
+However, case D must be distinguished from case C, because once the new
+channel has been created, any side-effects have already occurred and it's
+too late to cancel it (e.g. the remote contact will already have been
+notified).
+
+When requesting a bundle of channels, everything gets complicated.
+
 ..
   vim:set sw=4 sts=4 et:
