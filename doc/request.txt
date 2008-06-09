@@ -910,7 +910,7 @@ Proposed implementation::
         ])
 
     channel observers run
-    ChannelDispatcher returns it to the address book, which does nothing
+    ChannelDispatcher returns it to the file manager, which does nothing
         much with it
     FIXME: channel approvers probably do not run?
     FIXME: how do we choose which channel handler should take it?
