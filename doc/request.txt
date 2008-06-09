@@ -263,14 +263,14 @@ _`req28`: Recovering from other's disconnection
 
 Juliet is talking to Romeo using text chat when Romeo is disconnected
 due to network instability. The protocol is one that does not
-allow offline messages to be sent, like IRC. After reconnecting, Juliet
-wants to keep using the same window to talk to Romeo.
+allow offline messages to be sent, like IRC. After Romeo reconnects, Juliet
+wants to keep using the same window to talk to him.
 
 A solution for this use case should work correctly (and result in
 a single channel) if there is a "mid-air collision" with Romeo doing the
 same thing, or with Romeo recovering from disconnection as per req26_.
 
-(Recovering from a connection manager crash is equivalent to this.)
+(Recovering from Romeo's connection manager crash is equivalent to this.)
 
 Current implementation: Juliet's text channel does not close, but
 she cannot send messages. When Romeo reconnects, because of 1-1 chat
@@ -278,6 +278,8 @@ uniqueness, Juliet's client continues to use the same channel and there
 is no disconnection.
 
 Proposed implementation: Juliet's client continues to use the same channel
+
+Problems remaining: how do we ensure that?
 
 Outgoing VoIP call
 ------------------
