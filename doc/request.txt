@@ -1,5 +1,5 @@
-Requesting channels
-===================
+Use cases for requesting channels
+=================================
 
 .. contents::
 

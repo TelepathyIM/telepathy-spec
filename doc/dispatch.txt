@@ -1,5 +1,5 @@
-Dispatching channels
-====================
+Use cases for dispatching channels
+==================================
 
 .. contents::
 
