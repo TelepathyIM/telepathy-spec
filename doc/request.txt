@@ -546,6 +546,11 @@ _`req9`: listing chatrooms on "home" server
 Romeo wants to list all the chatrooms on the server or service that hosts his
 account.
 
+:New vs. existing:
+    New (parallel) channel preferred, but might not be possible
+:Definition of channel identity:
+    None - the returned channel probably looks like one from req10_
+
 Current implementation::
 
     RequestChannel (RoomList, NONE, 0, suppress_handler=TRUE)
@@ -555,7 +560,7 @@ Notes:
 * There doesn't seem to be any use case for suppress_handler=FALSE here,
   since a default handler for chatroom lists doesn't really make sense
 
-Problems:
+Implementation problems not affecting design:
 
 * Gabble implements this badly, by treating the room list as a singleton
 
@@ -567,8 +572,13 @@ Proposed implementation: a straightforward port of the current API
 _`req10`: listing chatrooms on "foreign" server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Romeo wants to list all the chatrooms on the server that hosts Juliet's
-account.
+Romeo wants to list all the chatrooms on the server ``capulet.example.com``
+that hosts Juliet's account.
+
+:New vs. existing:
+    New (parallel) channel preferred, but might not be possible
+:Definition of channel identity:
+    ChannelType is RoomList, RoomList.Server is capulet.example.com
 
 Current implementation: impossible
 
