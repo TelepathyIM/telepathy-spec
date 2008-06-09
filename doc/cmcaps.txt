@@ -69,7 +69,7 @@ Chatroom
 :Mandatory parameters other than TargetHandle:
     none
 :Optional parameters not already mentioned:
-    none
+    ...Ch.I.Chatroom.Nickname
 
 1-1 VoIP
 --------
