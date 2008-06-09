@@ -40,6 +40,8 @@ Problems with this proposal:
 * Can other parameters can be mandatory? This turns out to be necessary
   (or at least very useful) for File Transfer and Tubes
 
+* Can there potentially be more than one "class" per pair?
+
 Optional parameters which could hypothetically apply to all channels
 --------------------------------------------------------------------
 
