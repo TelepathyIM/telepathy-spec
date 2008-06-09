@@ -63,6 +63,11 @@ Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
 
+:New vs. existing:
+    Existing channel preferred, new channel acceptable
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is romeo
+
 Current implementation::
 
     address book asks Mission Control for a channel with
@@ -76,7 +81,7 @@ Current implementation::
     else:
         the channel handler puts the existing window or tab in the foreground
 
-Problems:
+Problems (FIXME: not addressed by proposed implementation):
 
 * It's rather bizarre that Mission Control re-dispatches an existing channel
   as though it was new
