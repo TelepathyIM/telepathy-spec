@@ -830,6 +830,63 @@ _`req20`: Sending a file in the context of a conversation
 Romeo is talking to Juliet using a text or VoIP UI, and wishes to
 send Juliet a file in the context of that conversation.
 
+_`req20a`: Romeo's Text or VoIP UI also supports file transfers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation::
+
+    Let bundle_id be the value of the Bundle property of the existing
+    Text or StreamedMedia channel.
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (
+        SUPPRESS_HANDLER,
+        [
+            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
+             '...Channel.TargetHandleType': CONTACT,
+             '...Channel.TargetHandle': juliet,
+             '...Channel.Bundle': bundle_id,
+             # exact attributes of file offers undecided, but might include:
+             '...Channel.Type.FileTransfer.ContentType': 'image/png',
+             ...
+            }
+        ])
+
+    channel observers run
+    ChannelDispatcher returns it to the text or VoIP UI, which handles it
+    channel approvers do not run
+    channel handler does not run
+
+_`req20b`: Romeo's Text or VoIP UI does not support file transfers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation::
+
+    Let bundle_id be the value of the Bundle property of the existing
+    Text or StreamedMedia channel.
+
+    client calls some unspecified method on ChannelDispatcher (FIXME)
+
+    ChannelDispatcher calls RequestChannels (
+        0,
+        [
+            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
+             '...Channel.TargetHandleType': CONTACT,
+             '...Channel.TargetHandle': juliet,
+             '...Channel.Bundle': bundle_id,
+             # exact attributes of file offers undecided, but might include:
+             '...Channel.Type.FileTransfer.ContentType': 'image/png',
+             ...
+            }
+        ])
+
+    channel observers run
+    ChannelDispatcher returns it to the text or VoIP UI, which does nothing
+        with it
+    FIXME: channel approvers probably do not run?
+    FIXME: a channel handler runs - how do we choose which one?
+
 _`req21`: Sending a file from a file manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
