@@ -184,9 +184,15 @@ do not allow offline messages).
 
 (Recovering from a connection manager crash is equivalent to this.)
 
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet,
+    ThreadID is the same as before
+
 Current implementation: same as req1_
 
-Problems:
+Problems addressed by proposed implementation:
 
 * the two conversations are unrelated (Juliet cannot distinguish
   between this case and req1_)
@@ -210,6 +216,24 @@ Proposed implementation (with a new Chan.I.Thread)::
         ])
 
     from here onwards, same as req1
+
+Problems remaining:
+
+* What should the CM do if the desired thread ID cannot be used for some
+  reason?
+
+* There is a potential race, req26b_
+
+_`req26b`: potential race
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The same as req26_, but before Romeo's client can open the replacement
+channel, Juliet sends him a message, thus opening a new channel. (This
+is really a dispatching problem, but is closely related...)
+
+The desired behaviour is that the same handler receives the channel.
+
+Proposed implementation: FIXME
 
 _`req27`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
