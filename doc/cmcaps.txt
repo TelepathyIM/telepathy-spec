@@ -1,0 +1,149 @@
+Use cases for connection manager capabilities
+=============================================
+
+.. contents::
+
+Connection manager capabilities indicate what sorts of channel a connection
+manager could conceivably satisfy a request for. This is closely related to
+`channel requesting`_, and can be used by clients to decide what UI to
+present.
+
+.. _channel requesting: request.html
+
+For instance, Empathy's Chat -> New Conversation menu can use this mechanism
+to decide what connection managers could conceivably have what features.
+
+Fundamentally, it is a Connection that has or lacks a particular feature.
+However, it would be useful for some part of Mission Control (account manager?
+channel dispatcher?) to cache "expected" capabilities for unconnected
+accounts, or perhaps even be able to guess what capabilities an account will
+have before it has ever become connected.
+
+The current proposal is:
+
+* "Classes" of requestable channel are identified by (ChannelType,
+  TargetHandleType) pairs
+
+* If TargetHandleType is not NONE then either TargetHandle or TargetID is
+  always mandatory, and TargetHandle (if given) is nonzero
+
+* If TargetHandleType is NONE then TargetHandle and TargetID are forbidden
+
+* Other parameters can be allowed, or not; clients SHOULD NOT send parameters
+  that aren't explicitly allowed
+
+Problems with this proposal:
+
+* How do we say that not all "valid" values for a parameter are allowed?
+  For instance we might only support a couple of MIME types for file transfer
+
+* Can other parameters can be mandatory? This turns out to be necessary
+  (or at least very useful) for File Transfer and Tubes
+
+Optional parameters which could hypothetically apply to all channels
+--------------------------------------------------------------------
+
+* ...Channel.Bundle
+* ...Channel.Interface.Thread.ThreadID
+* ...Channel.Interface.TLS.Secure
+
+1-1 text chat
+-------------
+
+:ChannelType:
+    ...Channel.Type.Text
+:TargetHandleType:
+    CONTACT
+:Mandatory parameters other than TargetHandle:
+    none
+:Optional parameters not already mentioned:
+    none
+
+Chatroom
+--------
+
+:ChannelType:
+    ...Channel.Type.Text
+:TargetHandleType:
+    ROOM
+:Mandatory parameters other than TargetHandle:
+    none
+:Optional parameters not already mentioned:
+    none
+
+1-1 VoIP
+--------
+
+:ChannelType:
+    ...Channel.Type.StreamedMedia
+:TargetHandleType:
+    NONE
+:Mandatory parameters other than TargetHandle:
+    none
+:Optional parameters not already mentioned:
+    none
+
+Mingle
+------
+
+:ChannelType:
+    ...Channel.Type.StreamedMedia
+:TargetHandleType:
+    ROOM
+:Mandatory parameters other than TargetHandle:
+    none
+:Optional parameters not already mentioned:
+    none
+
+RoomList
+--------
+
+:ChannelType:
+    ...Channel.Type.Text
+:TargetHandleType:
+    NONE
+:Mandatory parameters:
+    none
+:Optional parameters not already mentioned:
+    none
+
+FileTransfer
+------------
+
+:ChannelType:
+    ...Channel.Type.FileTransfer
+:TargetHandleType:
+    CONTACT
+:Mandatory parameters other than TargetHandle:
+    Varies per connection manager:
+
+    * SuggestedFilename: mandatory in XMPP XEP-0096 and probably others
+    * Size: mandatory in XMPP XEP-0096
+    * other protocols?
+
+:Optional parameters not already mentioned:
+    * Size (mandatory in XEP-0096, could be optional in other protocols?)
+    * RandomAccess=True? (XEP-0096 byte ranges)
+    * Description (XEP-0096)
+    * ContentType? (can always avoid making this mandatory by defaulting to
+      'application/octet-stream')
+    * ContentMD5
+    * Metadata? (extensible - not possible in all protocols)
+
+D-Bus, Stream, Packet Tube
+--------------------------
+
+:ChannelType:
+    ...Channel.Type.DBusTube, Ch.T.StreamTube, Ch.T.PacketTube?
+    (with ...Channel.Interface.Tube)
+:TargetHandleType:
+    CONTACT or ROOM
+:Mandatory parameters other than TargetHandle:
+    Service
+    SocketAddress (Stream/Packet only)
+    AccessControl (different between Stream/Packet and D-Bus)
+:Optional parameters not already mentioned:
+    TubeParameters (omitted and empty a{sv} are interchangeable)
+
+..
+  vim:set sw=4 sts=4 et:
