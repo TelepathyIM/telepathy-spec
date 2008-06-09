@@ -289,6 +289,8 @@ Problems:
 * Implementors might be misled into thinking that the semantics resemble
   text channels more closely than they really do
 
+Proposed implementation: FIXME
+
 _`req5`: Call from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -322,6 +324,8 @@ Problems:
 * Looking for channels to talk to Romeo is hard (have to interact with lots of
   group interfaces)
 
+Proposed implementation: FIXME
+
 _`req6`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -332,6 +336,8 @@ that may be ongoing.
 Current implementation: same as req5_
 
 Problems: same as req5_
+
+Proposed implementation: FIXME
 
 _`req29`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -357,6 +363,8 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
+Proposed implementation: FIXME
+
 _`req30`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -379,6 +387,8 @@ Problems:
 
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
+
+Proposed implementation: FIXME
 
 Joining a named chatroom by request
 -----------------------------------
@@ -439,6 +449,8 @@ Problems:
 * As for req2_, it's very bizarre that the channel handler interprets
   HandleChannel on a channel it's already handling as "put it in the
   foreground"
+
+Proposed implementation: FIXME
 
 Listing named chatrooms
 -----------------------
@@ -504,6 +516,8 @@ Problems:
 * Slightly unclear whether suppress_handler should be TRUE or FALSE -
   depends on "incoming" use cases
 
+Proposed implementation: FIXME
+
 _`req12`: creating a user-defined contact group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -511,6 +525,8 @@ Current implementation::
 
     RequestChannel (ContactList, GROUP, handle("Colleagues"),
         suppress_handler=FALSE)
+
+Proposed implementation: FIXME
 
 Ad-hoc chatrooms
 ----------------
@@ -654,6 +670,9 @@ Problems:
 
 * Determining whether we already have an appropriate channel is race-prone
   and inconvenient
+
+Proposed implementation: FIXME - is this needed? Can we get away with only
+supporting req15_?
 
 _`req15`: Ad-hoc chatroom preferred
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
