@@ -470,6 +470,11 @@ _`req7`: joining chatroom from chatroom UI
 Tybalt starts an IRC-style chatroom client and wants to join a chatroom, either
 by explicit request or because his client auto-joins his favourite rooms.
 
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is ROOM, TargetHandle is #capulet
+
 Current implementation::
 
     if a channel with GetHandle() -> (ROOM, chatroom_handle) exists:
@@ -477,7 +482,7 @@ Current implementation::
     else:
         RequestChannel (Text, ROOM, chatroom_handle, suppress_handler=TRUE)
 
-Problems:
+Problems addressed by proposed implementation:
 
 * Tybalt doesn't get a chance to choose his nickname before joining
 
@@ -490,11 +495,20 @@ created, like Chan.I.Chatroom. RequestChannels arguments contain::
      '...Channel.Interface.Chatroom.Nickname': 'the Prince of Cats',
     }
 
+Proplems remaining:
+
+* How do threads work? We just don't know
+
 _`req8`: joining chatroom from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Benvolio chooses to rejoin a recently-used chatroom from (hypothetical
 functionality of) the GNOME Places menu.
+
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is ROOM, TargetHandle is #capulet
 
 Current implementation::
 
