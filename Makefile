@@ -26,10 +26,11 @@ TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
-doc/request.html doc/dispatch.html: %.html: %.txt
+doc/cmcaps.html doc/request.html doc/dispatch.html: %.html: %.txt
 	$(RST2HTML) < $< > $@
 
 GENERATED_FILES = \
+	doc/cmcaps.html \
 	doc/request.html \
 	doc/dispatch.html \
 	doc/spec.html \
