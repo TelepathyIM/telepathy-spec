@@ -121,16 +121,29 @@ Romeo is collaborating on a document with Mercutio, and wants to have a chat
 embedded in his AbiWord instance, separate from any other chat with Mercutio
 that may be ongoing.
 
+:New vs. existing:
+    New channel required [#]_
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is
+    mercutio, Bundle is the same as the AbiWord Tube channel
+
+.. [#] If the collaborative app already has a suitable channel, it is expected
+    to work this out without the channel dispatcher's help.
+    Stealing a channel from another UI is likely to fail (e.g. in the Text
+    interface, they'll both try to acknowledge messages) so we should
+    probably forbid this for sanity's sake?
+
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
 
-Proposed implementation::
+Proposed implementation, assuming AbiWord does not have a Text channel yet::
 
     bundle_id = ...Bundle property of AbiWord Tube channel
 
     client calls some unspecified method on ChannelDispatcher (FIXME)
 
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
+    ChannelDispatcher calls RequestChannels (
+        SUPPRESS_HANDLER,
         [
             {'...ChannelType': '...Text',
              '...TargetHandleType': CONTACT,
@@ -143,11 +156,17 @@ Proposed implementation::
     channel approvers/handler do not run
     ChannelDispatcher returns channel to AbiWord
 
-    if channel has the requested bundle ID:
+    if channel has the EXISTING flag:
+        AbiWord displays error, e.g. "Already talking to Mercutio in another
+            app, and multiple threads are not possible in this protocol"
+    else if channel has the requested bundle ID:
         AbiWord uses it
     else:
-        AbiWord ignores it (on the basis that someone else is already using
-        it)? FIXME: is this always true?
+        FIXME: what would this even mean? Can we safely forbid this?
+
+Issues:
+
+* Should the CM be allowed to return "the wrong" bundle ID? Probably not
 
 _`req26`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
