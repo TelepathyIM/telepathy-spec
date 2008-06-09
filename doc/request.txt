@@ -928,7 +928,7 @@ Proposed implementation::
 
     client calls some unspecified method on ChannelDispatcher (FIXME)
 
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
+    ChannelDispatcher calls RequestChannels (SUPPRESS_HANDLER,
         [
             {'...ChannelType': '...FileTransfer',
              '...TargetHandleType': CONTACT,
