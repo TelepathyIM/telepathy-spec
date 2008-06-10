@@ -1073,7 +1073,7 @@ and (Text, ROOM, foo) correspond 1:1. Activity discovery is done out-of-band
 using OLPC-specific extensions, although we'd like to make some of it
 more standard (mainly invitations).
 
-Problems:
+Problems addressed by proposed implementation:
 
 * we don't want Tubes channels in their current form, since dispatching them
   is likely to be a bit of a nightmare if we can't rely on OLPC assumptions;
@@ -1156,7 +1156,7 @@ Current implementation (NMC 4.x)::
         cancellation fails
         the UI is asked to handle the channel
 
-Problems:
+Problems (FIXME):
 
 * In NMC 4.x the UI cannot distinguish between the channel that it no longer
   cares about and should close/refuse (this use case), and a channel requested
@@ -1174,8 +1174,8 @@ point, and it takes a couple of minutes for him to walk towards one.
 Naive implementation: the request is a method call, the request being
 satisfied is a response
 
-Problems: the D-Bus method call will time out after around 25 seconds
-unless special action is taken
+Problems addressed by proposed implementation: the D-Bus method call will
+time out after around 25 seconds unless special action is taken
 
 Proposed implementation: the ChannelDispatcher creates a request "cursor"
 object for the duration of the request

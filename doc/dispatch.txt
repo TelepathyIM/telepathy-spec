@@ -30,7 +30,7 @@ Current implementation, _`dis1impl1`::
     When the tray icon is clicked, Mission Control continues processing
     filters and eventually dispatches to the channel handler
 
-Problems:
+Problems addressed by proposed implementation:
 
 * We want a logger (which might be in a separate process) to be told to
   handle incoming text channels. This may require that:
@@ -85,7 +85,7 @@ Proposed implementation:
 * The chat UI is a Client and a Client.ChannelHandler (selected in an
   implementation-specific way)
 
-Problems remaining:
+Problems remaining (FIXME):
 
 * How do we ensure that the logger has started before the channel handler
   starts acknowledging messages? I don't like the idea of having channel
@@ -124,6 +124,8 @@ Alternative implementation, _`dis2impl3`:
 * When a ChannelHandler that was handling a channel closes, the channel
   dispatcher re-dispatches that channel (to the same or a different handler)
 
+Proposed implementation: FIXME
+
 Proposed solution to dis2problem2_: if the the chat UI is in the same process
 as the notification mechanism, all is good - it can prod the notifier
 directly. If it's not, then it can use a D-Bus API outside the scope of this
@@ -144,7 +146,7 @@ Current implementation in Empathy, _`dis3impl2`:
 
 * As a result, the new message is indistinguishable from a new channel (dis1_)
 
-Problems:
+Problems with dis3impl2_:
 
 * Not associated with the previous chat session, although this could be fixed
   with "conversation thread IDs" as in req27_
@@ -163,7 +165,7 @@ Alternative implementation, _`dis3impl3`:
 * in practice this would give basically the same UI as for dis3impl2_, but
   without actually closing the channel
 
-Problems:
+Problems with dis3impl3_:
 
 * if it is desirable to tell the remote user that the window has been closed,
   the CM can't know
@@ -176,9 +178,11 @@ Incorrect implementation, _`dis3impl1`:
 
 * The new message causes the chat window to pop up, possibly stealing focus
 
-Problems:
+Problems with dis3impl1_:
 
 * Focus stealing is likely
+
+Proposed implementation: keep dis3impl2_
 
 _`dis4`: Incoming 1-1 text chat thread
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
