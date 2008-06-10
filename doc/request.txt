@@ -992,8 +992,8 @@ Proposed implementation::
     channel observers run
     ChannelDispatcher returns it to the text or VoIP UI, which does nothing
         with it
-    FIXME: channel approvers probably do not run?
-    FIXME: a channel handler runs - how do we choose which one?
+    channel approvers do not run
+    a channel handler chosen in an implementation-specific way runs
 
 _`req21`: Sending a file from a file manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
