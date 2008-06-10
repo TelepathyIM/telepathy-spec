@@ -89,6 +89,21 @@ maintainer-upload-snapshot: doc/spec.html
 	scp tmp/spec.html \
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
 
+maintainer-upload-release: doc/spec.html
+	@install -d tmp
+	set -e ; \
+	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
+	if ! echo $$version | egrep '[0-9]+\.[0-9]+\.[0-9]+'; then \
+		echo 'This does not look like a spec release'; \
+		exit 1; \
+	fi; \
+	test -f telepathy-spec-$$version.tar.gz; \
+	test -f telepathy-spec-$$version.tar.gz.asc; \
+	gpg --verify telepathy-spec-$$version.tar.gz.asc; \
+	rsync -vzP telepathy-spec-$$version.tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
+	rsync -vzP telepathy-spec-$$version.tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
+	rsync -vzP doc/spec.html telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
+
 dist:
 	@install -d tmp
 	set -e ;\
