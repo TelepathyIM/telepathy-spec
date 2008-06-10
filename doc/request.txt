@@ -1180,6 +1180,13 @@ object for the duration of the request
 General issues
 --------------
 
+Selecting a channel handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We can solve this later. For now, it's implementation-dependent which
+handler is used if several are possible - the channel dispatcher can use
+any reasonable algorithm to choose one.
+
 Selecting new or existing channels
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

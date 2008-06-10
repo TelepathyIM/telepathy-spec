@@ -82,7 +82,8 @@ Proposed implementation:
 
 * The tray icon is a Client and a Client.Approver
 
-* The chat UI is a Client and a Client.ChannelHandler
+* The chat UI is a Client and a Client.ChannelHandler (selected in an
+  implementation-specific way)
 
 Problems remaining:
 
