@@ -147,7 +147,9 @@ Current implementation in Empathy, _`dis3impl2`:
 Problems:
 
 * Not associated with the previous chat session, although this could be fixed
-  with "conversation thread IDs"
+  with "conversation thread IDs" as in req27_
+
+.. _req27: request.html#req27
 
 * Zdra doesn't think the Chat UI should Close() text channels, although
   in ``Message-ID: <1209127037.6294.41.camel@zdra-laptop>`` he doesn't
