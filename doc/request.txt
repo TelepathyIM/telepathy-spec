@@ -81,14 +81,14 @@ Current implementation::
     else:
         the channel handler puts the existing window or tab in the foreground
 
-Problems (FIXME: not addressed by proposed implementation):
+Problems addressed by proposed implementation:
 
 * It's rather bizarre that Mission Control re-dispatches an existing channel
-  as though it was new
+  as though it was new (proposed solution: a Present() method instead)
 
 * It's very bizarre that the channel handler interprets HandleChannel on a
   channel it's already handling as "put it in the foreground". If we mean
-  "put this in the foreground" we should say so.
+  "put this in the foreground" we should say so (proposed solution: do so)
 
 Proposed implementation::
 
@@ -105,14 +105,17 @@ Proposed implementation::
     if the channel that is returned has the EXISTING flag:
         ChannelDispatcher returns it to the address book, which does nothing
             much with it
-        FIXME: how do we tell the UI to foreground it?
-        channel observers/approvers/handler do not run
+        ChannelDispatcher calls ChannelHandler.Present() on the existing
+            handler (which it already knows about)
+        channel observers/approvers do not run
     else:
         channel observers run
         ChannelDispatcher returns it to the address book, which does nothing
             much with it
-        FIXME: channel approvers probably do not run?
-        FIXME: how do we choose which channel handler should take it?
+        channel approvers do not run
+        ChannelDispatcher chooses a channel handler in an
+            implementation-specific way and calls
+            ChannelHandler.HandleChannel() on it
 
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
