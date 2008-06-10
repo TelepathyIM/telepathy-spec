@@ -124,6 +124,12 @@ Alternative implementation, _`dis2impl3`:
 * When a ChannelHandler that was handling a channel closes, the channel
   dispatcher re-dispatches that channel (to the same or a different handler)
 
+Proposed solution to dis2problem2_: if the the chat UI is in the same process
+as the notification mechanism, all is good - it can prod the notifier
+directly. If it's not, then it can use a D-Bus API outside the scope of this
+spec to do the same. (Avoiding premature generalization and assuming clients
+to be competent)
+
 _`dis3`: Incoming 1-1 text message with window closed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
