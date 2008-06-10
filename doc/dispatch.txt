@@ -328,6 +328,19 @@ Issues to bear in mind:
   tp-spec-smcv-requests they would have state Channel_Direction_Automatic,
   the same as contact groups and contact lists.
 
+Proposed implementation:
+
+* The channels are considered to be in state "automatically created" rather
+  than "incoming"; clients can distinguish between these if they want to
+
+* Clients should not wait for the first message in an incoming channel -
+  this would break chatroom invitations in any case
+
+* If a connection manager creates channels before a message arrives, clients
+  should assume it has a valid reason to do so? ("`psychic mode`_")
+
+.. _psychic mode: http://meanwhile.sourceforge.net/faq/#psychic
+
 Incoming VoIP calls
 -------------------
 
