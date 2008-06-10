@@ -29,6 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>User interface processes are the obvious example of Telepathy
         clients, but they can provide other functionality, such as
         address-book synchronization.</p>
+
+      <p>Every running or activatable process with a well-known
+        name of the form org.freedesktop.Telepathy.Client.something should be
+        probed by the channel dispatcher to discover its capabilities. Each
+        client is either an <em>observer</em>, an <em>approver</em>, a
+        <em>channel handler</em>, or some combination of these.</p>
+
+      <p>As an optimization, we intend to introduce a .client file (similar to
+        .manager files) so that for most clients, the channel dispatcher can
+        just read a file instead of service-activating the client straight
+        away.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
