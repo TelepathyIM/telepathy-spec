@@ -536,19 +536,19 @@ Current implementation::
     else:
         the channel handler puts the existing window or tab in the foreground
 
-Problems:
+Problems with proposed solutions:
 
 * As for req7_, Benvolio doesn't get a chance to choose his nickname before
-  joining
+  joining (proposed solution: same as req7_)
 
 * As for req2_, it's rather bizarre that Mission Control re-dispatches an
-  existing channel as though it was new
+  existing channel as though it was new (proposed solution: same as req2_)
 
 * As for req2_, it's very bizarre that the channel handler interprets
   HandleChannel on a channel it's already handling as "put it in the
-  foreground"
+  foreground" (proposed solution: same as req2_)
 
-Proposed implementation: FIXME
+Proposed implementation: a combination of req2_ and req7_
 
 Listing named chatrooms
 -----------------------
