@@ -118,3 +118,11 @@ dist:
 	mv tmp/"$$distname".tar.gz .;\
 	rm -rf tmp/"$$distname";\
 	rm -f dist.tar.gz
+
+BRANCH = misc
+UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
+
+# Usage: make upload-branch BRANCH=discussion
+upload-branch: all
+	rsync -zvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) \
+		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
