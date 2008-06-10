@@ -264,6 +264,9 @@ know that that UI should get subsequent channels?
 
 (The same issue exists in the proposed API if an approver calls Claim().)
 
+Proposed solution: you're not allowed to handle a channel unless you're
+a channel handler?
+
 .. _req1: request.html#req1
 
 _`dis6`: Incoming 1-1 text chat thread related to a collaborative app
