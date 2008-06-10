@@ -816,7 +816,7 @@ Proposed implementation:
 
 * Create a 1-1 channel for the conversation with Mercutio
 
-* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
+* Upgrade it to a chatroom by the same mechanism as req19_, which would
   create an ad-hoc chatroom in the same bundle
 
 _`req16`: Chat from address book (MSN)
@@ -895,7 +895,7 @@ Proposed implementation:
 
 * Create a 1-1 channel for the conversation with Mercutio
 
-* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
+* Upgrade it to a chatroom as in req19_, which would
   create an ad-hoc chatroom in the same bundle
 
 _`req18`: Ad-hoc chatroom embedded in collaboraborative app
