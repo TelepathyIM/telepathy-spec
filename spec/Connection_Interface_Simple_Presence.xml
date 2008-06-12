@@ -149,32 +149,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <method name="RequestPresence">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          An array of the contacts whose presence should be obtained
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Request the presence for contacts on this connection. A PresenceUpdate
-        signal will be emitted when they are received. This is not the same as
-        subscribing to the presence of a contact, which must be done using the
-        'subscription' Channel.Type.ContactList, and on some protocols presence
-        information may not be available unless a subscription exists.
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            The presence of the requested contacts is not reported to this connection
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface is for services which have a concept of presence which can
     be published for yourself and monitored on your contacts. Telepathy's
