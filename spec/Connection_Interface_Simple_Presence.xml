@@ -158,9 +158,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface is for services which have a concept of presence which can
-    be published for yourself and monitored on your contacts. Telepathy's
-    definition of presence is based on that used by the Galago project
-    (see http://www.galago-project.org/).</p>
+    be published for yourself and monitored on your contacts.
+      </p>
 
     <p>Presence on an individual (yourself or one of your contacts) is modelled as
     a status and a status message. Valid statuses are defined per connection,
@@ -168,9 +167,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <p>Each status has an arbitrary string identifier which should have an agreed
     meaning between the connection manager and any client which is expected to
-    make use of it. The following well-known values (in common with those in
-    Galago) should be used where possible to allow clients to identify common
-    choices:</p>
+    make use of it. The following well-known values should be used where
+    possible to allow clients to identify common choices: </p>
 
     <ul>
       <li>available</li>
