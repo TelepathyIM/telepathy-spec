@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         A struct containing information about a status.
       </tp:docstring>
-      <tp:member type="u" tp:type="Simple_Connection_Presence_Type"
+      <tp:member type="u" tp:type="Connection_Presence_Type"
         name="Type">
         <tp:docstring>
           The type of a presence. If the status identifier is unknown to a
