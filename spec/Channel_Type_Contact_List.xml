@@ -55,8 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <p>A contact can be in several server-defined lists. All lists are
     optional to implement. When a specific list is not implemented,
-    RequestChannel returns org.freedesktop.Telepathy.Error.NotAvailable and
-    clients MUST behave as if it was empty.</p>
+    RequestHandles and RequestChannel return
+    org.freedesktop.Telepathy.Error.NotAvailable and clients MUST behave as if
+    it was empty.</p>
 
     <p>These contact list channels may not be closed.</p>
 
