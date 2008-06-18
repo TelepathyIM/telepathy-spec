@@ -74,11 +74,18 @@ USA.</p>
       </arg>
 
       <tp:docstring>
-        Get the optional interfaces supported by this connection.
+        Get the optional interfaces supported by this connection. Interfaces
+        may be added when going into the CONNECTED state.
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected">
+          <tp:docstring>
+             Before version 0.17.Unreleased calling GetInterfaces while
+             DISCONNECTED wasn't allowed. When a CM returns this error its list
+             of interfaces should be regarded as empty while DISCONNECTED
+          <tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
