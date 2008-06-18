@@ -284,6 +284,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <li>xa (Extended Away)</li>
       <li>hidden (aka Invisible)</li>
       <li>offline</li>
+      <li>unknown</li>
+      <li>error</li>
     </ul>
 
     <p>As well as these well-known status identifiers, every status also has a
