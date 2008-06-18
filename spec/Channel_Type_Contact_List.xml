@@ -41,16 +41,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     one of the following identifiers:</p>
 
     <ul>
-      <li>known - the group of all known contacts. Added in 0.17.?.</li>
       <li>subscribe - the group of contacts for whom you wish to receive presence</li>
       <li>publish - the group of contacts who may receive your presence</li>
       <li>hide - a group of contacts who are on the publish list but are temporarily disallowed from receiving your presence</li>
       <li>allow - a group of contacts who may send you messages</li>
       <li>deny - a group of contacts who may not send you messages</li>
+      <li>known - the group of all contacts known by the connection manager.
+      A contact can be absent from the subscribe and publish lists but still be
+      in the known list: it can be useful if the server stores metadata
+      on contacts.
+      Added in 0.17.?.</li>
     </ul>
 
-    <p>A contact can be in one or more server-defined lists. Each contact is at
-    least in the known list.</p>
+    <p>A contact can be in several server-defined lists. All lists are
+    optional to implement. When a specific list is not implemented,
+    RequestChannel returns org.freedesktop.Telepathy.Error.NotAvailable and
+    clients MUST behave as if it was empty.</p>
 
     <p>These contact list channels may not be closed.</p>
 
