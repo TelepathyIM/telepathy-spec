@@ -84,7 +84,7 @@ USA.</p>
              Before version 0.17.Unreleased calling GetInterfaces while
              DISCONNECTED wasn't allowed. When a CM returns this error its list
              of interfaces should be regarded as empty while DISCONNECTED
-          <tp:docstring>
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
