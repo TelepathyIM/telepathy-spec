@@ -258,10 +258,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p> This interface will become deprecated in future versions. New
-    implementations should use
-    org.freedesktop.Telepathy.Connection.Interface.SimplePresence instead
-    </p>
+      <p> This interface will become deprecated in future versions. New
+          implementations should use
+          org.freedesktop.Telepathy.Connection.Interface.SimplePresence
+          instead.
+      </p>
 
       <p>This interface is for services which have a concept of presence which can
     be published for yourself and monitored on your contacts. Telepathy's
