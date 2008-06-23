@@ -27,8 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Observers monitor the creation of new channels. This
         functionality can be used for things like message logging.
-        All observers are notified simultaneously, and they are not
-        given an opportunity to delay channel handling; they should not
+        All observers are notified simultaneously; they should not
         alter the state of the channel.</p>
 
       <p>Whenever a new channel is signalled, the channel dispatcher
@@ -75,14 +74,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Called by the channel dispatcher when a channel in which the
           observer has registered an interest is created.</p>
 
-        <p>For observers that are always running, this is somewhat
-          redundant, because the observer could monitor the NewChannel
-          signal. However, observers can also be registered to be
-          started on demand using service activation.</p>
-
         <p>The channel dispatcher SHOULD call this method on all observers
-          at the same time, and SHOULD NOT wait for replies before proceeding.
-          It MAY accept replies asynchronously for logging purposes.</p>
+          in parallel, and MUST wait for either a reply from all observers
+          or an implementation-dependent timeout before dispatching the channel
+          to a channel handler. It is implementation-dependent whether
+          observers and approvers are notified in parallel.</p>
+
+        <p>The observer MUST NOT reply to this method call until it is ready
+          for the channel handler to run (which may change the channel's
+          state).</p>
+
+        <tp:rationale>
+          <p>The channel dispatcher must wait for observers to start up,
+            to avoid the following race: text channel logger (observer) gets
+            ObserveChannel, text channel handler gets HandleChannel,
+            channel handler starts up faster and acknowledges messages,
+            logger never sees those messages.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Connection" type="o" direction="in">
