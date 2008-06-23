@@ -25,14 +25,21 @@
       <tp:docstring>
         A struct representing the presence of a contact.
       </tp:docstring>
+      <tp:member name="Type" type="u" tp:type="Connection_Presence_Type">
+        <tp:docstring>
+          The presence type, e.g. Connection_Presence_Type_Away.
+        </tp:docstring>
+      </tp:member>
       <tp:member type="s" name="Status">
         <tp:docstring>
-          Status identifier as defined in the Statuses property.
+          The string identifier of the status, e.g.  "brb", as defined in the
+          Statuses property.
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Status_Message">
         <tp:docstring>
-          Status message. User interfaces should regard "" as unset.
+          The user-defined status message, e.g. "Back soon!". User interfaces
+          should regard "" as unset.
         </tp:docstring>
       </tp:member>
     </tp:struct>
