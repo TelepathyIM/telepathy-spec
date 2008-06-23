@@ -43,29 +43,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <method name="Reject">
-      <tp:docstring>
-        Called by an approver to reject a channel bundle. The channel
-        dispatcher should close the channels. If successful, this method
-        will cause the ChannelDispatch object to disappear, causing the
-        ChannelDispatcher to emit DispatchCompleted.
-        However, this method may fail because the dispatch has already been
-        completed and the object has already gone.
-      </tp:docstring>
-
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
-    </method>
-
     <method name="HandleWith">
-      <tp:docstring>
-        Called by an approver to accept a channel bundle and request that
-        the given handler be used to handle it. If successful, this method
-        will cause the ChannelDispatch object to disappear, causing the
-        ChannelDispatcher to emit DispatchCompleted.
-        However, this method may fail because the dispatch has already been
-        completed and the object has already gone.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Called by an approver to accept a channel bundle and request that
+          the given handler be used to handle it.</p>
+
+        <p>If successful, this method will cause the ChannelDispatchOperation
+          object to disappear, emitting Closed, and also cause the
+          ChannelDispatcher to emit DispatchOperationClosed.</p>
+
+        <p>However, this method may fail because the dispatch has already been
+          completed and the object has already gone. If this occurs, it
+          indicates that another approver has asked for the bundle to be
+          handled by a particular handler. The approver MUST NOT attempt
+          to handle the channels itself in this case.</p>
+
+        <p>Approvers which are also channel handlers SHOULD use HandleWith
+          to request that they can handle a channel bundle themselves, but
+          MUST NOT actually start to handle the channel until the
+          ChannelHandler.HandleChannels method is called on them.</p>
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
@@ -76,22 +72,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <method name="Claim">
-      <tp:docstring>
-        Called by an approver to accept a channel bundle and request that
-        the approver be allowed to handle the channel internally (for cases
-        where the approver and the desired handler are the same process).
-        If successful, this method will cause the ChannelDispatch object to
-        disappear, causing the ChannelDispatcher to emit DispatchCompleted.
-        However, this method may fail because the dispatch has already been
-        completed and the object has already gone - if this occurs, the
-        approver MUST NOT proceed to handle the channel internally.
+    <method name="Reject">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Called by an approver to reject a channel bundle. The channel
+          dispatcher should close the channels.</p>
+
+        <p>If successful, this method will cause the ChannelDispatchOperation
+          object to disappear. See HandleWith for more details.</p>
+
+        <p>This method may fail because the dispatch operation has already
+          been completed. Again, see HandleWith for more details. The approver
+          MUST NOT attempt to close the channels itself in this case.</p>
       </tp:docstring>
 
       <tp:possible-errors>
         <!-- FIXME -->
       </tp:possible-errors>
     </method>
+
+    <signal name="Closed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when this dispatch operation finishes. The dispatch
+          operation is no longer present and further methods must not be
+          called on it.</p>
+
+        <tp:rationale>
+          <p>Strictly speaking this is redundant with
+            ChannelDispatcher.DispatchOperationClosed, but having it here
+            makes the ChannelDispatchOperation self-contained.</p>
+        </tp:rationale>
+
+        <p>Its object path MAY be reused for a subsequent dispatch
+          operation, but the ChannelDispatcher SHOULD choose object paths
+          in a way that avoids immediate re-use.</p>
+
+        <tp:rationale>
+          <p>Otherwise, clients might accidentally call Claim, HandleWith
+            or Reject on a new dispatch operation instead of the one they
+            intended to handle.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </signal>
 
   </interface>
 </node>
