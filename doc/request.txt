@@ -38,7 +38,7 @@ Proposed implementation::
         client calls some unspecified method on ChannelDispatcher (FIXME)
 
         ChannelDispatcher calls RequestChannels (
-            SUPRESS_HANDLER,
+            SUPPRESS_HANDLER,
             [
                 {'...ChannelType': '...Text',
                  '...TargetHandleType': CONTACT,
@@ -209,7 +209,7 @@ Proposed implementation (with a new Chan.I.Thread)::
 
     Client calls some unspecified method on ChannelDispatcher (FIXME)
 
-    ChannelDispatcher calls RequestChannels (SUPRESS_HANDLER,
+    ChannelDispatcher calls RequestChannels (SUPPRESS_HANDLER,
         [
             {'...Channel.ChannelType': '...Text',
              '...Channel.TargetHandleType': CONTACT,
@@ -257,7 +257,7 @@ Problems addressed by proposed implementation: Juliet cannot distinguish
 between this case and req2_
 
 Proposed implementation: same as req26_, except that it resembles
-req2_ instead of req1_ (i.e. no SUPRESS_HANDLER flag)
+req2_ instead of req1_ (i.e. no SUPPRESS_HANDLER flag)
 
 Problems remaining: same as req26_ (including a potential race, like req26b_)
 
