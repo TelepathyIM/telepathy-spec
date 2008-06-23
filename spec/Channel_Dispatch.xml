@@ -25,6 +25,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>A channel dispatch is an object in the Channel Dispatcher
         representing a bundle of channels being announced to client
         processes.</p>
+
+      <p>These objects can result from new incoming channels, requests for
+        outgoing channels, or channels which are automatically created
+        for some reason.</p>
+
+      <p>The creation of a channel dispatch operation is indicated
+        by the NewDispatchOperation signal on the ChannelDispatcher
+        interface.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
