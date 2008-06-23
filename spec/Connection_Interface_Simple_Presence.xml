@@ -1,28 +1,22 @@
 <?xml version="1.0" ?>
 <node name="/Connection_Interface_Simple_Presence" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>
-    Copyright (C) 2005-2008 Collabora Limited
-  </tp:copyright>
-  <tp:copyright>
-Copyright (C) 2005, 2006 Nokia Corporation
-  </tp:copyright>
-  <tp:copyright>
-Copyright (C) 2006 INdT
-  </tp:copyright>
+  <tp:copyright> Copyright (C) 2005-2008 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
-    <p>This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.</p>
+    <p>This library is free software; you can redistribute it and/or modify it
+      under the terms of the GNU Lesser General Public License as published by
+      the Free Software Foundation; either version 2.1 of the License, or (at
+      your option) any later version.</p>
 
-<p>This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.</p>
+    <p>This library is distributed in the hope that it will be useful, but
+      WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
+      General Public License for more details.</p>
 
-<p>You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+    <p>You should have received a copy of the GNU Lesser General Public License
+      along with this library; if not, write to the Free Software Foundation,
+      Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.SimplePresence">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
@@ -32,7 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A struct representing the presence of a contact.
       </tp:docstring>
       <tp:member type="s" name="Status">
-        <tp:docstring> Status identifier as defined in the Statuses property. </tp:docstring>
+        <tp:docstring>
+          Status identifier as defined in the Statuses property.
+        </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Status_Message">
         <tp:docstring>
@@ -42,9 +38,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:struct>
 
     <tp:mapping name="Simple_Contact_Presences">
-      <tp:docstring>Mapping returned by GetPresences and signalled by
-        PresencesChanged, where the keys are contacts and the values represent
-        their presence.</tp:docstring>
+      <tp:docstring>
+        Mapping returned by GetPresences and signalled by PresencesChanged,
+        where the keys are contacts and the values represent their
+        presence.
+      </tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
       <tp:member type="(ss)" tp:type="Simple_Presence" name="Presence"/>
     </tp:mapping>
@@ -159,56 +157,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>This interface is for services which have a concept of presence which
-    can be published for yourself and monitored on your contacts.</p>
+      <p>This interface is for services which have a concept of presence which
+        can be published for yourself and monitored on your contacts.</p>
 
-    <p>Presence on an individual (yourself or one of your contacts) is modelled as
-    a status and a status message. Valid statuses are defined per connection,
-    and a list of them can be obtained from the Statuses property.</p>
+      <p>Presence on an individual (yourself or one of your contacts) is
+        modelled as a status and a status message. Valid statuses are defined
+        per connection, and a list of them can be obtained from the Statuses
+        property.</p>
 
-    <p>Each status has an arbitrary string identifier which should have an agreed
-    meaning between the connection manager and any client which is expected to
-    make use of it. The following well-known values should be used where
-    possible to allow clients to identify common choices: </p>
+      <p>Each status has an arbitrary string identifier which should have an
+        agreed meaning between the connection manager and any client which is
+        expected to make use of it. The following well-known values should be
+        used where possible to allow clients to identify common choices:</p>
 
-    <ul>
-      <li>available</li>
-      <li>away</li>
-      <li>brb (Be Right Back)</li>
-      <li>busy</li>
-      <li>dnd (Do Not Disturb),</li>
-      <li>xa (Extended Away)</li>
-      <li>hidden (aka Invisible)</li>
-      <li>offline</li>
-      <li>unknown</li>
-      <li>error</li>
-    </ul>
+      <ul>
+        <li>available</li>
+        <li>away</li>
+        <li>brb (Be Right Back)</li>
+        <li>busy</li>
+        <li>dnd (Do Not Disturb),</li>
+        <li>xa (Extended Away)</li>
+        <li>hidden (aka Invisible)</li>
+        <li>offline</li>
+        <li>unknown</li>
+        <li>error</li>
+      </ul>
 
-    <p>As well as these well-known status identifiers, every status also has a
-    numerical type value chosen from ConnectionPresenceType which can be
-    used by the client to classify even unknown statuses into different
-    fundamental types.</p>
+      <p>As well as these well-known status identifiers, every status also has
+        a numerical type value chosen from ConnectionPresenceType which can be
+        used by the client to classify even unknown statuses into different
+        fundamental types.</p>
 
-    <p>These numerical types exist so that even if a client does not understand
-    the string identifier being used, and hence cannot present the presence to
-    the user to set on themselves, it may display an approximation of the
-    presence if it is set on a contact.</p>
+      <p>These numerical types exist so that even if a client does not
+        understand the string identifier being used, and hence cannot present
+        the presence to the user to set on themselves, it may display an
+        approximation of the presence if it is set on a contact.</p>
 
-    <p>Apart from these status indentifiers there are two special ones that
-    may be present. 'unknown' with type Unknown and 'error' with type
-    Error. 'unknown' indicates that it is impossible to determine the presence
-    of a contact at this time, for example because it's not on the 'subscibe'
-    list and the protocol only allows one to determine the presence of contacts
-    you're subscribed to. 'error' indicates that there was a failure in
-    determining the status of a contact. </p>
+      <p>Apart from these status indentifiers there are two special ones that
+        may be present. 'unknown' with type Unknown and 'error' with type
+        Error. 'unknown' indicates that it is impossible to determine the
+        presence of a contact at this time, for example because it's not on the
+        'subscibe' list and the protocol only allows one to determine the
+        presence of contacts you're subscribed to. 'error' indicates that there
+        was a failure in determining the status of a contact.</p>
 
-    <p>If the connection has a 'subscribe' contact list, PresencesChanged
-    signals should be emitted to indicate changes of contacts on this list, and
-    should also be emitted for changes in your own presence. Depending on the
-    protocol, the signal may also be emitted for others such as people with
-    whom you are communicating, and any user interface should be updated
-    accordingly.</p>
-
+      <p>If the connection has a 'subscribe' contact list, PresencesChanged
+        signals should be emitted to indicate changes of contacts on this list,
+        and should also be emitted for changes in your own presence. Depending
+        on the protocol, the signal may also be emitted for others such as
+        people with whom you are communicating, and any user interface should
+        be updated accordingly.</p>
     </tp:docstring>
   </interface>
 </node>
