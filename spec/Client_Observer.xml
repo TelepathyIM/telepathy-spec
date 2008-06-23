@@ -49,9 +49,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
-          The Telepathy connection. Its well-known bus name can be derived
-          from its object path by replacing all '/' with '.' and removing
-          the leading '.' that results.
+          The Connection with which the channels are associated. The
+          well-known bus name to use can be derived from this object
+          path by removing the leading '/' and replacing all subsequent
+          '/' by '.'.
         </tp:docstring>
       </arg>
 
