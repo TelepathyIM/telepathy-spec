@@ -62,13 +62,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           Connection.
         </tp:docstring>
       </arg>
-      <!-- FIXME: or should observers be invoked per bundle? -->
+      <!-- FIXME: or should observers be invoked per ChannelDispatchOperation?
+      -->
 
       <arg name="Properties" type="a{sv}" direction="in">
         <tp:docstring>
           Immutable properties of the channel.
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
     </method>
 
   </interface>
