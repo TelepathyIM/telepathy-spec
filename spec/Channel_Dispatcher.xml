@@ -62,14 +62,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="Dispatch_Operations" type="ao" access="read">
       <tp:docstring>
-        The list of ChannelDispatch objects currently being processed.
-        Change notification is via the NewDispatch and DispatchFinished
-        signals.
+        The list of ChannelDispatchOperation objects currently being
+        processed. Change notification is via the NewDispatch and
+        DispatchFinished signals.
       </tp:docstring>
     </property>
 
-    <signal name="NewDispatch">
-      <arg name="Dispatch" type="o">
+    <signal name="NewDispatchOperation">
+      <arg name="Dispatch_Operation" type="o">
       </arg>
 
       <!-- FIXME: copy the Channel_Announcement_Flags from
@@ -79,8 +79,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
-    <signal name="DispatchFinished">
-      <arg name="Dispatch" type="o">
+    <signal name="DispatchOperationClosed">
+      <tp:docstring>
+        Emitted when a dispatch operation finishes (i.e. exactly once per
+        emission of ChannelDispatchOperation.Close).
+
+        <tp:rationale>
+          Strictly speaking this is redundant with
+          ChannelDispatchOperation.Closed, but it provides full
+          change-notification for the DispatchOperations property.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Dispatch_Operation" type="o">
+        The dispatch operation that was closed.
       </arg>
     </signal>
 
