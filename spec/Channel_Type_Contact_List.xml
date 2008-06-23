@@ -46,8 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <li>hide - a group of contacts who are on the publish list but are temporarily disallowed from receiving your presence</li>
       <li>allow - a group of contacts who may send you messages</li>
       <li>deny - a group of contacts who may not send you messages</li>
-      <li>known - a group of contacts who have been stored by the user,
-      regardless of subscription state</li>
+      <li>stored - on protocols where the user's contacts are stored, this
+      contact list contains all stored contacts regardless of subscription
+      status.</li>
     </ul>
 
     <p>All lists are optional to implement. When a specific list is not
@@ -55,9 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     org.freedesktop.Telepathy.Error.NotAvailable. If this happens for the
     subscribe, publish, hide and deny lists, clients MUST behave as if it was
     empty. If this happens for the allow list, clients MUST assume you can send
-    messages to everybody. If this happens for the known list, the client MUST
-    NOT assume that there is no contact stored by the user. Instead, the client
-    SHOULD get both the publish and subscribe lists.</p>
+    messages to everybody. If this happens for the stored list, the client MAY
+    use the union of the publish and subscribe lists.</p>
 
     <p>A contact can be in several server-defined lists.</p>
 
@@ -65,10 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     "from", "to" and "both" can be respectively in the lists:</p>
 
     <ul>
-      <li>"none": known</li>
-      <li>"from": known and publish</li>
-      <li>"to": known and subscribe</li>
-      <li>"both": known, publish and subscribe</li>
+      <li>"none": stored</li>
+      <li>"from": stored and publish</li>
+      <li>"to": stored and subscribe</li>
+      <li>"both": stored, publish and subscribe</li>
     </ul>
 
     <p>These contact list channels may not be closed.</p>
