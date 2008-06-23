@@ -25,7 +25,7 @@
       <tp:docstring>
         A struct representing the presence of a contact.
       </tp:docstring>
-      <tp:member name="Type" type="u" tp:type="Connection_Presence_Type">
+      <tp:member type="u" tp:type="Connection_Presence_Type" name="Type">
         <tp:docstring>
           The presence type, e.g. Connection_Presence_Type_Away.
         </tp:docstring>
