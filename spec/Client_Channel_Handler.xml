@@ -33,18 +33,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="HandleChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when an Approver indicates that
-          this client should handle this channel.</p>
+          this client should handle these channels.</p>
       </tp:docstring>
+
+      <!-- FIXME: other dispatching-related info? -->
 
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
+          The Connection with which the channels are associated. The
+          well-known bus name to use can be derived from this object
+          path by removing the leading '/' and replacing all subsequent
+          '/' by '.'.
         </tp:docstring>
       </arg>
 
       <arg name="Channels" type="a(oa{sv})" direction="in">
         <tp:docstring>
+          The channels and their immutable properties. Their well-known
+          bus name is the same as that of the Connection.
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
     </method>
 
   </interface>
