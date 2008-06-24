@@ -30,7 +30,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         All observers are notified simultaneously, and they are not
         given an opportunity to delay channel handling; they should not
         alter the state of the channel.</p>
+
+      <p>Whenever a new channel is signalled, the channel dispatcher
+        notifies all observers whose
+        <tp:member-ref>ObserverChannelFilter</tp:member-ref> property
+        indicates that they are interested in the channel.</p>
     </tp:docstring>
+
+    <property name="ObserverChannelFilter" type="v">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A specification of the channels in which this observer is
+          interested. The <tp:member-ref>ObserveChannel</tp:member-ref> method
+          should be called by the channel dispatcher whenever a new channel
+          matches this description.
+          </p>
+
+        <p>For observers that have a .client file, the channel dispatcher
+          may discover this property from the
+          [org.freedesktop.Telepathy.Client.Observer.DRAFT] section of the
+          .client file. (FIXME: what are the keys and their values?)</p>
+
+        <p>FIXME: the type 'v' is a placeholder and needs replacing with
+          something suitable.</p>
+      </tp:docstring>
+    </property>
 
     <method name="ObserveChannel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
