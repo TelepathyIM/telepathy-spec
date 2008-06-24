@@ -657,7 +657,7 @@ Current implementation::
     RequestChannel (ContactList, GROUP, handle("Colleagues"),
         suppress_handler=FALSE)
 
-Proposed implementation: FIXME
+Proposed implementation: a straightforward port to the new API
 
 Ad-hoc chatrooms
 ----------------
