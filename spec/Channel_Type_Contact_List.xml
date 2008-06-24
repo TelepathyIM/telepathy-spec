@@ -41,7 +41,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     one of the following identifiers:</p>
 
     <ul>
-      <li>subscribe - the group of contacts for whom you wish to receive presence</li>
+      <li>subscribe - the group of contacts for whom you receive presence</li>
       <li>publish - the group of contacts who may receive your presence</li>
       <li>hide - a group of contacts who are on the publish list but are temporarily disallowed from receiving your presence</li>
       <li>allow - a group of contacts who may send you messages</li>
