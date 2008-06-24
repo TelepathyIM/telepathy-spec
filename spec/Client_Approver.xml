@@ -49,9 +49,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>Any approver can approve the handling of a channel with a
         particular channel handler. Approvers can also request that the
-        channel is rejected, or request that they are allowed to handle
-        the channel internally (for the case where an approver is also
-        a channel handler). The first approver to reply gets its decision
+        channel is rejected. The first approver to reply gets its decision
         acted on; any other approvers that reply at the same time will
         get a D-Bus error, indicating that the channel has already been
         dealt with.</p>
