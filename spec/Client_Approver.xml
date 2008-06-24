@@ -78,8 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="HandleDispatch">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the channel dispatcher when a ChannelDispatch in which the
-          approver has registered an interest is created.</p>
+        <p>Called by the channel dispatcher when a ChannelDispatchOperation
+          in which the approver has registered an interest is created.</p>
 
         <p>The channel dispatcher SHOULD call this method on all approvers
           at the same time. If no approvers return from this method
@@ -105,7 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <!-- FIXME: what type is a client? An object path? A bus name? -->
       </arg>
 
-      <arg name="Dispatch" type="o" direction="in">
+      <arg name="DispatchOperation" type="o" direction="in">
         <tp:docstring>
           The <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatchOperation</tp:dbus-ref>,
           which is an object inside the channel dispatcher (and hence has the
