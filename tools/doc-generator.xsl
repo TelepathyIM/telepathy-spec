@@ -565,7 +565,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template name="parenthesized-tp-type">
     <xsl:if test="@tp:type">
-      <xsl:text>(</xsl:text>
+      <xsl:text> (</xsl:text>
       <xsl:call-template name="tp-type">
         <xsl:with-param name="tp-type" select="@tp:type"/>
       </xsl:call-template>
