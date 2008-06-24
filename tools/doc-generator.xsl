@@ -50,14 +50,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:added">
-    <p class="added">Added in version <xsl:value-of select="@version"/>.
+    <p class="added" xmlns="http://www.w3.org/1999/xhtml">Added in
+      version <xsl:value-of select="@version"/>.
       <xsl:apply-templates select="node()" mode="html"/></p>
   </xsl:template>
 
   <xsl:template match="tp:changed">
     <xsl:choose>
       <xsl:when test="node()">
-        <p class="changed">Changed in version <xsl:value-of select="@version"/>:
+        <p class="changed" xmlns="http://www.w3.org/1999/xhtml">Changed in
+          version <xsl:value-of select="@version"/>:
           <xsl:apply-templates select="node()" mode="html"/></p>
       </xsl:when>
       <xsl:otherwise>
@@ -68,8 +70,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:deprecated">
-    <p class="deprecated">Deprecated since version
-      <xsl:value-of select="@version"/>.
+    <p class="deprecated" xmlns="http://www.w3.org/1999/xhtml">Deprecated
+      since version <xsl:value-of select="@version"/>.
       <xsl:apply-templates select="node()" mode="html"/></p>
   </xsl:template>
 
