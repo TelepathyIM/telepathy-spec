@@ -101,8 +101,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg name="Dispatch" type="o" direction="in">
         <tp:docstring>
           The channel dispatch operation, which is an object inside the
-          channel dispatcher (and hence has the same bus name as the
-          channel dispatcher).
+          channel dispatcher (and hence has the same well-known bus name,
+          org.freedesktop.Telepathy.ChannelDispatcher).
         </tp:docstring>
       </arg>
 
@@ -120,6 +120,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           is the same as for the Connection.
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <!-- FIXME -->
+      </tp:possible-errors>
     </method>
 
   </interface>
