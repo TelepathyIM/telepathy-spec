@@ -39,6 +39,29 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </xsl:call-template>
   </xsl:template>
 
+  <xsl:template match="tp:dbus-ref" mode="html">
+    <xsl:variable name="prefix">
+      <xsl:choose>
+        <xsl:when test="@namespace">
+          <xsl:value-of select="@namespace"/>
+          <xsl:text>.</xsl:text>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:variable>
+    <a xmlns="http://www.w3.org/1999/xhtml" href="{$prefix}{string(.)}">
+      <xsl:value-of select="string(.)"/>
+    </a>
+  </xsl:template>
+
+  <xsl:template match="tp:member-ref" mode="html">
+    <xsl:variable name="prefix" select="concat(ancestor::interface/@name,
+      '.')"/>
+
+    <a xmlns="http://www.w3.org/1999/xhtml" href="{$prefix}{string(.)}">
+      <xsl:value-of select="string(.)"/>
+    </a>
+  </xsl:template>
+
   <xsl:template match="*" mode="identity">
     <xsl:copy>
       <xsl:apply-templates mode="identity"/>
