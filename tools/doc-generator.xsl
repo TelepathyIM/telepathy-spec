@@ -48,7 +48,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
         </xsl:when>
       </xsl:choose>
     </xsl:variable>
-    <a xmlns="http://www.w3.org/1999/xhtml" href="{$prefix}{string(.)}">
+    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$prefix}{string(.)}">
       <xsl:value-of select="string(.)"/>
     </a>
   </xsl:template>
@@ -57,7 +57,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     <xsl:variable name="prefix" select="concat(ancestor::interface/@name,
       '.')"/>
 
-    <a xmlns="http://www.w3.org/1999/xhtml" href="{$prefix}{string(.)}">
+    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$prefix}{string(.)}">
       <xsl:value-of select="string(.)"/>
     </a>
   </xsl:template>
