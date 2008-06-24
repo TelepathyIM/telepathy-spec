@@ -45,6 +45,7 @@ Proposed implementation::
                  '...TargetHandle': juliet
                 }
             ])
+        # FIXME: the CD could pass in some sort of "require new" flag?
 
         if the channel that is returned has the EXISTING flag:
             UI fails with "already talking to Juliet in another application"
