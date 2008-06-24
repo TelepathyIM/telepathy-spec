@@ -85,13 +85,6 @@ Proposed implementation:
 * The chat UI is a Client and a Client.ChannelHandler (selected in an
   implementation-specific way)
 
-Problems remaining (FIXME):
-
-* How do we ensure that the logger has started before the channel handler
-  starts acknowledging messages? I don't like the idea of having channel
-  handling wait for a (possibly crashed or hanging) client process to say
-  "continue"
-
 _`dis2`: Incoming 1-1 text message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
