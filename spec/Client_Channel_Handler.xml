@@ -30,6 +30,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         process handling channels of a particular type.</p>
     </tp:docstring>
 
+    <property name="HandlerChannelFilter" type="v">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A specification of the channels that this channel handler can
+          deal with. It will be offered to approvers as a potential
+          channel handler for bundles that contain only suitable channels,
+          or for suitable channels that must be handled separately.</p>
+
+        <p>For channel handlers that have a .client file, the channel
+          dispatcher may discover this property from the
+          [org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT] section of
+          the .client file. (FIXME: what are the keys and their values?)</p>
+
+        <p>FIXME: the type 'v' is a placeholder and needs replacing with
+          something suitable.</p>
+      </tp:docstring>
+    </property>
+
     <method name="HandleChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when an Approver indicates that
