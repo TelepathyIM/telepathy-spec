@@ -80,8 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           at the same time. If no approvers return from this method
           successfully (for instance because no approvers are running),
           the channel dispatcher SHOULD consider this to be an error, and
-          recover by dispatching the channel to a handler chosen in an
-          implementation-dependent way.</p>
+          recover by dispatching the channel to the most preferred handler.</p>
 
         <tp:rationale>
           Processes that aren't approvers shouldn't be making connections
@@ -92,9 +91,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Handlers" type="as" direction="in">
         <tp:docstring>
-          The list of clients that could handle this channel. The channel
-          dispatcher SHOULD order them with the "most preferred" handler
-          first, in some implementation-dependent way.
+          The well-known bus names of clients that could handle this channel.
+          The channel dispatcher SHOULD order them with the "most preferred"
+          handler first, in an implementation-dependent way.
         </tp:docstring>
         <!-- FIXME: what type is a client? An object path? A bus name? -->
       </arg>
