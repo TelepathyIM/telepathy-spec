@@ -51,15 +51,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       status.</li>
     </ul>
 
-    <p>All lists are optional to implement. When a specific list is not
-    implemented, RequestHandles and RequestChannel return
-    org.freedesktop.Telepathy.Error.NotAvailable. If this happens for the
-    subscribe, publish, hide and deny lists, clients MUST behave as if it was
-    empty. If this happens for the allow list, clients MUST assume you can send
-    messages to everybody. If this happens for the stored list, the client MAY
-    use the union of the publish and subscribe lists.</p>
+    <p>A contact can be in several server-defined lists. All lists are optional
+    to implement. If RequestHandles or RequestChannel for a particular contact
+    list raises an error, this indicates that the connection manager makes no
+    particular statement about the list's contents; clients MUST NOT consider
+    this to be fatal.</p>
 
-    <p>A contact can be in several server-defined lists.</p>
+    <p>If a client wants to list all of a user's contacts, it is appropriate to
+    use the union of the subscribe, publish and stored lists, including the
+    local and remote pending members.</p>
 
     <p>For example in XMPP, contacts who have the subscription type "none",
     "from", "to" and "both" can be respectively in the lists:</p>
