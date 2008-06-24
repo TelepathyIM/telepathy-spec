@@ -91,7 +91,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Handlers" type="as" direction="in">
         <tp:docstring>
-          The well-known bus names of clients that could handle this channel.
+          The well-known bus names of
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.ChannelHandler</tp:dbus-ref>s
+          that could handle this channel.
           The channel dispatcher SHOULD order them with the "most preferred"
           handler first, in an implementation-dependent way.
         </tp:docstring>
@@ -100,17 +102,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Dispatch" type="o" direction="in">
         <tp:docstring>
-          The channel dispatch operation, which is an object inside the
-          channel dispatcher (and hence has the same well-known bus name,
+          The <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatchOperation</tp:dbus-ref>,
+          which is an object inside the channel dispatcher (and hence has the
+          same well-known bus name,
           org.freedesktop.Telepathy.ChannelDispatcher).
         </tp:docstring>
       </arg>
 
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
-          The Telepathy connection. Its well-known bus name can be derived
-          from its object path by replacing all '/' with '.' and removing
-          the leading '.' that results.
+          The <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
+          with which the channels are associated. The
+          well-known bus name to use can be derived from this object
+          path by removing the leading '/' and replacing all subsequent
+          '/' by '.'.
         </tp:docstring>
       </arg>
 

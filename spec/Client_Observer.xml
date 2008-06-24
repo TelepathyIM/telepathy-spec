@@ -81,8 +81,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Channel" type="o" direction="in">
         <tp:docstring>
-          The channel. Its well-known bus name is the same as that of the
-          Connection.
+          The
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>.
+          Its well-known bus name is the same as that of the Connection.
         </tp:docstring>
       </arg>
       <!-- FIXME: or should observers be invoked per ChannelDispatchOperation?
