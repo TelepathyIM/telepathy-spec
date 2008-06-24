@@ -26,13 +26,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Approvers notify the user that new channels have been created,
-        and also select which channel handler will be used for the channel,
-        either by asking the user or by choosing the most appropriate
-        channel handler (for instance, a GNOME or KDE approver could
-        give preference to a channel handler from the same desktop
-        environment on the basis that it is likely to integrate better
-        with other applications). It is possible to have an approver and
-        a channel handler in the same process.</p>
+        and allow the user to accept or reject those channels.</p>
+
+      <p>They can also select which channel handler will be used for the
+        channel, for instance by offering the user a list of possible
+        handlers rather than just an accept/reject choice.</p>
+
+      <p>However, the Channel Dispatcher must be able to prioritize
+        possible handlers on its own using some reasonable heuristic,
+        probably based on user configuration.</p>
+
+      <p>It is possible (and useful) to have an approver and
+        a channel handler in the same process; this is particularly useful
+        if a channel handler wants to claim responsibility for particular
+        channels itself.</p>
 
       <p>All approvers are notified simultaneously. For instance, in a
         desktop system, there might be one approver that displays a
