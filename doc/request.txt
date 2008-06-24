@@ -625,7 +625,29 @@ Problems:
 * Slightly unclear whether suppress_handler should be TRUE or FALSE -
   depends on "incoming" use cases
 
-Proposed implementation: FIXME
+Proposed implementation _`req11impl1`:
+
+* Everyone who cares about contact lists requests them, with
+  suppress_handler=FALSE
+
+* There is never a channel handler for contact lists
+
+* Approvers do not run, because the contact lists are not "incoming"
+
+Problems with req11impl1_:
+
+* If there is no channel handler, will the channel dispatcher panic and
+  try to close the channel? Or should the CD just special-case contact
+  lists?
+
+Proposed implementation _`req11impl2`:
+
+* The same, but everyone who cares about contact lists registers as a channel
+  handler for them, with HandleChannel being a no-op
+
+Problems with req11impl2_:
+
+* Various pointless HandleChannel calls
 
 _`req12`: creating a user-defined contact group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
