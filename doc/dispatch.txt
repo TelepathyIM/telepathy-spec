@@ -338,6 +338,7 @@ Proposed implementation:
 
 * The channels are considered to be in state "automatically created" rather
   than "incoming"; clients can distinguish between these if they want to
+  (FIXME: is this really appropriate?)
 
 * Clients should not wait for the first message in an incoming channel -
   this would break chatroom invitations in any case
