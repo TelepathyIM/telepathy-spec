@@ -304,6 +304,8 @@ Current implementation::
 
 Problems and variations: same as dis1_
 
+Proposed implementation: basically the same as dis1_
+
 _`dis14`, _`dis28`: Forcibly joining a chatroom
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
