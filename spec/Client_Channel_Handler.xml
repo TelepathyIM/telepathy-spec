@@ -43,12 +43,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>FIXME: interaction with automatically created channels?</p>
     </tp:docstring>
 
-    <property name="HandlerChannelFilter" type="v">
+    <property name="HandlerChannelFilter" type="v" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels that this channel handler can
           deal with. It will be offered to approvers as a potential
           channel handler for bundles that contain only suitable channels,
           or for suitable channels that must be handled separately.</p>
+
+        <p>This property never changes while the channel-handler process is
+          running. (FIXME: it can change due to upgrades - how do we tell
+          the channel dispatcher about this? Make it inotify on the .client
+          file?)</p>
 
         <p>For channel handlers that have a .client file, the channel
           dispatcher may discover this property from the
