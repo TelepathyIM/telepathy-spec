@@ -427,7 +427,8 @@ Current implementation: same as req5_
 
 Problems: same as req5_
 
-Proposed implementation: FIXME
+Proposed implementation: same as req5_, but ask for a new channel in a
+bundle
 
 _`req29`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
