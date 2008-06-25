@@ -588,7 +588,9 @@ Implementation problems not affecting design:
 * Some protocols (IRC!) are terrible, and on these, the room list actually
   *is* a singleton
 
-Proposed implementation: a straightforward port of the current API
+Proposed implementation: a straightforward port of the current API. In the
+returned channel, the Channel.Type.RoomList.Server property will be the
+actual server name, rather than empty
 
 _`req10`: listing chatrooms on "foreign" server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
