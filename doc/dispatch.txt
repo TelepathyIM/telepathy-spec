@@ -430,12 +430,21 @@ Problems:
   a handler for contact lists - this excludes the possibility of a third-party
   process that does the same thing
 
-Best-practice solution:
+* Client authors would prefer to wait for all contact lists to arrive (or
+  definitely not arrive), then query for all those contacts' aliases, avatars
+  etc. in one big transaction, and only then display them - but that's
+  impossible if the client is being passive, because it can't know whether
+  the 'publish' channel hasn't arrived yet, or will never arrive because the
+  CM doesn't support it
 
-* Clients SHOULD NOT be channel handlers for contact lists; clients SHOULD
-  explicitly request any contact list channels that they want to use
+Proposed implementation:
 
-* Perhaps clients interested in contact lists should be observers instead?
+* Clients SHOULD NOT rely on being channel handlers for contact lists;
+  clients SHOULD explicitly request any contact list channels that they want
+  to use
+
+* Clients interested in contact lists should be Observers and observe them,
+  instead of relying on being a channel handler
 
 _`dis12`: A user-defined contact group is found during login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
