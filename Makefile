@@ -26,7 +26,12 @@ TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
-RST = doc/cmcaps.txt doc/clientcaps.txt doc/request.txt doc/dispatch.txt
+RST = \
+    doc/cmcaps.txt \
+    doc/clientcaps.txt \
+    doc/open-issues.txt \
+    doc/request.txt \
+    doc/dispatch.txt
 
 $(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
 	$(RST2HTML) < $< > $@
