@@ -408,10 +408,13 @@ Problems:
 
 * Mission Control doesn't know whether to use an existing channel to Romeo,
   or create a new one (using an existing channel is *probably* right)
+
 * Looking for channels to talk to Romeo is hard (have to interact with lots of
   group interfaces)
 
-Proposed implementation: FIXME
+Proposed implementation: In the medium term, StreamedMedia channels must
+retain handle type NONE. However, UIs request handle type CONTACT and
+the channel dispatcher does the heavy lifting.
 
 _`req6`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
