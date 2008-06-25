@@ -46,13 +46,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         property.</p>
     </tp:docstring>
 
-    <property name="ObserverChannelFilter" type="v">
+    <property name="ObserverChannelFilter" type="v" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this observer is
           interested. The <tp:member-ref>ObserveChannel</tp:member-ref> method
           should be called by the channel dispatcher whenever a new channel
-          matches this description.
-          </p>
+          matches this description.</p>
+
+        <p>This property never changes while the observer process is
+          running. (FIXME: it can change due to upgrades - how do we tell
+          the channel dispatcher about this? Make it inotify on the .client
+          file?)</p>
 
         <p>For observers that have a .client file, the channel dispatcher
           may discover this property from the
