@@ -1159,11 +1159,15 @@ Current implementation (NMC 4.x)::
         cancellation fails
         the UI is asked to handle the channel
 
-Problems (FIXME):
+Problems:
 
 * In NMC 4.x the UI cannot distinguish between the channel that it no longer
   cares about and should close/refuse (this use case), and a channel requested
   by another process but handled by it (req5_)
+
+Proposed implementation:
+
+* FIXME
 
 _`req37`: Requesting a channel takes time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
