@@ -727,8 +727,18 @@ Problems:
 
 Proposed implementation:
 
+* The channel dispatcher prioritizes channel handlers in an
+  implementation-dependent way
+
 * Approvers can select which one to use from among several possible channel
-  handlers
+  handlers, for incoming channels only
+
+Problems remaining:
+
+* Should outgoing channels go through approvers, just to have a way to
+  influence the choice of handler?
+
+* What about automatic or unknown-directionality channels?
 
 _`dis27`: multiple channel handers available - 2
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
