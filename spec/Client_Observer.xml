@@ -32,9 +32,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         alter the state of the channel.</p>
 
       <p>Whenever a new channel is signalled, the channel dispatcher
-        notifies all observers whose
+        notifies all running or activatable observers whose
         <tp:member-ref>ObserverChannelFilter</tp:member-ref> property
-        indicates that they are interested in the channel.</p>
+        (possibly as cached in the .client file) indicates that they are
+        interested in the channel.</p>
+
+      <p>Observers are activated for all channels in which they have
+        registered an interest - incoming, outgoing or automatically created -
+        although of course the ObserverChannelFilter property can be set
+        to filter on the
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Direction</tp:dbus-ref>
+        property.</p>
     </tp:docstring>
 
     <property name="ObserverChannelFilter" type="v">
