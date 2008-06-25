@@ -28,6 +28,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>Channel handlers are the eventual handler for a channel or a
         channel bundle; a typical channel handler is a user interface
         process handling channels of a particular type.</p>
+
+      <p>When a new incoming channel is offered to
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref>s
+        by the channel dispatcher, it also offers the Approvers a list of all
+        the running or activatable ChannelHandlers whose
+        <tp:member-ref>HandlerChannelFilter</tp:member-ref> property
+        (possibly as cached in the .client file) indicates that they
+        are able to handle the channel. The Approvers can choose one of
+        those channel handlers to handle the channel.</p>
+
+      <p>FIXME: interaction with outgoing channels?</p>
+
+      <p>FIXME: interaction with automatically created channels?</p>
     </tp:docstring>
 
     <property name="HandlerChannelFilter" type="v">
