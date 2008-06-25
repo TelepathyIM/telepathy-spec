@@ -369,7 +369,9 @@ Problems:
 * Implementors might be misled into thinking that the semantics resemble
   text channels more closely than they really do
 
-Proposed implementation: FIXME
+Proposed implementation: In the medium term, StreamedMedia channels must
+retain handle type NONE. However, UIs request handle type CONTACT and
+the channel dispatcher does the heavy lifting.
 
 _`req5`: Call from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
