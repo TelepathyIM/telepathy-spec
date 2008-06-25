@@ -630,7 +630,10 @@ Proposed implementation:
 _`dis22`: Invited to be a client in an existing UDP/TCP client/server protocol
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-(Use-cases req24, req25)
+(Use-cases req24_, req25_)
+
+.. _req24: request.html#req24
+.. _req25: request.html#req25
 
 Tybalt asks Juliet to help him fix a problem with his computer, and offers
 her a VNC connection to his computer so she can interact with his desktop.
