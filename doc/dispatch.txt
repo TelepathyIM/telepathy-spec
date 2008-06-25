@@ -85,6 +85,10 @@ Proposed implementation:
 * The chat UI is a Client and a Client.ChannelHandler (selected in an
   implementation-specific way)
 
+* Clients should not wait for the first message in an incoming channel -
+  if a connection manager creates channels before a message arrives, clients
+  should assume it has a valid reason to do so? ("`psychic mode`_")
+
 _`dis2`: Incoming 1-1 text message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
