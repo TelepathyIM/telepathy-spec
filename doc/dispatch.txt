@@ -134,6 +134,16 @@ After a pause in a conversation with Romeo, Juliet closes the IM window
 or tab. She then receives another message from Romeo, resuming the
 conversation.
 
+Incorrect implementation, _`dis3impl1`:
+
+* The Text channel is not closed
+
+* The new message causes the chat window to pop up, possibly stealing focus
+
+Problems with dis3impl1_:
+
+* Focus stealing is likely
+
 Current implementation in Empathy, _`dis3impl2`:
 
 * The Text channel is closed (depending on protocol, this may be visible to
@@ -167,17 +177,8 @@ Problems with dis3impl3_:
 
 * dis2problem2_ also applies here
 
-Incorrect implementation, _`dis3impl1`:
-
-* The Text channel is not closed
-
-* The new message causes the chat window to pop up, possibly stealing focus
-
-Problems with dis3impl1_:
-
-* Focus stealing is likely
-
-Proposed implementation: keep dis3impl2_
+Proposed implementation: keep dis3impl2_, and use conversation
+thread IDs as per req27_ to solve the problem above
 
 _`dis4`: Incoming 1-1 text chat thread
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
