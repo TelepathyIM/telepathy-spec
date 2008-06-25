@@ -447,9 +447,16 @@ Problems:
 * Can we register more than one channel handler for groups? Every process
   with a contact-list UI might be interested in them
 
-Possible solution: in processes with a contact-list UI, use the
-AccountManager API to find active connections, then use
-NewChannel/ListChannels to find any (ContactList, GROUP) channels
+Proposed implementation _`dis12impl1`:
+
+* Each contact list UI is an Observer for groups
+
+* There is no channel handler for groups
+
+Problems:
+
+* We'd have to avoid making the channel dispatcher panic and close the
+  "unhandled" group
 
 _`dis13`: A user-defined contact group is created
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

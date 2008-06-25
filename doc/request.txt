@@ -636,18 +636,9 @@ Proposed implementation _`req11impl1`:
 
 Problems with req11impl1_:
 
-* If there is no channel handler, will the channel dispatcher panic and
-  try to close the channel? Or should the CD just special-case contact
-  lists?
-
-Proposed implementation _`req11impl2`:
-
-* The same, but everyone who cares about contact lists registers as a channel
-  handler for them, with HandleChannel being a no-op
-
-Problems with req11impl2_:
-
-* Various pointless HandleChannel calls
+* If there is no channel handler, we need to make sure the channel
+  dispatcher won't treat this as an error, or panic and
+  try to close the channel
 
 _`req12`: creating a user-defined contact group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
