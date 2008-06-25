@@ -461,7 +461,7 @@ Current implementation::
 
     Mission Control dispatches to the channel handler
 
-Problems:
+Problems addressed by proposed implementation:
 
 * Can we register more than one channel handler for groups? Every process
   with a contact-list UI might be interested in them
@@ -472,7 +472,11 @@ Proposed implementation _`dis12impl1`:
 
 * There is no channel handler for groups
 
-Problems:
+Problems remaining:
+
+* Clients can't know when we've finished creating groups (see dis11_),
+  but it is desirable for clients not to display anything until all groups
+  and all contact lists have arrived
 
 * We'd have to avoid making the channel dispatcher panic and close the
   "unhandled" group
