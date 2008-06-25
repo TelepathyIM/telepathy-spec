@@ -517,7 +517,8 @@ created, like Chan.I.Chatroom. RequestChannels arguments contain::
 
 Proplems remaining:
 
-* How do threads work? We just don't know
+* How do threads work? By analogy with 1-1 messaging, they should be
+  separate channels - is this really what we want?
 
 _`req8`: joining chatroom from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
