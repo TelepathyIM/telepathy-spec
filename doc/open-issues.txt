@@ -59,6 +59,13 @@ req36_: cancelling an outgoing call (just needs writing)
 Minor/corner-case
 -----------------
 
+Text channels could conceivably have multiple sources of messages, and even
+multiple sinks of messages, but there are coordination problems:
+
+* no handler should ack messages until all handlers have bound to signals (?)
+
+* exactly one handler should ack each message
+
 req29_, req30_: two contacts call each other simultaneously
 
 .. _req29: request.html#req29
