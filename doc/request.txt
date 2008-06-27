@@ -228,6 +228,9 @@ Problems remaining:
 
 * There is a potential race, req26b_
 
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
+
 _`req26b`: potential race
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -261,6 +264,9 @@ Proposed implementation: same as req26_, except that it resembles
 req2_ instead of req1_ (i.e. no SUPPRESS_HANDLER flag)
 
 Problems remaining: same as req26_ (including a potential race, like req26b_)
+
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 _`req28`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -519,6 +525,8 @@ Proplems remaining:
 
 * How do threads work? By analogy with 1-1 messaging, they should be
   separate channels - is this really what we want?
+
+  Resolution: solve later, https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 _`req8`: joining chatroom from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -949,8 +957,11 @@ by using thread IDs.
 
 Current implementation: can't be done
 
-Hypothetical implementation: request a chatroom channel with the same thread
-ID and bundle ID as the 1-1 chat
+Hypothetical implementation: request a chatroom channel with the same (thread
+ID and) bundle ID as the 1-1 chat?
+
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 File transfers
 --------------
