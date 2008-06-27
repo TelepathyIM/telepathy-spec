@@ -13,14 +13,24 @@ is it OK to use observers for this?
 
 req1_: how do we tell the CM about our new vs existing requirements?
 
+.. _req1: request.html#req1
+
 req3_: can we safely disallow creating new channels with the wrong bundle ID?
+
+.. _req3: request.html#req3
 
 req26b_: mid-air collision where local and remote try to reopen the same
 conversation
 
+.. _req26b: request.html#req26b
+
 req5_: is this proposed implementation OK?
 
+.. _req5: request.html#req5
+
 req7_: how do chatroom threads work?
+
+.. _req7: request.html#req7
 
 dis2_: what happens when a Text channel-handler crashes?
 
@@ -50,6 +60,9 @@ Minor/corner-case
 -----------------
 
 req29_, req30_: two contacts call each other simultaneously
+
+.. _req29: request.html#req29
+.. _req30: request.html#req30
 
 dis12_: how do we know when all groups have arrived?
 
