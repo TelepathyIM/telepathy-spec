@@ -4,7 +4,12 @@ Open issues in this branch
 Major
 -----
 
-Does it ever make sense to share channels that are not contact lists?
+File transfers might need more than one non-passive handler - anyone can
+stop the file transfer (although only one component can know where the
+bytes are coming from/going to)
+
+Contact lists and groups can easily have multiple non-passive handlers -
+is it OK to use observers for this?
 
 req1_: how do we tell the CM about our new vs existing requirements?
 
