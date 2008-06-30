@@ -304,27 +304,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <method name="RemoveFileTransfer">
-      <tp:docstring>
-        Remove a completed or canceled file transfer and invalidates its
-        ID. The ID may later be reused for a new file transfer.
-        <!-- FIXME what should we do if the file transfer is not in the
-        completed or canceled state? -->
-      </tp:docstring>
-      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer to close.
-        </tp:docstring>
-      </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            The given file transfer ID is invalid.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <method name="GetTransferredBytes">
       <tp:docstring>
         Retrieves the number of already transferred bytes.
