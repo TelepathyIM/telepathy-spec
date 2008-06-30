@@ -245,27 +245,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </method>
 
-    <method name="ListFileTransfers">
-      <arg direction="out" type="a(uuuuusa{sv})" tp:type="File_Transfer_Info[]">
-        <tp:docstring>
-         Return an array of tuples, each representing a file transfer, with the
-         following members:
-
-         <ul>
-           <li>the file transfer's ID</li>
-           <li>the file transfer's initiator</li>
-           <li>the file transfer's direction, as described by the 
-               File_Transfer_Direction enum</li>
-           <li>the file transfer's state</li>
-           <li>the file transfer's last state change reason, as described by the
-               File_Transfer_State_Change_Reason enum</li>
-           <li>the file's friendly filename, for displaying</li>
-           <li>the file's additional information, see OfferFile for common keys</li>
-         </ul>
-        </tp:docstring>
-      </arg>
-    </method>
-
     <method name="AcceptFile">
       <tp:docstring>
         Accept a file transfer that's in the "local pending" state. The file 
