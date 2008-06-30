@@ -95,7 +95,7 @@ Proposed implementation::
 
     client calls some unspecified method on ChannelDispatcher (FIXME)
 
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE,
+    ChannelDispatcher calls RequestChannels (REUSE,
         [
             {'...ChannelType': '...Text',
              '...TargetHandleType': CONTACT,
@@ -156,9 +156,13 @@ Proposed implementation, assuming AbiWord does not have a Text channel yet::
              }
         ])
 
-    channel observers run if the channel did not already exist
-    channel approvers/handler do not run
-    ChannelDispatcher returns channel to AbiWord
+    if a new channel that is suitable can be created:
+        channel observers run in response to NewChannels
+        channel approvers do not run, because the channel is one that
+            was requested
+        CM returns the channel "channel2" to ChannelDispatcher
+        ChannelDispatcher returns the channel "channel2" to AbiWord
+        ChannelDispatcher also calls HandleChannel on AbiWord
 
     if channel has the EXISTING flag:
         AbiWord displays error, e.g. "Already talking to Mercutio in another
@@ -166,9 +170,10 @@ Proposed implementation, assuming AbiWord does not have a Text channel yet::
     else if channel has the requested bundle ID:
         AbiWord uses it
     else:
-        FIXME: what would this even mean? Can we safely forbid this?
-
-Issues:
+        AbiWord displays error
+        if the error is the EEXIST equivalent, the message might be
+            "Already talking to Mercutio in another app, and multiple threads
+            are not possible in this protocol"
 
 * Should the CM be allowed to return "the wrong" bundle ID? Probably not
 
@@ -1227,14 +1232,28 @@ When requesting a single channel, there are four possibilities:
 * D: Only an existing channel is acceptable - creating a new channel is to be
   avoided
 
-Case A is actually irrelevant - the client can make request B, then fail
-internally if an existing channel was returned (there is no side-effect).
-However, case D must be distinguished from case C, because once the new
-channel has been created, any side-effects have already occurred and it's
-too late to cancel it (e.g. the remote contact will already have been
-notified).
+When requesting a bundle of channels, everything gets more complicated - if
+we're failing a request because the client wanted all new channels but got
+one existing channel, we don't want the CM to create *any* new channels.
 
-When requesting a bundle of channels, everything gets complicated.
+Proposed implementation:
+
+* invent an error "already exists"
+
+* the default is to require all the channels to be new; the CM should fail
+  the request (e.g. with "already exists") if it can't create *all* the
+  channels anew, and it should do this without creating *any* channels
+  if possible
+
+* case A: is the default
+
+* case B: we've concluded that this is weird. Who'd want this?
+
+* case C: pass the REUSE flag. The CM will return existing channels
+  if it can, or new ones if not
+
+* case D: don't use RequestChannels; we could define a QueryChannels if there
+  is demand
 
 ..
   vim:set sw=4 sts=4 et:
