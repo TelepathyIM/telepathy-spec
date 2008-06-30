@@ -44,11 +44,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="FileName" type="s" tp:type="DBus_Interface"
+    <property name="SuggestedFilename" type="s" tp:type="DBus_Interface"
       access="read">
       <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The name of the file, according to the sender. This cannot change
+        <p>The name of the file on the sender's side. This is therefore given
+        as a suggested filename for the receiver. This cannot change
         once the channel has been created.</p>
 
         <tp:rationale>
