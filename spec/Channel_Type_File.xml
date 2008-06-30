@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="Size" type="i" tp:type="DBus_Interface"
+    <property name="Size" type="t" tp:type="DBus_Interface"
       access="read">
       <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
