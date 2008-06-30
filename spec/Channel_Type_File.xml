@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Type_File_Transfer" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/Channel_Type_File" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>
-    Copyright (C) 2007 Collabora Limited
+    Copyright (C) 2008 Collabora Limited
   </tp:copyright>
   <tp:license>
     This library is free software; you can redistribute it and/or
@@ -18,15 +18,15 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.FileTransfer">
+  <interface name="org.freedesktop.Telepathy.Channel.Type.File">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring>
-      A channel type for offering and receiving files.
-      The actual transmission of the data is done by reading or writing 
-      a socket, the type of socket (local Unix, IPv4, etc.) is decided
-      when offering or accepting a file transfer.
-      
-      The FileTransfer channel type may be requested for handles of type
+      A channel type for files offered for transferring.
+      The actual transmission of the data is done by reading or writing
+      a socket, the type of socket (local Unix, IPv4, etc.) when the File
+      channel is created.
+
+      The File channel type may be requested for handles of type
       HANDLE_TYPE_CONTACT.
     </tp:docstring>
 
