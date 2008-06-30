@@ -1,0 +1,473 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Type_File_Transfer" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>
+    Copyright (C) 2007 Collabora Limited
+  </tp:copyright>
+  <tp:license>
+    This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Type.FileTransfer">
+    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <tp:docstring>
+      A channel type for offering and receiving files.
+      The actual transmission of the data is done by reading or writing 
+      a socket, the type of socket (local Unix, IPv4, etc.) is decided
+      when offering or accepting a file transfer.
+      
+      The FileTransfer channel type may be requested for handles of type
+      HANDLE_TYPE_CONTACT.
+    </tp:docstring>
+
+    <tp:simple-type name="File_Transfer_ID" type="u">
+      <tp:docstring>An identifier for a file transfer. These are local
+        to a FileTransfer channel, and may not be assumed to be the
+        same as the other participants' idea of the file transfer
+        identifier.</tp:docstring>
+    </tp:simple-type>
+
+    <tp:struct name="File_Transfer_Info" array-name="File_Transfer_Info_List">
+      <tp:docstring>A struct (file transfer ID, initiator handle, direction,
+        state, last change reason, filename, information) representing a
+        file transfer as returned by ListFileTransfers on the FileTransfer
+        channel type.</tp:docstring>
+      <tp:member type="u" tp:type="File_Transfer_ID" name="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Contact_Handle" name="Initiator">
+        <tp:docstring>
+          The handle of the contact who initiated the file transfer.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="File_Transfer_Direction" name="Direction">
+        <tp:docstring>
+          The file transfer's direction, as described by the 
+          File_Transfer_Direction enum.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="File_Transfer_State" name="State">
+        <tp:docstring>
+          The file transfer's state.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="File_Transfer_State_Change_Reason"
+        name="Reason">
+        <tp:docstring>
+          The file transfer's last state change reason, as described by the 
+          File_Transfer_State_Change_Reason enum
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Filename">
+        <tp:docstring>
+          The filename of the file that is to be transmitted, for displaying.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="a{sv}" tp:type="String_Variant_Map" name="Information">
+        <tp:docstring>
+          The file's additional information, see OfferFile for common keys.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:enum name="File_Transfer_State">
+      <tp:enumvalue suffix="Local_Pending" value="0">
+        <tp:docstring>
+          The file transfer is waiting to be accepted/closed locally.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Remote_Pending" value="1">
+        <tp:docstring>
+          The file transfer is waiting to be accepted/closed remotely.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Open" value="2">
+        <tp:docstring>
+          The file transfer is open for traffic.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Completed" value="3">
+        <tp:docstring>
+          The file transfer has been completed successfully.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Canceled" value="4">
+        <tp:docstring>
+          The file transfer has been canceled.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Removed" value="5">
+        <tp:docstring>
+          RemoveFileTransfer() has been called, the ID of the file transfer
+          is no longer valid. The ID may later be reused for a new file
+          transfer.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:enum name="File_Transfer_Direction">
+      <tp:enumvalue suffix="Incoming" value="0">
+        <tp:docstring>
+          The file transfer is for an incoming file, i.e. a file offered
+          to this client.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Outgoing" value="1">
+        <tp:docstring>
+          The file transfer is for an outgoing file, i.e. a file offered
+          by this client.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:enum name="File_Transfer_State_Change_Reason">
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring>
+          No reason was specified.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Local_Stopped" value="1">
+        <tp:docstring>
+          The file transfer was canceled by the local user.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Remote_Stopped" value="2">
+        <tp:docstring>
+          The file transfer was canceled by the remote user.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Local_Error" value="3">
+        <tp:docstring>
+          The file transfer was canceled because of a local error.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Remote_Error" value="4">
+        <tp:docstring>
+          The file transfer was canceled because of a remote error.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <method name="GetAvailableSocketTypes">
+      <tp:docstring>List the available address types and access-control types
+        for sockets.</tp:docstring>
+      <arg direction="out" type="a{uau}" tp:type="Supported_Socket_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A mapping from address types (members of Socket_Address_Type) to
+          arrays of access-control type (members of Socket_Access_Control)
+          that the connection manager supports for sockets with that
+          address type. For simplicity, if a CM supports offering a
+          particular type of file transfer, it is assumed to support accepting
+          it.</p>
+
+          <p>A typical value for a host that supports only Unix sockets:</p>
+
+          <pre>
+            {
+              Socket_Address_Type_Unix:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
+              Socket_Address_Type_Abstract_Unix:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
+            }
+          </pre>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="ListFileTransfers">
+      <arg direction="out" type="a(uuuuusa{sv})" tp:type="File_Transfer_Info[]">
+        <tp:docstring>
+         Return an array of tuples, each representing a file transfer, with the
+         following members:
+
+         <ul>
+           <li>the file transfer's ID</li>
+           <li>the file transfer's initiator</li>
+           <li>the file transfer's direction, as described by the 
+               File_Transfer_Direction enum</li>
+           <li>the file transfer's state</li>
+           <li>the file transfer's last state change reason, as described by the
+               File_Transfer_State_Change_Reason enum</li>
+           <li>the file's friendly filename, for displaying</li>
+           <li>the file's additional information, see OfferFile for common keys</li>
+         </ul>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="OfferFile">
+      <tp:docstring>
+        Offers a file for transmission.
+      </tp:docstring>
+      <arg direction="in" name="filename" type="s">
+        <tp:docstring>
+          The filename of the file that is to be transmitted, for displaying.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="information" type="a{sv}"
+        tp:type="String_Variant_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          A dictionary of additional information about the file.
+          Common keys:
+          <dl>
+            <dt><code>size</code> - <code>t</code></dt>
+            <dd>The file size (omitted if not known)</dd>
+            <dt><code>mime-type</code> - <code>s</code></dt>
+            <dd>The MIME type of the file (omitted if not known)</dd>
+          </dl>
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          Tthe type of socket the client would like the CM to create, as a
+          member of Socket_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The access control the CM should apply to the local socket.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control_param" type="v">
+        <tp:docstring>
+          A parameter for the access control type, to be interpreted as
+          specified in the documentation for the Socket_Access_Control enum.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the new file transfer.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The address on which the connection manager will listen for
+          connections for this file transfer. The client should not attempt to
+          connect to the address until the file transfer is open.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The contact associated with this channel doesn't have file
+            transfer capabilities.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The connection manager doesn't support the given address type or
+            access-control type.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="NewFileTransfer">
+      <tp:docstring>
+        Emitted when a file transfer is created.
+      </tp:docstring>
+      <arg name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the new file transfer.
+        </tp:docstring>
+      </arg>
+      <arg name="initiator" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The handle of the contact who initiated the file transfer.
+        </tp:docstring>
+      </arg>
+      <arg name="direction" type="u" tp:type="File_Transfer_Direction">
+        <tp:docstring>
+          The file transfer's direction, as described by the 
+          File_Transfer_Direction enum.
+        </tp:docstring>
+      </arg>
+      <arg name="state" type="u" tp:type="File_Transfer_State">
+        <tp:docstring>
+          The new file transfer's state.
+        </tp:docstring>
+      </arg>
+      <arg name="reason" type="u" tp:type="File_Transfer_State_Change_Reason">
+        <tp:docstring>
+          The file transfer's last state change reason, as described by the 
+          File_Transfer_State_Change_Reason enum
+        </tp:docstring>
+      </arg>
+      <arg name="filename" type="s">
+        <tp:docstring>
+          The filename of the file that is to be transmitted, for displaying.
+        </tp:docstring>
+      </arg>
+      <arg name="information" type="a{sv}" tp:type="String_Variant_Map">
+        <tp:docstring>
+          The new file's additional information, see OfferFile for common keys.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="AcceptFile">
+      <tp:docstring>
+        Accept a file transfer that's in the "local pending" state. The file 
+        transfer becomes open after this method is called.
+      </tp:docstring>
+      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer to accept.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of address the connection manager should listen on.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The type of access control the connection manager should apply to
+          the socket.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control_param" type="v">
+        <tp:docstring>
+          A parameter for the access control type, to be interpreted as
+          specified in the documentation for the Socket_Access_Control enum.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The address on which the connection manager will listen for
+          connections for this file transfer.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given file transfer ID is invalid.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The given address type or access-control mechanism is not supported.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="FileTransferStateChanged">
+      <tp:docstring>
+        Emitted when the state of a file transfer changes.
+      </tp:docstring>
+      <arg name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer that changed state.
+        </tp:docstring>
+      </arg>
+      <arg name="state" type="u" tp:type="File_Transfer_State">
+        <tp:docstring>
+          The new state of the file transfer; see the File_Transfer_State enumeration.
+        </tp:docstring>
+      </arg>
+      <arg name="reason" type="u" tp:type="File_Transfer_State_Change_Reason">
+        <tp:docstring>
+          The reason for the state change; see the File_Transfer_State_Change_Reason
+          enumeration.
+          The value will always be File_Transfer_State_Change_Reason_None, except
+          when changing state to canceled.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="CancelFileTransfer">
+      <tp:docstring>
+        Cancel a file transfer.
+      </tp:docstring>
+      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer to close.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="reason" type="u"
+        tp:type="File_Transfer_State_Change_Reason">
+        <tp:docstring>
+          The reason why the file transfer is being canceled; see the
+          File_Transfer_State_Change_Reason enumeration.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given file transfer ID is invalid.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="RemoveFileTransfer">
+      <tp:docstring>
+        Remove a completed or canceled file transfer and invalidates its
+        ID. The ID may later be reused for a new file transfer.
+        <!-- FIXME what should we do if the file transfer is not in the
+        completed or canceled state? -->
+      </tp:docstring>
+      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer to close.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given file transfer ID is invalid.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="GetTransferredBytes">
+      <tp:docstring>
+        Retrieves the number of already transferred bytes.
+      </tp:docstring>
+      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="transferred_bytes" type="t">
+        <tp:docstring>
+          The number of transferred bytes.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="TransferredBytesChanged">
+      <tp:docstring>
+       Emitted when the number of transferred bytes changes.
+      </tp:docstring>
+      <arg name="id" type="u" tp:type="File_Transfer_ID">
+        <tp:docstring>
+          The ID of the file transfer.
+        </tp:docstring>
+      </arg>
+      <arg name="count" type="t">
+        <tp:docstring>
+          The number of already transferred bytes.
+        </tp:docstring>
+      </arg>
+    </signal>
+  </interface>
+
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
