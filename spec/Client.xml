@@ -38,6 +38,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <em>approver</em>, a <em>channel handler</em>, or some combination
         of these.</p>
 
+      <tp:rationale>
+        <p>Activatable services (those with a D-Bus <code>.service</code>
+          file) must be supported so that we can run clients
+          in response to channel creation.</p>
+
+        <p>Non-activatable services (those that do not register a D-Bus
+          <code>.service</code> file for their well-known name, but do
+          request it at runtime) must be supported so that we can have
+          programs that process channels, but only if they are already
+          running - for instance, a full-screen media centre
+          application might do this.</p>
+      </tp:rationale>
+
       <p>The client name, <em>clientname</em>, MUST be a non-empty string of
         ASCII digits, letters and/or underscores, starting with a letter.</p>
 
