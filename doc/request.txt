@@ -478,7 +478,8 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
-Proposed implementation: FIXME
+Proposed implementation: same as req4_, revisit later if the problems are
+felt to be serious
 
 _`req30`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -503,7 +504,8 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
-Proposed implementation: FIXME
+Proposed implementation: same as req4_, revisit later if the problems are
+felt to be serious
 
 Joining a named chatroom by request
 -----------------------------------
