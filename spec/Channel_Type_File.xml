@@ -207,49 +207,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </method>
 
-    <signal name="NewFileTransfer">
-      <tp:docstring>
-        Emitted when a file transfer is created.
-      </tp:docstring>
-      <arg name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the new file transfer.
-        </tp:docstring>
-      </arg>
-      <arg name="initiator" type="u" tp:type="Contact_Handle">
-        <tp:docstring>
-          The handle of the contact who initiated the file transfer.
-        </tp:docstring>
-      </arg>
-      <arg name="direction" type="u" tp:type="File_Transfer_Direction">
-        <tp:docstring>
-          The file transfer's direction, as described by the 
-          File_Transfer_Direction enum.
-        </tp:docstring>
-      </arg>
-      <arg name="state" type="u" tp:type="File_Transfer_State">
-        <tp:docstring>
-          The new file transfer's state.
-        </tp:docstring>
-      </arg>
-      <arg name="reason" type="u" tp:type="File_Transfer_State_Change_Reason">
-        <tp:docstring>
-          The file transfer's last state change reason, as described by the 
-          File_Transfer_State_Change_Reason enum
-        </tp:docstring>
-      </arg>
-      <arg name="filename" type="s">
-        <tp:docstring>
-          The filename of the file that is to be transmitted, for displaying.
-        </tp:docstring>
-      </arg>
-      <arg name="information" type="a{sv}" tp:type="String_Variant_Map">
-        <tp:docstring>
-          The new file's additional information, see OfferFile for common keys.
-        </tp:docstring>
-      </arg>
-    </signal>
-
     <method name="AcceptFile">
       <tp:docstring>
         Accept a file transfer that's in the "local pending" state. The file 
