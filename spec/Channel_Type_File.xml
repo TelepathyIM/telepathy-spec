@@ -87,6 +87,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <property name="Description" type="s" tp:type="DBus_Interface"
+      access="read">
+      <tp:added version="0.17.x"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Description of the file transfer. This cannot change once the
+        channel has been created.</p>
+
+        <tp:rationale>
+          The GetAll method lets clients retrieve all properties in one
+          round-trip, which is desirable.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
     <tp:simple-type name="File_Transfer_ID" type="u">
       <tp:docstring>An identifier for a file transfer. These are local
         to a FileTransfer channel, and may not be assumed to be the
