@@ -713,8 +713,8 @@ Problems: is this really just a special case of dis24_?
 Proposed implementation: either a filter in Mission Control 5.x, or the
 device-state service (which handles the backlight) can be made an Observer
 
-_`dis26`: multiple channel handers available - 1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`dis26`: multiple channel handlers available - 1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo has both Kopette and Empathy installed on his system and both clients are
 able to handle text channels. Romeo wants to be able to choose between kopette
@@ -741,8 +741,8 @@ Problems remaining:
 
 * What about automatic or unknown-directionality channels?
 
-_`dis27`: multiple channel handers available - 2
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`dis27`: multiple channel handlers available - 2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo has both Empathy and Elisa installed. When elisa is running fullscreen he
 wants it to handle outgoing and incoming calls, otherwise he wants empathy to
