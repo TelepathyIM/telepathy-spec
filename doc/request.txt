@@ -436,8 +436,9 @@ Problems:
   group interfaces)
 
 Proposed implementation: In the medium term, StreamedMedia channels must
-retain handle type NONE. However, UIs request handle type CONTACT and
-the channel dispatcher does the heavy lifting.
+retain handle type NONE. However, UIs could request handle type CONTACT and
+have the channel dispatcher do the work - so from the UI's point of
+view this can seem the same as req2_.
 
 _`req6`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
