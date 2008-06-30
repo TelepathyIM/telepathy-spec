@@ -101,46 +101,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <tp:struct name="File_Transfer_Info" array-name="File_Transfer_Info_List">
-      <tp:docstring>A struct (file transfer ID, initiator handle, direction,
-        state, last change reason, filename, information) representing a
-        file transfer as returned by ListFileTransfers on the FileTransfer
-        channel type.</tp:docstring>
-      <tp:member type="u" tp:type="Contact_Handle" name="Initiator">
-        <tp:docstring>
-          The handle of the contact who initiated the file transfer.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="File_Transfer_Direction" name="Direction">
-        <tp:docstring>
-          The file transfer's direction, as described by the 
-          File_Transfer_Direction enum.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="File_Transfer_State" name="State">
-        <tp:docstring>
-          The file transfer's state.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="File_Transfer_State_Change_Reason"
-        name="Reason">
-        <tp:docstring>
-          The file transfer's last state change reason, as described by the 
-          File_Transfer_State_Change_Reason enum
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="s" name="Filename">
-        <tp:docstring>
-          The filename of the file that is to be transmitted, for displaying.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="a{sv}" tp:type="String_Variant_Map" name="Information">
-        <tp:docstring>
-          The file's additional information, see OfferFile for common keys.
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
-
     <tp:enum name="File_Transfer_State">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>
