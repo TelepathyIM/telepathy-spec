@@ -268,8 +268,9 @@ know that that UI should get subsequent channels?
 
 (The same issue exists in the proposed API if an approver calls Claim().)
 
-Proposed solution: you're not allowed to handle a channel unless you're
-a channel handler?
+Proposed solution: you're not allowed to handle a channel yourself unless
+either you're a channel handler, or you're bypassing the channel dispatcher
+completely
 
 .. _req1: request.html#req1
 
