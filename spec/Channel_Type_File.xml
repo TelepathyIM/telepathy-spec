@@ -97,11 +97,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The file transfer has been canceled.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Removed" value="5">
-        <tp:docstring>
-          Close() has been called on the channel.
-        </tp:docstring>
-      </tp:enumvalue>
     </tp:enum>
 
     <tp:enum name="File_Transfer_Direction">
