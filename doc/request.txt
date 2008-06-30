@@ -135,7 +135,7 @@ that may be ongoing.
     to work this out without the channel dispatcher's help.
     Stealing a channel from another UI is likely to fail (e.g. in the Text
     interface, they'll both try to acknowledge messages) so we should
-    probably forbid this for sanity's sake?
+    forbid this for sanity's sake
 
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
@@ -164,18 +164,21 @@ Proposed implementation, assuming AbiWord does not have a Text channel yet::
         ChannelDispatcher returns the channel "channel2" to AbiWord
         ChannelDispatcher also calls HandleChannel on AbiWord
 
-    if channel has the EXISTING flag:
-        AbiWord displays error, e.g. "Already talking to Mercutio in another
-            app, and multiple threads are not possible in this protocol"
-    else if channel has the requested bundle ID:
-        AbiWord uses it
+        if channel2.Bundle == bundle_id:
+            that's OK
+        else if channel2 has no bundle:
+            that's OK too (for legacy CMs with no concept of bundles)
+        else:
+            (error, the CM is being stupid)
     else:
         AbiWord displays error
         if the error is the EEXIST equivalent, the message might be
             "Already talking to Mercutio in another app, and multiple threads
             are not possible in this protocol"
 
-* Should the CM be allowed to return "the wrong" bundle ID? Probably not
+(Fallback behaviour if the CM is pre-Requests: all requests are made with
+suppress_handler = TRUE; the ChannelDispatcher knows which ones it wants
+handled.)
 
 _`req26`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
