@@ -32,7 +32,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="ContentType" type="s" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The file's content-type. This cannot change once the channel has
         been created.</p>
@@ -46,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="SuggestedFilename" type="s" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the file on the sender's side. This is therefore given
         as a suggested filename for the receiver. This cannot change
@@ -61,7 +59,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="Size" type="t" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The size of the file. This cannot change once the channel
         has been created.</p>
@@ -75,7 +72,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="ContentMD5" type="s" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>MD5 hex digest of the file contents. This cannot change once the
         channel has been created.</p>
@@ -89,7 +85,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="Description" type="s" tp:type="DBus_Interface"
       access="read">
-      <tp:added version="0.17.x"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Description of the file transfer. This cannot change once the
         channel has been created.</p>
