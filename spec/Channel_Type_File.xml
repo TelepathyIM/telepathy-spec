@@ -96,21 +96,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="File_Transfer_Direction">
-      <tp:enumvalue suffix="Incoming" value="0">
-        <tp:docstring>
-          The file transfer is for an incoming file, i.e. a file offered
-          to this client.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Outgoing" value="1">
-        <tp:docstring>
-          The file transfer is for an outgoing file, i.e. a file offered
-          by this client.
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
-
     <tp:enum name="File_Transfer_State_Change_Reason">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
