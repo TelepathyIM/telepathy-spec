@@ -248,7 +248,16 @@ is really a dispatching problem, but is closely related...)
 
 The desired behaviour is that the same handler receives the channel.
 
-Proposed implementation: FIXME
+Imagine that Romeo has both Kopete and Empathy installed, and Empathy
+is the default, but Romeo is using Kopete to talk to Juliet.
+
+Naive implementation: either the race is won by the request for a
+replacement channel (and Kopete gets it) or it's won by Juliet's message
+creating a new channel (and Empathy gets it).
+
+Too-clever implementation: in principle, there's nothing to stop the
+channel dispatcher remembering that a channel handler has lost a channel,
+and using that as input to its handler-choosing heuristic
 
 _`req27`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
