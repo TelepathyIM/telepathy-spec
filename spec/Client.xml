@@ -89,25 +89,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         as
         <a href="http://standards.freedesktop.org/desktop-entry-spec/latest/">Desktop
           Entry files</a> (although the allowed groups, keys and values differ).
-        Every .client file MUST contain a group whose name is the name
-        of this interface.</p>
+        Every <code>.client</code> file MUST contain a group whose name is
+        the name of this interface.</p>
 
-      <p>The groups, keys and values in the .client file are defined by
-        individual interfaces.</p>
+      <p>The groups, keys and values in the <code>.client</code> file are
+        defined by individual interfaces. Each interface that can usefully
+        cache information in the <code>.client</code> file SHOULD correspond
+        to a group with the same name.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
       tp:type="DBus_Interface[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the extra interfaces provided by this client.
-          This SHOULD include at least one of ...Client.Approver,
-          ...Client.Observer or ...Client.ChannelHandler.</p>
+          This SHOULD include at least one of
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer</tp:dbus-ref>,
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Approver</tp:dbus-ref> or
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.ChannelHandler</tp:dbus-ref>.</p>
 
-        <p>In the .client file, this is represented by key "interfaces"
-          in the group named after this interface. The value of the key
-          is a list of interface names each followed by a semicolon (so
-          it always ends with a semicolon unless it is empty), i.e. a key
-          of type "strings" as described in the Desktop Entry
+        <p>In the <code>.client</code> file, this is represented by key
+          "<code>interfaces</code>" in the group named after this interface.
+          The value of the key is a list of interface names each followed by
+          a semicolon (so it always ends with a semicolon unless it is empty),
+          i.e. a key of type "strings" as described in the Desktop Entry
           specification.</p>
       </tp:docstring>
     </property>
