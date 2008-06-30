@@ -120,31 +120,31 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
         ) →
         a(uv)</h3><div class="docstring">
         Does stuff.
-      </div><div><h4>Parameters</h4><dl><dt><code>badger</code> -
-      <code>b</code></dt><dd>A badger, which MAY be breezy.</dd><dt><code>mushroom</code> -
-      <code>a{sv}</code></dt><dd>Use of hallucinogenic mushrooms will lead to undefined behaviour.</dd><dt><code>snake</code> -
+      </div><div><h4>Parameters</h4><dl><dt><code>badger</code> −
+      <code>b</code></dt><dd>A badger, which MAY be breezy.</dd><dt><code>mushroom</code> −
+      <code>a{sv}</code></dt><dd>Use of hallucinogenic mushrooms will lead to undefined behaviour.</dd><dt><code>snake</code> −
       <code>s</code></dt><dd>A snake, it's a snake.</dd></dl></div><div><h4>Returns</h4><dl><dt><code>a(uv)</code></dt><dd>Array of structs containing whatever seems appropriate.</dd></dl></div><div><h4>Possible errors</h4><dl><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</code></dt><dd>
       Raised whenever appropriate.
     <em>(generic description)</em></dd><dt><code>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</code></dt><dd>Raised if the badger or the snake eats the mushrooms</dd></dl></div></div><h2>Signals:</h2><div class="signal"><h3><a id="org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened" name="org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened" shape="rect">StuffHappened</a> (
         ay: stoat, s: ferret, b: weasel
         )</h3><div class="docstring">
         Emitted when stuff happened.
-      </div><div><h4>Parameters</h4><dl><dt><code>stoat</code> -
+      </div><div><h4>Parameters</h4><dl><dt><code>stoat</code> −
       <code>ay</code></dt><dd>
           <em>Mustela erminea</em>
-        </dd><dt><code>ferret</code> -
+        </dd><dt><code>ferret</code> −
       <code>s</code></dt><dd>
           <em>Mustela putorius furo</em>
-        </dd><dt><code>weasel</code> -
+        </dd><dt><code>weasel</code> −
       <code>b</code></dt><dd>
           <em>Mustela nivalis</em> (or compatible)
         </dd></dl></div></div><h2>Telepathy Properties:</h2><p>Accessed using the
           <a href="#org.freedesktop.Telepathy.Properties" shape="rect">Telepathy
-            Properties</a> interface.</p><dl><dt><code>wobbly</code> -
+            Properties</a> interface.</p><dl><dt><code>wobbly</code> −
       <code>b</code></dt><dd>
         Whether or not this badger is wobbly.
       </dd></dl><h2>D-Bus core Properties:</h2><p>Accessed using the
-          org.freedesktop.DBus.Properties interface.</p><dl><dt><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" shape="rect"><code>Introspective</code></a> - <code>b</code>, read-only</dt><dd>
+          org.freedesktop.DBus.Properties interface.</p><dl><dt><a id="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" name="org.freedesktop.Telepathy.SpecAutoGenTest.Introspective" shape="rect"><code>Introspective</code></a> − <code>b</code>, read-only</dt><dd>
         True if the badger is introspective.
 
         <div class="rationale">
@@ -171,5 +171,5 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
   
   
 <h1>Index</h1><h2>Index of interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h2>Index of types</h2><ul><li><code><a href="#type-Adjective" shape="rect">Adjective</a></code>
-    - </li><li><code><a href="#type-Test_Flags" shape="rect">Test_Flags</a></code>
-    - </li></ul></body></html>
+    − </li><li><code><a href="#type-Test_Flags" shape="rect">Test_Flags</a></code>
+    − </li></ul></body></html>

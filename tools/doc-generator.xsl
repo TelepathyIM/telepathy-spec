@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
   xmlns:html="http://www.w3.org/1999/xhtml"
   exclude-result-prefixes="tp html">
-  <!--Don't move the declaration of the HTML namespace up here - XMLNSs
+  <!--Don't move the declaration of the HTML namespace up here — XMLNSs
   don't work ideally in the presence of two things that want to use the
   absence of a prefix, sadly. -->
 
@@ -333,7 +333,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       <a name="{concat(../@name, '.', @name)}">
         <code><xsl:value-of select="@name"/></code>
       </a>
-      <xsl:text> - </xsl:text>
+      <xsl:text> − </xsl:text>
       <code><xsl:value-of select="@type"/></code>
       <xsl:call-template name="parenthesized-tp-type"/>
       <xsl:text>, </xsl:text>
@@ -364,7 +364,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   <xsl:template match="tp:property">
     <dt xmlns="http://www.w3.org/1999/xhtml">
       <xsl:if test="@name">
-        <code><xsl:value-of select="@name"/></code> -
+        <code><xsl:value-of select="@name"/></code> −
       </xsl:if>
       <code><xsl:value-of select="@type"/></code>
     </dt>
@@ -381,7 +381,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       <h3>
         <a name="type-{@name}">
           <xsl:value-of select="@name"/>
-        </a> - a{
+        </a> − a{
         <xsl:for-each select="tp:member">
           <xsl:value-of select="@type"/>
           <xsl:text>: </xsl:text>
@@ -411,7 +411,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template match="tp:simple-type | tp:enum | tp:flags | tp:external-type"
     mode="in-index">
-    - <xsl:value-of select="@type"/>
+    − <xsl:value-of select="@type"/>
   </xsl:template>
 
   <xsl:template match="tp:simple-type">
@@ -419,7 +419,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       <h3>
         <a name="type-{@name}">
           <xsl:value-of select="@name"/>
-        </a> - <xsl:value-of select="@type"/>
+        </a> − <xsl:value-of select="@type"/>
       </h3>
       <div class="docstring">
         <xsl:apply-templates select="tp:docstring"/>
@@ -435,21 +435,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       <dt>
         <a name="type-{@name}">
           <xsl:value-of select="@name"/>
-        </a> - <xsl:value-of select="@type"/>
+        </a> − <xsl:value-of select="@type"/>
       </dt>
       <dd>Defined by: <xsl:value-of select="@from"/></dd>
     </div>
   </xsl:template>
 
   <xsl:template match="tp:struct" mode="in-index">
-    - ( <xsl:for-each select="tp:member">
+    − ( <xsl:for-each select="tp:member">
           <xsl:value-of select="@type"/>
           <xsl:if test="position() != last()">, </xsl:if>
         </xsl:for-each> )
   </xsl:template>
 
   <xsl:template match="tp:mapping" mode="in-index">
-    - a{ <xsl:for-each select="tp:member">
+    − a{ <xsl:for-each select="tp:member">
           <xsl:value-of select="@type"/>
           <xsl:if test="position() != last()"> &#x2192; </xsl:if>
         </xsl:for-each> }
@@ -460,7 +460,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       <h3>
         <a name="type-{@name}">
           <xsl:value-of select="@name"/>
-        </a> - (
+        </a> − (
         <xsl:for-each select="tp:member">
           <xsl:value-of select="@type"/>
           <xsl:text>: </xsl:text>
@@ -600,7 +600,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template match="tp:member" mode="members-in-docstring">
     <dt xmlns="http://www.w3.org/1999/xhtml">
-      <code><xsl:value-of select="@name"/></code> -
+      <code><xsl:value-of select="@name"/></code> −
       <code><xsl:value-of select="@type"/></code>
       <xsl:call-template name="parenthesized-tp-type"/>
     </dt>
@@ -618,7 +618,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template match="arg" mode="parameters-in-docstring">
     <dt xmlns="http://www.w3.org/1999/xhtml">
-      <code><xsl:value-of select="@name"/></code> -
+      <code><xsl:value-of select="@name"/></code> −
       <code><xsl:value-of select="@type"/></code>
       <xsl:call-template name="parenthesized-tp-type"/>
     </dt>
@@ -630,7 +630,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   <xsl:template match="arg" mode="returns-in-docstring">
     <dt xmlns="http://www.w3.org/1999/xhtml">
       <xsl:if test="@name">
-        <code><xsl:value-of select="@name"/></code> -
+        <code><xsl:value-of select="@name"/></code> −
       </xsl:if>
       <code><xsl:value-of select="@type"/></code>
       <xsl:call-template name="parenthesized-tp-type"/>
