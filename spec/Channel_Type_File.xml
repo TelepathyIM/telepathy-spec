@@ -267,26 +267,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
-    <method name="CancelFileTransfer">
-      <tp:docstring>
-        Cancel a file transfer.
-      </tp:docstring>
-      <arg direction="in" name="reason" type="u"
-        tp:type="File_Transfer_State_Change_Reason">
-        <tp:docstring>
-          The reason why the file transfer is being canceled; see the
-          File_Transfer_State_Change_Reason enumeration.
-        </tp:docstring>
-      </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            The given file transfer ID is invalid.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <method name="GetTransferredBytes">
       <tp:docstring>
         Retrieves the number of already transferred bytes.
