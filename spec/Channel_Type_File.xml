@@ -129,9 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
       <tp:enumvalue suffix="Removed" value="5">
         <tp:docstring>
-          RemoveFileTransfer() has been called, the ID of the file transfer
-          is no longer valid. The ID may later be reused for a new file
-          transfer.
+          Close() has been called on the channel.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
