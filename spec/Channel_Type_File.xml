@@ -55,8 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="ContentMD5" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>MD5 hex digest of the file contents. This cannot change once the
-        channel has been created.</p>
+        <p>MD5 digest of the file as a string of 32 ASCII hex digits, which
+        SHOULD be lower-case if they are letters. This cannot change once
+        the channel has been created.</p>
       </tp:docstring>
     </property>
 
