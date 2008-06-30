@@ -69,14 +69,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         client; the channel dispatcher will call its methods and read
         its properties when appropriate.</p>
 
-      <p>As an optimization, clients MAY install a file
-        <a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">$XDG_DATA_DIRS</a>/telepathy/clients/<em>clientname</em>.client
+      <!-- FIXME: Should the Approver, Observer, Channel Handler all
+      be interfaces on the same object, or should they be separate objects?
+      -->
+
+      <p>As an optimization, activatable clients SHOULD install a file
+        <code><a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">$XDG_DATA_DIRS</a>/telepathy/clients/<em>clientname</em>.client</code>
         containing a cached version of its immutable properties,
         so that for most clients, the channel dispatcher can
         just read a file to discover capabilities, instead of
         having to service-activate the client immediately in order to fetch
         its read-only properties. However, the D-Bus API is canonical, and
         the channel dispatcher MUST support clients without such a file.</p>
+
+      <p>Non-activatable clients MAY install a <code>.client</code> file,
+        but there's not much point in them doing so.</p>
 
       <p>The .client files MUST contain UTF-8 text with the same syntax
         as
