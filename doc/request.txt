@@ -1247,6 +1247,29 @@ Proposed implementation:
 
 * RequestChannels returns the channel to the client, and it handles it
 
+_`req39`: message-sending UI that doesn't want to know about receiving
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A UI (perhaps an address book) allows sending one-off messages to contacts,
+without entering into a dialogue. If the contact replies, this should be
+dispatched as usual.
+
+The UI can't close the channel in a race-free way, and if a message comes
+in on the same channel, at that point (only) it needs dispatching to a
+handler.
+
+Similarly, imagine a text channel where sending messages is very slow:
+we want to be able to close the channel handler (UI) without closing the
+channel, and have the channel be re-dispatched only when a message comes in.
+
+Possible solution: for Text channels, somehow arrange for the channel to
+be re-dispatched to a "silent" handler; when an incoming message arrives,
+the "silent" handler exits (or somehow submits the channel for re-dispatching)
+and the CD will re-dispatch to a UI.
+
+Possible solution: closing a Text channel that has pending messages causes
+another one to open with the same pending messages
+
 General issues
 --------------
 
