@@ -233,11 +233,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            The given file transfer ID is invalid.
-          </tp:docstring>
-        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             The given address type or access-control mechanism is not supported.
