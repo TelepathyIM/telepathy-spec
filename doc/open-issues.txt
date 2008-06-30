@@ -11,31 +11,9 @@ bytes are coming from/going to)
 Contact lists and groups can easily have multiple non-passive handlers -
 is it OK to use observers for this?
 
-req1_: how do we tell the CM about our new vs existing requirements?
-
-.. _req1: request.html#req1
-
-req3_: can we safely disallow creating new channels with the wrong bundle ID?
-
-.. _req3: request.html#req3
-
-req26b_: mid-air collision where local and remote try to reopen the same
-conversation
-
-.. _req26b: request.html#req26b
-
-req5_: is this proposed implementation OK?
-
-.. _req5: request.html#req5
-
 dis2_: what happens when a Text channel-handler crashes?
 
 .. _dis2: dispatch.html#dis2
-
-dis5d_: how do we know a suppress-handler request should go to a particular
-client?
-
-.. _dis5d: dispatch.html#dis5d
 
 req22_, dis20_: increased importance of getting FTs handled by
 collaborative app if they are part of the collab protocol
@@ -43,12 +21,7 @@ collaborative app if they are part of the collab protocol
 .. _dis20: dispatch.html#dis20
 .. _req22: request.html#req22
 
-dis26_: how do approvers interact with non-incoming channels? Particularly,
-unknown directionality => pain
-
-.. _dis26: dispatch.html#dis26
-
-req36_: cancelling an outgoing call (just needs writing)
+req36_: cancelling an outgoing call (needs writing)
 
 .. _req36: request.html#req36
 
@@ -58,14 +31,9 @@ Minor/corner-case
 Text channels could conceivably have multiple sources of messages, and even
 multiple sinks of messages, but there are coordination problems:
 
-* no handler should ack messages until all handlers have bound to signals (?)
+* no handler should ack messages until all handlers have bound to signals
 
 * exactly one handler should ack each message
-
-req29_, req30_: two contacts call each other simultaneously
-
-.. _req29: request.html#req29
-.. _req30: request.html#req30
 
 dis12_: how do we know when all groups have arrived?
 
