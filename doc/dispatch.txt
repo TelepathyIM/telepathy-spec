@@ -762,5 +762,17 @@ Proposed implementation:
   Empathy status icon blinks momentarily, but this is not visible, and because
   there is no user action, Empathy never approves anything
 
+_`dis30`: monolithic client
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A monolithic Telepathy client on a resource-constrained platform responds
+to new channels without the help of a channel dispatcher implementation.
+
+Current implementation: the client sets suppress_handler=TRUE on all its
+channel requests, and ignores NewChannel signals that have
+suppress_handler=TRUE
+
+Proposed implementation: a straightforward port of the current implementation
+
 ..
   vim:set sw=4 sts=4 et:
