@@ -1218,6 +1218,35 @@ time out after around 25 seconds unless special action is taken
 Proposed implementation: the ChannelDispatcher creates a request "cursor"
 object for the duration of the request
 
+_`req38`: Going behind the channel dispatcher's back
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new channel is needed in one of the following cases:
+
+* _`req38a`: A monolithic Telepathy client on a resource-constrained
+  platform interacts directly with the Requests interface to request a
+  channel. There is no channel dispatcher.
+
+* _`req38b`: telepathy-inspector requests a channel which it will handle
+  internally. The channel dispatcher may or may not be installed; if
+  installed, it should not launch any UI for this channel.
+
+Proposed implementation:
+
+* The client calls RequestChannels on the CM directly, setting the
+  SUPPRESS_HANDLER flag
+
+* In case req38b_ the channel dispatcher (if present) runs observers in
+  response to the NewChannel signal, but does not run approvers or a channel
+  handler because the SUPPRESS_HANDLER flag is set
+
+* In case req38a_ the client ignores the NewChannel signal because
+  SUPPRESS_HANDLER is set (which it would not be on incoming channels);
+  in case req38b_ telepathy-inspector logs the event but does not pop up
+  a window in any case
+
+* RequestChannels returns the channel to the client, and it handles it
+
 General issues
 --------------
 
