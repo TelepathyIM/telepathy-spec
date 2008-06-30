@@ -101,23 +101,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <tp:simple-type name="File_Transfer_ID" type="u">
-      <tp:docstring>An identifier for a file transfer. These are local
-        to a FileTransfer channel, and may not be assumed to be the
-        same as the other participants' idea of the file transfer
-        identifier.</tp:docstring>
-    </tp:simple-type>
-
     <tp:struct name="File_Transfer_Info" array-name="File_Transfer_Info_List">
       <tp:docstring>A struct (file transfer ID, initiator handle, direction,
         state, last change reason, filename, information) representing a
         file transfer as returned by ListFileTransfers on the FileTransfer
         channel type.</tp:docstring>
-      <tp:member type="u" tp:type="File_Transfer_ID" name="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer.
-        </tp:docstring>
-      </tp:member>
       <tp:member type="u" tp:type="Contact_Handle" name="Initiator">
         <tp:docstring>
           The handle of the contact who initiated the file transfer.
@@ -283,11 +271,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         Accept a file transfer that's in the "local pending" state. The file 
         transfer becomes open after this method is called.
       </tp:docstring>
-      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer to accept.
-        </tp:docstring>
-      </arg>
       <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
@@ -330,11 +313,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Emitted when the state of a file transfer changes.
       </tp:docstring>
-      <arg name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer that changed state.
-        </tp:docstring>
-      </arg>
       <arg name="state" type="u" tp:type="File_Transfer_State">
         <tp:docstring>
           The new state of the file transfer; see the File_Transfer_State enumeration.
@@ -354,11 +332,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Cancel a file transfer.
       </tp:docstring>
-      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer to close.
-        </tp:docstring>
-      </arg>
       <arg direction="in" name="reason" type="u"
         tp:type="File_Transfer_State_Change_Reason">
         <tp:docstring>
@@ -379,11 +352,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Retrieves the number of already transferred bytes.
       </tp:docstring>
-      <arg direction="in" name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer.
-        </tp:docstring>
-      </arg>
       <arg direction="out" name="transferred_bytes" type="t">
         <tp:docstring>
           The number of transferred bytes.
@@ -395,11 +363,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
        Emitted when the number of transferred bytes changes.
       </tp:docstring>
-      <arg name="id" type="u" tp:type="File_Transfer_ID">
-        <tp:docstring>
-          The ID of the file transfer.
-        </tp:docstring>
-      </arg>
       <arg name="count" type="t">
         <tp:docstring>
           The number of already transferred bytes.
