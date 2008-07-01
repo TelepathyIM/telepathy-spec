@@ -386,11 +386,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
     <xsl:if test="not(@name) or @name = ''">
       <xsl:message terminate="yes">
-        <xsl:text>ERR: missing @name on property </xsl:text>
-        <xsl:value-of select="concat(../@name, '.', @name)"/>
-        <xsl:text>: '</xsl:text>
-        <xsl:value-of select="@access"/>
-        <xsl:text>'&#10;</xsl:text>
+        <xsl:text>ERR: missing @name on a property of </xsl:text>
+        <xsl:value-of select="../@name"/>
+        <xsl:text>&#10;</xsl:text>
       </xsl:message>
     </xsl:if>
 
@@ -588,11 +586,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
     <xsl:if test="not(@name) or @name = ''">
       <xsl:message terminate="yes">
-        <xsl:text>ERR: missing @name on method </xsl:text>
-        <xsl:value-of select="concat(../@name, '.', @name)"/>
-        <xsl:text>: '</xsl:text>
-        <xsl:value-of select="@access"/>
-        <xsl:text>'&#10;</xsl:text>
+        <xsl:text>ERR: missing @name on a method of </xsl:text>
+        <xsl:value-of select="../@name"/>
+        <xsl:text>&#10;</xsl:text>
       </xsl:message>
     </xsl:if>
 
@@ -809,11 +805,9 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
     <xsl:if test="not(@name) or @name = ''">
       <xsl:message terminate="yes">
-        <xsl:text>ERR: missing @name on signal </xsl:text>
-        <xsl:value-of select="concat(../@name, '.', @name)"/>
-        <xsl:text>: '</xsl:text>
-        <xsl:value-of select="@access"/>
-        <xsl:text>'&#10;</xsl:text>
+        <xsl:text>ERR: missing @name on a signal of </xsl:text>
+        <xsl:value-of select="../@name"/>
+        <xsl:text>&#10;</xsl:text>
       </xsl:message>
     </xsl:if>
 
