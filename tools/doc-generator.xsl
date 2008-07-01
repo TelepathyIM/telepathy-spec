@@ -577,6 +577,62 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="method">
+
+    <xsl:if test="not(parent::interface)">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: method </xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text> does not have an interface as parent&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on method </xsl:text>
+        <xsl:value-of select="concat(../@name, '.', @name)"/>
+        <xsl:text>: '</xsl:text>
+        <xsl:value-of select="@access"/>
+        <xsl:text>'&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:for-each select="arg">
+      <xsl:if test="not(@type) or @type = ''">
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: an arg of method </xsl:text>
+          <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+          <xsl:text> has no type</xsl:text>
+        </xsl:message>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@direction='in'">
+          <xsl:if test="not(@name) or @name = ''">
+            <xsl:message terminate="yes">
+              <xsl:text>ERR: an 'in' arg of method </xsl:text>
+              <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+              <xsl:text> has no name</xsl:text>
+            </xsl:message>
+          </xsl:if>
+        </xsl:when>
+        <xsl:when test="@direction='out'">
+          <!--<xsl:if test="not(@name) or @name = ''">
+            <xsl:message terminate="no">
+              <xsl:text>INFO: an 'out' arg of method </xsl:text>
+              <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+              <xsl:text> has no name</xsl:text>
+            </xsl:message>
+          </xsl:if>-->
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message terminate="yes">
+            <xsl:text>ERR: an arg of method </xsl:text>
+            <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+            <xsl:text> has direction neither 'in' nor 'out'</xsl:text>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+
     <div xmlns="http://www.w3.org/1999/xhtml" class="method">
       <h3 xmlns="http://www.w3.org/1999/xhtml">
         <a name="{concat(../@name, concat('.', @name))}">
