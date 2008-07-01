@@ -423,8 +423,14 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
           <xsl:text>read/write</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:text>access: </xsl:text>
-          <code><xsl:value-of select="@access"/></code>
+          <xsl:message terminate="yes">
+            <xsl:text>ERR: unknown or missing value for </xsl:text>
+            <xsl:text>@access on property </xsl:text>
+            <xsl:value-of select="concat(../@name, '.', @name)"/>
+            <xsl:text>: '</xsl:text>
+            <xsl:value-of select="@access"/>
+            <xsl:text>'&#10;</xsl:text>
+          </xsl:message>
         </xsl:otherwise>
       </xsl:choose>
     </dt>
