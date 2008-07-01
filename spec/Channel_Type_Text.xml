@@ -469,7 +469,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         identical channel to deliver those messages, signalling it as a new
         channel with the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">NewChannel</tp:dbus-ref>
-        signal.</p>
+        signal (with the suppress_handler parameter set to FALSE).</p>
 
       <tp:rationale>
         <p>In effect, this turns this situation, in which a naive
@@ -479,7 +479,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>UI window is closed</li>
           <li>message arrives</li>
           <li>text channel emits Received</li>
-          <li>UI calls Close on text channel</li>
+          <li>UI calls Close on text channel before it has seen the
+            Received signal</li>
           <li>text channel emits Closed and closes</li>
         </ul>
 
@@ -492,7 +493,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>text channel emits Closed and closes</li>
           <li>message arrives</li>
           <li>new text channel is created, connection emits NewChannel</li>
+          <li>(the same or a different) UI handles it</li>
         </ul>
+
+        <p>suppress_handler must be set to FALSE so the replacement channel
+          will be handled by something.</p>
       </tp:rationale>
     </tp:docstring>
   </interface>
