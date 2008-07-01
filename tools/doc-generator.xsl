@@ -39,16 +39,38 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </xsl:call-template>
   </xsl:template>
 
+  <!-- tp:dbus-ref: reference a D-Bus interface, signal, method or property -->
   <xsl:template match="tp:dbus-ref" mode="html">
-    <xsl:variable name="prefix">
+    <xsl:variable name="name">
       <xsl:choose>
         <xsl:when test="@namespace">
           <xsl:value-of select="@namespace"/>
           <xsl:text>.</xsl:text>
         </xsl:when>
       </xsl:choose>
+      <xsl:value-of select="string(.)"/>
     </xsl:variable>
-    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$prefix}{string(.)}">
+
+    <xsl:choose>
+      <xsl:when test="//interface[@name=$name]"/>
+      <xsl:when test="//interface/method[concat(../@name, '.', @name)=$name]"/>
+      <xsl:when test="//interface/signal[concat(../@name, '.', @name)=$name]"/>
+      <xsl:when test="//interface/property[concat(../@name, '.', @name)=$name]"/>
+      <xsl:when test="//interface[@name=concat($name, '.DRAFT')]"/>
+      <xsl:when test="//interface/method[concat(../@name, '.', @name)=concat($name, '.DRAFT')]"/>
+      <xsl:when test="//interface/signal[concat(../@name, '.', @name)=concat($name, '.DRAFT')]"/>
+      <xsl:when test="//interface/property[concat(../@name, '.', @name)=concat($name, '.DRAFT')]"/>
+      <xsl:otherwise>
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: cannot find D-Bus interface, method, signal</xsl:text>
+          <xsl:text> or property called '</xsl:text>
+          <xsl:value-of select="$name"/>
+          <xsl:text>'&#10;</xsl:text>
+        </xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$name}">
       <xsl:value-of select="string(.)"/>
     </a>
   </xsl:template>
