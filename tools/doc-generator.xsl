@@ -75,12 +75,36 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </a>
   </xsl:template>
 
+  <!-- tp:member-ref: reference a property of the current interface -->
   <xsl:template match="tp:member-ref" mode="html">
     <xsl:variable name="prefix" select="concat(ancestor::interface/@name,
       '.')"/>
+    <xsl:variable name="name" select="string(.)"/>
 
-    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$prefix}{string(.)}">
-      <xsl:value-of select="string(.)"/>
+    <xsl:if test="not(ancestor::interface)">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: Cannot use tp:member-ref when not in an</xsl:text>
+        <xsl:text> &lt;interface&gt;&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:choose>
+      <xsl:when test="ancestor::interface/signal[@name=$name]"/>
+      <xsl:when test="ancestor::interface/method[@name=$name]"/>
+      <xsl:when test="ancestor::interface/property[@name=$name]"/>
+      <xsl:otherwise>
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: interface </xsl:text>
+          <xsl:value-of select="ancestor::interface/@name"/>
+          <xsl:text> has no signal/method/property called </xsl:text>
+          <xsl:value-of select="$name"/>
+          <xsl:text>&#10;</xsl:text>
+        </xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <a xmlns="http://www.w3.org/1999/xhtml" href="#{$prefix}{$name}">
+      <xsl:value-of select="$name"/>
     </a>
   </xsl:template>
 
