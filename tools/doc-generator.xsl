@@ -375,6 +375,35 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="property">
+
+    <xsl:if test="not(parent::interface)">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: property </xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text> does not have an interface as parent&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on property </xsl:text>
+        <xsl:value-of select="concat(../@name, '.', @name)"/>
+        <xsl:text>: '</xsl:text>
+        <xsl:value-of select="@access"/>
+        <xsl:text>'&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@type) or @type = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @type on property </xsl:text>
+        <xsl:value-of select="concat(../@name, '.', @name)"/>
+        <xsl:text>: '</xsl:text>
+        <xsl:value-of select="@access"/>
+        <xsl:text>'&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
     <dt xmlns="http://www.w3.org/1999/xhtml">
       <a name="{concat(../@name, '.', @name)}">
         <code><xsl:value-of select="@name"/></code>
