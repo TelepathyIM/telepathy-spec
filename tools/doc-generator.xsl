@@ -798,6 +798,59 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="signal">
+
+    <xsl:if test="not(parent::interface)">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: signal </xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text> does not have an interface as parent&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on signal </xsl:text>
+        <xsl:value-of select="concat(../@name, '.', @name)"/>
+        <xsl:text>: '</xsl:text>
+        <xsl:value-of select="@access"/>
+        <xsl:text>'&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:for-each select="arg">
+      <xsl:if test="not(@type) or @type = ''">
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: an arg of signal </xsl:text>
+          <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+          <xsl:text> has no type</xsl:text>
+        </xsl:message>
+      </xsl:if>
+      <xsl:if test="not(@name) or @name = ''">
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: an arg of signal </xsl:text>
+          <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+          <xsl:text> has no name</xsl:text>
+        </xsl:message>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="not(@direction)"/>
+        <xsl:when test="@direction='in'">
+          <xsl:message terminate="no">
+            <xsl:text>INFO: an arg of signal </xsl:text>
+            <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+            <xsl:text> has unnecessary direction 'in'</xsl:text>
+          </xsl:message>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:message terminate="yes">
+            <xsl:text>ERR: an arg of signal </xsl:text>
+            <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
+            <xsl:text> has direction other than 'in'</xsl:text>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+
     <div xmlns="http://www.w3.org/1999/xhtml" class="signal">
       <h3 xmlns="http://www.w3.org/1999/xhtml">
         <a name="{concat(../@name, concat('.', @name))}">
