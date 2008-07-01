@@ -611,7 +611,11 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
           </xsl:if>
         </xsl:when>
         <xsl:when test="@direction='out'">
-          <!--<xsl:if test="not(@name) or @name = ''">
+          <!-- FIXME: This is commented out until someone with a lot of time
+          on their hands goes through the spec adding names to all the "out"
+          arguments
+
+          <xsl:if test="not(@name) or @name = ''">
             <xsl:message terminate="no">
               <xsl:text>INFO: an 'out' arg of method </xsl:text>
               <xsl:value-of select="concat(../../@name, '.', ../@name)"/>
