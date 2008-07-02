@@ -321,13 +321,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <property name="Interfaces" type="as" access="read">
-      <tp:docstring>
-        A list of the extra interfaces provided by this connection manager
-        (i.e. extra functionality that can be provided even before a
-        connection has been created). No interfaces suitable for listing in
-        this property are currently defined; it's provided as a hook for
-        possible future functionality.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of the extra interfaces provided by this connection manager
+          (i.e. extra functionality that can be provided even before a
+          connection has been created).</p>
+
+        <p>No interfaces suitable for listing in this property are currently
+          defined; it's provided as a hook for possible future
+          functionality.</p>
+
+        <p>To be compatible with older connection managers, if retrieving
+          this property fails, clients SHOULD assume that its value is
+          an empty list.</p>
       </tp:docstring>
+      <tp:added version="0.17.UNRELEASED"/>
     </property>
 
     <!-- FIXME: One thing we could perhaps use Interfaces for would be a
