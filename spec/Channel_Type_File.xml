@@ -191,13 +191,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="in" name="information" type="a{sv}">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          A dictionary of additional information about the file. Common keys
-          contain:
+          A dictionary of additional information about the file. No key is
+          mandatory. Keys can contain:
           <dl>
+            <dt><code>content-type</code> - <code>s</code></dt>
+            <dd>MIME type of the file.</dd>
             <dt><code>size</code> - <code>t</code></dt>
-            <dd>The file size in bytes.</dd>
-            <dt><code>mime-type</code> - <code>t</code></dt>
-            <dd>The MIME type of the file.</dd>
+            <dd>File size in bytes.</dd>
+            <dt><code>estimated-size</code> - <code>t</code></dt>
+            <dd>Estimated file size.</dd>
+            <dt><code>content-md5</code> - <code>s</code></dt>
+            <dd>MD5 hex digest of the file.</dd>
+            <dt><code>description</code> - <code>s</code></dt>
+            <dd>Description of the file.</dd>
           </dl>
         </tp:docstring>
       </arg>
