@@ -300,7 +300,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Emitted when the number of transferred bytes changes. This will not change
         with every single byte change. Instead, the most frequent this signal will
-        be emmitted is once a second. This should be necessary, and the
+        be emmitted is once a second. This should be sufficient, and the
         TransferredBytes property should not be polled.
       </tp:docstring>
       <arg name="count" type="t">
