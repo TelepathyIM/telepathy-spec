@@ -35,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The file's content-type. This cannot change once the channel has
         been created.</p>
+
+        <p>If this property is an empty string, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -43,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The name of the file on the sender's side. This is therefore given
         as a suggested filename for the receiver. This cannot change
         once the channel has been created.</p>
+
+        <p>If this property is an empty string, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -51,6 +55,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The size of the file. If this is set to 0 then the size of the file
         is unspecified. This cannot change once the channel has been
         created.</p>
+
+        <p>If this property is zero, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -59,6 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>MD5 digest of the file as a string of 32 ASCII hex digits, which
         SHOULD be lower-case if they are letters. This cannot change once
         the channel has been created.</p>
+
+        <p>If this property is an empty string, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -66,6 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Description of the file transfer. This cannot change once the
         channel has been created.</p>
+
+        <p>If this property is an empty string, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
