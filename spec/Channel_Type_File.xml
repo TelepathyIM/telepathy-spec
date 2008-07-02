@@ -178,6 +178,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
+    <method name="ProvideFile">
+      <tp:docstring>
+        Provides a file for transmission.
+      </tp:docstring>
+      <arg direction="in" name="filename" type="s">
+        <tp:docstring>
+          The filename of the file that is to be transmitted, for displaying.
+          It can also form as a suggestion for the name to save the file
+          transfer under at the receiving end.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="information" type="a{sv}">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          A dictionary of additional information about the file. Common keys
+          contain:
+          <dl>
+            <dt><code>size</code> - <code>t</code></dt>
+            <dd>The file size in bytes.</dd>
+            <dt><code>mime-type</code> - <code>t</code></dt>
+            <dd>The MIME type of the file.</dd>
+          </dl>
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address_type" type="u"
+        tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of socket the client would like the connection manager to
+          create, as a member of Socket_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u"
+        tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The access control the connection manager should apply to the local
+          socket.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The given address type or access-control mechanism is not
+            supported.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The contact associated with this channel does not have the file
+            transfer capability
+          </tp:docstring>
+        </tp:error>
+
+      </tp:possible-errors>
+    </method>
+
     <method name="AcceptFile">
       <tp:docstring>
         Accept a file transfer that's in the "local pending" state. The file 
