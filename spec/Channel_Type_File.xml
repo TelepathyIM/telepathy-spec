@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="SuggestedFilename" type="s" access="read">
+    <property name="Filename" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the file on the sender's side. This is therefore given
         as a suggested filename for the receiver. This cannot change
