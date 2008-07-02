@@ -37,17 +37,17 @@
       characters. For example, "Ping".</tp:docstring>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Namespaced_Name" type="s">
+  <tp:simple-type name="DBus_Qualified_Member" type="s">
     <tp:docstring>A string representing the full name of a D-Bus method,
       signal or property, consisting of a DBus_Interface, followed by
       a dot, followed by a DBus_Member. For example,
       "org.freedesktop.DBus.Peer.Ping".</tp:docstring>
   </tp:simple-type>
 
-  <tp:mapping name="Namespaced_Property_Value_Map">
+  <tp:mapping name="Qualified_Property_Value_Map">
     <tp:docstring>A mapping from strings representing D-Bus
       properties (by their namespaced names) to their values.</tp:docstring>
-    <tp:member type="s" name="Key" tp:type="DBus_Namespaced_Name">
+    <tp:member type="s" name="Key" tp:type="DBus_Qualified_Member">
       <tp:docstring>
         A D-Bus interface name, followed by a dot and a D-Bus property name.
       </tp:docstring>
