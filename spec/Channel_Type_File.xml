@@ -52,9 +52,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="Size" type="t" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The size of the file. If this is set to 0 then the size of the file
-        is unspecified. This cannot change once the channel has been
-        created.</p>
+        <p>The size of the file. If this property is set, then the file
+        transfer is guaranteed to be this size. This cannot change once
+        the channel has been created.</p>
+
+        <p>If this property is zero, then its value is unspecified.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="EstimatedSize" type="t" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An estimate of the size of the file. This property should be used
+        when the protocol doesn't allow exact file sizes (For example, accurate
+        to the nearest megabyte). This property should not be set if the Size
+        property can, or has, been set. This cannot change once the channel
+        has been created.</p>
 
         <p>If this property is zero, then its value is unspecified.</p>
       </tp:docstring>
