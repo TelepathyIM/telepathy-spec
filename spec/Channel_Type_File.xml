@@ -215,7 +215,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <signal name="TransferredBytesChanged">
       <tp:docstring>
-        Emitted when the number of transferred bytes changes.
+        Emitted when the number of transferred bytes changes. This will not change
+        with every single byte change. Instead, the most frequent this signal will
+        be emmitted is once a second. This should be necessary, and the
+        TransferredBytes property should not be polled.
       </tp:docstring>
       <arg name="count" type="t">
         <tp:docstring>
