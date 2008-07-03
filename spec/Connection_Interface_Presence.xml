@@ -264,10 +264,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         instead; new connection managers SHOULD implement both
         Presence and SimplePresence.</p>
 
-      <p>This interface is for services which have a concept of presence which can
-    be published for yourself and monitored on your contacts. Telepathy's
-    definition of presence is based on that used by the Galago project
-    (see http://www.galago-project.org/).</p>
+      <p>This interface is for services which have a concept of presence which
+        can be published for yourself and monitored on your contacts.
+        Telepathy's definition of presence is based on that used by
+        <a href="http://www.galago-project.org/">the Galago
+          project</a>.</p>
 
     <p>Presence on an individual (yourself or one of your contacts) is modelled as
     a last activity time along with a set of zero or more statuses, each of
