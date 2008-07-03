@@ -37,9 +37,26 @@
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Status_Message">
-        <tp:docstring>
-          The user-defined status message, e.g. "Back soon!". User interfaces
-          should regard "" as unset.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The user-defined status message, e.g. "Back soon!".</p>
+
+          <p>Clients SHOULD set the status message for the local
+            user to the empty string, unless the user has actually provided
+            a specific message (i.e. one that conveys more information than the
+            Status).</p>
+
+          <p>User interfaces SHOULD regard an empty status message as unset,
+            and MAY replace it with a localized string corresponding to the
+            Status or Type.</p>
+
+          <tp:rationale>
+            Use case: Daf sets his status in Empathy by choosing the Welsh
+            translation of "Available" from a menu.
+            It is more informative for his English-speaking colleagues
+            to see the English translation of "Available" (as localized
+            by their own clients) than to see the Welsh version (which they
+            don't understand anyway).
+          </tp:rationale>
         </tp:docstring>
       </tp:member>
     </tp:struct>
@@ -51,7 +68,7 @@
         presence.
       </tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
-      <tp:member type="(ss)" tp:type="Simple_Presence" name="Presence"/>
+      <tp:member type="(uss)" tp:type="Simple_Presence" name="Presence"/>
     </tp:mapping>
 
     <tp:struct name="Simple_Status_Spec">
