@@ -5,6 +5,33 @@ checkouts.
 telepathy-spec 0.17.8 (unreleased)
 ==================================
 
+API changes:
+
+* Use of handle = 0 in the Capabilities interface, to denote "capabilities of
+  the connection itself", is deprecated; it was never very clear what it meant,
+  it's not sufficiently expressive to describe new API that we plan to add,
+  and as far as I know, no connection manager implements it anyway.
+
+New API:
+
+* ConnectionManager now has an Interfaces property for possible future
+  expansion
+
+Miscellaneous:
+
+* To avoid naming conflicts and general confusion, we explicitly recommend
+  against naming connection managers after the protocol they implement, or
+  after a library they use
+
+Tools changes:
+
+* doc-generator.xsl is a lot pickier about the spec's format, and will now
+  fail on various sorts of invalid markup
+
+* doc-generator.xsl recognises <tp:dbus-ref> (to reference a D-Bus interface,
+  method, signal or property) and <tp:member-ref> (to reference a method,
+  signal or property of the current interface)
+
 telepathy-spec 0.17.7 (2008-05-06)
 ==================================
 
