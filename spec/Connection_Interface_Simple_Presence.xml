@@ -32,7 +32,7 @@
       </tp:member>
       <tp:member type="s" name="Status">
         <tp:docstring>
-          The string identifier of the status, e.g.  "brb", as defined in the
+          The string identifier of the status, e.g. "brb", as defined in the
           Statuses property.
         </tp:docstring>
       </tp:member>
