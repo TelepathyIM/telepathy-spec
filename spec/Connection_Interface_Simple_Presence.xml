@@ -155,14 +155,31 @@
       </tp:possible-errors>
     </method>
 
-    <property name="Statuses" access="read"
-      type="a{s(ub)}" tp:type="Status_Spec_Map">
-      <tp:docstring>
-        A dictionary of the valid presence statuses for this connection. While
-        DISCONNECTED it contains the set of presence statuses allowed to be set
-        before connecting, which should not be cached as the value can
-        change when CONNECTED. When CONNECTED it contains the presence
-        statuses available on this protocol.
+    <property name="AvailableStatuses" access="read"
+      type="a{s()}" tp:type="Available_Status_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A dictionary where the keys are the presence statuses that the user
+          can set on themselves for this connection, and the values are the
+          corresponding presence types.</p>
+
+        <p>While the connection is in the DISCONNECTED state, it contains
+          the set of presence statuses allowed to be set before connecting.
+          The connection manager will attempt to set the appropriate status
+          when the connection becomes connected, but cannot necessarily
+          guarantee it. The available statuses cannot change until the
+          connection status changes, so there is no change notification.</p>
+
+        <p>While the connection is in the CONNECTED state, this property
+          contains the set of presence statuses which are actually available
+          on this protocol. This set is constant for the remaining lifetime
+          of the connection, so again, there is no change notification.</p>
+
+        <p>While the connection is in the CONNECTING state, the value of
+          this property is undefined and SHOULD NOT be used. It can change
+          at any time without notification (in particular, any cached values
+          from when the connection was in the DISCONNECTED or CONNECTING
+          state MUST NOT be assumed to still be correct when the state has
+          become CONNECTED).</p>
       </tp:docstring>
     </property>
 
