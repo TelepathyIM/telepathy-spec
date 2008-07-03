@@ -195,16 +195,20 @@
         used where possible to allow clients to identify common choices:</p>
 
       <ul>
-        <li>available</li>
-        <li>away</li>
-        <li>brb (Be Right Back)</li>
-        <li>busy</li>
-        <li>dnd (Do Not Disturb),</li>
-        <li>xa (Extended Away)</li>
-        <li>hidden (aka Invisible)</li>
-        <li>offline</li>
-        <li>unknown</li>
-        <li>error</li>
+        <li>available (corresponding to Connection_Presence_Type_Available)</li>
+        <li>away (corresponding to Connection_Presence_Type_Away)</li>
+        <li>brb (Be Right Back) (corresponding to
+          Connection_Presence_Type_Away, but more specific)</li>
+        <li>busy (corresponding to Connection_Presence_Type_Busy)</li>
+        <li>dnd (Do Not Disturb) (corresponding to
+          Connection_Presence_Type_Busy, but more specific)</li>
+        <li>xa (Extended Away) (corresponding to
+          Connection_Presence_Type_Extended_Away)</li>
+        <li>hidden (aka Invisible) (corresponding to
+          Connection_Presence_Type_Hidden)</li>
+        <li>offline (corresponding to Connection_Presence_Type_Offline)</li>
+        <li>unknown (corresponding to Connection_Presence_Type_Unknown)</li>
+        <li>error (corresponding to Connection_Presence_Type_Error)</li>
       </ul>
 
       <p>As well as these well-known status identifiers, every status also has
