@@ -32,9 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <dt>Observer</dt>
         <dd><p>Observers monitor the creation of new channels. This
             functionality can be used for things like message logging.
-            All observers are notified simultaneously, and they are not
-            given an opportunity to delay channel handling; they should not
-            alter the state of the channel.</p></dd>
+            All observers are notified simultaneously.</p></dd>
 
         <dt>Approver</dt>
         <dd>
