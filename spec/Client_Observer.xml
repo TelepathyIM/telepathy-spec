@@ -41,8 +41,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         registered an interest - incoming, outgoing or automatically created -
         although of course the ObserverChannelFilter property can be set
         to filter on the
+        <!--FIXME: reinstate this when the property is merged
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Direction</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Direction</tp:dbus-ref>-->
+        Channel.FUTURE.Direction
         property.</p>
     </tp:docstring>
 
