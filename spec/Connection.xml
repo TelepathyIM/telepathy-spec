@@ -73,17 +73,37 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <tp:docstring>
-        Get the optional interfaces supported by this connection. Interfaces
-        may be added when going into the CONNECTED state.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Get the optional interfaces supported by this connection.
+          Before the connection status changes to CONNECTED, the return
+          from this method may change at any time, but it is guaranteed that
+          interfaces will only be added, not removed. After the connection
+          status changes to CONNECTED, the return from this method cannot
+          change further.</p>
+
+        <p>There is no explicit change notification; reasonable behaviour
+          for a client would be to retrieve the interfaces list once
+          initially, and once more when it becomes CONNECTED.</p>
+
+        <tp:rationale>
+          <p>In some connection managers, certain capabilities of a connection
+            are known to be implemented for all connections (e.g. support
+            for SimplePresence), and some interfaces (like SimplePresence) can
+            even be used before connecting. Other capabilities may
+            or may not exist, depending on server functionality; by the time
+            the connection goes CONNECTED, the connection manager is expected
+            to have evaluated the server's functionality and enabled any extra
+            interfaces for the remainder of the Connection's lifetime.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected">
           <tp:docstring>
-             Before version 0.17.Unreleased calling GetInterfaces while
-             DISCONNECTED wasn't allowed. When a CM returns this error its list
-             of interfaces should be regarded as empty while DISCONNECTED
+             Before version 0.17.UNRELEASED calling GetInterfaces while
+             on a connection that is not yet CONNECTED wasn't allowed. If a
+             CM returns this error, its list of interfaces should be regarded
+             as empty until it becomes CONNECTED.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
