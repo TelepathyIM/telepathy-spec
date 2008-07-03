@@ -330,7 +330,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:enum name="Connection_Presence_Type" type="u">
       <tp:enumvalue suffix="Unset" value="0">
         <tp:docstring>
-          An invalid presence type used as a null value
+          An invalid presence type used as a null value. This value MUST NOT
+          appear in the result of GetStatuses, or in the Statuses property
+          of the SimplePresence interface.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Offline" value="1">
