@@ -164,8 +164,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>This SHOULD NOT be a channel-specific handle, if possible.</p>
 
-        <p>It does not make sense for this property to be passed to the
-          RequestChannels method on Channel.Interface.Requests.</p>
+        <p>It does not make sense for this property to be in channel
+          requests - the initiator will always be the local user - so it
+          MUST NOT be accepted.</p>
       </tp:docstring>
     </property>
 
@@ -191,8 +192,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </ul>
         </tp:rationale>
 
-        <p>It does not make sense for this property to be passed to the
-          RequestChannels method on Channel.Interface.Requests.</p>
+        <p>It does not make sense for this property to be in channel
+          requests - the initiator will always be the local user - so it
+          MUST NOT be accepted.</p>
       </tp:docstring>
     </property>
 
