@@ -277,7 +277,8 @@ USA.</p>
           <p>If true, the channel was requested by a client that intends to
             present it to the user itself (i.e. it passed suppress_handler=TRUE
             to the RequestChannel method), so no other handler should be
-            launched.</p>
+            launched. Clients MAY assume that channels where this is true
+            were created by a user request.</p>
 
           <p>If false, either the channel was created due to incoming
             information from the service, or the channel was requested by
