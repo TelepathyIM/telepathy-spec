@@ -162,30 +162,39 @@ USA.</p>
       <arg direction="in" name="Requests" type="aa{sv}"
         tp:type="Qualified_Property_Value_Map[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Dictionaries containing desirable properties.</p>
+          <p>Dictionaries containing desirable properties. Some properties
+            are defined such that only an exact match makes sense, and
+            connection managers MUST NOT satisfy a request with a channel
+            where that property does not match; some properties are defined
+            such that the connection manager MAY treat the request as merely
+            a hint, and make a best-effort attempt to satisfy it. This is
+            documented separately for each property.</p>
 
-          <p>Each dictionary MUST contain the key
-            <code>org.freedesktop.Telepathy.Channel.ChannelType</code>,
-            indicating the desired channel type. The connection manager
-            MUST NOT return channels that do not have the desired type.</p>
+          <p>If any of these dictionaries contains a property whose semantics
+            are not known to the connection manager, this method MUST fail
+            without side-effects (in particular it must not create any new
+            channels).</p>
 
-          <p>Each dictionary SHOULD contain the keys
-            <code>org.freedesktop.Telepathy.Channel.TargetHandleType</code>
-            and <code>org.freedesktop.Telepathy.Channel.TargetHandle</code>,
-            indicating who the channel should communicate with. If these
-            keys are not provided, the connection manager MAY assume
-            handle type Handle_Type_None and handle 0. The connection
-            manager SHOULD NOT return channels that do not have the desired
-            handle type or handle, with the exception that when a particular
-            handle is requested, the connection manager MAY instead return
-            a channel with handle type Handle_Type_None and handle 0, which
-            is related in some way to the requested handle (e.g. has the
-            requested contact handle in its Group interface).</p>
+          <tp:rationale>
+            <p>This is necessary if we want to be able to invent properties
+              in future that, when used in a request, are hard requirements
+              rather than just hints. A connection manager that did not know
+              the semantics of those properties could incorrectly return a
+              new channel that did not satisfy the requirements.</p>
+          </tp:rationale>
 
-          <p>Any other keys in the dictionary are treated as hints. The
-            connection manager SHOULD attempt to satisfy the client's
-            requirements, but MAY return a channel for which the given
-            properties are not as requested.</p>
+          <p>The connection manager MUST NOT respond successfully,
+            and SHOULD NOT create any new channels or cause any other
+            side-effects, unless for each request it can produce a
+            corresponding channel that satisfies the client's requirements.</p>
+
+          <p>The connection manager SHOULD NOT return channels that do not
+            have the desired handle type or handle, with the exception that
+            when a particular handle is requested, the connection manager
+            MAY instead return a channel with handle type Handle_Type_None
+            and handle 0, which is related in some way to the requested
+            handle (e.g. has the requested contact handle in its Group
+            interface).</p>
         </tp:docstring>
       </arg>
 
@@ -201,14 +210,20 @@ USA.</p>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channels that were produced. Although the connection manager
             will attempt to satisfy the request, they are not guaranteed to
-            match what the client requested; the client is responsible for
-            verifying that the returned channels are suitable.</p>
+            match what the client requested exactly; the client is responsible
+            for verifying that the returned channels are suitable.</p>
 
           <p>The output channels MUST be in the same order as the requests.
             If the requests caused additional unrequested channels in the
             same bundle to be created as a side-effect, then this array will
             be longer than the array of requests, and the unrequested channels
             MUST appear at the end.</p>
+
+          <tp:rationale>
+            For instance, joining an XMPP MUC Tube channel requires joining
+            that MUC (chatroom), which may result in the creation of an
+            unrequested Text channel.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
