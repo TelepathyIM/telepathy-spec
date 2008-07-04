@@ -68,10 +68,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           round-trip, which is desirable.
         </tp:rationale>
 
-        <p>When this property is used with the RequestChannels method on
-          Channel.Interface.Requests, the connection manager SHOULD attempt
-          to return a channel that implements at least the requested
-          interfaces. (FIXME: if it can't, should it fail the request?)</p>
+        <p>When requesting a channel with a particular value for this
+          property, the request must fail without side-effects unless the
+          connection manager expects to be able to provide a channel whose
+          interfaces include at least the interfaces requested.</p>
       </tp:docstring>
     </property>
 
