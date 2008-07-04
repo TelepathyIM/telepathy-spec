@@ -35,6 +35,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The GetAll method lets clients retrieve all properties in one
           round-trip, which is desirable.
         </tp:rationale>
+
+        <p>When requesting a channel, the request MUST specify a channel
+          type, and the request MUST fail if the specified channel type
+          cannot be supplied.</p>
+
+        <tp:rationale>
+          Common sense.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
