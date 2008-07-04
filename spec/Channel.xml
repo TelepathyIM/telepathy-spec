@@ -112,8 +112,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="TargetHandleType" type="u" access="read"
       tp:type="Handle_Type">
       <tp:added version="0.17.7"/>
-      <tp:docstring>
-        The type of TargetHandle.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The type of TargetHandle.</p>
+
+        <p>If this is omitted from a channel request, connection managers
+          SHOULD treat this as equivalent to Handle_Type_None.</p>
       </tp:docstring>
     </property>
 
