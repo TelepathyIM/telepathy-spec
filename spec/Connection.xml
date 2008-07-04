@@ -283,10 +283,7 @@ USA.</p>
           <p>If false, either the channel was created due to incoming
             information from the service, or the channel was requested by
             a local client that does not intend to handle the channel itself
-            (a typical use-case is an address-book viewer that does not itself
-            implement chat or VoIP functionality, starting a channel that
-            will be handled by the same user interface that would handle
-            incoming channels).</p>
+            (this usage is deprecated).</p>
 
           <p>Clients MUST NOT assume that only incoming channels will have
             this flag set to false.</p>
