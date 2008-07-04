@@ -46,7 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this channel was created in response to a call to
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>,
-          or <tp:member-ref>RequestChannels</tp:member-ref>.</p>
+          or
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>.</p>
 
         <tp:rationale>
           <p>The idea of this property is to distinguish between "incoming"
