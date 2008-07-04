@@ -56,25 +56,43 @@ USA.</p>
     </tp:flags>
 
     <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag">
-      <tp:docstring>
-        Flags that can be set when requesting channels.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Flags that can be set when requesting channels.</p>
+
+        <tp:rationale>
+          <p>There is deliberately no flag corresponding to the
+            suppress_handler argument to
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>,
+            because passing a FALSE value for that argument is deprecated.
+            Requests made using this interface always behave as though
+            suppress_handler was TRUE.</p>
+        </tp:rationale>
       </tp:docstring>
 
-      <tp:flag name="Suppress_Handler" value="1">
-        <tp:docstring>
-          The requesting client intends to take responsibility for presenting
-          the channel(s) to the user, so
-          Channel_Announcement_Flag_Suppress_Handler should be set on them.
+      <!-- This is per-request -->
+      <tp:flag name="Prefer_Reuse" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The requesting client would prefer to re-use an existing channel
+            that meets its requirements, but creating a new channel would
+            also be acceptable. The default behaviour is to create a
+            new channel or fail if this cannot be done.</p>
+
+          <tp:rationale>
+            <p>If only a new channel would be acceptable, clients MUST omit
+              this flag. If only an existing channel would be acceptable,
+              clients MUST NOT call
+              <tp:member-ref>RequestChannels</tp:member-ref> at all.</p>
+
+            <p>We can't think of a sensible use-case for clients that would
+              prefer to use a new channel, but will accept an existing one if
+              a new one cannot be created. If you have such a client,
+              (a) let us know! and (b) you can try to make a new channel
+              first, falling back to looking for an existing one in a secondary
+              request.</p>
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag name="Prefer_Reuse" value="2">
-        <tp:docstring>
-          The requesting client would prefer to re-use an existing channel
-          that meets its requirements. The default behaviour is to create a
-          new channel whenever possible.
-        </tp:docstring>
-      </tp:flag>
     </tp:flags>
 
     <tp:struct name="Channel_Details" array-name="Channel_Details_List">
