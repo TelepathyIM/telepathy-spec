@@ -92,6 +92,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           uniqueness guarantee - there can be many channels with the same
           (channel type, handle type, handle) tuple. This is necessary
           to support conversation threads in XMPP and SIP, for example.</p>
+
+        <p>If this is present in a channel request, it must be nonzero,
+          and <tp:member-ref>TargetHandleType</tp:member-ref> MUST NOT be
+          Handle_Type_None. The channel that satisfies the request MUST
+          either:</p>
+
+        <ul>
+          <li>have the specified TargetHandle property; or</li>
+          <li>have <tp:member-ref>TargetHandleType</tp:member-ref> =
+            Handle_Type_None, TargetHandle = 0, and be configured such that
+            it could communicate with the specified handle in some other way
+            (e.g. have the requested contact handle in its Group
+            interface)</li>
+        </ul>
       </tp:docstring>
     </property>
 
