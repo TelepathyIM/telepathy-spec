@@ -196,14 +196,6 @@ USA.</p>
             and SHOULD NOT create any new channels or cause any other
             side-effects, unless for each request it can produce a
             corresponding channel that satisfies the client's requirements.</p>
-
-          <p>The connection manager SHOULD NOT return channels that do not
-            have the desired handle type or handle, with the exception that
-            when a particular handle is requested, the connection manager
-            MAY instead return a channel with handle type Handle_Type_None
-            and handle 0, which is related in some way to the requested
-            handle (e.g. has the requested contact handle in its Group
-            interface).</p>
         </tp:docstring>
       </arg>
 
