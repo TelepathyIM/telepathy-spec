@@ -49,6 +49,10 @@ USA.</p>
             or the Channels property (where the channels always already exist)
             - it only makes sense to return it from RequestChannels.</p>
         </tp:docstring>
+        <!-- FIXME: do we actually need this flag, or is the significant thing
+        really whether this client is the channel handler for the channel
+        (which is a ChannelDispatcher concept)? If this flag is really needed,
+        clients can reconstruct it by tracking the connection's channels -->
       </tp:flag>
 
       <!-- FIXME: do something with suppress_handler? At the moment it'll
