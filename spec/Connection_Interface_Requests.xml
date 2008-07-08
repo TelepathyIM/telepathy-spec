@@ -255,7 +255,12 @@ USA.</p>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The requested channel type cannot be created with the given handle
+            One of the requested channels cannot be created, but in
+            principle, a similar request might succeed in future. For instance,
+            this might be because the requested contact is using a client
+            that lacks a particular feature, or because a channel matching the
+            request already exists and the protocol requires that only one
+            such channel can exist at a time.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
