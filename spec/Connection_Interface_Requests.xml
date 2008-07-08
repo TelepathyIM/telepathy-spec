@@ -196,6 +196,10 @@ USA.</p>
             and SHOULD NOT create any new channels or cause any other
             side-effects, unless for each request it can produce a
             corresponding channel that satisfies the client's requirements.</p>
+
+          <p>Properties that will be set by this argument need not have write
+            access after the channel has been created - indeed, it is
+            expected that most will be read-only.</p>
         </tp:docstring>
       </arg>
 
