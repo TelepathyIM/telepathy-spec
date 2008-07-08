@@ -245,7 +245,12 @@ USA.</p>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
           <tp:docstring>
-            The given handle does not exist or cannot be created
+            An invalid handle was requested as the value of a property whose
+            value is a handle (like
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.TargetHandle</tp:dbus-ref>),
+            or a syntactically invalid identifier was requested as the value
+            of a property whose value is the string corresponding to a handle
+            (like TargetID).
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
