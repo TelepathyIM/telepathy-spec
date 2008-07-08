@@ -142,10 +142,15 @@ USA.</p>
           </tp:rationale>
 
           <p>Each dictionary MUST contain the keys
-            <code>org.freedesktop.Telepathy.Channel.ChannelType</code>,
-            <code>org.freedesktop.Telepathy.Channel.TargetHandleType</code>
-            and <code>org.freedesktop.Telepathy.Channel.TargetHandle</code>.
+            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.ChannelType</tp:dbus-ref>,
+            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandleType</tp:dbus-ref>
+            and <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandle</tp:dbus-ref>.
           </p>
+
+          <tp:rationale>
+            <p>We expect these to be crucial to the channel-dispatching
+              process.</p>
+          </tp:rationale>
         </tp:docstring>
       </tp:member>
     </tp:struct>
