@@ -235,7 +235,14 @@ USA.</p>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            One of the channel requests was one that can never succeed,
+            such as requesting an unsupported channel type, or requesting
+            a channel type which this connection manager does not support with
+            the given target handle type.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
           <tp:docstring>
             The given handle does not exist or cannot be created
