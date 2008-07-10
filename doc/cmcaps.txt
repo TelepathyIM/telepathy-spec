@@ -163,10 +163,10 @@ Attempt 1
 :Optional parameters not already mentioned:
     TubeParameters (omitted and empty a{sv} are interchangeable)
 
- Attempt 2
- ~~~~~~~~~
+Attempt 2
+~~~~~~~~~
 
- :ChannelType:
+:ChannelType:
     e.g. ...Channel.Type.DBusTube.com.abisource.AbiCollab,
     ...Channel.Type.StreamTube.vnc, ...Channel.Type.PacketTube.openarena
     (with ...Channel.Interface.Tube and possibly also
