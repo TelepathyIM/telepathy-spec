@@ -202,7 +202,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template match="/tp:spec/tp:copyright">
     <div xmlns="http://www.w3.org/1999/xhtml">
-      <xsl:apply-templates/>
+      <xsl:apply-templates mode="text"/>
     </div>
   </xsl:template>
   <xsl:template match="/tp:spec/tp:license">
@@ -1157,6 +1157,16 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
   <xsl:template match="node">
       <xsl:apply-templates />
+  </xsl:template>
+
+  <xsl:template match="text()">
+    <xsl:if test="normalize-space(.) != ''">
+      <xsl:message terminate="yes">
+        <xsl:text>Stray text: {{{</xsl:text>
+        <xsl:value-of select="." />
+        <xsl:text>}}}&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*">
