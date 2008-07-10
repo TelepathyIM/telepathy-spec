@@ -305,10 +305,45 @@ USA.</p>
         </tp:docstring>
       </tp:member>
 
+      <tp:member name="Required_Properties" type="as"
+        tp:type="DBus_Qualified_Member[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Properties that must be set when requesting a channel of this
+            channel type and handle type.</p>
+
+          <tp:rationale>
+            <p>Outgoing file transfers need at least a size, and perhaps other
+              properties depending on the protocol (e.g. suggested filename,
+              MD5 or other checksum).</p>
+          </tp:rationale>
+
+          <p>If the Handle_Type is not Handle_Type_None, exactly one of
+            TargetHandle or TargetID is always required, and SHOULD NOT appear
+            in this array.</p>
+
+          <p>Properties in this array MAY have additional semantics.
+            For instance, if a property P1 is documented as "if P1 takes
+            values A, B or C, then P2 must also be given", and a connection
+            manager requires P1, then this should be represented by placing
+            P1 in Required_Properties and P2 in Properties; clients are
+            expected to understand the documented relationship between the
+            properties.</p>
+
+          <p>Clients that do not understand the semantics of all the
+            properties in this list SHOULD NOT request channels, unless they
+            are intended to be generic debugging/development tools.</p>
+        </tp:docstring>
+      </tp:member>
+
       <tp:member name="Properties" type="as" tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties that can be set when requesting a channel of this
-            channel type and handle type.</p>
+          <p>Properties that may be set when requesting a
+            channel of this channel type and handle type.</p>
+
+          <p>Properties mentioned in Required_Properties SHOULD NOT appear
+            in this array, and neither should the following properties which
+            are dealt with elsewhere: ChannelType, TargetHandleType,
+            TargetHandle, TargetID.</p>
 
           <p>If this array contains the Channel.Bundle property, then this
             class of channel can be combined with other channels with that
@@ -320,17 +355,18 @@ USA.</p>
         </tp:docstring>
       </tp:member>
 
-      <!-- FIXME: add an "aas" of sets of mandatory parameters, from which
-      clients must choose and satisfy one? I can't think of a good use-case
-      though -->
+      <tp:member name="Interfaces" type="as" tp:type="DBus_Interface[]">
+        <tp:docstring>
+          A list of interfaces that will definitely be supported by channels
+          of this channel type and handle type.
+        </tp:docstring>
+      </tp:member>
 
-      <!-- FIXME: add an "as" of interfaces that will/might be supported? -->
-
-      <!-- FIXME: add an "a{sv}" for future expansion? :-) -->
+      <!-- FIXME: add an "a{sv}" for future expansion? -->
     </tp:struct>
 
     <property name="AvailableChannelClasses" access="read"
-      type="a(suas)" tp:type="Channel_Class[]">
+      type="a(suasasas)" tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
           connection, i.e. those for which RequestChannels can reasonably
