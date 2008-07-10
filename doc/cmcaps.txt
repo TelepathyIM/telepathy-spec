@@ -123,20 +123,24 @@ FileTransfer
 :TargetHandleType:
     CONTACT
 :Mandatory parameters other than TargetHandle:
-    Varies per connection manager:
+    Varies per connection manager!
 
     * SuggestedFilename: mandatory in XMPP XEP-0096 and probably others
+      * maybe we should make this always mandatory?
+
     * Size: mandatory in XMPP XEP-0096
+      * we plan to make this always mandatory in requests, for reliable
+        detection of truncated transfers
+
     * other protocols?
 
 :Optional parameters not already mentioned:
-    * Size (mandatory in XEP-0096, could be optional in other protocols?)
     * RandomAccess=True? (XEP-0096 byte ranges)
     * Description (XEP-0096)
     * ContentType? (can always avoid making this mandatory by defaulting to
       'application/octet-stream')
     * ContentMD5
-    * Metadata? (extensible - not possible in all protocols)
+    * app-defined metadata? (not possible in all, or possibly any, protocols)
 
 D-Bus, Stream, Packet Tube
 --------------------------
