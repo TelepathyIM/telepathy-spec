@@ -29,18 +29,24 @@ The current proposal is:
 
 * If TargetHandleType is NONE then TargetHandle and TargetID are forbidden
 
-* Other parameters can be allowed, or not; clients SHOULD NOT send parameters
-  that aren't explicitly allowed
+* Other parameters can exist, and can be mandatory or optional; clients MUST
+  NOT send parameters that aren't explicitly allowed
 
 Problems with this proposal:
 
 * How do we say that not all "valid" values for a parameter are allowed?
   For instance we might only support a couple of MIME types for file transfer
 
-* Can other parameters can be mandatory? This turns out to be necessary
-  (or at least very useful) for File Transfer and Tubes
+  * Tentative resolution: we don't, but the request will fail without
+    side-effects
 
-* Can there potentially be more than one "class" per pair?
+* Can there potentially be more than one "class" per pair? Representing this
+  in a UI is likely to be hard
+
+  * Tentative resolution: yes, but we'll try to avoid it?
+
+* Would it be useful to indicate what interfaces will/might be supported
+  by channels of a given class?
 
 Optional parameters which could hypothetically apply to all channels
 --------------------------------------------------------------------
