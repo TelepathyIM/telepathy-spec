@@ -282,7 +282,14 @@ USA.</p>
     <tp:struct name="Channel_Class" array-name="Channel_Class_List">
       <tp:docstring>
         Structure representing a class of channels that can be requested,
-        identified by a pair (channel type, handle type).
+        identified by a pair (channel type, handle type). Connection managers
+        SHOULD NOT support more than one channel class with the same
+        channel type and handle type; if they do, clients SHOULD recover
+        by ignoring the second and subsequent channel classes.
+
+        <tp:rationale>
+          I can't think of any good way to represent it in a UI otherwise.
+        </tp:rationale>
       </tp:docstring>
 
       <tp:member name="Channel_Type" type="s" tp:type="DBus_Interface">
