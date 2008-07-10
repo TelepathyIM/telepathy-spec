@@ -203,13 +203,6 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg name="Flags" direction="out" type="u"
-        tp:type="Channel_Announcement_Flags">
-        <tp:docstring>
-          Flags with which the new channels were created.
-        </tp:docstring>
-      </arg>
-
       <arg name="Channels" direction="out" type="a(oa{sv})"
         tp:type="Channel_Details[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
