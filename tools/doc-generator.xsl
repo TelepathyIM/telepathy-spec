@@ -295,6 +295,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:flags">
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on a tp:flags type&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@type) or @type = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @type on tp:flags type</xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
     <h3>
       <a name="type-{@name}">
         <xsl:value-of select="@name"/>
@@ -335,6 +350,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:enum">
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on a tp:enum type&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@type) or @type = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @type on tp:enum type</xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
     <h3 xmlns="http://www.w3.org/1999/xhtml">
       <a name="type-{@name}">
         <xsl:value-of select="@name"/>
@@ -494,6 +524,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:simple-type">
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on a tp:simple-type&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@type) or @type = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @type on tp:simple-type</xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
     <div xmlns="http://www.w3.org/1999/xhtml" class="simple-type">
       <h3>
         <a name="type-{@name}">
@@ -510,6 +555,21 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="tp:external-type">
+
+    <xsl:if test="not(@name) or @name = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @name on a tp:external-type&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
+    <xsl:if test="not(@type) or @type = ''">
+      <xsl:message terminate="yes">
+        <xsl:text>ERR: missing @type on tp:external-type</xsl:text>
+        <xsl:value-of select="@name"/>
+        <xsl:text>&#10;</xsl:text>
+      </xsl:message>
+    </xsl:if>
+
     <div xmlns="http://www.w3.org/1999/xhtml" class="external-type">
       <dt>
         <a name="type-{@name}">
