@@ -25,6 +25,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>The channel dispatcher is responsible for responding to new
         channels and launching client processes to handle them.</p>
 
+      <p>The current channel dispatcher is defined to be the process that
+        owns the well-known bus name
+        <code>org.freedesktop.Telepathy.ChannelDispatcher</code> on
+        the session bus. This process MUST export an object with this
+        interface at the object path
+        <code>/org/freedesktop/Telepathy/ChannelDispatcher</code>.</p>
+
       <p>There are three categories of client process defined by this
         specification:</p>
 
