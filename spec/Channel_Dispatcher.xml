@@ -67,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <!-- FIXME: are this property and its associated change-notification
     signals actually needed? -->
-    <property name="Dispatch_Operations" type="ao" access="read">
+    <property name="DispatchOperations" type="ao" access="read">
       <tp:docstring>
         The list of ChannelDispatchOperation objects currently being
         processed. Change notification is via the NewDispatch and
