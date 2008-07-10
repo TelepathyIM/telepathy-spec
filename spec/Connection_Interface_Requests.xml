@@ -33,32 +33,6 @@ USA.</p>
       <p>New in 0.17.UNRELEASED.</p>
     </tp:docstring>
 
-    <tp:flags name="Channel_Announcement_Flags"
-      value-prefix="Channel_Announcement_Flag">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Flags that can appear when new channels are announced or when
-          RequestChannels returns.</p>
-      </tp:docstring>
-
-      <!-- FIXME: this is per-channel, not per-announcement! -->
-      <tp:flag name="Reused" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The channel already existed (and should be assumed to have been
-            handled) before the request was made. This flag MUST NOT appear
-            in NewChannels signals (where the channels are always new)
-            or the Channels property (where the channels always already exist)
-            - it only makes sense to return it from RequestChannels.</p>
-        </tp:docstring>
-        <!-- FIXME: do we actually need this flag, or is the significant thing
-        really whether this client is the channel handler for the channel
-        (which is a ChannelDispatcher concept)? If this flag is really needed,
-        clients can reconstruct it by tracking the connection's channels -->
-      </tp:flag>
-
-      <!-- FIXME: do something with suppress_handler? At the moment it'll
-      just be fed into the Requested property, which seems fair enough -->
-    </tp:flags>
-
     <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Flags that can be set when requesting channels.</p>
