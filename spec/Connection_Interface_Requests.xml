@@ -33,7 +33,8 @@ USA.</p>
       <p>New in 0.17.UNRELEASED.</p>
     </tp:docstring>
 
-    <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag">
+    <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag"
+      type="u">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Flags that can be set when requesting channels.</p>
 
