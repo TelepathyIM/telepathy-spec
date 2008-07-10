@@ -85,7 +85,7 @@ Chatroom
 :ChannelType:
     ...Channel.Type.StreamedMedia
 :TargetHandleType:
-    NONE
+    NONE (or CONTACT)
 :Mandatory parameters other than TargetHandle:
     none
 :Optional parameters not already mentioned:
