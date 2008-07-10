@@ -102,8 +102,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             makes the ChannelDispatchOperation self-contained.</p>
         </tp:rationale>
 
-        <p>Its object path MAY be reused for a subsequent dispatch
-          operation, but the ChannelDispatcher SHOULD choose object paths
+        <p>Its object path SHOULD NOT be reused for a subsequent dispatch
+          operation; the ChannelDispatcher MUST choose object paths
           in a way that avoids immediate re-use.</p>
 
         <tp:rationale>
