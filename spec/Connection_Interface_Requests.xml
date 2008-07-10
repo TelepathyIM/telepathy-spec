@@ -270,12 +270,6 @@ USA.</p>
         dispatch them to a handler as a unit.
       </tp:docstring>
 
-      <arg name="Flags" type="u" tp:type="Channel_Announcement_Flags">
-        <tp:docstring>
-          Flags with which these channels were created.
-        </tp:docstring>
-      </arg>
-
       <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
         <tp:docstring>
           The channels and their details. All channels that are signalled
