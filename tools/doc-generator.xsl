@@ -1165,6 +1165,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
          <xsl:value-of select="namespace-uri(.)" />
          <xsl:text>}</xsl:text>
          <xsl:value-of select="local-name(.)" />
+         <xsl:text>&#10;</xsl:text>
       </xsl:message>
   </xsl:template>
 </xsl:stylesheet>
