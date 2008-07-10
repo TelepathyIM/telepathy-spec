@@ -145,6 +145,9 @@ FileTransfer
 D-Bus, Stream, Packet Tube
 --------------------------
 
+Attempt 1
+~~~~~~~~~
+
 :ChannelType:
     ...Channel.Type.DBusTube, Ch.T.StreamTube, Ch.T.PacketTube?
     (with ...Channel.Interface.Tube)
@@ -152,10 +155,26 @@ D-Bus, Stream, Packet Tube
     CONTACT or ROOM
 :Mandatory parameters other than TargetHandle:
     Service
-    SocketAddress (Stream/Packet only)
-    AccessControl (different between Stream/Packet and D-Bus)
+    AvailableSocketTypes (the request fails if the channel's available
+    (socket, access control type) pairs have empty intersection with
+    these)
 :Optional parameters not already mentioned:
     TubeParameters (omitted and empty a{sv} are interchangeable)
+
+ Attempt 2
+ ~~~~~~~~~
+
+ :ChannelType:
+    e.g. ...Channel.Type.DBusTube.com.abisource.AbiCollab,
+    ...Channel.Type.StreamTube.vnc, ...Channel.Type.PacketTube.openarena
+    (with ...Channel.Interface.Tube and possibly also
+    ...Channel.Interface.DBusTube etc.)
+:TargetHandleType:
+    CONTACT or ROOM
+:Mandatory parameters other than TargetHandle:
+    AvailableSocketTypes as in attempt 1
+:Optional parameters not already mentioned:
+    as in attempt 1
 
 ..
   vim:set sw=4 sts=4 et:
