@@ -298,7 +298,7 @@ USA.</p>
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Properties" type="as" tp:type="DBus_Member[]">
+      <tp:member name="Properties" type="as" tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Properties that can be set when requesting a channel of this
             channel type and handle type.</p>
