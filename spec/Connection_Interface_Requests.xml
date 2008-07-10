@@ -122,6 +122,8 @@ USA.</p>
             <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandleType</tp:dbus-ref>
             and <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandle</tp:dbus-ref>.
           </p>
+          <!-- FIXME: maybe also TargetID, Requested, InitiatorHandle,
+          InitiatorID once they leave the FUTURE pseudo-interface -->
 
           <tp:rationale>
             <p>We expect these to be crucial to the channel-dispatching
