@@ -126,9 +126,11 @@ FileTransfer
     Varies per connection manager!
 
     * SuggestedFilename: mandatory in XMPP XEP-0096 and probably others
+
       * maybe we should make this always mandatory?
 
     * Size: mandatory in XMPP XEP-0096
+
       * we plan to make this always mandatory in requests, for reliable
         detection of truncated transfers
 
