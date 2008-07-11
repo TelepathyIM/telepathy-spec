@@ -11,6 +11,11 @@
       like ":1.123"</tp:docstring>
   </tp:simple-type>
 
+  <tp:simple-type name="DBus_Well_Known_Name" type="s">
+    <tp:docstring>A string representing a D-Bus well-known
+      name like "org.freedesktop.Telepathy.MissionControl".</tp:docstring>
+  </tp:simple-type>
+
   <tp:simple-type name="DBus_Unique_Name" type="s">
     <tp:docstring>A string representing a D-Bus unique name, such as
       ":1.123"</tp:docstring>
