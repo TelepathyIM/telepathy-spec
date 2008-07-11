@@ -24,6 +24,12 @@
       "org.freedesktop.DBus.Peer".</tp:docstring>
   </tp:simple-type>
 
+  <tp:simple-type name="DBus_Error_Name" type="s">
+    <tp:docstring>An ASCII string representing a D-Bus error. This is
+      syntactically the same as a <tp:type>DBus_Interface</tp:type>, but the
+      meaning is different.</tp:docstring>
+  </tp:simple-type>
+
   <tp:simple-type name="DBus_Signature" type="s">
     <tp:docstring>A string representing a D-Bus signature
       (the 'g' type isn't used because of poor interoperability, particularly
