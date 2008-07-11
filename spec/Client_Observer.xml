@@ -50,9 +50,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="ObserverChannelFilter" type="v" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this observer is
-          interested. The <tp:member-ref>ObserveChannel</tp:member-ref> method
-          should be called by the channel dispatcher whenever a new channel
-          matches this description.</p>
+          interested. The <tp:member-ref>ObserveChannels</tp:member-ref> method
+          should be called by the channel dispatcher whenever new channels
+          match this description.</p>
 
         <p>This property never changes while the observer process is
           running. (FIXME: it can change due to upgrades - how do we tell
@@ -69,16 +69,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <method name="ObserveChannel">
+    <method name="ObserveChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the channel dispatcher when a channel in which the
-          observer has registered an interest is created.</p>
+        <p>Called by the channel dispatcher when channels in which the
+          observer has registered an interest are created.</p>
 
         <p>The channel dispatcher SHOULD call this method on all observers
           in parallel, and MUST wait for either a reply from all observers
-          or an implementation-dependent timeout before dispatching the channel
-          to a channel handler. It is implementation-dependent whether
-          observers and approvers are notified in parallel.</p>
+          or an implementation-dependent timeout before dispatching the
+          channels to a channel handler. It is implementation-dependent
+          whether observers and approvers are notified in parallel.</p>
 
         <p>The observer MUST NOT reply to this method call until it is ready
           for the channel handler to run (which may change the channel's
@@ -105,19 +105,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Channel" type="o" direction="in">
-        <tp:docstring>
+      <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]"
+        direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>.
-          Its well-known bus name is the same as that of the Connection.
-        </tp:docstring>
-      </arg>
-      <!-- FIXME: or should observers be invoked per ChannelDispatchOperation?
-      -->
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
+          and their properties. Their well-known bus names are all the same
+          as that of the Connection.
 
-      <arg name="Properties" type="a{sv}" direction="in">
-        <tp:docstring>
-          Immutable properties of the channel.
+          <tp:rationale>
+            The ChannelDispatchOperation is <em>not</em> supplied. For
+            requests, there isn't one, and for incoming channels, it hasn't
+            been created yet.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
