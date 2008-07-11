@@ -249,9 +249,10 @@ USA.</p>
             side-effect if they are not strictly necessary.</p>
 
           <tp:rationale>
-            For instance, joining an XMPP MUC Tube channel requires joining
-            that MUC (chatroom), which may result in the creation of an
-            unrequested Text channel.
+            <p>For instance, joining an XMPP MUC Tube channel requires joining
+              that MUC (chatroom), which may result in the creation of an
+              unrequested Text channel; it would be misleading to not create
+              the Text channel.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
