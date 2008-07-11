@@ -154,6 +154,37 @@ USA.</p>
       </tp:member>
     </tp:struct>
 
+    <tp:struct name="Channel_Request_Response"
+      array-name="Channel_Request_Response_List">
+      <tp:docstring>
+        Enough details of a channel that clients can work out how to dispatch
+        or handle it, including flags which are really properties of the
+        request rather than properties of the channel.
+      </tp:docstring>
+
+      <tp:member name="Channel" type="o">
+        <tp:docstring>
+          The object path of the channel.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Properties of the channel. All the same comments apply
+            as for the equivalent member of
+            <tp:type>Channel_Details</tp:type>.</p>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Flags" type="u"
+        tp:type="Channel_Request_Response_Flags">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Flags indicating how this channel satisfies the request.</p>
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
     <method name="RequestChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that channels are created.</p>
