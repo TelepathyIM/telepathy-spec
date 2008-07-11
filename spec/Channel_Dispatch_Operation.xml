@@ -32,10 +32,6 @@
       <p>These objects can result from new incoming channels, requests for
         outgoing channels, or channels which are automatically created
         for some reason.</p>
-
-      <p>The creation of a channel dispatch operation is indicated
-        by the NewDispatchOperation signal on the ChannelDispatcher
-        interface.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
