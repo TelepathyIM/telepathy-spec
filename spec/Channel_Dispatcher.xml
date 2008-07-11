@@ -65,6 +65,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <method name="StartRequest">
+      <tp:docstring>
+        Start a channel request.
+      </tp:docstring>
+
+      <arg direction="out" name="Request" type="o">
+        <tp:docstring>
+          A
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+          object.
+        </tp:docstring>
+      </arg>
+    </method>
+
     <!-- FIXME: are this property and its associated change-notification
     signals actually needed? -->
     <property name="DispatchOperations" type="ao" access="read">
