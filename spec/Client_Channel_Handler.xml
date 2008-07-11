@@ -65,6 +65,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <!-- FIXME: add the HandleAdditionalChannels method, which must
+      return instantly, and if successful, fast-tracks the channels past any
+      approvers if appropriate - see ChannelDispatchOperation for details -->
+
     <method name="HandleChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when an Approver indicates that
