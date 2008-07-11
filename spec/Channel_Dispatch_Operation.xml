@@ -26,12 +26,37 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel dispatch operation is an object in the ChannelDispatcher
-        representing a bundle of channels being announced to client
-        processes.</p>
+        representing a bundle of unrequested channels being announced to
+        client processes.</p>
 
-      <p>These objects can result from new incoming channels, requests for
-        outgoing channels, or channels which are automatically created
-        for some reason.</p>
+      <p>These objects can result from new incoming channels or channels
+        which are automatically created for some reason, but cannot result
+        from outgoing requests for channels.</p>
+
+      <p>More specifically, whenever the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.NewChannels</tp:dbus-ref>
+        signal contains any channels whose
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.FUTURE.Requested</tp:dbus-ref>
+        property is false, or whenever the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.NewChannel</tp:dbus-ref>
+        signal contains a channel with suppress_handler false,
+        a ChannelDispatchOperation is created for those
+        channels. Any requested channels in the same signal MUST NOT be
+        included (although the signal shouldn't contain any anyway).</p>
+
+      <!-- FIXME: this doesn't explain what to do with splitting, but it's
+      sort of right in principle... -->
+
+      <p>First, if the channels are in the same bundle as a channel that is
+        already being handled, the channel dispatcher SHOULD call the
+        handler's
+        HandleAdditionalChannels
+        method. If the handler takes responsibility for the channels,
+        processing stops, and no approvers are run.</p>
+
+      <p>Next, the channel dispatcher SHOULD send the channel dispatch
+        operation to all relevant approvers (in parallel) and wait for an
+        approver to request that the channels are handled or rejected.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
