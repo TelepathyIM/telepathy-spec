@@ -1,0 +1,130 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Request"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+  <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public
+      License along with this library; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+      MA 02110-1301, USA.</p>
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.ChannelRequest.DRAFT"
+    tp:causes-havoc="experimental">
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A channel request is an object in the ChannelDispatcher representing
+        an ongoing request for some channels to be created or found.</p>
+
+      <tp:docstring>
+      </tp:docstring>
+    </tp:docstring>
+
+    <method name="RequestChannels">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Actually request the channels.</p>
+
+        <p>This method SHOULD return immediately; on success, the request
+          might still fail, but this will be indicated asynchronously.</p>
+
+        <tp:rationale>
+          <p>The request can take a long time - in the worst case, the
+            channel dispatcher has to ask the account manager to put the
+            account online, the account manager has to ask the operating
+            system to obtain an Internet connection, and the operating
+            system has to ask the user whether to activate an Internet
+            connection using an on-demand mechanism like dialup.</p>
+          </tp:rationale>
+      </tp:docstring>
+
+      <arg direction="in" name="Connection" type="o">
+        <tp:docstring>
+          The connection to be used, which MUST already have status
+          Connection_Status_Connected. Its well-known bus name can be derived
+          by removing the leading '/' and replacing all subsequent '/'
+          characters with '.', so it does not need to be provided explicitly.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Request_Flags" type="u"
+        tp:type="Channel_Request_Flags">
+        <tp:docstring>
+          Flags to influence the connection manager's behaviour - see the
+          corresponding argument to
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Requests" type="aa{sv}"
+        tp:type="Qualified_Property_Value_Map[]">
+        <tp:docstring>
+          The requested channels - see the corresponding argument to
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Preferred_Handler" type="s"
+        tp:type="DBus_Bus_Name">
+        <tp:docstring>
+          Either the well-known bus name of the preferred handler for this
+          channel, or an empty string to indicate that any handler would be
+          acceptable. The channel dispatcher SHOULD dispatch as many as
+          possible of the resulting channels (ideally, all of them)
+          to that handler.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Errors.NotAvailable">
+          <tp:docstring>
+            This method has already been called, so it is no longer
+            available. Stop calling it.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="Failed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The channel request has failed. It is no longer present,
+          and further methods must not be called on it.</p>
+      </tp:docstring>
+
+      <arg name="Error" type="s" tp:type="DBus_Error_Name">
+        <tp:docstring>
+          The name of a D-Bus error raised when RequestChannels was
+          called on the Connection, or if RequestChannels could not even
+          be called, a suitable D-Bus error.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Debug_Message" type="s">
+        <tp:docstring>
+          If the first argument of the D-Bus error message was a string,
+          that string. Otherwise, an empty string.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="Succeeded">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The channel request has succeeded. It is no longer present,
+          and further methods must not be called on it.</p>
+      </tp:docstring>
+    </signal>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
