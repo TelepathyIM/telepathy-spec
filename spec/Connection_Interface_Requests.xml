@@ -337,6 +337,83 @@ USA.</p>
       </arg>
     </signal>
 
+    <tp:mapping name="Property_Restriction_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        A mapping indicating which values of some properties are allowed.
+
+        <tp:rationale>
+          <p>This mapping doesn't specify the type of each property.
+            This is intentional - if a client doesn't know the documented
+            D-Bus type of a property, it shouldn't try to set that property
+            to any particular value!</p>
+        </tp:rationale>
+      </tp:docstring>
+
+      <tp:member name="Property" type="s" tp:type="DBus_Qualified_Member">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The interface and name of the property.</p>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Restriction" type="v">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Something expressing what restriction is placed on values of
+            this property. Possible types and values are documented as part
+            of the property's specification.</p>
+
+          <tp:rationale>
+            <p>This way, the restriction can be made as simple as possible
+              on a per-property basis. Typical representations might include
+              an array [value1, value2, value3] if only certain values of
+              a string or enumeration are allowed, or a structure (min, max)
+              if a range of integer or float values are allowed.</p>
+          </tp:rationale>
+
+          <p>As a special case, if the value of this property is a non-empty
+            array of variants (signature av), then each variant in that array
+            represents a restriction as documented for the property,
+            and the value given must satisfy at least one of those
+            restrictions (i.e. an "or" operation).</p>
+
+          <tp:rationale>
+            <p>This is mainly so that if the format of restrictions changes,
+              we can be backwards-compatible. For instance, if a property's
+              recommended format for restrictions changes from a bitfield
+              to a more elaborate data structure, we'll still want to support
+              clients that can only understand restrictions expressed as
+              a bitfield.</p>
+          </tp:rationale>
+
+          <p>As another special case, if the value of this property is an
+            empty array of variants (signature av), the restriction
+            is "there is no restriction" (any value that is valid according
+            to the property's documentation will do).</p>
+
+          <tp:rationale>
+            <p>It is expected that most properties will be able to take
+              arbitrary or nearly-arbitrary values - for instance, nicknames
+              in chatrooms, service names in Tubes, or even passwords - so
+              it is useful to define a common representation for this.</p>
+
+            <p>If an empty array wasn't further special-cased, it would have
+              to mean "there is no acceptable value", which makes no
+              sense - if a channel class is not requestable, just don't
+              advertise it at all! This means we can usefully repurpose
+              an empty 'av' to mean something else.</p>
+          </tp:rationale>
+
+          <p>If the property's specification does not mention any particular
+            semantics for the variant in Property_Restriction_Map, then an
+            empty 'av' is the only reasonable value.</p>
+
+          <p>Clients MUST interpret restrictions of an unrecognised D-Bus type
+            as something they cannot possibly comply with; if there is no
+            alternative restriction in an 'av', that will mean that the
+            client will never request channels of the relevant class.</p>
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
     <tp:struct name="Channel_Class" array-name="Channel_Class_List">
       <tp:docstring>
         Structure representing a class of channels that can be requested,
@@ -363,8 +440,8 @@ USA.</p>
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Required_Properties" type="as"
-        tp:type="DBus_Qualified_Member[]">
+      <tp:member name="Required_Properties" type="a{sv}"
+        tp:type="Property_Restriction_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Properties that must be set when requesting a channel of this
             channel type and handle type.</p>
@@ -375,9 +452,8 @@ USA.</p>
               MD5 or other checksum).</p>
           </tp:rationale>
 
-          <p>If the Handle_Type is not Handle_Type_None, exactly one of
-            TargetHandle or TargetID is always required, and SHOULD NOT appear
-            in this array.</p>
+          <p>(FIXME: need to do something clever with TargetHandle and
+            TargetID)</p>
 
           <p>Properties in this array MAY have additional semantics.
             For instance, if a property P1 is documented as "if P1 takes
@@ -388,12 +464,14 @@ USA.</p>
             properties.</p>
 
           <p>Clients that do not understand the semantics of all the
-            properties in this list SHOULD NOT request channels, unless they
-            are intended to be generic debugging/development tools.</p>
+            properties in this list MUST NOT request channels of this
+            class unless they are intended to be generic debugging/development
+            tools.</p>
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Properties" type="as" tp:type="DBus_Qualified_Member[]">
+      <tp:member name="Properties" type="a{sv}"
+        tp:type="Property_Restriction_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Properties that may be set when requesting a
             channel of this channel type and handle type.</p>
@@ -412,19 +490,10 @@ USA.</p>
             from channels requested separately.</p>
         </tp:docstring>
       </tp:member>
-
-      <tp:member name="Interfaces" type="as" tp:type="DBus_Interface[]">
-        <tp:docstring>
-          A list of interfaces that will definitely be supported by channels
-          of this channel type and handle type.
-        </tp:docstring>
-      </tp:member>
-
-      <!-- FIXME: add an "a{sv}" for future expansion? -->
     </tp:struct>
 
-    <property name="AvailableChannelClasses" access="read"
-      type="a(suasasas)" tp:type="Channel_Class[]">
+    <property name="RequestableChannelClasses" access="read"
+      type="a(sua{sv}a{sv})" tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
           connection, i.e. those for which RequestChannels can reasonably
@@ -438,11 +507,12 @@ USA.</p>
           support during its lifetime). Before this state has been reached,
           the value of this property is undefined.</p>
 
-        <tp:rationale>This is not on an optional interface, because
-          connection managers can always offer some sort of clue about
-          the channel classes they expect to support (at worst, they can
-          announce support for everything for which they have code).
-          </tp:rationale>
+        <tp:rationale>
+          <p>This is not on an optional interface, because connection
+            managers can always offer some sort of clue about the channel
+            classes they expect to support (at worst, they can announce
+            support for everything for which they have code).</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
