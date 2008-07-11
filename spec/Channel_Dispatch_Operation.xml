@@ -68,6 +68,11 @@
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>) of the channel
+            handler that should handle the channel.</p>
+        </tp:docstring>
       </arg>
 
       <tp:possible-errors>
@@ -77,8 +82,19 @@
 
     <method name="Reject">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by an approver to reject a channel bundle. The channel
-          dispatcher should close the channels.</p>
+        <p>Called by an approver to reject a channel bundle. This is
+          equivalent to passing it to a channel handler that closes or
+          ignores the channel.</p>
+
+        <p>The channel dispatcher SHOULD use a channel-type-specific
+          mechanism to close the channels if appropriate. If their channel
+          types are not known to the channel dispatcher, it SHOULD leave
+          the channels open but ignore them.</p>
+
+        <tp:rationale>
+          <p>The channel dispatcher can't know how best to close arbitrary
+            channel types.</p>
+        </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
           object to disappear. See HandleWith for more details.</p>
