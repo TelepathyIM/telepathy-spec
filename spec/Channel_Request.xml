@@ -132,6 +132,21 @@
           <p>The channels that were produced. The same comments as for
             <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>
             apply here.</p>
+
+          <!-- FIXME: is it necessary to have the flags here any more?
+          If not, replace Channel_Request_Response[] with
+          Channel_Details[] -->
+
+          <p>After signalling success in this way, the channel
+            dispatcher will also dispatch each channel that does
+            not have the Reused flag to an appropriate channel handler.</p>
+
+          <tp:rationale>
+            <p>It must be <em>after</em> so channel handlers can tell
+              which channels they're being given in order to satisfy their
+              own requests (and also which requests), and which channels
+              they're being given for some other reason.</p>
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
