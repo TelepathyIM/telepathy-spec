@@ -233,8 +233,8 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" direction="out" type="a(oa{sv})"
-        tp:type="Channel_Details[]">
+      <arg name="Channels" direction="out" type="a(oa{sv}u)"
+        tp:type="Channel_Request_Response[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channels that were produced. Although the connection manager
             will attempt to satisfy the request, they are not guaranteed to
