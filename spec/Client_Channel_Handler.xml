@@ -73,6 +73,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when an Approver indicates that
           this client should handle these channels.</p>
+
+        <p>The channel handler SHOULD NOT take input focus as a result of
+          this method; the channel dispatcher SHOULD call HandleChannels
+          followed by Present if the channels were requested by explicit
+          user action.</p>
+
+        <tp:rationale>
+          <p>Channels created as a side-effect of a request for other channels
+            shouldn't get their handler in the foreground. Suppose AbiWord
+            requests an XMPP MUC (chatroom) Tube, and joining this tube
+            requires the CM to join a corresponding Text channel which is then
+            handled by some handler other than AbiWord. In this case the Text
+            channel handler shouldn't take focus away from AbiWord.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <!-- FIXME: other dispatching-related info? -->
@@ -104,10 +118,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           bring it to the foreground, give it focus, or use some other way to
           bring it to the user's attention.</p>
 
-        <p>This method is called by the channel dispatcher if existing
-          channels are re-requested. As a result, it SHOULD only ever be
-          called in response to user action, which means that the client
+        <p>This method is called by the channel dispatcher after channels
+          are requested. As a result, it SHOULD only ever be called in
+          response to user action, which means that the client
           MAY take input focus as a result.</p>
+
+        <!-- FIXME: incorporate a focus-stealing-prevention timestamp
+          somehow -->
 
         <p>If any of the given channels are not being handled by this
           channel handler, they MUST be ignored. The channel dispatcher
