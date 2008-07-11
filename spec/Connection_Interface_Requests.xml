@@ -242,10 +242,11 @@ USA.</p>
             for verifying that the returned channels are suitable.</p>
 
           <p>The output channels MUST be in the same order as the requests.
-            If the requests caused additional unrequested channels in the
-            same bundle to be created as a side-effect, then this array will
-            be longer than the array of requests, and the unrequested channels
-            MUST appear at the end.</p>
+            If the requests caused additional channels in the same bundle to
+            be created as a side-effect, then this array will be longer than
+            the array of requests, and the side-effect channels MUST appear
+            at the end. Connection managers MUST NOT create channels as a
+            side-effect if they are not strictly necessary.</p>
 
           <tp:rationale>
             For instance, joining an XMPP MUC Tube channel requires joining
