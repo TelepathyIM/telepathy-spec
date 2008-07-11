@@ -48,7 +48,6 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <!-- This is per-request -->
       <tp:flag name="Prefer_Reuse" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The requesting client would prefer to re-use an existing channel
@@ -69,6 +68,28 @@ USA.</p>
               first, falling back to looking for an existing one in a secondary
               request.</p>
           </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
+
+    </tp:flags>
+
+    <tp:flags name="Channel_Request_Response_Flags"
+      value-prefix="Channel_Request_Response_Flag" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Flags that channels returned from a request can have.</p>
+      </tp:docstring>
+
+      <tp:flag name="Reused" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The channel already existed before this request (either because
+            of a previous request, or because it had already appeared).</p>
+
+          <p>It must be assumed that the channel is already being handled
+            by some client, so the requester SHOULD NOT do things with the
+            channel which would be inappropriate if another client is handling
+            it (notably, acknowledging
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Type.Text</tp:dbus-ref>
+            messages).</p>
         </tp:docstring>
       </tp:flag>
 
