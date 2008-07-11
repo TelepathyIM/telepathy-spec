@@ -82,7 +82,9 @@
           channel, or an empty string to indicate that any handler would be
           acceptable. The channel dispatcher SHOULD dispatch as many as
           possible of the resulting channels (ideally, all of them)
-          to that handler.
+          to that handler, and SHOULD remember the preferred handler
+          so it can try to dispatch subsequent channels in the same bundle
+          to the same handler.
         </tp:docstring>
       </arg>
 
