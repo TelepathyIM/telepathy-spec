@@ -35,28 +35,58 @@
 
       <p>More specifically, whenever the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.NewChannels</tp:dbus-ref>
-        signal contains any channels whose
+        signal contains channels whose
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.FUTURE.Requested</tp:dbus-ref>
         property is false, or whenever the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.NewChannel</tp:dbus-ref>
         signal contains a channel with suppress_handler false,
-        a ChannelDispatchOperation is created for those
-        channels. Any requested channels in the same signal MUST NOT be
-        included (although the signal shouldn't contain any anyway).</p>
+        one or more ChannelDispatchOperation objects are created for those
+        channels.</p>
 
-      <!-- FIXME: this doesn't explain what to do with splitting, but it's
-      sort of right in principle... -->
+      <p>If some channels in a NewChannels signal were requested but some
+        were not, or some channels are in different bundles, this is an error.
+        The channel dispatcher SHOULD recover by treating the NewChannels
+        signal as if it had been several NewChannels signals each containing
+        one channel.</p>
 
-      <p>First, if the channels are in the same bundle as a channel that is
-        already being handled, the channel dispatcher SHOULD call the
-        handler's
+      <p>First, the channel dispatcher SHOULD construct a list of all the
+        channel handlers that could handle all the channels, ordered by
+        priority in some implementation-dependent way.</p>
+
+      <p>If there are suitable handlers, one channel dispatch operation SHOULD
+        be created for all the channels. If there are not, one channel
+        dispatch operation SHOULD be created for each channel, each with
+        a list of channel handlers that could handle that channel.</p>
+
+      <p>When listing channel handlers, priority SHOULD be given to
+        channel handlers that are already handling channels from the same
+        bundle.</p>
+
+      <p>Processing of a channel dispatch operation proceeds as follows.
+        If the channels in a channel dispatch operation are in the same
+        bundle as a channel that is already being handled, and the handler
+        could also handle the channels being dispatched, the channel
+        dispatcher SHOULD call the handler's
         HandleAdditionalChannels
-        method. If the handler takes responsibility for the channels,
+        method to see whether the handler will accept the new channels too.
+        If the handler takes responsibility for the channels,
         processing stops, and no approvers are run.</p>
 
-      <p>Next, the channel dispatcher SHOULD send the channel dispatch
+      <tp:rationale>
+        <p>Some channel types can be picked up "quietly" by an existing
+          channel handler. If a Text channel is added to an existing
+          bundle containing a StreamedMedia channel, there shouldn't be
+          any approvers, flashing icons or notification bubbles, if the
+          the UI for the StreamedMedia channel can just add a text box
+          and display the message.</p>
+      </tp:rationale>
+
+      <p>If not, the channel dispatcher SHOULD send the channel dispatch
         operation to all relevant approvers (in parallel) and wait for an
         approver to request that the channels are handled or rejected.</p>
+
+      <p>Finally, the channel dispatcher SHOULD send the channels to
+        a handler, or reject them, according to the approver's choice.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
