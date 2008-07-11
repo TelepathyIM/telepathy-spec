@@ -42,8 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         to filter on the
         <!--FIXME: reinstate this when the property is merged
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Direction</tp:dbus-ref>-->
-        Channel.FUTURE.Direction
+          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Requested</tp:dbus-ref>-->
+        Channel.FUTURE.Requested
         property.</p>
     </tp:docstring>
 
