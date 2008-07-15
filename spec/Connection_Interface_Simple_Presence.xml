@@ -145,16 +145,20 @@
           The status message associated with the current status.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request that the presence status and status message are published for
-        the connection.  Changes will be indicated by PresencesChanged signals
-        being emitted. On certain protocols, this method may be called on a
-        newly-created connection which is still in the DISCONNECTED state, and
-        will sign on with the requested status. In DISCONNECTED state the
-        Statuses property will indicate which statuses are allowed to be set
-        while DISCONNECTED (none if the Connection Manager doesn't allow this),
-        this value should not be cached as the set of allowed presences might
-        change upon connecting.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the presence status and status message are published for
+          the connection.  Changes will be indicated by PresencesChanged
+          signals being emitted.</p>
+
+        <p>On certain protocols, this method may be called on a
+          newly-created connection which is still in the DISCONNECTED state,
+          and will sign on with the requested status.</p>
+
+        <p>In DISCONNECTED state the
+          Statuses property will indicate which statuses are allowed to be set
+          while DISCONNECTED (none, if the Connection Manager doesn't allow
+          this). This value MUST NOT be cached, as the set of allowed
+          presences might change upon connecting.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
