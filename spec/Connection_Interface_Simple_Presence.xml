@@ -174,7 +174,7 @@
           An array of the contacts whose presence should be obtained.
         </tp:docstring>
       </arg>
-      <arg direction="out" name="presence" type="a{u(ss)}"
+      <arg direction="out" name="presence" type="a{u(uss)}"
         tp:type="Simple_Contact_Presences">
         <tp:docstring>
           Presence information in the same format as for the PresencesChanged
@@ -194,7 +194,7 @@
     </method>
 
     <property name="AvailableStatuses" access="read"
-      type="a{s()}" tp:type="Available_Status_Map">
+      type="a{s(ub)}" tp:type="Available_Status_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A dictionary where the keys are the presence statuses that the user
           can set on themselves for this connection, and the values are the
@@ -222,7 +222,7 @@
     </property>
 
     <signal name="PresencesChanged">
-      <arg name="presence" type="a{u(ss)}" tp:type="Contact_Presences">
+      <arg name="presence" type="a{u(uss)}" tp:type="Contact_Presences">
         <tp:docstring>
         A dictionary of contact handles mapped to the status and status
         message.
