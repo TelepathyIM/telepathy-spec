@@ -161,7 +161,6 @@
           presences might change upon connecting.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
