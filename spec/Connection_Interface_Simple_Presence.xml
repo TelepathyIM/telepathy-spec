@@ -78,8 +78,11 @@
       <tp:member type="u" tp:type="Connection_Presence_Type"
         name="Type">
         <tp:docstring>
-          The type of a presence. If the status identifier is unknown to a
-          client, this value should be used a hint.
+          The type of a presence. This SHOULD NOT be used as a way to set
+          statuses that the client does not recognise (as explained in
+          <tp:member-ref>SetStatus</tp:member-ref>), but MAY be used to check
+          that the client's assumptions about a particular status name
+          match the connection manager's.
         </tp:docstring>
       </tp:member>
       <tp:member type="b" name="May_Set_On_Self">
