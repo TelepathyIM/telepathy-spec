@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         transfer is guaranteed to be this size. This cannot change once
         the channel has been created.</p>
 
-        <p>If this property is zero, then its value is unspecified.</p>
+        <p>If this property is UINT64_MAX, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -70,7 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         property can, or has, been set. This cannot change once the channel
         has been created.</p>
 
-        <p>If this property is zero, then its value is unspecified.</p>
+        <p>If this property is UINT64_MAX, then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
