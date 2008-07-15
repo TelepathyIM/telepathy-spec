@@ -224,8 +224,8 @@
     <signal name="PresencesChanged">
       <arg name="presence" type="a{u(uss)}" tp:type="Contact_Presences">
         <tp:docstring>
-        A dictionary of contact handles mapped to the status and status
-        message.
+          A dictionary of contact handles mapped to the status,
+          presence type and status message.
         </tp:docstring>
       </arg>
       <tp:docstring>
