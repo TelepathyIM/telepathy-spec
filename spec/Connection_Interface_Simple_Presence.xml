@@ -149,9 +149,9 @@
           <tp:member-ref>PresencesChanged</tp:member-ref>
           signals being emitted.</p>
 
-        <p>On certain protocols, this method may be called on a
-          newly-created connection which is still in the DISCONNECTED state,
-          and will sign on with the requested status.</p>
+        <p>This method may be called on a newly-created connection while it
+          is still in the DISCONNECTED state, to request that when the
+          connection connects, it will do so with the selected status.</p>
 
         <p>In DISCONNECTED state the
           Statuses property will indicate which statuses are allowed to be set
