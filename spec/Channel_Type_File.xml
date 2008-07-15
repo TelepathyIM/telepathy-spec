@@ -33,10 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="ContentType" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The file's content-type. This cannot change once the channel has
+        <p>The file's MIME type. This cannot change once the channel has
         been created.</p>
 
-        <p>If this property is an empty string, then its value is unspecified.</p>
+        <p>This property is mandatory. Protocols which do not have a
+        content-type property with file transfers should set this value to
+        application/octet-stream.</p>
       </tp:docstring>
     </property>
 
