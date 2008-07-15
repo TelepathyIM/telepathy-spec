@@ -145,7 +145,8 @@
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that the presence status and status message are published for
-          the connection.  Changes will be indicated by PresencesChanged
+          the connection.  Changes will be indicated by
+          <tp:member-ref>PresencesChanged</tp:member-ref>
           signals being emitted.</p>
 
         <p>On certain protocols, this method may be called on a
