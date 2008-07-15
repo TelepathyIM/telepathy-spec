@@ -85,10 +85,16 @@
           match the connection manager's.
         </tp:docstring>
       </tp:member>
-      <tp:member type="b" name="May_Set_On_Self">
+      <tp:member type="b" name="Message">
         <tp:docstring>
-          Whether or not this status may be set on the connection using
-          SetPresence.
+          Whether a message can be set for this status. If false,
+          <tp:member-ref>SetStatus</tp:member-ref> MUST accept a non-empty
+          message argument, but SHOULD ignore it.
+
+          <tp:rationale>
+            On IRC you can be Away with a status message, but if you are
+            available you cannot set a status message.
+          </tp:rationale>
         </tp:docstring>
       </tp:member>
     </tp:struct>
