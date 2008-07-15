@@ -71,7 +71,7 @@
       <tp:member type="(uss)" tp:type="Simple_Presence" name="Presence"/>
     </tp:mapping>
 
-    <tp:struct name="Simple_Status_Spec">
+    <tp:struct name="Available_Status_Spec">
       <tp:docstring>
         A struct containing information about a status.
       </tp:docstring>
@@ -99,7 +99,7 @@
       </tp:member>
     </tp:struct>
 
-    <tp:mapping name="Simple_Status_Spec_Map">
+    <tp:mapping name="Available_Status_Map">
       <tp:docstring>
         A mapping describing available statuses.
       </tp:docstring>
@@ -109,7 +109,7 @@
           The string identifier of this status.
         </tp:docstring>
       </tp:member>
-      <tp:member type="(ub)" tp:type="Simple_Status_Spec" name="Spec">
+      <tp:member type="(ub)" tp:type="Available_Status_Spec" name="Spec">
         <tp:docstring>
           Details of this status.
         </tp:docstring>
@@ -222,7 +222,7 @@
     </property>
 
     <signal name="PresencesChanged">
-      <arg name="presence" type="a{u(uss)}" tp:type="Contact_Presences">
+      <arg name="presence" type="a{u(uss)}" tp:type="Simple_Contact_Presences">
         <tp:docstring>
           A dictionary of contact handles mapped to the status,
           presence type and status message.
