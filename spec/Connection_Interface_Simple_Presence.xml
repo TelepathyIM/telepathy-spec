@@ -163,7 +163,13 @@
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            Either the specified status is not supported, or a non-empty
+            message was supplied for a status that does not
+            accept a message.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
