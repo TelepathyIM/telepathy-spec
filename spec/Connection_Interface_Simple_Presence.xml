@@ -154,7 +154,8 @@
           connection connects, it will do so with the selected status.</p>
 
         <p>In DISCONNECTED state the
-          Statuses property will indicate which statuses are allowed to be set
+          <tp:member-ref>AvailableStatuses</tp:member-ref>
+          property will indicate which statuses are allowed to be set
           while DISCONNECTED (none, if the Connection Manager doesn't allow
           this). This value MUST NOT be cached, as the set of allowed
           presences might change upon connecting.</p>
@@ -240,7 +241,9 @@
 
       <p>Presence on an individual (yourself or one of your contacts) is
         modelled as a status and a status message. Valid statuses are defined
-        per connection, and a list of them can be obtained from the Statuses
+        per connection, and a list of those that can be set on youself
+        can be obtained from the
+        <tp:member-ref>AvailableStatuses</tp:member-ref>
         property.</p>
 
       <p>Each status has an arbitrary string identifier which should have an
