@@ -80,7 +80,7 @@
         <tp:docstring>
           The type of a presence. This SHOULD NOT be used as a way to set
           statuses that the client does not recognise (as explained in
-          <tp:member-ref>SetStatus</tp:member-ref>), but MAY be used to check
+          <tp:member-ref>SetPresence</tp:member-ref>), but MAY be used to check
           that the client's assumptions about a particular status name
           match the connection manager's.
         </tp:docstring>
@@ -88,7 +88,7 @@
       <tp:member type="b" name="Message">
         <tp:docstring>
           Whether a message can be set for this status. If false,
-          <tp:member-ref>SetStatus</tp:member-ref> MUST accept a non-empty
+          <tp:member-ref>SetPresence</tp:member-ref> MUST accept a non-empty
           message argument, but SHOULD ignore it.
 
           <tp:rationale>
