@@ -100,12 +100,20 @@
     </tp:struct>
 
     <tp:mapping name="Simple_Status_Spec_Map">
+      <tp:docstring>
+        A mapping describing available statuses.
+      </tp:docstring>
+
       <tp:member type="s" name="Identifier">
         <tp:docstring>
           The string identifier of this status.
         </tp:docstring>
       </tp:member>
-      <tp:member type="(ub)" tp:type="Simple_Status_Spec" name="Spec"/>
+      <tp:member type="(ub)" tp:type="Simple_Status_Spec" name="Spec">
+        <tp:docstring>
+          Details of this status.
+        </tp:docstring>
+      </tp:member>
     </tp:mapping>
 
     <method name="SetPresence">
