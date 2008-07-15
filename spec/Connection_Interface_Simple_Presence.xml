@@ -87,9 +87,7 @@
       </tp:member>
       <tp:member type="b" name="Message">
         <tp:docstring>
-          Whether a message can be set for this status. If false,
-          <tp:member-ref>SetPresence</tp:member-ref> MUST accept a non-empty
-          message argument, but SHOULD ignore it.
+          Whether a message can be set for this status.
 
           <tp:rationale>
             On IRC you can be Away with a status message, but if you are
