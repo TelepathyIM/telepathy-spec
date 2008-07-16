@@ -34,7 +34,7 @@
       <tp:member type="s" name="Status">
         <tp:docstring>
           The string identifier of the status, e.g. "brb", as defined in the
-          Statuses property.
+          <tp:member-ref>Statuses</tp:member-ref> property.
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Status_Message">
