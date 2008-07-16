@@ -1,0 +1,152 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Contact_Attributes" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright> Copyright (C) 2005-2008 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or modify it
+      under the terms of the GNU Lesser General Public License as published by
+      the Free Software Foundation; either version 2.1 of the License, or (at
+      your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful, but
+      WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser
+      General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public License
+      along with this library; if not, write to the Free Software Foundation,
+      Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Contacts">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+
+    <tp:mapping name="Contact_Attributes_Map">
+      <tp:docstring>Mapping returned by InspectContacts, where the keys are
+        contacts and the values represent various basic contact
+        attributes.</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
+      <tp:member type="(ss(uss)a(su))" tp:type="Contact_Attributes"
+        name="ContactInfo"/>
+    </tp:mapping>
+
+    <tp:struct name="Contact_Attributes" array-name="Contact_Attributes_List">
+      <tp:docstring>A struct containing basic attributes of a
+        contact. The value of each attribute whose corresponding flag was not
+        set in the call to InspectContacts is undefined.</tp:docstring>
+      <tp:member type="s" name="Alias">
+        <tp:docstring>The contact's alias</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Avatar_Token">
+        <tp:docstring>The contact's avatar token</tp:docstring>
+      </tp:member>
+      <tp:member type="(uss)" tp:type="Simple_Presence" name="SimplePresence">
+        <tp:docstring>The contact's Simple_Presence</tp:docstring>
+      </tp:member>
+      <tp:member type="a(su)" tp:type="Capability_Pair[]" name="Caps">
+        <tp:docstring>The contact's per-channel-type capabilities</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <property name="ContactInspectionFlags" type="u"
+      tp:type="Contact_Inspection_Flags"
+      access="read">
+      <tp:docstring>
+        Flags indicating specific fields to retrieve with InspectContacts.
+      </tp:docstring>
+    </property>
+    <tp:flags name="Contact_Inspection_Flags"
+      value-prefix="Contact_Inspection_Flag">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Flags indicating which attributes should be retrived for the
+          contacts passed in to InspectContacts.</p>
+
+        <p>For each of these flags not set in the flags argument to
+          InspectContacts, the value of the corresponding attribute in the
+          return value of InspectContacts is undefined and should be
+          ignored.</p>
+
+        <tp:rationale>
+          The reason unflagged attributes are undefined in the return value is
+          to force the caller to ignore their values. For example, if
+          InspectContacts is called with the Alias flag set, an empty string for
+          an alias in the results means that the contact's alias is unset.  But
+          if InspectContacts is called with the Alias flag unset, even an empty
+          string must not be interpreted as an unset alias (and the
+          implementation is even free to leave garbage data in the resultant
+          alias fields if it is more convenient than clearing them).
+        </tp:rationale>
+      </tp:docstring>
+
+      <tp:flag suffix="Alias" value="1">
+        <tp:docstring>
+          Fill in the alias for each contact in the return value of
+          InspectContacts.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Avatar_Token" value="2">
+        <tp:docstring>
+          Fill in the avatar token for each contact in the return value of
+          InspectContacts.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Simple_Presence" value="4">
+        <tp:docstring>
+          Fill in the SimplePresence value for each contact in the return value
+          of InspectContacts.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+    <method name="InspectContacts">
+      <arg direction="in" name="flags" type="u"
+        tp:type="Contact_Inspection_Flags">
+        <tp:docstring>
+          Flags indicating which attributes to fill in/include for each contact
+          in the return value.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          An array of Handle_Type_Contact integer handles
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" type="a{u(ss(uss)a(su))}"
+        tp:type="Contact_Attributes_Map">
+        <tp:docstring>
+          A dictionary mapping the handles to Contact_Attributes structures.
+        </tp:docstring>
+      </arg>
+
+      <tp:docstring>
+        Return any number of basic contact attributes for the given handles.
+
+        If a handle is invalid for any reason, an
+        org.freedesktop.Telepathy.Error.InvalidHandle error will be raised, and
+        that handle will be excluded from the results. In this case,
+        InspectContacts will still return values for all the valid handles.
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          The flags are invalid
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+          One of the given handles is inactive and/or not Handle_Type_Contact
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>This interface serves as a convenience wrapper for contacts.</p>
+
+      <p>Rather than determining all contacts' attributes on a per-interface
+        basis (eg, Aliasing, Avatars, Presence), this interface exposes
+        contacts' attributes on a per-contact basis.</p>
+    </tp:docstring>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
