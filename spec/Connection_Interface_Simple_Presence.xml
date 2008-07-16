@@ -64,12 +64,20 @@
 
     <tp:mapping name="Simple_Contact_Presences">
       <tp:docstring>
-        Mapping returned by GetPresences and signalled by PresencesChanged,
-        where the keys are contacts and the values represent their
-        presence.
+        Mapping returned by <tp:member-ref>GetPresences</tp:member-ref>
+        and signalled by <tp:member-ref>PresencesChanged</tp:member-ref>,
+        indicating the presence of a number of contacts.
       </tp:docstring>
-      <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
-      <tp:member type="(uss)" tp:type="Simple_Presence" name="Presence"/>
+      <tp:member type="u" tp:type="Contact_Handle" name="Contact">
+        <tp:docstring>
+          A contact
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="(uss)" tp:type="Simple_Presence" name="Presence">
+        <tp:docstring>
+          The contact's presence
+        </tp:docstring>
+      </tp:member>
     </tp:mapping>
 
     <tp:struct name="Available_Status_Spec">
