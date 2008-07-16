@@ -80,12 +80,11 @@
       </tp:member>
     </tp:mapping>
 
-    <tp:struct name="Available_Status_Spec">
+    <tp:struct name="Simple_Status_Spec">
       <tp:docstring>
         A struct containing information about a status.
       </tp:docstring>
-      <tp:member type="u" tp:type="Connection_Presence_Type"
-        name="Type">
+      <tp:member type="u" tp:type="Connection_Presence_Type" name="Type">
         <tp:docstring>
           The type of a presence. This SHOULD NOT be used as a way to set
           statuses that the client does not recognise (as explained in
@@ -94,9 +93,16 @@
           match the connection manager's.
         </tp:docstring>
       </tp:member>
-      <tp:member type="b" name="Message">
+      <tp:member type="b" name="May_Set_On_Self">
         <tp:docstring>
-          Whether a message can be set for this status.
+          If true, the user can set this status on themselves using
+          <tp:member-ref>SetPresence</tp:member-ref>.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="b" name="Can_Have_Message">
+        <tp:docstring>
+          If true, a non-empty message can be set for this status. Otherwise,
+          the empty string is the only acceptable message.
 
           <tp:rationale>
             On IRC you can be Away with a status message, but if you are
@@ -106,9 +112,9 @@
       </tp:member>
     </tp:struct>
 
-    <tp:mapping name="Available_Status_Map">
+    <tp:mapping name="Simple_Status_Spec_Map">
       <tp:docstring>
-        A mapping describing available statuses.
+        A mapping describing possible statuses.
       </tp:docstring>
 
       <tp:member type="s" name="Identifier">
@@ -116,7 +122,7 @@
           The string identifier of this status.
         </tp:docstring>
       </tp:member>
-      <tp:member type="(ub)" tp:type="Available_Status_Spec" name="Spec">
+      <tp:member type="(ubb)" tp:type="Simple_Status_Spec" name="Spec">
         <tp:docstring>
           Details of this status.
         </tp:docstring>
@@ -128,10 +134,10 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The string identifier of the desired status. Possible status
             identifiers are defined in the
-            <tp:member-ref>AvailableStatuses</tp:member-ref> property.</p>
+            <tp:member-ref>Statuses</tp:member-ref> property.</p>
 
           <p>Clients MUST NOT set a status whose string value they do not
-            recognise, even if its presence type in AvailableStatuses
+            recognise, even if its presence type in Statuses
             matches what the user requested.</p>
 
           <tp:rationale>
@@ -163,7 +169,7 @@
           connection connects, it will do so with the selected status.</p>
 
         <p>In DISCONNECTED state the
-          <tp:member-ref>AvailableStatuses</tp:member-ref>
+          <tp:member-ref>Statuses</tp:member-ref>
           property will indicate which statuses are allowed to be set
           while DISCONNECTED (none, if the Connection Manager doesn't allow
           this). This value MUST NOT be cached, as the set of allowed
@@ -173,7 +179,8 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            Either the specified status is not supported, or a non-empty
+            Either the specified status is not supported, the specified
+            status cannot be set on the user themselves, or a non-empty
             message was supplied for a status that does not
             accept a message.
           </tp:docstring>
@@ -206,8 +213,8 @@
       </tp:possible-errors>
     </method>
 
-    <property name="AvailableStatuses" access="read"
-      type="a{s(ub)}" tp:type="Available_Status_Map">
+    <property name="Statuses" access="read"
+      type="a{s(ubb)}" tp:type="Simple_Status_Spec_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A dictionary where the keys are the presence statuses that the user
           can set on themselves for this connection, and the values are the
@@ -256,7 +263,7 @@
         modelled as a status and a status message. Valid statuses are defined
         per connection, and a list of those that can be set on youself
         can be obtained from the
-        <tp:member-ref>AvailableStatuses</tp:member-ref>
+        <tp:member-ref>Statuses</tp:member-ref>
         property.</p>
 
       <p>Each status has an arbitrary string identifier which should have an
