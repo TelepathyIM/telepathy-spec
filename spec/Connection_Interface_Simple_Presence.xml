@@ -253,6 +253,15 @@
           from when the connection was in the DISCONNECTED or CONNECTING
           state MUST NOT be assumed to still be correct when the state has
           become CONNECTED).</p>
+
+        <p>This property MUST include the special statuses "unknown" and
+          "error" if and only if the connection manager can emit them
+          as a contact's status.</p>
+
+        <tp:rationale>
+          For instance, connection managers for local-xmpp (XEP-0174) would
+          omit "unknown" since there is no such concept.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
