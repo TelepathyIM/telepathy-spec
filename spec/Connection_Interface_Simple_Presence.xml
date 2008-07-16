@@ -295,22 +295,62 @@
         expected to make use of it. The following well-known values should be
         used where possible to allow clients to identify common choices:</p>
 
-      <ul>
-        <li>available (corresponding to Connection_Presence_Type_Available)</li>
-        <li>away (corresponding to Connection_Presence_Type_Away)</li>
-        <li>brb (Be Right Back) (corresponding to
-          Connection_Presence_Type_Away, but more specific)</li>
-        <li>busy (corresponding to Connection_Presence_Type_Busy)</li>
-        <li>dnd (Do Not Disturb) (corresponding to
-          Connection_Presence_Type_Busy, but more specific)</li>
-        <li>xa (Extended Away) (corresponding to
-          Connection_Presence_Type_Extended_Away)</li>
-        <li>hidden (aka Invisible) (corresponding to
-          Connection_Presence_Type_Hidden)</li>
-        <li>offline (corresponding to Connection_Presence_Type_Offline)</li>
-        <li>unknown (corresponding to Connection_Presence_Type_Unknown)</li>
-        <li>error (corresponding to Connection_Presence_Type_Error)</li>
-      </ul>
+      <table>
+        <tr>
+          <th>status identifier</th>
+          <th>Connection_Presence_Type</th>
+          <th>comments</th>
+        </tr>
+        <tr>
+          <td>available</td>
+          <td>Connection_Presence_Type_Available</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>away</td>
+          <td>Connection_Presence_Type_Away</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>brb</td>
+          <td>Connection_Presence_Type_Away</td>
+          <td>Be Right Back (a more specific form of Away)</td>
+        </tr>
+        <tr>
+          <td>busy</td>
+          <td>Connection_Presence_Type_Busy</td>
+          <td></td>
+        </tr>
+        <tr><td>dnd</td>
+          <td>Connection_Presence_Type_Busy</td>
+          <td>Do Not Disturb (a more specific form of Busy)</td>
+        </tr>
+        <tr>
+          <td>xa</td>
+          <td>Connection_Presence_Type_Extended_Away</td>
+          <td>Extended Away</td>
+        </tr>
+        <tr>
+          <td>hidden</td>
+          <td>Connection_Presence_Type_Hidden</td>
+          <td>Also known as "Invisible" or "Appear Offline"</td>
+        </tr>
+        <tr>
+          <td>offline</td>
+          <td>Connection_Presence_Type_Offline</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>unknown</td>
+          <td>Connection_Presence_Type_Unknown</td>
+          <td>special, see below</td>
+        </tr>
+        <tr>
+          <td>error</td>
+          <td>Connection_Presence_Type_Error</td>
+          <td>special, see below</td>
+        </tr>
+      </table>
 
       <p>As well as these well-known status identifiers, every status also has
         a numerical type value chosen from ConnectionPresenceType which can be
