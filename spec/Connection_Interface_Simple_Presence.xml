@@ -188,6 +188,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="GetPresences">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
@@ -196,19 +197,33 @@
       </arg>
       <arg direction="out" name="presence" type="a{u(uss)}"
         tp:type="Simple_Contact_Presences">
-        <tp:docstring>
-          Presence information in the same format as for the PresencesChanged
-          signal.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Presence information in the same format as for the
+            <tp:member-ref>PresencesChanged</tp:member-ref> signal.
+            The returned mapping MUST include an entry for each contact
+            in the method's argument.</p>
+
+          <p>The definition of the connection presence types Unknown
+            and Offline means that if a connection manager will return
+            Unknown for contacts not on the subscribe list, it MUST delay
+            the reply to this method call until it has found out which
+            contacts are, in fact, on the subscribe list.</p>
         </tp:docstring>
       </arg>
       <tp:docstring>
         Get presence previously emitted by PresencesChanged for the given
         contacts. Data is returned in the same structure as the
-        PresencesChanged signal.
+        PresencesChanged signal; no additional network requests are made.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError">
+          <tp:docstring>
+            While discovering the subscribe list in order to distinguish
+            between Unknown and Offline statuses, a network error occurred.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
