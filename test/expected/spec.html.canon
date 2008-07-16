@@ -106,6 +106,9 @@
             color: #ff0000;
             background: #ffffff;
           }
+          table, tr, td, th {
+            border: 1px solid #666;
+          }
 
         </style></head><body><h1 class="topbox">telepathy-spec tools test case</h1><h2>Version 0.1.2</h2><div>Copyright (C) 2006 Collabora Limited</div><p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -158,18 +161,10 @@ Lesser General Public License for more details.</p><h2>Interfaces</h2><ul><li><c
           A bit
         </dd><dt><code>Test_HighBit = 128</code></dt><dd>
           Another bit
-        </dd></dl>
-<h1>Errors</h1>
-  <h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</h2>
+        </dd></dl><h1>Errors</h1><h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" name="org.freedesktop.Telepathy.SpecAutoGenTest.MiscError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.MiscError</h2>
       Raised whenever appropriate.
-    
-
-  <h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</h2>
+    <h2><a id="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" name="org.freedesktop.Telepathy.SpecAutoGenTest.OtherError" shape="rect"></a>org.freedesktop.Telepathy.SpecAutoGenTest.OtherError</h2>
       Raised at all other times.
-    
-
-  
-  
-<h1>Index</h1><h2>Index of interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h2>Index of types</h2><ul><li><code><a href="#type-Adjective" shape="rect">Adjective</a></code>
-    − </li><li><code><a href="#type-Test_Flags" shape="rect">Test_Flags</a></code>
-    − </li></ul></body></html>
+    <h1>Index</h1><h2>Index of interfaces</h2><ul><li><code><a href="#org.freedesktop.Telepathy.SpecAutoGenTest" shape="rect">org.freedesktop.Telepathy.SpecAutoGenTest</a></code></li></ul><h2>Index of types</h2><ul><li><code><a href="#type-Adjective" shape="rect">Adjective</a></code>
+    − u</li><li><code><a href="#type-Test_Flags" shape="rect">Test_Flags</a></code>
+    − u</li></ul></body></html>

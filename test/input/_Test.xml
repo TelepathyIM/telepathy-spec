@@ -80,7 +80,7 @@ USA.</p>
       </tp:docstring>
     </property>
 
-    <tp:flags name="Test_Flags" value-prefix="Test">
+    <tp:flags name="Test_Flags" value-prefix="Test" type="u">
       <tp:docstring>A set of flags</tp:docstring>
       <tp:flag suffix="LowBit" value="1">
         <tp:docstring>
@@ -94,7 +94,7 @@ USA.</p>
       </tp:flag>
     </tp:flags>
 
-    <tp:enum name="Adjective">
+    <tp:enum name="Adjective" type="u">
       <tp:docstring>Adjectives which may be applied to a specification</tp:docstring>
       <tp:enumvalue suffix="Leveraging" value="0">
         <tp:docstring>
