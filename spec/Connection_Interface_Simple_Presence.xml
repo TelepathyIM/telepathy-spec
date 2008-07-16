@@ -362,11 +362,11 @@
         the presence to the user to set on themselves, it may display an
         approximation of the presence if it is set on a contact.</p>
 
-      <p>Apart from these status indentifiers there are two special ones that
-        may be present. 'unknown' with type Unknown and 'error' with type
+      <p>As well as the normal status identifiers, there are two special ones
+        that may be present: 'unknown' with type Unknown and 'error' with type
         Error. 'unknown' indicates that it is impossible to determine the
         presence of a contact at this time, for example because it's not on the
-        'subscibe' list and the protocol only allows one to determine the
+        'subscribe' list and the protocol only allows one to determine the
         presence of contacts you're subscribed to. 'error' indicates that there
         was a failure in determining the status of a contact.</p>
 
