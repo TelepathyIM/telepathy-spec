@@ -22,31 +22,11 @@
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:mapping name="Contact_Attributes_Map">
-      <tp:docstring>Mapping returned by InspectContacts, where the keys are
-        contacts and the values represent various basic contact
-        attributes.</tp:docstring>
+      <tp:docstring>Mapping returned by InspectContacts, representing a
+        collection of Contacts and their requested attributes.</tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Contact"/>
-      <tp:member type="(ss(uss)a(su))" tp:type="Contact_Attributes"
-        name="ContactInfo"/>
+      <tp:member type="a{sv}" tp:type="String_Variant_Map" name="Attributes"/>
     </tp:mapping>
-
-    <tp:struct name="Contact_Attributes" array-name="Contact_Attributes_List">
-      <tp:docstring>A struct containing basic attributes of a
-        contact. The value of each attribute whose corresponding flag was not
-        set in the call to InspectContacts is undefined.</tp:docstring>
-      <tp:member type="s" name="Alias">
-        <tp:docstring>The contact's alias</tp:docstring>
-      </tp:member>
-      <tp:member type="s" name="Avatar_Token">
-        <tp:docstring>The contact's avatar token</tp:docstring>
-      </tp:member>
-      <tp:member type="(uss)" tp:type="Simple_Presence" name="SimplePresence">
-        <tp:docstring>The contact's Simple_Presence</tp:docstring>
-      </tp:member>
-      <tp:member type="a(su)" tp:type="Capability_Pair[]" name="Caps">
-        <tp:docstring>The contact's per-channel-type capabilities</tp:docstring>
-      </tp:member>
-    </tp:struct>
 
     <property name="ContactInspectionFlags" type="u"
       tp:type="Contact_Inspection_Flags"
@@ -113,10 +93,10 @@
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="a{u(ss(uss)a(su))}"
+      <arg direction="out" type="a{ua{sv}}"
         tp:type="Contact_Attributes_Map">
         <tp:docstring>
-          A dictionary mapping the handles to Contact_Attributes structures.
+          A dictionary mapping the contact handles to contact attributes.
         </tp:docstring>
       </arg>
 
@@ -146,6 +126,57 @@
       <p>Rather than determining all contacts' attributes on a per-interface
         basis (eg, Aliasing, Avatars, Presence), this interface exposes
         contacts' attributes on a per-contact basis.</p>
+
+      <p>Each contact attribute has an arbitrary string identifier which should
+        have an agreed meaning between the connection manager and any client
+        which is expected to make use of it. The following well-known attribute
+        identifiers should be used where possible to allow clients to identify
+        common attributes:</p>
+      
+      <table>
+        <tr>
+          <th>attribute identifier</th>
+          <th>attribute type</th>
+          <th>attribute value equivalent to value from method</th>
+        </tr>
+        <tr>
+          <td>alias</td>
+          <td>s</td>
+          <td>
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Connection.Interface.Aliasing.RequestAliases</tp:dbus-ref>
+          </td>
+        </tr>
+        <tr>
+          <td>avatar-token</td>
+          <td>s</td>
+          <td>
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Connection.Interface.Avatars.GetAvatarTokens</tp:dbus-ref>
+          </td>
+        </tr>
+        <tr>
+          <td>simple-presence</td>
+          <td><tp:type>Simple_Presence</tp:type></td>
+          <td>
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Connection.Interface.SimplePresence.GetPresences</tp:dbus-ref>
+          </td>
+        </tr>
+        <tr>
+          <td>caps</td>
+          <td><tp:type>Capability_Pair[]</tp:type></td>
+          <td>
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Capabilities.AdvertiseCapabilities</tp:dbus-ref>
+          </td>
+        </tr>
+      </table>
+
+      <p>The contact attributes listed above may either be retrived via
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Connection.Interface.Contacts.InspectContacts</tp:dbus-ref>
+        in a single call, or individually via the corresponding methods listed
+        in the table above.</p>
     </tp:docstring>
   </interface>
 </node>
