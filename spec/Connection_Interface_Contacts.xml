@@ -56,7 +56,7 @@
       </tp:docstring>
     </property>
     <tp:flags name="Contact_Inspection_Flags"
-      value-prefix="Contact_Inspection_Flag">
+      value-prefix="Contact_Inspection_Flag" type="u">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Flags indicating which attributes should be retrived for the
           contacts passed in to InspectContacts.</p>
