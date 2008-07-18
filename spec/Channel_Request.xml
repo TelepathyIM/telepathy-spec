@@ -58,15 +58,6 @@
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="Request_Flags" type="u"
-        tp:type="Channel_Request_Flags">
-        <tp:docstring>
-          Flags to influence the connection manager's behaviour - see the
-          corresponding argument to
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>.
-        </tp:docstring>
-      </arg>
-
       <arg direction="in" name="Requests" type="aa{sv}"
         tp:type="Qualified_Property_Value_Map[]">
         <tp:docstring>
@@ -126,20 +117,16 @@
           and further methods must not be called on it.</p>
       </tp:docstring>
 
-      <arg name="Channels" type="a(oa{sv}u)"
-        tp:type="Channel_Request_Response[]">
+      <arg name="Channels" type="a(oa{sv})"
+        tp:type="Channel_Details[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channels that were produced. The same comments as for
             <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>
             apply here.</p>
 
-          <!-- FIXME: is it necessary to have the flags here any more?
-          If not, replace Channel_Request_Response[] with
-          Channel_Details[] -->
-
           <p>After signalling success in this way, the channel
-            dispatcher will also dispatch each channel that does
-            not have the Reused flag to an appropriate channel handler.</p>
+            dispatcher will also dispatch each channel to an appropriate
+            channel handler.</p>
 
           <tp:rationale>
             <p>It must be <em>after</em> so channel handlers can tell
