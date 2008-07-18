@@ -32,8 +32,8 @@
         All observers are notified simultaneously; they should not
         alter the state of the channel.</p>
 
-      <p>Whenever a new channel is signalled, the channel dispatcher
-        notifies all running or activatable observers whose
+      <p>Whenever new channels are signalled, the channel dispatcher
+        will notify all running or activatable observers whose
         <tp:member-ref>ObserverChannelFilter</tp:member-ref> property
         (possibly as cached in the .client file) indicates that they are
         interested in the channel.</p>
