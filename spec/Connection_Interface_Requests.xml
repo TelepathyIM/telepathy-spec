@@ -33,68 +33,6 @@
         uniquely identifiable.</p>
     </tp:docstring>
 
-    <tp:flags name="Channel_Request_Flags" value-prefix="Channel_Request_Flag"
-      type="u">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Flags that can be set when requesting channels.</p>
-
-        <tp:rationale>
-          <p>There is deliberately no flag corresponding to the
-            suppress_handler argument to
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>,
-            because passing a FALSE value for that argument is deprecated.
-            Requests made using this interface always behave as though
-            suppress_handler was TRUE.</p>
-        </tp:rationale>
-      </tp:docstring>
-
-      <tp:flag name="Prefer_Reuse" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The requesting client would prefer to re-use an existing channel
-            that meets its requirements, but creating a new channel would
-            also be acceptable. The default behaviour is to create a
-            new channel or fail if this cannot be done.</p>
-
-          <tp:rationale>
-            <p>If only a new channel would be acceptable, clients MUST omit
-              this flag. If only an existing channel would be acceptable,
-              clients MUST NOT call
-              <tp:member-ref>RequestChannels</tp:member-ref> at all.</p>
-
-            <p>We can't think of a sensible use-case for clients that would
-              prefer to use a new channel, but will accept an existing one if
-              a new one cannot be created. If you have such a client,
-              (a) let us know! and (b) you can try to make a new channel
-              first, falling back to looking for an existing one in a secondary
-              request.</p>
-          </tp:rationale>
-        </tp:docstring>
-      </tp:flag>
-
-    </tp:flags>
-
-    <tp:flags name="Channel_Request_Response_Flags"
-      value-prefix="Channel_Request_Response_Flag" type="u">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Flags that channels returned from a request can have.</p>
-      </tp:docstring>
-
-      <tp:flag name="Reused" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The channel already existed before this request (either because
-            of a previous request, or because it had already appeared).</p>
-
-          <p>It must be assumed that the channel is already being handled
-            by some client, so the requester SHOULD NOT do things with the
-            channel which would be inappropriate if another client is handling
-            it (notably, acknowledging
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Type.Text</tp:dbus-ref>
-            messages).</p>
-        </tp:docstring>
-      </tp:flag>
-
-    </tp:flags>
-
     <tp:struct name="Channel_Details" array-name="Channel_Details_List">
       <tp:docstring>
         Enough details of a channel that clients can work out how to dispatch
@@ -154,49 +92,20 @@
       </tp:member>
     </tp:struct>
 
-    <tp:struct name="Channel_Request_Response"
-      array-name="Channel_Request_Response_List">
-      <tp:docstring>
-        Enough details of a channel that clients can work out how to dispatch
-        or handle it, including flags which are really properties of the
-        request rather than properties of the channel.
-      </tp:docstring>
-
-      <tp:member name="Channel" type="o">
-        <tp:docstring>
-          The object path of the channel.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Properties" type="a{sv}"
-        tp:type="Qualified_Property_Value_Map">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties of the channel. All the same comments apply
-            as for the equivalent member of
-            <tp:type>Channel_Details</tp:type>.</p>
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Flags" type="u"
-        tp:type="Channel_Request_Response_Flags">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Flags indicating how this channel satisfies the request.</p>
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
-
     <method name="RequestChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that channels are created.</p>
-      </tp:docstring>
 
-      <arg direction="in" name="Request_Flags" type="u"
-        tp:type="Channel_Request_Flags">
-        <tp:docstring>
-          Flags affecting the connection manager's behaviour while satisfying
-          this request.
-        </tp:docstring>
-      </arg>
+        <tp:rationale>
+          <p>There is deliberately no flag corresponding to the
+            suppress_handler argument to
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>,
+            because passing a FALSE value for that argument is deprecated.
+            Requests made using this interface always behave as though
+            suppress_handler was TRUE.</p>
+        </tp:rationale>
+
+      </tp:docstring>
 
       <arg direction="in" name="Requests" type="aa{sv}"
         tp:type="Qualified_Property_Value_Map[]">
@@ -224,8 +133,9 @@
 
           <p>The connection manager MUST NOT respond successfully,
             and SHOULD NOT create any new channels or cause any other
-            side-effects, unless for each request it can produce a
-            corresponding channel that satisfies the client's requirements.</p>
+            side-effects, unless for each request it can create a
+            corresponding new channel that satisfies the client's
+            requirements.</p>
 
           <p>Properties that will be set by this argument need not have write
             access after the channel has been created - indeed, it is
@@ -233,8 +143,8 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" direction="out" type="a(oa{sv}u)"
-        tp:type="Channel_Request_Response[]">
+      <arg name="Channels" direction="out" type="a(oa{sv})"
+        tp:type="Channel_Details[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channels that were produced. Although the connection manager
             will attempt to satisfy the request, they are not guaranteed to
@@ -254,6 +164,98 @@
               unrequested Text channel; it would be misleading to not create
               the Text channel.</p>
           </tp:rationale>
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            One of the channel requests was one that can never succeed,
+            such as requesting an unsupported channel type, or requesting
+            a channel type which this connection manager does not support with
+            the given target handle type.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+          <tp:docstring>
+            An invalid handle was requested as the value of a property whose
+            value is a handle (like
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.TargetHandle</tp:dbus-ref>),
+            or a syntactically invalid identifier was requested as the value
+            of a property whose value is the string corresponding to a handle
+            (like TargetID).
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            One of the requested channels cannot be created, but in
+            principle, a similar request might succeed in future. For instance,
+            this might be because the requested contact is using a client
+            that lacks a particular feature, or because a channel matching the
+            request already exists and the protocol requires that only one
+            such channel can exist at a time.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="EnsureChannels">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the connection manager ensures that the given
+          channels exist, preferably by a suitable channel already existing,
+          but failing that, by creating them.</p>
+
+        <p>Channels created in this way are not considered to have been
+          requested, and so will have their
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE">Requested</tp:dbus-ref>
+          property set to FALSE.</p>
+
+        <tp:rationale>
+          <p>This is mostly for channels of type
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">ContactList</tp:dbus-ref>.
+            Clients MAY attempt to ensure all the usual ContactList
+            channels (subscribe, publish etc.) using this method, so that
+            they can delay inspecting contacts for display in a contact
+            list until they have the complete set of contacts to be
+            displayed.</p>
+
+          <p>After this method has returned, either successfully or
+            with an error, for each channel, the client knows that either
+            the channel exists and has its initial members (on success),
+            or the channel will never exist (on failure). When this has
+            happened for all the channels in which the client is interested,
+            it can proceed to inspect all the contacts present in any of the
+            channels, in one transaction (reducing round-trips).</p>
+        </tp:rationale>
+
+      </tp:docstring>
+
+      <arg direction="in" name="Requests" type="aa{sv}"
+        tp:type="Qualified_Property_Value_Map[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Dictionaries containing desirable properties.</p>
+
+          <p>This is equivalent to the corresponding parameter to
+            <tp:member-ref>RequestChannels</tp:member-ref>.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Channels" direction="out" type="a(oa{sv})"
+        tp:type="Channel_Details[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The channels that were produced.</p>
+
+          <p>This is equivalent to the corresponding return value from
+            <tp:member-ref>RequestChannels</tp:member-ref>,
+            except that the channels were not necessarily newly created.</p>
+
+          <p>Clients SHOULD assume that another client might be handling the
+            returned channels.</p>
         </tp:docstring>
       </arg>
 
