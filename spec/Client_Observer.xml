@@ -115,9 +115,17 @@
         </tp:docstring>
       </arg>
 
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
+      <arg name="Other" type="a{sv}" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Other information about these channels, in an as-yet unspecified
+            format.</p>
+
+          <tp:rationale>
+            <p>The idea is that this will include the object path of the
+              Account, if available, and anything else we think of later.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </arg>
     </method>
 
   </interface>
