@@ -42,10 +42,8 @@
         registered an interest - incoming, outgoing or automatically created -
         although of course the ObserverChannelFilter property can be set
         to filter on the
-        <!--FIXME: reinstate this when the property is merged
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.FUTURE">Requested</tp:dbus-ref>-->
-        Channel.FUTURE.Requested
+          namespace="org.freedesktop.Telepathy">Channel.FUTURE.Requested</tp:dbus-ref>
         property.</p>
     </tp:docstring>
 
