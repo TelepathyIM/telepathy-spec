@@ -72,14 +72,8 @@
         <p>Called by the channel dispatcher when channels in which the
           observer has registered an interest are created.</p>
 
-        <p>The channel dispatcher SHOULD call this method on all observers
-          in parallel, and MUST wait for either a reply from all observers
-          or an implementation-dependent timeout before dispatching the
-          channels to a channel handler. It is implementation-dependent
-          whether observers and approvers are notified in parallel.</p>
-
-        <p>The observer MUST NOT reply to this method call until it is ready
-          for the channel handler to run (which may change the channel's
+        <p>The observer MUST NOT return from this method call until it is ready
+          for a handler for the channel to run (which may change the channel's
           state).</p>
 
         <tp:rationale>
