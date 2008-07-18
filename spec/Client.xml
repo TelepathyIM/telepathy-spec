@@ -71,10 +71,6 @@
         client; the channel dispatcher will call its methods and read
         its properties when appropriate.</p>
 
-      <!-- FIXME: Should the Approver, Observer, Channel Handler all
-      be interfaces on the same object, or should they be separate objects?
-      -->
-
       <p>As an optimization, activatable clients SHOULD install a file
         <code><a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">$XDG_DATA_DIRS</a>/telepathy/clients/<em>clientname</em>.client</code>
         containing a cached version of its immutable properties,
