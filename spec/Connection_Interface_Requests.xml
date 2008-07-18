@@ -416,72 +416,106 @@
       </tp:member>
     </tp:mapping>
 
-    <tp:struct name="Channel_Class" array-name="Channel_Class_List">
-      <tp:docstring>
-        Structure representing a class of channels that can be requested,
-        identified by a pair (channel type, handle type). Connection managers
-        SHOULD NOT support more than one channel class with the same
-        channel type and handle type; if they do, clients SHOULD recover
-        by ignoring the second and subsequent channel classes.
+    <tp:mapping name="Channel_Class">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Mapping representing a class of channels that can be requested
+          from a connection manager, can be handled by a user interface,
+          are supported by a contact, etc.</p>
+
+        <p>Classes of channel are identified by the fixed values of
+          a subset of their properties.</p>
+
+        <p>Channel classes SHOULD always include the keys
+          <tp:dbus-ref>org.freedesktop.Telepathy.Channel.ChannelType</tp:dbus-ref>
+          and
+          <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandleType</tp:dbus-ref>.
+          </p>
+      </tp:docstring>
+
+      <tp:member type="s" name="Key" tp:type="DBus_Qualified_Member">
+        <tp:docstring>
+          A D-Bus interface name, followed by a dot and a D-Bus property name.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="v" name="Value">
+        <tp:docstring>
+          The value of the property.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:struct name="Requestable_Channel_Class"
+      array-name="Requestable_Channel_Class_List">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Structure representing a class of channels that can be requested,
+          identified by a set of properties that identify that class of
+          channel.</p>
 
         <tp:rationale>
-          I can't think of any good way to represent it in a UI otherwise.
+          <p>This will often just be the channel type and the handle type,
+            but can include other properties of the channel - for instance,
+            encrypted channels might require properties that
+            unencrypted channels do not, like an encryption key.</p>
+        </tp:rationale>
+
+        <p>In some cases, these classes of channel may overlap, in the sense
+          that one class fixes all the properties that another class does,
+          plus some more properties.</p>
+
+        <tp:rationale>
+          <p>For older clients to still be able to understand how to request
+            channels in the presence of a hypothetical "encryption" interface,
+            we'd need to represent it like this:</p>
+
+          <ul>
+            <li>class 1: ChannelType = Text, TargetHandleType = CONTACT</li>
+            <li>class 2: Channel.ChannelType = Text,
+              Channel.TargetHandleType = CONTACT,
+              Encryption.Encrypted = TRUE</li>
+          </ul>
         </tp:rationale>
       </tp:docstring>
 
-      <tp:member name="Channel_Type" type="s" tp:type="DBus_Interface">
+      <tp:member name="Fixed_Properties" type="a{sv}"
+        tp:type="Channel_Class">
         <tp:docstring>
-          The channel type to be requested (a value for the
-          Channel.ChannelType property)
+          The property values that identify this requestable channel class.
+          These properties MUST be included in requests for a channel of this
+          class, and MUST take these values.
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Handle_Type" type="u" tp:type="Handle_Type">
-        <tp:docstring>
-          The handle type (a value for the Channel.TargetHandleType property)
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Required_Properties" type="a{sv}"
-        tp:type="Property_Restriction_Map">
+      <tp:member name="Required_Properties" type="as"
+        tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties that must be set when requesting a channel of this
+          <p>Properties that MUST be set when requesting a channel of this
             channel type and handle type.</p>
 
-          <tp:rationale>
-            <p>Outgoing file transfers need at least a size, and perhaps other
-              properties depending on the protocol (e.g. suggested filename,
-              MD5 or other checksum).</p>
-          </tp:rationale>
-
-          <p>(FIXME: need to do something clever with TargetHandle and
-            TargetID)</p>
-
-          <p>Properties in this array MAY have additional semantics.
-            For instance, if a property P1 is documented as "if P1 takes
-            values A, B or C, then P2 must also be given", and a connection
-            manager requires P1, then this should be represented by placing
-            P1 in Required_Properties and P2 in Properties; clients are
-            expected to understand the documented relationship between the
-            properties.</p>
+          <p>Properties MAY have additional requirement semantics not
+            represented in this array. For instance, if TargetHandleType
+            takes a value that is not Handle_Type_None, one or the other of
+            TargetHandle and TargetID is required. In this case,
+            TargetHandle and TargetID would both be listed as optional:
+            clients are expected to understand the documented relationship
+            between the properties.</p>
 
           <p>Clients that do not understand the semantics of all the
-            properties in this list MUST NOT request channels of this
-            class unless they are intended to be generic debugging/development
-            tools.</p>
+            Fixed_Properties, and all the properties in this list, MUST NOT
+            request channels of this class (unless they are intended as
+            debugging/development tools to be operated only by users who
+            understand the Telepathy D-Bus API).</p>
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Properties" type="a{sv}"
-        tp:type="Property_Restriction_Map">
+      <tp:member name="Optional_Properties" type="as"
+        tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties that may be set when requesting a
+          <p>Properties that MAY be set when requesting a
             channel of this channel type and handle type.</p>
 
-          <p>Properties mentioned in Required_Properties SHOULD NOT appear
-            in this array, and neither should the following properties which
-            are dealt with elsewhere: ChannelType, TargetHandleType,
-            TargetHandle, TargetID.</p>
+          <p>Properties mentioned in Fixed_Properties or Required_Properties
+            SHOULD NOT appear in this array.</p>
 
           <p>If this array contains the Channel.Bundle property, then this
             class of channel can be combined with other channels with that
@@ -495,7 +529,7 @@
     </tp:struct>
 
     <property name="RequestableChannelClasses" access="read"
-      type="a(sua{sv}a{sv})" tp:type="Channel_Class[]">
+      type="a(a{sv}asas)" tp:type="Requestable_Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
           connection, i.e. those for which RequestChannels can reasonably
