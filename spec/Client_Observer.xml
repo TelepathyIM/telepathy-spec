@@ -101,15 +101,16 @@
       <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]"
         direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
-          and their properties. Their well-known bus names are all the same
-          as that of the Connection.
+          <p>The
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
+            and their properties. Their well-known bus names are all the same
+            as that of the Connection.</p>
 
           <tp:rationale>
-            The ChannelDispatchOperation is <em>not</em> supplied. For
-            requests, there isn't one, and for incoming channels, it hasn't
-            been created yet.
+            <p>The ChannelDispatchOperation is <em>not</em> supplied: for
+              requests, there isn't one, and for incoming channels, it hasn't
+              been created yet.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
