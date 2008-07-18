@@ -80,7 +80,8 @@
           <p>The channel dispatcher must wait for observers to start up,
             to avoid the following race: text channel logger (observer) gets
             ObserveChannel, text channel handler gets
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT">HandleChannels</tp:dbus-ref>
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT">HandleChannels</tp:dbus-ref>
             channel handler starts up faster and acknowledges messages,
             logger never sees those messages.</p>
         </tp:rationale>
