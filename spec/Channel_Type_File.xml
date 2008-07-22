@@ -132,6 +132,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="SocketPath" type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The path to the UNIX socket used for the transfer.</p>
+
+        <p>If this is an empty string, its value is unspecified.</p>
+      </tp:docstring>
+    </property>
+
     <tp:enum name="File_Transfer_State">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>
