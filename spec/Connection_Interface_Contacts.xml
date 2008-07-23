@@ -127,45 +127,57 @@
     </tp:mapping>
 
     <method name="InspectContacts">
-      <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          An array of Handle_Type_Contact integer handles
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="commands" type="as"
-        tp:type="Contact_Inspection_Command[]">
-        <tp:docstring>
-          A list of strings indicating which commands to perform on each
-          contact. See <tp:type>Contact_Inspection_Command</tp:type> for more
-          details.
-        </tp:docstring>
-      </arg>
-
-      <arg direction="out" type="a{ua{sv}}"
-        tp:type="Contact_Attributes_Map">
-        <tp:docstring>
-          A dictionary mapping the contact handles to contact attributes.
-        </tp:docstring>
-      </arg>
-
       <tp:docstring>
-        Return any number of basic contact attributes for the given handles.
-
-        If a handle is invalid for any reason, an
-        org.freedesktop.Telepathy.Error.InvalidHandle error will be raised, and
-        that handle will be excluded from the results. In this case,
-        InspectContacts will still return values for all the valid handles.
+        Return any number of contact attributes for the given handles.
       </tp:docstring>
+
+      <arg direction="in" name="Handles" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          An array of handles representing contacts.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Interfaces" type="as"
+        tp:type="DBus_Interface[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A list of strings indicating which D-Bus interfaces the calling
+            process is interested in. All supported attributes from these
+            interfaces, whose values can be obtained without additional network
+            activity, will be in the reply.</p>
+
+          <p>It is not an error to declare an interest in an interface that
+            isn't supported by this Connection; attributes from that interface
+            simply won't appear in the return.</p>
+
+          <p>Attributes from the interface
+            <tp:dbus-ref>org.freedesktop.Telepathy.Connection</tp:dbus-ref>
+            are always returned, and need not be requested explicitly.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Hold" type="b">
+        <tp:docstring>
+          If true, all handles in the result have been held on behalf of the
+          calling process, as if by a call to
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.HoldHandles</tp:dbus-ref>.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" type="a{ua{sv}}" name="Attributes"
+        tp:type="Contact_Attributes_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary mapping the contact handles to contact attributes.
+            If any of the requested handles are in fact invalid, they are
+            simply omitted from this mapping.</p>
+
+          <p>Each contact's attributes will always include at least the
+            identifier that would be obtained by inspecting the handle
+            (<code>org.freedesktop.Telepathy.Connection/contact-id</code>).</p>
+        </tp:docstring>
+      </arg>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          The flags are invalid
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
-          One of the given handles is inactive and/or not Handle_Type_Contact
-        </tp:error>
       </tp:possible-errors>
     </method>
   </interface>
