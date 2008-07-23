@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
-telepathy-spec 0.17.8 (unreleased)
+telepathy-spec 0.17.8 (2008-07-23)
 ==================================
+
+The "more spec branches than brain cells" release.
 
 API changes:
 
@@ -14,8 +16,19 @@ API changes:
 
 New API:
 
+* Connection.Interface.SimplePresence provides a simpler API for presence;
+  the old presence API turned out to be far more complicated than we needed
+  in practice
+
 * ConnectionManager now has an Interfaces property for possible future
   expansion
+
+New experimental API:
+
+* Connection.Interface.Contacts (also known as "the inspectotron") allows
+  retrieval of various contact attributes, and optionally holding the handles,
+  in a single D-Bus round-trip (as usual, we plan to make this official once
+  we've tried implementing it).
 
 Miscellaneous:
 
@@ -31,6 +44,15 @@ Tools changes:
 * doc-generator.xsl recognises <tp:dbus-ref> (to reference a D-Bus interface,
   method, signal or property) and <tp:member-ref> (to reference a method,
   signal or property of the current interface)
+
+Release notes for projects using doc-generator.xsl:
+
+* You'll probably need to clean up your spec markup!
+
+* Set the allow-undefined-interfaces XSLT parameter to a true value (e.g.
+  run xsltproc with --param allow-undefined-interfaces "true()") if you are
+  compiling documentation for interfaces that depend on a third-party spec
+  (e.g. Telepathy extensions that reference the main Telepathy spec)
 
 telepathy-spec 0.17.7 (2008-05-06)
 ==================================
