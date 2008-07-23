@@ -46,25 +46,25 @@
           (type s)</dt>
         <dd>The contact's alias as defined by the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface">Aliasing</tp:dbus-ref>
-          interface (omitted from the result if the contact has no alias,
-          their alias is not immediately known, or information from the
-          Aliasing interface was not requested)
+          interface (always present with some value, possibly the
+          same as Connection/contact-id, if information from the
+          Aliasing interface was requested)
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Avatars/token
           (type s</dt>
         <dd>The same string that would be returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.Avatars">GetAvatarTokens</tp:dbus-ref>
-          (omitted from the result if the contact has no avatar, their
-          avatar-token is not known, or information from the Avatars interface
-          was not requested)
+          (omitted from the result if the contact's avatar token is not known,
+          present as an empty string if the contact is known not to have
+          an avatar)
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.SimplePresence/presence
           (type (uss), <tp:type>Simple_Presence</tp:type>)</dt>
         <dd> The same struct that would be returned by
             <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Connection.Interface.SimplePresence">GetPresences</tp:dbus-ref>
-          (omitted from the result if the contact's presence is not known,
-          or information from the SimplePresence interface was not requested)
+          (always present with some value if information from the
+          SimplePresence interface was requested)
           </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Capabilities/caps
           (type a(usuu), <tp:type>Contact_Capability</tp:type>)</dt>
@@ -72,8 +72,7 @@
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Capabilities">GetCapabilities</tp:dbus-ref>
           (all of them will redundantly have the contact's handle as the
           first member). Omitted from the result if the contact's capabilities
-          are not known, or information from the Capabilities interface was
-          not requested; present in the result as an empty array if the
+          are not known; present in the result as an empty array if the
           contact is known to have no capabilities at all.</dd>
       </dl>
     </tp:docstring>
