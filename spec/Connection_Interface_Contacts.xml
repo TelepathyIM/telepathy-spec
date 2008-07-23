@@ -168,6 +168,17 @@
           <p>Attributes from the interface
             <tp:dbus-ref>org.freedesktop.Telepathy.Connection</tp:dbus-ref>
             are always returned, and need not be requested explicitly.</p>
+
+          <p>As well as returning cached information immediately, the
+            connection MAY start asynchronous requests to obtain better
+            values for the contact attributes. If better values are later
+            obtained by this process, they will be indicated with the usual
+            signals (such as AliasesChanged).</p>
+
+          <tp:rationale>
+            For instance, an XMPP connection manager could download vCards
+            in response to a request for Aliasing attributes.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
@@ -188,7 +199,10 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary mapping the contact handles to contact attributes.
             If any of the requested handles are in fact invalid, they are
-            simply omitted from this mapping.</p>
+            simply omitted from this mapping. If contact attributes are not
+            immediately known, the behaviour is defined by the interface;
+            the attribute should either be omitted from the result or
+            replaced with a default value.</p>
 
           <p>Each contact's attributes will always include at least the
             identifier that would be obtained by inspecting the handle
