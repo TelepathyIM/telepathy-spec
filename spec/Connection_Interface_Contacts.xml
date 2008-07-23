@@ -126,6 +126,15 @@
       </tp:member>
     </tp:mapping>
 
+    <property name="InspectableInterfaces" access="read" type="as"
+      tp:type="DBus_Interface[]">
+      <tp:docstring>
+        A list of D-Bus interfaces for which
+        <tp:member-ref>InspectContacts</tp:member-ref> is expected to work.
+        This cannot change during the lifetime of the Connection.
+      </tp:docstring>
+    </property>
+
     <method name="InspectContacts">
       <tp:docstring>
         Return any number of contact attributes for the given handles.
@@ -145,9 +154,16 @@
             interfaces, whose values can be obtained without additional network
             activity, will be in the reply.</p>
 
-          <p>It is not an error to declare an interest in an interface that
-            isn't supported by this Connection; attributes from that interface
-            simply won't appear in the return.</p>
+          <p>It is an error to request interfaces that are not supported by
+            this Connection (i.e. mentioned in the
+            <tp:member-ref>InspectableInterfaces</tp:member-ref> property).</p>
+
+          <tp:rationale>
+            <p>This makes it possible to distinguish between interfaces for
+              which the Connection has nothing to say (e.g. we don't know the
+              avatar tokens of any of the contacts, so we omitted them all),
+              and interfaces for which this API isn't supported.</p>
+          </tp:rationale>
 
           <p>Attributes from the interface
             <tp:dbus-ref>org.freedesktop.Telepathy.Connection</tp:dbus-ref>
@@ -178,6 +194,12 @@
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            One of the requested interfaces is not supported (mentioned in
+            <tp:member-ref>InspectableInterfaces</tp:member-ref>).
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
   </interface>
