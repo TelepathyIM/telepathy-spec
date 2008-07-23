@@ -90,6 +90,42 @@
       </tp:docstring>
     </tp:simple-type>
 
+    <tp:mapping name="Single_Contact_Attributes_Map">
+      <tp:docstring>
+        Some of the attributes of a single contact.
+      </tp:docstring>
+
+      <tp:member type="s" tp:type="Contact_Attribute" name="Attribute">
+        <tp:docstring>
+          The name of the attribute
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="v" name="Value">
+        <tp:docstring>
+          The value of the attribute
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:mapping name="Contact_Attributes_Map">
+      <tp:docstring>Mapping returned by InspectContacts, representing a
+        collection of Contacts and their requested attributes.</tp:docstring>
+
+      <tp:member type="u" tp:type="Contact_Handle" name="Contact">
+        <tp:docstring>
+          A contact
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="a{sv}" tp:type="Single_Contact_Attributes_Map"
+        name="Attributes">
+        <tp:docstring>
+          Attributes of that contact
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
     <method name="InspectContacts">
       <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
