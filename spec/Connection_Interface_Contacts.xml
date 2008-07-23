@@ -176,6 +176,10 @@
           If true, all handles in the result have been held on behalf of the
           calling process, as if by a call to
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.HoldHandles</tp:dbus-ref>.
+
+          <tp:rationale>
+            For further round-trip avoidance.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
