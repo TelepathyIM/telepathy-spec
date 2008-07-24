@@ -92,7 +92,7 @@
       </tp:member>
     </tp:struct>
 
-    <method name="RequestChannels">
+    <method name="CreateChannel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that channels are created.</p>
 
@@ -107,10 +107,10 @@
 
       </tp:docstring>
 
-      <arg direction="in" name="Requests" type="aa{sv}"
-        tp:type="Qualified_Property_Value_Map[]">
+      <arg direction="in" name="Request" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Dictionaries containing desirable properties. Some properties
+          <p>A dictionary containing desirable properties. Some properties
             are defined such that only an exact match makes sense, and
             connection managers MUST NOT satisfy a request with a channel
             where that property does not match; some properties are defined
@@ -118,10 +118,10 @@
             a hint, and make a best-effort attempt to satisfy it. This is
             documented separately for each property.</p>
 
-          <p>If any of these dictionaries contains a property whose semantics
+          <p>If this dictionary contains a property whose semantics
             are not known to the connection manager, this method MUST fail
-            without side-effects (in particular it must not create any new
-            channels).</p>
+            without side-effects (in particular it must not create a new
+            channel).</p>
 
           <tp:rationale>
             <p>This is necessary if we want to be able to invent properties
@@ -132,10 +132,9 @@
           </tp:rationale>
 
           <p>The connection manager MUST NOT respond successfully,
-            and SHOULD NOT create any new channels or cause any other
-            side-effects, unless for each request it can create a
-            corresponding new channel that satisfies the client's
-            requirements.</p>
+            and SHOULD NOT create a new channel or cause any other
+            side-effects, unless it can create a new channel that satisfies
+            the client's requirements.</p>
 
           <p>Properties that will be set by this argument need not have write
             access after the channel has been created - indeed, it is
@@ -143,27 +142,22 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" direction="out" type="a(oa{sv})"
-        tp:type="Channel_Details[]">
+      <arg name="Channel" direction="out" type="o">
+        <tp:docstring>
+          The Channel object, which SHOULD already have been signalled with
+          <tp:member-ref>NewChannels</tp:member-ref> by the time this method
+          returns.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Properties" direction="out" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The channels that were produced. Although the connection manager
-            will attempt to satisfy the request, they are not guaranteed to
-            match what the client requested exactly; the client is responsible
-            for verifying that the returned channels are suitable.</p>
-
-          <p>The output channels MUST be in the same order as the requests.
-            If the requests caused additional channels in the same bundle to
-            be created as a side-effect, then this array will be longer than
-            the array of requests, and the side-effect channels MUST appear
-            at the end. Connection managers MUST NOT create channels as a
-            side-effect if they are not strictly necessary.</p>
-
-          <tp:rationale>
-            <p>For instance, joining an XMPP MUC Tube channel requires joining
-              that MUC (chatroom), which may result in the creation of an
-              unrequested Text channel; it would be misleading to not create
-              the Text channel.</p>
-          </tp:rationale>
+          <p>Properties of the channel that was produced, equivalent to
+            the properties in <tp:type>Channel_Details</tp:type>.
+            Connection managers MUST NOT include properties here whose
+            values can change, for the same reasons as in
+            <tp:type>Channel_Details</tp:type>.</p>
         </tp:docstring>
       </arg>
 
@@ -172,7 +166,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            One of the channel requests was one that can never succeed,
+            The channel request was one that can never succeed,
             such as requesting an unsupported channel type, or requesting
             a channel type which this connection manager does not support with
             the given target handle type.
@@ -190,99 +184,7 @@
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            One of the requested channels cannot be created, but in
-            principle, a similar request might succeed in future. For instance,
-            this might be because the requested contact is using a client
-            that lacks a particular feature, or because a channel matching the
-            request already exists and the protocol requires that only one
-            such channel can exist at a time.
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
-      </tp:possible-errors>
-    </method>
-
-    <method name="EnsureChannels">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Request that the connection manager ensures that the given
-          channels exist, preferably by a suitable channel already existing,
-          but failing that, by creating them.</p>
-
-        <p>Channels created in this way are not considered to have been
-          requested, and so will have their
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE">Requested</tp:dbus-ref>
-          property set to FALSE.</p>
-
-        <tp:rationale>
-          <p>This is mostly for channels of type
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">ContactList</tp:dbus-ref>.
-            Clients MAY attempt to ensure all the usual ContactList
-            channels (subscribe, publish etc.) using this method, so that
-            they can delay inspecting contacts for display in a contact
-            list until they have the complete set of contacts to be
-            displayed.</p>
-
-          <p>After this method has returned, either successfully or
-            with an error, for each channel, the client knows that either
-            the channel exists and has its initial members (on success),
-            or the channel will never exist (on failure). When this has
-            happened for all the channels in which the client is interested,
-            it can proceed to inspect all the contacts present in any of the
-            channels, in one transaction (reducing round-trips).</p>
-        </tp:rationale>
-
-      </tp:docstring>
-
-      <arg direction="in" name="Requests" type="aa{sv}"
-        tp:type="Qualified_Property_Value_Map[]">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Dictionaries containing desirable properties.</p>
-
-          <p>This is equivalent to the corresponding parameter to
-            <tp:member-ref>RequestChannels</tp:member-ref>.</p>
-        </tp:docstring>
-      </arg>
-
-      <arg name="Channels" direction="out" type="a(oa{sv})"
-        tp:type="Channel_Details[]">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The channels that were produced.</p>
-
-          <p>This is equivalent to the corresponding return value from
-            <tp:member-ref>RequestChannels</tp:member-ref>,
-            except that the channels were not necessarily newly created.</p>
-
-          <p>Clients SHOULD assume that another client might be handling the
-            returned channels.</p>
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          <tp:docstring>
-            One of the channel requests was one that can never succeed,
-            such as requesting an unsupported channel type, or requesting
-            a channel type which this connection manager does not support with
-            the given target handle type.
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
-          <tp:docstring>
-            An invalid handle was requested as the value of a property whose
-            value is a handle (like
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.TargetHandle</tp:dbus-ref>),
-            or a syntactically invalid identifier was requested as the value
-            of a property whose value is the string corresponding to a handle
-            (like TargetID).
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            One of the requested channels cannot be created, but in
+            The requested channel cannot be created, but in
             principle, a similar request might succeed in future. For instance,
             this might be because the requested contact is using a client
             that lacks a particular feature, or because a channel matching the
@@ -298,10 +200,21 @@
 
     <signal name="NewChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        New channels have been created. The connection manager SHOULD emit
-        a single signal for any group of closely related channels that are
-        created at the same time, so that the channel dispatcher can try to
-        dispatch them to a handler as a unit.
+        <p>New channels have been created. The connection manager SHOULD emit
+          a single signal for any group of closely related channels that are
+          created at the same time, so that the channel dispatcher can try to
+          dispatch them to a handler as a unit.</p>
+
+        <p>In particular, if additional channels are created as a side-effect
+          of a call to <tp:member-ref>CreateChannel</tp:member-ref>,
+          these channels SHOULD appear in the same NewChannels signal as
+          the channel that satisfies the request.</p>
+
+        <tp:rationale>
+          <p>Joining a MUC Tube in XMPP requires joining the corresponding
+            MUC (chatroom), so a Text channel can be created as a
+            side-effect.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
@@ -317,7 +230,9 @@
       tp:type="Channel_Details[]">
       <tp:docstring>
         A list of all the channels which currently exist on this connection.
-        Change notification is via the NewChannels and ChannelsClosed signals.
+        Change notification is via the
+        <tp:member-ref>NewChannels</tp:member-ref> and
+        <tp:member-ref>ChannelClosed</tp:member-ref> signals.
       </tp:docstring>
     </property>
 
@@ -455,7 +370,8 @@
       type="a(a{sv}asas)" tp:type="Requestable_Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
-          connection, i.e. those for which RequestChannels can reasonably
+          connection, i.e. those for which
+          <tp:member-ref>CreateChannel</tp:member-ref> can reasonably
           be expected to succeed. User interfaces can use this information
           to show or hide UI components.</p>
 
