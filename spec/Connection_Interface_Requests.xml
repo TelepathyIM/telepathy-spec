@@ -321,9 +321,9 @@
       </tp:docstring>
     </property>
 
-    <signal name="ChannelsClosed">
+    <signal name="ChannelClosed">
       <tp:docstring>
-        Emitted when channels are closed and hence disappear from the
+        Emitted when a channel is closed and hence disappears from the
         Channels property.
 
         <tp:rationale>
@@ -332,9 +332,9 @@
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Removed" type="ao">
+      <arg name="Removed" type="o">
         <tp:docstring>
-          The channels which have been removed from the Channels property
+          The channel which has been removed from the Channels property
         </tp:docstring>
       </arg>
     </signal>
