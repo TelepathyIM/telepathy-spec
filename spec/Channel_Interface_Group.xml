@@ -49,12 +49,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:struct>
 
     <method name="AddMembers" tp:name-for-bindings="Add_Members">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of contact handles to invite to the channel
         </tp:docstring>
       </arg>
-      <arg direction="in" name="message" type="s">
+      <arg direction="in" name="Message" type="s">
         <tp:docstring>
           A string message, which can be blank if desired
         </tp:docstring>
@@ -303,7 +303,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="GetHandleOwners" tp:name-for-bindings="Get_Handle_Owners">
-      <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Handles" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of integer handles representing members of the channel
         </tp:docstring>
@@ -500,12 +500,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <signal name="GroupFlagsChanged" tp:name-for-bindings="Group_Flags_Changed">
-      <arg name="added" type="u" tp:type="Channel_Group_Flags">
+      <arg name="Added" type="u" tp:type="Channel_Group_Flags">
         <tp:docstring>
           A bitwise OR of the flags which have been set
         </tp:docstring>
       </arg>
-      <arg name="removed" type="u" tp:type="Channel_Group_Flags">
+      <arg name="Removed" type="u" tp:type="Channel_Group_Flags">
         <tp:docstring>
           A bitwise OR of the flags which have been cleared
         </tp:docstring>
@@ -605,38 +605,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
     <signal name="MembersChanged" tp:name-for-bindings="Members_Changed">
-      <arg name="message" type="s">
+      <arg name="Message" type="s">
         <tp:docstring>
           A string message from the server, or blank if not
         </tp:docstring>
       </arg>
-      <arg name="added" type="au" tp:type="Contact_Handle[]">
+      <arg name="Added" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members added to the channel
         </tp:docstring>
       </arg>
-      <arg name="removed" type="au" tp:type="Contact_Handle[]">
+      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members removed from the channel
         </tp:docstring>
       </arg>
-      <arg name="local_pending" type="au" tp:type="Contact_Handle[]">
+      <arg name="Local_Pending" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members who are pending local approval
         </tp:docstring>
       </arg>
-      <arg name="remote_pending" type="au" tp:type="Contact_Handle[]">
+      <arg name="Remote_Pending" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members who are pending remote approval
         </tp:docstring>
       </arg>
-      <arg name="actor" type="u" tp:type="Contact_Handle">
+      <arg name="Actor" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The contact handle of the person who made the change, or 0
           if not known
         </tp:docstring>
       </arg>
-      <arg name="reason" type="u" tp:type="Channel_Group_Change_Reason">
+      <arg name="Reason" type="u" tp:type="Channel_Group_Change_Reason">
         <tp:docstring>
           A reason for the change: one of the values of
           ChannelGroupChangeReason
@@ -659,12 +659,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="RemoveMembers" tp:name-for-bindings="Remove_Members">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of contact handles to remove from the channel
         </tp:docstring>
       </arg>
-      <arg direction="in" name="message" type="s">
+      <arg direction="in" name="Message" type="s">
         <tp:docstring>
           A string message, which can be blank if desired
         </tp:docstring>
@@ -690,17 +690,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="RemoveMembersWithReason"
       tp:name-for-bindings="Remove_Members_With_Reason">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of contact handles to remove from the channel
         </tp:docstring>
       </arg>
-      <arg direction="in" name="message" type="s">
+      <arg direction="in" name="Message" type="s">
         <tp:docstring>
           A string message, which can be blank if desired
         </tp:docstring>
       </arg>
-      <arg direction="in" name="reason" type="u"
+      <arg direction="in" name="Reason" type="u"
            tp:type="Channel_Group_Change_Reason">
         <tp:docstring>
           A reason for the change: one of the values of

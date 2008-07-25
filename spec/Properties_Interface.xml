@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Returns an array of (identifier, value) pairs containing the current
         values of the given properties.
       </tp:docstring>
-      <arg direction="in" name="properties" type="au" tp:type="Property_ID[]">
+      <arg direction="in" name="Properties" type="au" tp:type="Property_ID[]">
         <tp:docstring>An array of property identifiers</tp:docstring>
       </arg>
       <arg direction="out" type="a(uv)" tp:type="Property_Value[]">
@@ -108,7 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Emitted when the value of readable properties has changed.
       </tp:docstring>
-      <arg name="properties" type="a(uv)" tp:type="Property_Value[]">
+      <arg name="Properties" type="a(uv)" tp:type="Property_Value[]">
         <!-- XXX: if we're ever breaking API compatibility, make this a{uv} -->
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An array of structs containing:</p>
@@ -126,7 +126,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Emitted when the flags of some room properties have changed.
       </tp:docstring>
-      <arg name="properties" type="a(uu)" tp:type="Property_Flags_Change[]">
+      <arg name="Properties" type="a(uu)" tp:type="Property_Flags_Change[]">
         <!-- XXX: if we're ever breaking API compatibility, make this a{uu} -->
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An array of structs containing:</p>
@@ -152,7 +152,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         are invalid, InvalidArgument will be returned.</p>
       </tp:docstring>
 
-      <arg direction="in" name="properties" type="a(uv)"
+      <arg direction="in" name="Properties" type="a(uv)"
         tp:type="Property_Value[]">
         <!-- XXX: if we're ever breaking API compatibility, make this a{uv} -->
       <tp:docstring>

@@ -141,7 +141,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:flags>
 
     <method name="GetParameters" tp:name-for-bindings="Get_Parameters">
-      <arg direction="in" name="proto" type="s" tp:type="Protocol">
+      <arg direction="in" name="Proto" type="s" tp:type="Protocol">
         <tp:docstring>
           The required protocol name
         </tp:docstring>
@@ -177,17 +177,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <signal name="NewConnection" tp:name-for-bindings="New_Connection">
-      <arg name="bus_name" type="s" tp:type="DBus_Bus_Name">
+      <arg name="Bus_Name" type="s" tp:type="DBus_Bus_Name">
         <tp:docstring>
           The D-Bus service where the connection object can be found
         </tp:docstring>
       </arg>
-      <arg name="object_path" type="o">
+      <arg name="Object_Path" type="o">
         <tp:docstring>
           The object path of the Connection object on this service
         </tp:docstring>
       </arg>
-      <arg name="proto" type="s" tp:type="Protocol">
+      <arg name="Proto" type="s" tp:type="Protocol">
         <tp:docstring>
           The identifier for the protocol this connection uses
         </tp:docstring>
@@ -198,12 +198,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="RequestConnection" tp:name-for-bindings="Request_Connection">
-      <arg direction="in" name="proto" type="s" tp:type="Protocol">
+      <arg direction="in" name="Proto" type="s" tp:type="Protocol">
         <tp:docstring>
           The protocol identifier
         </tp:docstring>
       </arg>
-      <arg direction="in" name="parameters" type="a{sv}"
+      <arg direction="in" name="Parameters" type="a{sv}"
         tp:type="String_Variant_Map">
         <tp:docstring>
           A dictionary mapping parameter name to the variant boxed value

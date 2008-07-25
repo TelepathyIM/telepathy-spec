@@ -64,12 +64,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:mapping>
 
     <method name="AddStatus" tp:name-for-bindings="Add_Status">
-      <arg direction="in" name="status" type="s">
+      <arg direction="in" name="Status" type="s">
         <tp:docstring>
           The string identifier of the desired status
         </tp:docstring>
       </arg>
-      <arg direction="in" name="parms" type="a{sv}" tp:type="String_Variant_Map">
+      <arg direction="in" name="Parms" type="a{sv}" tp:type="String_Variant_Map">
         <tp:docstring>
           A dictionary of optional parameter names mapped to their variant-boxed values
         </tp:docstring>
@@ -101,12 +101,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="GetPresence" tp:name-for-bindings="Get_Presence">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of the contacts whose presence should be obtained
         </tp:docstring>
       </arg>
-      <arg direction="out" name="presence" type="a{u(ua{sa{sv}})}"
+      <arg direction="out" name="Presence" type="a{u(ua{sa{sv}})}"
         tp:type="Contact_Presences">
         <tp:docstring>
           Presence information in the same format as for the PresenceUpdate
@@ -149,7 +149,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <signal name="PresenceUpdate" tp:name-for-bindings="Presence_Update">
-      <arg name="presence" type="a{u(ua{sa{sv}})}" tp:type="Contact_Presences">
+      <arg name="Presence" type="a{u(ua{sa{sv}})}" tp:type="Contact_Presences">
         <tp:docstring>
         A dictionary of contact handles mapped to a struct containing
         a UNIX timestamp of the last activity time (in UTC), and
@@ -166,7 +166,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <method name="RemoveStatus" tp:name-for-bindings="Remove_Status">
-      <arg direction="in" name="status" type="s">
+      <arg direction="in" name="Status" type="s">
         <tp:docstring>
           The string identifier of the status not to publish anymore for the user
         </tp:docstring>
@@ -187,7 +187,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="RequestPresence" tp:name-for-bindings="Request_Presence">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of the contacts whose presence should be obtained
         </tp:docstring>
@@ -213,7 +213,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
     <method name="SetLastActivityTime"
       tp:name-for-bindings="Set_Last_Activity_Time">
-      <arg direction="in" name="time" type="u" tp:type="Unix_Timestamp">
+      <arg direction="in" name="Time" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           A UNIX timestamp of the user's last activity time (in UTC)
         </tp:docstring>
@@ -233,7 +233,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="SetStatus" tp:name-for-bindings="Set_Status">
-      <arg direction="in" name="statuses" type="a{sa{sv}}" tp:type="Multiple_Status_Map">
+      <arg direction="in" name="Statuses" type="a{sa{sv}}" tp:type="Multiple_Status_Map">
         <tp:docstring>
           A dictionary mapping status identifiers to dictionaries, which
           map optional parameter names to their variant-boxed values

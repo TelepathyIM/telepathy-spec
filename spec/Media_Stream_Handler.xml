@@ -54,12 +54,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="AddRemoteCandidate"
       tp:name-for-bindings="Add_Remote_Candidate">
-      <arg name="candidate_id" type="s">
+      <arg name="Candidate_ID" type="s">
         <tp:docstring>
           String identifier for this candidate
         </tp:docstring>
       </arg>
-      <arg name="transports" type="a(usuussduss)"
+      <arg name="Transports" type="a(usuussduss)"
         tp:type="Media_Stream_Handler_Transport[]">
         <tp:docstring>
           Array of transports for this candidate with fields,
@@ -78,18 +78,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <method name="CodecChoice" tp:name-for-bindings="Codec_Choice">
-      <arg direction="in" name="codec_id" type="u"/>
+      <arg direction="in" name="Codec_ID" type="u"/>
       <tp:docstring>
         Inform the connection manager of the current codec choice.
       </tp:docstring>
     </method>
     <method name="Error">
-      <arg direction="in" name="errno" type="u" tp:type="Media_Stream_Error">
+      <arg direction="in" name="Errno" type="u" tp:type="Media_Stream_Error">
         <tp:docstring>
           ID of error, from the MediaStreamError enumeration
         </tp:docstring>
       </arg>
-      <arg direction="in" name="message" type="s">
+      <arg direction="in" name="Message" type="s">
         <tp:docstring>
           String describing the error
         </tp:docstring>
@@ -121,8 +121,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
     <method name="NewActiveCandidatePair"
       tp:name-for-bindings="New_Active_Candidate_Pair">
-      <arg direction="in" name="native_candidate_id" type="s"/>
-      <arg direction="in" name="remote_candidate_id" type="s"/>
+      <arg direction="in" name="Native_Candidate_ID" type="s"/>
+      <arg direction="in" name="Remote_Candidate_ID" type="s"/>
       <tp:docstring>
         Informs the connection manager that a valid candidate pair
         has been discovered and streaming is in progress.
@@ -138,12 +138,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
     <method name="NewNativeCandidate"
       tp:name-for-bindings="New_Native_Candidate">
-      <arg direction="in" name="candidate_id" type="s">
+      <arg direction="in" name="Candidate_ID" type="s">
         <tp:docstring>
           String identifier for this candidate
         </tp:docstring>
       </arg>
-      <arg direction="in" name="transports" type="a(usuussduss)"
+      <arg direction="in" name="Transports" type="a(usuussduss)"
         tp:type="Media_Stream_Handler_Transport[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Array of transports for this candidate, with fields:
@@ -185,7 +185,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
     <method name="Ready">
-      <arg direction="in" name="codecs" type="a(usuuua{ss})"
+      <arg direction="in" name="Codecs" type="a(usuuua{ss})"
         tp:type="Media_Stream_Handler_Codec[]">
         <tp:docstring>
           As for SupportedCodecs.
@@ -198,7 +198,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
     <method name="SetLocalCodecs" tp:name-for-bindings="Set_Local_Codecs">
-      <arg name="codecs" type="a(usuuua{ss})" direction="in"
+      <arg name="Codecs" type="a(usuuua{ss})" direction="in"
         tp:type="Media_Stream_Handler_Codec[]">
         <tp:docstring>Codecs in the same format as for
           SupportedCodecs, which have the same semantics as the
@@ -212,7 +212,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
     <signal name="RemoveRemoteCandidate"
       tp:name-for-bindings="Remove_Remote_Candidate">
-      <arg name="candidate_id" type="s">
+      <arg name="Candidate_ID" type="s">
         <tp:docstring>
           String identifier for remote candidate to drop
         </tp:docstring>
@@ -225,8 +225,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <signal name="SetActiveCandidatePair"
       tp:name-for-bindings="Set_Active_Candidate_Pair">
-      <arg name="native_candidate_id" type="s"/>
-      <arg name="remote_candidate_id" type="s"/>
+      <arg name="Native_Candidate_ID" type="s"/>
+      <arg name="Remote_Candidate_ID" type="s"/>
       <tp:docstring>
         Emitted by the connection manager to inform the client that a
         valid candidate pair has been discovered by the remote end
@@ -235,7 +235,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <signal name="SetRemoteCandidateList"
       tp:name-for-bindings="Set_Remote_Candidate_List">
-      <arg name="remote_candidates" type="a(sa(usuussduss))"
+      <arg name="Remote_Candidates" type="a(sa(usuussduss))"
         tp:type="Media_Stream_Handler_Candidate[]">
         <tp:docstring>
         A list of candidate id and a list of transports
@@ -248,7 +248,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="SetRemoteCodecs" tp:name-for-bindings="Set_Remote_Codecs">
-      <arg name="codecs" type="a(usuuua{ss})"
+      <arg name="Codecs" type="a(usuuua{ss})"
         tp:type="Media_Stream_Handler_Codec[]">
         <tp:docstring>As for SupportedCodecs</tp:docstring>
       </arg>
@@ -258,14 +258,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="SetStreamPlaying" tp:name-for-bindings="Set_Stream_Playing">
-      <arg name="playing" type="b"/>
+      <arg name="Playing" type="b"/>
       <tp:docstring>
         Signal emitted when the connection manager wishes to set the
         stream playing or stopped.
       </tp:docstring>
     </signal>
     <signal name="SetStreamSending" tp:name-for-bindings="Set_Stream_Sending">
-      <arg name="sending" type="b"/>
+      <arg name="Sending" type="b"/>
       <tp:docstring>
         Signal emitted when the connection manager wishes to set whether or not
         the stream sends to the remote end.
@@ -273,7 +273,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <signal name="StartTelephonyEvent"
       tp:name-for-bindings="Start_Telephony_Event">
-      <arg name="event" type="y">
+      <arg name="Event" type="y">
         <tp:docstring>
           A telephony event code as defined by RFC 4733.
         </tp:docstring>
@@ -291,14 +291,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <method name="StreamState" tp:name-for-bindings="Stream_State">
-      <arg direction="in" name="state" type="u" tp:type="Media_Stream_State"/>
+      <arg direction="in" name="State" type="u" tp:type="Media_Stream_State"/>
       <tp:docstring>
         Informs the connection manager of the stream's current state, as
         as specified in Channel.Type.StreamedMedia::ListStreams.
       </tp:docstring>
     </method>
     <method name="SupportedCodecs" tp:name-for-bindings="Supported_Codecs">
-      <arg direction="in" name="codecs" type="a(usuuua{ss})"
+      <arg direction="in" name="Codecs" type="a(usuuua{ss})"
         tp:type="Media_Stream_Handler_Codec[]">
         <tp:docstring>
           List of codec info structures, each containing:

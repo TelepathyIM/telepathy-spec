@@ -51,7 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <signal name="GotRooms" tp:name-for-bindings="Got_Rooms">
-      <arg name="rooms" type="a(usa{sv})" tp:type="Room_Info[]">
+      <arg name="Rooms" type="a(usa{sv})" tp:type="Room_Info[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structs containing:
           <ul>
@@ -101,7 +101,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
     <signal name="ListingRooms" tp:name-for-bindings="Listing_Rooms">
-      <arg name="listing" type="b">
+      <arg name="Listing" type="b">
         <tp:docstring>A boolean indicating if room listing is in progress</tp:docstring>
       </arg>
       <tp:docstring>

@@ -29,12 +29,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:mapping>
 
     <signal name="AvatarUpdated" tp:name-for-bindings="Avatar_Updated">
-      <arg name="contact" type="u" tp:type="Contact_Handle">
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact whose avatar has changed
         </tp:docstring>
       </arg>
-      <arg name="new_avatar_token" type="s">
+      <arg name="New_Avatar_Token" type="s">
         <tp:docstring>
           Unique token for their new avatar
         </tp:docstring>
@@ -47,22 +47,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
     <signal name="AvatarRetrieved" tp:name-for-bindings="Avatar_Retrieved">
-      <arg name="contact" type="u" tp:type="Contact_Handle">
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The contact whose avatar has been retrieved
         </tp:docstring>
       </arg>
-      <arg name="token" type="s">
+      <arg name="Token" type="s">
         <tp:docstring>
           The token corresponding to the avatar
         </tp:docstring>
       </arg>
-      <arg name="avatar" type="ay">
+      <arg name="Avatar" type="ay">
         <tp:docstring>
           An array of bytes containing the image data
         </tp:docstring>
       </arg>
-      <arg name="type" type="s">
+      <arg name="Type" type="s">
         <tp:docstring>
           A string containing the image MIME type (eg image/jpeg), or empty if
           unknown
@@ -115,7 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="GetAvatarTokens" tp:name-for-bindings="Get_Avatar_Tokens">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
         An array of handles representing contacts
         </tp:docstring>
@@ -142,7 +142,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
     <method name="GetKnownAvatarTokens"
       tp:name-for-bindings="Get_Known_Avatar_Tokens">
-      <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
         An array of handles representing contacts
         </tp:docstring>
@@ -173,7 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="RequestAvatar" tp:name-for-bindings="Request_Avatar">
-      <arg direction="in" name="contact" type="u" tp:type="Contact_Handle">
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact to request the avatar for
         </tp:docstring>
@@ -206,7 +206,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="RequestAvatars" tp:name-for-bindings="Request_Avatars">
-      <arg direction="in" name="contacts" type="au"
+      <arg direction="in" name="Contacts" type="au"
         tp:type="Contact_Handle[]">
         <tp:docstring>
           The contacts to retrieve avatars for
@@ -225,12 +225,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="SetAvatar" tp:name-for-bindings="Set_Avatar">
-      <arg direction="in" name="avatar" type="ay">
+      <arg direction="in" name="Avatar" type="ay">
         <tp:docstring>
           An array of bytes representing the avatar image data
         </tp:docstring>
       </arg>
-      <arg direction="in" name="mime_type" type="s">
+      <arg direction="in" name="MIME_Type" type="s">
         <tp:docstring>
           A string representing the image MIME type
         </tp:docstring>

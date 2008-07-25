@@ -48,13 +48,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when the state of a member of the channel has changed.
       </tp:docstring>
 
-      <arg name="contact" type="u" tp:type="Contact_Handle">
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact.
         </tp:docstring>
       </arg>
 
-      <arg name="state" type="u" tp:type="Channel_Call_State_Flags">
+      <arg name="State" type="u" tp:type="Channel_Call_State_Flags">
         <tp:docstring>
           The new state for this contact.
         </tp:docstring>
