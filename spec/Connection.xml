@@ -100,7 +100,7 @@ USA.</p>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected">
           <tp:docstring>
-             Before version 0.17.UNRELEASED calling GetInterfaces while
+             Before version 0.17.8 calling GetInterfaces while
              on a connection that is not yet CONNECTED wasn't allowed. If a
              CM returns this error, its list of interfaces should be regarded
              as empty until it becomes CONNECTED.
