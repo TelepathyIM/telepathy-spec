@@ -23,7 +23,340 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p></p>
 
+      <p>When creating a channel of this type, some parameters are
+        mandatory:</p>
+
+        <ul>
+          <li>service: A string representing the service name that will be used
+          over the tube. It should be a well-known TCP service name as defined
+          by <a href="http://www.iana.org/assignments/port-numbers">
+            http://www.iana.org/assignments/port-numbers</a> or
+          <a href="http://www.dns-sd.org/ServiceTypes.html">
+            http://www.dns-sd.org/ServiceTypes.html</a>, for instance
+          "rsync" or "daap".</li>
+        </ul>
+
+      <p>Some parameters are facultative:</p>
+
+        <ul>
+          <li>parameters</li>
+        </ul>
+
     </tp:docstring>
+
+    <tp:struct name="Socket_Address_IPv4">
+      <tp:docstring>An IPv4 address and port.</tp:docstring>
+      <tp:member type="s" name="Address">
+        <tp:docstring>A dotted-quad IPv4 address literal: four ASCII decimal
+          numbers, each between 0 and 255 inclusive, e.g.
+          "192.168.0.1".</tp:docstring>
+      </tp:member>
+      <tp:member type="q" name="Port">
+        <tp:docstring>The TCP or UDP port number.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="Socket_Address_IPv6">
+      <tp:docstring>An IPv6 address and port.</tp:docstring>
+      <tp:member type="s" name="Address">
+        <tp:docstring>An IPv6 address literal as specified by RFC2373
+          section 2.2, e.g. "2001:DB8::8:800:200C:4171".</tp:docstring>
+      </tp:member>
+      <tp:member type="q" name="Port">
+        <tp:docstring>The TCP or UDP port number.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="Socket_Netmask_IPv4">
+      <tp:docstring>An IPv4 network or subnet.</tp:docstring>
+      <tp:member type="s" name="Address">
+        <tp:docstring>A dotted-quad IPv4 address literal: four ASCII decimal
+          numbers, each between 0 and 255 inclusive, e.g.
+          "192.168.0.1".</tp:docstring>
+      </tp:member>
+      <tp:member type="y" name="Prefix_Length">
+        <tp:docstring>The number of leading bits of the address that must
+          match, for this netmask to be considered to match an
+          address.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="Socket_Netmask_IPv6">
+      <tp:docstring>An IPv6 network or subnet.</tp:docstring>
+      <tp:member type="s" name="Address">
+        <tp:docstring>An IPv6 address literal as specified by RFC2373
+          section 2.2, e.g. "2001:DB8::8:800:200C:4171".</tp:docstring>
+      </tp:member>
+      <tp:member type="y" name="Prefix_Length">
+        <tp:docstring>The number of leading bits of the address that must
+          match, for this netmask to be considered to match an
+          address.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:enum name="Socket_Address_Type" type="u">
+      <tp:enumvalue suffix="Unix" value="0">
+        <tp:docstring>
+          A Unix socket. The variant contains a byte-array, signature 'ay',
+          containing the path of the socket.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Abstract_Unix" value="1">
+        <tp:docstring>
+          An abstract Unix socket. The variant contains a byte-array,
+          signature 'ay', containing the path of the socket including the
+          leading null byte.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="IPv4" value="2">
+        <tp:docstring>
+          An IPv4 socket. The variant contains a Socket_Address_IPv4,
+          i.e. a structure with signature (sq)
+          in which the string is an IPv4 dotted-quad address literal
+          (and must not be a DNS name), while the 16-bit unsigned integer is
+          the port number.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="IPv6" value="3">
+        <tp:docstring>
+          An IPv6 socket. The variant contains a Socket_Address_IPv6,
+          i.e. a structure with signature (sq)
+          in which the string is an IPv6 address literal as specified in
+          RFC2373 (and must not be a DNS name), while the 16-bit unsigned
+          integer is the port number.
+        </tp:docstring>
+      </tp:enumvalue>
+
+    </tp:enum>
+
+    <tp:enum name="Socket_Access_Control" type="u">
+      <tp:enumvalue suffix="Localhost" value="0">
+        <tp:docstring>
+          The IP or Unix socket can be accessed by any local user (e.g.
+          a Unix socket that accepts all local connections, or an IP socket
+          listening on 127.0.0.1 (or ::1) or rejecting connections not from
+          that address). The associated variant must be ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Port" value="1">
+        <tp:docstring>
+          May only be used on IP sockets. The associated variant must contain
+          a struct Socket_Address_IPv4 (or Socket_Address_IPv6)
+          containing the string form of an IP address of the appropriate
+          version, and a port number. The socket can only be accessed if the
+          connecting process has that address and port number; all other
+          connections will be rejected.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Netmask" value="2">
+        <tp:docstring>
+          May only be used on IP sockets. The associated variant must contain
+          a struct Socket_Netmask_IPv4 (or Socket_Netmask_IPv6) with
+          signature (sy), containing the string form of an
+          IP address of the appropriate version, and a prefix length "n".
+          The socket can only be accessed if the first n bits of the
+          connecting address match the first n bits of the given address.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Credentials" value="3">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The connecting process must send a single zero (NUL) byte when
+            it first connects, which is not considered to be part of the data
+            stream. If the operating system uses sendmsg() with SCM_CREDS or
+            SCM_CREDENTIALS to pass credentials over sockets, the connecting
+            process must do so if possible; if not, it must still send the
+            byte.</p>
+
+          <p>The listening process will disconnect the connection unless it
+            can determine by OS-specific means that the connecting process
+            has the same user ID as the listening process.</p>
+
+          <p>The associated variant must be ignored.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:mapping name="Supported_Socket_Map">
+      <tp:docstring>The supported socket address and access-control types
+        for tubes. See GetAvailableStreamTubeTypes.</tp:docstring>
+      <tp:member name="Address_Type" type="u" tp:type="Socket_Address_Type"/>
+      <tp:member name="Access_Control" type="au"
+        tp:type="Socket_Access_Control[]"/>
+    </tp:mapping>
+
+    <method name="GetAvailableStreamTubeTypes">
+      <tp:docstring>List the available address types and access-control types
+        for stream tubes.</tp:docstring>
+      <arg direction="out" type="a{uau}" tp:type="Supported_Socket_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A mapping from address types (members of Socket_Address_Type) to
+          arrays of access-control type (members of Socket_Access_Control)
+          that the connection manager supports for stream tubes with that
+          address type. For simplicity, if a CM supports offering a
+          particular type of tube, it is assumed to support accepting it.</p>
+
+          <p>A typical value for a host without IPv6 support:</p>
+
+          <pre>
+            {
+              Socket_Address_Type_IPv4:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Port,
+                 Socket_Access_Control_Netmask],
+              Socket_Address_Type_Unix:
+                [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
+            }
+          </pre>
+
+          <p>If stream tubes are not supported, this will be an empty
+            dictionary.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="OfferStreamTube">
+      <tp:docstring>
+        Offer a stream tube exporting the local socket specified.
+      </tp:docstring>
+      <arg direction="in" name="parameters" type="a{sv}"
+        tp:type="String_Variant_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary of properties for the new tube; the allowable keys,
+          types and values are defined by the service. Connection managers
+          must support the value being any primitive (non-container)
+          D-Bus type, or a byte array 'ay'.</p>
+          <p>These should usually be the same key-value pairs specified for
+          use in the DNS-SD TXT record for that service.</p>
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of the listening address of the local service, as a member of
+          Socket_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="address" type="v">
+        <tp:docstring>
+          The listening address of the local service, as indicated by the
+          address_type.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The access control the local service applies to the local socket,
+          specified so the connection manager can behave appropriately
+          when it connects.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control_param" type="v">
+        <tp:docstring>
+          A parameter for the access control type, to be interpreted as
+          specified in the documentation for the Socket_Access_Control enum.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The contact associated with this channel doesn't have tube
+            capabilities.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The connection manager doesn't support stream tubes, or
+            does not support the given address type or access-control type.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="AcceptStreamTube">
+      <tp:docstring>
+        Accept a stream tube that's in the "local pending" state. The
+        connection manager will attempt to open the tube. The tube remains in
+        the "local pending" state until the TubeStateChanged signal is
+        emitted.
+      </tp:docstring>
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of address the connection manager should listen on.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The type of access control the connection manager should apply to
+          the socket.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control_param" type="v">
+        <tp:docstring>
+          A parameter for the access control type, to be interpreted as
+          specified in the documentation for the Socket_Access_Control enum.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The address on which the connection manager will listen for
+          connections to this tube. The client should not attempt to connect
+          to the address until the tube is open.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given tube ID is invalid or does not refer to a stream
+            tube.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The given address type or access-control mechanism is not supported.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="GetStreamTubeSocketAddress">
+      <tp:docstring>
+        For a stream tube, obtain the address of the socket used to
+        communicate over this tube.
+      </tp:docstring>
+      <arg direction="out" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of the listening address of the socket, as a member of
+          Socket_Address_Type.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The listening address of the socket, as indicated by the
+          address_type.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="StreamTubeNewConnection">
+      <tp:docstring>
+        Emitted on a stream tube when a participant opens a new connection
+        to its socket.
+      </tp:docstring>
+      <arg name="handle" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The handle of the participant who opened the new connection
+        </tp:docstring>
+      </arg>
+    </signal>
 
   </interface>
 

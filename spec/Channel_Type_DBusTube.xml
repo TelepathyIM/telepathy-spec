@@ -23,7 +23,146 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p></p>
 
+      <p>When creating a channel of this type, some parameters are
+        mandatory:</p>
+
+        <ul>
+          <li>service</li>
+        </ul>
+
+      <p>Some parameters are facultative:</p>
+
+        <ul>
+          <li>parameters</li>
+        </ul>
+
     </tp:docstring>
+
+    <tp:struct name="DBus_Tube_Member" array-name="DBus_Tube_Member_List">
+      <tp:docstring>A struct (handle, unique name) representing a participant
+        in a D-Bus tube, as returned by GetDBusNames on the Tubes channel
+        type, and as seen in the DBusNamesChanged signal.</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
+      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name"/>
+    </tp:struct>
+
+    <method name="OfferDBusTube">
+      <tp:docstring>
+        Offers a D-Bus tube providing the service specified.
+      </tp:docstring>
+      <arg direction="in" name="parameters" type="a{sv}"
+        tp:type="String_Variant_Map">
+        <tp:docstring>
+          A dictionary of properties for the new tube; the allowable keys,
+          types and values are defined by the service. Connection managers
+          must support the value being any primitive (non-container)
+          D-Bus type, or a byte array 'ay'.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The contact associated with this channel doesn't have tubes
+            capabilities.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The connection manager doesn't support D-Bus tubes.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="AcceptDBusTube">
+      <tp:docstring>
+        Accept a D-Bus tube that's in the "local pending" state. The
+        connection manager will attempt to open the tube. The tube remains in
+        the "local pending" state until the TubeStateChanged signal is
+        emitted.
+      </tp:docstring>
+      <arg direction="out" name="address" type="s">
+        <tp:docstring>
+          The string describing the address of the private bus. The client
+          should not attempt to connect to the address until the tube is open.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The given tube ID is invalid or does not refer to a D-Bus
+            tube.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="GetDBusTubeAddress">
+      <tp:docstring>
+        Return a string describing the address of the private bus.
+      </tp:docstring>
+      <arg direction="out" type="s">
+        <tp:docstring>
+          The bus address.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The tube is not a D-Bus tube.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="GetDBusNames">
+      <tp:docstring>
+        For a multi-user (i.e. Handle_Type_Room) D-Bus tube, obtain a mapping
+        between contact handles and their unique bus names on this tube.
+      </tp:docstring>
+      <arg direction="out" type="a(us)" tp:type="DBus_Tube_Member[]">
+        <tp:docstring>
+          An array of structures, each containing a contact handle and a D-Bus
+          bus name.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The tube is not a multi-user D-Bus tube.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            This tube is not in the "open" state.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="DBusNamesChanged">
+      <tp:docstring>
+        Emitted on a multi-user (i.e. Handle_Type_Room) D-Bus tube when a
+        participant opens or closes the tube.
+      </tp:docstring>
+      <arg name="added" type="a(us)" tp:type="DBus_Tube_Member[]">
+        <tp:docstring>
+          Array of handles and D-Bus names of new participants.
+        </tp:docstring>
+      </arg>
+      <arg name="removed" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          Array of handles of former participants.
+        </tp:docstring>
+      </arg>
+    </signal>
+
 
   </interface>
 
