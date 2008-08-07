@@ -30,25 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         connection to its local socket. Both sides can then use this pair
         of sockets to communicate together.</p>
 
-      <p>When creating a channel of this type, some properties are
-        mandatory:</p>
-
-        <ul>
-          <li>service: A string representing the service name that will be used
-          over the tube. It should be a well-known TCP service name as defined
-          by <a href="http://www.iana.org/assignments/port-numbers">
-            http://www.iana.org/assignments/port-numbers</a> or
-          <a href="http://www.dns-sd.org/ServiceTypes.html">
-            http://www.dns-sd.org/ServiceTypes.html</a>, for instance
-          "rsync" or "daap".</li>
-        </ul>
-
-      <p>Some properties are optional:</p>
-
-        <ul>
-          <li>parameters</li>
-        </ul>
-
     </tp:docstring>
 
     <tp:struct name="Socket_Address_IPv4">
@@ -345,6 +326,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <a href="http://www.dns-sd.org/ServiceTypes.html">
             http://www.dns-sd.org/ServiceTypes.html</a>, for instance
           "rsync" or "daap".</p>
+        <p>When requesting a channel with 
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>,
+          this property MUST be included in the request.</p>
       </tp:docstring>
     </property>
 
@@ -371,6 +355,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>If stream tubes are not supported, this will be an empty
           dictionary.</p>
+
+        <p>When requesting a channel with 
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>,
+          this property MUST NOT be included in the request.</p>
 
       </tp:docstring>
     </property>
