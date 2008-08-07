@@ -171,17 +171,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Offer a stream tube exporting the local socket specified.
       </tp:docstring>
-      <arg direction="in" name="parameters" type="a{sv}"
-        tp:type="String_Variant_Map">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A dictionary of properties for the new tube; the allowable keys,
-          types and values are defined by the service. Connection managers
-          must support the value being any primitive (non-container)
-          D-Bus type, or a byte array 'ay'.</p>
-          <p>These should usually be the same key-value pairs specified for
-          use in the DNS-SD TXT record for that service.</p>
-        </tp:docstring>
-      </arg>
       <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of the listening address of the local service, as a member of
