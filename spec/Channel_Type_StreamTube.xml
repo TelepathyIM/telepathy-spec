@@ -336,6 +336,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         tp:type="Socket_Access_Control[]"/>
     </tp:mapping>
 
+    <property name="StreamService" type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p> A string representing the service name that will be used over the
+          tube.  It should be a well-known TCP service name as defined by
+          <a href="http://www.iana.org/assignments/port-numbers">
+            http://www.iana.org/assignments/port-numbers</a> or
+          <a href="http://www.dns-sd.org/ServiceTypes.html">
+            http://www.dns-sd.org/ServiceTypes.html</a>, for instance
+          "rsync" or "daap".</p>
+      </tp:docstring>
+    </property>
+
     <property name="AvailableStreamTubeTypes" type="a{uau}"
               tp:type="Supported_Socket_Map" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
