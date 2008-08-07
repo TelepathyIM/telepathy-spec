@@ -179,43 +179,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:mapping name="Supported_Socket_Map">
-      <tp:docstring>The supported socket address and access-control types
-        for tubes. See GetAvailableStreamTubeTypes.</tp:docstring>
-      <tp:member name="Address_Type" type="u" tp:type="Socket_Address_Type"/>
-      <tp:member name="Access_Control" type="au"
-        tp:type="Socket_Access_Control[]"/>
-    </tp:mapping>
-
-    <method name="GetAvailableStreamTubeTypes">
-      <tp:docstring>List the available address types and access-control types
-        for stream tubes.</tp:docstring>
-      <arg direction="out" type="a{uau}" tp:type="Supported_Socket_Map">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A mapping from address types (members of Socket_Address_Type) to
-          arrays of access-control type (members of Socket_Access_Control)
-          that the connection manager supports for stream tubes with that
-          address type. For simplicity, if a CM supports offering a
-          particular type of tube, it is assumed to support accepting it.</p>
-
-          <p>A typical value for a host without IPv6 support:</p>
-
-          <pre>
-            {
-              Socket_Address_Type_IPv4:
-                [Socket_Access_Control_Localhost, Socket_Access_Control_Port,
-                 Socket_Access_Control_Netmask],
-              Socket_Address_Type_Unix:
-                [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
-            }
-          </pre>
-
-          <p>If stream tubes are not supported, this will be an empty
-            dictionary.</p>
-        </tp:docstring>
-      </arg>
-    </method>
-
     <method name="OfferStreamTube">
       <tp:docstring>
         Offer a stream tube exporting the local socket specified.
@@ -357,6 +320,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
     </signal>
+
+    <tp:mapping name="Supported_Socket_Map">
+      <tp:docstring>The supported socket address and access-control types
+        for tubes. See GetAvailableStreamTubeTypes.</tp:docstring>
+      <tp:member name="Address_Type" type="u" tp:type="Socket_Address_Type"/>
+      <tp:member name="Access_Control" type="au"
+        tp:type="Socket_Access_Control[]"/>
+    </tp:mapping>
+
+    <property name="AvailableStreamTubeTypes" type="a{uau}"
+              tp:type="Supported_Socket_Map" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A mapping from address types (members of Socket_Address_Type) to
+        arrays of access-control type (members of Socket_Access_Control)
+        that the connection manager supports for stream tubes with that
+        address type. For simplicity, if a CM supports offering a
+        particular type of tube, it is assumed to support accepting it.</p>
+
+        <p>A typical value for a host without IPv6 support:</p>
+
+        <pre>
+          {
+            Socket_Address_Type_IPv4:
+              [Socket_Access_Control_Localhost, Socket_Access_Control_Port,
+               Socket_Access_Control_Netmask],
+            Socket_Address_Type_Unix:
+              [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
+          }
+        </pre>
+
+        <p>If stream tubes are not supported, this will be an empty
+          dictionary.</p>
+
+      </tp:docstring>
+    </property>
 
   </interface>
 
