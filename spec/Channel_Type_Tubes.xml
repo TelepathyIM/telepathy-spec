@@ -55,6 +55,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="u" tp:type="Tube_State" name="State"/>
     </tp:struct>
 
+    <tp:enum name="Tube_Type" type="u">
+      <tp:enumvalue suffix="DBus" value="0">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The tube is D-Bus tube as described by the
+            org.freedesktop.Telepathy.Channel.Type.DBusTube interface.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Stream" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The tube is stream tube as described by the
+            org.freedesktop.Telepathy.Channel.Type.StreamTube interface.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
     <tp:enum name="Tube_State" type="u">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>

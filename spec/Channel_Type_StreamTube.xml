@@ -21,7 +21,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Tube"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p></p>
+      <p>A stream tube is a transport for ordered, reliable data transfer,
+        similar to SOCK_STREAM sockets.</p>
+
+      <p>When accepting a Stream Unix tube, a new listening local socket is
+        created. Each time the client connects to this socket, the
+        connection manager of the initiator of the tube opens a new
+        connection to its local socket. Both sides can then use this pair
+        of sockets to communicate together.</p>
 
       <p>When creating a channel of this type, some properties are
         mandatory:</p>
