@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           "rsync" or "daap".</li>
         </ul>
 
-      <p>Some parameters are facultative:</p>
+      <p>Some parameters are optional:</p>
 
         <ul>
           <li>parameters</li>
