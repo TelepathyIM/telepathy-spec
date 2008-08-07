@@ -23,14 +23,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p></p>
 
-      <p>When creating a channel of this type, some parameters are
+      <p>When creating a channel of this type, some properties are
         mandatory:</p>
 
         <ul>
           <li>service</li>
         </ul>
 
-      <p>Some parameters are optional:</p>
+      <p>Some properties are optional:</p>
 
         <ul>
           <li>parameters</li>
