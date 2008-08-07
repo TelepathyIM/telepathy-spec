@@ -54,6 +54,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <property name="Status" type="u" tp:type="Tube_Channel_State" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Status of the tube in this channel.</p>
+      </tp:docstring>
+    </property>
+
     <tp:enum name="Tube_Channel_State" type="u">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>
