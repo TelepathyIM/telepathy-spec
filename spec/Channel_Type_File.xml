@@ -56,6 +56,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         as a suggested filename for the receiver. This cannot change
         once the channel has been created.</p>
 
+        <p>This property should be the basename of the file being sent. For example,
+        if the sender sends the file /home/user/monkey.pdf then this property should
+        be set to monkey.pdf.</p>
+
         <p>If this property is an empty string, then its value is unspecified.</p>
       </tp:docstring>
     </property>
