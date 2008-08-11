@@ -44,9 +44,9 @@
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Aliasing/alias
           (type s)</dt>
-        <dd>The contact's alias as defined by the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface">Aliasing</tp:dbus-ref>
-          interface (always present with some value, possibly the
+        <dd>The same string that would be returned by <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing">GetAliases</tp:dbus-ref>
+          (always present with some value, possibly the
           same as Connection/contact-id, if information from the
           Aliasing interface was requested)
         </dd>
