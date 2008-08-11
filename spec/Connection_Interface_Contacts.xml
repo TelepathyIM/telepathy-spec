@@ -53,10 +53,14 @@
         <dt>org.freedesktop.Telepathy.Connection.Interface.Avatars/token
           (type s</dt>
         <dd>The same string that would be returned by <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Avatars">GetAvatarTokens</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Avatars">GetKnownAvatarTokens</tp:dbus-ref>
           (omitted from the result if the contact's avatar token is not known,
           present as an empty string if the contact is known not to have
-          an avatar)
+          an avatar). Unlike in the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Avatars">GetKnownAvatarTokens</tp:dbus-ref>
+            method, the avatar tokens for the self handle aren't required to be
+            present. This attribute should not be used to determine whether or
+            not the Avatar needs to be set.
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.SimplePresence/presence
           (type (uss), <tp:type>Simple_Presence</tp:type>)</dt>
