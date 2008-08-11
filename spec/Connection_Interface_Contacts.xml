@@ -39,9 +39,7 @@
         <dt>org.freedesktop.Telepathy.Connection/contact-id
           (type s)</dt>
         <dd>The same string that would be returned by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">
-            InspectHandles
-          </tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">InspectHandles</tp:dbus-ref>
           (always present in the result)
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Aliasing/alias
