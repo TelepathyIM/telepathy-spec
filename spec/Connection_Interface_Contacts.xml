@@ -38,8 +38,10 @@
       <dl>
         <dt>org.freedesktop.Telepathy.Connection/contact-id
           (type s)</dt>
-        <dd>The same string that would be returned by <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection">InspectHandles</tp:dbus-ref>
+        <dd>The same string that would be returned by
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">
+            InspectHandles
+          </tp:dbus-ref>
           (always present in the result)
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Aliasing/alias
@@ -109,7 +111,7 @@
     </tp:mapping>
 
     <tp:mapping name="Contact_Attributes_Map">
-      <tp:docstring>Mapping returned by InspectContacts, representing a
+      <tp:docstring>Mapping returned by GetContactAttributes, representing a
         collection of Contacts and their requested attributes.</tp:docstring>
 
       <tp:member type="u" tp:type="Contact_Handle" name="Contact">
@@ -126,16 +128,16 @@
       </tp:member>
     </tp:mapping>
 
-    <property name="InspectableInterfaces" access="read" type="as"
+    <property name="ContactAttributeInterfaces" access="read" type="as"
       tp:type="DBus_Interface[]">
       <tp:docstring>
         A list of D-Bus interfaces for which
-        <tp:member-ref>InspectContacts</tp:member-ref> is expected to work.
+        <tp:member-ref>GetContactAttributes</tp:member-ref> is expected to work.
         This cannot change during the lifetime of the Connection.
       </tp:docstring>
     </property>
 
-    <method name="InspectContacts">
+    <method name="GetContactAttributes">
       <tp:docstring>
         Return any number of contact attributes for the given handles.
       </tp:docstring>
@@ -156,7 +158,8 @@
 
           <p>It is an error to request interfaces that are not supported by
             this Connection (i.e. mentioned in the
-            <tp:member-ref>InspectableInterfaces</tp:member-ref> property).</p>
+            <tp:member-ref>ContactAttributeInterfaces</tp:member-ref>
+            property).</p>
 
           <tp:rationale>
             <p>This makes it possible to distinguish between interfaces for
@@ -215,7 +218,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
             One of the requested interfaces is not supported (mentioned in
-            <tp:member-ref>InspectableInterfaces</tp:member-ref>).
+            <tp:member-ref>ContactAttributeInterfaces</tp:member-ref>).
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
