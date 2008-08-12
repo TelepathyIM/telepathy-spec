@@ -54,14 +54,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:docstring>
 
-    <tp:struct name="DBus_Tube_Member" array-name="DBus_Tube_Member_List">
-      <tp:docstring>A struct (handle, unique name) representing a participant
-        in a D-Bus tube, as returned by GetDBusNames on the Tubes channel
-        type, and as seen in the DBusNamesChanged signal.</tp:docstring>
-      <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
-      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name"/>
-    </tp:struct>
-
     <method name="OfferDBusTube">
       <tp:docstring>
         Offers a D-Bus tube providing the service specified.
