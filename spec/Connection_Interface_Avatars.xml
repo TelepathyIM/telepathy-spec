@@ -154,10 +154,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Get the unique tokens for the given contacts' avatars. These tokens
         can be persisted across connections, and should be used by the client
-        to check whether the avatars have been updated.  A CM must always have
-        the tokens for the self handle if one is set (even if it is set to no
-        avatar). Otherwise, only tokens that are already known are returned. An
-        empty token means the given contact has no avatar.
+        to check whether the avatars have been updated.  For handles other than
+        the self handle, only tokens that are already known are returned; an
+        empty token means the given contact has no avatar.  However, a CM must
+        always have the tokens for the self handle if one is set (even if it is
+        set to no avatar).  On protocols where the avatar does not persist
+        between connections, a CM should omit the self handle from the returned
+        map until an avatar is explicitly set or cleared.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
