@@ -94,9 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           to support conversation threads in XMPP and SIP, for example.</p>
 
         <p>If this is present in a channel request, it must be nonzero,
-          and <tp:member-ref>TargetHandleType</tp:member-ref> MUST NOT be
-          Handle_Type_None. The channel that satisfies the request MUST
-          either:</p>
+          <tp:member-ref>TargetHandleType</tp:member-ref>
+          MUST be present and not Handle_Type_None, and
+          <tp:member-ref>TargetID</tp:member-ref> MUST NOT be
+          present.</p>
+
+        <p>The channel that satisfies the request MUST either:</p>
 
         <ul>
           <li>have the specified TargetHandle property; or</li>
@@ -166,6 +169,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>If this is omitted from a channel request, connection managers
           SHOULD treat this as equivalent to Handle_Type_None.</p>
+
+        <p>If this is omitted or is Handle_Type_None,
+          <tp:member-ref>TargetHandle</tp:member-ref> and
+          <tp:member-ref>TargetID</tp:member-ref> MUST be omitted from the
+          request.</p>
       </tp:docstring>
     </property>
 
