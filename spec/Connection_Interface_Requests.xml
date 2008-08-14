@@ -321,43 +321,42 @@
 
       <tp:member name="Fixed_Properties" type="a{sv}"
         tp:type="Channel_Class">
-        <tp:docstring>
-          The property values that identify this requestable channel class.
-          These properties MUST be included in requests for a channel of this
-          class, and MUST take these values.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Required_Properties" type="as"
-        tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties that MUST be set when requesting a channel of this
-            channel type and handle type.</p>
-
-          <p>Properties MAY have additional requirement semantics not
-            represented in this array. For instance, if TargetHandleType
-            takes a value that is not Handle_Type_None, one or the other of
-            TargetHandle and TargetID is required. In this case,
-            TargetHandle and TargetID would both be listed as optional:
-            clients are expected to understand the documented relationship
-            between the properties.</p>
+          <p>The property values that identify this requestable channel class.
+            These properties MUST be included in requests for a channel of this
+            class, and MUST take these values.</p>
 
           <p>Clients that do not understand the semantics of all the
-            Fixed_Properties, and all the properties in this list, MUST NOT
-            request channels of this class (unless they are intended as
-            debugging/development tools to be operated only by users who
-            understand the Telepathy D-Bus API).</p>
+            Fixed_Properties MUST NOT request channels of this class, since
+            they would be unable to avoid making an incorrect request.</p>
+
+          <p>This implies that connection managers wishing to make channels
+            available to old or minimal clients SHOULD have a channel class
+            with the minimum number of Fixed_Properties, and MAY additionally
+            have channel classes with extra Fixed_Properties.</p>
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Optional_Properties" type="as"
+      <tp:member name="Allowed_Properties" type="as"
         tp:type="DBus_Qualified_Member[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Properties that MAY be set when requesting a
-            channel of this channel type and handle type.</p>
+          <p>Properties that MAY be set when requesting a channel of this
+            channel type and handle type.</p>
 
-          <p>Properties mentioned in Fixed_Properties or Required_Properties
-            SHOULD NOT appear in this array.</p>
+          <p>This array MUST NOT include properties that are in the
+            Fixed_Properties mapping.</p>
+
+          <p>Properties in this array MAY either be required or optional,
+            according to their documented semantics.</p>
+
+          <tp:rationale>
+            <p>For instance, if
+              TargetHandleType takes a value that is not Handle_Type_None,
+              one or the other of TargetHandle and TargetID is required.
+              Clients are expected to understand the documented relationship
+              between the properties, so we do not have separate arrays
+              of required and optional properties.</p>
+          </tp:rationale>
 
           <p>If this array contains the
             <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE">Bundle</tp:dbus-ref>
@@ -372,7 +371,7 @@
     </tp:struct>
 
     <property name="RequestableChannelClasses" access="read"
-      type="a(a{sv}asas)" tp:type="Requestable_Channel_Class[]">
+      type="a(a{sv}as)" tp:type="Requestable_Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
           connection, i.e. those for which
