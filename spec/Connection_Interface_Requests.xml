@@ -78,8 +78,10 @@
 
           <p>Each dictionary MUST contain the keys
             <tp:dbus-ref>org.freedesktop.Telepathy.Channel.ChannelType</tp:dbus-ref>,
-            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandleType</tp:dbus-ref>
-            and <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandle</tp:dbus-ref>.
+            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandleType</tp:dbus-ref>,
+            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetHandle</tp:dbus-ref>
+            and
+            <tp:dbus-ref>org.freedesktop.Telepathy.Channel.TargetID</tp:dbus-ref>.
           </p>
           <!-- FIXME: maybe also TargetID, Requested, InitiatorHandle,
           InitiatorID once they leave the FUTURE pseudo-interface -->
