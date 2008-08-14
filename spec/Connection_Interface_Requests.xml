@@ -146,7 +146,7 @@
 
       <arg name="Channel" direction="out" type="o">
         <tp:docstring>
-          The Channel object, which SHOULD already have been signalled with
+          The Channel object, which MUST already have been signalled with
           <tp:member-ref>NewChannels</tp:member-ref> by the time this method
           returns.
         </tp:docstring>
