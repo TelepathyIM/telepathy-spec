@@ -222,7 +222,9 @@
       <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
         <tp:docstring>
           The channels and their details. All channels that are signalled
-          together like this MUST have the same Bundle property, which may
+          together like this MUST have the same
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE">Bundle</tp:dbus-ref>
+          property, which may
           either refer to an existing bundle, or establish a new bundle.
         </tp:docstring>
       </arg>
@@ -357,13 +359,14 @@
           <p>Properties mentioned in Fixed_Properties or Required_Properties
             SHOULD NOT appear in this array.</p>
 
-          <p>If this array contains the Channel.Bundle property, then this
-            class of channel can be combined with other channels with that
-            property in a request, or added to an existing bundle. If not,
-            this signifies that the connection manager is unable to mark
-            channels of this class as part of a bundle - this means that
-            to the remote contact they are likely to be indistinguishable
-            from channels requested separately.</p>
+          <p>If this array contains the
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.FUTURE">Bundle</tp:dbus-ref>
+            property, then this class of channel can be combined with other
+            channels with that property in a request, or added to an existing
+            bundle. If not, this signifies that the connection manager is
+            unable to mark channels of this class as part of a bundle - this
+            means that to the remote contact they are likely to be
+            indistinguishable from channels requested separately.</p>
         </tp:docstring>
       </tp:member>
     </tp:struct>
