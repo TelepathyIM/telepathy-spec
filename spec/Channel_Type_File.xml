@@ -144,7 +144,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <tp:enum name="File_Transfer_State">
+    <tp:enum name="File_Transfer_State" type="u">
       <tp:enumvalue suffix="Local_Pending" value="0">
         <tp:docstring>
           The file transfer is waiting to be accepted/closed locally.
@@ -172,7 +172,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="File_Transfer_State_Change_Reason">
+    <tp:enum name="File_Transfer_State_Change_Reason" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
           No reason was specified.
