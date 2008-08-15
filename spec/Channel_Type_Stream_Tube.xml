@@ -164,7 +164,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
-    <property name="StreamService" type="s" access="read">
+    <property name="Service" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p> A string representing the service name that will be used over the
           tube.  It should be a well-known TCP service name as defined by
