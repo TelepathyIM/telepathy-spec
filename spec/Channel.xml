@@ -113,7 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="TargetID" type="s" access="read">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.9"/>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The string that would result from inspecting the

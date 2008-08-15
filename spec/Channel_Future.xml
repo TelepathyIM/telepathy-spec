@@ -162,7 +162,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="Bundle" type="o" access="read">
-      <tp:added version="0.17.UNRELEASED">(in Channel.FUTURE
+      <tp:added version="0.17.9">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The

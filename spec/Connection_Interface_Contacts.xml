@@ -20,7 +20,7 @@
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Contacts">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.17.UNRELEASED"/>
+    <tp:added version="0.17.9"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface allows many attributes of many contacts to be
