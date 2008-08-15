@@ -346,7 +346,7 @@
           <p>This array MUST NOT include properties that are in the
             Fixed_Properties mapping.</p>
 
-          <p>Properties in this array MAY either be required or optional,
+          <p>Properties in this array may either be required or optional,
             according to their documented semantics.</p>
 
           <tp:rationale>
