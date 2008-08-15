@@ -167,6 +167,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>A string representing the service name that will be used over the
           tube. It should be a well-known D-Bus service name, of the form
           com.example.ServiceName.</p>
+        <p>When the tube is offered, the service name is transmitted to the
+          other end.</p>
         <p>When requesting a channel with 
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>,
           this property MUST be included in the request.</p>
