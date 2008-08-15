@@ -123,10 +123,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           string if the TargetHandle is 0.</p>
 
         <tp:rationale>
-          See InitiatorID; the rationale is the same.
-        </tp:rationale>
-
-        <tp:rationale>
           <p>The presence of this property avoids the following race
             condition:</p>
 
