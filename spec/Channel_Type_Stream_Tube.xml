@@ -181,7 +181,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="AvailableStreamTubeTypes" type="a{uau}"
+    <property name="SupportedSocketTypes" type="a{uau}"
               tp:type="Supported_Socket_Map" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A mapping from address types (members of Socket_Address_Type) to
