@@ -276,6 +276,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
+      <arg direction="in" name="offset" type="t">
+        <tp:docstring>
+          The offset in bytes of wthere the file tranfer should start from.
+          The offset is taken from the beginning of the file. Values of zero
+          will start the transfer from the beginning of the file.
+        </tp:docstring>
+      </arg>
       <arg direction="out" name="address" type="v">
         <tp:docstring>
           The address on which the connection manager will listen for
