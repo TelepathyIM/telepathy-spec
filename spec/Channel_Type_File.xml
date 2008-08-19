@@ -45,7 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The file's MIME type. This cannot change once the channel has
         been created.</p>
 
-        <p>This property is mandatory. Protocols which do not have a
+        <p>This property is mandatory when requesting the channel with the
+        CreateChannels requests method. Protocols which do not have a
         content-type property with file transfers should set this value to
         application/octet-stream.</p>
       </tp:docstring>
@@ -61,7 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         if the sender sends the file /home/user/monkey.pdf then this property should
         be set to monkey.pdf.</p>
 
-        <p>If this property is an empty string, then its value is unspecified.</p>
+        <p>This property is mandatory when requesting the channel with the
+        CreateChannels requests method. This property cannot be empty and
+        must be set to a sensible value.</p>
       </tp:docstring>
     </property>
 
@@ -71,7 +74,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         transfer is guaranteed to be this size. This cannot change once
         the channel has been created.</p>
 
-        <p>If this property is UINT64_MAX, then its value is unspecified.</p>
+        <p>This property is mandatory when requesting the channel with the
+        CreateChannels requests method. If this property is UINT64_MAX,
+        then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -93,7 +98,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         SHOULD be lower-case if they are letters. This cannot change once
         the channel has been created.</p>
 
-        <p>If this property is an empty string, then its value is unspecified.</p>
+        <p>This property is optional when requesting the channel with the
+        CreateChannels requests method. If this property is an empty string,
+        then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -102,7 +109,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Description of the file transfer. This cannot change once the
         channel has been created.</p>
 
-        <p>If this property is an empty string, then its value is unspecified.</p>
+        <p>This property is optional when requesting the channel with the
+        CreateChannel requests method. If this property is an empty string,
+        then its value is unspecified.</p>
       </tp:docstring>
     </property>
 
