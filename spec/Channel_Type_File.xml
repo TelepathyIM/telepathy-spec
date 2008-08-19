@@ -256,7 +256,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="AcceptFile">
       <tp:docstring>
-        Accept a file transfer that's in the "local pending" state. The file 
+        Accept a file transfer that's in the "local pending" state. The file
         transfer becomes open after this method is called.
       </tp:docstring>
       <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
