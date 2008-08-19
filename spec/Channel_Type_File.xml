@@ -92,6 +92,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="ContentHashType" type="u" tp:type="File_Hash_Type"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The type of the ContentHash property from values of the
+        File_Hash_Type enum.</p>
+
+        <p>This property is optional when requesting the channel with the
+        CreateChannels requests method. However, if you wish to include the
+        ContentHash property you MUST also include this property. If you
+        omit this property from a CreateChannels method call then its value
+        will be assumed to be File_Hash_Type_None.</p>
+      </tp:docstring>
+    </property>
+
     <property name="ContentMD5" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>MD5 digest of the file as a string of 32 ASCII hex digits, which
