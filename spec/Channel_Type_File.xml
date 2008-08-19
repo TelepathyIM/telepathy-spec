@@ -106,15 +106,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="ContentMD5" type="s" access="read">
+    <property name="ContentHash" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>MD5 digest of the file as a string of 32 ASCII hex digits, which
-        SHOULD be lower-case if they are letters. This cannot change once
-        the channel has been created.</p>
+        <p>Hash of the contents of the file transfer, of type described
+        in the value of the ContentHashType property.</p>
 
         <p>This property is optional when requesting the channel with the
-        CreateChannels requests method. If this property is an empty string,
-        then its value is unspecified.</p>
+        CreateChannels requests method. Its value MUST correspond to the
+        appropriate type of the ContentHashType property. If the
+        ContentHashType property is not set, or set to File_Hash_Type_None,
+        then this property will not even be looked at.</p>
       </tp:docstring>
     </property>
 
