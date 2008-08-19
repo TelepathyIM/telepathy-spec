@@ -31,6 +31,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       the connection manager has set up and provided back to the clients
       through the two methods.</p>
 
+      <p>If something goes wrong with the transfer, you should call Close
+      on the channel.</p>
+
       <p>The File channel type may be requested for handles of type
       HANDLE_TYPE_CONTACT. If the channel is requested for any other
       handle type then the behviour is undefined.</p>
