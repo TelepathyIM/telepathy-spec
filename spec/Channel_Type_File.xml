@@ -74,6 +74,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         transfer is guaranteed to be this size. This cannot change once
         the channel has been created.</p>
 
+        <p>When you are creating a channel with this property, its value
+        MUST be accurate and in bytes. However, when receiving a file, this
+        property still must be in bytes but might not be entirely accurate
+        to the byte.</p>
+
         <p>This property is mandatory when requesting the channel with the
         CreateChannels requests method. If this property is UINT64_MAX,
         then its value is unspecified.</p>
