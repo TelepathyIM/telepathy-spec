@@ -261,6 +261,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <method name="OfferFile">
+      <tp:docstring>
+        Offer a file transfer that's in the "not offered" state. The file transfer
+        becomes remote pending after this method is called.
+      </tp:docstring>
+      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+        <tp:docstring>
+          The type of address the connection manager should listen on.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The type of access control the connection manager should apply to
+          the socket.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="access_control_param" type="v">
+        <tp:docstring>
+          A parameter for the access control type, to be interpreted as
+          specified in the documentation for the Socket_Access_Control enum.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="address" type="v">
+        <tp:docstring>
+          The address on which the connection manager will listen for
+          connections for this file transfer.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The given address type or access-control mechanism is not supported.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+          The file transfer is not in the "not offered" state, which is the only
+          state this method makes sense to be called in.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
     <signal name="FileTransferStateChanged">
       <tp:docstring>
         Emitted when the state of a file transfer changes.
