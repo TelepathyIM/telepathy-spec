@@ -173,27 +173,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           as a transfer.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Local_Pending" value="2">
+      <tp:enumvalue suffix="Accepted" value="2">
+        <tp:docstring>
+          The file transfer has been accepted locally, but not currently open.
+          The transfer should now wait for the state to change to open and
+          check the offset value.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Local_Pending" value="3">
         <tp:docstring>
           The file transfer is waiting to be accepted/closed locally.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Remote_Pending" value="3">
+      <tp:enumvalue suffix="Remote_Pending" value="4">
         <tp:docstring>
           The file transfer is waiting to be accepted/closed remotely.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Open" value="4">
+      <tp:enumvalue suffix="Open" value="5">
         <tp:docstring>
           The file transfer is open for traffic.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Completed" value="5">
+      <tp:enumvalue suffix="Completed" value="6">
         <tp:docstring>
           The file transfer has been completed successfully.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Canceled" value="6">
+      <tp:enumvalue suffix="Canceled" value="7">
         <tp:docstring>
           The file transfer has been canceled.
         </tp:docstring>
