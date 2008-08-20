@@ -166,6 +166,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The offset from the beginning of the file that the transfer should
         start from. This should be checked by the receiver after the transfer
         changes state from Accepted to Open.</p>
+
+        <p>Before setting the State property to Open, the connection manager
+        MUST set the InitialOffset property. If there is no offset then this
+        value MUST be set to 0.</p>
       </tp:docstring>
     </property>
 
