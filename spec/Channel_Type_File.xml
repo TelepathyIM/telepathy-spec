@@ -161,6 +161,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="InitialOffset" type="t" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The offset from the beginning of the file that the transfer should
+        start from. This should be checked by the receiver after the transfer
+        changes state from Accepted to Open.</p>
+      </tp:docstring>
+    </property>
+
     <tp:enum name="File_Transfer_State" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
