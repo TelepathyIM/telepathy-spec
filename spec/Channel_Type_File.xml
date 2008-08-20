@@ -170,6 +170,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Before setting the State property to Open, the connection manager
         MUST set the InitialOffset property. If there is no offset then this
         value MUST be set to 0.</p>
+
+        <p>This property MUST NOT change after the state of the transfer has
+        changed to Open.</p>
       </tp:docstring>
     </property>
 
