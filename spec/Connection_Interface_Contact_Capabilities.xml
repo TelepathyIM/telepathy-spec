@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where it is possible to know what channel
-        types may be requested before the request is made to the connection
+        types may be created before the request is made to the connection
         object. Each capability represents a commitment by the connection
         manager that it will ordinarily be able to create a channel when given
         a request with the given type and handle.</p>
@@ -31,34 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>Capabilities pertain to particular contact handles, and represent
         activities such as having a text chat or a voice call with the user.
         The activities are represented by the D-Bus interface name of the
-        channel type for that activity.</p>
+        channel type for that activity, and channel properties which can be
+        requested.</p>
 
-      <p>The generic capability flags are defined by
-        <tp:type>Connection_Capability_Flags</tp:type>.</p>
-
-      <p>In addition, channel types may have type specific capability flags of
-        their own, which are described in the documentation for each channel
-        type.</p>
+      <!-- Not yet spec'ed
 
       <p>This interface also provides for user interfaces notifying the
         connection manager of what capabilities to advertise for the user. This
-        is done by using the AdvertiseCapabilities method, and deals with the
-        interface names of channel types and the type specific flags pertaining
-        to them which are implemented by available client processes.</p>
+        is done by using the AdvertiseContactCapabilities method, and deals with
+        the interface names of channel types and the channel properties values 
+        pertaining to them which are implemented by available client
+        processes.</p>
+        -->
+
     </tp:docstring>
-
-    <tp:changed version="0.17.8">Previously, this interface
-      also expressed capabilities of the connection itself, indicating what
-      sorts of channels could be requested (for instance, the ability to
-      open chatroom lists or chatrooms). However, this was never very
-      well-defined or consistent, and as far as we know it was never
-      implemented correctly. This usage is now deprecated.</tp:changed>
-
-    <!-- FIXME: are the type-specific flags sufficient, in a world that has
-    the Requests interface? It'd be nice if we could advertise capabilities
-    that are not defined in terms of a channel type but rather in terms of
-    a property or something, e.g. Channel.Interface.TLS.Secure for
-    individually TLS'd channels. -->
 
     <method name="GetContactCapabilities">
       <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
