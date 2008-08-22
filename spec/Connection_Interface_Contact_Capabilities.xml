@@ -80,11 +80,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <tp:struct name="Enhanced_Contact_Capability" array-name="Enhanced_Contact_Capability_List">
-      <tp:docstring>A struct representing a capability posessed by a contact,
+      <tp:docstring>
+        A struct representing a capability posessed by a contact,
         as returned by GetContactCapabilities on the ContactCapabilities
-        interface.</tp:docstring>
-      <tp:member type="a{sv}" tp:type="String_Variant_Map" name="Fixed_Properties"/>
-      <tp:member type="as" name="Allowed_Properties"/>
+        interface. The channel creation will succeed if the request contains
+        all the Fixed_Properties will the values specified in this struct. The
+        request can contain additional properties from Allowed_Properties. If
+        the request contains a property which does not belong to
+        Fixed_Properties nor to Allowed_Properties, the request will fail.
+      </tp:docstring>
+      <tp:member type="a{sv}" tp:type="String_Variant_Map"
+                 name="Fixed_Properties">
+        <tp:docstring>
+          A dictionary mapping the channel properties to their values.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="as" name="Allowed_Properties">
+        <tp:docstring>
+          An array of additional allowed properties.
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
   </interface>
 </node>
