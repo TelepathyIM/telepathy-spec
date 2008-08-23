@@ -66,7 +66,7 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="GetInterfaces">
+    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
       <arg direction="out" type="as" tp:type="DBus_Interface[]">
         <tp:docstring>
           An array of D-Bus interface names
@@ -109,7 +109,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="GetProtocol">
+    <method name="GetProtocol" tp:name-for-bindings="Get_Protocol">
       <arg direction="out" type="s" tp:type="Protocol">
         <tp:docstring>
           A string identifier for the protocol
@@ -121,7 +121,7 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="GetSelfHandle">
+    <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
       <arg direction="out" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle representing the user
@@ -140,7 +140,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="GetStatus">
+    <method name="GetStatus" tp:name-for-bindings="Get_Status">
       <arg direction="out" type="u" tp:type="Connection_Status">
         <tp:docstring>
           An integer representing the current status
@@ -152,7 +152,7 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="HoldHandles">
+    <method name="HoldHandles" tp:name-for-bindings="Hold_Handles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle to be held
@@ -194,7 +194,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="InspectHandles">
+    <method name="InspectHandles" tp:name-for-bindings="Inspect_Handles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle to be inspected
@@ -229,7 +229,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="ListChannels">
+    <method name="ListChannels" tp:name-for-bindings="List_Channels">
       <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]">
         <tp:docstring>
           An array of structs representing channels.
@@ -245,7 +245,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <signal name="NewChannel">
+    <signal name="NewChannel" tp:name-for-bindings="New_Channel">
       <arg name="object_path" type="o">
         <tp:docstring>
           A D-Bus object path for the channel object on this service
@@ -296,7 +296,7 @@ USA.</p>
       </tp:docstring>
     </signal>
 
-    <method name="ReleaseHandles">
+    <method name="ReleaseHandles" tp:name-for-bindings="Release_Handles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           An integer handle type (as defined in RequestHandle)
@@ -336,7 +336,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="RequestChannel">
+    <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
       <arg direction="in" name="type" type="s" tp:type="DBus_Interface">
         <tp:docstring>
           A D-Bus interface name representing base channel type
@@ -481,7 +481,7 @@ USA.</p>
         Handle_Type_Group</tp:docstring>
     </tp:simple-type>
 
-    <method name="RequestHandles">
+    <method name="RequestHandles" tp:name-for-bindings="Request_Handles">
       <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle required
@@ -623,7 +623,7 @@ USA.</p>
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="StatusChanged">
+    <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
       <arg name="status" type="u" tp:type="Connection_Status">
         <tp:docstring>
           An integer indicating the new status, as defined by ConnectionStatus

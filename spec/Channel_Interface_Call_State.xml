@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:docstring>
     <tp:added version="0.17.2"/>
 
-    <method name="GetCallStates">
+    <method name="GetCallStates" tp:name-for-bindings="Get_Call_States">
       <tp:docstring>
         Get the current call states for all contacts involved in this call.
       </tp:docstring>
@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </method>
 
-    <signal name="CallStateChanged">
+    <signal name="CallStateChanged" tp:name-for-bindings="Call_State_Changed">
       <tp:docstring>
         Emitted when the state of a member of the channel has changed.
       </tp:docstring>

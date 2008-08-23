@@ -28,7 +28,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="s" name="Token"/>
     </tp:mapping>
 
-    <signal name="AvatarUpdated">
+    <signal name="AvatarUpdated" tp:name-for-bindings="Avatar_Updated">
       <arg name="contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact whose avatar has changed
@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         avatar should be requested with RequestAvatars.
       </tp:docstring>
     </signal>
-    <signal name="AvatarRetrieved">
+    <signal name="AvatarRetrieved" tp:name-for-bindings="Avatar_Retrieved">
       <arg name="contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The contact whose avatar has been retrieved
@@ -72,7 +72,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when the avatar for a contact has been retrieved.
       </tp:docstring>
     </signal>
-    <method name="GetAvatarRequirements">
+    <method name="GetAvatarRequirements"
+      tp:name-for-bindings="Get_Avatar_Requirements">
       <arg direction="out" type="as">
         <tp:docstring>
           An array of supported MIME types (eg image/jpeg)
@@ -113,7 +114,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="GetAvatarTokens">
+    <method name="GetAvatarTokens" tp:name-for-bindings="Get_Avatar_Tokens">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
         An array of handles representing contacts
@@ -139,7 +140,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="GetKnownAvatarTokens">
+    <method name="GetKnownAvatarTokens"
+      tp:name-for-bindings="Get_Known_Avatar_Tokens">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
         An array of handles representing contacts
@@ -170,7 +172,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="RequestAvatar">
+    <method name="RequestAvatar" tp:name-for-bindings="Request_Avatar">
       <arg direction="in" name="contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact to request the avatar for
@@ -203,7 +205,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-    <method name="RequestAvatars">
+    <method name="RequestAvatars" tp:name-for-bindings="Request_Avatars">
       <arg direction="in" name="contacts" type="au"
         tp:type="Contact_Handle[]">
         <tp:docstring>
@@ -222,7 +224,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
-    <method name="SetAvatar">
+    <method name="SetAvatar" tp:name-for-bindings="Set_Avatar">
       <arg direction="in" name="avatar" type="ay">
         <tp:docstring>
           An array of bytes representing the avatar image data
@@ -250,7 +252,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="ClearAvatar">
+    <method name="ClearAvatar" tp:name-for-bindings="Clear_Avatar">
       <tp:added version="0.15.0" />
       <tp:docstring>
         Remove the avatar image for this connection.

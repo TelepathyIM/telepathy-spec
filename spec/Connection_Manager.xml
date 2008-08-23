@@ -140,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
     </tp:flags>
 
-    <method name="GetParameters">
+    <method name="GetParameters" tp:name-for-bindings="Get_Parameters">
       <arg direction="in" name="proto" type="s" tp:type="Protocol">
         <tp:docstring>
           The required protocol name
@@ -164,7 +164,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="ListProtocols">
+    <method name="ListProtocols" tp:name-for-bindings="List_Protocols">
       <arg direction="out" type="as" tp:type="Protocol[]">
         <tp:docstring>
           A array of string protocol identifiers supported by this manager
@@ -176,7 +176,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <signal name="NewConnection">
+    <signal name="NewConnection" tp:name-for-bindings="New_Connection">
       <arg name="bus_name" type="s" tp:type="DBus_Bus_Name">
         <tp:docstring>
           The D-Bus service where the connection object can be found
@@ -197,7 +197,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <method name="RequestConnection">
+    <method name="RequestConnection" tp:name-for-bindings="Request_Connection">
       <arg direction="in" name="proto" type="s" tp:type="Protocol">
         <tp:docstring>
           The protocol identifier

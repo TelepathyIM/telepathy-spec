@@ -109,7 +109,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="u" name="New_Type_Specific_Flags"/>
     </tp:struct>
 
-    <method name="AdvertiseCapabilities">
+    <method name="AdvertiseCapabilities"
+      tp:name-for-bindings="Advertise_Capabilities">
       <arg direction="in" name="add" type="a(su)" tp:type="Capability_Pair[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structures containing:
@@ -158,7 +159,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="CapabilitiesChanged">
+    <signal name="CapabilitiesChanged"
+      tp:name-for-bindings="Capabilities_Changed">
       <arg name="caps" type="a(usuuuu)" tp:type="Capability_Change[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structures containing:
@@ -182,7 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <method name="GetCapabilities">
+    <method name="GetCapabilities" tp:name-for-bindings="Get_Capabilities">
       <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An array of contact handles for this connection.</p>

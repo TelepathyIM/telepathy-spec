@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channel for each stream within the session.
       </tp:docstring>
     </method>
-    <signal name="NewStreamHandler">
+    <signal name="NewStreamHandler" tp:name-for-bindings="New_Stream_Handler">
       <arg name="stream_handler" type="o">
         <tp:docstring>
           An object path to a new MediaStreamHandler

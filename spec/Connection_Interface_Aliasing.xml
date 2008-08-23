@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="s" name="Alias"/>
     </tp:struct>
 
-    <signal name="AliasesChanged">
+    <signal name="AliasesChanged" tp:name-for-bindings="Aliases_Changed">
       <arg name="aliases" type="a(us)" tp:type="Alias_Pair[]">
         <!-- FIXME: if we break API, this could be an Alias_Map, a{us} -->
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
     </tp:flags>
-    <method name="GetAliasFlags">
+    <method name="GetAliasFlags" tp:name-for-bindings="Get_Alias_Flags">
       <arg direction="out" type="u" tp:type="Connection_Alias_Flags">
         <tp:docstring>
           An integer with a bitwise OR of flags from ConnectionAliasFlags
@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
-    <method name="RequestAliases">
+    <method name="RequestAliases" tp:name-for-bindings:"Request_Aliases">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of handles representing contacts
@@ -103,7 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
-    <method name="GetAliases">
+    <method name="GetAliases" tp:name-for-bindings="Get_Aliases">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of handles representing contacts

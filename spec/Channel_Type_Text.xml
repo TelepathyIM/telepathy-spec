@@ -45,7 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="s" name="Text"/>
     </tp:struct>
 
-    <method name="AcknowledgePendingMessages">
+    <method name="AcknowledgePendingMessages"
+      tp:name-for-bindings="Acknowledge_Pending_Messages">
       <arg direction="in" name="ids" type="au" tp:type="Message_ID[]">
         <tp:docstring>
           The IDs of the messages to acknowledge
@@ -64,7 +65,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="GetMessageTypes">
+    <method name="GetMessageTypes" tp:name-for-bindings="Get_Message_Types">
       <arg direction="out" type="au" tp:type="Channel_Text_Message_Type[]">
         <tp:docstring>
           An array of integer message types (ChannelTextMessageType)
@@ -76,7 +77,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <method name="ListPendingMessages">
+    <method name="ListPendingMessages"
+      tp:name-for-bindings="List_Pending_Messages">
       <arg direction="in" name="clear" type="b">
         <tp:docstring>
           If true, behave as if AcknowledgePendingMessages had also been
@@ -107,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <signal name="LostMessage">
+    <signal name="LostMessage" tp:name-for-bindings="Lost_Message">
       <tp:docstring>
         This signal is emitted to indicate that an incoming message was
         not able to be stored and forwarded by the connection manager
@@ -214,7 +216,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="SendError">
+    <signal name="SendError" tp:name-for-bindings="Send_Error">
       <arg name="error" type="u" tp:type="Channel_Text_Send_Error">
         <tp:docstring>
           The error that occurred

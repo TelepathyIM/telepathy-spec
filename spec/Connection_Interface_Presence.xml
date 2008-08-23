@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="(ubba{ss})" tp:type="Status_Spec" name="Spec"/>
     </tp:mapping>
 
-    <method name="AddStatus">
+    <method name="AddStatus" tp:name-for-bindings="Add_Status">
       <arg direction="in" name="status" type="s">
         <tp:docstring>
           The string identifier of the desired status
@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
-    <method name="ClearStatus">
+    <method name="ClearStatus" tp:name-for-bindings="Clear_Status">
       <tp:docstring>
         Request that all of a user's presence statuses be removed. Be aware
         that this request may simply result in the statuses being replaced by a
@@ -100,7 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
-    <method name="GetPresence">
+    <method name="GetPresence" tp:name-for-bindings="Get_Presence">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of the contacts whose presence should be obtained
@@ -126,7 +126,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="GetStatuses">
+    <method name="GetStatuses" tp:name-for-bindings="Get_Statuses">
       <arg direction="out" type="a{s(ubba{ss})}" tp:type="Status_Spec_Map">
         <tp:docstring>
         A dictionary of string identifiers mapped to a struct for each status, containing:
@@ -148,7 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
-    <signal name="PresenceUpdate">
+    <signal name="PresenceUpdate" tp:name-for-bindings="Presence_Update">
       <arg name="presence" type="a{u(ua{sa{sv}})}" tp:type="Contact_Presences">
         <tp:docstring>
         A dictionary of contact handles mapped to a struct containing
@@ -165,7 +165,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       </tp:docstring>
     </signal>
-    <method name="RemoveStatus">
+    <method name="RemoveStatus" tp:name-for-bindings="Remove_Status">
       <arg direction="in" name="status" type="s">
         <tp:docstring>
           The string identifier of the status not to publish anymore for the user
@@ -186,7 +186,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-    <method name="RequestPresence">
+    <method name="RequestPresence" tp:name-for-bindings="Request_Presence">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of the contacts whose presence should be obtained
@@ -211,7 +211,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-    <method name="SetLastActivityTime">
+    <method name="SetLastActivityTime"
+      tp:name-for-bindings="Set_Last_Activity_Time">
       <arg direction="in" name="time" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           A UNIX timestamp of the user's last activity time (in UTC)
@@ -231,7 +232,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-    <method name="SetStatus">
+    <method name="SetStatus" tp:name-for-bindings="Set_Status">
       <arg direction="in" name="statuses" type="a{sa{sv}}" tp:type="Multiple_Status_Map">
         <tp:docstring>
           A dictionary mapping status identifiers to dictionaries, which

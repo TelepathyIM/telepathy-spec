@@ -129,7 +129,7 @@
       </tp:member>
     </tp:mapping>
 
-    <method name="SetPresence">
+    <method name="SetPresence" tp:name-for-bindings="Set_Presence">
       <arg direction="in" name="status" type="s">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The string identifier of the desired status. Possible status
@@ -189,7 +189,7 @@
       </tp:possible-errors>
     </method>
 
-    <method name="GetPresences">
+    <method name="GetPresences" tp:name-for-bindings="Get_Presences">
       <arg direction="in" name="contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           An array of the contacts whose presence should be obtained.
@@ -265,7 +265,7 @@
       </tp:docstring>
     </property>
 
-    <signal name="PresencesChanged">
+    <signal name="PresencesChanged" tp:name-for-bindings="Presences_Changed">
       <arg name="presence" type="a{u(uss)}" tp:type="Simple_Contact_Presences">
         <tp:docstring>
           A dictionary of contact handles mapped to the status,
