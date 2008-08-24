@@ -855,8 +855,47 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
       </xsl:message>
     </xsl:if>
 
+    <xsl:if test="contains($tp-type, '[]')">
+      <xsl:call-template name="tp-type-array-usage-check">
+        <xsl:with-param name="single-type" select="$single-type"/>
+        <xsl:with-param name="type-of-tp-type" select="$type-of-tp-type"/>
+      </xsl:call-template>
+    </xsl:if>
+
     <a href="#type-{$single-type}"><xsl:value-of select="$tp-type"/></a>
 
+  </xsl:template>
+
+  <xsl:template name="tp-type-array-usage-check">
+    <xsl:param name="single-type"/>
+    <xsl:param name="type-of-tp-type"/>
+
+    <xsl:variable name="array-name">
+      <xsl:choose>
+        <xsl:when test="//tp:struct[@name=$single-type]">
+          <xsl:value-of select="//tp:struct[@name=$single-type]/@array-name"/>
+        </xsl:when>
+        <xsl:when test="//tp:mapping[@name=$single-type]">
+          <xsl:value-of select="//tp:mapping[@name=$single-type]/@array-name"/>
+        </xsl:when>
+        <xsl:when test="//tp:external-type[@name=$single-type]">
+          <xsl:value-of select="//tp:external-type[@name=$single-type]/@array-name"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="''"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
+    <xsl:if test="not(contains('ybnqiuxtdsvog', $type-of-tp-type))">
+      <xsl:if test="not($array-name) or $array-name=''">
+        <xsl:message terminate="yes">
+          <xsl:text>No array-name specified for complex type </xsl:text>
+          <xsl:value-of select="$single-type"/>
+          <xsl:text>, but array used&#10;</xsl:text>
+        </xsl:message>
+      </xsl:if>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="parenthesized-tp-type">
