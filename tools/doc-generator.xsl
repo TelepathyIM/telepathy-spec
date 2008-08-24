@@ -417,7 +417,23 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     </dl>
   </xsl:template>
 
+  <xsl:template name="binding-name-check">
+    <xsl:if test="@tp:name-for-bindings">
+      <xsl:if test="translate(@tp:name-for-bindings, '_', '') != @name">
+        <xsl:message terminate="yes">
+          <xsl:text>ERR: Binding name </xsl:text>
+          <xsl:value-of select="@tp:name-for-bindings"/>
+          <xsl:text> doesn't correspond to D-Bus name </xsl:text>
+          <xsl:value-of select="@name"/>
+          <xsl:text>&#10;</xsl:text>
+        </xsl:message>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="property">
+
+    <xsl:call-template name="binding-name-check"/>
 
     <xsl:if test="not(parent::interface)">
       <xsl:message terminate="yes">
@@ -648,6 +664,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="method">
+
+    <xsl:call-template name="binding-name-check"/>
 
     <xsl:if test="not(parent::interface)">
       <xsl:message terminate="yes">
@@ -915,6 +933,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   </xsl:template>
 
   <xsl:template match="signal">
+
+    <xsl:call-template name="binding-name-check"/>
 
     <xsl:if test="not(parent::interface)">
       <xsl:message terminate="yes">
