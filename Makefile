@@ -1,5 +1,8 @@
 all:
 
+GIT = git
+GZIP = gzip
+TAR = tar
 XSLTPROC = xsltproc --xinclude --nonet
 CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
@@ -113,15 +116,18 @@ dist:
 	set -e ;\
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	distname="telepathy-spec-$$version";\
-	darcs dist -d dist;\
-	tar -zxf- -C tmp < dist.tar.gz;\
-	darcs changes > tmp/dist/ChangeLog;\
+	rm -f tmp/ChangeLog "$$distname".tar "$$distname".tar.gz; \
+	$(GIT) archive --format=tar --prefix="$$distname"/ HEAD \
+		> "$$distname".tar;\
 	rm -rf tmp/"$$distname";\
-	mv tmp/dist tmp/"$$distname";\
-	tar -zcvf- -C tmp "$$distname" > tmp/"$$distname".tar.gz;\
-	mv tmp/"$$distname".tar.gz .;\
-	rm -rf tmp/"$$distname";\
-	rm -f dist.tar.gz
+	mkdir tmp/"$$distname";\
+	$(GIT) log --stat > tmp/"$$distname"/ChangeLog || \
+		$(GIT) log > tmp/"$$distname"/ChangeLog;\
+	$(TAR) -rf "$$distname".tar -C tmp --owner 0 --group 0 --mode 0664 \
+		"$$distname"/ChangeLog;\
+	$(GZIP) -9 "$$distname".tar;\
+	$(TAR) -ztvf "$$distname".tar.gz;\
+	rm -rf tmp/"$$distname"
 
 BRANCH = misc
 UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
