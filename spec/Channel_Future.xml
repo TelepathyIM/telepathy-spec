@@ -99,7 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
-      access="read">
+      access="read" tp:name-for-bindings="Initiator_Handle">
       <tp:added version="0.17.7">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -133,7 +133,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="InitiatorID" type="s" access="read">
+    <property name="InitiatorID" type="s" access="read"
+      tp:name-for-bindings="Initiator_ID">
       <tp:added version="0.17.7">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
