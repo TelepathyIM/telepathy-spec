@@ -472,8 +472,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         signal (with the suppress_handler parameter set to FALSE).</p>
 
       <tp:rationale>
-        <p>In effect, this turns this situation, in which a naive
-          implementation might lose messages:</p>
+        <p>In effect, this turns this situation, in which a client
+          is likely to lose messages:</p>
 
         <ul>
           <li>UI window is closed</li>
