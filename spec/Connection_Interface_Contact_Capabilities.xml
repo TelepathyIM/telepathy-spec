@@ -54,8 +54,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The handle zero MUST NOT be included in the request.</p>
         </tp:docstring>
       </arg>
-      <arg direction="out" type="a(a{sv}as)"
-           tp:type="Enhanced_Contact_Capability[]">
+      <arg direction="out" type="a{ua(a{sv}as)}"
+           tp:type="Handle_Enhanced_Contact_Capabilities_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structures containing:
           <ul>
@@ -78,6 +78,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
+
+    <tp:mapping name="Handle_Enhanced_Contact_Capabilities_Map">
+      <tp:docstring>A mapping from contact handle to Enhanced_Contact_Capability.</tp:docstring>
+      <tp:member type="u" name="Handle"/>
+      <tp:member type="a(a{sv}as)" tp:type="Enhanced_Contact_Capability[]"
+                 name="EnhancedContactCapability"/>
+    </tp:mapping>
+
 
     <tp:struct name="Enhanced_Contact_Capability" array-name="Enhanced_Contact_Capability_List">
       <tp:docstring>
