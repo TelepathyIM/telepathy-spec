@@ -360,9 +360,32 @@ USA.</p>
 
       <arg direction="in" name="suppress_handler" type="b">
         <tp:docstring>
-          If true, the requesting client intends to take responsibility for
-          displaying the channel to the user, so no other handler needs to
-          be launched
+          <p>Clients SHOULD always set this to true.</p>
+
+          <tp:rationale>
+            <p>The historical meaning was that clients that did not
+              intend to take responsibility for displaying the channel to
+              the user could set this to FALSE, in which case the channel
+              dispatcher would launch an appropriate channel handler.</p>
+
+            <p>However, clients whose functionality relies on having a
+              working channel dispatcher should obtain that functionality by
+              calling methods on the channel dispatcher, so that they will
+              get an appropriate error if the channel dispatcher is missing
+              or not working.</p>
+
+            <p>The channel dispatcher itself should set this to true too,
+              so that it will ignore the
+              <tp:member-ref>NewChannel</tp:member-ref> signal that results
+              from the creation of the channel. It can then dispatch the
+              channel returned from this method to an
+              appropriate handler.</p>
+
+            <p>So, there is no sensible use-case for setting this to false,
+              and setting it to false can result in unhandled channels (in
+              the case where clients assume that a channel dispatcher is
+              present, but it isn't).</p>
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
