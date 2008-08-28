@@ -52,18 +52,64 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this observer is
           interested. The <tp:member-ref>ObserveChannels</tp:member-ref> method
-          should be called by the channel dispatcher whenever new channels
-          match this description.</p>
+          should be called by the channel dispatcher whenever any of the new
+          channels in a NewChannels signal match this description.</p>
+
+        <p>Only certain D-Bus types have useful semantics for matching like this,
+          so only certain types are allowed:</p>
+
+        <dl>
+          <dt>Integers of all sizes, including byte (y, n, q, i, u, x, t)</dt>
+          <dd>Matched by numeric value, regardless of type (e.g. 42 as a
+            16-bit signed integer 'n' is considered equal to 42 as a 32-bit
+            unsigned integer 'u')</dd>
+
+          <dt>Booleans (b)</dt>
+          <dd>Matched by equality in the obvious way; not considered equal to any
+            other type</dd>
+
+          <dt>Strings (s)</dt>
+          <dd>Matched by equality in the obvious way; not considered equal to any
+            other type</dd>
+
+          <dt>Object paths (o)</dt>
+          <dd>Matched by equality in the obvious way; not considered equal to any
+            other type</dd>
+
+        </dl>
 
         <p>This property never changes while the observer process is
-          running. (FIXME: it can change due to upgrades - how do we tell
-          the channel dispatcher about this? Make it inotify on the .client
-          file?)</p>
+          running. For activatable processes, the filter can change due to an
+          upgrade - the channel dispatcher SHOULD observe changes to .client files
+          using a mechanism like inotify.</p>
 
         <p>For observers that have a .client file, the channel dispatcher
-          may discover this property from the
-          [org.freedesktop.Telepathy.Client.Observer.DRAFT] section of the
-          .client file. (FIXME: what are the keys and their values?)</p>
+          may discover this property from keys of the form
+          <code>ObserverChannelFilter <em>index</em> <em>propertyname</em> <em>type</em></code>
+          in the group in the .client file whose name is the name of this interface.
+          </p>
+
+        <p>Integers in the .client file are encoded in ASCII decimal, booleans
+          are encoded as "true" or "false", and strings are encoded in the usual
+          way for desktop files.</p>
+
+        <p>For instance, a .client file for an observer that is only interested
+          in Text channels, with CONTACT or ROOM handles, that were requested by
+          a local client:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.DRAFT]
+Interfaces=org.freedesktop.Telepathy.Client.Observer.DRAFT;
+
+[org.freedesktop.Telepathy.Client.Observer.DRAFT]
+ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
+ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.TargetHandleType u=1
+ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
+ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
+ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.TargetHandleType u=2
+ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
+</pre>
+
       </tp:docstring>
     </property>
 
