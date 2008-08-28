@@ -61,25 +61,24 @@
         straight away.</p>
     </tp:docstring>
 
-    <property name="ApproverChannelFilter" type="v" access="read">
+    <property name="ApproverChannelFilter" type="aa{sv}" access="read"
+      tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this approver is
-          interested. The HandleDispatch method should be called by the
-          channel dispatcher whenever a channel dispatch operation
-          matches this description.</p>
+          interested. The <tp:member-ref>HandleDispatch</tp:member-ref>
+          method should be called by the channel dispatcher whenever the
+          channels in a channel dispatch operation
+          match this description.</p>
 
-        <p>This property never changes while the approver process is
-          running. (FIXME: it can change due to upgrades - how do we tell
-          the channel dispatcher about this? Make it inotify on the .client
-          file?)</p>
+        <p>(FIXME: what happens if some but not all of the channels
+          match this?)</p>
 
-        <p>For approvers that have a .client file, the channel dispatcher
-          may discover this property from the
-          [org.freedesktop.Telepathy.Client.Approver.DRAFT] section of the
-          .client file. (FIXME: what are the keys and their values?)</p>
-
-        <p>FIXME: the type 'v' is a placeholder and needs replacing with
-          something suitable.</p>
+        <p>This property works in exactly the same way as the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.DRAFT.ObserverChannelFilter</tp:dbus-ref>
+          property. In the .client file, it is represented in the
+          same way as ObserverChannelFilter, but the group has the same
+          name as this interface and the keys start with
+          ApproverChannelFilter instead of ObserverChannelFilter.</p>
       </tp:docstring>
     </property>
 
