@@ -29,8 +29,25 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Observers monitor the creation of new channels. This
         functionality can be used for things like message logging.
-        All observers are notified simultaneously; they should not
-        alter the state of the channel.</p>
+        All observers are notified simultaneously.</p>
+
+      <p>Observers SHOULD NOT modify the state of a channel except
+        via user interaction.</p>
+
+      <tp:rationale>
+        <p>We want Observer UIs for file transfer channels (a progress
+          bar for the transfer) to be able to have a Cancel button.</p>
+      </tp:rationale>
+
+      <p>Observers MUST NOT carry out actions that exactly one process
+        must take responsibility for (e.g. acknowledging Text
+        messages, or carrying out the actual transfer in a file transfer
+        channel).</p>
+
+      <tp:rationale>
+        <p>There can be many observers. Actions like this should be
+          done by the Handler, of which there can only be one.</p>
+      </tp:rationale>
 
       <p>Whenever new channels are signalled, the channel dispatcher
         will notify all running or activatable observers whose
