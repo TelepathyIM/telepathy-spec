@@ -100,13 +100,14 @@
       tp:type="DBus_Interface[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the extra interfaces provided by this client.
+<<<<<<< HEAD:spec/Client.xml
           This SHOULD include at least one of
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer</tp:dbus-ref>,
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Approver</tp:dbus-ref> or
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.ChannelHandler</tp:dbus-ref>.</p>
 
         <p>In the <code>.client</code> file, this is represented by key
-          "<code>interfaces</code>" in the group named after this interface.
+          "<code>Interfaces</code>" in the group named after this interface.
           The value of the key is a list of interface names each followed by
           a semicolon (so it always ends with a semicolon unless it is empty),
           i.e. a key of type "strings" as described in the Desktop Entry
