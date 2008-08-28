@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Client"
+<node name="/Client_Handler"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright (C) 2008 Collabora Ltd.</tp:copyright>
   <tp:copyright>Copyright (C) 2008 Nokia Corporation</tp:copyright>
@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Client.Handler.DRAFT"
     tp:causes-havoc="experimental">
     <tp:added version="0.17.UNRELEASED"/>
 

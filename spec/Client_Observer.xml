@@ -127,7 +127,7 @@ ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=tru
             to avoid the following race: text channel logger (observer) gets
             ObserveChannel, text channel handler gets
             <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT">HandleChannels</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
             channel handler starts up faster and acknowledges messages,
             logger never sees those messages.</p>
         </tp:rationale>

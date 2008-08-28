@@ -103,7 +103,7 @@
       <arg name="Handlers" type="as" direction="in">
         <tp:docstring>
           The well-known bus names of
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.ChannelHandler</tp:dbus-ref>s
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Handler</tp:dbus-ref>s
           that could handle this channel.
           The channel dispatcher SHOULD order them with the "most preferred"
           handler first, in an implementation-dependent way.
