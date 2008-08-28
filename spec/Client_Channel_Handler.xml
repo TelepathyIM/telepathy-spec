@@ -52,18 +52,12 @@
           channel handler for bundles that contain only suitable channels,
           or for suitable channels that must be handled separately.</p>
 
-        <p>This property never changes while the channel-handler process is
-          running. (FIXME: it can change due to upgrades - how do we tell
-          the channel dispatcher about this? Make it inotify on the .client
-          file?)</p>
-
-        <p>For channel handlers that have a .client file, the channel
-          dispatcher may discover this property from the
-          [org.freedesktop.Telepathy.Client.ChannelHandler.DRAFT] section of
-          the .client file. (FIXME: what are the keys and their values?)</p>
-
-        <p>FIXME: the type 'v' is a placeholder and needs replacing with
-          something suitable.</p>
+        <p>This property works in exactly the same way as the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.DRAFT.ObserverChannelFilter</tp:dbus-ref>
+          property. In the .client file, it is represented in the
+          same way as ObserverChannelFilter, but the group has the same
+          name as this interface and the keys start with
+          HandlerChannelFilter instead of ObserverChannelFilter.</p>
       </tp:docstring>
     </property>
 
