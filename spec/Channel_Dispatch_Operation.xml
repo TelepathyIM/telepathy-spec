@@ -117,10 +117,10 @@
           of HandleWith to request that they can handle a channel bundle
           themselves.</p>
 
-        <p>FIXME: list some possible errors</p>
+        <p>(FIXME: list some possible errors)</p>
 
-        <p>FIXME: should the Approver be able to direct individual channels
-          to different handlers?</p>
+        <p>(FIXME: should the Approver be able to direct individual channels
+          to different handlers?)</p>
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
@@ -167,9 +167,9 @@
           been completed. Again, see HandleWith for more details. The approver
           MUST NOT attempt to close the channels itself in this case.</p>
 
-        <p>FIXME: list some possible errors</p>
+        <p>(FIXME: list some possible errors)</p>
 
-        <p>FIXME: should it be possible to Claim individual channels?</p>
+        <p>(FIXME: should it be possible to Claim individual channels?)</p>
       </tp:docstring>
 
     </method>
