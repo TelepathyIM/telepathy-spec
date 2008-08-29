@@ -84,10 +84,10 @@
 
       <p>If not, the channel dispatcher SHOULD send the channel dispatch
         operation to all relevant approvers (in parallel) and wait for an
-        approver to request that the channels are handled or rejected.</p>
+        approver to claim the channels or request that they are handled.</p>
 
-      <p>Finally, the channel dispatcher SHOULD send the channels to
-        a handler, or reject them, according to the approver's choice.</p>
+      <p>Finally, if the approver requested it, the channel dispatcher SHOULD
+        send the channels to a handler.</p>
     </tp:docstring>
 
     <property name="Interfaces" type="as" access="read"
