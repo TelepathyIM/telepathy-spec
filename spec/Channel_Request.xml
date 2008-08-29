@@ -116,7 +116,7 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Debug_Message" type="s">
+      <arg name="Message" type="s">
         <tp:docstring>
           If the first argument of the D-Bus error message was a string,
           that string. Otherwise, an empty string.
