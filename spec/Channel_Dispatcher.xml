@@ -23,9 +23,12 @@
 
   <interface name="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT"
     tp:causes-havoc="experimental">
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>The channel dispatcher is responsible for responding to new
-        channels and launching client processes to handle them.</p>
+        channels and launching client processes to handle them. It also
+        provides functionality for client processes to request that new
+        channels are created.</p>
 
       <p>The current channel dispatcher is defined to be the process that
         owns the well-known bus name
