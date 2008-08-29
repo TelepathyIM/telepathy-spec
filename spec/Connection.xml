@@ -668,10 +668,43 @@ USA.</p>
     </signal>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>This models a connection to a single user account on a communication
-    service. Its basic capability is to provide the facility to request and
-    receive channels of differing types (such as text channels or streaming
-    media channels) which are used to carry out further communication.</p>
+      <p>This models a connection to a single user account on a communication
+        service. Its basic capability is to provide the facility to request and
+        receive channels of differing types (such as text channels or streaming
+        media channels) which are used to carry out further communication.</p>
+
+      <p>In order to allow Connection objects to be discovered by new clients,
+        the object path and well-known bus name MUST be of the form
+        <code>/org/freedesktop/Telepathy/Connection/cmname/proto/account</code>
+        and
+        <code>org.freedesktop.Telepathy.Connection.cmname.proto.account</code>
+        where:</p>
+
+      <ul>
+        <li><em>cmname</em> is the same
+          <tp:type>Connection_Manager_Name</tp:type> that appears
+          in the connection manager's object path and well-known bus name</li>
+        <li><em>proto</em> is the <tp:type>Protocol</tp:type> name as seen in
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager">ListProtocols</tp:dbus-ref>,
+          but with "-" replaced with "_" to get a valid
+          object path/bus name</li>
+        <li><em>account</em> is some non-empty sequence of ASCII letters,
+          digits and underscores not starting with a digit</li>
+      </ul>
+
+      <p><em>account</em> SHOULD be formed such that any valid distinct
+        connection instance on this protocol has a distinct name. This
+        might be formed by including the server name followed by the user
+        name (escaped via some suitable mechanism like telepathy-glib's
+        tp_escape_as_identifier() function to preserve uniqueness); on
+        protocols where connecting multiple times is permissable, a
+        per-connection identifier might be necessary to ensure
+        uniqueness.</p>
+
+      <p>Clients MAY parse the object path to determine the connection
+        manager name and the protocol, but MUST NOT attempt to parse the
+        <em>account</em> part. Connection managers MAY use any unique string
+        for this part.</p>
 
     <p>As well as the methods and signatures below, arbitrary interfaces may be
     provided by the Connection object to represent extra connection-wide
@@ -702,6 +735,13 @@ USA.</p>
     keep handles from being released with HoldHandles, and notify that they are
     no longer storing handles with ReleaseHandles.</p>
     </tp:docstring>
+
+    <tp:changed version="0.17.UNRELEASED">Previously, the account part of
+      Connection bus names/object paths was allowed to have more than one
+      component (i.e. contain dots or slashes), resulting in Connection
+      bus names and object paths with more than 7 components. We now restrict
+      Connection bus names/object paths to have exactly 7
+      components.</tp:changed>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
