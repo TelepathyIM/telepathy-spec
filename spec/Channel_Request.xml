@@ -62,7 +62,8 @@
         tp:type="Qualified_Property_Value_Map[]">
         <tp:docstring>
           The requested channels - see the corresponding argument to
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>.
+          <!--<tp:dbus-ref namespace="org.freedesktop.Telepathy">-->
+            Connection.Interface.Requests.DRAFT.RequestChannels.
         </tp:docstring>
       </arg>
 
@@ -121,7 +122,8 @@
         tp:type="Channel_Details[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channels that were produced. The same comments as for
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.RequestChannels</tp:dbus-ref>
+            <!--<tp:dbus-ref namespace="org.freedesktop.Telepathy">-->
+              Connection.Interface.Requests.DRAFT.RequestChannels
             apply here.</p>
 
           <p>After signalling success in this way, the channel
