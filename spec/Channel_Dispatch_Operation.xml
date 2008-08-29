@@ -185,8 +185,8 @@
           in a way that avoids immediate re-use.</p>
 
         <tp:rationale>
-          <p>Otherwise, clients might accidentally call Claim, HandleWith
-            or Reject on a new dispatch operation instead of the one they
+          <p>Otherwise, clients might accidentally call HandleWith or Claim
+            on a new dispatch operation instead of the one they
             intended to handle.</p>
         </tp:rationale>
       </tp:docstring>
