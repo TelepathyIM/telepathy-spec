@@ -30,6 +30,22 @@
         provides functionality for client processes to request that new
         channels are created.</p>
 
+      <p>If a channel dispatcher is running, it is responsible for dispatching
+        new channels on all
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>s
+        created by the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">AccountManager</tp:dbus-ref>.
+        Connections not created by the AccountManager are outside the scope
+        of the channel dispatcher.</p>
+
+      <tp:rationale>
+        <p>Connections created by standalone Telepathy clients
+          that do not intend to interact with the channel dispatcher
+          should be ignored - otherwise, the channel dispatcher would try
+          to launch handlers for channels that the standalone client
+          was already handling internally.</p>
+      </tp:rationale>
+
       <p>The current channel dispatcher is defined to be the process that
         owns the well-known bus name
         <code>org.freedesktop.Telepathy.ChannelDispatcher</code> on
