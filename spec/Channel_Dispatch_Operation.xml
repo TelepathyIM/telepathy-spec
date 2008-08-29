@@ -70,6 +70,9 @@
         If the handler takes responsibility for the channels,
         processing stops, and no approvers are run.</p>
 
+      <p>(FIXME: this is far too subtle and everyone will get it wrong.
+        Open issue: how else do we address this use case?)</p>
+
       <tp:rationale>
         <p>Some channel types can be picked up "quietly" by an existing
           channel handler. If a Text channel is added to an existing
