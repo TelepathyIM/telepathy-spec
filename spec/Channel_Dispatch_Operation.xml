@@ -167,12 +167,6 @@
           operation is no longer present and further methods must not be
           called on it.</p>
 
-        <tp:rationale>
-          <p>Strictly speaking this is redundant with
-            ChannelDispatcher.DispatchOperationClosed, but having it here
-            makes the ChannelDispatchOperation self-contained.</p>
-        </tp:rationale>
-
         <p>Its object path SHOULD NOT be reused for a subsequent dispatch
           operation; the ChannelDispatcher MUST choose object paths
           in a way that avoids immediate re-use.</p>
