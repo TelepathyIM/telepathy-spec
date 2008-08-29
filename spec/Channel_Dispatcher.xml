@@ -37,6 +37,16 @@
         interface at the object path
         <code>/org/freedesktop/Telepathy/ChannelDispatcher</code>.</p>
 
+      <p>Until a mechanism exists for making a reasonable automatic choice
+        of ChannelDispatcher implementation, it is RECOMMENDED that
+        implementations do not register as an activatable service for the
+        ChannelDispatcher's well-known bus name. Instead, it is intended that
+        some component of the user's session will select and activate a
+        particular implementation, and that other Telepathy-enabled programs
+        can detect whether channel request/dispatch functionality is available
+        by checking whether the ChannelDispatcher's well-known name is in use
+        at runtime.</p>
+
       <p>There are three categories of client process defined by this
         specification:</p>
 
