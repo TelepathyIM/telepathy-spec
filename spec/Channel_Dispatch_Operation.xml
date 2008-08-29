@@ -113,10 +113,14 @@
           handled by a particular handler. The approver MUST NOT attempt
           to handle the channels itself in this case.</p>
 
-        <p>Approvers which are also channel handlers SHOULD use HandleWith
-          to request that they can handle a channel bundle themselves, but
-          MUST NOT actually start to handle the channel until the
-          ChannelHandler.HandleChannels method is called on them.</p>
+        <p>Approvers which are also channel handlers SHOULD use Claim instead
+          of HandleWith to request that they can handle a channel bundle
+          themselves.</p>
+
+        <p>FIXME: list some possible errors</p>
+
+        <p>FIXME: should the Approver be able to direct individual channels
+          to different handlers?</p>
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
@@ -127,38 +131,47 @@
         </tp:docstring>
       </arg>
 
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
     </method>
 
-    <method name="Reject">
+    <method name="Claim">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by an approver to reject a channel bundle. This is
-          equivalent to passing it to a channel handler that closes or
-          ignores the channel.</p>
+        <p>Called by an approver to claim a channel bundle for handling
+          internally. The process calling this method becomes the handler for
+          the channel, but <em>does not</em> have the HandleChannels method
+          called on it.</p>
+        <!-- FIXME: tp:dbus-ref -->
 
-        <p>The channel dispatcher SHOULD use a channel-type-specific
-          mechanism to close the channels if appropriate. If their channel
-          types are not known to the channel dispatcher, it SHOULD leave
-          the channels open but ignore them.</p>
+        <p>Clients that call Claim on a channel and do not immediately
+          close it SHOULD implement the Handler interface and its
+          CurrentlyHandledChannels property.</p>
+        <!-- FIXME: tp:dbus-ref -->
+
+        <p>Approvers wishing to reject a channel MUST call this method to
+          claim ownership of it, and MUST NOT call
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          on the channel unless this method returns successfully.</p>
 
         <tp:rationale>
           <p>The channel dispatcher can't know how best to close arbitrary
-            channel types.</p>
+            channel types (for instance, for Text channels it is necessary
+            to acknowledge any messages that have already been displayed to
+            the user first), so it leaves it up to the approver to do so.</p>
         </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
-          object to disappear. See HandleWith for more details.</p>
+          object to disappear, emitting
+          <tp:member-ref>Closed</tp:member-ref>, in the same way as for
+          <tp:member-ref>HandleWith</tp:member-ref>.</p>
 
         <p>This method may fail because the dispatch operation has already
           been completed. Again, see HandleWith for more details. The approver
           MUST NOT attempt to close the channels itself in this case.</p>
+
+        <p>FIXME: list some possible errors</p>
+
+        <p>FIXME: should it be possible to Claim individual channels?</p>
       </tp:docstring>
 
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
     </method>
 
     <signal name="Closed">
