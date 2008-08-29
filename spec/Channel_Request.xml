@@ -109,10 +109,10 @@
       </tp:docstring>
 
       <arg name="Error" type="s" tp:type="DBus_Error_Name">
-        <tp:docstring>
-          The name of a D-Bus error raised when RequestChannels was
-          called on the Connection, or if RequestChannels could not even
-          be called, a suitable D-Bus error.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The name of a D-Bus error. This can come from various sources,
+          including the error raised by CreateChannel, or an error generated
+          to represent failure to establish the Connection.
         </tp:docstring>
       </arg>
 
