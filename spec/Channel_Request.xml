@@ -59,12 +59,20 @@
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="Requests" type="aa{sv}"
-        tp:type="Qualified_Property_Value_Map[]">
-        <tp:docstring>
-          The requested channels - see the corresponding argument to
-          <!--<tp:dbus-ref namespace="org.freedesktop.Telepathy">-->
-            Connection.Interface.Requests.DRAFT.RequestChannels.
+      <arg direction="in" name="Request" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary containing desirable properties. This has the same
+            semantics as the corresponding parameter to
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>.
+          </p>
+
+          <p>Certain properties will not necessarily make sense in this
+            dictionary: for instance,
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+            can only be given if the requester is able to interact with a
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
+            to the desired account.</p>
         </tp:docstring>
       </arg>
 
