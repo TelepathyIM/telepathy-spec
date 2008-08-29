@@ -50,10 +50,9 @@
 
       <p>First, the channel dispatcher SHOULD construct a list of all the
         channel handlers that could handle all the channels, ordered by
-        priority in some implementation-dependent way.</p>
-
-      <p>If there are suitable handlers, one channel dispatch operation SHOULD
-        be created for all the channels. If there are not, one channel
+        priority in some implementation-dependent way. If there are handlers
+        which could handle all the channels, one channel dispatch operation
+        SHOULD be created for all the channels. If there are not, one channel
         dispatch operation SHOULD be created for each channel, each with
         a list of channel handlers that could handle that channel.</p>
 
