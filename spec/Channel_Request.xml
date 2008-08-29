@@ -28,8 +28,14 @@
       <p>A channel request is an object in the ChannelDispatcher representing
         an ongoing request for some channels to be created or found.</p>
 
-      <tp:docstring>
-      </tp:docstring>
+      <p>Its well-known bus name is the same as that of the ChannelDispatcher,
+        "org.freedesktop.Telepathy.ChannelDispatcher".</p>
+
+      <tp:rationale>
+        <p>See
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatcher.DRAFT.StartRequest</tp:dbus-ref>
+          for rationale for ChannelRequest being a separate object.</p>
+      </tp:rationale>
     </tp:docstring>
 
     <method name="RequestChannels">
