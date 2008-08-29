@@ -81,8 +81,24 @@
     </property>
 
     <method name="StartRequest">
-      <tp:docstring>
-        Start a channel request.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start a channel request. This just creates a
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+          object, which can be used to perform the actual request and track its
+          success or failure.</p>
+
+        <tp:rationale>
+          <p>The request can take a long time - in the worst case, the
+            channel dispatcher has to ask the account manager to put the
+            account online, the account manager has to ask the operating
+            system to obtain an Internet connection, and the operating
+            system has to ask the user whether to activate an Internet
+            connection using an on-demand mechanism like dialup.</p>
+
+          <p>This means that using a single D-Bus method call and response
+            to represent the whole request will tend to lead to that call
+            timing out, which is not the behaviour we want.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="out" name="Request" type="o">

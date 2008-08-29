@@ -37,16 +37,8 @@
         <p>Actually request the channels.</p>
 
         <p>This method SHOULD return immediately; on success, the request
-          might still fail, but this will be indicated asynchronously.</p>
-
-        <tp:rationale>
-          <p>The request can take a long time - in the worst case, the
-            channel dispatcher has to ask the account manager to put the
-            account online, the account manager has to ask the operating
-            system to obtain an Internet connection, and the operating
-            system has to ask the user whether to activate an Internet
-            connection using an on-demand mechanism like dialup.</p>
-          </tp:rationale>
+          might still fail, but this will be indicated asynchronously
+          by the <tp:member-ref>Failed</tp:member-ref> signal.</p>
       </tp:docstring>
 
       <arg direction="in" name="Connection" type="o">
