@@ -111,7 +111,8 @@
           completed and the object has already gone. If this occurs, it
           indicates that another approver has asked for the bundle to be
           handled by a particular handler. The approver MUST NOT attempt
-          to handle the channels itself in this case.</p>
+          to interact with the channels further in this case, unless it is
+          separately invoked as the handler.</p>
 
         <p>Approvers which are also channel handlers SHOULD use Claim instead
           of HandleWith to request that they can handle a channel bundle
@@ -136,9 +137,9 @@
     <method name="Claim">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by an approver to claim a channel bundle for handling
-          internally. The process calling this method becomes the handler for
-          the channel, but <em>does not</em> have the HandleChannels method
-          called on it.</p>
+          internally. If this method is called successfully, the process
+          calling this method becomes the handler for the channel, but
+          <em>does not</em> have the HandleChannels method called on it.</p>
         <!-- FIXME: tp:dbus-ref -->
 
         <p>Clients that call Claim on a channel and do not immediately
@@ -165,7 +166,8 @@
 
         <p>This method may fail because the dispatch operation has already
           been completed. Again, see HandleWith for more details. The approver
-          MUST NOT attempt to close the channels itself in this case.</p>
+          MUST NOT attempt to interact with the channels further in this
+          case.</p>
 
         <p>(FIXME: list some possible errors)</p>
 
