@@ -80,11 +80,11 @@
             channel handler.</p>
         </dd>
 
-        <dt>Channel handler</dt>
+        <dt>Handler</dt>
         <dd>
-          <p>Channel handlers are the eventual handler for a channel or a
-            channel bundle; a typical channel handler is a user interface
-            process handling channels of a particular type.</p>
+          <p>Each new channel or set of channels is passed to exactly one
+            handler as its final destination. A typical channel handler is a
+            user interface process handling channels of a particular type.</p>
         </dd>
       </dl>
     </tp:docstring>
