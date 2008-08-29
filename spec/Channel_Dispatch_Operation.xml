@@ -104,8 +104,8 @@
           the given handler be used to handle it.</p>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
-          object to disappear, emitting Closed, and also cause the
-          ChannelDispatcher to emit DispatchOperationClosed.</p>
+          object to disappear, emitting
+          <tp:member-ref>Closed</tp:member-ref>.</p>
 
         <p>However, this method may fail because the dispatch has already been
           completed and the object has already gone. If this occurs, it
