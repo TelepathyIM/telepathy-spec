@@ -67,21 +67,15 @@
 
     <method name="HandleChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the channel dispatcher when an Approver indicates that
-          this client should handle these channels.</p>
-
-        <p>The channel handler SHOULD NOT take input focus as a result of
-          this method; the channel dispatcher SHOULD call HandleChannels
-          followed by Present if the channels were requested by explicit
-          user action.</p>
+        <p>Called by the channel dispatcher when this client should handle these
+          channels, or when this client should present channels that it is already
+          handling to the user (e.g. bring them into the foreground).</p>
 
         <tp:rationale>
-          <p>Channels created as a side-effect of a request for other channels
-            shouldn't get their handler in the foreground. Suppose AbiWord
-            requests an XMPP MUC (chatroom) Tube, and joining this tube
-            requires the CM to join a corresponding Text channel which is then
-            handled by some handler other than AbiWord. In this case the Text
-            channel handler shouldn't take focus away from AbiWord.</p>
+          <p>Clients are expected to know what channels they're already handling,
+            and which channel object path corresponds to which window or tab.
+            This can easily be done using a hash table keyed by channels' object
+            paths.</p>
         </tp:rationale>
       </tp:docstring>
 
