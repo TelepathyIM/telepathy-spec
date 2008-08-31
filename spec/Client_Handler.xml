@@ -132,45 +132,6 @@
       </tp:possible-errors>
     </method>
 
-    <method name="Present">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Present any user interface for the given channels to the user, i.e.
-          bring it to the foreground, give it focus, or use some other way to
-          bring it to the user's attention.</p>
-
-        <p>This method is called by the channel dispatcher after channels
-          are requested. As a result, it SHOULD only ever be called in
-          response to user action, which means that the client
-          MAY take input focus as a result.</p>
-
-        <!-- FIXME: incorporate a focus-stealing-prevention timestamp
-          somehow -->
-
-        <p>If any of the given channels are not being handled by this
-          channel handler, they MUST be ignored. The channel dispatcher
-          MAY include channels in the argument even if this channel
-          handler is not actually handling them, but SHOULD NOT call this
-          method unless the channel handler is actually handling at least
-          one of the channels.</p>
-      </tp:docstring>
-
-      <arg name="Connection" type="o" direction="in">
-        <tp:docstring>
-          The Connection with which the channels are associated. The
-          well-known bus name to use can be derived from this object
-          path by removing the leading '/' and replacing all subsequent
-          '/' by '.'.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Channels" type="a(oa{sv})" direction="in">
-        <tp:docstring>
-          The channels and their immutable properties. Their well-known
-          bus name is the same as that of the Connection.
-        </tp:docstring>
-      </arg>
-    </method>
-
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
