@@ -38,6 +38,34 @@
       </tp:rationale>
     </tp:docstring>
 
+    <property name="UserActionTime" type="t" tp:type="Unix_Timestamp64"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The time at which user action occurred, or 0 if this channel
+          request is for some reason not involving user action.</p>
+
+        <p>This property is set by
+          <tp:member-ref>CreateChannelForAccount</tp:member-ref>.
+          Before that method has been called, the contents of this
+          property are undefined; after that method has been called,
+          the contents of this property cannot change.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="Requests" type="aa{sv}"
+      tp:type="Qualified_Property_Value_Map[]"
+      access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The request or requests that have been made.</p>
+
+        <p>This property is set by
+          <tp:member-ref>CreateChannelForAccount</tp:member-ref>.
+          Before that method has been called, the contents of this
+          property are undefined; after that method has been called,
+          the contents of this property cannot change.</p>
+      </tp:docstring>
+    </property>
+
     <method name="CreateChannelForAccount">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that a new channel is created.</p>
@@ -73,6 +101,16 @@
             can only be given if the requester is able to interact with a
             <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
             to the desired account.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="User_Action_Time" type="t"
+        tp:type="Unix_Timestamp64">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The time at which user action occurred, or 0 if this channel
+            request is for some reason not involving user action.
+            The <tp:member-ref>UserActionTime</tp:member-ref> property
+            will be set to this value.</p>
         </tp:docstring>
       </arg>
 
