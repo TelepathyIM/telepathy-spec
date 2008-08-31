@@ -96,7 +96,6 @@
         <tp:rationale>
           Processes that aren't approvers shouldn't be making connections
           anyway - there should always be at least one approver running.
-          (FIXME: or should the CD attempt to service-activate an approver?)
         </tp:rationale>
       </tp:docstring>
 
