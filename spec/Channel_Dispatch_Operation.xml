@@ -98,6 +98,47 @@
       </tp:docstring>
     </property>
 
+    <property name="Connection" type="o" access="read">
+      <tp:docstring>
+        The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
+        with which the <tp:member-ref>Channels</tp:member-ref> are
+        associated. The well-known bus name to use can be derived from
+        this object path by removing the leading '/' and replacing all
+        subsequent '/' by '.'.
+      </tp:docstring>
+    </property>
+
+    <property name="Account" type="o" access="read">
+      <tp:docstring>
+        The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+        with which the <tp:member-ref>Connection</tp:member-ref>
+        and <tp:member-ref>Channels</tp:member-ref> are
+        associated.
+      </tp:docstring>
+    </property>
+
+    <property name="Channels" type="a(oa{sv})" access="read"
+      tp:type="Channel_Details[]">
+      <tp:docstring>
+        The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
+        to be dispatched, and their properties.
+      </tp:docstring>
+    </property>
+
+    <property name="PossibleHandlers" type="as" access="read"
+      tp:type="DBus_Well_Known_Name[]">
+      <tp:docstring>
+        The well known bus names of the possible <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>s
+        for these channels. The channel dispatcher MUST place the most
+        preferred handlers first, according to some reasonable heuristic.
+        As a result, approvers SHOULD use the first handler by default.
+      </tp:docstring>
+    </property>
+
     <method name="HandleWith">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by an approver to accept a channel bundle and request that
