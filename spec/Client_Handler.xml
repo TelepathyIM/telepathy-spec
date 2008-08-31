@@ -132,6 +132,89 @@
       </tp:possible-errors>
     </method>
 
+    <method name="AddRequest">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Called by the ChannelDispatcher to indicate that channels have been
+          requested, and that if the request is successful, they will be
+          handled by this Handler.</p>
+
+        <tp:rationale>
+          <p>This allows the UI to start preparing to handle the channels
+            in advance (e.g. render a window with an "in progress" message),
+            improving perceived responsiveness.</p>
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Request" type="o" direction="in">
+        <tp:docstring>
+          The <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
+          object.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map" direction="in">
+        <tp:docstring>
+          <p>Some of the properties of the ChannelRequest. To avoid race
+            conditions, this dictionary MUST NOT include properties whose
+            values could subsequently change. It SHOULD include as many
+            properties as possible, given that constraint.</p>
+
+          <p>In particular, the properties Requests and UserActionTimestamp
+            MUST be included.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="CancelRequest">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Called by the ChannelDispatcher to indicate that a request
+          previously passed to <tp:member-ref>AddRequest</tp:member-ref>
+          has failed and should be disregarded.</p>
+      </tp:docstring>
+
+      <arg name="Request" type="o" direction="in">
+        <tp:docstring>
+          The request that failed.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Error" type="s" tp:type="DBus_Error_Name" direction="in">
+        <tp:docstring>
+          The name of the D-Bus error with which the request failed.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Message" type="s" direction="in">
+        <tp:docstring>
+          Any message supplied with the D-Bus error.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <property name="HandledChannels" type="ao" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of the channels that this Handler is currently handling.
+        </p>
+
+        <p>There is no change notification.</p>
+
+        <tp:rationale>
+          <p>This property exists for state recovery - it makes it possible
+            for channel handling to survive a ChannelDispatcher crash.</p>
+
+          <p>If the channel dispatcher is automatically replaced, the
+            replacement can discover all Handlers by looking for the Client
+            well-known bus names, and discover which channels they are
+            currently handling. Once this has been done, all unhandled
+            channels can be re-dispatched, and the only issue visible to
+            the user is that unhandled channels that they have already
+            approved might be sent back to Approvers.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
