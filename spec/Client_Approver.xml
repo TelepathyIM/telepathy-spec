@@ -65,7 +65,7 @@
       tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this approver is
-          interested. The <tp:member-ref>HandleDispatch</tp:member-ref>
+          interested. The <tp:member-ref>AddDispatchOperation</tp:member-ref>
           method should be called by the channel dispatcher whenever the
           channels in a channel dispatch operation
           match this description.</p>
@@ -82,7 +82,7 @@
       </tp:docstring>
     </property>
 
-    <method name="HandleDispatch">
+    <method name="AddDispatchOperation">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when a ChannelDispatchOperation
           in which the approver has registered an interest is created.</p>
