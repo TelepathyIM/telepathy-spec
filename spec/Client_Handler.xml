@@ -68,7 +68,8 @@
 
     <!-- FIXME: add the HandleAdditionalChannels method, which must
       return instantly, and if successful, fast-tracks the channels past any
-      approvers if appropriate - see ChannelDispatchOperation for details -->
+      approvers if appropriate - see ChannelDispatchOperation for details.
+      Or not, if we can think of a better way to do it -->
 
     <method name="HandleChannels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
