@@ -99,46 +99,32 @@
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Handlers" type="as" direction="in">
-        <tp:docstring>
-          The well-known bus names of
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Handler</tp:dbus-ref>s
-          that could handle this channel.
-          The channel dispatcher SHOULD order them with the "most preferred"
-          handler first, in an implementation-dependent way.
-        </tp:docstring>
-        <!-- FIXME: what type is a client? An object path? A bus name? -->
-      </arg>
-
       <arg name="DispatchOperation" type="o" direction="in">
-        <tp:docstring>
-          The <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatchOperation</tp:dbus-ref>,
-          which is an object inside the channel dispatcher (and hence has the
-          same well-known bus name,
-          org.freedesktop.Telepathy.ChannelDispatcher).
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatchOperation</tp:dbus-ref>
+            to be processed.</p>
         </tp:docstring>
       </arg>
 
-      <arg name="Connection" type="o" direction="in">
+      <arg name="Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map" direction="in">
         <tp:docstring>
-          The <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
-          with which the channels are associated. The
-          well-known bus name to use can be derived from this object
-          path by removing the leading '/' and replacing all subsequent
-          '/' by '.'.
+          Properties of the channel dispatch operation. This MUST NOT include
+          properties that could change, SHOULD include as many properties as
+          possible given that constraint, and MUST include at least the
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Account</tp:dbus-ref>,
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Connection</tp:dbus-ref>,
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Channels</tp:dbus-ref>
+          and
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">PossibleHandlers</tp:dbus-ref>
+          properties.
         </tp:docstring>
       </arg>
-
-      <arg name="Channels" type="a(oa{sv})" direction="in">
-        <tp:docstring>
-          The channel bundle. The well-known bus name for all these channels
-          is the same as for the Connection.
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
     </method>
 
   </interface>
