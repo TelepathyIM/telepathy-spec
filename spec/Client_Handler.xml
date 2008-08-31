@@ -85,8 +85,6 @@
         </tp:rationale>
       </tp:docstring>
 
-      <!-- FIXME: other dispatching-related info? -->
-
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
           The Connection with which the channels are associated. The
@@ -100,6 +98,32 @@
         <tp:docstring>
           The channels and their immutable properties. Their well-known
           bus name is the same as that of the Connection.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Handler_Info" type="a{sv}" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Additional information about these channels. All keys are
+            optional, but the channel dispatcher SHOULD supply as many as
+            possible. Well-known keys and the types of the corresponding
+            values include:</p>
+
+          <dl>
+            <dt>account - o
+              (<tp:dbus-ref>org.freedesktop.Telepathy.Account</tp:dbus-ref>)
+            </dt>
+            <dd>The account with which this Connection is associated</dd>
+
+            <dt>user-action-time - t (<tp:type>Unix_Timestamp64</tp:type>)</dt>
+            <dd>The time at which user action occurred, or 0 if this channel
+              is to be handled for some reason not involving user action.
+              Handlers SHOULD use this for focus-stealing prevention,
+              if applicable.</dd>
+          </dl>
+
+          <p>(FIXME: what else?)</p>
+
+          <p>(FIXME: possible errors?)</p>
         </tp:docstring>
       </arg>
 
