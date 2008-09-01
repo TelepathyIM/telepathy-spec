@@ -81,6 +81,9 @@
         <p>(FIXME: do we want channel requesting to be entirely
           account-based, or do we want to allow channel requests by
           Connection too?)</p>
+
+        <p>(FIXME: something needs to explain what will happen if the Account
+          is disabled - raise PermissionDenied here, or emit Failed?)</p>
       </tp:docstring>
 
       <arg direction="in" name="Account" type="o">
