@@ -174,9 +174,8 @@
         <p>The channel request has succeeded. It is no longer present,
           and further methods must not be called on it.</p>
 
-        <p>(FIXME: should this signal reference the channels that were
-          produced? If so, should they be the channels with Requested=TRUE,
-          or all the channels in the NewChannels signal?)</p>
+        <p>(FIXME: does this signal really need to tell the caller the
+          channels that were produced?)</p>
       </tp:docstring>
 
       <arg name="Channels" type="a(oa{sv})"
