@@ -198,17 +198,27 @@ ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=tru
         </tp:docstring>
       </arg>
 
-      <arg name="Other" type="a{sv}" direction="in">
+      <arg name="Observer_Info" type="a{sv}" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Other information about these channels, in an as-yet unspecified
-            format.</p>
+          <p>Additional information about these channels. All keys are
+            optional, but the channel dispatcher SHOULD supply as many as
+            possible. Well-known keys and the types of the corresponding
+            values include:</p>
 
-          <tp:rationale>
-            <p>The idea is that this will include the object path of the
-              Account, if available, and anything else we think of later.</p>
-          </tp:rationale>
+          <dl>
+            <dt>account - o
+              (<tp:dbus-ref>org.freedesktop.Telepathy.Account</tp:dbus-ref>)
+            </dt>
+            <dd>The account with which this Connection is associated</dd>
+          </dl>
+
+          <p>(FIXME: what else?)</p>
+
+          <p>(FIXME: this is copied and pasted from Handler, we should
+            unify them somehow)</p>
         </tp:docstring>
       </arg>
+
     </method>
 
   </interface>
