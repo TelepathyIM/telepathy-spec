@@ -50,7 +50,8 @@
 
     </tp:docstring>
 
-    <property name="HandlerChannelFilter" type="v" access="read">
+    <property name="HandlerChannelFilter" type="aa{sv}" access="read"
+      tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels that this channel handler can
           deal with. It will be offered to approvers as a potential
