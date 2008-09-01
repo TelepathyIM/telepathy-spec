@@ -45,8 +45,24 @@
         channel).</p>
 
       <tp:rationale>
-        <p>There can be many observers. Actions like this should be
-          done by the Handler, of which there can only be one.</p>
+        <p>Since arbitrarily many observers can be activated for
+          each channel, it would not make sense for observers to do things
+          that can only be done by one process (acknowledging
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>
+          messages, carrying out streaming for
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+          channels, doing the actual data transfer for file transfers,
+          setting up the out-of-band connection for Tubes). The
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>
+          is responsible for such tasks.</p>
+
+        <p>Handlers MAY, of course, delegate responsibility for these
+          tasks to other processes (including those run as observers),
+          but this MUST be done explicitly via a request from the Handler
+          to the Observer.</p>
       </tp:rationale>
 
       <p>Whenever new channels are signalled, the channel dispatcher
