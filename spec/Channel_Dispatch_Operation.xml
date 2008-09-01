@@ -27,7 +27,9 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel dispatch operation is an object in the ChannelDispatcher
         representing a bundle of unrequested channels being announced to
-        client processes.</p>
+        client
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver.DRAFT</tp:dbus-ref>
+        processes.</p>
 
       <p>These objects can result from new incoming channels or channels
         which are automatically created for some reason, but cannot result
