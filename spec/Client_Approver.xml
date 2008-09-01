@@ -89,9 +89,10 @@
 
         <p>The channel dispatcher SHOULD call this method on all approvers
           at the same time. If no approvers return from this method
-          successfully (for instance because no approvers are running),
-          the channel dispatcher SHOULD consider this to be an error, and
-          recover by dispatching the channel to the most preferred handler.</p>
+          successfully (including situations where there are no matching
+          approvers at all), the channel dispatcher SHOULD consider this
+          to be an error, and recover by dispatching the channel to the
+          most preferred handler.</p>
 
         <tp:rationale>
           Processes that aren't approvers shouldn't be making connections
