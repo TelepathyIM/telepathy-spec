@@ -45,6 +45,9 @@
         <p>The time at which user action occurred, or 0 if this channel
           request is for some reason not involving user action.</p>
 
+        <p>This corresponds to the _NET_WM_USER_TIME property in
+          <a href="http://standards.freedesktop.org/wm-spec/wm-spec-latest.html">EWMH</a>.</p>
+
         <p>This property is set by
           <tp:member-ref>CreateChannelForAccount</tp:member-ref>.
           Before that method has been called, the contents of this
