@@ -88,6 +88,10 @@
           should be called by the channel dispatcher whenever any of the new
           channels in a NewChannels signal match this description.</p>
 
+        <p>(FIXME: open issue: do we want this, and the corresponding
+          Approver and Handler properties, to be able to change at
+          runtime?)</p>
+
         <p>Only certain D-Bus types have useful semantics for matching like this,
           so only certain types are allowed:</p>
 
