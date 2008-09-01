@@ -26,7 +26,8 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel request is an object in the ChannelDispatcher representing
-        an ongoing request for some channels to be created or found.</p>
+        an ongoing request for some channels to be created or found. There
+        can be any number of ChannelRequest objects at the same time.</p>
 
       <p>Its well-known bus name is the same as that of the ChannelDispatcher,
         "org.freedesktop.Telepathy.ChannelDispatcher".</p>
