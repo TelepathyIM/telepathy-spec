@@ -32,7 +32,7 @@ Current implementation::
 Proposed implementation::
 
     if a channel with TargetHandleType == CONTACT and TargetHandle == juliet
-    exists:
+    is being handled by the chat UI:
         foreground its window or tab (no interaction with the
         ChannelDispatcher)
     else:
@@ -61,7 +61,8 @@ Proposed implementation::
             CD calls HandleChannels on chat UI
             chat UI handles channel
         on failure:
-            ChannelDispatcher calls RemoveFailedRequest on chat UI
+            ChannelDispatcher calls RemoveFailedRequest on chat UI, and
+                ChannelRequest emits Failed
             chat UI displays failure
 
 _`req2`: Chat from elsewhere
@@ -136,8 +137,10 @@ EnsureChannel)
         CD calls HandleChannels on handler of existing channel
         handler of existing channel brings channel to foreground
     on failure:
-        ChannelDispatcher calls RemoveFailedRequest on chat UI
-        chat UI displays failure
+        ChannelDispatcher calls RemoveFailedRequest on chat UI (1)
+        ChannelRequest emits Failed (2)
+        chat UI displays failure in response to (1)
+        address book displays failure in response to (2)
 
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -161,45 +164,48 @@ that may be ongoing.
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
 
-Proposed implementation, assuming AbiWord does not have a Text channel yet::
+Proposed implementation::
 
-    bundle_id = ...Bundle property of AbiWord Tube channel
+    let bundle_id = ...Bundle property of AbiWord Tube channel
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    if a channel with TargetHandleType == CONTACT, TargetHandle == mercutio
+    and Bundle == bundle_id is being handled by AbiWord:
+        nothing to do, we already have a Text channel: stop
 
-    ChannelDispatcher calls RequestChannels (
-        SUPPRESS_HANDLER,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': mercutio,
-             '...Bundle': bundle_id,
-             }
-        ])
+    AbiWord calls ChannelDispatcher.StartRequest
+    AbiWord calls ChannelRequest.CreateChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': mercutio,
+            '...Bundle': bundle_id,
+        },
+        timestamp,
+        abiword_client_bus_name
+    )
 
-    if a new channel that is suitable can be created:
-        channel observers run in response to NewChannels
-        channel approvers do not run, because the channel is one that
-            was requested
-        CM returns the channel "channel2" to ChannelDispatcher
-        ChannelDispatcher returns the channel "channel2" to AbiWord
-        ChannelDispatcher also calls HandleChannel on AbiWord
+    ChannelDispatcher calls AddRequest on AbiWord, AbiWord ignores it as
+        the request is already known to it
 
-        if channel2.Bundle == bundle_id:
-            that's OK
-        else if channel2 has no bundle:
-            that's OK too (for legacy CMs with no concept of bundles)
-        else:
-            (error, the CM is being stupid)
-    else:
-        AbiWord displays error
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on AbiWord
+        AbiWord handles channel
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on AbiWord, and
+            ChannelRequest emits Failed
+        AbiWord displays failure
         if the error is the EEXIST equivalent, the message might be
             "Already talking to Mercutio in another app, and multiple threads
             are not possible in this protocol"
 
-(Fallback behaviour if the CM is pre-Requests: all requests are made with
-suppress_handler = TRUE; the ChannelDispatcher knows which ones it wants
-handled.)
+(Fallback behaviour if the CM is pre-Requests: the request is made with
+suppress_handler = TRUE.)
 
 _`req26`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -237,18 +243,7 @@ Proposed implementation (with a new Chan.I.Thread)::
 
     Disconnect/reconnect occurs
 
-    Client calls some unspecified method on ChannelDispatcher (FIXME)
-
-    ChannelDispatcher calls RequestChannels (SUPPRESS_HANDLER,
-        [
-            {'...Channel.ChannelType': '...Text',
-             '...Channel.TargetHandleType': CONTACT,
-             '...Channel.TargetHandle': juliet,
-             '...Channel.Interface.Thread.ThreadID': thread_id,
-             }
-        ])
-
-    from here onwards, same as req1
+    Same as req1, except that ThreadID is included in the request
 
 Problems remaining:
 
@@ -413,9 +408,44 @@ Problems:
 * Implementors might be misled into thinking that the semantics resemble
   text channels more closely than they really do
 
-Proposed implementation: In the medium term, StreamedMedia channels must
-retain handle type NONE. However, UIs request handle type CONTACT and
-the channel dispatcher does the heavy lifting.
+Proposed implementation: (FIXME: requires InitialAudio, InitialVideo in spec)
+
+::
+
+    if a streamed media call with Juliet is being handled by the call UI:
+        foreground its window or tab (no interaction with the
+        ChannelDispatcher)
+    else:
+        call UI calls ChannelDispatcher.StartRequest
+        call UI calls ChannelRequest.CreateChannelByAccount(
+            account,
+            {
+                '...ChannelType': '...StreamedMedia',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': juliet,
+                '...InitialAudioStream': TRUE,
+                '...InitialVideoStream': TRUE,
+            },
+            timestamp,
+            my_own_bus_name
+        )
+
+        ChannelDispatcher calls AddRequest on call UI, call UI ignores it
+            as the request is already known to it
+
+        try:
+            ChannelDispatcher tells AccountManager to put account online
+            ChannelDispatcher calls CreateChannel ({...same arguments...})
+        on success:
+            channel observers run
+            ChannelRequest emits Succeeded, call UI ignores its arguments
+            channel approvers do not run
+            CD calls HandleChannels on call UI
+            call UI handles channel
+        on failure:
+            ChannelDispatcher calls RemoveFailedRequest on call UI, and
+                ChannelRequest emits Failed
+            call UI displays failure
 
 _`req5`: Call from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -456,16 +486,53 @@ Problems:
 * Looking for channels to talk to Romeo is hard (have to interact with lots of
   group interfaces)
 
-Proposed implementation: In the medium term, StreamedMedia channels must
-retain handle type NONE. However, UIs could request handle type CONTACT and
-have the channel dispatcher do the work - so from the UI's point of
-view this can seem the same as req2_.
+Proposed implementation: (FIXME: needs same extra API as req4_ and req2_
+combined)
+
+::
+
+    address book calls ChannelDispatcher.StartRequest
+    address book calls ChannelRequest.EnsureChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...StreamedMedia',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': juliet
+            '...InitialAudioStream': TRUE,
+            '...InitialVideoStream': FALSE,
+        },
+        timestamp,
+        my_own_bus_name
+    )
+
+    ChannelDispatcher calls AddRequest on call UI, call UI makes a new tab
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
+        channel observers run
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on call UI
+        call UI handles channel
+    on return of existing channel:
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel observers and approvers do not run
+        CD calls HandleChannels on handler of existing channel
+        handler of existing channel brings channel to foreground
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on call UI (1)
+        ChannelRequest emits Failed (2)
+        call UI displays failure in response to (1)
+        address book displays failure in response to (2)
+
 
 _`req6`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Romeo is collaborating on a document with Mercutio, and wants to have a chat
-embedded in his AbiWord instance, separate from any other chat with Mercutio
+Romeo is collaborating on a document with Mercutio, and wants to have a call
+embedded in his AbiWord instance, separate from any other call with Mercutio
 that may be ongoing.
 
 Current implementation: same as req5_
@@ -473,7 +540,7 @@ Current implementation: same as req5_
 Problems: same as req5_
 
 Proposed implementation: same as req5_, but ask for a new channel in a
-bundle
+bundle (like in req3_)
 
 _`req29`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
