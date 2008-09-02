@@ -31,31 +31,38 @@ Current implementation::
 
 Proposed implementation::
 
-    if a channel with GetHandle() -> (CONTACT, juliet) exists:
+    if a channel with TargetHandleType == CONTACT and TargetHandle == juliet
+    exists:
         foreground its window or tab (no interaction with the
         ChannelDispatcher)
     else:
-        client calls some unspecified method on ChannelDispatcher (FIXME)
+        chat UI calls ChannelDispatcher.StartRequest
+        chat UI calls ChannelRequest.CreateChannelByAccount(
+            account,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': juliet
+            },
+            timestamp,
+            my_own_bus_name
+        )
 
-        ChannelDispatcher calls RequestChannels (
-            SUPPRESS_HANDLER,
-            [
-                {'...ChannelType': '...Text',
-                 '...TargetHandleType': CONTACT,
-                 '...TargetHandle': juliet
-                }
-            ])
-        # FIXME: the CD could pass in some sort of "require new" flag?
+        ChannelDispatcher calls AddRequest on chat UI, chat UI ignores it
+            as the request is already known to it
 
-        if the channel that is returned has the EXISTING flag:
-            UI fails with "already talking to Juliet in another application"
-        else:
+        try:
+            ChannelDispatcher tells AccountManager to put account online
+            ChannelDispatcher calls CreateChannel ({...same arguments...})
+        on success:
             channel observers run
-            ChannelDispatcher returns it to the UI
-            UI makes a new window or tab for it
-
-        channel approvers do not run
-        channel handler does not run
+            ChannelRequest emits Succeeded, chat UI ignores its arguments
+            channel approvers do not run
+            CD calls HandleChannels on chat UI
+            chat UI handles channel
+        on failure:
+            ChannelDispatcher calls RemoveFailedRequest on chat UI
+            chat UI displays failure
 
 _`req2`: Chat from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,41 +89,55 @@ Current implementation::
     else:
         the channel handler puts the existing window or tab in the foreground
 
-Problems addressed by proposed implementation:
+Things smcv considered to be problems:
 
 * It's rather bizarre that Mission Control re-dispatches an existing channel
   as though it was new (proposed solution: a Present() method instead)
+
+  * Resolution: Rob does not consider this to be a problem, overruled
 
 * It's very bizarre that the channel handler interprets HandleChannel on a
   channel it's already handling as "put it in the foreground". If we mean
   "put this in the foreground" we should say so (proposed solution: do so)
 
-Proposed implementation::
+  * Resolution: Rob does not consider this to be a problem, overruled
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+Proposed implementation: (FIXME: assumes existence of EnsureChannelByAccount,
+EnsureChannel)
 
-    ChannelDispatcher calls RequestChannels (REUSE,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': juliet
-            }
-        ])
+::
 
-    if the channel that is returned has the EXISTING flag:
-        ChannelDispatcher returns it to the address book, which does nothing
-            much with it
-        ChannelDispatcher calls ChannelHandler.Present() on the existing
-            handler (which it already knows about)
-        channel observers/approvers do not run
-    else:
+    address book calls ChannelDispatcher.StartRequest
+    address book calls ChannelRequest.EnsureChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': juliet
+        },
+        timestamp,
+        my_own_bus_name
+    )
+
+    ChannelDispatcher calls AddRequest on chat UI, chat UI makes a new tab
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
         channel observers run
-        ChannelDispatcher returns it to the address book, which does nothing
-            much with it
+        ChannelRequest emits Succeeded, address book ignores its arguments
         channel approvers do not run
-        ChannelDispatcher chooses a channel handler in an
-            implementation-specific way and calls
-            ChannelHandler.HandleChannel() on it
+        CD calls HandleChannels on chat UI
+        chat UI handles channel
+    on return of existing channel:
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel observers and approvers do not run
+        CD calls HandleChannels on handler of existing channel
+        handler of existing channel brings channel to foreground
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chat UI
+        chat UI displays failure
 
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
