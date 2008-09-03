@@ -622,13 +622,45 @@ Problems addressed by proposed implementation:
 * Tybalt doesn't get a chance to choose his nickname before joining
 
 Proposed implementation: some new interface for this functionality is
-created, like Chan.I.Chatroom. RequestChannels arguments contain::
+created, like Chan.I.Chatroom.
 
-    {'...Channel.ChannelType': '...Channel.Type.Text',
-     '...Channel.TargetHandleType': ROOM,
-     '...Channel.TargetHandle': chatroom_handle,
-     '...Channel.Interface.Chatroom.Nickname': 'the Prince of Cats',
-    }
+::
+
+    if a channel with TargetHandleType == ROOM and TargetID == '#capulet'
+    is being handled by the chatroom UI:
+        foreground its window or tab (no interaction with the
+        ChannelDispatcher)
+    else:
+        chatroom UI calls ChannelDispatcher.StartRequest
+        chatroom UI calls ChannelRequest.CreateChannelByAccount(
+            account,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': ROOM,
+                '...TargetID': '#capulet'
+                '...Channel.Interface.Chatroom.Nickname':
+                    'The Prince of Cats'
+            },
+            timestamp,
+            my_own_bus_name
+        )
+
+        ChannelDispatcher calls AddRequest on chatroom UI, which ignores it
+            as the request is already known to it
+
+        try:
+            ChannelDispatcher tells AccountManager to put account online
+            ChannelDispatcher calls CreateChannel ({...same arguments...})
+        on success:
+            channel observers run
+            ChannelRequest emits Succeeded, chatroom UI ignores its arguments
+            channel approvers do not run
+            CD calls HandleChannels on chatroom UI
+            chatroom UI handles channel
+        on failure:
+            ChannelDispatcher calls RemoveFailedRequest on chatroom UI, and
+                ChannelRequest emits Failed
+            chatroom UI displays failure
 
 Proplems remaining:
 
@@ -650,30 +682,47 @@ functionality of) the GNOME Places menu.
 
 Current implementation::
 
-    GNOME menu asks Mission Control for a channel with
-        (Text, ROOM, chatroom_handle)
-    Mission Control calls RequestChannel (Text, ROOM, chatroom_handle,
-        suppress_handler=FALSE) on CM
-    Mission Control dispatches the channel to the default/only handler
-
-    if the channel is new:
-        the channel handler creates a new window or tab
-    else:
-        the channel handler puts the existing window or tab in the foreground
-
 Problems with proposed solutions:
 
 * As for req7_, Benvolio doesn't get a chance to choose his nickname before
   joining (proposed solution: same as req7_)
 
-* As for req2_, it's rather bizarre that Mission Control re-dispatches an
-  existing channel as though it was new (proposed solution: same as req2_)
+Proposed implementation: ::
 
-* As for req2_, it's very bizarre that the channel handler interprets
-  HandleChannel on a channel it's already handling as "put it in the
-  foreground" (proposed solution: same as req2_)
+    Places menu calls ChannelDispatcher.StartRequest
+    Places menu calls ChannelRequest.EnsureChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': ROOM,
+            '...TargetHandle': '#capulet'
+        },
+        timestamp,
+        my_own_bus_name
+    )
 
-Proposed implementation: a combination of req2_ and req7_
+    ChannelDispatcher calls AddRequest on chatroom UI, which makes a new tab
+    (if it is not already handling such a channel)
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
+        channel observers run
+        ChannelRequest emits Succeeded, Places menu ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on chatroom UI
+        chatroom UI handles channel
+    on return of existing channel:
+        ChannelRequest emits Succeeded, Places menu ignores its arguments
+        channel observers and approvers do not run
+        CD calls HandleChannels on handler of existing channel
+        handler of existing channel brings channel to foreground
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chatroom UI (1)
+        ChannelRequest emits Failed (2)
+        chatroom UI displays failure in response to (1)
+        Places menu displays failure in response to (2)
 
 Listing named chatrooms
 -----------------------
