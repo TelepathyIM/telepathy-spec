@@ -1434,22 +1434,18 @@ one existing channel, we don't want the CM to create *any* new channels.
 
 Proposed implementation:
 
-* invent an error "already exists"
+* invent an error "already exists", or just use NotAvailable
 
-* the default is to require all the channels to be new; the CM should fail
-  the request (e.g. with "already exists") if it can't create *all* the
-  channels anew, and it should do this without creating *any* channels
-  if possible
-
-* case A: is the default
+* case A: CreateChannel
 
 * case B: we've concluded that this is weird. Who'd want this?
 
-* case C: pass the REUSE flag. The CM will return existing channels
-  if it can, or new ones if not
+* case C: EnsureChannel
 
-* case D: don't use RequestChannels; we could define a QueryChannels if there
-  is demand
+* case D: we could define a QueryChannels if there is demand
+
+* don't implement atomic requests for several channels simultaneously unless
+  we *really* need them
 
 ..
   vim:set sw=4 sts=4 et:
