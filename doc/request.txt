@@ -1341,8 +1341,7 @@ satisfied is a response
 Problems addressed by proposed implementation: the D-Bus method call will
 time out after around 25 seconds unless special action is taken
 
-Proposed implementation: the ChannelDispatcher creates a request "cursor"
-object for the duration of the request
+Proposed implementation: req4_
 
 _`req38`: Going behind the channel dispatcher's back
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
