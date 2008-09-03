@@ -120,7 +120,8 @@ EnsureChannel)
         my_own_bus_name
     )
 
-    ChannelDispatcher calls AddRequest on chat UI, chat UI makes a new tab
+    ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
+    (if it is not already handling such a channel)
 
     try:
         ChannelDispatcher tells AccountManager to put account online
