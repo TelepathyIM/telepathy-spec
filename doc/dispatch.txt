@@ -82,12 +82,48 @@ Proposed implementation:
 
 * The tray icon is a Client and a Client.Approver
 
-* The chat UI is a Client and a Client.ChannelHandler (selected in an
+* The chat UI is a Client and a Client.Handler (selected in an
   implementation-specific way)
 
 * Clients should not wait for the first message in an incoming channel -
   if a connection manager creates channels before a message arrives, clients
   should assume it has a valid reason to do so? ("`psychic mode`_")
+
+Dispatch process::
+
+    CM emits Requests.NewChannels([
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': 1234,
+            '...TargetID': 'romeo@montague.example.com',
+            '...Requested': FALSE,
+            ...
+        },
+        ])
+
+    In response, CD calls ObserveChannels on all matching Observers, including
+    org.freedesktop.Telepathy.Client.EmpathyLogger
+
+    CD creates a ChannelDispatchOperation
+
+    CD calls AddDispatchOperation on all matching Approvers, including
+    org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+    Empathy tray icon flashes
+
+    Juliet clicks on tray icon and chooses Accept
+
+    Empathy tray icon calls
+    HandleWith('org.freedesktop.Telepathy.Client.EmpathyChat')
+
+    ChannelDispatchOperation emits Closed
+
+    (At or before this point, the CD must wait for all the Observers to return
+    from ObserveChannels if they have not already done so)
+
+    CD calls HandleChannels on Empathy chat process (service-activating it
+    if needed)
 
 _`dis2`: Incoming 1-1 text message
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
