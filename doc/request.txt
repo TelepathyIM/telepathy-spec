@@ -680,13 +680,6 @@ functionality of) the GNOME Places menu.
 :Definition of channel identity:
     ChannelType is Text, TargetHandleType is ROOM, TargetHandle is #capulet
 
-Current implementation::
-
-Problems with proposed solutions:
-
-* As for req7_, Benvolio doesn't get a chance to choose his nickname before
-  joining (proposed solution: same as req7_)
-
 Proposed implementation: ::
 
     Places menu calls ChannelDispatcher.StartRequest
