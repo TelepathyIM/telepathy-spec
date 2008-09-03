@@ -1395,6 +1395,10 @@ and the CD will re-dispatch to a UI.
 Possible solution: closing a Text channel that has pending messages causes
 another one to open with the same pending messages
 
+* This is in spec 0.17.9 and Gabble implements it
+
+* Possible infinite-loop situations in Mission Control need investigating
+
 General issues
 --------------
 
