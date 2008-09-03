@@ -1130,25 +1130,35 @@ Proposed implementation::
     Let bundle_id be the value of the Bundle property of the existing
     Text or StreamedMedia channel.
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    Romeo's UI calls ChannelDispatcher.StartRequest
+    Romeo's UI calls ChannelRequest.CreateChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...FileTransfer',
+            '...TargetHandleType': CONTACT,
+            '...TargetID': 'juliet@capulet.example.com'
+            '...Bundle': bundle_id,
+            '...Channel.Type.FileTransfer.ContentType': 'image/png',
+            ...
+        },
+        timestamp,
+        my_own_bus_name
+    )
 
-    ChannelDispatcher calls RequestChannels (
-        SUPPRESS_HANDLER,
-        [
-            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
-             '...Channel.TargetHandleType': CONTACT,
-             '...Channel.TargetHandle': juliet,
-             '...Channel.Bundle': bundle_id,
-             # exact attributes of file offers undecided, but might include:
-             '...Channel.Type.FileTransfer.ContentType': 'image/png',
-             ...
-            }
-        ])
+    ChannelDispatcher calls AddRequest on Romeo's UI, which ignores it as
+        the request is already known to it
 
-    channel observers run
-    ChannelDispatcher returns it to the text or VoIP UI, which handles it
-    channel approvers do not run
-    channel handler does not run
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on Romeo's UI which handles the transfer
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on Romeo's UI, and
+            ChannelRequest emits Failed
+        Romeo's UI displays failure
 
 _`req20b`: Romeo's Text or VoIP UI does not support file transfers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1158,26 +1168,33 @@ Proposed implementation::
     Let bundle_id be the value of the Bundle property of the existing
     Text or StreamedMedia channel.
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    Romeo's UI calls ChannelDispatcher.StartRequest
+    Romeo's UI calls ChannelRequest.CreateChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...FileTransfer',
+            '...TargetHandleType': CONTACT,
+            '...TargetID': 'juliet@capulet.example.com'
+            '...Bundle': bundle_id,
+            '...Channel.Type.FileTransfer.ContentType': 'image/png',
+            ...
+        },
+        timestamp,
+        my_own_bus_name
+    )
 
-    ChannelDispatcher calls RequestChannels (
-        0,
-        [
-            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
-             '...Channel.TargetHandleType': CONTACT,
-             '...Channel.TargetHandle': juliet,
-             '...Channel.Bundle': bundle_id,
-             # exact attributes of file offers undecided, but might include:
-             '...Channel.Type.FileTransfer.ContentType': 'image/png',
-             ...
-            }
-        ])
+    ChannelDispatcher calls AddRequest on file transfer UI
 
-    channel observers run
-    ChannelDispatcher returns it to the text or VoIP UI, which does nothing
-        with it
-    channel approvers do not run
-    a channel handler chosen in an implementation-specific way runs
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on file transfer UI, which handles the transfer
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on file transfer UI
+        ChannelRequest emits Failed => Romeo's UI displays failure
 
 _`req21`: Sending a file from a file manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1185,7 +1202,9 @@ _`req21`: Sending a file from a file manager
 Romeo right-clicks on a file in his file manager, chooses a "Send to User"
 option and chooses to send it to Juliet.
 
-Proposed implementation: file manager is the channel handler
+Proposed implementation: if the file manager is the channel handler, this is
+the same as req20a_, but with no bundle ID; otherwise it's the same as req20b_
+but with no bundle ID
 
 _`req22`: Sending a file automatically in a collaborative application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1194,30 +1213,7 @@ While collaborating on a document with Mercutio, Romeo inserts an embedded
 image into the document. The collaborative application could usefully choose
 to represent this by a file transfer.
 
-Proposed implementation::
-
-    bundle_id = ...Bundle property of AbiWord Tube channel
-
-    client calls some unspecified method on ChannelDispatcher (FIXME)
-
-    ChannelDispatcher calls RequestChannels (SUPPRESS_HANDLER,
-        [
-            {'...ChannelType': '...FileTransfer',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': mercutio,
-             '...Bundle': bundle_id,
-             ...
-             }
-        ])
-
-    channel observers run if the channel did not already exist
-    channel approvers/handler do not run
-    ChannelDispatcher returns channel to AbiWord
-
-    if channel has the requested bundle ID:
-        AbiWord uses it
-    else:
-        ??? FIXME
+Proposed implementation: don't do this, use Tubes instead
 
 Tubes
 -----
