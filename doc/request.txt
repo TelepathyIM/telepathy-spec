@@ -1358,19 +1358,19 @@ A new channel is needed in one of the following cases:
 
 Proposed implementation:
 
-* The client calls RequestChannels on the CM directly, setting the
-  SUPPRESS_HANDLER flag
+* The client calls CreateChannel or EnsureChannel on the CM directly
 
 * In case req38b_ the channel dispatcher (if present) runs observers in
   response to the NewChannel signal, but does not run approvers or a channel
-  handler because the SUPPRESS_HANDLER flag is set
+  handler because the channel was Requested
 
 * In case req38a_ the client ignores the NewChannel signal because
-  SUPPRESS_HANDLER is set (which it would not be on incoming channels);
+  the channel was Requested (which incoming channels are not);
   in case req38b_ telepathy-inspector logs the event but does not pop up
   a window in any case
 
-* RequestChannels returns the channel to the client, and it handles it
+* CreateChannel or EnsureChannel returns the channel to the client, and it
+  handles it
 
 _`req39`: message-sending UI that doesn't want to know about receiving
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
