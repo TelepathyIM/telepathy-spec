@@ -795,12 +795,11 @@ Problems:
 
 Proposed implementation _`req11impl1`:
 
-* Everyone who cares about contact lists requests them, with
-  suppress_handler=FALSE
+* Everyone who cares about contact lists requests them with EnsureChannel
 
 * There is never a channel handler for contact lists
 
-* Approvers do not run, because the contact lists are not "incoming"
+* Are contact lists Requested or not? We just don't know
 
 Problems with req11impl1_:
 
@@ -816,7 +815,7 @@ Current implementation::
     RequestChannel (ContactList, GROUP, handle("Colleagues"),
         suppress_handler=FALSE)
 
-Proposed implementation: a straightforward port to the new API
+Proposed implementation: a straightforward port to EnsureChannel
 
 Ad-hoc chatrooms
 ----------------
