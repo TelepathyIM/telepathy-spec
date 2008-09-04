@@ -506,7 +506,7 @@ combined)
             '...InitialVideoStream': FALSE,
         },
         timestamp,
-        my_own_bus_name
+        ''
     )
 
     ChannelDispatcher calls AddRequest on call UI, call UI makes a new tab
@@ -694,7 +694,7 @@ Proposed implementation: ::
             '...TargetHandle': '#capulet'
         },
         timestamp,
-        my_own_bus_name
+        ''
     )
 
     ChannelDispatcher calls AddRequest on chatroom UI, which makes a new tab
@@ -1183,7 +1183,7 @@ Proposed implementation::
             ...
         },
         timestamp,
-        my_own_bus_name
+        ''
     )
 
     ChannelDispatcher calls AddRequest on file transfer UI
