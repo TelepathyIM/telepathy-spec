@@ -72,9 +72,6 @@ Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
 
-(_`req2a`: Additionally, if Juliet does the same thing again, the same chat
-with Romeo should be brought to the foreground instead of starting a new one.)
-
 :New vs. existing:
     Existing channel preferred, new channel acceptable
 :Definition of channel identity:
@@ -126,6 +123,8 @@ EnsureChannel)
     ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
     (if it is not already handling such a channel)
 
+    [+]
+
     try:
         ChannelDispatcher tells AccountManager to put account online
         ChannelDispatcher calls EnsureChannel ({...same arguments...})
@@ -135,16 +134,100 @@ EnsureChannel)
         channel approvers do not run
         CD calls HandleChannels on chat UI
         chat UI handles channel
-    on return of existing channel (this satisfies req2a):
-        ChannelRequest emits Succeeded, address book ignores its arguments
-        channel observers and approvers do not run
-        CD calls HandleChannels on handler of existing channel
-        handler of existing channel brings channel to foreground
+    on return of existing channel:
+        (this is req2a)
     on failure:
         ChannelDispatcher calls RemoveFailedRequest on chat UI (1)
         ChannelRequest emits Failed (2)
         chat UI displays failure in response to (1)
         address book displays failure in response to (2)
+
+_`req2a`: already-approved channel returned by repeated request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After use-case req2_ has happened, Juliet loses the chat window somewhere
+on her desktop (but it is still open). She wants to continue to talk to Romeo,
+and chooses his entry in her address book again.
+
+Proposed implementation::
+
+    initially the same as for req2
+
+    ChannelDispatcher tells AccountManager to put account online
+    ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    CM returns existing channel
+    ChannelRequest emits Succeeded, address book ignores its arguments
+    channel observers and approvers do not run
+    CD calls HandleChannels on handler of existing channel
+    handler of existing channel brings channel to foreground
+
+_`req2b`: unapproved channel returned by redundant request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Juliet is about to open a text conversation with Romeo as per req2_, when
+Romeo sends her a message as in dis1_. Instead of responding to the
+"new message" notification, she continues to select "Chat with Romeo" in her
+address book.
+
+The intended result is that there is exactly one Text channel talking to
+Romeo.
+
+.. _dis1: dispatch.html#dis1
+
+Proposed implementation::
+
+    New channel comes in:
+        CM emits Requests.NewChannels([(channel_path,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': 1234,
+                '...TargetID': 'romeo@montague.example.com',
+                '...Requested': FALSE,
+                ...
+            },
+            )])
+
+        In response, CD calls ObserveChannels on all matching Observers,
+        including org.freedesktop.Telepathy.Client.EmpathyLogger
+
+        CD creates a ChannelDispatchOperation [cdo1]
+
+        CD calls AddDispatchOperation on all matching Approvers, including
+        org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+        Empathy tray icon flashes
+
+    Juliet tells address book to open a channel to Romeo:
+
+        address book calls ChannelDispatcher.StartRequest (returns cr1, say)
+        address book calls ChannelRequest.EnsureChannelByAccount(
+            account,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': juliet
+            },
+            timestamp,
+            ''
+        )
+
+        ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
+        (if it is not already handling such a channel)
+
+        ChannelDispatcher tells AccountManager to put account online (no-op)
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+        CM returns existing channel
+
+        ChannelRequest cr1 emits Succeeded, address book ignores its arguments
+
+        CD considers the request for an existing channel to have constituted
+        approval of the CDO, so ChannelDispatchOperation cdo1 emits Closed
+
+        (At or before this point, the CD must wait for all the Observers to
+        return from ObserveChannels if they have not already done so)
+
+        CD calls HandleChannels on chat UI (service-activating it if needed)
 
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
