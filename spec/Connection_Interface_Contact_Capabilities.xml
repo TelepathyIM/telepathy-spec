@@ -23,23 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where it is possible to know what channel
-        types may be created before the request is made to the connection
+        classes may be created before the request is made to the connection
         object. Each capability represents a commitment by the connection
         manager that it will ordinarily be able to create a channel when given
-        a request with the given type and handle.</p>
+        a request with the properties defined by the channel class.</p>
 
       <p>Capabilities pertain to particular contact handles, and represent
-        activities such as having a text chat or a voice call with the user.
-        The activities are represented by the D-Bus interface name of the
-        channel type for that activity, and channel properties which can be
-        requested.</p>
+        activities such as having a text chat, a voice call with the user or a
+        stream tube of a defined type.</p>
 
       <p>This interface also provides for user interfaces notifying the
         connection manager of what capabilities to advertise for the user. This
         is done by using the AdvertiseContactCapabilities method, and deals with
-        the interface names of channel types and the channel properties values 
-        pertaining to them which are implemented by available client
-        processes.</p>
+        channel properties values pertaining to them which are implemented by
+        available client processes.</p>
 
     </tp:docstring>
 
@@ -64,9 +61,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Used by user interfaces to indicate which channel types they are able
-        to handle on this connection. Because these may be provided by
-        different client processes, this method accepts channel types to add
+        <p>Used by user interfaces to indicate which channel classes they are
+        able to handle on this connection. Because these may be provided by
+        different client processes, this method accepts channel classes to add
         and remove from the set already advertised on this connection.</p>
 
         <p>Upon a successful invocation of this method, the
