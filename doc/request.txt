@@ -72,6 +72,9 @@ Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
 
+(_`req2a`: Additionally, if Juliet does the same thing again, the same chat
+with Romeo should be brought to the foreground instead of starting a new one.)
+
 :New vs. existing:
     Existing channel preferred, new channel acceptable
 :Definition of channel identity:
@@ -132,7 +135,7 @@ EnsureChannel)
         channel approvers do not run
         CD calls HandleChannels on chat UI
         chat UI handles channel
-    on return of existing channel:
+    on return of existing channel (this satisfies req2a):
         ChannelRequest emits Succeeded, address book ignores its arguments
         channel observers and approvers do not run
         CD calls HandleChannels on handler of existing channel
