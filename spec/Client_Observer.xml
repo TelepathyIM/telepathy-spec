@@ -122,13 +122,15 @@
 
         <p>For observers that have a .client file, the channel dispatcher
           may discover this property from keys of the form
-          <code>ObserverChannelFilter <em>index</em> <em>propertyname</em> <em>type</em></code>
-          in the group in the .client file whose name is the name of this interface.
-          </p>
+          <code><em>propertyname</em>/<em>type</em></code>,
+          in groups in the .client file whose name is the name of this
+          interface followed by <code>.ObserverChannelFilter</code>,
+          a space and an ASCII decimal number starting from 0.</p>
 
         <p>Integers in the .client file are encoded in ASCII decimal, booleans
           are encoded as "true" or "false", and strings are encoded in the usual
-          way for desktop files.</p>
+          way for desktop files (including the C-style backslash escapes
+          documented in the Desktop Entry specification).</p>
 
         <p>For instance, a .client file for an observer that is only interested
           in Text channels, with CONTACT or ROOM handles, that were requested by
@@ -138,13 +140,15 @@
 [org.freedesktop.Telepathy.Client.DRAFT]
 Interfaces=org.freedesktop.Telepathy.Client.Observer.DRAFT;
 
-[org.freedesktop.Telepathy.Client.Observer.DRAFT]
-ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
-ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.TargetHandleType u=1
-ObserverChannelFilter 0 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
-ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
-ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.TargetHandleType u=2
-ObserverChannelFilter 1 org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
+[org.freedesktop.Telepathy.Client.Observer.DRAFT.ObserverChannelFilter 0]
+org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
+org.freedesktop.Telepathy.Channel.TargetHandleType u=1
+org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
+
+[org.freedesktop.Telepathy.Client.Observer.DRAFT.ObserverChannelFilter 1]
+org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
+org.freedesktop.Telepathy.Channel.TargetHandleType u=2
+org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
 </pre>
 
       </tp:docstring>
