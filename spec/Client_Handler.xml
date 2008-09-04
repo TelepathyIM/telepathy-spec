@@ -168,7 +168,7 @@
       </arg>
     </method>
 
-    <method name="CancelRequest">
+    <method name="RemoveFailedRequest">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that a request
           previously passed to <tp:member-ref>AddRequest</tp:member-ref>
