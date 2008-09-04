@@ -91,7 +91,7 @@ Proposed implementation:
 
 Dispatch process::
 
-    CM emits Requests.NewChannels([
+    CM emits Requests.NewChannels([(channel_path,
         {
             '...ChannelType': '...Text',
             '...TargetHandleType': CONTACT,
@@ -100,7 +100,7 @@ Dispatch process::
             '...Requested': FALSE,
             ...
         },
-        ])
+        )])
 
     In response, CD calls ObserveChannels on all matching Observers, including
     org.freedesktop.Telepathy.Client.EmpathyLogger
@@ -158,7 +158,8 @@ Problems:
 
 * Incoming messages might still be lost (there is a race between the channel
   dispatcher closing the channel, and the new message coming in) so this does
-  not fully address dis2problem1_
+  not fully address dis2problem1_; however, having text channels respawn does
+  make this problem go away
 
 Possible solution for dis2problem1_, _`dis2impl3`:
 
@@ -217,7 +218,7 @@ Problems with dis3impl3_:
 
 * dis2problem2_ also applies here
 
-Proposed implementation: keep dis3impl2_, and use conversation
+Proposed implementation: keep dis3impl2_, and later use conversation
 thread IDs as per req27_ to solve the problem above
 
 _`dis4`: Incoming 1-1 text chat thread
@@ -262,6 +263,11 @@ Proposed implementation:
 * The channel dispatcher notices that Juliet's UI (which is the
   handler for this bundle) supports Text channels, and tells it to handle
   the new Text channel too. Approvers are not invoked
+
+Problems:
+
+* How do we ensure that approvers are not invoked in this case, but are
+  invoked in case dis10_?
 
 _`dis5b`: Juliet's VoIP UI does not support Text
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -345,7 +351,43 @@ Current implementation::
 
 Problems and variations: same as dis1_
 
-Proposed implementation: basically the same as dis1_
+Proposed implementation::
+
+    CM emits Requests.NewChannels([(channel_path,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': ROOM,
+            '...TargetHandle': 123,
+            '...TargetID': 'ball@conference.capulet.example.com',
+            '...Requested': FALSE,
+            '...InitiatorHandle': 6543,
+            '...InitiatorID': 'mercutio@example.com',
+            ...
+        },
+        )])
+
+    In response, CD calls ObserveChannels on all matching Observers, including
+    org.freedesktop.Telepathy.Client.EmpathyLogger
+
+    CD creates a ChannelDispatchOperation
+
+    CD calls AddDispatchOperation on all matching Approvers, including
+    org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+    Empathy tray icon flashes
+
+    Romeo clicks on tray icon and chooses "Join room"
+
+    Empathy tray icon calls
+    HandleWith('org.freedesktop.Telepathy.Client.EmpathyChatroom')
+
+    ChannelDispatchOperation emits Closed
+
+    (At or before this point, the CD must wait for all the Observers to return
+    from ObserveChannels if they have not already done so)
+
+    CD calls HandleChannels on Empathy chat process (service-activating it
+    if needed)
 
 _`dis14`, _`dis28`: Forcibly joining a chatroom
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -367,15 +409,12 @@ Problems:
 Issues to bear in mind:
 
 * These Text channels are neither incoming nor outgoing - they are in
-  a third state, "automatically created". In the current version of
-  tp-spec-smcv-requests they would have state Channel_Direction_Automatic,
-  the same as contact groups and contact lists.
+  a third state, "automatically created". I don't think it's very useful to
+  distinguish between this and incoming, though.
 
 Proposed implementation:
 
-* The channels are considered to be in state "automatically created" rather
-  than "incoming"; clients can distinguish between these if they want to
-  (FIXME: is this really appropriate?)
+* The channels have Requested=FALSE, just like incoming channels
 
 * Clients should not wait for the first message in an incoming channel -
   this would break chatroom invitations in any case
@@ -401,11 +440,44 @@ Problems:
 
 * The Group interface is unnecessarily complex just to find out who's calling
 
-Proposed implementation:
+Proposed implementation::
 
-* The channel has properties ...Channel.InitiatorHandle,
-  ...Channel.InitiatorID which indicate Juliet's handle and ID
-  (JID, SIP URI, etc.) immediately
+    CM emits Requests.NewChannels([(channel_path,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': 6,
+            '...TargetID': 'juliet@capulet.example.com',
+            '...Requested': FALSE,
+            # and perhaps...
+            '...InitiatorHandle': 6,
+            '...InitiatorID': 'juliet@capulet.example.com',
+            ...
+        },
+        )])
+
+    In response, CD calls ObserveChannels on all matching Observers, including
+    org.freedesktop.Telepathy.Client.EmpathyLogger
+
+    CD creates a ChannelDispatchOperation
+
+    CD calls AddDispatchOperation on all matching Approvers, including
+    org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+    Empathy tray icon flashes
+
+    Romeo clicks on tray icon and chooses Answer
+
+    Empathy tray icon calls
+    HandleWith('org.freedesktop.Telepathy.Client.EmpathyVoIP')
+
+    ChannelDispatchOperation emits Closed
+
+    (At or before this point, the CD must wait for all the Observers to return
+    from ObserveChannels if they have not already done so)
+
+    CD calls HandleChannels on Empathy VoIP process (service-activating it
+    if needed)
 
 _`dis9`: Missed incoming VoIP call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -422,9 +494,50 @@ Problems:
 
 Proposed implementation:
 
-* The channel has properties ...Channel.InitiatorHandle,
-  ...Channel.InitiatorID which indicate Juliet's handle and ID
-  (JID, SIP URI, etc.) immediately
+* As for dis8_. The properties ...Channel.InitiatorHandle,
+  ...Channel.InitiatorID indicate Juliet's handle and ID
+  (JID, SIP URI, etc.) immediately. TargetHandle and TargetID also indicate
+  the same information, although there are backwards-compatibility issues.
+
+::
+
+    CM emits Requests.NewChannels([(channel_path,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': 6,
+            '...TargetID': 'juliet@capulet.example.com',
+            '...Requested': FALSE,
+            # and perhaps...
+            '...InitiatorHandle': 6,
+            '...InitiatorID': 'juliet@capulet.example.com',
+            ...
+        },
+        )])
+
+    In response, CD calls ObserveChannels on all matching Observers, including
+    org.freedesktop.Telepathy.Client.EmpathyLogger
+
+    CD creates a ChannelDispatchOperation
+
+    CD calls AddDispatchOperation on all matching Approvers, including
+    org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+    Empathy tray icon flashes
+
+    Time passes, Juliet gives up and hangs up the call
+
+    CM emits ChannelClosed(channel_path)
+
+    ChannelDispatchOperation emits Closed
+
+Problems remaining:
+
+* Perhaps the ChannelDispatchOperation should emit a different signal,
+  which indicates that the channel was closed by Juliet rather than
+  by Romeo? This would require the CD to watch the Channel's Group
+  interface etc., not just Connection.Interface.Requests; or perhaps
+  the ChannelClosed signal should contain a D-Bus error code?
 
 _`dis10`: Incoming VoIP call related to some other channel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -438,6 +551,11 @@ Current implementation: the call is indistinguishable from dis8_
 Problems: Juliet can't get the UI she wants
 
 Proposed implementation: the reverse of dis5_, with the same issues
+
+Problems with proposed implementation:
+
+* How do we ensure that approvers are invoked here, if they're not
+  in case dis5a_?
 
 Contact lists
 -------------
@@ -483,6 +601,8 @@ Proposed implementation:
 * Clients interested in contact lists should be Observers and observe them,
   instead of relying on being a channel handler
 
+* In the long term, we should switch to a Connection.Interface.Roster
+
 _`dis12`: A user-defined contact group is found during login
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -517,6 +637,8 @@ Problems remaining:
 
 * We'd have to avoid making the channel dispatcher panic and close the
   "unhandled" group
+
+* In the long term, we should switch to a Connection.Interface.Roster
 
 _`dis13`: A user-defined contact group is created
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -614,13 +736,13 @@ _`dis20`: Receiving a file in a collaborative application
 File transfers might be a useful model for collaborative applications
 to use to transfer snapshots of state, or to transfer related files
 (e.g. in a word processor, you could receive an inline image that is
-embedded in the document).
-
-Proposed implementation: same as dis6_
+embedded in the document). This is much like dis6_.
 
 Additional problems: if the file transfer is part of the word processor's
 IPC mechanism, then it *really* wants to get the file transfer, rather than
-having another process get it as a result of a situation like dis5c_
+having another process get it as a result of a situation like dis5c_.
+
+Proposed implementation: Don't do this.
 
 Tubes
 -----
