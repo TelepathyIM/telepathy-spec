@@ -744,6 +744,13 @@ having another process get it as a result of a situation like dis5c_.
 
 Proposed implementation: Don't do this.
 
+_`dis31`: unified download manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+An applet displays all file transfers made using Telepathy, Firefox, etc.
+
+Proposed implementation: it's an Observer for all file transfers
+
 Tubes
 -----
 
