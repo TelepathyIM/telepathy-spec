@@ -124,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Fixed_Properties nor to Allowed_Properties, the request will fail.
       </tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
-      <tp:member type="a{sv}" tp:type="String_Variant_Map"
+      <tp:member type="a{sv}" tp:type="Channel_Class"
                  name="Fixed_Properties">
         <tp:docstring>
           A dictionary mapping the channel properties to their values.
