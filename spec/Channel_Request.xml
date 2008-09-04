@@ -122,9 +122,11 @@
       </arg>
 
       <arg direction="in" name="Preferred_Handler" type="s"
-        tp:type="DBus_Bus_Name">
+        tp:type="DBus_Well_Known_Name">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Either the well-known bus name of the preferred handler for this
+          <p>Either the well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>)
+            of the preferred handler for this
             channel, or an empty string to indicate that any handler would be
             acceptable. The channel dispatcher SHOULD dispatch as many as
             possible of the resulting channels (ideally, all of them)
