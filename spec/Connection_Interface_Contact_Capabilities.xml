@@ -102,13 +102,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <signal name="ContactCapabilitiesChanged">
-      <arg name="caps" type="(a(ua{sv}as)a(ua{sv}as))" tp:type="Contact_Capability_Change">
+      <arg name="caps" type="a(ua{sv}as)" tp:type="Enhanced_Contact_Capability[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          An struct containing:
-          <ul>
-            <li>the contact's removed capabilities</li>
-            <li>the contact's added capabilities</li>
-          </ul>
+          All the capabilities of the contact
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
