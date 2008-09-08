@@ -91,6 +91,42 @@
       </tp:possible-errors>
     </method>
 
+    <method name="Cancel">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Cancel the channel request. The precise effect depends on the
+          current progress of the request.</p>
+
+        <p>If the connection manager has not already been asked to create
+          a channel, then <tp:member-ref>Failed</tp:member-ref> is emitted
+          immediately, and the channel request is removed.</p>
+
+        <p>If the connection manager has already been asked to create a
+          channel but has not produced one yet (e.g. if <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+          has been called, but has not yet returned), then the
+          ChannelDispatcher will remember that the request has been cancelled.
+          When the channel appears, it will be closed (if it was newly
+          created and can be closed), and will not be dispatched to a
+          handler.</p>
+
+        <p>If the connection manager has already returned a channel, but the
+          channel has not yet been dispatched to a handler
+          (e.g. if <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+          has returned a channel, but the dispatch operation is waiting for
+          approvers) then the channel dispatcher will not dispatch that
+          channel to a handler. If the channel was newly created for this
+          request, the channel dispatcher will close it; otherwise, the
+          channel dispatcher will ignore it. In either case,
+          <tp:member-ref>Failed</tp:member-ref> will be emitted when processing
+          has been completed.</p>
+
+        <p>If the channel has already been dispatched to a handler, then
+          it's too late to call this method, and the channel request will
+          no longer exist.</p>
+      </tp:docstring>
+    </method>
+
     <signal name="Failed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The channel request has failed. It is no longer present,
@@ -99,9 +135,12 @@
 
       <arg name="Error" type="s" tp:type="DBus_Error_Name">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The name of a D-Bus error. This can come from various sources,
-          including the error raised by CreateChannel, or an error generated
-          to represent failure to establish the Connection.
+          <p>The name of a D-Bus error. This can come from various sources,
+            including the error raised by CreateChannel, or an error generated
+            to represent failure to establish the Connection.</p>
+
+          <p>(FIXME: we should specify the error that will appear here
+            if <tp:member-ref>Cancel</tp:member-ref> is called)</p>
         </tp:docstring>
       </arg>
 
