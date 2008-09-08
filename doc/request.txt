@@ -206,7 +206,7 @@ Proposed implementation::
             {
                 '...ChannelType': '...Text',
                 '...TargetHandleType': CONTACT,
-                '...TargetHandle': juliet
+                '...TargetHandle': romeo,
             },
             timestamp,
             ''
