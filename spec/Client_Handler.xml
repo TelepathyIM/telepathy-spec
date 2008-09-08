@@ -120,6 +120,22 @@
               is to be handled for some reason not involving user action.
               Handlers SHOULD use this for focus-stealing prevention,
               if applicable.</dd>
+
+            <dt>requests - ao
+              (array of
+              <tp:dbus-ref>org.freedesktop.Telepathy.ChannelRequest</tp:dbus-ref>)
+            </dt>
+            <dd><p>The request(s) satisfied by these channels.</p>
+
+              <tp:rationale>
+                <p>A single channel can simultaneously satisfy up to one
+                  CreateChannel request, and any number of EnsureChannel
+                  requests.</p>
+              </tp:rationale>
+
+              <p>(FIXME: or should we cause one call to this method per
+                request satisfied?)</p>
+            </dd>
           </dl>
 
           <p>(FIXME: what else?)</p>
