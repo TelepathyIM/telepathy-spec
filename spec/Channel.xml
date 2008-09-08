@@ -291,7 +291,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         guaranteed-unique via their link to the well-known bus name.</p>
 
       <p>If all connection managers in use are known to comply with at least
-        spec version 0.17.UNRELEASED, then the Connection's object path can
+        spec version 0.17.10, then the Connection's object path can
         even be determined from the Channel's without any additional
         information, by taking the first 7 components.</p>
     </tp:rationale>
@@ -333,7 +333,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       threads.
     </tp:changed>
 
-    <tp:changed version="0.17.UNRELEASED">Previously we did not explicitly
+    <tp:changed version="0.17.10">Previously we did not explicitly
       guarantee that Channels' object paths had the Connection's object path
       as a prefix.
     </tp:changed>

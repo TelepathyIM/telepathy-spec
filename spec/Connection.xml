@@ -127,7 +127,7 @@ USA.</p>
         is not yet in the CONNECTED state, this signal is not guaranteed
         to be emitted.
       </tp:docstring>
-      <tp:added version="0.17.UNRELEASED">Clients MAY assume that if the
+      <tp:added version="0.17.10">Clients MAY assume that if the
         SelfHandle property exists, this signal will be emitted when
         necessary.</tp:added>
 
@@ -147,7 +147,7 @@ USA.</p>
         If the connection is not yet in the CONNECTED state, the value of
         this property MAY be zero.
       </tp:docstring>
-      <tp:added version="0.17.UNRELEASED">For compatibility with older
+      <tp:added version="0.17.10">For compatibility with older
         versions, clients should fall back to calling the GetSelfHandle
         method.</tp:added>
     </property>
@@ -163,7 +163,7 @@ USA.</p>
         Returns the value of the SelfHandle property. Change notification
         is via the SelfHandleChanged signal.
       </tp:docstring>
-      <tp:deprecated version="0.17.UNRELEASED">Use GetAll to get the
+      <tp:deprecated version="0.17.10">Use GetAll to get the
         SelfHandle property (and all other Connection properties)
         instead.</tp:deprecated>
 
@@ -768,7 +768,7 @@ USA.</p>
     no longer storing handles with ReleaseHandles.</p>
     </tp:docstring>
 
-    <tp:changed version="0.17.UNRELEASED">Previously, the account part of
+    <tp:changed version="0.17.10">Previously, the account part of
       Connection bus names/object paths was allowed to have more than one
       component (i.e. contain dots or slashes), resulting in Connection
       bus names and object paths with more than 7 components. We now restrict
