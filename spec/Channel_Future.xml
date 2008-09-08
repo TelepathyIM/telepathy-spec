@@ -104,9 +104,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The contact who initiated the channel. For channels requested by the
-          local user, this MUST be the same thing as would be returned
-          by Connection.GetSelfHandle() at the time the channel was
-          created.</p>
+          local user, this MUST be the value of
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.SelfHandle</tp:dbus-ref>
+          at the time the channel was created (i.e. not a channel-specific
+          handle).</p>
 
         <tp:rationale>
           <p>The careful wording about the self-handle is because the Renaming
