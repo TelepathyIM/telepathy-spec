@@ -34,7 +34,7 @@
 
       <tp:rationale>
         <p>See
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatcher.DRAFT.StartRequest</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatcher.DRAFT.CreateChannel</tp:dbus-ref>
           for rationale for ChannelRequest being a separate object.</p>
       </tp:rationale>
     </tp:docstring>
@@ -48,11 +48,8 @@
         <p>This corresponds to the _NET_WM_USER_TIME property in
           <a href="http://standards.freedesktop.org/wm-spec/wm-spec-latest.html">EWMH</a>.</p>
 
-        <p>This property is set by
-          <tp:member-ref>CreateChannelForAccount</tp:member-ref>.
-          Before that method has been called, the contents of this
-          property are undefined; after that method has been called,
-          the contents of this property cannot change.</p>
+        <p>This property is set when the channel request is created,
+          and can never change.</p>
       </tp:docstring>
     </property>
 
@@ -60,84 +57,29 @@
       tp:type="Qualified_Property_Value_Map[]"
       access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The request or requests that have been made.</p>
+        <p>An array of dictionaries containing desirable properties for
+          the channel or channels to be created.</p>
 
-        <p>This property is set by
-          <tp:member-ref>CreateChannelForAccount</tp:member-ref>.
-          Before that method has been called, the contents of this
-          property are undefined; after that method has been called,
-          the contents of this property cannot change.</p>
+        <tp:rationale>
+          <p>This is an array so that we could add a CreateChannels method in
+            future without redefining the API of ChannelRequest.</p>
+        </tp:rationale>
+
+        <p>This property is set when the channel request is created,
+          and can never change.</p>
       </tp:docstring>
     </property>
 
-    <method name="CreateChannelForAccount">
+    <method name="Proceed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Request that a new channel is created.</p>
+        <p>Proceed with the channel request.</p>
 
         <p>This method SHOULD return immediately; on success, the request
           might still fail, but this will be indicated asynchronously
           by the <tp:member-ref>Failed</tp:member-ref> signal.</p>
 
-        <p>(FIXME: do we want channel requesting to be entirely
-          account-based, or do we want to allow channel requests by
-          Connection too?)</p>
-
-        <p>(FIXME: something needs to explain what will happen if the Account
-          is disabled - raise PermissionDenied here, or emit Failed?)</p>
+        <p>(FIXME: or do we define some errors here too?)</p>
       </tp:docstring>
-
-      <arg direction="in" name="Account" type="o">
-        <tp:docstring>
-          The
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
-          for which the new channel is to be created.
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Request" type="a{sv}"
-        tp:type="Qualified_Property_Value_Map">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A dictionary containing desirable properties. This has the same
-            semantics as the corresponding parameter to
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>.
-          </p>
-
-          <p>Certain properties will not necessarily make sense in this
-            dictionary: for instance,
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
-            can only be given if the requester is able to interact with a
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
-            to the desired account.</p>
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="User_Action_Time" type="t"
-        tp:type="Unix_Timestamp64">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The time at which user action occurred, or 0 if this channel
-            request is for some reason not involving user action.
-            The <tp:member-ref>UserActionTime</tp:member-ref> property
-            will be set to this value.</p>
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Preferred_Handler" type="s"
-        tp:type="DBus_Well_Known_Name">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Either the well-known bus name (starting with
-            <code>org.freedesktop.Telepathy.Client.</code>)
-            of the preferred handler for this
-            channel, or an empty string to indicate that any handler would be
-            acceptable. The channel dispatcher SHOULD dispatch as many as
-            possible of the resulting channels (ideally, all of them)
-            to that handler, and SHOULD remember the preferred handler
-            so it can try to dispatch subsequent channels in the same bundle
-            to the same handler.</p>
-
-          <p>FIXME: perhaps this should just be a boolean, for
-            "I want to claim the channel myself"</p>
-        </tp:docstring>
-      </arg>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Errors.NotAvailable">
@@ -186,7 +128,7 @@
           <p>(FIXME: necessary?)</p>
 
           <tp:rationale>
-            <p><tp:member-ref>CreateChannelForAccount</tp:member-ref> can
+            <p>CreateChannel can
               only produce one channel, but this argument is an array to
               allow for future addition of a CreateChannels method if it
               turns out to be necessary.</p>

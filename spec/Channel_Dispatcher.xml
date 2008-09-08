@@ -96,11 +96,11 @@
       </tp:docstring>
     </property>
 
-    <method name="StartRequest">
+    <method name="CreateChannel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Start a channel request. This just creates a
+        <p>Start a request to create a channel. This initially just creates a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
-          object, which can be used to perform the actual request and track its
+          object, which can be used to continue the request and track its
           success or failure.</p>
 
         <tp:rationale>
@@ -115,7 +115,69 @@
             to represent the whole request will tend to lead to that call
             timing out, which is not the behaviour we want.</p>
         </tp:rationale>
+
+        <p>(FIXME: something needs to explain what will happen if the Account
+          is disabled - raise PermissionDenied from Proceed, or emit
+          Failed?)</p>
+
+        <p>(FIXME: do we want channel requesting to be entirely
+          account-based, or do we want to allow channel requests by
+          Connection too?)</p>
       </tp:docstring>
+
+      <arg direction="in" name="Account" type="o">
+        <tp:docstring>
+          The
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+          for which the new channel is to be created.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Requested_Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary containing desirable properties. This has the same
+            semantics as the corresponding parameter to
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>.
+          </p>
+
+          <p>Certain properties will not necessarily make sense in this
+            dictionary: for instance,
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+            can only be given if the requester is able to interact with a
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
+            to the desired account.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="User_Action_Time" type="t"
+        tp:type="Unix_Timestamp64">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The time at which user action occurred, or 0 if this channel
+            request is for some reason not involving user action.
+            The <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
+            property will be set to this value.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Preferred_Handler" type="s"
+        tp:type="DBus_Well_Known_Name">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Either the well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>)
+            of the preferred handler for this
+            channel, or an empty string to indicate that any handler would be
+            acceptable. The channel dispatcher SHOULD dispatch as many as
+            possible of the resulting channels (ideally, all of them)
+            to that handler, and SHOULD remember the preferred handler
+            so it can try to dispatch subsequent channels in the same bundle
+            to the same handler.</p>
+
+          <p>FIXME: perhaps this should just be a boolean, for
+            "I want to claim the channel myself"</p>
+        </tp:docstring>
+      </arg>
 
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
@@ -124,6 +186,7 @@
           object.
         </tp:docstring>
       </arg>
+
     </method>
 
   </interface>
