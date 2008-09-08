@@ -1,5 +1,94 @@
-Specification
--------------
-Type 'make' in the doc/ directory to generate a spec.html with the latest
-version of the D-Bus interface specification, from the base classes in
-telepathy/.
+=======================
+Telepathy specification
+=======================
+
+telepathy-spec is the canonical description of the Telepathy D-Bus API,
+on which all other Telepathy projects are based.
+
+Telepathy is a D-Bus framework for unifying real time communication,
+including instant messaging, voice calls and video calls. It abstracts
+differences between protocols to provide a unified interface for
+applications.
+
+Requirements
+============
+
+Building HTML documentation for telepathy-spec requires:
+  GNU make <http://www.gnu.org/software/make/>
+  libxslt, xsltproc <http://xmlsoft.org/XSLT/>
+  Python <http://www.python.org/>
+  Docutils (rst2html tool) <http://docutils.sourceforge.net/>
+
+Bugs, feature requests and to-do list
+=====================================
+
+Report all errata, feature requests and "to-do" items here:
+  <https://bugs.freedesktop.org/enter_bug.cgi?product=Telepathy&component=telepathy-spec>
+
+API stability policy
+====================
+
+We use an "odd/even" versioning scheme where the minor version (the y in
+x.y.z) determines stability - stable branches have y even, development
+branches have y odd.
+
+The following interfaces can change at any time, so please do not include them
+in libraries:
+
+* interfaces whose names end with .DRAFT or .FUTURE
+* interfaces with the tp:causes-havoc attribute
+
+Otherwise, we will not make the following changes in a stable branch, and we
+avoid them where possible even in development branches:
+
+* Removing or renaming methods, signals or properties
+* Changing the D-Bus type signature of a method or signal's arguments
+* Changing the D-Bus type signature or access (can be read/can be written)
+  of a property
+* Removing or renaming types (tp:struct etc.)
+* Changing the D-Bus type signature of a type (tp:struct etc.)
+
+We do *not* consider the following changes to be an API break, and reserve the
+right to make them at any time. Telepathy libraries/bindings should be done in
+a way that will not break if we do these:
+
+* Adding new methods or properties
+* Adding new signals, if that does not make old connection managers (that will
+  never emit those signals) fail to comply with the spec
+* Changing the name of a method or signal argument, or giving it a name if
+  it did not previously have one
+* Adding new types (tp:enum, tp:struct etc.)
+* Adding new members to the end of a tp:enum or tp:flags
+* Changing the tp:type of a property or argument, or adding a tp:type if it
+  did not already have one (as long as the D-Bus signature remains the same)
+* Documenting methods to possibly raise new exceptions (any method can raise
+  any exception, and client code should always cope)
+
+If any changes not mentioned here would break your library's API and you want
+us to avoid them, please ask for clarification on the mailing list.
+
+Contact info
+============
+
+This specification is maintained by the Telepathy project:
+  <http://telepathy.freedesktop.org/>
+  <mailto:telepathy@lists.freedesktop.org>
+  <irc://irc.freenode.net/telepathy>
+
+Telepathy development is supported by Collabora Ltd.
+  <http://www.collabora.co.uk/>.
+
+Hacking
+=======
+
+The current development version of telepathy-spec is available from the
+'master' branch in the git repository:
+  <git://git.collabora.co.uk/git/telepathy-spec.git>
+  <git+ssh://git.collabora.co.uk/git/telepathy-spec.git> (for committers)
+  <http://git.collabora.co.uk/?p=telepathy-spec.git> (gitweb)
+
+Stable branches are available from branches with names like
+'telepathy-spec-0.16' in the same repository.
+
+Proposed patches awaiting review can usually be found in Merge Monkey:
+  <http://monkey.collabora.co.uk/>
