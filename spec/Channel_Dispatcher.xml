@@ -189,6 +189,44 @@
 
     </method>
 
+    <!-- FIXME: are this property and its associated change-notification
+    signals actually needed? -->
+    <property name="DispatchOperations" type="ao" access="read">
+      <tp:docstring>
+        The list of ChannelDispatchOperation objects currently being
+        processed. Change notification is via the NewDispatch and
+        DispatchFinished signals.
+      </tp:docstring>
+    </property>
+
+    <signal name="NewDispatchOperation">
+      <arg name="Dispatch_Operation" type="o">
+      </arg>
+
+      <!-- FIXME: copy the Channel_Announcement_Flags from
+      Connection.Interface.Requests? -->
+
+      <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
+      </arg>
+    </signal>
+
+    <signal name="DispatchOperationClosed">
+      <tp:docstring>
+        Emitted when a dispatch operation finishes (i.e. exactly once per
+        emission of ChannelDispatchOperation.Close).
+
+        <tp:rationale>
+          Strictly speaking this is redundant with
+          ChannelDispatchOperation.Closed, but it provides full
+          change-notification for the DispatchOperations property.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Dispatch_Operation" type="o">
+        The dispatch operation that was closed.
+      </arg>
+    </signal>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
