@@ -2,6 +2,42 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "darcs changes" in Darcs
 checkouts.
 
+telepathy-spec 0.17.10 (2008-09-08)
+===================================
+
+API changes:
+
+* Text channels with any pending messages should "respawn" when closed (the
+  channel is replaced by an incoming channel with the same incoming message
+  queue). This avoids a race condition that could cause messages to be lost,
+  by always behaving as though Close() had won the race.
+
+* Connection bus names and object paths are now required to have exactly 7
+  components, rather than at least 7, and Channel object paths are required
+  to have their Connection's object path in the first 7 components.
+
+* It is recommended that the account manager cannot be service-activated
+  by using the Telepathy bus name. Clients can activate a particular
+  implementation if they want to.
+
+Deprecations:
+
+* Passing suppress_handler=FALSE to RequestChannel is discouraged.
+
+New API:
+
+* DBus_Error_Name and DBus_Well_Known_Name string types have been added
+  in preparation for use in the ChannelDispatcher API. A Unix_Timestamp64 type
+  has been added so we won't have to change the spec as 2038 approaches :-)
+
+New experimental API:
+
+Tools changes:
+
+Miscellaneous:
+
+* telepathy-spec is now maintained in git. See README for details.
+
 telepathy-spec 0.17.9 (2008-08-15)
 ==================================
 
