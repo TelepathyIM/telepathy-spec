@@ -196,7 +196,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Accepted" value="2">
         <tp:docstring>
           The file transfer has been accepted locally, but not currently open.
-          The transfer should now wait for the state to change to open and
+          The transfer should now wait for the state to change to Open and
           check the offset value.
         </tp:docstring>
       </tp:enumvalue>
@@ -283,7 +283,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="AcceptFile">
       <tp:docstring>
-        Accept a file transfer that's in the "local pending" state. The file
+        Accept a file transfer that's in the Local_Pending state. The file
         transfer's state becomes accepted after this method is called. At this
         point, the receiver must wait for the state to change to open. When this
         happens, the InitialOffset property should be read to find from where the
@@ -331,7 +331,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-          The file transfer is not in the "local pending" state, which is the only
+          The file transfer is not in the Local_Pending state, which is the only
           state this method makes sense.
           </tp:docstring>
         </tp:error>
@@ -340,7 +340,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="OfferFile">
       <tp:docstring>
-        Offer a file transfer that's in the "not offered" state. The file transfer
+        Offer a file transfer that's in the Not_Offered state. The file transfer
         becomes remote pending after this method is called.
       </tp:docstring>
       <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
@@ -377,7 +377,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The file transfer is not in the "not offered" state, or there isn't
+            The file transfer is not in the Not_Offered state, or there isn't
             enough information for the transfer to start.
           </tp:docstring>
         </tp:error>
