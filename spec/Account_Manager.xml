@@ -29,6 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         the session bus. This process must export an
         /org/freedesktop/Telepathy/AccountManager object with the
         AccountManager interface.</p>
+
+      <p>Until a mechanism exists for making a reasonable automatic choice
+        of AccountManager implementation, implementations SHOULD NOT
+        register as an activatable service for the AccountManager's
+        well-known bus name. Instead, it is RECOMMENDED that some component
+        of the user's session will select and activate a particular
+        implementation, and that other Telepathy-enabled programs can
+        detect whether Telepathy is in use by checking whether the
+        AccountManager's well-known name is in use at runtime.</p>
     </tp:docstring>
     <tp:added version="0.17.2"/>
 

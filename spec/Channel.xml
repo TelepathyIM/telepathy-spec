@@ -281,6 +281,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     as a buddy list) or a Channel.Type.Text which represents a channel over
     which textual messages are sent and received.</p>
 
+    <p>Each Channel's object path MUST start with the object path of
+      its associated Connection, followed by '/'. There MAY be any number
+      of additional object-path components, which clients MUST NOT attempt
+      to parse.</p>
+
+    <tp:rationale>
+      <p>This ensures that Channel object paths are unique, even between
+        Connections and CMs, because Connection object paths are
+        guaranteed-unique via their link to the well-known bus name.</p>
+
+      <p>If all connection managers in use are known to comply with at least
+        spec version 0.17.UNRELEASED, then the Connection's object path can
+        even be determined from the Channel's without any additional
+        information, by taking the first 7 components.</p>
+    </tp:rationale>
+
     <p>Each channel may have an immutable handle associated with it, which
       may be any handle type, such as a contact, room or list handle,
       indicating that the channel is for communicating with that handle.</p>
@@ -316,6 +332,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       combination of channel type, handle type and handle. This guarantee
       has now been removed in order to accommodate features like message
       threads.
+    </tp:changed>
+
+    <tp:changed version="0.17.UNRELEASED">Previously we did not explicitly
+      guarantee that Channels' object paths had the Connection's object path
+      as a prefix.
     </tp:changed>
   </interface>
 </node>

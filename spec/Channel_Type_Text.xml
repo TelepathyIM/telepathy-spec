@@ -465,6 +465,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and handle type CONTACT should continue to succeed, but may return
         a channel with handle type 0, handle 0, the group interface,
         and the local and remote contacts in its members.</p>
+
+      <p>If a channel of type Text is closed while it has pending messages,
+        the connection manager MUST allow this, but SHOULD open a new,
+        identical channel to deliver those messages, signalling it as a new
+        channel with the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">NewChannel</tp:dbus-ref>
+        signal (with the suppress_handler parameter set to FALSE).</p>
+
+      <tp:rationale>
+        <p>In effect, this turns this situation, in which a client
+          is likely to lose messages:</p>
+
+        <ul>
+          <li>UI window is closed</li>
+          <li>message arrives</li>
+          <li>text channel emits Received</li>
+          <li>UI calls Close on text channel before it has seen the
+            Received signal</li>
+          <li>text channel emits Closed and closes</li>
+        </ul>
+
+        <p>into something nearly equivalent to this situation, which is
+          fine:</p>
+
+        <ul>
+          <li>UI window is closed</li>
+          <li>UI calls Close on text channel</li>
+          <li>text channel emits Closed and closes</li>
+          <li>message arrives</li>
+          <li>new text channel is created, connection emits NewChannel</li>
+          <li>(the same or a different) UI handles it</li>
+        </ul>
+
+        <p>suppress_handler must be set to FALSE so the replacement channel
+          will be handled by something.</p>
+      </tp:rationale>
     </tp:docstring>
   </interface>
 </node>
