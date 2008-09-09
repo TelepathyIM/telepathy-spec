@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Type_File" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/Channel_Type_File_Transfer" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>
     Copyright (C) 2008 Collabora Limited
   </tp:copyright>
@@ -18,7 +18,7 @@ Library General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.File.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Channel.Type.FileTransfer.DRAFT"
     tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring>
