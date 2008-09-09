@@ -270,7 +270,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="SHA256" value="3">
         <tp:docstring>
-          SHA1 digest as a string of ASCII hex digits, which SHOULD be
+          SHA256 digest as a string of ASCII hex digits, which SHOULD be
           lower-case if they are letters.
         </tp:docstring>
       </tp:enumvalue>
