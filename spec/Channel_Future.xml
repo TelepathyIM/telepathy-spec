@@ -42,7 +42,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
     </tp:docstring>
 
-    <property name="Requested" type="b" access="read">
+    <property name="Requested" tp:name-for-bindings="Requested"
+      type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this channel was created in response to a call to
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>,
@@ -163,7 +164,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Bundle" type="o" access="read">
+    <property name="Bundle" tp:name-for-bindings="Bundle"
+      type="o" access="read">
       <tp:added version="0.17.9">(in Channel.FUTURE
         pseudo-interface)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

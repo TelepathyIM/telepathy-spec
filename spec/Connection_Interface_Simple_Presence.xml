@@ -228,7 +228,7 @@
       </tp:possible-errors>
     </method>
 
-    <property name="Statuses" access="read"
+    <property name="Statuses" tp:name-for-bindings="Statuses" access="read"
       type="a{s(ubb)}" tp:type="Simple_Status_Spec_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A dictionary where the keys are the presence statuses that the user

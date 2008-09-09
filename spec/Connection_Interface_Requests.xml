@@ -230,8 +230,8 @@
       </arg>
     </signal>
 
-    <property name="Channels" type="a(oa{sv})" access="read"
-      tp:type="Channel_Details[]">
+    <property name="Channels" tp:name-for-bindings="Channels"
+      type="a(oa{sv})" access="read" tp:type="Channel_Details[]">
       <tp:docstring>
         A list of all the channels which currently exist on this connection.
         Change notification is via the

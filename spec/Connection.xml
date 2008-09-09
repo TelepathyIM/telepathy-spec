@@ -44,7 +44,7 @@ USA.</p>
       </tp:member>
     </tp:struct>
 
-    <method name="Connect">
+    <method name="Connect" tp:name-for-bindings="Connect">
       <tp:docstring>
         Request that the connection be established. This will be done
         asynchronously and errors will be returned by emitting StatusChanged
@@ -58,7 +58,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="Disconnect">
+    <method name="Disconnect" tp:name-for-bindings="Disconnect">
       <tp:docstring>
         Request that the connection be closed. This closes the connection if
         it's not already in DISCONNECTED state, and destroys the connection
@@ -139,8 +139,8 @@ USA.</p>
       </arg>
     </signal>
 
-    <property name="SelfHandle" type="u" tp:type="Contact_Handle"
-      access="read">
+    <property name="SelfHandle" tp:name-for-bindings="Self_Handle"
+      type="u" tp:type="Contact_Handle" access="read">
       <tp:docstring>
         The handle which represents the user on this connection, which will
         remain valid for the lifetime of this connection, or until a change

@@ -117,7 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <signal name="Received">
+    <signal name="Received" tp:name-for-bindings="Received">
       <arg name="ID" type="u">
         <tp:docstring>
           A numeric identifier for acknowledging the message
@@ -157,7 +157,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <method name="Send">
+    <method name="Send" tp:name-for-bindings="Send">
       <arg direction="in" name="Type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
           An integer indicating the type of the message
@@ -251,7 +251,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         actually implemented.</tp:changed>
     </signal>
 
-    <signal name="Sent">
+    <signal name="Sent" tp:name-for-bindings="Sent">
       <arg name="Timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           Unix timestamp indicating when the message was sent

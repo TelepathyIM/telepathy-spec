@@ -297,7 +297,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <property name="Interfaces" type="as" access="read">
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the extra interfaces provided by this connection manager
           (i.e. extra functionality that can be provided even before a

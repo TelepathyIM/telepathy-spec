@@ -46,8 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Interfaces" type="as" tp:type="DBus_Interface[]"
-      access="read">
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" tp:type="DBus_Interface[]" access="read">
       <tp:added version="0.17.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this channel. This SHOULD NOT include
@@ -113,7 +113,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="TargetID" type="s" access="read">
+    <property name="TargetID" tp:name-for-bindings="Target_ID"
+      type="s" access="read">
       <tp:added version="0.17.9"/>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -174,7 +175,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <method name="Close">
+    <method name="Close" tp:name-for-bindings="Close">
       <tp:docstring>
         Request that the channel be closed. This is not the case until
         the Closed signal has been emitted, and depending on the connection
@@ -199,7 +200,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="Closed">
+    <signal name="Closed" tp:name-for-bindings="Closed">
       <tp:docstring>
         Emitted when the channel has been closed. Method calls on the
         channel are no longer valid after this signal has been emitted,
