@@ -31,7 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       the connection manager has set up and provided back to the clients
       through the two methods.</p>
 
-      <p>If something goes wrong with the transfer, you should call Close
+      <p>If something goes wrong with the transfer, you should call
+      <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>
       on the channel.</p>
 
       <p>The File channel type may be requested for handles of type
@@ -53,9 +54,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         been created.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        CreateChannels requests method. Protocols which do not have a
-        content-type property with file transfers should set this value to
-        application/octet-stream.</p>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. Protocols which do not have a content-type property with file
+        transfers should set this value to application/octet-stream.</p>
       </tp:docstring>
     </property>
 
@@ -70,8 +71,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         be set to monkey.pdf.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        CreateChannels requests method. This property cannot be empty and
-        must be set to a sensible value.</p>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. This property cannot be empty and must be set to a sensible value.</p>
       </tp:docstring>
     </property>
 
@@ -87,33 +88,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to the byte.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        CreateChannels requests method. If this property is UINT64_MAX,
-        then its value is unspecified.</p>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. If this property is UINT64_MAX, then its value is
+        unspecified.</p>
       </tp:docstring>
     </property>
 
     <property name="ContentHashType" type="u" tp:type="File_Hash_Type"
       access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The type of the ContentHash property from values of the
-        File_Hash_Type enum.</p>
+        <p>The type of the <tp:member-ref>ContentHash</tp:member-ref> property.</p>
 
         <p>This property is optional when requesting the channel with the
-        CreateChannels requests method. However, if you wish to include the
-        ContentHash property you MUST also include this property. If you
-        omit this property from a CreateChannels method call then its value
-        will be assumed to be File_Hash_Type_None.</p>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. However, if you wish to include the <tp:member-ref>ContentHash</tp:member-ref>
+        property you MUST also include this property. If you omit this property from a
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method call then its value will be assumed to be File_Hash_Type_None.</p>
       </tp:docstring>
     </property>
 
     <property name="ContentHash" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Hash of the contents of the file transfer, of type described
-        in the value of the ContentHashType property.</p>
+        in the value of the <tp:member-ref>ContentHashType</tp:member-ref>
+        property.</p>
 
         <p>This property is optional when requesting the channel with the
-        CreateChannels requests method. Its value MUST correspond to the
-        appropriate type of the ContentHashType property. If the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. Its value MUST correspond to the appropriate type of the
+        <tp:member-ref>ContentHashType</tp:member-ref> property. If the
         ContentHashType property is not set, or set to File_Hash_Type_None,
         then this property will not even be looked at.</p>
       </tp:docstring>
@@ -125,8 +129,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channel has been created.</p>
 
         <p>This property is optional when requesting the channel with the
-        CreateChannel requests method. If this property is an empty string,
-        then its value is unspecified.</p>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        method. If this property is an empty string, then its value is
+        unspecified.</p>
       </tp:docstring>
     </property>
 
@@ -167,9 +172,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         start from. This should be checked by the receiver after the transfer
         changes state from Accepted to Open.</p>
 
-        <p>Before setting the State property to Open, the connection manager
-        MUST set the InitialOffset property. If there is no offset then this
-        value MUST be set to 0.</p>
+        <p>Before setting the <tp:member-ref>State</tp:member-ref> property to
+        Open, the connection manager MUST set the InitialOffset property. If there
+        is no offset then this value MUST be set to 0.</p>
 
         <p>This property MUST NOT change after the state of the transfer has
         changed to Open.</p>
@@ -402,7 +407,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when the number of transferred bytes changes. This will not be
         signalled with every single byte change. Instead, the most frequent
         this signal will be emitted is once a second. This should be
-        sufficient, and the TransferredBytes property should not be polled.
+        sufficient, and the <tp:member-ref>TransferredBytes</tp:member-ref>
+        property should not be polled.
       </tp:docstring>
       <arg name="count" type="t">
         <tp:docstring>
