@@ -42,6 +42,11 @@ New experimental API:
 
 Tools changes:
 
+* doc-generator.xsl requires methods, signals and properties to have a
+  tp:name-for-bindings attribute in Ugly_Case. This can be used by code
+  generation tools to convert to languages' naming conventions (CamelCase,
+  javaCamelCase, UPPER_CASE, lower_case) using tr(1) or XPath's translate().
+
 Miscellaneous:
 
 * There is now a better README, loosely based on the one in telepathy-glib
