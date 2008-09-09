@@ -120,7 +120,7 @@ dist:
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	distname="telepathy-spec-$$version";\
 	rm -f tmp/ChangeLog "$$distname".tar "$$distname".tar.gz; \
-	$(GIT) archive --format=tar --prefix="$$distname"/ HEAD \
+	$(GIT) archive --format=tar --prefix="$$distname"/ "HEAD^{tree}" \
 		> "$$distname".tar;\
 	rm -rf tmp/"$$distname";\
 	mkdir tmp/"$$distname";\
