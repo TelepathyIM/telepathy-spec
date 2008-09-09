@@ -121,19 +121,52 @@ USA.</p>
       </tp:docstring>
     </method>
 
+    <signal name="SelfHandleChanged"
+        tp:name-for-bindings="Self_Handle_Changed">
+      <tp:docstring>
+        Emitted whenever the SelfHandle property changes. If the connection
+        is not yet in the CONNECTED state, this signal is not guaranteed
+        to be emitted.
+      </tp:docstring>
+      <tp:added version="0.17.10">Clients MAY assume that if the
+        SelfHandle property exists, this signal will be emitted when
+        necessary.</tp:added>
+
+      <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
+        <tp:docstring>
+          The new value of the SelfHandle property.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="SelfHandle" type="u" tp:type="Contact_Handle"
+      access="read">
+      <tp:docstring>
+        The handle which represents the user on this connection, which will
+        remain valid for the lifetime of this connection, or until a change
+        in the user's identifier is signalled by the SelfHandleChanged signal.
+        If the connection is not yet in the CONNECTED state, the value of
+        this property MAY be zero.
+      </tp:docstring>
+      <tp:added version="0.17.10">For compatibility with older
+        versions, clients should fall back to calling the GetSelfHandle
+        method.</tp:added>
+    </property>
+
     <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
       <arg direction="out" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          An integer handle representing the user
+          The value of the SelfHandle property
         </tp:docstring>
       </arg>
 
       <tp:docstring>
-        Get the handle which represents the user on this connection, which will
-        remain valid for the lifetime of this connection, or until a change
-        in the user's identifier is signalled by the Renamed signal on the
-        Renaming interface (if present).
+        Returns the value of the SelfHandle property. Change notification
+        is via the SelfHandleChanged signal.
       </tp:docstring>
+      <tp:deprecated version="0.17.10">Use GetAll to get the
+        SelfHandle property (and all other Connection properties)
+        instead.</tp:deprecated>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -736,7 +769,7 @@ USA.</p>
     no longer storing handles with ReleaseHandles.</p>
     </tp:docstring>
 
-    <tp:changed version="0.17.UNRELEASED">Previously, the account part of
+    <tp:changed version="0.17.10">Previously, the account part of
       Connection bus names/object paths was allowed to have more than one
       component (i.e. contain dots or slashes), resulting in Connection
       bus names and object paths with more than 7 components. We now restrict
