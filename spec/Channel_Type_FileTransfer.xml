@@ -309,8 +309,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="offset" type="t">
         <tp:docstring>
           The offset in bytes of wthere the file tranfer should start from.
-          The offset is taken from the beginning of the file. Values of zero
-          will start the transfer from the beginning of the file.
+          The offset is taken from the beginning of the file. Specifying an
+          offset of zero will start the transfer from the beginning of the
+          file.
         </tp:docstring>
       </arg>
       <arg direction="out" name="address" type="v">
