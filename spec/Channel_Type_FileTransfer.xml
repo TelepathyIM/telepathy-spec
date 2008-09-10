@@ -426,7 +426,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         signalled with every single byte change. Instead, the most frequent
         this signal will be emitted is once a second. This should be
         sufficient, and the <tp:member-ref>TransferredBytes</tp:member-ref>
-        property should not be polled.
+        property SHOULD NOT be polled.
       </tp:docstring>
       <arg name="Count" type="t">
         <tp:docstring>
