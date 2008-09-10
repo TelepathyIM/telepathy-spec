@@ -289,24 +289,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         happens, the InitialOffset property should be read to find from where the
         file is actually being sent.
       </tp:docstring>
-      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+      <arg direction="in" name="Address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+      <arg direction="in" name="Access_control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
           The type of access control the connection manager should apply to
           the socket.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control_param" type="v">
+      <arg direction="in" name="Access_control_param" type="v">
         <tp:docstring>
           A parameter for the access control type, to be interpreted as
           specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="offset" type="t">
+      <arg direction="in" name="Offset" type="t">
         <tp:docstring>
           The offset in bytes of wthere the file tranfer should start from.
           The offset is taken from the beginning of the file. Specifying an
@@ -314,7 +314,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           file.
         </tp:docstring>
       </arg>
-      <arg direction="out" name="address" type="v">
+      <arg direction="out" name="Address" type="v">
         <tp:docstring>
           The address on which the connection manager will listen for
           connections for this file transfer.
@@ -349,24 +349,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The channel MUST be in the Not_Offered state, and will change state
         to Remote_Pending when this method is called.
       </tp:docstring>
-      <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
+      <arg direction="in" name="Address_Type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+      <arg direction="in" name="Access_Control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
           The type of access control the connection manager should apply to
           the socket.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="access_control_param" type="v">
+      <arg direction="in" name="Access_Control_Param" type="v">
         <tp:docstring>
           A parameter for the access control type, to be interpreted as
           specified in the documentation for the Socket_Access_Control enum.
         </tp:docstring>
       </arg>
-      <arg direction="out" name="address" type="v">
+      <arg direction="out" name="Address" type="v">
         <tp:docstring>
           The address on which the connection manager will listen for
           connections for this file transfer.
@@ -398,12 +398,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Emitted when the state of a file transfer changes.
       </tp:docstring>
-      <arg name="state" type="u" tp:type="File_Transfer_State">
+      <arg name="State" type="u" tp:type="File_Transfer_State">
         <tp:docstring>
           The new state of the file transfer; see the File_Transfer_State enumeration.
         </tp:docstring>
       </arg>
-      <arg name="reason" type="u" tp:type="File_Transfer_State_Change_Reason">
+      <arg name="Reason" type="u" tp:type="File_Transfer_State_Change_Reason">
         <tp:docstring>
           The reason for the state change; see the File_Transfer_State_Change_Reason
           enumeration.
@@ -421,7 +421,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         sufficient, and the <tp:member-ref>TransferredBytes</tp:member-ref>
         property should not be polled.
       </tp:docstring>
-      <arg name="count" type="t">
+      <arg name="Count" type="t">
         <tp:docstring>
           The number of already transferred bytes.
         </tp:docstring>
