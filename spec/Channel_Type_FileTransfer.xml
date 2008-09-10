@@ -168,13 +168,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="InitialOffset" type="t" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The offset from the beginning of the file that the transfer should
-        start from. This should be checked by the receiver after the transfer
-        changes state from Accepted to Open.</p>
+        <p>The offset in bytes from where the file should be sent. This MUST
+        be checked by both the receiver and the sender after the state
+        becomes Open, but before any data is sent or received. Until the
+        state changes to Open, this property is undefined.</p>
 
         <p>Before setting the <tp:member-ref>State</tp:member-ref> property to
-        Open, the connection manager MUST set the InitialOffset property. If there
-        is no offset then this value MUST be set to 0.</p>
+        Open, the connection manager MUST set the InitialOffset property,
+        possibly to 0.</p>
 
         <p>This property MUST NOT change after the state of the transfer has
         changed to Open.</p>
