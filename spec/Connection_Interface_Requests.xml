@@ -198,7 +198,7 @@
                 time</li>
               <li>a channel matching the request has already been requested
                 (by a previous call to CreateChannel or
-                <tp:dbus-ref>EnsureChannel</tp:dbus-ref>)
+                <tp:member-ref>EnsureChannel</tp:member-ref>)
                 and the protocol requires that only one such channel can exist
                 at a time</li>
             </ul>
