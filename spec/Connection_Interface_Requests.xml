@@ -230,11 +230,11 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Owned_By_Caller" direction="out" type="b">
+      <arg name="Yours" direction="out" type="b">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>False if the caller of EnsureChannel should assume that some other
-            process is handling this channel; true if the caller of
-            EnsureChannel should handle it themselves or delegate it to another
+          <p>If false, the caller of EnsureChannel MUST assume that some
+            other process is handling this channel; if true, the caller of
+            EnsureChannel SHOULD handle it themselves or delegate it to another
             client.</p>
 
           <p>If the creation of a channel makes several calls to EnsureChannel
@@ -247,21 +247,6 @@
             channel. In particular, if CreateChannel returns a channel
             <em>C</em>, any EnsureChannel calls that also return <em>C</em>
             MUST return a false value for this argument.</p>
-
-          <tp:rationale>
-            <p>The channel dispatcher must be able to arrange for a channel
-              to be handled exactly once. In the presence of possibly
-              un-cooperative processes, this is quite difficult.</p>
-          </tp:rationale>
-
-          <p>(FIXME: this design is quite complicated, and makes the CM
-            implementation quite subtle. One alternative design would be to
-            have some flag roughly equivalent to the old suppress_handler,
-            which would be true when CreateChannel was called, but false
-            when EnsureChannel was called - not quite the same as Requested,
-            which ought to be true in both cases. Approvers would run iff
-            Requested was false, but handlers would run in response to
-            NewChannels iff the ExclusiveRequest flag was false.)</p>
         </tp:docstring>
       </arg>
 
