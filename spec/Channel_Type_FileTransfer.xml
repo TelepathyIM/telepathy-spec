@@ -329,10 +329,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+          <tp:docstring>
+            Your address type, access control, access control parameter,
+            offset, or a combination of all four is invalid.
+          </tp:docstring>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-          The file transfer is not in the Local_Pending state, which is the only
-          state this method makes sense.
+            The file transfer is not in the Local_Pending state, which is the only
+            state this method makes sense.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -376,6 +380,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+          <tp:docstring>
+            Your address type, access control, access control parameter, or
+            a combination of all three is invalid.
+          </tp:docstring>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The file transfer is not in the Not_Offered state, there isn't
