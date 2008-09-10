@@ -160,6 +160,10 @@
             in advance (e.g. render a window with an "in progress" message),
             improving perceived responsiveness.</p>
         </tp:rationale>
+
+        <p>(FIXME: how do we know the returned channels will be handled by
+          this handler? Do we just assume that they'll match the
+          HandlerChannelFilter iff the request does?)</p>
       </tp:docstring>
 
       <arg name="Request" type="o" direction="in">
