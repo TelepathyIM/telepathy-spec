@@ -213,7 +213,6 @@ Proposed implementation::
         )
 
         ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
-        (if it is not already handling such a channel)
 
         ChannelDispatcher tells AccountManager to put account online (no-op)
         ChannelDispatcher calls EnsureChannel ({...same arguments...})
