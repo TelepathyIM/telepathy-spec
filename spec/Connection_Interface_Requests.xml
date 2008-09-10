@@ -96,7 +96,7 @@
 
     <method name="CreateChannel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Request that channels are created.</p>
+        <p>Request that an entirely new channel is created.</p>
 
         <tp:rationale>
           <p>There is deliberately no flag corresponding to the
@@ -185,13 +185,23 @@
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            The requested channel cannot be created, but in
-            principle, a similar request might succeed in future. For instance,
-            this might be because the requested contact is using a client
-            that lacks a particular feature, or because a channel matching the
-            request already exists and the protocol requires that only one
-            such channel can exist at a time.
+          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+            <p>The requested channel cannot be created, but in
+              principle, a similar request might succeed in future.
+              For instance, this might be because:</p>
+
+            <ul>
+              <li>the requested contact is using a client
+                that lacks a particular feature</li>
+              <li>a channel matching the request already exists and the
+                protocol requires that only one such channel can exist at a
+                time</li>
+              <li>a channel matching the request has already been requested
+                (by a previous call to CreateChannel or
+                <tp:dbus-ref>EnsureChannel</tp:dbus-ref>)
+                and the protocol requires that only one such channel can exist
+                at a time</li>
+            </ul>
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
