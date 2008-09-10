@@ -308,10 +308,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg direction="in" name="Offset" type="t">
         <tp:docstring>
-          The offset in bytes of wthere the file tranfer should start from.
+          The desired offset in bytes where the file transfer should start.
           The offset is taken from the beginning of the file. Specifying an
           offset of zero will start the transfer from the beginning of the
-          file.
+          file. The offset that is actually given in the
+          <tp:member-ref>InitialOffset</tp:member-ref> property can differ
+          from this argument where the requested offset is not supported.
+          (For example, some protocols do not support offsets at all so
+          the InitialOffset property will always be 0.)
         </tp:docstring>
       </arg>
       <arg direction="out" name="Address" type="v">
