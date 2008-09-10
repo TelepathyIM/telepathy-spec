@@ -340,8 +340,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="OfferFile">
       <tp:docstring>
-        Offer a file transfer that's in the Not_Offered state. The file transfer
-        becomes remote pending after this method is called.
+        Offer a file transfer that's in the Not_Offered state. Open a socket
+        that the client can use to provide a file to the connection manager.
+        The channel MUST be in the Not_Offered state, and will change state
+        to Remote_Pending when this method is called.
       </tp:docstring>
       <arg direction="in" name="address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
