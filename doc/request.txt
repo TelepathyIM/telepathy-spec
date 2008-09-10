@@ -114,7 +114,7 @@ EnsureChannel)
         {
             '...ChannelType': '...Text',
             '...TargetHandleType': CONTACT,
-            '...TargetHandle': juliet
+            '...TargetHandle': romeo,
         },
         timestamp,
         my_own_bus_name
