@@ -286,8 +286,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Accept a file transfer that's in the Local_Pending state. The file
         transfer's state becomes accepted after this method is called. At this
         point, the receiver must wait for the state to change to open. When this
-        happens, the InitialOffset property should be read to find from where the
-        file is actually being sent.
+        happens, the <tp:member-ref>InitialOffset</tp:member-ref> property
+        should be read to find from where the file is actually being sent.
       </tp:docstring>
       <arg direction="in" name="Address_type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
