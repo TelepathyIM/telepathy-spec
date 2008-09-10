@@ -281,7 +281,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <method name="AcceptFile">
+    <method name="AcceptFile" tp:name-for-bindings="Accept_File">
       <tp:docstring>
         Accept a file transfer that's in the Local_Pending state. The file
         transfer's state becomes accepted after this method is called. At this
@@ -342,7 +342,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="OfferFile">
+    <method name="OfferFile" tp:name-for-bindings="Offer_File">
       <tp:docstring>
         Offer a file transfer that's in the Not_Offered state. Open a socket
         that the client can use to provide a file to the connection manager.
@@ -394,7 +394,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="FileTransferStateChanged">
+    <signal name="FileTransferStateChanged"
+      tp:name-for-bindings="File_Transfer_State_Changed">
       <tp:docstring>
         Emitted when the state of a file transfer changes.
       </tp:docstring>
@@ -413,7 +414,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <signal name="TransferredBytesChanged">
+    <signal name="TransferredBytesChanged"
+      tp:name-for-bindings="Transferred_Bytes_Changed">
       <tp:docstring>
         Emitted when the number of transferred bytes changes. This will not be
         signalled with every single byte change. Instead, the most frequent
