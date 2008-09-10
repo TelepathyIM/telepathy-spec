@@ -196,9 +196,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Accepted" value="2">
         <tp:docstring>
-          The file transfer has been accepted locally, but not currently open.
-          The transfer should now wait for the state to change to Open and
-          check the offset value.
+          The client has accepted the incoming file transfer, but the transfer
+          is not open. The clientshould now wait for the state to change to Open
+          and check the offset value.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Local_Pending" value="3">
