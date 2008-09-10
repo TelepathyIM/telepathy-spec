@@ -226,6 +226,8 @@ Proposed implementation::
         (At or before this point, the CD must wait for all the Observers to
         return from ObserveChannels if they have not already done so)
 
+        CD SHOULD give the request's preferred handler precedence over the
+         CDO's in choosing the chat UI
         CD calls HandleChannels on chat UI (service-activating it if needed)
 
 _`req3`: collaborative app
