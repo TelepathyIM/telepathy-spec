@@ -101,6 +101,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           unhold the call again.
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Forwarded" value="8">
+        <tp:docstring>
+          The call has been forwarded or diverted from the original contact.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
   </interface>
