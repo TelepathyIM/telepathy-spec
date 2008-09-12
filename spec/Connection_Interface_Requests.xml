@@ -197,8 +197,10 @@
                 protocol requires that only one such channel can exist at a
                 time</li>
               <li>a channel matching the request has already been requested
-                (by a previous call to CreateChannel or
-                <tp:dbus-ref>EnsureChannel</tp:dbus-ref>)
+                (by a previous call to CreateChannel,
+                <tp:dbus-ref
+                  namespace="org.freedesktop.Telepathy">Connection.RequestChannel</tp:dbus-ref>
+                or some future channel-requesting method)
                 and the protocol requires that only one such channel can exist
                 at a time</li>
             </ul>
