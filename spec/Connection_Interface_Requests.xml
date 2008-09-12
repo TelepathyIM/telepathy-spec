@@ -21,10 +21,9 @@
       USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Requests.DRAFT"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Requests">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.17.9"/>
+    <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An enhanced version of the Telepathy connection interface, which can
@@ -34,6 +33,8 @@
     </tp:docstring>
 
     <tp:struct name="Channel_Details" array-name="Channel_Details_List">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+
       <tp:docstring>
         Enough details of a channel that clients can work out how to dispatch
         or handle it.
@@ -95,6 +96,8 @@
     </tp:struct>
 
     <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that an entirely new channel is created.</p>
 
@@ -213,6 +216,8 @@
     </method>
 
     <signal name="NewChannels" tp:name-for-bindings="New_Channels">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>New channels have been created. The connection manager SHOULD emit
           a single signal for any group of closely related channels that are
@@ -244,6 +249,7 @@
 
     <property name="Channels" tp:name-for-bindings="Channels"
       type="a(oa{sv})" access="read" tp:type="Channel_Details[]">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
       <tp:docstring>
         A list of all the channels which currently exist on this connection.
         Change notification is via the
@@ -253,6 +259,7 @@
     </property>
 
     <signal name="ChannelClosed" tp:name-for-bindings="Channel_Closed">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
       <tp:docstring>
         Emitted when a channel is closed and hence disappears from the
         Channels property.
@@ -271,6 +278,7 @@
     </signal>
 
     <tp:mapping name="Channel_Class">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Mapping representing a class of channels that can be requested
           from a connection manager, can be handled by a user interface,
@@ -301,6 +309,7 @@
 
     <tp:struct name="Requestable_Channel_Class"
       array-name="Requestable_Channel_Class_List">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Structure representing a class of channels that can be requested,
           identified by a set of properties that identify that class of
@@ -385,6 +394,7 @@
     <property name="RequestableChannelClasses" access="read"
       type="a(a{sv}as)" tp:type="Requestable_Channel_Class[]"
       tp:name-for-bindings="Requestable_Channel_Classes">
+      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The classes of channel that are expected to be available on this
           connection, i.e. those for which
