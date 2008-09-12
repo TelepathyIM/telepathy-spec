@@ -47,12 +47,18 @@ GENERATED_FILES = \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: $(XMLS) tools/doc-generator.xsl
-	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
+	@install -d tmp/doc
+	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > tmp/$@
+	mv tmp/$@ $@
 doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
-	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > $@
+	@install -d tmp/doc
+	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > tmp/$@
+	mv tmp/$@ $@
 test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
+	@install -d tmp/test/output
 	@install -d test/output
-	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > $@
+	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > tmp/$@
+	mv tmp/$@ $@
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 	@install -d introspect
@@ -93,7 +99,7 @@ clean:
 maintainer-upload-snapshot: doc/spec.html
 	@install -d tmp
 	cp doc/spec.html tmp/spec.html
-	sed -i~ -e 's,\(<h2>Version [0-9][0-9.]*\)\(</h2>\),\1 (darcs snapshot '`date +%Y%m%d`')\2,' \
+	sed -i~ -e 's!\(<h2>Version [0-9][0-9.]*\)\(</h2>\)!\1 (git commit '`git rev-list -n 1 --abbrev-commit --abbrev=8 HEAD`', '`date +%Y-%m-%d`')\2!' \
 		tmp/spec.html
 	scp tmp/spec.html \
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
@@ -120,7 +126,7 @@ dist:
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	distname="telepathy-spec-$$version";\
 	rm -f tmp/ChangeLog "$$distname".tar "$$distname".tar.gz; \
-	$(GIT) archive --format=tar --prefix="$$distname"/ HEAD \
+	$(GIT) archive --format=tar --prefix="$$distname"/ "HEAD^{tree}" \
 		> "$$distname".tar;\
 	rm -rf tmp/"$$distname";\
 	mkdir tmp/"$$distname";\

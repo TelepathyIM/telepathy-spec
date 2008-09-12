@@ -44,7 +44,7 @@ USA.</p>
       </tp:member>
     </tp:struct>
 
-    <method name="Connect">
+    <method name="Connect" tp:name-for-bindings="Connect">
       <tp:docstring>
         Request that the connection be established. This will be done
         asynchronously and errors will be returned by emitting StatusChanged
@@ -58,7 +58,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="Disconnect">
+    <method name="Disconnect" tp:name-for-bindings="Disconnect">
       <tp:docstring>
         Request that the connection be closed. This closes the connection if
         it's not already in DISCONNECTED state, and destroys the connection
@@ -66,7 +66,7 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="GetInterfaces">
+    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
       <arg direction="out" type="as" tp:type="DBus_Interface[]">
         <tp:docstring>
           An array of D-Bus interface names
@@ -109,7 +109,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="GetProtocol">
+    <method name="GetProtocol" tp:name-for-bindings="Get_Protocol">
       <arg direction="out" type="s" tp:type="Protocol">
         <tp:docstring>
           A string identifier for the protocol
@@ -121,26 +121,59 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="GetSelfHandle">
+    <signal name="SelfHandleChanged"
+        tp:name-for-bindings="Self_Handle_Changed">
+      <tp:docstring>
+        Emitted whenever the SelfHandle property changes. If the connection
+        is not yet in the CONNECTED state, this signal is not guaranteed
+        to be emitted.
+      </tp:docstring>
+      <tp:added version="0.17.10">Clients MAY assume that if the
+        SelfHandle property exists, this signal will be emitted when
+        necessary.</tp:added>
+
+      <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
+        <tp:docstring>
+          The new value of the SelfHandle property.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="SelfHandle" tp:name-for-bindings="Self_Handle"
+      type="u" tp:type="Contact_Handle" access="read">
+      <tp:docstring>
+        The handle which represents the user on this connection, which will
+        remain valid for the lifetime of this connection, or until a change
+        in the user's identifier is signalled by the SelfHandleChanged signal.
+        If the connection is not yet in the CONNECTED state, the value of
+        this property MAY be zero.
+      </tp:docstring>
+      <tp:added version="0.17.10">For compatibility with older
+        versions, clients should fall back to calling the GetSelfHandle
+        method.</tp:added>
+    </property>
+
+    <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
       <arg direction="out" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          An integer handle representing the user
+          The value of the SelfHandle property
         </tp:docstring>
       </arg>
 
       <tp:docstring>
-        Get the handle which represents the user on this connection, which will
-        remain valid for the lifetime of this connection, or until a change
-        in the user's identifier is signalled by the Renamed signal on the
-        Renaming interface (if present).
+        Returns the value of the SelfHandle property. Change notification
+        is via the SelfHandleChanged signal.
       </tp:docstring>
+      <tp:deprecated version="0.17.10">Use GetAll to get the
+        SelfHandle property (and all other Connection properties)
+        instead.</tp:deprecated>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
 
-    <method name="GetStatus">
+    <method name="GetStatus" tp:name-for-bindings="Get_Status">
       <arg direction="out" type="u" tp:type="Connection_Status">
         <tp:docstring>
           An integer representing the current status
@@ -152,14 +185,14 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="HoldHandles">
-      <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
+    <method name="HoldHandles" tp:name-for-bindings="Hold_Handles">
+      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle to be held
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="handles" type="au" tp:type="Handle[]">
+      <arg direction="in" name="Handles" type="au" tp:type="Handle[]">
         <tp:docstring>
           A array of integer handles to hold
         </tp:docstring>
@@ -194,14 +227,14 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="InspectHandles">
-      <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
+    <method name="InspectHandles" tp:name-for-bindings="Inspect_Handles">
+      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle to be inspected
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="handles" type="au" tp:type="Handle[]">
+      <arg direction="in" name="Handles" type="au" tp:type="Handle[]">
         <tp:docstring>
           An array of integer handles of this type
         </tp:docstring>
@@ -229,7 +262,7 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="ListChannels">
+    <method name="ListChannels" tp:name-for-bindings="List_Channels">
       <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]">
         <tp:docstring>
           An array of structs representing channels.
@@ -245,34 +278,34 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <signal name="NewChannel">
-      <arg name="object_path" type="o">
+    <signal name="NewChannel" tp:name-for-bindings="New_Channel">
+      <arg name="Object_Path" type="o">
         <tp:docstring>
           A D-Bus object path for the channel object on this service
         </tp:docstring>
       </arg>
 
-      <arg name="channel_type" type="s" tp:type="DBus_Interface">
+      <arg name="Channel_Type" type="s" tp:type="DBus_Interface">
         <tp:docstring>
           A D-Bus interface name representing the channel type
         </tp:docstring>
       </arg>
 
-      <arg name="handle_type" type="u" tp:type="Handle_Type">
+      <arg name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           An integer representing the type of handle this channel
           communicates with, or Handle_Type_None if no handle is specified
         </tp:docstring>
       </arg>
 
-      <arg name="handle" type="u" tp:type="Handle">
+      <arg name="Handle" type="u" tp:type="Handle">
         <tp:docstring>
           A handle indicating the specific contact, room or list this
           channel communicates with, or zero if no handle is specified
         </tp:docstring>
       </arg>
 
-      <arg name="suppress_handler" type="b">
+      <arg name="Suppress_Handler" type="b">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>If true, the channel was requested by a client that intends to
             present it to the user itself (i.e. it passed suppress_handler=TRUE
@@ -296,14 +329,14 @@ USA.</p>
       </tp:docstring>
     </signal>
 
-    <method name="ReleaseHandles">
-      <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
+    <method name="ReleaseHandles" tp:name-for-bindings="Release_Handles">
+      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           An integer handle type (as defined in RequestHandle)
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="handles" type="au" tp:type="Handle[]">
+      <arg direction="in" name="Handles" type="au" tp:type="Handle[]">
         <tp:docstring>
           An array of integer handles being held by the client
         </tp:docstring>
@@ -336,21 +369,21 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="RequestChannel">
-      <arg direction="in" name="type" type="s" tp:type="DBus_Interface">
+    <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
+      <arg direction="in" name="Type" type="s" tp:type="DBus_Interface">
         <tp:docstring>
           A D-Bus interface name representing base channel type
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
+      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           An integer representing the handle type, or Handle_Type_None if
           no handle is specified
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="handle" type="u" tp:type="Handle">
+      <arg direction="in" name="Handle" type="u" tp:type="Handle">
         <tp:docstring>
           A nonzero integer handle representing a contact, room, list etc.
           according to handle_type, or zero if the handle_type is
@@ -358,7 +391,7 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="suppress_handler" type="b">
+      <arg direction="in" name="Suppress_Handler" type="b">
         <tp:docstring>
           <p>Clients SHOULD always set this to true.</p>
 
@@ -504,14 +537,14 @@ USA.</p>
         Handle_Type_Group</tp:docstring>
     </tp:simple-type>
 
-    <method name="RequestHandles">
-      <arg direction="in" name="handle_type" type="u" tp:type="Handle_Type">
+    <method name="RequestHandles" tp:name-for-bindings="Request_Handles">
+      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           The type of handle required
         </tp:docstring>
       </arg>
 
-      <arg direction="in" name="names" type="as">
+      <arg direction="in" name="Names" type="as">
         <tp:docstring>
           An array of names of entities to request handles for
         </tp:docstring>
@@ -646,14 +679,14 @@ USA.</p>
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="StatusChanged">
-      <arg name="status" type="u" tp:type="Connection_Status">
+    <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
+      <arg name="Status" type="u" tp:type="Connection_Status">
         <tp:docstring>
           An integer indicating the new status, as defined by ConnectionStatus
         </tp:docstring>
       </arg>
 
-      <arg name="reason" type="u" tp:type="Connection_Status_Reason">
+      <arg name="Reason" type="u" tp:type="Connection_Status_Reason">
         <tp:docstring>
           An integer indicating the reason for the status change, as defined
           by ConnectionStatusReason
@@ -736,7 +769,7 @@ USA.</p>
     no longer storing handles with ReleaseHandles.</p>
     </tp:docstring>
 
-    <tp:changed version="0.17.UNRELEASED">Previously, the account part of
+    <tp:changed version="0.17.10">Previously, the account part of
       Connection bus names/object paths was allowed to have more than one
       component (i.e. contain dots or slashes), resulting in Connection
       bus names and object paths with more than 7 components. We now restrict
