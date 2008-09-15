@@ -175,6 +175,16 @@ org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
         </tp:rationale>
       </tp:docstring>
 
+      <arg name="Account" type="o" direction="in">
+        <tp:docstring>
+          The
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+          with which the channels are associated. The
+          well-known bus name to use is that of the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">AccountManager</tp:dbus-ref>.
+        </tp:docstring>
+      </arg>
+
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
           The
@@ -205,22 +215,11 @@ org.freedesktop.Telepathy.Channel.FUTURE.Requested b=true
 
       <arg name="Observer_Info" type="a{sv}" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Additional information about these channels. All keys are
-            optional, but the channel dispatcher SHOULD supply as many as
-            possible. Well-known keys and the types of the corresponding
-            values include:</p>
+          <p>Additional information about these channels. No keys are
+            currently defined.</p>
 
-          <dl>
-            <dt>account - o
-              (<tp:dbus-ref>org.freedesktop.Telepathy.Account</tp:dbus-ref>)
-            </dt>
-            <dd>The account with which this Connection is associated</dd>
-          </dl>
-
-          <p>(FIXME: what else?)</p>
-
-          <p>(FIXME: this is copied and pasted from Handler, we should
-            unify them somehow)</p>
+          <p>If keys are defined for this dictionary, all will be optional;
+            observers MAY safely ignore any entry in this dictionary.</p>
         </tp:docstring>
       </arg>
 
