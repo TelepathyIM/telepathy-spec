@@ -210,7 +210,7 @@
       </tp:possible-errors>
     </method>
 
-    <method name="EnsureChannel">
+    <method name="EnsureChannel" tp:name-for-bindings="Ensure_Channel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that channels are ensured to exist.</p>
 
