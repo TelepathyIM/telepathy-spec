@@ -2,6 +2,23 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.11 (2008-09-12)
+===================================
+
+The "release the global implementor lock" release.
+
+New API:
+
+* Connection.Interface.Requests has been declared to be stable.
+  
+  The EnsureChannel method introduced by Simon's dispatcher-clients branch has
+  not yet been added, but will be added in a future spec release.
+
+Fixes:
+
+* Account.Interface.Avatar (introduced in 0.17.6) is now included in the HTML
+  spec.
+
 telepathy-spec 0.17.10 (2008-09-09)
 ===================================
 
