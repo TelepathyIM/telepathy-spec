@@ -119,10 +119,6 @@
         <p>(FIXME: something needs to explain what will happen if the Account
           is disabled - raise PermissionDenied from Proceed, or emit
           Failed?)</p>
-
-        <p>(FIXME: do we want channel requesting to be entirely
-          account-based, or do we want to allow channel requests by
-          Connection too?)</p>
       </tp:docstring>
 
       <arg direction="in" name="Account" type="o">
