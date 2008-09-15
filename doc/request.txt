@@ -13,15 +13,6 @@ Romeo has a chat or IM UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
 
-:New vs. existing:
-    New channel required [#]_
-:Definition of channel identity:
-    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet
-
-.. [#] If the chat UI is already handling a suitable channel, it can
-    reasonably be expected to work this out without the channel dispatcher's
-    help
-
 Current implementation::
 
     if a channel with GetHandle() -> (CONTACT, juliet) exists:
@@ -34,36 +25,47 @@ Proposed implementation::
     if a channel with TargetHandleType == CONTACT and TargetHandle == juliet
     is being handled by the chat UI:
         foreground its window or tab (no interaction with the
-        ChannelDispatcher)
-    else:
-        chat UI calls ChannelDispatcher.StartRequest
-        chat UI calls ChannelRequest.CreateChannelByAccount(
-            account,
-            {
-                '...ChannelType': '...Text',
-                '...TargetHandleType': CONTACT,
-                '...TargetHandle': juliet
-            },
-            timestamp,
-            my_own_bus_name
-        )
+            ChannelDispatcher)
+        stop here
+        (note: this check is optional, the process below can cope with
+        the case where the chat UI is already handling the desired channel)
 
-        ChannelDispatcher calls AddRequest on chat UI, chat UI ignores it
-            as the request is already known to it
+    chat UI calls ChannelDispatcher.EnsureChannel(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': juliet
+        },
+        timestamp,
+        its_own_bus_name
+    )
+    chat UI connects to signals and calls ChannelRequest.Proceed()
 
-        try:
-            ChannelDispatcher tells AccountManager to put account online
-            ChannelDispatcher calls CreateChannel ({...same arguments...})
-        on success:
-            channel observers run
-            ChannelRequest emits Succeeded, chat UI ignores its arguments
-            channel approvers do not run
-            CD calls HandleChannels on chat UI
-            chat UI handles channel
-        on failure:
-            ChannelDispatcher calls RemoveFailedRequest on chat UI, and
-                ChannelRequest emits Failed
-            chat UI displays failure
+    ChannelDispatcher calls AddRequest on chat UI, chat UI ignores it
+        as the request is already known to it
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on success, with Yours = TRUE:
+        channel observers run (if and only if NewChannels emitted)
+        ChannelRequest emits Succeeded, chat UI ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on chat UI
+        chat UI handles channel
+    on success, with Yours = FALSE:
+        if we're already handling this channel:
+            foreground it
+        else:
+            chat UI isn't allowed to handle the channel (someone else is)
+            CR emits Failed and CD calls RemoveFailedRequest
+                with error o.fd.T.E.NotYours
+            FIXME: could perhaps try calling CreateChannel to get a new thread?
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chat UI, and
+            ChannelRequest emits Failed
+        chat UI displays failure
 
 _`req2`: Chat from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
