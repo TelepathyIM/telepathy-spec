@@ -170,25 +170,7 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The channel request has succeeded. It is no longer present,
           and further methods must not be called on it.</p>
-
-        <p>(FIXME: does this signal really need to tell the caller the
-          channels that were produced?)</p>
       </tp:docstring>
-
-      <arg name="Channels" tp:name-for-bindings="Channels"
-        type="a(oa{sv})" tp:type="Channel_Details[]">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>(FIXME: necessary?)</p>
-
-          <tp:rationale>
-            <p>CreateChannel can
-              only produce one channel, but this argument is an array to
-              allow for future addition of a CreateChannels method if it
-              turns out to be necessary.</p>
-          </tp:rationale>
-        </tp:docstring>
-      </arg>
-
     </signal>
 
   </interface>
