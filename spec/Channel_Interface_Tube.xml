@@ -33,7 +33,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         HANDLE_TYPE_CONTACT and HANDLE_TYPE_ROOM.</p>
     </tp:docstring>
 
-    <property name="Initiator" type="u" tp:type="Contact_Handle" access="read">
+    <property name="Initiator" type="u" tp:type="Contact_Handle" access="read"
+              tp:name-for-bindings="Initiator">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Initiator handle.</p>
         <p>When requesting a channel with 
@@ -43,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="Parameters" type="a{sv}" tp:type="String_Variant_Map"
-              access="readwrite">
+              access="readwrite" tp:name-for-bindings="Parameters">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Each tube has a dictionary of arbitrary parameters. Parameters are
           commonly used for bootstrap information. The allowable keys,
@@ -65,7 +66,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="Status" type="u" tp:type="Tube_Channel_State" access="read">
+    <property name="Status" type="u" tp:type="Tube_Channel_State" access="read"
+              tp:name-for-bindings="Status">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Status of the tube in this channel.</p>
         <p>When requesting a channel with 
@@ -105,7 +107,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="TubeChannelStateChanged">
+    <signal name="TubeChannelStateChanged"
+            tp:name-for-bindings="Tube_Channel_State_Changed">
       <tp:docstring>
         Emitted when the state of the tube channel changes.
       </tp:docstring>
