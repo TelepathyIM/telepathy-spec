@@ -920,31 +920,9 @@ Romeo has a chat or IM UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains Juliet's handle, and no other handles other than Romeo's:
-        foreground its window or tab
-    else:
-        either:
-            RequestChannel (Text, CONTACT, juliet, suppress_handler=TRUE)
-        or:
-            RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-            AddMembers([juliet])
-
-(Capability discovery can be used to decide whether to use the first or
-second way to request a channel - the second must be used if we intend to
-invite others to the channel later)
-
-Problems:
-
-* Determining whether we already have a channel to Juliet becomes harder
-  than in req1_
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req1_
+Proposed implementation: a channel with TargetHandleType == CONTACT and
+TargetHandle == juliet will definitely not already exist. Otherwise, exactly
+the same as req1_
 
 _`req31`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -977,8 +955,8 @@ Problems:
 
 Proposed implementation:
 
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req26_
+* Ask other MSN implementors (Youness?) how they cope with the race
+  condition, and implement this in our MSN CMs
 
 _`req32`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -994,10 +972,7 @@ Current implementation: same as req13_
 
 Problems: Juliet cannot distinguish between this case and req13_
 
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req27_
+Resolution: not a serious problem
 
 _`req33`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1013,18 +988,7 @@ same thing, or with Romeo recovering from disconnection as per req31_.
 
 (Recovering from a connection manager crash is equivalent to this.)
 
-Current implementation: unclear
-
-Problems:
-
-* A mid-air collision is highly likely to result in two parallel
-  conversations with the same members (if this is even allowed by the
-  protocol)
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req28_
+Proposed implementation: basically the same as req31_
 
 _`req14`: Ad-hoc chatroom from chat UI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1032,22 +996,12 @@ _`req14`: Ad-hoc chatroom from chat UI
 Romeo wants to talk to both Mercutio and Benvolio in an ad-hoc chatroom.
 He selects them both from a contact list, or types in both their usernames.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains exactly (Mercutio, Benvolio, Romeo):
-        foreground its window or tab
-    else:
-        RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-        AddMembers([mercutio, benvolio])
-
 Problems:
 
 * Determining whether we already have an appropriate channel is race-prone
   and inconvenient
 
-Proposed implementation: FIXME - is this needed? Can we get away with only
-supporting req15_?
+Proposed implementation: ignore this and only support req15_
 
 _`req15`: Ad-hoc chatroom preferred
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1056,35 +1010,16 @@ Romeo wants to talk to both Mercutio and Benvolio in an ad-hoc chatroom.
 He selects Mercutio from a contact list, or types in Mercutio's username,
 then invites Benvolio to the chatroom too.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains exactly (Mercutio, Romeo):
-        foreground its window or tab
-    else if Capabilities interface indicates support for inviting contacts
-    to ad-hoc chatrooms:
-        RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-        AddMembers([mercutio])
-        # when Benvolio is invited...
-        AddMembers([benvolio])
-    else:
-        RequestChannel (Text, CONTACT, [mercutio], suppress_handler=TRUE)
-        Do not offer UI for adding Benvolio
-
-Problems:
-
-* The UI can't know that the user would prefer an ad-hoc chatroom, so in
-  practice it would always have to do this
-
 Proposed implementation:
 
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
+* Request the channel to Mercutio in the same way as req1_/req13_
 
-* Create a 1-1 channel for the conversation with Mercutio
+* Add Benvolio using the Group interface in the obvious way
 
-* Upgrade it to a chatroom by the same mechanism as req19_, which would
-  create an ad-hoc chatroom in the same bundle
+(Rationale for not faking true 1-1 channels: once Benvolio has been added,
+we must have an ad-hoc chatroom with TargetHandleType = NONE. Since UIs will
+need to be able to cope with such channels anyway, we might as well start off
+with one.)
 
 _`req16`: Chat from address book (MSN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1096,74 +1031,14 @@ Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
 
-Current implementation: unclear
-
-Possible implementation::
-
-    address book asks Mission Control for a channel with
-        (Text, CONTACT, romeo)
-    Mission Control calls RequestChannel (Text, CONTACT, romeo,
-        suppress_handler=FALSE) on CM
-    CM does... something?
-    Mission Control dispatches the channel to the default/only handler
-
-    if the channel is new:
-        the channel handler creates a new window or tab
-    else:
-        the channel handler puts the existing window or tab in the foreground
-
-Problems:
-
-* The problems of req2_
-
-* Should the CM pick an existing channel containing only Romeo and Juliet
-  (if available), or create a new one?
-
-* If both 1-1 and ad-hoc-chatroom channels are available, this would provide
-  a true 1-1 channel - what if an ad-hoc chatroom was preferred?
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
-
-* Create a 1-1 channel for the conversation with Romeo, the same as req2_
+Proposed implementation: the same as req2_
 
 _`req17`: Ad-hoc chatroom from address book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The same as req14_ but from an address book.
 
-Hypothetical implementation:
-
-* address book asks MC for a channel with (Text, NONE, 0)
-
-* it's handled by the default channel handler
-
-* address book adds Mercutio and Benvolio with AddMembers
-
-Problems:
-
-* Surely the "address book" (which might instead be e.g. the GNOME menu)
-  shouldn't need to know how to interact with Telepathy in this much
-  detail?
-
-* The chat UI getting people inserted into "its" channel by another process
-  is quite weird
-
-* No way for the chat UI to re-use an existing channel
-
-* Do protocols like MSN allow us to have two channels with the same members?
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
-
-* Create a 1-1 channel for the conversation with Mercutio
-
-* Upgrade it to a chatroom as in req19_, which would
-  create an ad-hoc chatroom in the same bundle
+Proposed implementation: ignore this and only support the equivalent of req15_
 
 _`req18`: Ad-hoc chatroom embedded in collaboraborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1172,18 +1047,7 @@ Romeo is collaborating on a document with Mercutio, and wants to have a chat
 embedded in his AbiWord instance, separate from any other chat with Mercutio
 that may be ongoing.
 
-Current implementation: unclear
-
-Possible implementation::
-
-    RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-    AddMembers ([mercutio])
-
-Problems:
-
-* Are we allowed to have two MSN switchboards with the same two members?
-
-Proposed implementation: same as req3_
+Possible implementation: the same as req3_
 
 _`req19`: Upgrading a 1-1 chat to a named or ad-hoc chatroom
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
