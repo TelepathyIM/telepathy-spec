@@ -170,9 +170,6 @@
           themselves.</p>
 
         <p>(FIXME: list some possible errors)</p>
-
-        <p>(FIXME: should the Approver be able to direct individual channels
-          to different handlers?)</p>
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
@@ -221,8 +218,6 @@
           case.</p>
 
         <p>(FIXME: list some possible errors)</p>
-
-        <p>(FIXME: should it be possible to Claim individual channels?)</p>
       </tp:docstring>
 
     </method>
