@@ -118,11 +118,11 @@
 
         <p>If this method is called for an Account that is disabled, invalid
           or otherwise unusable, no error is signalled until
-          <tp:member-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.Proceed</tp:member-ref>
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Proceed</tp:dbus-ref>
           is called, at which point
-          <tp:member-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.Failed</tp:member-ref>
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Failed</tp:dbus-ref>
           is emitted with an appropriate error.</p>
 
         <tp:rationale>
