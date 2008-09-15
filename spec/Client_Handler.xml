@@ -85,7 +85,32 @@
             This can easily be done using a hash table keyed by channels' object
             paths.</p>
         </tp:rationale>
+
+        <p>This method can raise any D-Bus error. If it does, or if the
+          handler loses its bus name before all the channels have closed, the
+          handler is assumed to have failed or crashed, and the channel
+          dispatcher MUST recover in an implementation-specific way.</p>
+
+        <p>It is RECOMMENDED that the channel dispatcher attempts to
+          close the channels using
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>,
+          but resorts to calling
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable.DRAFT.Destroy</tp:dbus-ref>
+          (if available) or ignoring the channel (if not) if the same handler
+          repeatedly fails to handle channels.</p>
       </tp:docstring>
+
+      <arg name="Account" type="o" direction="in">
+        <tp:docstring>
+          The
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+          with which the channels are associated. The
+          well-known bus name to use is that of the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">AccountManager</tp:dbus-ref>.
+        </tp:docstring>
+      </arg>
 
       <arg name="Connection" type="o" direction="in">
         <tp:docstring>
@@ -103,51 +128,27 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Handler_Info" type="a{sv}" direction="in">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Additional information about these channels. All keys are
-            optional, but the channel dispatcher SHOULD supply as many as
-            possible. Well-known keys and the types of the corresponding
-            values include:</p>
+      <arg name="Requests_Satisfied" type="ao" direction="in">
+        <tp:docstring>
+          The requests satisfied by these channels.
 
-          <dl>
-            <dt>account - o
-              (<tp:dbus-ref>org.freedesktop.Telepathy.Account</tp:dbus-ref>)
-            </dt>
-            <dd>The account with which this Connection is associated</dd>
-
-            <dt>user-action-time - t (<tp:type>Unix_Timestamp64</tp:type>)</dt>
-            <dd>The time at which user action occurred, or 0 if this channel
-              is to be handled for some reason not involving user action.
-              Handlers SHOULD use this for focus-stealing prevention,
-              if applicable.</dd>
-
-            <dt>requests - ao
-              (array of
-              <tp:dbus-ref>org.freedesktop.Telepathy.ChannelRequest</tp:dbus-ref>)
-            </dt>
-            <dd><p>The request(s) satisfied by these channels.</p>
-
-              <tp:rationale>
-                <p>A single channel can simultaneously satisfy up to one
-                  CreateChannel request, and any number of EnsureChannel
-                  requests.</p>
-              </tp:rationale>
-
-              <p>(FIXME: or should we cause one call to this method per
-                request satisfied?)</p>
-            </dd>
-          </dl>
-
-          <p>(FIXME: what else?)</p>
-
-          <p>(FIXME: possible errors?)</p>
+          <tp:rationale>
+            There can be more than one, if they were EnsureChannel
+            requests.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
-      <tp:possible-errors>
-        <!-- FIXME -->
-      </tp:possible-errors>
+      <arg name="User_Action_Time" type="t" direction="in">
+        <tp:docstring>
+          The time at which user action occurred, or 0 if this channel
+          is to be handled for some reason not involving user action.
+          Handlers SHOULD use this for focus-stealing prevention,
+          if applicable.
+        </tp:docstring>
+      </arg>
+
+      <!-- FIXME: invent a way to say "any error is possible" in spec markup -->
     </method>
 
     <method name="AddRequest" tp:name-for-bindings="Add_Request">
