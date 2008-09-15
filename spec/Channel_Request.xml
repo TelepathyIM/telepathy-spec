@@ -102,7 +102,7 @@
 
         <p>If the connection manager has already been asked to create a
           channel but has not produced one yet (e.g. if <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
           has been called, but has not yet returned), then the
           ChannelDispatcher will remember that the request has been cancelled.
           When the channel appears, it will be closed (if it was newly
@@ -112,7 +112,7 @@
         <p>If the connection manager has already returned a channel, but the
           channel has not yet been dispatched to a handler
           (e.g. if <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
           has returned a channel, but the dispatch operation is waiting for
           approvers) then the channel dispatcher will not dispatch that
           channel to a handler. If the channel was newly created for this

@@ -138,7 +138,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary containing desirable properties. This has the same
             semantics as the corresponding parameter to
-            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>.
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>.
           </p>
 
           <p>Certain properties will not necessarily make sense in this

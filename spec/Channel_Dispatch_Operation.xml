@@ -36,7 +36,7 @@
         from outgoing requests for channels.</p>
 
       <p>More specifically, whenever the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.NewChannels</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.NewChannels</tp:dbus-ref>
         signal contains channels whose
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.FUTURE.Requested</tp:dbus-ref>
         property is false, or whenever the
