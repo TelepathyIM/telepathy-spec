@@ -199,8 +199,7 @@ Proposed implementation::
 
     Juliet tells address book to open a channel to Romeo:
 
-        address book calls ChannelDispatcher.StartRequest (returns cr1, say)
-        address book calls ChannelRequest.EnsureChannelByAccount(
+        address book calls ChannelDispatcher.EnsureChannel(
             account,
             {
                 '...ChannelType': '...Text',
@@ -209,7 +208,8 @@ Proposed implementation::
             },
             timestamp,
             ''
-        )
+        ) (this returns cr1, say)
+        address book calls ChannelRequest.Proceed() on cr1
 
         ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
 
@@ -259,8 +259,7 @@ Proposed implementation::
     and Bundle == bundle_id is being handled by AbiWord:
         nothing to do, we already have a Text channel: stop
 
-    AbiWord calls ChannelDispatcher.StartRequest
-    AbiWord calls ChannelRequest.CreateChannelByAccount(
+    AbiWord calls ChannelDispatcher.CreateChannel(
         account,
         {
             '...ChannelType': '...Text',
@@ -271,6 +270,7 @@ Proposed implementation::
         timestamp,
         abiword_client_bus_name
     )
+    AbiWord calls ChannelRequest.Proceed()
 
     ChannelDispatcher calls AddRequest on AbiWord, AbiWord ignores it as
         the request is already known to it
@@ -503,8 +503,7 @@ Proposed implementation: (FIXME: requires InitialAudio, InitialVideo in spec)
         foreground its window or tab (no interaction with the
         ChannelDispatcher)
     else:
-        call UI calls ChannelDispatcher.StartRequest
-        call UI calls ChannelRequest.CreateChannelByAccount(
+        call UI calls ChannelDispatcher.CreateChannel(
             account,
             {
                 '...ChannelType': '...StreamedMedia',
@@ -514,8 +513,9 @@ Proposed implementation: (FIXME: requires InitialAudio, InitialVideo in spec)
                 '...InitialVideoStream': TRUE,
             },
             timestamp,
-            my_own_bus_name
+            its_own_bus_name
         )
+        call UI calls ChannelRequest.Proceed()
 
         ChannelDispatcher calls AddRequest on call UI, call UI ignores it
             as the request is already known to it
