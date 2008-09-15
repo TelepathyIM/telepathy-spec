@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <tp:errors xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace="org.freedesktop.Telepathy.Error">
+  <!-- Don't re-order these errors until fd.o #17588 is fixed, or you will
+       break telepathy-glib's ABI.
+    -->
   <tp:error name="Network Error">
     <tp:docstring>
     Raised when there is an error reading from or writing to the network.
