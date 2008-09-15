@@ -125,48 +125,35 @@ Dispatch process::
     CD calls HandleChannels on Empathy chat process (service-activating it
     if needed)
 
-_`dis2`: Incoming 1-1 text message
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_`dis2a`: Incoming 1-1 text message with lost window
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet receives a message from Romeo after a pause in their conversation.
 
 Current implementation, _`dis2impl1`: it arrives in the Text channel
 
-Problems:
+Potential problem: if the chat UI is not currently visible, as currently
+implemented it cannot necessarily use the same mechanism to notify the user
+that would be used for a new channel, because it doesn't "own" the
+notification mechanism for the new-channel case
 
-* If Juliet's chat UI has crashed, the message is (as currently implemented)
-  lost forever (_`dis2problem1`)
-
-* If the chat UI is not currently visible, as currently implemented it
-  cannot necessarily use the same mechanism to notify the user that would
-  be used for a new channel, because it doesn't "own" the notification
-  mechanism for the new-channel case (this would be fixed by dis1impl2_)
-  (call this _`dis2problem2`)
-
-Proposed solution to dis2problem2_: if the the chat UI is in the same process
+Proposed solution: if the the chat UI is in the same process
 as the notification mechanism, all is good - it can prod the notifier
 directly. If it's not, then it can use a D-Bus API outside the scope of this
 spec to do the same. (Avoiding premature generalization and assuming clients
 to be competent)
 
-Alternative implementation, _`dis2impl2`:
+_`dis2b`: Incoming 1-1 text message with crashed handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* When a ChannelHandler that was handling a channel closes, the channel
-  dispatcher forcibly closes that channel
+Juliet receives a message from Romeo after her chat UI has crashed.
 
-Problems:
+Current implementation: it arrives in the Text channel, which nothing is
+handling, and is lost
 
-* Incoming messages might still be lost (there is a race between the channel
-  dispatcher closing the channel, and the new message coming in) so this does
-  not fully address dis2problem1_; however, having text channels respawn does
-  make this problem go away
-
-Possible solution for dis2problem1_, _`dis2impl3`:
-
-* When a ChannelHandler that was handling a channel closes, the channel
-  dispatcher re-dispatches that channel (to the same or a different handler)
-
-Proposed implementation: FIXME
+Proposed implementation: when a ChannelHandler that was handling a channel
+falls off the bus, the channel dispatcher closes the channel. If the channel
+is of type Text, it restarts when the new message arrives.
 
 _`dis3`: Incoming 1-1 text message with window closed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
