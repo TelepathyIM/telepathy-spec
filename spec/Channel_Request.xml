@@ -135,6 +135,9 @@
           <tp:member-ref>Failed</tp:member-ref> will be emitted when processing
           has been completed.</p>
 
+        <p>If Failed is emitted in response to this method, the error SHOULD be
+          <code>org.freedesktop.Telepathy.Errors.Cancelled</code>.</p>
+
         <p>If the channel has already been dispatched to a handler, then
           it's too late to call this method, and the channel request will
           no longer exist.</p>
@@ -152,9 +155,6 @@
           <p>The name of a D-Bus error. This can come from various sources,
             including the error raised by CreateChannel, or an error generated
             to represent failure to establish the Connection.</p>
-
-          <p>(FIXME: we should specify the error that will appear here
-            if <tp:member-ref>Cancel</tp:member-ref> is called)</p>
         </tp:docstring>
       </arg>
 
