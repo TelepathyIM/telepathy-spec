@@ -39,8 +39,8 @@
       </tp:rationale>
     </tp:docstring>
 
-    <property name="UserActionTime" type="t" tp:type="Unix_Timestamp64"
-      access="read">
+    <property name="UserActionTime" tp:name-for-bindings="User_Action_Time"
+      type="t" tp:type="Unix_Timestamp64" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The time at which user action occurred, or 0 if this channel
           request is for some reason not involving user action.</p>
@@ -53,7 +53,7 @@
       </tp:docstring>
     </property>
 
-    <property name="Requests" type="aa{sv}"
+    <property name="Requests" tp:name-for-bindings="Requests" type="aa{sv}"
       tp:type="Qualified_Property_Value_Map[]"
       access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -70,7 +70,7 @@
       </tp:docstring>
     </property>
 
-    <method name="Proceed">
+    <method name="Proceed" tp:name-for-bindings="Proceed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Proceed with the channel request.</p>
 
@@ -91,7 +91,7 @@
       </tp:possible-errors>
     </method>
 
-    <method name="Cancel">
+    <method name="Cancel" tp:name-for-bindings="Cancel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Cancel the channel request. The precise effect depends on the
           current progress of the request.</p>
@@ -127,7 +127,7 @@
       </tp:docstring>
     </method>
 
-    <signal name="Failed">
+    <signal name="Failed" tp:name-for-bindings="Failed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The channel request has failed. It is no longer present,
           and further methods must not be called on it.</p>
@@ -152,7 +152,7 @@
       </arg>
     </signal>
 
-    <signal name="Succeeded">
+    <signal name="Succeeded" tp:name-for-bindings="Succeeded">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The channel request has succeeded. It is no longer present,
           and further methods must not be called on it.</p>
@@ -161,8 +161,8 @@
           channels that were produced?)</p>
       </tp:docstring>
 
-      <arg name="Channels" type="a(oa{sv})"
-        tp:type="Channel_Details[]">
+      <arg name="Channels" tp:name-for-bindings="Channels"
+        type="a(oa{sv})" tp:type="Channel_Details[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>(FIXME: necessary?)</p>
 

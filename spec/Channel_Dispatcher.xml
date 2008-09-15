@@ -89,14 +89,14 @@
       </dl>
     </tp:docstring>
 
-    <property name="Interfaces" type="as" access="read"
-      tp:type="DBus_Interface[]">
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" access="read" tp:type="DBus_Interface[]">
       <tp:docstring>
         A list of the extra interfaces provided by this channel dispatcher.
       </tp:docstring>
     </property>
 
-    <method name="CreateChannel">
+    <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to create a channel. This initially just creates a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
@@ -189,7 +189,9 @@
 
     </method>
 
-    <property name="DispatchOperations" type="ao" access="read">
+    <property
+      name="DispatchOperations" tp:name-for-bindings="Dispatch_Operations"
+      type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The list of ChannelDispatchOperation objects currently being
           processed. Change notification is via the NewDispatch and
@@ -204,7 +206,8 @@
       </tp:docstring>
     </property>
 
-    <signal name="NewDispatchOperation">
+    <signal name="NewDispatchOperation"
+      tp:name-for-bindings="New_Dispatch_Operation">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a dispatch operation is added to
           <tp:member-ref>DispatchOperations</tp:member-ref>.</p>
@@ -219,7 +222,8 @@
       </arg>
     </signal>
 
-    <signal name="DispatchOperationClosed">
+    <signal name="DispatchOperationClosed"
+      tp:name-for-bindings="Dispatch_Operation_Closed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         Emitted when a dispatch operation finishes (i.e. exactly once per
         emission of <tp:dbus-ref

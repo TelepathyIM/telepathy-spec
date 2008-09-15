@@ -50,8 +50,9 @@
 
     </tp:docstring>
 
-    <property name="HandlerChannelFilter" type="aa{sv}" access="read"
-      tp:type="Channel_Class[]">
+    <property name="HandlerChannelFilter"
+      tp:name-for-bindings="Handler_Channel_Filter"
+      type="aa{sv}" access="read" tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels that this channel handler can
           deal with. It will be offered to approvers as a potential
@@ -72,7 +73,7 @@
       approvers if appropriate - see ChannelDispatchOperation for details.
       Or not, if we can think of a better way to do it -->
 
-    <method name="HandleChannels">
+    <method name="HandleChannels" tp:name-for-bindings="Handle_Channels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when this client should handle these
           channels, or when this client should present channels that it is already
@@ -149,7 +150,7 @@
       </tp:possible-errors>
     </method>
 
-    <method name="AddRequest">
+    <method name="AddRequest" tp:name-for-bindings="Add_Request">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that channels have been
           requested, and that if the request is successful, they will be
@@ -188,7 +189,8 @@
       </arg>
     </method>
 
-    <method name="RemoveFailedRequest">
+    <method name="RemoveFailedRequest"
+      tp:name-for-bindings="Remove_Failed_Request">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that a request
           previously passed to <tp:member-ref>AddRequest</tp:member-ref>
@@ -214,7 +216,8 @@
       </arg>
     </method>
 
-    <property name="HandledChannels" type="ao" access="read">
+    <property name="HandledChannels" tp:name-for-bindings="Handled_Channels"
+      type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the channels that this Handler is currently handling.
         </p>

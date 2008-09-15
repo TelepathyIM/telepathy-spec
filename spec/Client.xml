@@ -96,8 +96,8 @@
         to a group with the same name.</p>
     </tp:docstring>
 
-    <property name="Interfaces" type="as" access="read"
-      tp:type="DBus_Interface[]">
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" access="read" tp:type="DBus_Interface[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the extra interfaces provided by this client.
           This SHOULD include at least one of

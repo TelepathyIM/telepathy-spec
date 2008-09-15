@@ -96,15 +96,16 @@
         send the channels to a handler.</p>
     </tp:docstring>
 
-    <property name="Interfaces" type="as" access="read"
-      tp:type="DBus_Interface[]">
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" access="read" tp:type="DBus_Interface[]">
       <tp:docstring>
         A list of the extra interfaces provided by this channel dispatch
         operation.
       </tp:docstring>
     </property>
 
-    <property name="Connection" type="o" access="read">
+    <property name="Connection" tp:name-for-bindings="Connection"
+      type="o" access="read">
       <tp:docstring>
         The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
@@ -115,7 +116,8 @@
       </tp:docstring>
     </property>
 
-    <property name="Account" type="o" access="read">
+    <property name="Account" tp:name-for-bindings="Account"
+      type="o" access="read">
       <tp:docstring>
         The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
@@ -125,8 +127,8 @@
       </tp:docstring>
     </property>
 
-    <property name="Channels" type="a(oa{sv})" access="read"
-      tp:type="Channel_Details[]">
+    <property name="Channels" tp:name-for-bindings="Channels"
+      type="a(oa{sv})" access="read" tp:type="Channel_Details[]">
       <tp:docstring>
         The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
@@ -134,8 +136,8 @@
       </tp:docstring>
     </property>
 
-    <property name="PossibleHandlers" type="as" access="read"
-      tp:type="DBus_Well_Known_Name[]">
+    <property name="PossibleHandlers" tp:name-for-bindings="Possible_Handlers"
+      type="as" access="read" tp:type="DBus_Well_Known_Name[]">
       <tp:docstring>
         The well known bus names (starting with
         <code>org.freedesktop.Telepathy.Client.</code>) of the possible
@@ -147,7 +149,7 @@
       </tp:docstring>
     </property>
 
-    <method name="HandleWith">
+    <method name="HandleWith" tp:name-for-bindings="Handle_With">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by an approver to accept a channel bundle and request that
           the given handler be used to handle it.</p>
@@ -183,7 +185,7 @@
 
     </method>
 
-    <method name="Claim">
+    <method name="Claim" tp:name-for-bindings="Claim">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by an approver to claim a channel bundle for handling
           internally. If this method is called successfully, the process
@@ -225,7 +227,7 @@
 
     </method>
 
-    <signal name="Closed">
+    <signal name="Closed" tp:name-for-bindings="Closed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when this dispatch operation finishes. The dispatch
           operation is no longer present and further methods must not be
