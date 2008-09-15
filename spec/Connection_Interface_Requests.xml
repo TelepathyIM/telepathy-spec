@@ -362,7 +362,7 @@
       </arg>
     </signal>
 
-    <tp:mapping name="Channel_Class">
+    <tp:mapping name="Channel_Class" array-name="Channel_Class_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Mapping representing a class of channels that can be requested
           from a connection manager, can be handled by a user interface,
