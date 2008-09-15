@@ -1,0 +1,6 @@
+.*.sw?
+/doc/*.html
+/doc/telepathy-spec.devhelp2
+/telepathy-spec-*.tar*
+/test/output
+/tmp
