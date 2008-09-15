@@ -25,7 +25,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>A channel type for files offered for transferring. The
       transmission of data between contacts is achieved by reading from
       or writing to a socket. The type of the socket (local Unix, IPv4,
-      etc.) is decided on when the file transfer is offered.</p>
+      etc.) is decided on when the file transfer is offered or accepted.</p>
 
       <p>The Telepathy client should connect to the socket or address that
       the connection manager has set up and provided back to the clients
