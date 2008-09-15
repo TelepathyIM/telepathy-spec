@@ -198,7 +198,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:enum name="File_Transfer_State" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
-          The file transfer is currently not set up correctly.
+          An invalid state type used as a null value. This value MUST NOT
+          appear in the State property.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Offered" value="1">
