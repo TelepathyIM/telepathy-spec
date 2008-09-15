@@ -40,7 +40,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     </tp:docstring>
 
-    <method name="SetSelfCapabilities">
+    <method name="SetSelfCapabilities"
+            tp:name-for-bindings="Set_Self_Capabilities">
       <arg direction="in" name="caps" type="aa{sv}"
            tp:type="String_Variant_Map[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -68,7 +69,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="GetContactCapabilities">
+    <method name="GetContactCapabilities"
+            tp:name-for-bindings="Get_Contact_Capabilities">
       <arg direction="in" name="handles" type="au" tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An array of contact handles for this connection.</p>
@@ -99,7 +101,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="ContactCapabilitiesChanged">
+    <signal name="ContactCapabilitiesChanged"
+            tp:name-for-bindings="Contact_Capabilities_Changed">
       <arg name="caps" type="a(ua{sv}as)" tp:type="Enhanced_Contact_Capability[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           All the capabilities of the contact
