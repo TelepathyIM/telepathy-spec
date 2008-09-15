@@ -130,8 +130,8 @@
           has returned a channel, but the dispatch operation is waiting for
           approvers) then the channel dispatcher will not dispatch that
           channel to a handler. If the channel was newly created for this
-          request, the channel dispatcher will close it; otherwise, the
-          channel dispatcher will ignore it. In either case,
+          request, the channel dispatcher will close it with Close; otherwise,
+          the channel dispatcher will ignore it. In either case,
           <tp:member-ref>Failed</tp:member-ref> will be emitted when processing
           has been completed.</p>
 
