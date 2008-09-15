@@ -1057,8 +1057,9 @@ by using thread IDs.
 
 Current implementation: can't be done
 
-Hypothetical implementation: request a chatroom channel with the same (thread
-ID and) bundle ID as the 1-1 chat?
+Proposed implementation: request a chatroom channel with the same (thread
+ID and) bundle ID as the 1-1 chat, or something (use of two channels is
+unavoidable here, because they have a distinct identity)
 
 Resolution: defer the threads spec til later,
 https://bugs.freedesktop.org/show_bug.cgi?id=16544
