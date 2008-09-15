@@ -105,13 +105,9 @@ Things smcv considered to be problems:
 
   * Resolution: Rob does not consider this to be a problem, overruled
 
-Proposed implementation: (FIXME: assumes existence of EnsureChannelByAccount,
-EnsureChannel)
+Proposed implementation::
 
-::
-
-    address book calls ChannelDispatcher.StartRequest
-    address book calls ChannelRequest.EnsureChannelByAccount(
+    address book calls ChannelDispatcher.EnsureChannel(
         account,
         {
             '...ChannelType': '...Text',
@@ -119,8 +115,9 @@ EnsureChannel)
             '...TargetHandle': romeo,
         },
         timestamp,
-        my_own_bus_name
+        ''
     )
+    address book connects to signals and calls ChannelRequest.Proceed
 
     ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
     (if it is not already handling such a channel)
@@ -153,7 +150,7 @@ and chooses his entry in her address book again.
 
 Proposed implementation::
 
-    initially the same as for req2
+    initially the same as for req2 (until [+])
 
     ChannelDispatcher tells AccountManager to put account online
     ChannelDispatcher calls EnsureChannel ({...same arguments...})
