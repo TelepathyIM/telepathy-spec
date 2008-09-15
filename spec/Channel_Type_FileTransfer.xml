@@ -210,7 +210,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Accepted" value="2">
         <tp:docstring>
           The client has accepted the incoming file transfer, but the transfer
-          is not open. The clientshould now wait for the state to change to Open
+          is not open. The client should now wait for the state to change to Open
           and check the offset value.
         </tp:docstring>
       </tp:enumvalue>
