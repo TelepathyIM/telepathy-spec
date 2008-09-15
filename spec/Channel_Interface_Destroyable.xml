@@ -44,7 +44,7 @@
           <p>The main motivating situation for this method is that when a Text
             channel with pending messages is closed with Close, it comes back
             as an incoming channel (to avoid a race between Close and an
-            incoming message). If Destroy is closed on a Text channel, the CM
+            incoming message). If Destroy is called on a Text channel, the CM
             should delete all pending messages and close the channel, and
             the channel shouldn't be re-created until/unless another message
             arrives.</p>
