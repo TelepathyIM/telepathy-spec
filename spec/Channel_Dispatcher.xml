@@ -170,8 +170,15 @@
             so it can try to dispatch subsequent channels in the same bundle
             to the same handler.</p>
 
-          <p>FIXME: perhaps this should just be a boolean, for
-            "I want to claim the channel myself"</p>
+          <tp:rationale>
+            <p>This must be the well-known bus name, not the unique name,
+              to ensure that all handlers do indeed have the Client API,
+              and the Client object on the handler can be located easily.</p>
+
+            <p>This is partly so the channel dispatcher can call
+              HandleChannel on it, and partly so the channel dispatcher
+              can recover state if it crashes and is restarted.</p>
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
