@@ -116,9 +116,23 @@
             timing out, which is not the behaviour we want.</p>
         </tp:rationale>
 
-        <p>(FIXME: something needs to explain what will happen if the Account
-          is disabled - raise PermissionDenied from Proceed, or emit
-          Failed?)</p>
+        <p>If this method is called for an Account that is disabled, invalid
+          or otherwise unusable, no error is signalled until
+          <tp:member-ref
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Proceed</tp:member-ref>
+          is called, at which point
+          <tp:member-ref
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Failed</tp:member-ref>
+          is emitted with an appropriate error.</p>
+
+        <tp:rationale>
+          <p>This means there's only one code path for errors, apart from
+            InvalidArgument for "that request makes no sense".</p>
+
+          <p>It also means that the request will proceed if the account is
+            enabled after calling CreateChannel, but before calling
+            Proceed.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Account" type="o">
