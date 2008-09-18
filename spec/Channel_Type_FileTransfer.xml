@@ -248,6 +248,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           No reason was specified.
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Requested" value="1">
+        <tp:docstring>
+          The change in state was requested.
+        </tp:docstring>
+      </tp:enumvalue>
       <tp:enumvalue suffix="Local_Stopped" value="1">
         <tp:docstring>
           The file transfer was canceled by the local user.
