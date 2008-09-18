@@ -355,8 +355,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The file transfer is not in the Local_Pending state, which is the only
-            state this method makes sense.
+            The file transfer is not in the Local_Pending state, there isn't
+            or there is a local error with acquiring a socket.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
