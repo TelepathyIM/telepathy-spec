@@ -926,5 +926,45 @@ suppress_handler=TRUE
 
 Proposed implementation: a straightforward port of the current implementation
 
+_`dis32`: Channel Dispatcher crash recovery
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The channel dispatcher crashes. Some other component (probably a UI) notices
+and restarts it. The channel dispatcher must reconcile its internal state
+with what's actually going on.
+
+It is likely that the channel dispatcher and the account manager are in
+fact the same process (Mission Control and Decibel are both implemented
+like this), so we must be able to cope with a simultaneous CD and AM crash.
+
+Current implementation: Nokia's Mission Control 4 calls Disconnect on all
+connections, causing reality to reflect its internal state. Obviously, this
+isn't ideal (and can cause messages to be lost).
+
+Proposed implementation: The channel dispatcher discovers existing
+connections and channels, causing its internal state to reflect reality.
+
+More specifically:
+
+* before it calls Connect on each new connection, the account manager saves
+  the association between connections and accounts to a cache
+
+* during startup, the account manager discovers existing connections, and
+  reads that cache to find out which ones correspond to an account that it
+  manages
+
+* the channel dispatcher discovers from the account manager which connections
+  it should manage
+
+* the CD lists the channels on each connection (call this set *E*)
+
+* the CD also discovers all clients (by looking for o.fd.T.Client.* bus names)
+  and lists the channels that each client is handling (call this set *H*)
+
+* the CD now knows what everyone is handling
+
+* now the CD can dispatch every unhandled channel (the set *E* \ *H*) as if
+  newly created
+
 ..
   vim:set sw=4 sts=4 et:
