@@ -5,7 +5,15 @@ checkouts.
 telepathy-spec 0.17.12 (UNRELEASED)
 ===================================
 
-...
+New API:
+
+* Added a Forwarded flag to Channel.Interface.CallState
+
+New experimental API:
+
+* Added a Destroyable interface so the channel dispatcher has a way to
+  kill off unhandleable channels (e.g. if we don't have a Text UI for some
+  reason)
 
 telepathy-spec 0.17.11 (2008-09-12)
 ===================================
