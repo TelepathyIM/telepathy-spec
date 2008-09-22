@@ -1255,7 +1255,7 @@ _`req36`: Cancelling outgoing call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet starts a VoIP call to Tybalt, but then thinks better of it and
-cancels the call before the channel has actually been opened.
+cancels the call.
 
 Current implementation (NMC 4.x)::
 
@@ -1273,9 +1273,40 @@ Problems:
   cares about and should close/refuse (this use case), and a channel requested
   by another process but handled by it (req5_)
 
-Proposed implementation:
+Proposed implementation: the cancelling client calls Cancel on the channel
+request. There are in fact several cases.
 
-* FIXME
+_`req36a`: channel creation method has not yet been called
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should refrain from calling it
+
+_`req36b`: channel creation method has been called
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should remember the cancellation, and when the channel creation method
+returns, immediately close the channel with Close()
+
+_`req36c`: channel has been created, handler has not been notified
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should close the channel with Close(), and notify approvers (if any)
+
+_`req36d`: handler has been notified but has not returned
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+FIXME: is it still safe for the CD to close the channel? This raises a race
+condition - the handler will look for details of the channel and find that
+it's gone - but that can happen anyway (because the remote peer could close
+the channel). Perhaps the CD should follow up with a method call to say
+"it's OK that you just failed to handle that channel - it went away", but
+probably that's crack.
+
+_`req36e`: handler has accepted the channel
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It's too late, and Cancel should fail (indeed, the channel-request object
+should no longer exist)
 
 _`req37`: Requesting a channel takes time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
