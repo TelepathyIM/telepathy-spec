@@ -205,6 +205,10 @@
           themselves.</p>
 
         <p>(FIXME: list some possible errors)</p>
+
+        <p>If the channel handler raises an error from Handle, this method
+          MAY respond by raising that same error, even if it is not
+          specifically documented here.</p>
       </tp:docstring>
 
       <arg direction="in" type="s" tp:type="DBus_Bus_Name" name="Handler">
@@ -215,6 +219,41 @@
         </tp:docstring>
       </arg>
 
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+            The selected handler is not a syntactically correct
+            <tp:type>DBus_Bus_Name</tp:type> or does not start with
+            "<code>org.freedesktop.Telepathy.Client.</code>".
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The selected handler is temporarily unable to handle these
+            channels.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The selected handler is syntactically correct, but will never
+            be able to handle these channels (for instance because the channels
+            do not match its HandlerChannelFilter, or because HandleChannels
+            raised NotImplemented).
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYours">
+          <tp:docstring>
+            At the time that HandleWith was called, this dispatch operation was
+            processing an earlier call to HandleWith. The earlier call has
+            now succeeded, so some Handler nominated by another approver is
+            now responsible for the channels. In this situation, the second
+            call to HandleWith MUST NOT return until the first one has
+            returned successfully or unsuccessfully, and if the first call
+            to HandleChannels fails, the channel dispatcher SHOULD try to obey
+            the choice of Handler made by the second call to HandleWith.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="Claim" tp:name-for-bindings="Claim">
