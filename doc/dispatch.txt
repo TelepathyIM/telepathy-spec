@@ -203,8 +203,6 @@ Problems with dis3impl3_:
 * if it is desirable to tell the remote user that the window has been closed,
   the CM can't know
 
-* dis2problem2_ also applies here
-
 Proposed implementation: keep dis3impl2_, and later use conversation
 thread IDs as per req27_ to solve the problem above
 
