@@ -132,9 +132,44 @@
       <tp:docstring>
         The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
-        to be dispatched, and their properties.
+        to be dispatched, and their properties. Change notification is via
+        the <tp:member-ref>ChannelLost</tp:member-ref> signal (channels
+        cannot be added to this property, only removed).
       </tp:docstring>
     </property>
+
+    <signal name="ChannelLost" tp:name-for-bindings="Channel_Lost">
+      <tp:docstring>
+        A channel has closed before it could be claimed or handled.
+      </tp:docstring>
+
+      <arg name="Error" type="s" tp:type="DBus_Error_Name">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The name of a D-Bus error indicating why the channel closed. If
+            no better reason can be found,
+            <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> MAY
+            be used as a fallback; this means that this error SHOULD NOT be
+            given any more specific meaning.</p>
+
+          <p>FIXME: or should we invent a new OtherError for that purpose?</p>
+
+          <p>FIXME: we need to specify errors for these situations:</p>
+
+          <ul>
+            <li>kicked from a chatroom</li>
+            <li>outgoing call rejected</li>
+            <li>outgoing call timed out</li>
+            <li>incoming call terminated</li>
+          </ul>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Message" type="s">
+        <tp:docstring>
+          A string associated with the D-Bus error.
+        </tp:docstring>
+      </arg>
+    </signal>
 
     <property name="PossibleHandlers" tp:name-for-bindings="Possible_Handlers"
       type="as" access="read" tp:type="DBus_Well_Known_Name[]">
