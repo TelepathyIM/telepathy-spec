@@ -258,27 +258,29 @@
 
     <method name="Claim" tp:name-for-bindings="Claim">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by an approver to claim a channel bundle for handling
+        <p>Called by an approver to claim channels for handling
           internally. If this method is called successfully, the process
           calling this method becomes the handler for the channel, but
           <em>does not</em> have the HandleChannels method called on it.</p>
         <!-- FIXME: tp:dbus-ref -->
 
-        <p>Clients that call Claim on a channel and do not immediately
-          close it SHOULD implement the Handler interface and its
+        <p>Clients that call Claim on channels but do not immediately
+          close them SHOULD implement the Handler interface and its
           CurrentlyHandledChannels property.</p>
         <!-- FIXME: tp:dbus-ref -->
 
-        <p>Approvers wishing to reject a channel MUST call this method to
-          claim ownership of it, and MUST NOT call
+        <p>Approvers wishing to reject channels MUST call this method to
+          claim ownership of them, and MUST NOT call
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-          on the channel unless this method returns successfully.</p>
+          on the channels unless/until this method returns successfully.</p>
 
         <tp:rationale>
           <p>The channel dispatcher can't know how best to close arbitrary
-            channel types (for instance, for Text channels it is necessary
+            channel types, so it leaves it up to the approver to do so.
+            For instance, for Text channels it is necessary
             to acknowledge any messages that have already been displayed to
-            the user first), so it leaves it up to the approver to do so.</p>
+            the user first - ideally, the approver would display and then
+            acknowledge the messages.</p>
         </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
