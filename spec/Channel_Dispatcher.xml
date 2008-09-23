@@ -295,16 +295,16 @@
       </arg>
     </signal>
 
-    <signal name="DispatchOperationClosed"
-      tp:name-for-bindings="Dispatch_Operation_Closed">
+    <signal name="DispatchOperationFinished"
+      tp:name-for-bindings="Dispatch_Operation_Finished">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         Emitted when a dispatch operation finishes (i.e. exactly once per
         emission of <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT.Closed</tp:dbus-ref>).
+          namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT.Finished</tp:dbus-ref>).
 
         <tp:rationale>
           Strictly speaking this is redundant with
-          ChannelDispatchOperation.Closed, but it provides full
+          ChannelDispatchOperation.Finished, but it provides full
           change-notification for the DispatchOperations property.
         </tp:rationale>
       </tp:docstring>

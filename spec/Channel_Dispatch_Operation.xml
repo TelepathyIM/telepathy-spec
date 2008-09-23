@@ -191,7 +191,7 @@
 
         <p>If successful, this method will cause the ChannelDispatchOperation
           object to disappear, emitting
-          <tp:member-ref>Closed</tp:member-ref>.</p>
+          <tp:member-ref>Finished</tp:member-ref>.</p>
 
         <p>However, this method may fail because the dispatch has already been
           completed and the object has already gone. If this occurs, it
@@ -244,7 +244,7 @@
 
         <p>If successful, this method will cause the ChannelDispatchOperation
           object to disappear, emitting
-          <tp:member-ref>Closed</tp:member-ref>, in the same way as for
+          <tp:member-ref>Finished</tp:member-ref>, in the same way as for
           <tp:member-ref>HandleWith</tp:member-ref>.</p>
 
         <p>This method may fail because the dispatch operation has already
@@ -252,12 +252,22 @@
           MUST NOT attempt to interact with the channels further in this
           case.</p>
 
-        <p>(FIXME: list some possible errors)</p>
+        <p>(FIXME: list some other possible errors)</p>
       </tp:docstring>
 
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYours">
+          <tp:docstring>
+            At the time that Claim was called, this dispatch operation was
+            processing a call to HandleWith which has now succeeded, so
+            some Handler nominated by another approver is now responsible for
+            the channel.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
-    <signal name="Closed" tp:name-for-bindings="Closed">
+    <signal name="Finished" tp:name-for-bindings="Finished">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when this dispatch operation finishes. The dispatch
           operation is no longer present and further methods must not be
