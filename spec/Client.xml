@@ -54,15 +54,19 @@
       </tp:rationale>
 
       <p>The client name, <em>clientname</em>, MUST be a non-empty string of
-        ASCII digits, letters, dots and/or underscores, starting with a letter.
-        For non-activatable services, it MAY contain a part that is generated
-        per instance at runtime.</p>
+        ASCII digits, letters, dots and/or underscores, starting with a
+        letter, and without sets of two consecutive dots or a dot
+        followed by a digit. For non-activatable services, it MAY contain a
+        part that is generated per instance at runtime.</p>
 
       <tp:rationale>
         <p>If each of a client Foo's instances should be able to manipulate
           channels separately, the instance with unique name
-          <code>:1.25</code> could request a well-known name like
-          <code>org.freedesktop.Telepathy.Client.Foo.1.25</code>.</p>
+          <code>:1.25</code> might request a well-known name like
+          <code>org.freedesktop.Telepathy.Client.Foo._1._25</code>.</p>
+
+        <p>(Note that well-known bus-name components may not start with a
+          digit, so o.f.T.Client.Foo.1.25 would not be acceptable.)</p>
       </tp:rationale>
 
       <p>Each Client MUST export an object whose object path may be
