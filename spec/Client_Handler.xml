@@ -68,10 +68,29 @@
       </tp:docstring>
     </property>
 
-    <!-- FIXME: add the HandleAdditionalChannels method, which must
-      return instantly, and if successful, fast-tracks the channels past any
-      approvers if appropriate - see ChannelDispatchOperation for details.
-      Or not, if we can think of a better way to do it -->
+    <property name="BypassApproval" tp:name-for-bindings="Bypass_Approval"
+      type="b" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, channels destined for this handler are automatically
+          handled, without invoking approvers.</p>
+
+        <tp:rationale>
+          <p>The intended usage is to allow a client handling one channel to
+            pick up closely related channels. Suppose a client capable of
+            handling both Text and StreamedMedia,
+            <code>org.freedesktop.Telepathy.Client.Empathy</code>, is
+            handling a StreamedMedia channel. That client can take a second
+            well-known bus name, say
+            <code>org.freedesktop.Telepathy.Client.Empathy._1._42.Bundle1</code>,
+            and configure an object at
+            <code>/org/freedesktop/Telepathy/Client/Empathy/_1/_42/Bundle1</code>
+            with BypassApproval = TRUE,
+            whose <tp:member-ref>HandlerChannelFilter</tp:member-ref>
+            matches closely related Text channels by their Bundle property.
+            (This is use-case dis5)</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
 
     <method name="HandleChannels" tp:name-for-bindings="Handle_Channels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
