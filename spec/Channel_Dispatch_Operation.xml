@@ -100,7 +100,7 @@
       type="as" access="read" tp:type="DBus_Interface[]">
       <tp:docstring>
         A list of the extra interfaces provided by this channel dispatch
-        operation.
+        operation. This property cannot change.
       </tp:docstring>
     </property>
 
@@ -112,7 +112,7 @@
         with which the <tp:member-ref>Channels</tp:member-ref> are
         associated. The well-known bus name to use can be derived from
         this object path by removing the leading '/' and replacing all
-        subsequent '/' by '.'.
+        subsequent '/' by '.'. This property cannot change.
       </tp:docstring>
     </property>
 
@@ -123,7 +123,7 @@
           namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
         with which the <tp:member-ref>Connection</tp:member-ref>
         and <tp:member-ref>Channels</tp:member-ref> are
-        associated.
+        associated. This property cannot change.
       </tp:docstring>
     </property>
 
