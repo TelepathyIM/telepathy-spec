@@ -2,6 +2,21 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.13 (UNRELEASED)
+===================================
+
+New API:
+
+New experimental API:
+
+Deprecations:
+
+Fixes:
+
+Tools changes:
+
+Miscellaneous:
+
 telepathy-spec 0.17.12 (2008-09-26)
 ===================================
 
