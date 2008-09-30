@@ -1,0 +1,49 @@
+Use cases for client capabilities
+=================================
+
+.. contents::
+
+Issues
+------
+
+* We need a way for special-purpose apps to be a low priority handler for
+  more general channels - a Tubes-capable AbiWord probably shouldn't handle
+  Text or VoIP channels unless no general-purpose UI is available (and
+  perhaps not even then)
+
+Empathy
+-------
+
+... or other general-purpose IM client. (This is a hypothetical future
+version of Empathy - it doesn't do everything listed here yet)
+
+* ChannelType = Text, TargetHandleType = CONTACT
+* ChannelType = StreamedMedia, TargetHandleType = NONE
+* ChannelType = FileTransfer, TargetHandleType = CONTACT
+
+AbiWord
+-------
+
+... or other collaborative app. (Again, this is a hypothetical future
+version - it doesn't do everything listed here yet, and perhaps never will)
+
+* ChannelType = DBusTube, Service = com.abisource.AbiCollab (or something)
+* ChannelType = Text, TargetHandleType = CONTACT, low priority
+* ChannelType = StreamedMedia, TargetHandleType = NONE, low priority
+* ChannelType = FileTransfer, TargetHandleType = CONTACT, low priority
+* ChannelType = FileTransfer, ContentType = 'text/abiword' ?
+
+OpenArena
+---------
+
+Hypothetically...
+
+* ChannelType = PacketTube, service = _openarena._udp (or something)
+
+OLPC activity
+-------------
+
+Similar to AbiWord
+
+..
+  vim:set sw=4 sts=4 et:

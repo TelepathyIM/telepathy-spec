@@ -1,5 +1,5 @@
-Requesting channels
-===================
+Use cases for requesting channels
+=================================
 
 .. contents::
 
@@ -22,27 +22,50 @@ Current implementation::
 
 Proposed implementation::
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    if a channel with TargetHandleType == CONTACT and TargetHandle == juliet
+    is being handled by the chat UI:
+        foreground its window or tab (no interaction with the
+            ChannelDispatcher)
+        stop here
+        (note: this check is optional, the process below can cope with
+        the case where the chat UI is already handling the desired channel)
 
-    ChannelDispatcher calls RequestChannels (
-        SUPRESS_HANDLER | PREFER_REUSE,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': juliet
-            }
-        ])
+    chat UI calls ChannelDispatcher.EnsureChannel(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': juliet
+        },
+        timestamp,
+        its_own_bus_name
+    )
+    chat UI connects to signals and calls ChannelRequest.Proceed()
 
-    if the channel that is returned has the EXISTING flag:
-        ChannelDispatcher returns it to the UI
-        UI foregrounds its window or tab
-    else:
-        channel observers run
-        ChannelDispatcher returns it to the UI
-        UI makes a new window or tab for it
+    ChannelDispatcher calls AddRequest on chat UI, chat UI ignores it
+        as the request is already known to it
 
-    channel approvers do not run
-    channel handler does not run
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on success, with Yours = TRUE:
+        channel observers run (if and only if NewChannels emitted)
+        ChannelRequest emits Succeeded, chat UI ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on chat UI
+        chat UI handles channel
+    on success, with Yours = FALSE:
+        if we're already handling this channel:
+            foreground it
+        else:
+            chat UI isn't allowed to handle the channel (someone else is)
+            CR emits Failed and CD calls RemoveFailedRequest
+                with error o.fd.T.E.NotYours
+            FIXME: could perhaps try calling CreateChannel to get a new thread?
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chat UI, and
+            ChannelRequest emits Failed
+        chat UI displays failure
 
 _`req2`: Chat from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,6 +73,11 @@ _`req2`: Chat from elsewhere
 Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
+
+:New vs. existing:
+    Existing channel preferred, new channel acceptable
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is romeo
 
 Current implementation::
 
@@ -64,38 +92,142 @@ Current implementation::
     else:
         the channel handler puts the existing window or tab in the foreground
 
-Problems:
+Things smcv considered to be problems:
 
 * It's rather bizarre that Mission Control re-dispatches an existing channel
-  as though it was new
+  as though it was new (proposed solution: a Present() method instead)
+
+  * Resolution: Rob does not consider this to be a problem, overruled
 
 * It's very bizarre that the channel handler interprets HandleChannel on a
   channel it's already handling as "put it in the foreground". If we mean
-  "put this in the foreground" we should say so.
+  "put this in the foreground" we should say so (proposed solution: do so)
+
+  * Resolution: Rob does not consider this to be a problem, overruled
 
 Proposed implementation::
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    address book calls ChannelDispatcher.EnsureChannel(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': romeo,
+        },
+        timestamp,
+        ''
+    )
+    address book connects to signals and calls ChannelRequest.Proceed
 
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': juliet
-            }
-        ])
+    ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
+    (if it is not already handling such a channel)
 
-    if the channel that is returned has the EXISTING flag:
-        ChannelDispatcher returns it to the address book, which does nothing
-            much with it
-        FIXME: how do we tell the UI to foreground it?
-        channel observers/approvers/handler do not run
-    else:
+    [+]
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
         channel observers run
-        ChannelDispatcher returns it to the address book, which does nothing
-            much with it
-        FIXME: channel approvers probably do not run?
-        FIXME: how do we choose which channel handler should take it?
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on chat UI
+        chat UI handles channel
+    on return of existing channel:
+        (this is req2a)
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chat UI (1)
+        ChannelRequest emits Failed (2)
+        chat UI displays failure in response to (1)
+        address book displays failure in response to (2)
+
+_`req2a`: already-approved channel returned by repeated request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After use-case req2_ has happened, Juliet loses the chat window somewhere
+on her desktop (but it is still open). She wants to continue to talk to Romeo,
+and chooses his entry in her address book again.
+
+Proposed implementation::
+
+    initially the same as for req2 (until [+])
+
+    ChannelDispatcher tells AccountManager to put account online
+    ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    CM returns existing channel
+    ChannelRequest emits Succeeded, address book ignores its arguments
+    channel observers and approvers do not run
+    CD calls HandleChannels on handler of existing channel
+    handler of existing channel brings channel to foreground
+
+_`req2b`: unapproved channel returned by redundant request
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Juliet is about to open a text conversation with Romeo as per req2_, when
+Romeo sends her a message as in dis1_. Instead of responding to the
+"new message" notification, she continues to select "Chat with Romeo" in her
+address book.
+
+The intended result is that there is exactly one Text channel talking to
+Romeo.
+
+.. _dis1: dispatch.html#dis1
+
+Proposed implementation::
+
+    New channel comes in:
+        CM emits Requests.NewChannels([(channel_path,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': 1234,
+                '...TargetID': 'romeo@montague.example.com',
+                '...Requested': FALSE,
+                ...
+            },
+            )])
+
+        In response, CD calls ObserveChannels on all matching Observers,
+        including org.freedesktop.Telepathy.Client.EmpathyLogger
+
+        CD creates a ChannelDispatchOperation [cdo1]
+
+        CD calls AddDispatchOperation on all matching Approvers, including
+        org.freedesktop.Telepathy.Client.EmpathyTrayIcon
+
+        Empathy tray icon flashes
+
+    Juliet tells address book to open a channel to Romeo:
+
+        address book calls ChannelDispatcher.EnsureChannel(
+            account,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': romeo,
+            },
+            timestamp,
+            ''
+        ) (this returns cr1, say)
+        address book calls ChannelRequest.Proceed() on cr1
+
+        ChannelDispatcher calls AddRequest on chat UI, which makes a new tab
+
+        ChannelDispatcher tells AccountManager to put account online (no-op)
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+        CM returns existing channel
+
+        ChannelRequest cr1 emits Succeeded, address book ignores its arguments
+
+        CD considers the request for an existing channel to have constituted
+        approval of the CDO, so ChannelDispatchOperation cdo1 emits Closed
+
+        (At or before this point, the CD must wait for all the Observers to
+        return from ObserveChannels if they have not already done so)
+
+        CD SHOULD give the request's preferred handler precedence over the
+         CDO's in choosing the chat UI
+        CD calls HandleChannels on chat UI (service-activating it if needed)
 
 _`req3`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,33 +236,63 @@ Romeo is collaborating on a document with Mercutio, and wants to have a chat
 embedded in his AbiWord instance, separate from any other chat with Mercutio
 that may be ongoing.
 
+:New vs. existing:
+    New channel required [#]_
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is
+    mercutio, Bundle is the same as the AbiWord Tube channel
+
+.. [#] If the collaborative app already has a suitable channel, it is expected
+    to work this out without the channel dispatcher's help.
+    Stealing a channel from another UI is likely to fail (e.g. in the Text
+    interface, they'll both try to acknowledge messages) so we should
+    forbid this for sanity's sake
+
 Current implementation: impossible, even in protocols supporting
 conversation threads, because the spec can't represent them
 
 Proposed implementation::
 
-    bundle_id = ...Bundle property of AbiWord Tube channel
+    let bundle_id = ...Bundle property of AbiWord Tube channel
 
-    client calls some unspecified method on ChannelDispatcher (FIXME)
+    if a channel with TargetHandleType == CONTACT, TargetHandle == mercutio
+    and Bundle == bundle_id is being handled by AbiWord:
+        nothing to do, we already have a Text channel: stop
 
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
-        [
-            {'...ChannelType': '...Text',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': mercutio,
-             '...Bundle': bundle_id,
-             }
-        ])
+    AbiWord calls ChannelDispatcher.CreateChannel(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': mercutio,
+            '...Bundle': bundle_id,
+        },
+        timestamp,
+        abiword_client_bus_name
+    )
+    AbiWord calls ChannelRequest.Proceed()
 
-    channel observers run if the channel did not already exist
-    channel approvers/handler do not run
-    ChannelDispatcher returns channel to AbiWord
+    ChannelDispatcher calls AddRequest on AbiWord, AbiWord ignores it as
+        the request is already known to it
 
-    if channel has the requested bundle ID:
-        AbiWord uses it
-    else:
-        AbiWord ignores it (on the basis that someone else is already using
-        it)? FIXME: is this always true?
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on AbiWord
+        AbiWord handles channel
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on AbiWord, and
+            ChannelRequest emits Failed
+        AbiWord displays failure
+        if the error is the EEXIST equivalent, the message might be
+            "Already talking to Mercutio in another app, and multiple threads
+            are not possible in this protocol"
+
+(Fallback behaviour if the CM is pre-Requests: the request is made with
+suppress_handler = TRUE.)
 
 _`req26`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -148,9 +310,15 @@ do not allow offline messages).
 
 (Recovering from a connection manager crash is equivalent to this.)
 
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet,
+    ThreadID is the same as before
+
 Current implementation: same as req1_
 
-Problems:
+Problems addressed by proposed implementation:
 
 * the two conversations are unrelated (Juliet cannot distinguish
   between this case and req1_)
@@ -162,18 +330,37 @@ Proposed implementation (with a new Chan.I.Thread)::
 
     Disconnect/reconnect occurs
 
-    Client calls some unspecified method on ChannelDispatcher (FIXME)
+    Same as req1, except that ThreadID is included in the request
 
-    ChannelDispatcher calls RequestChannels (SUPRESS_HANDLER,
-        [
-            {'...Channel.ChannelType': '...Text',
-             '...Channel.TargetHandleType': CONTACT,
-             '...Channel.TargetHandle': juliet,
-             '...Channel.Interface.Thread.ThreadID': thread_id,
-             }
-        ])
+Problems remaining:
 
-    from here onwards, same as req1
+* What should the CM do if the desired thread ID cannot be used for some
+  reason?
+
+* There is a potential race, req26b_
+
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
+
+_`req26b`: potential race
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The same as req26_, but before Romeo's client can open the replacement
+channel, Juliet sends him a message, thus opening a new channel. (This
+is really a dispatching problem, but is closely related...)
+
+The desired behaviour is that the same handler receives the channel.
+
+Imagine that Romeo has both Kopete and Empathy installed, and Empathy
+is the default, but Romeo is using Kopete to talk to Juliet.
+
+Naive implementation: either the race is won by the request for a
+replacement channel (and Kopete gets it) or it's won by Juliet's message
+creating a new channel (and Empathy gets it).
+
+Too-clever implementation: in principle, there's nothing to stop the
+channel dispatcher remembering that a channel handler has lost a channel,
+and using that as input to its handler-choosing heuristic
 
 _`req27`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -182,26 +369,38 @@ Romeo chooses a past conversation with Juliet in a log browser and wants
 to resume it. (The definition of threading in XMPP expects that this is
 possible.)
 
+:New vs. existing:
+    Existing channel preferred, new channel acceptable
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is CONTACT, TargetHandle is juliet,
+    ThreadID is the same as before
+
 Current implementation: same as req2_
 
-Problems: Juliet cannot distinguish between this case and req2_
+Problems addressed by proposed implementation: Juliet cannot distinguish
+between this case and req2_
 
 Proposed implementation: same as req26_, except that it resembles
-req2_ instead of req1_ (i.e. no SUPRESS_HANDLER flag)
+req2_ instead of req1_ (i.e. no SUPPRESS_HANDLER flag)
+
+Problems remaining: same as req26_ (including a potential race, like req26b_)
+
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 _`req28`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet is talking to Romeo using text chat when Romeo is disconnected
 due to network instability. The protocol is one that does not
-allow offline messages to be sent, like IRC. After reconnecting, Juliet
-wants to keep using the same window to talk to Romeo.
+allow offline messages to be sent, like IRC. After Romeo reconnects, Juliet
+wants to keep using the same window to talk to him.
 
 A solution for this use case should work correctly (and result in
 a single channel) if there is a "mid-air collision" with Romeo doing the
 same thing, or with Romeo recovering from disconnection as per req26_.
 
-(Recovering from a connection manager crash is equivalent to this.)
+(Recovering from Romeo's connection manager crash is equivalent to this.)
 
 Current implementation: Juliet's text channel does not close, but
 she cannot send messages. When Romeo reconnects, because of 1-1 chat
@@ -209,6 +408,8 @@ uniqueness, Juliet's client continues to use the same channel and there
 is no disconnection.
 
 Proposed implementation: Juliet's client continues to use the same channel
+
+Problems remaining: how do we ensure that?
 
 Outgoing VoIP call
 ------------------
@@ -219,6 +420,11 @@ _`req4`: Call from call UI
 Romeo has a VoIP UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
+
+:New vs. existing:
+    New channel required (same reasoning as req1_)
+:Definition of channel identity:
+    ???
 
 Theoretical implementation::
 
@@ -289,12 +495,56 @@ Problems:
 * Implementors might be misled into thinking that the semantics resemble
   text channels more closely than they really do
 
+Proposed implementation: (FIXME: requires InitialAudio, InitialVideo in spec)
+
+::
+
+    if a streamed media call with Juliet is being handled by the call UI:
+        foreground its window or tab (no interaction with the
+        ChannelDispatcher)
+    else:
+        call UI calls ChannelDispatcher.CreateChannel(
+            account,
+            {
+                '...ChannelType': '...StreamedMedia',
+                '...TargetHandleType': CONTACT,
+                '...TargetHandle': juliet,
+                '...InitialAudioStream': TRUE,
+                '...InitialVideoStream': TRUE,
+            },
+            timestamp,
+            its_own_bus_name
+        )
+        call UI calls ChannelRequest.Proceed()
+
+        ChannelDispatcher calls AddRequest on call UI, call UI ignores it
+            as the request is already known to it
+
+        try:
+            ChannelDispatcher tells AccountManager to put account online
+            ChannelDispatcher calls CreateChannel ({...same arguments...})
+        on success:
+            channel observers run
+            ChannelRequest emits Succeeded, call UI ignores its arguments
+            channel approvers do not run
+            CD calls HandleChannels on call UI
+            call UI handles channel
+        on failure:
+            ChannelDispatcher calls RemoveFailedRequest on call UI, and
+                ChannelRequest emits Failed
+            call UI displays failure
+
 _`req5`: Call from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use a VoIP call.
+
+:New vs. existing:
+    Existing channel preferred? New channel acceptable
+:Definition of channel identity:
+    ???
 
 Current implementation::
 
@@ -319,19 +569,65 @@ Problems:
 
 * Mission Control doesn't know whether to use an existing channel to Romeo,
   or create a new one (using an existing channel is *probably* right)
+
 * Looking for channels to talk to Romeo is hard (have to interact with lots of
   group interfaces)
+
+Proposed implementation: (FIXME: needs same extra API as req4_ and req2_
+combined)
+
+::
+
+    address book calls ChannelDispatcher.StartRequest
+    address book calls ChannelRequest.EnsureChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...StreamedMedia',
+            '...TargetHandleType': CONTACT,
+            '...TargetHandle': juliet
+            '...InitialAudioStream': TRUE,
+            '...InitialVideoStream': FALSE,
+        },
+        timestamp,
+        ''
+    )
+
+    ChannelDispatcher calls AddRequest on call UI, call UI makes a new tab
+
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
+        channel observers run
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on call UI
+        call UI handles channel
+    on return of existing channel:
+        ChannelRequest emits Succeeded, address book ignores its arguments
+        channel observers and approvers do not run
+        CD calls HandleChannels on handler of existing channel
+        handler of existing channel brings channel to foreground
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on call UI (1)
+        ChannelRequest emits Failed (2)
+        call UI displays failure in response to (1)
+        address book displays failure in response to (2)
+
 
 _`req6`: collaborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Romeo is collaborating on a document with Mercutio, and wants to have a chat
-embedded in his AbiWord instance, separate from any other chat with Mercutio
+Romeo is collaborating on a document with Mercutio, and wants to have a call
+embedded in his AbiWord instance, separate from any other call with Mercutio
 that may be ongoing.
 
 Current implementation: same as req5_
 
 Problems: same as req5_
+
+Proposed implementation: same as req5_, but ask for a new channel in a
+bundle (like in req3_)
 
 _`req29`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -357,6 +653,9 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
+Proposed implementation: same as req4_, revisit later if the problems are
+felt to be serious
+
 _`req30`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -380,6 +679,9 @@ Problems:
 * if Juliet calls Romeo at the same time that Romeo calls Juliet, a
   collision occurs and both calls probably fail with error BUSY
 
+Proposed implementation: same as req4_, revisit later if the problems are
+felt to be serious
+
 Joining a named chatroom by request
 -----------------------------------
 
@@ -389,6 +691,11 @@ _`req7`: joining chatroom from chatroom UI
 Tybalt starts an IRC-style chatroom client and wants to join a chatroom, either
 by explicit request or because his client auto-joins his favourite rooms.
 
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is ROOM, TargetHandle is #capulet
+
 Current implementation::
 
     if a channel with GetHandle() -> (ROOM, chatroom_handle) exists:
@@ -396,18 +703,57 @@ Current implementation::
     else:
         RequestChannel (Text, ROOM, chatroom_handle, suppress_handler=TRUE)
 
-Problems:
+Problems addressed by proposed implementation:
 
 * Tybalt doesn't get a chance to choose his nickname before joining
 
 Proposed implementation: some new interface for this functionality is
-created, like Chan.I.Chatroom. RequestChannels arguments contain::
+created, like Chan.I.Chatroom.
 
-    {'...Channel.ChannelType': '...Channel.Type.Text',
-     '...Channel.TargetHandleType': ROOM,
-     '...Channel.TargetHandle': chatroom_handle,
-     '...Channel.Interface.Chatroom.Nickname': 'the Prince of Cats',
-    }
+::
+
+    if a channel with TargetHandleType == ROOM and TargetID == '#capulet'
+    is being handled by the chatroom UI:
+        foreground its window or tab (no interaction with the
+        ChannelDispatcher)
+    else:
+        chatroom UI calls ChannelDispatcher.StartRequest
+        chatroom UI calls ChannelRequest.CreateChannelByAccount(
+            account,
+            {
+                '...ChannelType': '...Text',
+                '...TargetHandleType': ROOM,
+                '...TargetID': '#capulet'
+                '...Channel.Interface.Chatroom.Nickname':
+                    'The Prince of Cats'
+            },
+            timestamp,
+            my_own_bus_name
+        )
+
+        ChannelDispatcher calls AddRequest on chatroom UI, which ignores it
+            as the request is already known to it
+
+        try:
+            ChannelDispatcher tells AccountManager to put account online
+            ChannelDispatcher calls CreateChannel ({...same arguments...})
+        on success:
+            channel observers run
+            ChannelRequest emits Succeeded, chatroom UI ignores its arguments
+            channel approvers do not run
+            CD calls HandleChannels on chatroom UI
+            chatroom UI handles channel
+        on failure:
+            ChannelDispatcher calls RemoveFailedRequest on chatroom UI, and
+                ChannelRequest emits Failed
+            chatroom UI displays failure
+
+Proplems remaining:
+
+* How do threads work? By analogy with 1-1 messaging, they should be
+  separate channels - is this really what we want?
+
+  Resolution: solve later, https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 _`req8`: joining chatroom from elsewhere
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -415,30 +761,47 @@ _`req8`: joining chatroom from elsewhere
 Benvolio chooses to rejoin a recently-used chatroom from (hypothetical
 functionality of) the GNOME Places menu.
 
-Current implementation::
+:New vs. existing:
+    ???
+:Definition of channel identity:
+    ChannelType is Text, TargetHandleType is ROOM, TargetHandle is #capulet
 
-    GNOME menu asks Mission Control for a channel with
-        (Text, ROOM, chatroom_handle)
-    Mission Control calls RequestChannel (Text, ROOM, chatroom_handle,
-        suppress_handler=FALSE) on CM
-    Mission Control dispatches the channel to the default/only handler
+Proposed implementation: ::
 
-    if the channel is new:
-        the channel handler creates a new window or tab
-    else:
-        the channel handler puts the existing window or tab in the foreground
+    Places menu calls ChannelDispatcher.StartRequest
+    Places menu calls ChannelRequest.EnsureChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...Text',
+            '...TargetHandleType': ROOM,
+            '...TargetHandle': '#capulet'
+        },
+        timestamp,
+        ''
+    )
 
-Problems:
+    ChannelDispatcher calls AddRequest on chatroom UI, which makes a new tab
+    (if it is not already handling such a channel)
 
-* As for req7_, Benvolio doesn't get a chance to choose his nickname before
-  joining
-
-* As for req2_, it's rather bizarre that Mission Control re-dispatches an
-  existing channel as though it was new
-
-* As for req2_, it's very bizarre that the channel handler interprets
-  HandleChannel on a channel it's already handling as "put it in the
-  foreground"
+    try:
+        ChannelDispatcher tells AccountManager to put account online
+        ChannelDispatcher calls EnsureChannel ({...same arguments...})
+    on creation of new channel:
+        channel observers run
+        ChannelRequest emits Succeeded, Places menu ignores its arguments
+        channel approvers do not run
+        CD calls HandleChannels on chatroom UI
+        chatroom UI handles channel
+    on return of existing channel:
+        ChannelRequest emits Succeeded, Places menu ignores its arguments
+        channel observers and approvers do not run
+        CD calls HandleChannels on handler of existing channel
+        handler of existing channel brings channel to foreground
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on chatroom UI (1)
+        ChannelRequest emits Failed (2)
+        chatroom UI displays failure in response to (1)
+        Places menu displays failure in response to (2)
 
 Listing named chatrooms
 -----------------------
@@ -449,6 +812,11 @@ _`req9`: listing chatrooms on "home" server
 Romeo wants to list all the chatrooms on the server or service that hosts his
 account.
 
+:New vs. existing:
+    New (parallel) channel preferred, but might not be possible
+:Definition of channel identity:
+    None - the returned channel probably looks like one from req10_
+
 Current implementation::
 
     RequestChannel (RoomList, NONE, 0, suppress_handler=TRUE)
@@ -458,20 +826,27 @@ Notes:
 * There doesn't seem to be any use case for suppress_handler=FALSE here,
   since a default handler for chatroom lists doesn't really make sense
 
-Problems:
+Implementation problems not affecting design:
 
 * Gabble implements this badly, by treating the room list as a singleton
 
 * Some protocols (IRC!) are terrible, and on these, the room list actually
   *is* a singleton
 
-Proposed implementation: a straightforward port of the current API
+Proposed implementation: a straightforward port of the current API. In the
+returned channel, the Channel.Type.RoomList.Server property will be the
+actual server name, rather than empty
 
 _`req10`: listing chatrooms on "foreign" server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Romeo wants to list all the chatrooms on the server that hosts Juliet's
-account.
+Romeo wants to list all the chatrooms on the server ``capulet.example.com``
+that hosts Juliet's account.
+
+:New vs. existing:
+    New (parallel) channel preferred, but might not be possible
+:Definition of channel identity:
+    ChannelType is RoomList, RoomList.Server is capulet.example.com
 
 Current implementation: impossible
 
@@ -504,6 +879,20 @@ Problems:
 * Slightly unclear whether suppress_handler should be TRUE or FALSE -
   depends on "incoming" use cases
 
+Proposed implementation _`req11impl1`:
+
+* Everyone who cares about contact lists requests them with EnsureChannel
+
+* There is never a channel handler for contact lists
+
+* Are contact lists Requested or not? We just don't know
+
+Problems with req11impl1_:
+
+* If there is no channel handler, we need to make sure the channel
+  dispatcher won't treat this as an error, or panic and
+  try to close the channel
+
 _`req12`: creating a user-defined contact group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -511,6 +900,8 @@ Current implementation::
 
     RequestChannel (ContactList, GROUP, handle("Colleagues"),
         suppress_handler=FALSE)
+
+Proposed implementation: a straightforward port to EnsureChannel
 
 Ad-hoc chatrooms
 ----------------
@@ -529,31 +920,9 @@ Romeo has a chat or IM UI open already, and wants to use it to chat to Juliet.
 He selects Juliet from a contact list or types in her username on some IM
 service.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains Juliet's handle, and no other handles other than Romeo's:
-        foreground its window or tab
-    else:
-        either:
-            RequestChannel (Text, CONTACT, juliet, suppress_handler=TRUE)
-        or:
-            RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-            AddMembers([juliet])
-
-(Capability discovery can be used to decide whether to use the first or
-second way to request a channel - the second must be used if we intend to
-invite others to the channel later)
-
-Problems:
-
-* Determining whether we already have a channel to Juliet becomes harder
-  than in req1_
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req1_
+Proposed implementation: a channel with TargetHandleType == CONTACT and
+TargetHandle == juliet will definitely not already exist. Otherwise, exactly
+the same as req1_
 
 _`req31`: Recovering from disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -586,8 +955,8 @@ Problems:
 
 Proposed implementation:
 
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req26_
+* Ask other MSN implementors (Youness?) how they cope with the race
+  condition, and implement this in our MSN CMs
 
 _`req32`: Resuming a conversation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -603,10 +972,7 @@ Current implementation: same as req13_
 
 Problems: Juliet cannot distinguish between this case and req13_
 
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req27_
+Resolution: not a serious problem
 
 _`req33`: Recovering from other's disconnection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -622,18 +988,7 @@ same thing, or with Romeo recovering from disconnection as per req31_.
 
 (Recovering from a connection manager crash is equivalent to this.)
 
-Current implementation: unclear
-
-Problems:
-
-* A mid-air collision is highly likely to result in two parallel
-  conversations with the same members (if this is even allowed by the
-  protocol)
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed; then this reduces to req28_
+Proposed implementation: basically the same as req31_
 
 _`req14`: Ad-hoc chatroom from chat UI
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -641,19 +996,12 @@ _`req14`: Ad-hoc chatroom from chat UI
 Romeo wants to talk to both Mercutio and Benvolio in an ad-hoc chatroom.
 He selects them both from a contact list, or types in both their usernames.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains exactly (Mercutio, Benvolio, Romeo):
-        foreground its window or tab
-    else:
-        RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-        AddMembers([mercutio, benvolio])
-
 Problems:
 
 * Determining whether we already have an appropriate channel is race-prone
   and inconvenient
+
+Proposed implementation: ignore this and only support req15_
 
 _`req15`: Ad-hoc chatroom preferred
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -662,35 +1010,16 @@ Romeo wants to talk to both Mercutio and Benvolio in an ad-hoc chatroom.
 He selects Mercutio from a contact list, or types in Mercutio's username,
 then invites Benvolio to the chatroom too.
 
-Hypothetical implementation::
-
-    if a channel with GetHandle() -> (NONE, 0) exists, and its set of members
-    contains exactly (Mercutio, Romeo):
-        foreground its window or tab
-    else if Capabilities interface indicates support for inviting contacts
-    to ad-hoc chatrooms:
-        RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-        AddMembers([mercutio])
-        # when Benvolio is invited...
-        AddMembers([benvolio])
-    else:
-        RequestChannel (Text, CONTACT, [mercutio], suppress_handler=TRUE)
-        Do not offer UI for adding Benvolio
-
-Problems:
-
-* The UI can't know that the user would prefer an ad-hoc chatroom, so in
-  practice it would always have to do this
-
 Proposed implementation:
 
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
+* Request the channel to Mercutio in the same way as req1_/req13_
 
-* Create a 1-1 channel for the conversation with Mercutio
+* Add Benvolio using the Group interface in the obvious way
 
-* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
-  create an ad-hoc chatroom in the same bundle
+(Rationale for not faking true 1-1 channels: once Benvolio has been added,
+we must have an ad-hoc chatroom with TargetHandleType = NONE. Since UIs will
+need to be able to cope with such channels anyway, we might as well start off
+with one.)
 
 _`req16`: Chat from address book (MSN)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -702,74 +1031,14 @@ Juliet wants to talk to Romeo. She chooses his entry in an address book
 or other list of people (not necessarily Telepathy-centric) and is presented
 with a list of possible ways to talk to him. She decides to use text chat.
 
-Current implementation: unclear
-
-Possible implementation::
-
-    address book asks Mission Control for a channel with
-        (Text, CONTACT, romeo)
-    Mission Control calls RequestChannel (Text, CONTACT, romeo,
-        suppress_handler=FALSE) on CM
-    CM does... something?
-    Mission Control dispatches the channel to the default/only handler
-
-    if the channel is new:
-        the channel handler creates a new window or tab
-    else:
-        the channel handler puts the existing window or tab in the foreground
-
-Problems:
-
-* The problems of req2_
-
-* Should the CM pick an existing channel containing only Romeo and Juliet
-  (if available), or create a new one?
-
-* If both 1-1 and ad-hoc-chatroom channels are available, this would provide
-  a true 1-1 channel - what if an ad-hoc chatroom was preferred?
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
-
-* Create a 1-1 channel for the conversation with Romeo, the same as req2_
+Proposed implementation: the same as req2_
 
 _`req17`: Ad-hoc chatroom from address book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The same as req14_ but from an address book.
 
-Hypothetical implementation:
-
-* address book asks MC for a channel with (Text, NONE, 0)
-
-* it's handled by the default channel handler
-
-* address book adds Mercutio and Benvolio with AddMembers
-
-Problems:
-
-* Surely the "address book" (which might instead be e.g. the GNOME menu)
-  shouldn't need to know how to interact with Telepathy in this much
-  detail?
-
-* The chat UI getting people inserted into "its" channel by another process
-  is quite weird
-
-* No way for the chat UI to re-use an existing channel
-
-* Do protocols like MSN allow us to have two channels with the same members?
-
-Proposed implementation:
-
-* Rethink our opinion of how MSN should work, and require butterfly to
-  behave as if true 1-1 channels existed
-
-* Create a 1-1 channel for the conversation with Mercutio
-
-* Upgrade it to a chatroom by some as-yet unspecified API (FIXME) which would
-  create an ad-hoc chatroom in the same bundle
+Proposed implementation: ignore this and only support the equivalent of req15_
 
 _`req18`: Ad-hoc chatroom embedded in collaboraborative app
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -778,18 +1047,7 @@ Romeo is collaborating on a document with Mercutio, and wants to have a chat
 embedded in his AbiWord instance, separate from any other chat with Mercutio
 that may be ongoing.
 
-Current implementation: unclear
-
-Possible implementation::
-
-    RequestChannel (Text, NONE, 0, suppress_handler=TRUE)
-    AddMembers ([mercutio])
-
-Problems:
-
-* Are we allowed to have two MSN switchboards with the same two members?
-
-Proposed implementation: same as req3_
+Possible implementation: the same as req3_
 
 _`req19`: Upgrading a 1-1 chat to a named or ad-hoc chatroom
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -799,8 +1057,12 @@ by using thread IDs.
 
 Current implementation: can't be done
 
-Hypothetical implementation: request a chatroom channel with the same thread
-ID and bundle ID as the 1-1 chat
+Proposed implementation: request a chatroom channel with the same (thread
+ID and) bundle ID as the 1-1 chat, or something (use of two channels is
+unavoidable here, because they have a distinct identity)
+
+Resolution: defer the threads spec til later,
+https://bugs.freedesktop.org/show_bug.cgi?id=16544
 
 File transfers
 --------------
@@ -811,33 +1073,89 @@ _`req20`: Sending a file in the context of a conversation
 Romeo is talking to Juliet using a text or VoIP UI, and wishes to
 send Juliet a file in the context of that conversation.
 
+_`req20a`: Romeo's Text or VoIP UI also supports file transfers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation::
+
+    Let bundle_id be the value of the Bundle property of the existing
+    Text or StreamedMedia channel.
+
+    Romeo's UI calls ChannelDispatcher.StartRequest
+    Romeo's UI calls ChannelRequest.CreateChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...FileTransfer',
+            '...TargetHandleType': CONTACT,
+            '...TargetID': 'juliet@capulet.example.com'
+            '...Bundle': bundle_id,
+            '...Channel.Type.FileTransfer.ContentType': 'image/png',
+            ...
+        },
+        timestamp,
+        my_own_bus_name
+    )
+
+    ChannelDispatcher calls AddRequest on Romeo's UI, which ignores it as
+        the request is already known to it
+
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on Romeo's UI which handles the transfer
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on Romeo's UI, and
+            ChannelRequest emits Failed
+        Romeo's UI displays failure
+
+_`req20b`: Romeo's Text or VoIP UI does not support file transfers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Proposed implementation::
+
+    Let bundle_id be the value of the Bundle property of the existing
+    Text or StreamedMedia channel.
+
+    Romeo's UI calls ChannelDispatcher.StartRequest
+    Romeo's UI calls ChannelRequest.CreateChannelByAccount(
+        account,
+        {
+            '...ChannelType': '...FileTransfer',
+            '...TargetHandleType': CONTACT,
+            '...TargetID': 'juliet@capulet.example.com'
+            '...Bundle': bundle_id,
+            '...Channel.Type.FileTransfer.ContentType': 'image/png',
+            ...
+        },
+        timestamp,
+        ''
+    )
+
+    ChannelDispatcher calls AddRequest on file transfer UI
+
+    try:
+        ChannelDispatcher calls CreateChannel ({same dictionary as above})
+    on success:
+        channel observers run
+        ChannelRequest emits Succeeded
+        channel approvers do not run
+        CD calls HandleChannels on file transfer UI, which handles the transfer
+    on failure:
+        ChannelDispatcher calls RemoveFailedRequest on file transfer UI
+        ChannelRequest emits Failed => Romeo's UI displays failure
+
 _`req21`: Sending a file from a file manager
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Romeo right-clicks on a file in his file manager, chooses a "Send to User"
 option and chooses to send it to Juliet.
 
-Proposed implementation::
-
-    client calls some unspecified method on ChannelDispatcher (FIXME)
-
-    ChannelDispatcher calls RequestChannels (
-        0,
-        [
-            {'...Channel.ChannelType': '...Channel.Type.FileTransfer',
-             '...Channel.TargetHandleType': CONTACT,
-             '...Channel.TargetHandle': juliet,
-             # exact attributes of file offers undecided, but might include:
-             '...Channel.Type.FileTransfer.ContentType': 'image/png',
-             ...
-            }
-        ])
-
-    channel observers run
-    ChannelDispatcher returns it to the address book, which does nothing
-        much with it
-    FIXME: channel approvers probably do not run?
-    FIXME: how do we choose which channel handler should take it?
+Proposed implementation: if the file manager is the channel handler, this is
+the same as req20a_, but with no bundle ID; otherwise it's the same as req20b_
+but with no bundle ID
 
 _`req22`: Sending a file automatically in a collaborative application
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -846,30 +1164,7 @@ While collaborating on a document with Mercutio, Romeo inserts an embedded
 image into the document. The collaborative application could usefully choose
 to represent this by a file transfer.
 
-Proposed implementation::
-
-    bundle_id = ...Bundle property of AbiWord Tube channel
-
-    client calls some unspecified method on ChannelDispatcher (FIXME)
-
-    ChannelDispatcher calls RequestChannels (PREFER_REUSE | SUPPRESS_HANDLER,
-        [
-            {'...ChannelType': '...FileTransfer',
-             '...TargetHandleType': CONTACT,
-             '...TargetHandle': mercutio,
-             '...Bundle': bundle_id,
-             ...
-             }
-        ])
-
-    channel observers run if the channel did not already exist
-    channel approvers/handler do not run
-    ChannelDispatcher returns channel to AbiWord
-
-    if channel has the requested bundle ID:
-        AbiWord uses it
-    else:
-        ??? FIXME
+Proposed implementation: don't do this, use Tubes instead
 
 Tubes
 -----
@@ -889,7 +1184,7 @@ and (Text, ROOM, foo) correspond 1:1. Activity discovery is done out-of-band
 using OLPC-specific extensions, although we'd like to make some of it
 more standard (mainly invitations).
 
-Problems:
+Problems addressed by proposed implementation:
 
 * we don't want Tubes channels in their current form, since dispatching them
   is likely to be a bit of a nightmare if we can't rely on OLPC assumptions;
@@ -960,7 +1255,7 @@ _`req36`: Cancelling outgoing call
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Juliet starts a VoIP call to Tybalt, but then thinks better of it and
-cancels the call before the channel has actually been opened.
+cancels the call.
 
 Current implementation (NMC 4.x)::
 
@@ -978,6 +1273,41 @@ Problems:
   cares about and should close/refuse (this use case), and a channel requested
   by another process but handled by it (req5_)
 
+Proposed implementation: the cancelling client calls Cancel on the channel
+request. There are in fact several cases.
+
+_`req36a`: channel creation method has not yet been called
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should refrain from calling it
+
+_`req36b`: channel creation method has been called
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should remember the cancellation, and when the channel creation method
+returns, immediately close the channel with Close()
+
+_`req36c`: channel has been created, handler has not been notified
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CD should close the channel with Close(), and notify approvers (if any)
+
+_`req36d`: handler has been notified but has not returned
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+FIXME: is it still safe for the CD to close the channel? This raises a race
+condition - the handler will look for details of the channel and find that
+it's gone - but that can happen anyway (because the remote peer could close
+the channel). Perhaps the CD should follow up with a method call to say
+"it's OK that you just failed to handle that channel - it went away", but
+probably that's crack.
+
+_`req36e`: handler has accepted the channel
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It's too late, and Cancel should fail (indeed, the channel-request object
+should no longer exist)
+
 _`req37`: Requesting a channel takes time
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -990,11 +1320,114 @@ point, and it takes a couple of minutes for him to walk towards one.
 Naive implementation: the request is a method call, the request being
 satisfied is a response
 
-Problems: the D-Bus method call will time out after around 25 seconds
-unless special action is taken
+Problems addressed by proposed implementation: the D-Bus method call will
+time out after around 25 seconds unless special action is taken
 
-Proposed implementation: the ChannelDispatcher creates a request "cursor"
-object for the duration of the request
+Proposed implementation: req4_
+
+_`req38`: Going behind the channel dispatcher's back
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new channel is needed in one of the following cases:
+
+* _`req38a`: A monolithic Telepathy client on a resource-constrained
+  platform interacts directly with the Requests interface to request a
+  channel. There is no channel dispatcher.
+
+* _`req38b`: telepathy-inspector requests a channel which it will handle
+  internally. The channel dispatcher may or may not be installed; if
+  installed, it should not launch any UI for this channel.
+
+Proposed implementation:
+
+* The client calls CreateChannel or EnsureChannel on the CM directly
+
+* In case req38b_ the channel dispatcher (if present) runs observers in
+  response to the NewChannel signal, but does not run approvers or a channel
+  handler because the channel was Requested
+
+* In case req38a_ the client ignores the NewChannel signal because
+  the channel was Requested (which incoming channels are not);
+  in case req38b_ telepathy-inspector logs the event but does not pop up
+  a window in any case
+
+* CreateChannel or EnsureChannel returns the channel to the client, and it
+  handles it
+
+_`req39`: message-sending UI that doesn't want to know about receiving
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A UI (perhaps an address book) allows sending one-off messages to contacts,
+without entering into a dialogue. If the contact replies, this should be
+dispatched as usual.
+
+The UI can't close the channel in a race-free way, and if a message comes
+in on the same channel, at that point (only) it needs dispatching to a
+handler.
+
+Similarly, imagine a text channel where sending messages is very slow:
+we want to be able to close the channel handler (UI) without closing the
+channel, and have the channel be re-dispatched only when a message comes in.
+
+Possible solution: for Text channels, somehow arrange for the channel to
+be re-dispatched to a "silent" handler; when an incoming message arrives,
+the "silent" handler exits (or somehow submits the channel for re-dispatching)
+and the CD will re-dispatch to a UI.
+
+Possible solution: closing a Text channel that has pending messages causes
+another one to open with the same pending messages
+
+* This is in spec 0.17.9 and Gabble implements it
+
+* Possible infinite-loop situations in Mission Control need investigating
+
+General issues
+--------------
+
+Selecting a channel handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We can solve this later. For now, it's implementation-dependent which
+handler is used if several are possible - the channel dispatcher can use
+any reasonable algorithm to choose one.
+
+Selecting new or existing channels
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We assume that creating a channel has visible side-effects, and that this
+is undesirable in some cases.
+
+When requesting a single channel, there are four possibilities:
+
+* A: Only a new channel is acceptable
+
+* B: Creating a new channel is preferable, but returning an existing channel
+  would be OK too
+
+* C: Returning an existing channel is preferable, but creating a new channel
+  would be OK too
+
+* D: Only an existing channel is acceptable - creating a new channel is to be
+  avoided
+
+When requesting a bundle of channels, everything gets more complicated - if
+we're failing a request because the client wanted all new channels but got
+one existing channel, we don't want the CM to create *any* new channels.
+
+Proposed implementation:
+
+* invent an error "already exists", or just use NotAvailable
+
+* case A: CreateChannel
+
+* case B: we've concluded that this is weird. Who'd want this?
+
+* case C: EnsureChannel
+
+* case D: we could define a QueryChannels if there is demand
+
+* don't implement atomic requests for several channels simultaneously unless
+  we *really* need them
 
 ..
   vim:set sw=4 sts=4 et:
