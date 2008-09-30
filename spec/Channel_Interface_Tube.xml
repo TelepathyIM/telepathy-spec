@@ -59,8 +59,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           must support the value being a string (D-Bus type 's'), array of bytes
           (D-Bus type 'ay'), unsigned integer (D-Bus type 'u'), integer (D-Bus
           type 'i') and boolean (D-Bus type 'b').</p>
-        <p>When the tube is offered, the parameters are transmitted to the
-          other end.</p>
+        <p>When the tube is offered, the parameters are transmitted with the
+          offer and appear as a property of the incoming tube for other
+          participants.</p>
         <p>Example of valid parameters:
           <code>{'game name': 'go', 'board size': 19}</code></p>
         <p>When requesting a channel with 
