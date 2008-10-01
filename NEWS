@@ -5,6 +5,10 @@ checkouts.
 telepathy-spec 0.17.13 (UNRELEASED)
 ===================================
 
+API changes:
+
+* The Account.Connection property is now an object path, or '/' for none.
+
 New API:
 
 New experimental API:
