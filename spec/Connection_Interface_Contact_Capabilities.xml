@@ -139,16 +139,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
-    <tp:struct name="Contact_Capability_Change" array-name="Contact_Capability_Change_List">
-      <tp:docstring>A struct representing a change to one of a contact's capabilities, as
-        seen in the ContactCapabilitiesChanged signal on the ContactCapabilities
-        interface.</tp:docstring>
-      <tp:member type="a(ua{sv}as)" tp:type="Enhanced_Contact_Capability[]"
-                 name="Removed_Capabilities"/>
-      <tp:member type="a(ua{sv}as)" tp:type="Enhanced_Contact_Capability[]"
-                 name="Added_Capabilities"/>
-    </tp:struct>
-
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
