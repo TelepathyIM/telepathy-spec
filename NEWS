@@ -2,10 +2,61 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.12 (UNRELEASED)
+telepathy-spec 0.17.13 (UNRELEASED)
 ===================================
 
-...
+API changes:
+
+* The Account.Connection property is now an object path, or '/' for none.
+
+New API:
+
+New experimental API:
+
+Deprecations:
+
+Fixes:
+
+Tools changes:
+
+Miscellaneous:
+
+telepathy-spec 0.17.12 (2008-09-26)
+===================================
+
+The "drilling holes in walls" release.
+
+New API:
+
+* Added EnsureChannel to the Requests interface. This returns an existing
+  channel if possible, or creates a new channel otherwise; it also makes
+  sure that only one caller considers itself to be responsible for
+  dispatching or handling the new channel.
+
+* Added new errors Cancelled and NotYours to support the ChannelDispatcher.
+
+* Added a Forwarded flag to Channel.Interface.CallState
+
+New experimental API:
+
+* Added the Client and ChannelDispatcher machinery. The ChannelDispatcher
+  is a central service dependent on the AccountManager (in practice, it will
+  usually be in the same process) which provides functionality for requesting
+  channels, and is also responsible for dispatching channels to appropriate
+  clients. The Client interface is used to discover appropriate clients.
+
+  When finished, this will supersede the ChannelHandler interface for clients,
+  and Mission Control 4's D-Bus API.
+
+* Added a Destroyable interface so the channel dispatcher has a way to
+  kill off unhandleable channels (e.g. if we don't have a Text UI for some
+  reason)
+
+Miscellaneous:
+
+* doc/*.txt contain various thoughts about use cases for new functionality,
+  which provide further rationale for why the ChannelDispatcher is so
+  complicated :-)
 
 telepathy-spec 0.17.11 (2008-09-12)
 ===================================
@@ -15,7 +66,7 @@ The "release the global implementor lock" release.
 New API:
 
 * Connection.Interface.Requests has been declared to be stable.
-  
+
   The EnsureChannel method introduced by Simon's dispatcher-clients branch has
   not yet been added, but will be added in a future spec release.
 
