@@ -167,7 +167,9 @@
             request is for some reason not involving user action.
             The <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
-            property will be set to this value.</p>
+            property will be set to this value, and it will eventually be
+            passed as the <code>User_Action_Time</code> parameter of <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>.</p>
         </tp:docstring>
       </arg>
 
