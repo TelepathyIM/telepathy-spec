@@ -192,7 +192,9 @@
               and the Client object on the handler can be located easily.</p>
 
             <p>This is partly so the channel dispatcher can call
-              HandleChannel on it, and partly so the channel dispatcher
+              <tp:dbus-ref
+                namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
+              on it, and partly so the channel dispatcher
               can recover state if it crashes and is restarted.</p>
           </tp:rationale>
         </tp:docstring>
