@@ -429,7 +429,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         it's included here so it can be referenced by other specifications.
       </tp:docstring>
 
-      <tp:member name="Type" type="Rich_Presence_Access_Control_Type">
+      <tp:member name="Type" type="u" tp:type="Rich_Presence_Access_Control_Type">
         <tp:docstring>
           The type of access control to apply.
         </tp:docstring>
