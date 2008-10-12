@@ -247,7 +247,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
-    <method name="GetLocations">
+    <method name="GetLocations" tp:name-for-bindings="Get_Locations">
       <tp:docstring>
         Return the current locations of the given contacts, if they are
         already known. This method does not make any network requests.
@@ -270,7 +270,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </method>
 
-    <method name="RequestLocations">
+    <method name="RequestLocations" tp:name-for-bindings="Request_Locations">
       <tp:docstring>
         Return the current locations of the given contacts, if they are
         already known. If any of the given contacts' locations are not known,
@@ -296,7 +296,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </method>
 
-    <signal name="LocationUpdate">
+    <signal name="LocationUpdate" tp:name-for-bindings="Location_Update">
       <tp:docstring>
         Emitted when a contact's location changes or becomes known.
       </tp:docstring>
@@ -314,7 +314,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <method name="SetLocation">
+    <method name="SetLocation" tp:name-for-bindings="SetLocation">
       <tp:docstring>
         Set the local user's own location.
       </tp:docstring>
@@ -334,13 +334,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <property name="LocationAccessControlTypes" type="au" access="read"
-      tp:type="Rich_Presence_Access_Control_Type[]">
+      tp:type="Rich_Presence_Access_Control_Type[]" tp:name-for-bindings="Location_Access_Control_Types">
       <tp:docstring>The types of access control that are supported by this
         connection.</tp:docstring>
     </property>
 
     <property name="LocationAccessControl" type="(uv)" access="readwrite"
-      tp:type="Rich_Presence_Access_Control">
+      tp:type="Rich_Presence_Access_Control" tp:name-for-bindings="Location_Access_Control">
       <tp:docstring>The current access control mechanism and settings
         for this connection. Before publishing location for the first time,
         if this has not been set by a client, implementations SHOULD
