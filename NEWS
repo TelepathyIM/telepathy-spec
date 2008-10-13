@@ -9,6 +9,14 @@ API changes:
 
 * The Account.Connection property is now an object path, or '/' for none.
 
+* Connection managers with the Requests interface must include the new
+  Requested property in the channel details.
+
+New API:
+
+* Requested, InitiatorHandle and InitiatorID have been added to the Channel
+  interface as stable API.
+
 Fixes in experimental API:
 
 * ChannelDispatchOperation.ChannelLost now gets the object path of the lost
