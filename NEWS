@@ -9,17 +9,13 @@ API changes:
 
 * The Account.Connection property is now an object path, or '/' for none.
 
-New API:
+Fixes in experimental API:
 
-New experimental API:
+* ChannelDispatchOperation.ChannelLost now gets the object path of the lost
+  channel.
 
-Deprecations:
-
-Fixes:
-
-Tools changes:
-
-Miscellaneous:
+* When approvers start up, they are given all existing matching
+  ChannelDispatchOperations
 
 telepathy-spec 0.17.12 (2008-09-26)
 ===================================
