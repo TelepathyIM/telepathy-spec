@@ -276,7 +276,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="Requested" tp:name-for-bindings="Requested"
       type="b" access="read">
-      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+      <tp:added version="0.17.13">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this channel was created in response to a local request,
           such as a call to
@@ -335,7 +335,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="InitiatorHandle" type="u" tp:type="Contact_Handle"
       access="read" tp:name-for-bindings="Initiator_Handle">
-      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+      <tp:added version="0.17.13">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The contact who initiated the channel. For channels requested by the
           local user, this MUST be the value of
@@ -370,7 +370,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="InitiatorID" type="s" access="read"
       tp:name-for-bindings="Initiator_ID">
-      <tp:added version="0.17.UNRELEASED">(as stable API)</tp:added>
+      <tp:added version="0.17.13">(as stable API)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The string that would result from inspecting the
           <tp:member-ref>InitiatorHandle</tp:member-ref>
