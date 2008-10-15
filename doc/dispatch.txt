@@ -965,5 +965,30 @@ More specifically:
 * now the CD can dispatch every unhandled channel (the set *E* \ *H*) as if
   newly created
 
+_`dis33`: One channel (of many) is closed while in Dispatcher
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The NewChannels signal carries 2 or more channels.  One or more of these
+channels, but not all of them, emit Closed before the CD has a chance to invoke
+some or all of the Clients.
+
+Current implementation: Nokia's Mission Control 4 supports dispatching of only
+one channel at a time, and if that channel is closed, the operation is aborted
+(i.e., clients don't even see the channel).
+
+Proposed implementation: the CD behaves as if nothing happened, and happily
+dispatches the channels (including the dead ones) to the clients.
+
+Problems addressed:
+
+* in case the channels are the result of a ChannelRequest, the request can
+  still be listed among the "Satisfied_Request" argument of the HandleChannels.
+  This means that the client can map the channels to the request it made, it
+  can see the properties of all the channels that were created (they are passed
+  in HandleChannels' arguments) and in any case it will have to cope with the
+  fact that a channel is no longer there.
+
+* ChannelDispatcher code is simpler.
+
 ..
   vim:set sw=4 sts=4 et:
