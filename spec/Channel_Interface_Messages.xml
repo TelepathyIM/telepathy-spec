@@ -63,12 +63,49 @@ USA.</p>
 
     <property name="SupportedContentTypes" type="as" access="read"
       tp:name-for-bindings="Supported_Content_Types">
-      <tp:docstring>
-        A list of MIME types supported by this channel, with more preferred
-        MIME types appearing earlier in the list. The list MAY include "*/*"
-        to indicate that attachments with arbitrary MIME types can be sent.
-        If the list is empty, this indicates that messages may only include
-        a single "text/plain" part.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of MIME types supported by this channel, with more preferred
+          MIME types appearing earlier in the list. The list MAY include "*/*"
+          to indicate that attachments with arbitrary MIME types can be sent.
+          This list MUST NOT be empty, since all Messages implementations
+          MUST accept messages containing a single "text/plain" part.</p>
+
+        <p>Some examples of how this property interacts with the
+          <tp:member-ref>MessagePartSupportFlags</tp:member-ref>:</p>
+
+        <dl>
+          <dt>A simple IM implementation: only plain text messages are
+            allowed</dt>
+          <dd>SupportedContentTypes = ['text/plain'],
+            MessagePartSupportFlags = 0 (FIXME: or Data_Only?)</dd>
+
+          <dt>Formatted text with a plain text alternative is allowed (see the
+            HTML interface draft)</dt>
+          <dd>SupportedContentTypes = ['text/html', 'text/plain'],
+            MessagePartSupportFlags = Data_Only</dd>
+
+          <dt>JPEG or PNG images may be sent, but without any attached
+            text</dt>
+          <dd>SupportedContentTypes = ['text/plain', 'image/jpeg',
+            'image/png'], MessagePartSupportFlags = Data_Only</dd>
+
+          <dt>Unformatted text to which an optional JPEG or PNG image may be
+            attached</dt>
+          <dd>SupportedContentTypes = ['text/plain', 'image/jpeg',
+            'image/png'], MessagePartSupportFlags =
+            Data_Only | One_Attachment</dd>
+
+          <dt>Formatted text to which arbitrarily many images may be
+            attached</dt>
+          <dd>SupportedContentTypes = ['text/html', 'text/plain', 'image/jpeg',
+            'image/png', 'image/x-ms-bmp'], MessagePartSupportFlags =
+            Data_Only | One_Attachment | Multiple_Attachments</dd>
+
+          <dt>A full SIP implementation: arbitrary MIME messages are
+            allowed</dt>
+          <dd>SupportedContentTypes = ['*/*'], MessagePartSupportFlags =
+            Data_Only | One_Attachment | Multiple_Attachments</dd>
+        </dl>
       </tp:docstring>
     </property>
 
@@ -104,6 +141,9 @@ USA.</p>
           the message-part support indicator as a flag set for future
           expansion.
         </tp:rationale>
+
+        <p>See <tp:member-ref>SupportedContentTypes</tp:member-ref> for some
+          examples.</p>
       </tp:docstring>
 
       <tp:flag suffix="Data_Only" value="1">
