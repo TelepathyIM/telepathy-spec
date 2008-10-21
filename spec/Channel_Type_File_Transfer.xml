@@ -31,18 +31,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       the connection manager has set up and provided back to the clients
       through the two methods.</p>
 
-      <p>In order to send a file, one should request a FileTransfer channel
-      for a contact, and fill the mandatory properties
+      <ul><li>In order to send a file, one should request a FileTransfer
+      channel for a contact, and fill the mandatory properties
       (<tp:member-ref>Filename</tp:member-ref>, and
       <tp:member-ref>Size</tp:member-ref>). After these are set, one should
       call <tp:member-ref>OfferFile</tp:member-ref> to offer the transfer to
-      the contact.</p>
+      the contact.</li>
 
-      <p>In order to receive an incoming file transfer, one should call
+      <li>In order to receive an incoming file transfer, one should call
       <tp:member-ref>AcceptFile</tp:member-ref> and then wait until the state
       changes to Open. At this point, the receiver must check the
       <tp:member-ref>InitialOffset</tp:member-ref> property for a difference in
-      offset from the requested value in AcceptFile.</p>
+      offset from the requested value in AcceptFile.</li></ul>
 
       <p>If something goes wrong with the transfer,
       <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>
