@@ -297,10 +297,18 @@ USA.</p>
             display the first alternative that they understand.</p>
 
           <tp:rationale>
-            Specifying the preference order means that if the underlying
-            protocol doesn't support alternatives, the CM can safely delete
-            everything apart from the first supported alternative when sending
-            messages.
+            <p>Specifying the preference order means that if the underlying
+              protocol doesn't support alternatives, the CM can safely delete
+              everything apart from the first supported alternative when
+              sending messages.</p>
+
+            <p>The order is the reverse of MIME because MIME's rationale for
+              placing the "plainest" part first (legibility in pre-MIME UAs)
+              does not apply to us, and placing the most preferred part
+              first simplifies display (a client can iterate the message
+              in order, display the first alternative that it understands,
+              and skip displaying all subsequent parts with the same
+              "alternative" key).</p>
           </tp:rationale>
 
           <p>Clients SHOULD present all parts that are not redundant
