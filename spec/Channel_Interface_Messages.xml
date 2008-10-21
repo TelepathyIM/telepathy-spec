@@ -149,7 +149,7 @@ USA.</p>
     'message-sender': 42,
     'message-sent': 1210067943,
     'message-received': 1210067947,
-    'message-type': 0,
+    'message-type': TP_TEXT_MESSAGE_TYPE_CONTACT,     # = 0
     'pending-message-id': 437,
   },
   { 'alternative': 'main',
