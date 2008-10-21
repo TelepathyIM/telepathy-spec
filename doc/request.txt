@@ -1290,7 +1290,7 @@ returns, immediately close the channel with Close()
 _`req36c`: channel has been created, handler has not been notified
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-CD should close the channel with Close(), and notify approvers (if any)
+CD should close the channel with Close()
 
 _`req36d`: handler has been notified but has not returned
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -2,20 +2,35 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.13 (UNRELEASED)
+telepathy-spec 0.17.14 (UNRELEASED)
 ===================================
+
+...
+
+telepathy-spec 0.17.13 (2008-10-13)
+===================================
+
+The "from the future" release.
+
+API changes:
+
+* The Account.Connection property is now an object path, or '/' for none.
+
+* Connection managers with the Requests interface must include the new
+  Requested property in the channel details.
 
 New API:
 
-New experimental API:
+* Requested, InitiatorHandle and InitiatorID have been added to the Channel
+  interface as stable API.
 
-Deprecations:
+Fixes in experimental API:
 
-Fixes:
+* ChannelDispatchOperation.ChannelLost now gets the object path of the lost
+  channel.
 
-Tools changes:
-
-Miscellaneous:
+* When approvers start up, they are given all existing matching
+  ChannelDispatchOperations
 
 telepathy-spec 0.17.12 (2008-09-26)
 ===================================

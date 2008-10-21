@@ -78,7 +78,8 @@ Problems with this alternative implementation:
 
 Proposed implementation:
 
-* The logger is an Client and a Client.Observer
+* The logger is an Client and a Client.Observer. It must be
+  service-activatable to avoid missing any messages.
 
 * The tray icon is a Client and a Client.Approver
 
