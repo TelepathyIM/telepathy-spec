@@ -289,6 +289,11 @@ USA.</p>
             content, including plain text, formatted text and/or attached
             files.</p>
 
+          <p>It is an error for a connection manager to put keys referring
+            to the message body in the first Message_Part;
+            clients MUST recover from this error by ignoring
+            these keys in first part.</p>
+
           <p>In any group of parts with the same non-empty value for the
             "alternative" key (which represent alternative versions of the
             same content), more faithful versions of the intended message MUST
@@ -444,11 +449,6 @@ USA.</p>
               can also appear on the first part, where it indicates that the
               entire message should be ignored if unsupported.)</dd>
           </dl>
-
-          <p>It is an error for a connection manager to put these keys
-            in the first <tp:type>Message_Part</tp:type>, but clients MUST be
-            able to recover from this error by ignoring these keys in the
-            first part.</p>
 
         </div>
       </tp:docstring>
