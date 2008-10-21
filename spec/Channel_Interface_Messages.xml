@@ -221,6 +221,23 @@ USA.</p>
             Message_Part, but clients MUST recover from this error by ignoring
             these keys in the second and subsequent parts.</p>
 
+          <tp:rationale>
+            <p>Instead of representing messages as aa{sv} where the first
+              dictionary is special (a dictionary of headers), we could have
+              used a signature like (a{sv}aa{sv}) to separate out the headers
+              and the body parts.</p>
+
+            <p>However, this would make access to the messages more awkward.
+              In Python, the syntax for access to a header field would remain
+              <code>message[0]['message-type']</code>, but access to a body
+              field in the second body part would change from
+              message[2]['content'] to message[1][1]['content']. In GLib,
+              the message would change from being a
+              GPtrArray(GHashTable) to being a
+              GValueArray(GHashTable, GPtrArray(GHashTable)) which is rather
+              inconvenient to dereference.</p>
+          </tp:rationale>
+
           <p>Well-known keys for the message as a whole, and the corresponding
             value types, include:</p>
 
