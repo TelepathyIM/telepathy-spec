@@ -150,7 +150,9 @@ USA.</p>
         <tp:docstring>
           SendMessage will accept messages containing a single part of any
           type listed in the SupportedContentTypes property, with no
-          accompanying text.
+          accompanying text. (FIXME: do we really need this flag? Surely
+          this is always true - text-only Messages can just support text/plain
+          only?)
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="One_Attachment" value="2">
