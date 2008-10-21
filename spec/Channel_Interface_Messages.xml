@@ -299,20 +299,20 @@ USA.</p>
                 scheme.</p>
             </dd>
 
-            <dt>type (s)</dt>
+            <dt>content-type (s)</dt>
             <dd>
               <p>The MIME type of this part. See the documentation
                 for ReceivedMessage for notes on the special status of
                 "text/plain" parts.</p>
 
-              <p>Connection managers MUST NOT signal parts without a 'type'
-                key; if a protocol provides no way to determine the MIME type,
-                the connection manager is responsible for guessing it, but
-                MAY fall back to "text/plain" for text and
+              <p>Connection managers MUST NOT signal parts without a
+                'content-type' key; if a protocol provides no way to determine
+                the MIME type, the connection manager is responsible for
+                guessing it, but MAY fall back to "text/plain" for text and
                 "application/octet-stream" for non-text.</p>
 
-              <p>Clients MUST ignore parts without a 'type' key, which are
-                reserved for future expansion.</p>
+              <p>Clients MUST ignore parts without a 'content-type' key, which
+                are reserved for future expansion.</p>
             </dd>
 
             <dt>lang (s)</dt>
