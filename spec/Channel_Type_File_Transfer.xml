@@ -235,9 +235,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The file transfer has been completed successfully.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Canceled" value="7">
+      <tp:enumvalue suffix="Cancelled" value="7">
         <tp:docstring>
-          The file transfer has been canceled.
+          The file transfer has been cancelled.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -255,22 +255,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Local_Stopped" value="1">
         <tp:docstring>
-          The file transfer was canceled by the local user.
+          The file transfer was cancelled by the local user.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Remote_Stopped" value="2">
         <tp:docstring>
-          The file transfer was canceled by the remote user.
+          The file transfer was cancelled by the remote user.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Local_Error" value="3">
         <tp:docstring>
-          The file transfer was canceled because of a local error.
+          The file transfer was cancelled because of a local error.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Remote_Error" value="4">
         <tp:docstring>
-          The file transfer was canceled because of a remote error.
+          The file transfer was cancelled because of a remote error.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -434,7 +434,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The reason for the state change; see the File_Transfer_State_Change_Reason
           enumeration.
           The value will always be File_Transfer_State_Change_Reason_None, except
-          when changing state to canceled.
+          when changing state to cancelled.
         </tp:docstring>
       </arg>
     </signal>
