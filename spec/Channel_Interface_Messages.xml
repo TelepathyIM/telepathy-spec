@@ -178,6 +178,7 @@ USA.</p>
           <pre>
 [
   {
+    'message-token': '9de9546a-3400-4419-a505-3ea270cb834c',
     'message-sender': 42,
     'message-sent': 1210067943,
     'message-received': 1210067947,
@@ -236,9 +237,7 @@ USA.</p>
             <dd>An opaque, globally-unique identifier for the entire message.
               This MAY be treated as if it were a MIME Message-ID, e.g. for
               the mid: and cid: URI schemes. If omitted, there is no suitable
-              token. (FIXME: message-identifier is another possible name,
-              but lacks the conceptual link to
-              <tp:type>Sent_Message_Token</tp:type>)</dd>
+              token.</dd>
 
             <dt>message-sent (t - <tp:type>Unix_Timestamp64</tp:type>)</dt>
             <dd>The time the message was sent (if unavailable, the time
