@@ -181,7 +181,7 @@ USA.</p>
     'message-sender': 42,
     'message-sent': 1210067943,
     'message-received': 1210067947,
-    'message-type': TP_TEXT_MESSAGE_TYPE_CONTACT,     # = 0
+    'message-type': 0,              # = Channel_Text_Message_Type_Normal
     'pending-message-id': 437,
   },
   { 'alternative': 'main',
@@ -256,7 +256,7 @@ USA.</p>
             <dt>message-type (u - <tp:type>Channel_Text_Message_Type</tp:type>)
             </dt>
             <dd>The type of message; if omitted,
-              Channel_Text_Message_Type_Normal MUST be assumed. SHOULD
+              Channel_Text_Message_Type_Normal MUST be assumed. MAY
               be omitted for normal chat messages.</dd>
 
             <dt>pending-message-id (u - <tp:type>Message_ID</tp:type>)</dt>
