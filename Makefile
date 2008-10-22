@@ -1,5 +1,8 @@
 all:
 
+GIT = git
+GZIP = gzip
+TAR = tar
 XSLTPROC = xsltproc --xinclude --nonet
 CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
@@ -26,24 +29,36 @@ TEST_GENERATED_FILES = \
 	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
-doc/request.html doc/dispatch.html: %.html: %.txt
+RST = \
+    doc/cmcaps.txt \
+    doc/clientcaps.txt \
+    doc/open-issues.txt \
+    doc/request.txt \
+    doc/dispatch.txt
+
+$(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
 	$(RST2HTML) < $< > $@
 
 GENERATED_FILES = \
-	doc/request.html \
-	doc/dispatch.html \
+	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: $(XMLS) tools/doc-generator.xsl
-	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > $@
+	@install -d tmp/doc
+	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > tmp/$@
+	mv tmp/$@ $@
 doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
-	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > $@
+	@install -d tmp/doc
+	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > tmp/$@
+	mv tmp/$@ $@
 test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
+	@install -d tmp/test/output
 	@install -d test/output
-	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > $@
+	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > tmp/$@
+	mv tmp/$@ $@
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 	@install -d introspect
@@ -84,7 +99,7 @@ clean:
 maintainer-upload-snapshot: doc/spec.html
 	@install -d tmp
 	cp doc/spec.html tmp/spec.html
-	sed -i~ -e 's,\(<h2>Version [0-9][0-9.]*\)\(</h2>\),\1 (darcs snapshot '`date +%Y%m%d`')\2,' \
+	sed -i~ -e 's!\(<h2>Version [0-9][0-9.]*\)\(</h2>\)!\1 (git commit '`git rev-list -n 1 --abbrev-commit --abbrev=8 HEAD`', '`date +%Y-%m-%d`')\2!' \
 		tmp/spec.html
 	scp tmp/spec.html \
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
@@ -110,15 +125,18 @@ dist:
 	set -e ;\
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	distname="telepathy-spec-$$version";\
-	darcs dist -d dist;\
-	tar -zxf- -C tmp < dist.tar.gz;\
-	darcs changes > tmp/dist/ChangeLog;\
+	rm -f tmp/ChangeLog "$$distname".tar "$$distname".tar.gz; \
+	$(GIT) archive --format=tar --prefix="$$distname"/ "HEAD^{tree}" \
+		> "$$distname".tar;\
 	rm -rf tmp/"$$distname";\
-	mv tmp/dist tmp/"$$distname";\
-	tar -zcvf- -C tmp "$$distname" > tmp/"$$distname".tar.gz;\
-	mv tmp/"$$distname".tar.gz .;\
-	rm -rf tmp/"$$distname";\
-	rm -f dist.tar.gz
+	mkdir tmp/"$$distname";\
+	$(GIT) log --stat > tmp/"$$distname"/ChangeLog || \
+		$(GIT) log > tmp/"$$distname"/ChangeLog;\
+	$(TAR) -rf "$$distname".tar -C tmp --owner 0 --group 0 --mode 0664 \
+		"$$distname"/ChangeLog;\
+	$(GZIP) -9 "$$distname".tar;\
+	$(TAR) -ztvf "$$distname".tar.gz;\
+	rm -rf tmp/"$$distname"
 
 BRANCH = misc
 UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec

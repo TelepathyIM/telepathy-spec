@@ -19,7 +19,7 @@ USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.SpecAutoGenTest">
 
-    <method name="DoStuff">
+    <method name="DoStuff" tp:name-for-bindings="Do_Stuff">
       <arg direction="in" name="badger" type="b">
         <tp:docstring>A badger, which MAY be breezy.</tp:docstring>
       </arg>
@@ -43,7 +43,7 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <signal name="StuffHappened">
+    <signal name="StuffHappened" tp:name-for-bindings="Stuff_Happened">
       <arg name="stoat" type="ay">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <em>Mustela erminea</em>
@@ -70,7 +70,8 @@ USA.</p>
       </tp:docstring>
     </tp:property>
 
-    <property name="Introspective" type="b" access="read">
+    <property name="Introspective" tp:name-for-bindings="Introspective"
+      type="b" access="read">
       <tp:docstring>
         True if the badger is introspective.
 
