@@ -142,6 +142,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Clients MUST recover from this error by ignoring the presence
         of the DeliveryReporting interface.</p>
 
+      <p>Clients MUST NOT attempt to send delivery reports using the
+        SendMessage method in the Messages API, and connection managers
+        MUST NOT allow this to be done. If support for sending delivery
+        reports is later added, it will be part of this interface.</p>
+
       <p>Some example delivery reports in a Python-like syntax (in which
         arrays are indicated by [a, b] and dictionaries by {k1: v1, k2: v2})
         follow.</p>
@@ -337,20 +342,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Send_Failures" value="4">
-        <tp:docstring>
-          Clients MAY expect that sending a negative delivery report will
-          succeed, and will actually get a message to the sender.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Send_Successes" value="8">
-        <tp:docstring>
-          Clients MAY expect that sending a positive delivery report will
-          succeed, and will actually get a message to the sender.
-        </tp:docstring>
-      </tp:flag>
-
     </tp:flags>
 
     <property name="DeliveryReportingSupport" access="read"
@@ -360,84 +351,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A bitfield indicating features supported by this channel.
       </tp:docstring>
     </property>
-
-    <method name="SendDeliveryReport"
-      tp:name-for-bindings="Send_Delivery_Report">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Request that a delivery report is sent for the specified pending
-          incoming message. Delivery reports cannot currently be sent for
-          messages that have already been acknowledged.</p>
-
-        <tp:rationale>
-          <p>The only use-case I can see for delivery reports on non-pending
-            messages is a "read receipt" like in email's RFC 3798. Delivery
-            reports on non-pending messages will also need a more complex
-            API.</p>
-
-          <p>If they turn out to be needed, we can add a method like
-            SendDeliveryReportByContent(aa{sv}: message) and add a flag to
-            Delivery_Reporting_Support_Flags indicating that this method is
-            implemented.</p>
-        </tp:rationale>
-
-        <p>Clients SHOULD NOT attempt to send delivery reports that are
-          not indicated to be supported using the DeliveryReportingSupport
-          property.</p>
-
-        <p>Clients MUST NOT attempt to send delivery reports using the
-          SendMessage method in the Messages API, and connection managers
-          MUST NOT allow this to be done.</p>
-      </tp:docstring>
-
-      <arg name="Messages" type="au" tp:type="Message_ID[]" direction="in">
-        <tp:docstring>
-          The IDs of one or more unacknowledged messages.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Status" direction="in" type="u" tp:type="Delivery_Status">
-        <tp:docstring>
-          The status to be reported.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Reason" direction="in" type="u"
-        tp:type="Channel_Text_Send_Error">
-        <tp:docstring>
-          If the status to be reported is a failure, the reason for that
-          failure. If the status to be reported is not an error, this MUST be
-          Channel_Text_Send_Error_Unknown.
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError">
-        </tp:error>
-
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            One of the specified message IDs was invalid. No delivery reports
-            were sent.
-          </tp:docstring>
-        </tp:error>
-
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            The requested message status could not be reported to the sender
-            (for instance, this will be raised if a positive delivery report
-            is requested on a protocol that only supports negative delivery
-            reports). Clients MUST treat this error as non-fatal.
-          </tp:docstring>
-        </tp:error>
-
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          <tp:docstring>
-            This channel cannot report message status back to the sender
-            at all. Do not call this method on this channel again.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
 
   </interface>
 </node>
