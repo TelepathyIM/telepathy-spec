@@ -318,18 +318,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         its value differs from the offset that was specified as an argument
         to AcceptFile.
       </tp:docstring>
-      <arg direction="in" name="Address_type" type="u" tp:type="Socket_Address_Type">
+      <arg direction="in" name="Address_Type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
           The type of address the connection manager should listen on.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="Access_control" type="u" tp:type="Socket_Access_Control">
+      <arg direction="in" name="Access_Control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
           The type of access control the connection manager should apply to
           the socket.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="Access_control_param" type="v">
+      <arg direction="in" name="Access_Control_Param" type="v">
         <tp:docstring>
           A parameter for the access control type, to be interpreted as
           specified in the documentation for the Socket_Access_Control enum.
