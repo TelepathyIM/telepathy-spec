@@ -77,34 +77,33 @@ USA.</p>
           <dt>A simple IM implementation: only plain text messages are
             allowed</dt>
           <dd>SupportedContentTypes = ['text/plain'],
-            MessagePartSupportFlags = 0 (FIXME: or Data_Only?)</dd>
+            MessagePartSupportFlags = 0</dd>
 
           <dt>Formatted text with a plain text alternative is allowed (see the
             HTML interface draft)</dt>
           <dd>SupportedContentTypes = ['text/html', 'text/plain'],
-            MessagePartSupportFlags = Data_Only</dd>
+            MessagePartSupportFlags = 0</dd>
 
           <dt>JPEG or PNG images may be sent, but without any attached
             text</dt>
           <dd>SupportedContentTypes = ['text/plain', 'image/jpeg',
-            'image/png'], MessagePartSupportFlags = Data_Only</dd>
+            'image/png'], MessagePartSupportFlags = 0</dd>
 
           <dt>Unformatted text to which an optional JPEG or PNG image may be
             attached</dt>
           <dd>SupportedContentTypes = ['text/plain', 'image/jpeg',
-            'image/png'], MessagePartSupportFlags =
-            Data_Only | One_Attachment</dd>
+            'image/png'], MessagePartSupportFlags = One_Attachment</dd>
 
           <dt>Formatted text to which arbitrarily many images may be
             attached</dt>
           <dd>SupportedContentTypes = ['text/html', 'text/plain', 'image/jpeg',
             'image/png', 'image/x-ms-bmp'], MessagePartSupportFlags =
-            Data_Only | One_Attachment | Multiple_Attachments</dd>
+            One_Attachment | Multiple_Attachments</dd>
 
           <dt>A full SIP implementation: arbitrary MIME messages are
             allowed</dt>
           <dd>SupportedContentTypes = ['*/*'], MessagePartSupportFlags =
-            Data_Only | One_Attachment | Multiple_Attachments</dd>
+            One_Attachment | Multiple_Attachments</dd>
         </dl>
       </tp:docstring>
     </property>
@@ -125,9 +124,9 @@ USA.</p>
           channel. They are designed such that setting more flags always
           implies that the channel has more capabilities.</p>
 
-        <p>It is assumed that messages containing a textual message body
-          (only), like the messages the Text interface was designed for, are
-          always supported.</p>
+        <p>If no flags are set, this indicates that messages may contain
+          a single message part whose content-type is any of the types
+          from SupportedContentTypes, possibly with some alternatives.</p>
 
         <p>There is no flag indicating support for alternatives. This is
           because the SendMessage implementation can always accept messages
@@ -136,7 +135,7 @@ USA.</p>
           that is supported.</p>
 
         <tp:rationale>
-          Each of the flags 1, 2, 4 implies the previous flag, so we could
+          Each of the flags so far implies the previous flag, so we could
           have used a simple enumeration here; however, we've defined
           the message-part support indicator as a flag set for future
           expansion.
@@ -146,16 +145,7 @@ USA.</p>
           examples.</p>
       </tp:docstring>
 
-      <tp:flag suffix="Data_Only" value="1">
-        <tp:docstring>
-          SendMessage will accept messages containing a single part of any
-          type listed in the SupportedContentTypes property, with no
-          accompanying text. (FIXME: do we really need this flag? Surely
-          this is always true - text-only Messages can just support text/plain
-          only?)
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="One_Attachment" value="2">
+      <tp:flag suffix="One_Attachment" value="1">
         <tp:docstring>
           SendMessage will accept messages containing a textual message body,
           plus a single attachment of any type listed in the
@@ -165,7 +155,7 @@ USA.</p>
           part if necessary).
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Multiple_Attachments" value="4">
+      <tp:flag suffix="Multiple_Attachments" value="2">
         <tp:docstring>
           SendMessage will accept messages containing a textual message body,
           plus an arbitrary number of attachments of any type listed in the
