@@ -153,6 +153,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="Date" type="t" access="read"
+      tp:type="Unix_Timestamp64" tp:name-for-bindings="Date">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The last modification time of the file being transferred. This
+        cannot change once the channel has been created</p>
+
+        <p>This property is optional when requesting the channel with the
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        method.</p>
+      </tp:docstring>
+    </property>
+
     <property name="AvailableSocketTypes" type="a{uau}"
       tp:type="Supported_Socket_Map" access="read"
       tp:name-for-bindings="Available_Socket_Types">
