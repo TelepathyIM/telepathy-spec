@@ -54,14 +54,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:docstring>
 
     <property name="State" type="u" tp:type="File_Transfer_State"
-      access="read">
+      access="read" tp:name-for-bindings="State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The state of the file transfer as described by the
         File_Transfer_State enum.</p>
       </tp:docstring>
     </property>
 
-    <property name="ContentType" type="s" access="read">
+    <property name="ContentType" type="s" access="read"
+      tp:name-for-bindings="Content_Type">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The file's MIME type. This cannot change once the channel has
         been created.</p>
@@ -73,7 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Filename" type="s" access="read">
+    <property name="Filename" type="s" access="read"
+      tp:name-for-bindings="Filename">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the file on the sender's side. This is therefore given
         as a suggested filename for the receiver. This cannot change
@@ -89,7 +91,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Size" type="t" access="read">
+    <property name="Size" type="t" access="read"
+      tp:name-for-bindings="Size">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The size of the file. If this property is set, then the file
         transfer is guaranteed to be this size. This cannot change once
@@ -108,7 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="ContentHashType" type="u" tp:type="File_Hash_Type"
-      access="read">
+      access="read" tp:name-for-bindings="Content_Hash_Type">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The type of the <tp:member-ref>ContentHash</tp:member-ref> property.</p>
 
@@ -121,7 +124,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="ContentHash" type="s" access="read">
+    <property name="ContentHash" type="s" access="read"
+      tp:name-for-bindings="Content_Hash">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Hash of the contents of the file transfer, of type described
         in the value of the <tp:member-ref>ContentHashType</tp:member-ref>
@@ -136,7 +140,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Description" type="s" access="read">
+    <property name="Description" type="s" access="read"
+      tp:name-for-bindings="Description">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Description of the file transfer. This cannot change once the
         channel has been created.</p>
@@ -149,7 +154,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="AvailableSocketTypes" type="a{uau}"
-      tp:type="Supported_Socket_Map" access="read">
+      tp:type="Supported_Socket_Map" access="read"
+      tp:name-for-bindings="Available_Socket_Types">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A mapping from address types (members of Socket_Address_Type) to
         arrays of access-control type (members of Socket_Access_Control)
@@ -171,7 +177,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="TransferredBytes" type="t" access="read">
+    <property name="TransferredBytes" type="t" access="read"
+      tp:name-for-bindings="Transferred_Bytes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The number of bytes that have been transferred at the time of
         requesting the property. This will be updated as the file transfer
@@ -179,7 +186,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="InitialOffset" type="t" access="read">
+    <property name="InitialOffset" type="t" access="read"
+      tp:name-for-bindings="Initial_Offset">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The offset in bytes from where the file should be sent. This MUST
         be checked by both the receiver and the sender after the state
