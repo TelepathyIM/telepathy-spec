@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         been created.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. Protocols which do not have a content-type property with file
         transfers should set this value to application/octet-stream.</p>
       </tp:docstring>
@@ -86,7 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         be set to monkey.pdf.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. This property cannot be empty and must be set to a sensible value.</p>
       </tp:docstring>
     </property>
@@ -104,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to the byte.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. If this property is UINT64_MAX, then its value is
         unspecified.</p>
       </tp:docstring>
@@ -116,10 +116,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The type of the <tp:member-ref>ContentHash</tp:member-ref> property.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. However, if you wish to include the <tp:member-ref>ContentHash</tp:member-ref>
         property you MUST also include this property. If you omit this property from a
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method call then its value will be assumed to be File_Hash_Type_None.</p>
       </tp:docstring>
     </property>
@@ -132,7 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         property.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. Its value MUST correspond to the appropriate type of the
         <tp:member-ref>ContentHashType</tp:member-ref> property. If the
         ContentHashType property is not set, or set to File_Hash_Type_None,
@@ -147,7 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channel has been created.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.DRAFT.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
         method. If this property is an empty string, then its value is
         unspecified.</p>
       </tp:docstring>
