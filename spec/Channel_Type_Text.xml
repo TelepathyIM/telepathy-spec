@@ -168,11 +168,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The message to send
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request that a message be sent on this channel. When the message has
-        been submitted for delivery, this method will return and the Sent
-        signal will be emitted. If the message cannot be submitted for
-        delivery, the method returns an error and no signal is emitted.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that a message be sent on this channel. When the message has
+          been submitted for delivery, this method will return and the Sent
+          signal will be emitted. If the message cannot be submitted for
+          delivery, the method returns an error and no signal is emitted.</p>
+
+        <p>This method SHOULD return before the Sent signal is
+          emitted.</p>
+
+        <tp:rationale>
+          <p>When a Text channel implements the Messages interface, that
+            "SHOULD" becomes a "MUST".</p>
+        </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -265,11 +273,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg name="Text" type="s">
         <tp:docstring>
-          The text of the message
+          The text of the message. If the message was, or will be, altered
+          during transmission, this argument SHOULD reflect what other
+          contacts will receive rather than being a copy of the argument
+          to Send.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Signals that a message has been submitted for sending.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Signals that a message has been submitted for sending.</p>
+
+        <p>Emission of this signal MAY be delayed until some time after
+          SendMessage returns, in order to reflect more accurately how
+          other contacts will see the message.</p>
+
+        <tp:rationale>
+          <p>For instance, XMPP multi-user chat imposes a total ordering
+            on messages, and echoes a user's own messages back to them
+            so they can see where the message appears in that ordering.
+            An XMPP connection manager might delay emission of MessageSent
+            until the echo arrives.</p>
+        </tp:rationale>
       </tp:docstring>
     </signal>
 

@@ -490,6 +490,17 @@ USA.</p>
           to the server and the MessageSent signal is emitted. A corresponding
           Sent signal on the Text interface MUST also be emitted.</p>
 
+        <p>This method MUST return before the MessageSent signal is
+          emitted.</p>
+
+        <tp:rationale>
+          <p>This means that the process sending the message is the first
+            to see the <tp:type>Sent_Message_Token</tp:type>, and can
+            relate the message to the corresponding
+            <tp:member-ref>MessageSent</tp:member-ref> signal by comparing
+            message tokens (if supported by the protocol).</p>
+        </tp:rationale>
+
         <p>If this method fails, message submission to the server has failed
           and no signal on this interface (or the Text interface) is
           emitted.</p>
@@ -550,28 +561,48 @@ USA.</p>
     </tp:flags>
 
     <signal name="MessageSent" tp:name-for-bindings="Message_Sent">
-      <tp:docstring>
-        Signals that a message has been submitted for sending. This
-        MUST be emitted exactly once per emission of the Sent signal on the
-        Text interface.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Signals that a message has been submitted for sending. This
+          MUST be emitted exactly once per emission of the Sent signal on the
+          Text interface.</p>
 
         <tp:rationale>
-          This signal allows a process that is not the caller of
-          SendMessage to log sent messages. The double signal-emission
-          means that clients can safely follow the following rule:
-          if the channel has the Messages interface, listen for
-          Messages.MessageSent only; otherwise, listen for Text.Sent only.
+          <p>This signal allows a process that is not the caller of
+            SendMessage to log sent messages. The double signal-emission
+            means that clients can safely follow the following rule:
+            if the channel has the Messages interface, listen for
+            Messages.MessageSent only; otherwise, listen for Text.Sent
+            only.</p>
+        </tp:rationale>
+
+        <p>Emission of this signal MAY be delayed until some time after
+          SendMessage returns, in order to reflect more accurately how
+          other contacts will see the message.</p>
+
+        <tp:rationale>
+          <p>For instance, XMPP multi-user chat imposes a total ordering
+            on messages, and echoes a user's own messages back to them
+            so they can see where the message appears in that ordering.
+            An XMPP connection manager might delay emission of MessageSent
+            until the echo arrives.</p>
         </tp:rationale>
       </tp:docstring>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The message content (see <tp:type>Message_Part</tp:type> for full
-          details). If the message that was passed to SendMessage has a
-          formatted text part that the connection manager recognises, but no
-          text/plain alternative, the CM MUST use the formatted text part to
-          generate a text/plain alternative which is also included in this
-          signal argument.
+          <p>The message content (see <tp:type>Message_Part</tp:type> for full
+            details). If the message that was passed to SendMessage has a
+            formatted text part that the connection manager recognises, but no
+            text/plain alternative, the CM MUST use the formatted text part to
+            generate a text/plain alternative which is also included in this
+            signal argument.</p>
+
+          <p>If the connection manager can predict that the message will be
+            altered during transmission, this argument SHOULD reflect what
+            other contacts will receive, rather than being a copy of the
+            argument to SendMessage (if the message is truncated,
+            formatting or alternatives are dropped, etc., then the edited
+            version SHOULD appear in this signal).</p>
         </tp:docstring>
       </arg>
 
