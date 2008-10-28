@@ -303,20 +303,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="MD5" value="1">
         <tp:docstring>
-          MD5 digest as a string of 32 ASCII hex digits, which SHOULD be
-          lower-case if they are letters.
+          MD5 digest as a string of 32 ASCII hex digits.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="SHA1" value="2">
         <tp:docstring>
-          SHA1 digest as a string of ASCII hex digits, which SHOULD be
-          lower-case if they are letters.
+          SHA1 digest as a string of ASCII hex digits.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="SHA256" value="3">
         <tp:docstring>
-          SHA256 digest as a string of ASCII hex digits, which SHOULD be
-          lower-case if they are letters.
+          SHA256 digest as a string of ASCII hex digits.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
