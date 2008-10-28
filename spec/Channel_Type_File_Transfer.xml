@@ -40,9 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <li>In order to receive an incoming file transfer, one should call
       <tp:member-ref>AcceptFile</tp:member-ref> and then wait until the state
-      changes to Open. At this point, the receiver must check the
-      <tp:member-ref>InitialOffset</tp:member-ref> property for a difference in
-      offset from the requested value in AcceptFile.</li></ul>
+      changes to Open. If the receiver is resuming a transfer then he or she
+      should set a non-zero Offset argument when calling
+      <tp:member-ref>AcceptFile</tp:member-ref>. When the state changes to Open,
+      the receiver must check the <tp:member-ref>InitialOffset</tp:member-ref>
+      property for a difference in offset from the requested value in
+      AcceptFile.</li></ul>
 
       <p>If something goes wrong with the transfer,
       <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>
