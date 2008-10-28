@@ -574,18 +574,6 @@ USA.</p>
             channel has the Messages interface) or Text.Sent only
             (otherwise).</p>
         </tp:rationale>
-
-        <p>Emission of this signal MAY be delayed until some time after
-          SendMessage returns, in order to reflect more accurately how
-          other contacts will see the message.</p>
-
-        <tp:rationale>
-          <p>For instance, XMPP multi-user chat imposes a total ordering
-            on messages, and echoes a user's own messages back to them
-            so they can see where the message appears in that ordering.
-            An XMPP connection manager might delay emission of MessageSent
-            until the echo arrives.</p>
-        </tp:rationale>
       </tp:docstring>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">

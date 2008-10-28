@@ -281,18 +281,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Signals that a message has been submitted for sending.</p>
-
-        <p>Emission of this signal MAY be delayed until some time after
-          SendMessage returns, in order to reflect more accurately how
-          other contacts will see the message.</p>
-
-        <tp:rationale>
-          <p>For instance, XMPP multi-user chat imposes a total ordering
-            on messages, and echoes a user's own messages back to them
-            so they can see where the message appears in that ordering.
-            An XMPP connection manager might delay emission of MessageSent
-            until the echo arrives.</p>
-        </tp:rationale>
       </tp:docstring>
     </signal>
 
