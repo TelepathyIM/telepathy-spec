@@ -569,10 +569,10 @@ USA.</p>
         <tp:rationale>
           <p>This signal allows a process that is not the caller of
             SendMessage to log sent messages. The double signal-emission
-            means that clients can safely follow the following rule:
-            if the channel has the Messages interface, listen for
-            Messages.MessageSent only; otherwise, listen for Text.Sent
-            only.</p>
+            provides compatibility with older clients. Clients supporting
+            Messages should listen for Messages.MessageSent only (if the
+            channel has the Messages interface) or Text.Sent only
+            (otherwise).</p>
         </tp:rationale>
 
         <p>Emission of this signal MAY be delayed until some time after
@@ -706,10 +706,10 @@ USA.</p>
         Received signal on the Text interface.
 
         <tp:rationale>
-          The double signal-emission means that clients can safely follow
-          the following rule: if the channel has the Messages interface,
-          listen for Messages.MessageReceived only; otherwise, listen for
-          Text.Received only.
+          The double signal-emission provides compatibility with older
+          clients. Clients supporting Messages should listen for
+          Messages.MessageSent only (if the channel has the Messages
+          interface) or Text.Sent only (otherwise).
         </tp:rationale>
       </tp:docstring>
 
