@@ -186,17 +186,17 @@ USA.</p>
     'pending-message-id': 437,
   },
   { 'alternative': 'main',
-    'type': 'text/html',
+    'content-type': 'text/html',
     'content': 'Here is a photo of my cat:&lt;br /&gt;' +
                '&lt;img src="cid:catphoto" alt="lol!" /&gt;' +
                '&lt;br /&gt;Isn't it cute?',
   },
   { 'alternative': 'main',
-    'type': 'text/plain',
+    'content-type': 'text/plain',
     'content': 'Here is a photo of my cat:\n[IMG: lol!]\nIsn't it cute?',
   },
   { 'identifier': 'catphoto',
-    'type': 'image/jpeg',
+    'content-type': 'image/jpeg',
     'size': 101000,
     'needs-retrieval': True,
   },
@@ -668,9 +668,9 @@ USA.</p>
             the <tp:type>Message_Part</tp:type> mappings.</p>
 
           <p>If the one of the requested part numbers was greater than zero
-            but referred to a part that had no content (i.e. it had no 'type'
-            key or no 'content' key), it is simply omitted from this mapping;
-            this is not considered to be an error condition.</p>
+            but referred to a part that had no content (i.e. it had no
+            'content-type' key or no 'content' key), it is simply omitted from
+            this mapping; this is not considered to be an error condition.</p>
         </tp:docstring>
       </arg>
 
