@@ -740,15 +740,20 @@ USA.</p>
       </tp:docstring>
 
       <tp:flag suffix="Report_Delivery" value="1">
-        <tp:docstring>
-          Provide a delivery report via the DeliveryReporting interface, if
-          possible, even if this is not the default for this protocol.
-          Ignored if delivery reports are not possible on this protocol.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Provide a successful delivery report if possible, even if this is
+            not the default for this protocol. Ignored if delivery reports are
+            not possible on this protocol.</p>
 
           <tp:rationale>
-            In some protocols, like XMPP, it is not conventional to request
-            or send delivery notifications.
+            <p>In some protocols, like XMPP, it is not conventional to request
+              or send positive delivery notifications.</p>
           </tp:rationale>
+
+          <p>Delivery failure reports SHOULD always be sent, but if this flag
+            is present, the connection manager MAY also try harder to obtain
+            failed delivery reports or allow them to be matched to outgoing
+            messages.</p>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
