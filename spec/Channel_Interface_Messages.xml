@@ -901,8 +901,8 @@ USA.</p>
         <tp:rationale>
           The double signal-emission provides compatibility with older
           clients. Clients supporting Messages should listen for
-          Messages.MessageSent only (if the channel has the Messages
-          interface) or Text.Sent only (otherwise).
+          Messages.MessageReceived only (if the channel has the Messages
+          interface) or Text.Received only (otherwise).
         </tp:rationale>
       </tp:docstring>
 
