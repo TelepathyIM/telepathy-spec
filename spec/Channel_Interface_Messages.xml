@@ -51,9 +51,16 @@ USA.</p>
         unfriendly to offer the user controls that may have no effect.
       </tp:rationale>
 
+      <p>This interface also replaces Text.SendError, adding support for
+        protocols where the message content is not echoed back to the sender on
+        failure, adding support for receiving positive acknowledgements,
+        and using the Messages queue for state-recovery
+        (ensuring that incoming delivery reports are not lost if there is not
+        currently a process handling them).</p>
+
       <p>If this interface is present, clients that support it SHOULD
         listen for the MessageSent and MessageReceived signals, and
-        ignore the Sent and Received signal on the Text interface
+        ignore the Sent, SendError and Received signal on the Text interface
         (which are guaranteed to duplicate signals from this interface).</p>
     </tp:docstring>
 
