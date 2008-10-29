@@ -363,6 +363,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Rescued" value="8">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The incoming message has been seen in a previous channel during
+            the lifetime of the Connection, but had not been acknowledged
+            when that channel closed, causing an identical channel (the
+            channel in which the message now appears) to open.</p>
+
+          <tp:rationale>
+            <p>This means that a logger (which should already have seen the
+              message in the previous channel) is able to recognise and ignore
+              these replayed messages.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <tp:property name="anonymous" type="b">

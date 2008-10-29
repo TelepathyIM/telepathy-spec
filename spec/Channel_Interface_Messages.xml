@@ -280,6 +280,16 @@ USA.</p>
               <tp:type>Channel_Text_Message_Flags</tp:type>). This flag
               does not make sense on outgoing messages and SHOULD NOT
               appear there.</dd>
+
+            <dt>rescued (b)</dt>
+            <dd>If present and true, the incoming message has been seen in
+              a previous channel during the lifetime of the Connection,
+              but had not been acknowledged when that channel closed, causing
+              an identical channel (in which the message now appears) to open.
+              This matches the Rescued flag in
+              <tp:type>Channel_Text_Message_Flags</tp:type>; it
+              does not make sense on outgoing messages, and SHOULD NOT
+              appear there.</dd>
           </dl>
         </div>
 
