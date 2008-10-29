@@ -346,6 +346,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             the user that part of the message was not understood.</p>
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Scrollback" value="4">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The incoming message was part of a replay of message history.</p>
+
+          <tp:rationale>
+            <p>In XMPP multi-user chat, a few past messages are replayed
+              when you join a chatroom. A sufficiently capable IRC connection
+              manager could also set this flag on historical messages when
+              connected to a proxy like bip or irssi-proxy. The existence
+              of this flag allows loggers and UIs to use better heuristics
+              when eliminating duplicates (a simple implementation made
+              possible by this flag would be to avoid logging scrollback
+              at all).</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <tp:property name="anonymous" type="b">

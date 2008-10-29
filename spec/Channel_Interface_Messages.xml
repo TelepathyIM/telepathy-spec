@@ -273,6 +273,13 @@ USA.</p>
               can also appear on the second and subsequent parts, where
               it indicates that that part (only) should be ignored if
               unsupported.)</dd>
+
+            <dt>scrollback (b)</dt>
+            <dd>If present and true, the incoming message was part of a
+              replay of message history (this matches the Scrollback flag in
+              <tp:type>Channel_Text_Message_Flags</tp:type>). This flag
+              does not make sense on outgoing messages and SHOULD NOT
+              appear there.</dd>
           </dl>
         </div>
 
