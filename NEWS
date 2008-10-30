@@ -26,6 +26,9 @@ Changes to experimental API:
 
 New API:
 
+* The Destroyable interface is now considered stable, and Text channels
+  SHOULD implement it
+
 * Text.Send SHOULD return before Text.Sent is emitted
 
 * Channel_Text_Message_Flag_Scrollback (or 'scrollback' in the Messages
