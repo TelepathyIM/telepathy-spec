@@ -5,7 +5,41 @@ checkouts.
 telepathy-spec 0.17.14 (UNRELEASED)
 ===================================
 
-...
+Changes to experimental API:
+
+* DeliveryReporting is no longer a separate interface - it's been incorporated
+  into Messages. As a result, delivery reports no longer have the 'interface'
+  key in their header part, and are only distinguished by their 'message-type'
+
+* The meaning of Messages.MessagePartSupportFlags has been altered to remove
+  the redundant Data_Only flag, which should in practice always have been set.
+  The following equivalence holds:
+
+    old_value = (new_value * 2) + 1
+    new_value = floor(old_value / 2)
+
+* The 'type' key in message parts is now called 'content-type' and there is
+  now a 'message-token' in the header part
+
+* Messages.SendMessage is now required to return before Messages.MessageSent
+  is emitted; previously the order was unspecified
+
+New API:
+
+* Text.Send SHOULD return before Text.Sent is emitted
+
+* Channel_Text_Message_Flag_Scrollback (or 'scrollback' in the Messages
+  header) indicates an incoming message that is a replay of a message from
+  the past, e.g. when joining an XMPP MUC or an IRC proxy that records backlog
+
+* Channel_Text_Message_Flag_Rescued (or 'rescued' in the Messages header)
+  indicates an incoming message that has already been seen on this Connection,
+  and was transferred to a new copy of a channel when that channel was
+  closed with the message still unacknowledged
+
+* The 'stored' ContactList indicates all the contacts stored in a persistent
+  contact list on the server (e.g. the XMPP roster), and is not present at all
+  if there is no such list (e.g. in SIP presence)
 
 telepathy-spec 0.17.13 (2008-10-13)
 ===================================
