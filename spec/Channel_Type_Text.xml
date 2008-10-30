@@ -516,6 +516,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">NewChannel</tp:dbus-ref>
         signal (with the suppress_handler parameter set to FALSE).</p>
 
+      <p>As a result, Text channels SHOULD implement <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable</tp:dbus-ref>.</p>
+
       <p>If messages were sent on the old channel but the
         <tp:member-ref>Sent</tp:member-ref>signal has not yet been emitted
         for those messages, the new channel SHOULD emit Sent for those
