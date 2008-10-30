@@ -96,7 +96,7 @@
 
     <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
       <tp:added version="0.17.11">(as stable API)</tp:added>
-      <tp:changed version="0.17.UNRELEASED">It is now guaranteed that
+      <tp:changed version="0.17.14">It is now guaranteed that
         CreateChannel returns the channel before NewChannels announces it
         (the reverse was previously guaranteed).</tp:changed>
 
@@ -225,7 +225,7 @@
 
     <method name="EnsureChannel" tp:name-for-bindings="Ensure_Channel">
       <tp:added version="0.17.12"/>
-      <tp:changed version="0.17.UNRELEASED">It is now guaranteed that if
+      <tp:changed version="0.17.14">It is now guaranteed that if
         the channel was created by this call to EnsureChannel, it's returned
         before NewChannels announces it (the reverse was previously
         guaranteed).</tp:changed>
@@ -332,7 +332,7 @@
 
     <signal name="NewChannels" tp:name-for-bindings="New_Channels">
       <tp:added version="0.17.11">(as stable API)</tp:added>
-      <tp:changed version="0.17.UNRELEASED">Added a guarantee of ordering
+      <tp:changed version="0.17.14">Added a guarantee of ordering
         relative to NewChannel</tp:changed>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

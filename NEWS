@@ -2,8 +2,18 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.14 (UNRELEASED)
+telepathy-spec 0.17.14 (2008-10-30)
 ===================================
+
+The "down with the sickness" release.
+
+API changes:
+
+* CreateChannel and (if a new channel is created) EnsureChannel are now
+  guaranteed to return before NewChannels announces the channel (previously
+  it was the other way round)
+
+* NewChannels is now guaranteed to be emitted before NewChannel
 
 Changes to experimental API:
 
