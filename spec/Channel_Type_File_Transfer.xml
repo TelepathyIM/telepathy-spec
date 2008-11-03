@@ -27,6 +27,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       or writing to a socket. The type of the socket (local Unix, IPv4,
       etc.) is decided on when the file transfer is offered or accepted.</p>
 
+      <p>A socket approach is used to make the transfer less dependent on both
+      client and connection manager knowing the same protocols. As an example,
+      when browsing an SMB share in a file manager, one selects "Send file"
+      and chooses a contact. Instead of passing a URL which would then require
+      the connection manager to connect to the SMB share itself, the client
+      passes a stream from which the connection manager reads, requiring no
+      further connection to the share.</p>
+
       <p>The Telepathy client should connect to the socket or address that
       the connection manager has set up and provided back to the clients
       through the two methods.</p>
