@@ -473,6 +473,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
     </signal>
+
+    <signal name="InitialOffsetDefined"
+      tp:name-for-bindings="Initial_Offset_Defined">
+      <tp:docstring>
+        Emitted when the value of the <tp:member-ref>InitialOffset</tp:member-ref>
+        property has been negotiated. This signal must be emitted before the channel
+        becomes Open and clients has to use this offset when transferring the
+        file.
+      </tp:docstring>
+      <arg name="InitialOffset" type="t">
+        <tp:docstring>
+          The value of the <tp:member-ref>InitialOffset</tp:member-ref> property.
+        </tp:docstring>
+      </arg>
+    </signal>
+
   </interface>
 
 </node>
