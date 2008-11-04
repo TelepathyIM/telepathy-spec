@@ -62,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member-ref>AcceptFile</tp:member-ref>.</li>
 
     <li>Once the offset has been negotiated, the
-      <tp:member-ref>InitialOffsetDefined</tp:member-ref>signal
+      <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal
       is emitted and the <tp:member-ref>InitialOffset</tp:member-ref> property
       is defined. The <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal MUST be emitted before the
       channel becomes Open.
