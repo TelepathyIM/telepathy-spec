@@ -134,8 +134,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>This property is mandatory when requesting the channel with the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
-        method. If this property is UINT64_MAX, then its value is
-        unspecified.</p>
+        method. If this information isn't provided in the protocol, connection managers MUST set it
+        to UINT64_MAX.</p>
       </tp:docstring>
     </property>
 
@@ -177,8 +177,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>This property is optional when requesting the channel with the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
-        method. If this property is an empty string, then its value is
-        unspecified.</p>
+        method. If this property was not provided by the remote party, connection managers MUST set it to
+        the empty string.</p>
       </tp:docstring>
     </property>
 
