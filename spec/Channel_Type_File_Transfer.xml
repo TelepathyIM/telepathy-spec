@@ -61,9 +61,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       should set a non-zero Offset argument when calling
       <tp:member-ref>AcceptFile</tp:member-ref>.</li>
 
-      <li>Once the offset has been negotiated, the InitialOffsetDefined signal
+    <li>Once the offset has been negotiated, the
+      <tp:member-ref>InitialOffsetDefined</tp:member-ref>signal
       is emitted and the <tp:member-ref>InitialOffset</tp:member-ref> property
-      is defined. The InitialOffsetDefined signal MUST be emitted before the
+      is defined. The <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal MUST be emitted before the
       channel becomes Open.
       The receiver MUST check the value of
       <tp:member-ref>InitialOffset</tp:member-ref> for a difference in offset
@@ -233,7 +234,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The offset in bytes from where the file should be sent. This MUST
         be checked by both the receiver and the sender after the state
         becomes Open, but before any data is sent or received. Until the
-        InitialOffsetDefined is emitted, this property is undefined.</p>
+        <tp:member-ref>InitialOffsetDefined</tp:member-ref> is emitted,
+        this property is undefined.</p>
 
         <p>Before setting the <tp:member-ref>State</tp:member-ref> property to
         Open, the connection manager MUST set the InitialOffset property,
