@@ -41,8 +41,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <ul><li>In order to send a file, one should request a FileTransfer
       channel for a contact, and fill the mandatory properties
-      (<tp:member-ref>Filename</tp:member-ref>, and
-      <tp:member-ref>Size</tp:member-ref>). After these are set, one should
+      (<tp:member-ref>Filename</tp:member-ref>,
+      <tp:member-ref>Size</tp:member-ref> and <tp:member-ref>ContentType</tp:member-ref>).
+      After these are set, one should
       call <tp:member-ref>OfferFile</tp:member-ref> to offer the transfer to
       the contact.</li>
 
