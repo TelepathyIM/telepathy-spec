@@ -397,10 +397,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="ProvideFile" tp:name-for-bindings="Provide_File">
       <tp:docstring>
-        Offer a file transfer that's in the Not_Offered state. Open a socket
+        Offer a file transfer that's in the Pending or Accepted state. Open a socket
         that the client can use to provide a file to the connection manager.
-        The channel MUST be in the Not_Offered state, and will change state
-        to Remote_Pending when this method is called.
+        The channel MUST have been requested, and will change state
+        to Open when this method is called if its state was Accepted.
       </tp:docstring>
       <arg direction="in" name="Address_Type" type="u" tp:type="Socket_Address_Type">
         <tp:docstring>
