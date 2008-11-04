@@ -33,7 +33,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       and chooses a contact. Instead of passing a URL which would then require
       the connection manager to connect to the SMB share itself, the client
       passes a stream from which the connection manager reads, requiring no
-      further connection to the share.</p>
+      further connection to the share. It also allows connection managers to
+      be more restricted in their access to the system, allowing tighter
+      security policies with eg SElinux, or more flexible deployments which
+      cross user or system boundaries.</p>
 
       <p>If the connection manager relies on a library using file path only for
       file transfers, it can use the Socket_Address_Type_Local_Path
