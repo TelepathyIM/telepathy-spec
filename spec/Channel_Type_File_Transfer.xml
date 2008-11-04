@@ -35,6 +35,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       passes a stream from which the connection manager reads, requiring no
       further connection to the share.</p>
 
+      <p>If the connection manager relies on a library using file path only for
+      file transfers, it can use the Socket_Address_Type_Local_Path
+      <tp:type>Socket_Address_Type</tp:type>. In that case the file will be
+      readed and written directly by the CM.</p>
+
       <p>The Telepathy client should connect to the socket or address that
       the connection manager has set up and provided back to the clients
       through the two methods.</p>
