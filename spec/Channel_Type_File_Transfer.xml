@@ -232,7 +232,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Initial_Offset">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The offset in bytes from where the file should be sent. This MUST
-        be checked by both the receiver and the sender after the state
+        be respected by both the receiver and the sender after the state
         becomes Open, but before any data is sent or received. Until the
         <tp:member-ref>InitialOffsetDefined</tp:member-ref> is emitted,
         this property is undefined.</p>
@@ -344,7 +344,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Accept a file transfer that's in the Pending state. The file
         transfer's state becomes Accepted after this method is called. At this
         point, the receiver MUST wait for the state to change to Open, and then
-        <tp:member-ref>InitialOffset</tp:member-ref> should be checked in case
+        <tp:member-ref>InitialOffset</tp:member-ref> should be respected in case
         its value differs from the offset that was specified as an argument
         to AcceptFile.
       </tp:docstring>
