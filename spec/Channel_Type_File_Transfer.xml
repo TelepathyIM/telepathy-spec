@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       (<tp:member-ref>Filename</tp:member-ref>,
       <tp:member-ref>Size</tp:member-ref> and <tp:member-ref>ContentType</tp:member-ref>).
       After these are set, one should
-      call <tp:member-ref>OfferFile</tp:member-ref> to offer the transfer to
+      call <tp:member-ref>ProvideFile</tp:member-ref> to offer the transfer to
       the contact.</li>
 
       <li>In order to receive an incoming file transfer, one should call
@@ -236,7 +236,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Offered" value="1">
         <tp:docstring>
-          The transfer is waiting for the local client to call the OfferFile
+          The transfer is waiting for the local client to call the ProvideFile
           method, in order to offer a file to be transferred.
         </tp:docstring>
       </tp:enumvalue>
@@ -396,7 +396,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="OfferFile" tp:name-for-bindings="Offer_File">
+    <method name="ProvideFile" tp:name-for-bindings="Provide_File">
       <tp:docstring>
         Offer a file transfer that's in the Not_Offered state. Open a socket
         that the client can use to provide a file to the connection manager.
