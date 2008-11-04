@@ -495,7 +495,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Emitted when the value of the <tp:member-ref>InitialOffset</tp:member-ref>
         property has been negotiated. This signal must be emitted before the channel
-        becomes Open and clients has to use this offset when transferring the
+        becomes Open and clients have to use this offset when transferring the
         file.
       </tp:docstring>
       <arg name="InitialOffset" type="t">
