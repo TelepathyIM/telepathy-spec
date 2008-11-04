@@ -447,9 +447,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The file transfer is not in the Not_Offered state, there isn't
-            enough information for the transfer to start, or a local error
-            with acquiring a socket.
+            Channel is not an outgoing transfer, ProvideFile has already been called,
+            or there was a local error acquiring the socket.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
