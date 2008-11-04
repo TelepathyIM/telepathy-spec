@@ -234,40 +234,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           appear in the State property.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Not_Offered" value="1">
+      <tp:enumvalue suffix="Pending" value="1">
         <tp:docstring>
-          The transfer is waiting for the local client to call the ProvideFile
-          method, in order to offer a file to be transferred.
+          The file transfer is waiting to be accepted/closed by the receiver.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Accepted" value="2">
         <tp:docstring>
-          The client has accepted the incoming file transfer, but the transfer
-          is not open. The client should now wait for the state to change to Open
+          The receiver has accepted the transfer. The sender now have to
+          call <tp:member-ref>ProvideFile</tp:member-ref> to actually start the transfer.
+          The receiver should now wait for the state to change to Open
           and check the offset value.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Local_Pending" value="3">
-        <tp:docstring>
-          The file transfer is waiting to be accepted/closed locally.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Remote_Pending" value="4">
-        <tp:docstring>
-          The file transfer is waiting to be accepted/closed remotely.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Open" value="5">
+      <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
           The file transfer is open for traffic.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Completed" value="6">
+      <tp:enumvalue suffix="Completed" value="4">
         <tp:docstring>
           The file transfer has been completed successfully.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Cancelled" value="7">
+      <tp:enumvalue suffix="Cancelled" value="5">
         <tp:docstring>
           The file transfer has been cancelled.
         </tp:docstring>
@@ -332,7 +322,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="AcceptFile" tp:name-for-bindings="Accept_File">
       <tp:docstring>
-        Accept a file transfer that's in the Local_Pending state. The file
+        Accept a file transfer that's in the Pending state. The file
         transfer's state becomes Accepted after this method is called. At this
         point, the receiver must wait for the state to change to Open, and then
         <tp:member-ref>InitialOffset</tp:member-ref> should be checked in case
@@ -389,7 +379,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The file transfer is not in the Local_Pending state, there isn't
+            The file transfer is not in the Pending state, there isn't
             or there is a local error with acquiring a socket.
           </tp:docstring>
         </tp:error>
