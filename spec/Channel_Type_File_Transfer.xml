@@ -234,8 +234,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The offset in bytes from where the file should be sent. This MUST
         be respected by both the receiver and the sender after the state
         becomes Open, but before any data is sent or received. Until the
-        <tp:member-ref>InitialOffsetDefined</tp:member-ref> is emitted,
-        this property is undefined.</p>
+        <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal
+        is emitted, this property is undefined.</p>
 
         <p>Before setting the <tp:member-ref>State</tp:member-ref> property to
         Open, the connection manager MUST set the InitialOffset property,
