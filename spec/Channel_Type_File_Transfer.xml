@@ -63,9 +63,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <li>Once the offset has been negotiated, the InitialOffsetDefined signal
       is emitted and the <tp:member-ref>InitialOffset</tp:member-ref> property
-      is defined. The InitialOffsetDefined signal must be emitted before the
+      is defined. The InitialOffsetDefined signal MUST be emitted before the
       channel becomes Open.
-      The receiver must check the value of
+      The receiver MUST check the value of
       <tp:member-ref>InitialOffset</tp:member-ref> for a difference in offset
       from the requested value in AcceptFile.</li>
 
@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>This property is mandatory when requesting the channel with the
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
-        method. This property cannot be empty and must be set to a sensible value.</p>
+        method. This property cannot be empty and MUST be set to a sensible value.</p>
       </tp:docstring>
     </property>
 
@@ -129,7 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>When you are creating a channel with this property, its value
         MUST be accurate and in bytes. However, when receiving a file, this
-        property still must be in bytes but might not be entirely accurate
+        property still MUST be in bytes but might not be entirely accurate
         to the byte.</p>
 
         <p>This property is mandatory when requesting the channel with the
@@ -341,7 +341,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Accept a file transfer that's in the Pending state. The file
         transfer's state becomes Accepted after this method is called. At this
-        point, the receiver must wait for the state to change to Open, and then
+        point, the receiver MUST wait for the state to change to Open, and then
         <tp:member-ref>InitialOffset</tp:member-ref> should be checked in case
         its value differs from the offset that was specified as an argument
         to AcceptFile.
@@ -494,7 +494,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Initial_Offset_Defined">
       <tp:docstring>
         Emitted when the value of the <tp:member-ref>InitialOffset</tp:member-ref>
-        property has been negotiated. This signal must be emitted before the channel
+        property has been negotiated. This signal MUST be emitted before the channel
         becomes Open and clients have to use this offset when transferring the
         file.
       </tp:docstring>
