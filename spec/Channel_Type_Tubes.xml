@@ -216,6 +216,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
+      <tp:enumvalue suffix="Local_File" value="4">
+        <tp:docstring>
+          A file on the local file system. The variant contains a full path
+          either using a string if the path is known to be Unicode, either
+          a byte-array, signature 'ay'.
+          This fake socket address type shouldn't be used with tubes.
+        </tp:docstring>
+      </tp:enumvalue>
+
     </tp:enum>
 
     <tp:enum name="Socket_Access_Control" type="u">
