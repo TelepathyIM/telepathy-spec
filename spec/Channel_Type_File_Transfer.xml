@@ -256,11 +256,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Pending" value="1">
         <tp:docstring>
           The file transfer is waiting to be accepted/closed by the receiver.
+          The receiver has to call <tp:member-ref>AcceptFile</tp:member-ref>,
+          then wait for the state to change to Open and check the offset value.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Accepted" value="2">
         <tp:docstring>
-          The receiver has accepted the transfer. The sender now have to
+          The receiver has accepted the transfer. The sender now has to
           call <tp:member-ref>ProvideFile</tp:member-ref> to actually start the transfer.
           The receiver should now wait for the state to change to Open
           and check the offset value.
