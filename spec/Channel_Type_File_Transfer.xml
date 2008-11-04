@@ -44,17 +44,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       (<tp:member-ref>Filename</tp:member-ref>,
       <tp:member-ref>Size</tp:member-ref> and <tp:member-ref>ContentType</tp:member-ref>).
       After these are set, one should
-      call <tp:member-ref>ProvideFile</tp:member-ref> to offer the transfer to
-      the contact.</li>
+      call <tp:member-ref>ProvideFile</tp:member-ref> to configure the socket that
+      will be used to transfer the file.</li>
 
       <li>In order to receive an incoming file transfer, one should call
       <tp:member-ref>AcceptFile</tp:member-ref> and then wait until the state
       changes to Open. If the receiver is resuming a transfer then he or she
       should set a non-zero Offset argument when calling
-      <tp:member-ref>AcceptFile</tp:member-ref>. When the state changes to Open,
-      the receiver must check the <tp:member-ref>InitialOffset</tp:member-ref>
-      property for a difference in offset from the requested value in
-      AcceptFile.</li></ul>
+      <tp:member-ref>AcceptFile</tp:member-ref>.</li>
+
+      <li>Once the offset has been negotiated, the InitialOffsetDefined signal
+      is emitted and the <tp:member-ref>InitialOffset</tp:member-ref> property
+      is defined. The InitialOffsetDefined signal must be emitted before the
+      channel becomes Open.
+      The receiver must check the value of
+      <tp:member-ref>InitialOffset</tp:member-ref> for a difference in offset
+      from the requested value in AcceptFile.</li>
+
+      <li>When the state changes to Open, Clients can start the transfer of the
+      file using the offset previously announced.
+      </li></ul>
 
       <p>If something goes wrong with the transfer,
       <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>
