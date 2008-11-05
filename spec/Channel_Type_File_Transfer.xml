@@ -412,7 +412,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="ProvideFile" tp:name-for-bindings="Provide_File">
       <tp:docstring>
         Provide the file for an outgoing file transfer which has been offered.
-        Open a socket that the client can use to provide a file to the connection manager.
+        Opens a socket that the client can use to provide a file to the connection manager.
         The channel MUST have been requested, and will change state
         to Open when this method is called if its state was Accepted.
       </tp:docstring>
