@@ -344,9 +344,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="AcceptFile" tp:name-for-bindings="Accept_File">
       <tp:docstring>
         Accept a file transfer that's in the Pending state. The file
-        transfer's state becomes Accepted after this method is called. At this
-        point, the receiver MUST wait for the state to change to Open, and then
-        <tp:member-ref>InitialOffset</tp:member-ref> should be respected in case
+        transfer's state becomes Accepted after this method is called.
+        At this point the client can connect to the socket. CM MUST emit
+        <tp:member-ref>InitialOffsetDefined</tp:member-ref> and change
+        the state to Open before writing to the socket.
+        Then <tp:member-ref>InitialOffset</tp:member-ref> should be respected in case
         its value differs from the offset that was specified as an argument
         to AcceptFile.
       </tp:docstring>
