@@ -48,10 +48,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       through the two methods.</p>
 
       <ul><li>In order to send a file, one should request a FileTransfer
-      channel for a contact, and fill the mandatory properties
+      channel for a contact, including at least the mandatory properties
       (<tp:member-ref>Filename</tp:member-ref>,
       <tp:member-ref>Size</tp:member-ref> and <tp:member-ref>ContentType</tp:member-ref>).
-      After these are set, one should
+      Then, one should
       call <tp:member-ref>ProvideFile</tp:member-ref> to configure the socket that
       will be used to transfer the file.</li>
 
