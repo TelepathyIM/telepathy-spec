@@ -64,8 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <li>Once the offset has been negotiated, the
       <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal
       is emitted and the <tp:member-ref>InitialOffset</tp:member-ref> property
-      is defined. The <tp:member-ref>InitialOffsetDefined</tp:member-ref> signal MUST be emitted before the
-      channel becomes Open.
+      is defined. The <tp:member-ref>InitialOffsetDefined</tp:member-ref>
+      signal is emitted before channel becomes Open.
       The receiver MUST check the value of
       <tp:member-ref>InitialOffset</tp:member-ref> for a difference in offset
       from the requested value in AcceptFile.</li>
