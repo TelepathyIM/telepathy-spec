@@ -983,6 +983,20 @@ USA.</p>
           </tp:rationale>
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Accepted" value="4">
+        <tp:docstring>
+          An intermediate server has accepted the message but the message
+          has not been yet delivered to the ultimate recipient. The
+          connection manager might send a Failed report or Delivered report
+          later.
+
+          <tp:rationale>
+            Similar to "202 Accepted" success code in SIP; analogous to 
+            251 and 252 responses in SMTP.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:flags name="Delivery_Reporting_Support_Flags"
