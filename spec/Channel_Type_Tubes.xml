@@ -216,20 +216,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Local_File" value="4">
-        <tp:docstring>
-          A file on the local file system. The address variant contains a full path
-          either using a string if the path is known to be Unicode, or
-          a byte-array, signature 'ay'.
-          This fake socket address type shouldn't be used with tubes.
-          <tp:rationale>This false socket type is only included to allow file
-          transfers in connection managers where the only available protocol implementation
-          operates directly on local files. It SHOULD NOT be relied
-          on by client authors, who MUST implement streaming over a socket and use it preferentially
-          when available.</tp:rationale>
-        </tp:docstring>
-      </tp:enumvalue>
-
     </tp:enum>
 
     <tp:enum name="Socket_Access_Control" type="u">
