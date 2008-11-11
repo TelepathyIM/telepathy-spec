@@ -39,6 +39,15 @@
       </tp:rationale>
     </tp:docstring>
 
+    <property name="Account" tp:name-for-bindings="Account"
+      type="o" access="read">
+      <tp:docstring>
+        The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+        on which this request was made. This property cannot change.
+      </tp:docstring>
+    </property>
+
     <property name="UserActionTime" tp:name-for-bindings="User_Action_Time"
       type="t" tp:type="Unix_Timestamp64" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
