@@ -236,7 +236,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="Nickname" tp:name-for-bindings="Nickname"
-      type="as" access="readwrite">
+      type="s" access="readwrite">
       <tp:docstring>
         The nickname to set on this account for display to other contacts,
         as set by the user. When the account becomes connected, the
