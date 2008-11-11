@@ -5,7 +5,10 @@ checkouts.
 telepathy-spec 0.17.15 (UNRELEASED)
 ===================================
 
-...
+API changes:
+
+* Account.Nickname is now of type 's', rather than the meaningless 'as'.
+  This matches what was actually implemented in Mission Control 5.
 
 telepathy-spec 0.17.14 (2008-10-30)
 ===================================
