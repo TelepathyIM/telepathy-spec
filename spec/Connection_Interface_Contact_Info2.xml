@@ -129,7 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
     <method name="UpdateContactInfo"
-      tp:name-for-bindings="Set_Contact_Info">
+      tp:name-for-bindings="Update_Contact_Info">
 	<tp:docstring>
 	  Update a given contact with new information.
 	</tp:docstring>
