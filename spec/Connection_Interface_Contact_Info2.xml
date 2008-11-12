@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Contact_Info2" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <tp:enum name="Contact_Info_Field_Type" type="u">
+      <tp:docstring>
+	Subset of vcard field types.
+	Existing VCard types: 
+	<pre>
+   tel-type     = "HOME" , "WORK" , "PREF" , "VOICE" , "FAX" , "MSG"
+                , "CELL" , "PAGER" , "BBS" , "MODEM" , "CAR" , "ISDN"
+                , "VIDEO" , "PCS" , iana-token , x-name
+   email-param  = "PREF", "INTERNET" , "X400" , iana-token , "X-" word
+   adr-type     = "dom" , "intl" , "postal" , "parcel" , "home"
+                , "work" , "pref" , iana-type , x-name
+	</pre>
+      </tp:docstring>
+      <tp:enumvalue suffix="Pref" value="0">
+        <tp:docstring>Pref</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Home" value="1">
+        <tp:docstring>Home</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Work" value="2">
+        <tp:docstring>Work</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Voice" value="3">
+        <tp:docstring>Voice</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Fax" value="4">
+        <tp:docstring>Fax</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Cell" value="5">
+        <tp:docstring>Cell</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Pager" value="6">
+        <tp:docstring>Pager</tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:struct name="Contact_Info" array-name="Contact_Info_List">
+      <tp:member type="s" name="Field_Name"/>
+      <tp:member type="au" tp:type="Contact_Info_Field_Type[]" name="Type"/>
+      <tp:member type="s" name="Field_Value"/>
+    </tp:struct>
+
+    <signal name="GotContactInfo" tp:name-for-bindings="Got_Contact_Info">
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          An integer handle of the contact ID on the server.
+        </tp:docstring>
+      </arg>
+      <arg name="ContactInfo" type="a(saus)" tp:type="Contact_Info[]">
+        <tp:docstring>
+	  An array of structs loosley based on vCard:
+	  <ul>
+	    <li>a field name, same as vCard field for simple fields,
+	      separate field is used to represent component of structured fields</li>
+	    <li>an array of field types</li>
+	    <li>a field value</li>
+	  </ul>
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Emitted when information has been received from the server with
+        the details of a particular contact.
+      </tp:docstring>
+    </signal>
+    <method name="RequestAllContactInfo"
+      tp:name-for-bindings="Request_All_Contact_Info">
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          An integer handle for the contact to request info for.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Request information of a given contact. The function will return
+        after GotContactInfo signal has been emitted with avialable data
+	for each contact, or an error returned. 
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+    <method name="RequestContactInfo"
+      tp:name-for-bindings="Request_Contact_Info">
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          An integer handle for the contact to request info for.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="FieldName" type="s">
+        <tp:docstring>
+	  vCard field name.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Request information for a given contact, only fields with a given
+	name are returned by a GotContactInfo signal before function returns.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+    <method name="UpdateContactInfo"
+      tp:name-for-bindings="Set_Contact_Info">
+	<tp:docstring>
+	  Update a given contact with new information.
+	</tp:docstring>
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          An integer handle for the contact.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="ContactInfo" type="a(saus)"
+	   tp:type="Contact_Info[]">
+	<tp:docstring>
+	  New information.
+	</tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An interface for requesting information about a contact on a given
+    connection. Information is returned as a list of fields, where
+    each fields represented by a triple with a field name, field type
+    modifiers and field value.</p>
+
+      <p>Supported fields:</p>
+      <dl>
+	<dt>fn</dt><dd></dd>
+	<dt>family-name</dt><dd></dd>
+	<dt>given-name</dt><dd></dd>
+	<dt>additional-names</dt><dd></dd>
+	<dt>honorific-prefixes</dt><dd>?</dd>
+	<dt>honorific-suffixes</dt><dd>?</dd>
+	<dt>nickname</dt><dd></dd>
+	<dt>bday</dt><dd></dd>
+	<dt>tel</dt><dd></dd>
+	<dt>email</dt><dd></dd>
+	<dt>geo</dt><dd></dd>
+	<dt>title</dt><dd></dd>
+	<dt>role</dt><dd></dd>
+	<dt>org</dt><dd></dd>
+	<dt>note</dt><dd></dd>
+	<dt>url</dt><dd></dd>
+	<dt>post-office</dt><dd></dd>
+	<dt>extended-address</dt><dd></dd>
+	<dt>street-address</dt><dd></dd>
+	<dt>locality</dt><dd></dd>
+	<dt>region</dt><dd></dd>
+	<dt>postal-code</dt><dd></dd>
+	<dt>country</dt><dd></dd>
+      </dl>
+    </tp:docstring>
+  </interface>
+</node>
