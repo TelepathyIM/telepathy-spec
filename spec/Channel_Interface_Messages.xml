@@ -829,9 +829,13 @@ USA.</p>
       tp:type="Message_Part[][]" tp:name-for-bindings="Pending_Messages">
       <tp:docstring>
         A list of incoming messages that have neither been acknowledged nor
-        rejected. This list is a superset of the one returned by
-        ListPendingMessages on the Text interface; its items can be removed
-        using AcknowledgePendingMessages on that interface.
+        rejected. This list is a more detailed version of the one returned
+        by <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">Text.ListPendingMessages</tp:dbus-ref>,
+        and contains the same messages, uniquely identified by the same
+        pending message IDs. Its items can be removed using
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">Text.AcknowledgePendingMessages</tp:dbus-ref>.
       </tp:docstring>
     </property>
 
