@@ -35,7 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       passes a stream from which the connection manager reads, requiring no
       further connection to the share. It also allows connection managers to
       be more restricted in their access to the system, allowing tighter
-      security policies with eg SElinux, or more flexible deployments which
+      security policies with eg SELinux, or more flexible deployments which
       cross user or system boundaries.</p>
 
       <p>The Telepathy client should connect to the socket or address that
