@@ -199,15 +199,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         that the connection manager supports for sockets with that
         address type. For simplicity, if a CM supports offering a
         particular type of file transfer, it is assumed to support accepting
-        it.</p>
+        it. Connection Managers MUST support at least Socket_Address_Type_IPv4.</p>
 
-        <p>A typical value for a host that supports only Unix sockets:</p>
+        <p>A typical value for a host without IPv6 support:</p>
 
         <pre>
           {
+            Socket_Address_Type_IPv4:
+              [Socket_Access_Control_Localhost, Socket_Access_Control_Port,
+               Socket_Access_Control_Netmask],
             Socket_Address_Type_Unix:
-              [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
-            Socket_Address_Type_Abstract_Unix:
               [Socket_Access_Control_Localhost, Socket_Access_Control_Credentials]
           }
         </pre>
