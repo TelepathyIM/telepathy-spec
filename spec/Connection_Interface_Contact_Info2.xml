@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
     <tp:enum name="Contact_Info_Field_Type" type="u">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	Subset of vcard field types.
 	Existing VCard types: 
 	<pre>
@@ -69,7 +69,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <arg name="ContactInfo" type="a(saus)" tp:type="Contact_Info[]">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	  An array of structs loosley based on vCard:
 	  <ul>
 	    <li>a field name, same as vCard field for simple fields,
