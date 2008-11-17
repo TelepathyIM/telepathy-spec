@@ -522,6 +522,21 @@ USA.</p>
               Channel_Text_Send_Error_Unknown.
             </dd>
 
+            <dt>delivery-dbus-error (s - DBus_Error_Name)</dt>
+            <dd>
+              The reason for the failure, specified as an
+              implementation-specific D-Bus error. MUST be omitted if this was
+              a successful delivery. If set, the 'delivery-error' key SHOULD be
+              set to the closest available value.
+            </dd>
+
+            <dt>delivery-dbus-error-message (s)</dt>
+            <dd>
+              A debugging message corresponding to 'delivery-dbus-error'.  MUST
+              NOT be set if 'delivery-dbus-error' is not set, but MAY always be
+              omitted.
+            </dd>
+
             <dt>delivery-echo (aa{sv} - Message_Part[])</dt>
             <dd>
               <p>The message content, as defined by the Messages interface.
