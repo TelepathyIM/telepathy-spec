@@ -530,10 +530,10 @@ USA.</p>
               set to the closest available value.
             </dd>
 
-            <dt>delivery-dbus-error-message (s)</dt>
+            <dt>delivery-error-message (s)</dt>
             <dd>
-              A debugging message corresponding to 'delivery-dbus-error'.  MUST
-              NOT be set if 'delivery-dbus-error' is not set, but MAY always be
+              Debugging information on why the message could not be delivered.
+              MUST be omitted if this was a successful delivery; MAY always be
               omitted.
             </dd>
 
