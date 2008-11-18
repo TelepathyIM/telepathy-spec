@@ -48,7 +48,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
            tp:type="String_Variant_Map[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of channel classes to replace to the list of what the
-          connection can handle
+          connection can handle. If you include optional properties, they
+          may not get advertised. The given properties are matched to the
+          mandatory properties.
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
