@@ -832,6 +832,14 @@ USA.</p>
         </tp:docstring>
       </arg>
 
+      <arg name="Flags" type="u" tp:type="Message_Sending_Flags">
+        <tp:docstring>
+          <p>Flags affecting how the message was sent.  The flags might be a
+            subset of those passed to SendMessage if the caller requested
+            unsupported flags.</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Message_Token" type="s" tp:type="Sent_Message_Token">
         <tp:docstring>
           An opaque token used to match any incoming delivery or failure
