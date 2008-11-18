@@ -76,8 +76,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            The connection manager doesn't support stream tubes, or
-            does not support the given address type or access-control type.
+            The connection manager doesn't support the given address type
+            or access-control type.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
