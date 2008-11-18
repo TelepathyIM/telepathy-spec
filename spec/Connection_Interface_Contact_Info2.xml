@@ -111,21 +111,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="UpdateContactInfo"
-      tp:name-for-bindings="Update_Contact_Info">
-	<tp:docstring>
-	  Update a given contact with new information.
-	</tp:docstring>
-      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
-        <tp:docstring>
-          An integer handle for the contact.
-        </tp:docstring>
-      </arg>
+    <method name="UpdateContactInfo" tp:name-for-bindings="Update_Contact_Info">
+      <tp:docstring>
+        Set new contact information for this connection, replacing existing
+        information.
+      </tp:docstring>
       <arg direction="in" name="ContactInfo" type="a(sasas)"
-	   tp:type="Contact_Info_Field[]">
-	<tp:docstring>
-	  New information.
-	</tp:docstring>
+        tp:type="Contact_Info_Field[]">
+        <tp:docstring>
+          The new information to be set.
+        </tp:docstring>
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
