@@ -129,33 +129,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <method name="GetStreamTubeSocketAddress"
-            tp:name-for-bindings="Get_Stream_Tube_Socket_Address">
-      <tp:docstring>
-        For a stream tube, obtain the address of the socket used to
-        communicate over this tube.
-      </tp:docstring>
-      <arg direction="out" name="address_type" type="u" tp:type="Socket_Address_Type">
-        <tp:docstring>
-          The type of the listening address of the socket, as a member of
-          Socket_Address_Type.
-        </tp:docstring>
-      </arg>
-      <arg direction="out" name="address" type="v">
-        <tp:docstring>
-          The listening address of the socket, as indicated by the
-          address_type.
-        </tp:docstring>
-      </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            This tube is not in the "open" state.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <signal name="StreamTubeNewConnection"
             tp:name-for-bindings="Stream_Tube_New_Connection">
       <tp:docstring>
