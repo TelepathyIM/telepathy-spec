@@ -118,8 +118,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The given tube ID is invalid or does not refer to a stream
-            tube.
+            The access_control_param is invalid with the given access_control.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
