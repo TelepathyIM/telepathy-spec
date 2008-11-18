@@ -524,8 +524,8 @@ USA.</p>
 
             <dt>delivery-dbus-error (s - DBus_Error_Name)</dt>
             <dd>
-              The reason for the failure, specified as an
-              implementation-specific D-Bus error. MUST be omitted if this was
+              The reason for the failure, specified as a (possibly
+              implementation-specific) D-Bus error. MUST be omitted if this was
               a successful delivery. If set, the 'delivery-error' key SHOULD be
               set to the closest available value.
             </dd>
