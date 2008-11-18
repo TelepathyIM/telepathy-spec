@@ -221,6 +221,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           specification 0.17.6 are fully supported.
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Members_Changed_Details" value="4096">
+        <tp:docstring>
+          Indicates that <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChangedDetails</tp:dbus-ref>
+          will be emitted for changes to this group's members in addition to <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>.
+          Clients can then connect to the former and ignore emission of the latter.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <property name="GroupFlags" type="u" tp:type="Channel_Group_Flags"
@@ -744,7 +753,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when contacts join any of the three lists (members, local
           pending or remote pending) or when they leave any of the three
-          lists.</p>
+          lists. This signal provides a superset of the information provided by
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>;
+          if the channel's <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">GroupFlags</tp:dbus-ref>
+          contains Members_Changed_Details, then clients may listen exclusively
+          to this signal in preference to that signal.</p>
 
         <p>All channel-specific handles that are mentioned in this signal
           MUST be represented in the value of the HandleOwners property.
