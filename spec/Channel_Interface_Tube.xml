@@ -60,7 +60,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the request, the connection manager MUST consider the property to be
           empty. This property MAY be changed after the channel creation when
           the tube is in the state Not_Offered. If the tube is in another
-          state, changing this property MUST fail without side effect.</p>
+          state, changing this property MUST fail without side effects.</p>
       </tp:docstring>
     </property>
 
