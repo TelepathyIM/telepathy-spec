@@ -123,20 +123,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="ContactCapabilitiesChanged"
             tp:name-for-bindings="Contact_Capabilities_Changed">
-      <arg name="handle" type="u" tp:type="Contact_Handle">
+      <arg name="caps" type="a{ua(a{sv}as)}"
+           tp:type="Contact_Capabilities_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A contact handle.</p>
-        </tp:docstring>
-      </arg>
-      <arg name="caps" type="a(a{sv}as)"
-           tp:type="Requestable_Channel_Class[]">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          All the capabilities of the contact
+          All the capabilities of the contacts
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Announce that there has been a change of capabilities on the
-          given handle.</p>
+          given handles. A single signal can be emitted for several
+        contacts.</p>
+
+        <tp:rationale>
+          <p>The underlying protocol can get several contacts' capabilities at
+            the same time.</p>
+        </tp:rationale>
+        
       </tp:docstring>
     </signal>
 
