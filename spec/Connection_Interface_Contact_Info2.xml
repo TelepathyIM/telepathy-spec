@@ -56,28 +56,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:struct name="Contact_Info" array-name="Contact_Info_List">
+    <tp:struct name="Contact_Info_Field" array-name="Contact_Info_Field_List">
       <tp:docstring>
-        Represents one piece of information about a contact, loosely following
-        a single vCard field.
+        Represents one piece of information about a contact, as modelled by a
+        single vCard field.
       </tp:docstring>
       <tp:member type="s" name="Field_Name">
         <tp:docstring>
-          The name of the field.  For simple fields, this is the lowercased
-          name of the corresponding vCard field; components of structured vCard
-          fields are represented by separate fields.  For example, an EMAIL
-          vCard field would be named "email", while the penultimate field of an
-          ADR field would be named "postal-code".
+          The name of the field; this is the lowercased name of a vCard field.
+          For example, a field representing a contact's address would be named
+          "adr".
         </tp:docstring>
       </tp:member>
-      <tp:member type="au" tp:type="Contact_Info_Field_Type[]" name="Type">
+      <tp:member type="as" name="Field_Flags">
         <tp:docstring>
-          The set of type modifiers for this field.
+          A list of vCard field types applicable to this field.  For example, a
+          contact's preferred home address would have flags 'home' and 'pref'.
         </tp:docstring>
       </tp:member>
-      <tp:member type="s" name="Field_Value">
+      <tp:member type="as" name="Field_Value">
         <tp:docstring>
-          The field's value.
+          For unstructured vCard fields (such as 'fn', a formatted name field), a
+          single-element array containing the field's value; for structured
+          fields (such as 'adr', an address field), an array corresponding to
+          the semicolon-separated elements of the field.  A vCard field with
+          multiple comma-separated values should be represented by several
+          <tp:type>Contact_Info_Field</tp:type>s.
         </tp:docstring>
       </tp:member>
     </tp:struct>
@@ -88,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           An integer handle of the contact ID on the server.
         </tp:docstring>
       </arg>
-      <arg name="ContactInfo" type="a(saus)" tp:type="Contact_Info[]">
+      <arg name="ContactInfo" type="a(sasas)" tp:type="Contact_Info_Field[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of fields representing information about this contact.
         </tp:docstring>
@@ -152,8 +156,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           An integer handle for the contact.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="ContactInfo" type="a(saus)"
-	   tp:type="Contact_Info[]">
+      <arg direction="in" name="ContactInfo" type="a(sasas)"
+	   tp:type="Contact_Info_Field[]">
 	<tp:docstring>
 	  New information.
 	</tp:docstring>
