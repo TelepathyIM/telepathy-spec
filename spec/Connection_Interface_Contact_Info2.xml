@@ -111,7 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <method name="UpdateContactInfo" tp:name-for-bindings="Update_Contact_Info">
+    <method name="SetContactInfo" tp:name-for-bindings="Set_Contact_Info">
       <tp:docstring>
         Set new contact information for this connection, replacing existing
         information.
