@@ -35,9 +35,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>This interface also enables user interfaces to notify the connection
         manager what capabilities to advertise for the user to other contacts.
-        This is done by using the SetSelfCapabilities method, and deals with
-        channel property values pertaining to them which are implemented by
-        available client processes.</p>
+        This is done by using the
+        <tp:member-ref>SetSelfCapabilities</tp:member-ref> method, and deals
+        with channel property values pertaining to them which are implemented
+        by available client processes.</p>
 
     </tp:docstring>
 
@@ -130,12 +131,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                array-name="Enhanced_Contact_Capability_List">
       <tp:docstring>
         A struct representing a capability posessed by a contact,
-        as returned by GetContactCapabilities on the ContactCapabilities
-        interface. The channel creation will succeed if the request contains
-        all the Fixed_Properties will the values specified in this struct. The
-        request can contain additional properties from Allowed_Properties. If
-        the request contains a property which does not belong to
-        Fixed_Properties nor to Allowed_Properties, the request will fail.
+        as returned by <tp:member-ref>GetContactCapabilities</tp:member-ref>
+        on the ContactCapabilities interface. The channel creation will
+        succeed if the request contains all the Fixed_Properties will the
+        values specified in this struct. The request can contain additional
+        properties from Allowed_Properties. If the request contains a
+        property which does not belong to Fixed_Properties nor to
+        Allowed_Properties, the request will fail.
       </tp:docstring>
       <tp:member type="a{sv}" tp:type="Channel_Class"
                  name="Fixed_Properties">
