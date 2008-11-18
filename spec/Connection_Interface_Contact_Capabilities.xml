@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>An interface to get contact capabilities in order to know what channel
-        classes may be created with a contact before the request is made to the
-        connection object. Each capability represents a commitment by the
+      <p>Contact capabilities describe the channel classes which may be
+        created with a given conatact in advance of attempting to create a
+        channel. Each capability represents a commitment by the
         connection manager that it will ordinarily be able to create a channel
         with a contact when given a request with the properties defined by the
         channel class.</p>
@@ -36,7 +36,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>This interface also enables user interfaces to notify the connection
         manager what capabilities to advertise for the user to other contacts.
         This is done by using the SetSelfCapabilities method, and deals with
-        channel properties values pertaining to them which are implemented by
+        channel property values pertaining to them which are implemented by
         available client processes.</p>
 
     </tp:docstring>
