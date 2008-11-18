@@ -63,9 +63,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         class are added.</p>
 
         <p>Upon a successful invocation of this method, the
-        ContactCapabilitiesChanged signal will be emitted for the user's own
-        handle (as returned by GetSelfHandle) by the connection manager to
-        indicate the changes that have been made.</p>
+        <tp:member-ref>ContactCapabilitiesChanged</tp:member-ref> signal
+        will only be emitted for the user's own
+        handle (as returned by GetSelfHandle) by the connection manager if, in
+        the given protocol, the given capabilities are distinct from the
+        previous state.</p>
+
+        <tp:rationale>
+          <p>The connection manager will essentially intersect the provided
+            capabilities and the channel classes it implements. Therefore,
+            certain properties which are never fixed for a channel class
+            (such as the target handle, or the Parameters property of a tube
+            channel) will almost certainly not be advertised.</p>
+        </tp:rationale>
+
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
