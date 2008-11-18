@@ -99,7 +99,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
            Now there is a fix, so we don't use the workaround anymore.
         -->
       <arg direction="out" type="a{ua(a{sv}as)}"
-           tp:type="Contact_Handle_Enhanced_Contact_Capability_Map">
+           tp:type="Contact_Capabilities_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of structures containing:
           <ul>
@@ -165,7 +165,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
-  <tp:mapping name="Contact_Handle_Enhanced_Contact_Capability_Map"
+  <tp:mapping name="Contact_Capabilities_Map"
               array-name="Contact_Handle_Enhanced_Contact_Capability_Map_List">
     <tp:docstring>A mapping from contact handle to their capabilities.
     </tp:docstring>
