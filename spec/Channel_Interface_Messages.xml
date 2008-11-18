@@ -1020,7 +1020,7 @@ USA.</p>
           later.
 
           <tp:rationale>
-            Similar to "202 Accepted" success code in SIP; analogous to 
+            Similar to "202 Accepted" success code in SIP; analogous to
             251 and 252 responses in SMTP.
           </tp:rationale>
         </tp:docstring>
