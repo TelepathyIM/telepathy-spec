@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         publish their current geographical location, and subscribe to the
         current location of their contacts.</p>
 
-      <p>This interface is geared strongly towards automatic propogation and
+      <p>This interface is geared strongly towards automatic propagation and
         use of this information, so focuses on latitude, longitude and
         altitude which can be determined by GPS, although provision is also
         included for an optional human-readable description of locations. All
