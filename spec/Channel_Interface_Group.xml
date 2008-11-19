@@ -221,9 +221,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           specification 0.17.6 are fully supported.
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Members_Changed_Details" value="4096">
+      <tp:flag suffix="Members_Changed_Detailed" value="4096">
         <tp:docstring>
-          Indicates that <tp:member-ref>MembersChangedDetails</tp:member-ref>
+          Indicates that <tp:member-ref>MembersChangedDetailed</tp:member-ref>
           will be emitted for changes to this group's members in addition to
           <tp:member-ref>MembersChanged</tp:member-ref>.
           Clients can then connect to the former and ignore emission of the latter.
@@ -698,8 +698,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <signal name="MembersChangedDetails"
-      tp:name-for-bindings="Members_Changed_Details">
+    <signal name="MembersChangedDetailed"
+      tp:name-for-bindings="Members_Changed_Detailed">
       <arg name="Added" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members added to the channel
@@ -765,7 +765,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           lists. This signal provides a superset of the information provided by
           <tp:member-ref>MembersChanged</tp:member-ref>;
           if the channel's <tp:member-ref>GroupFlags</tp:member-ref>
-          contains Members_Changed_Details, then clients may listen exclusively
+          contains Members_Changed_Detailed, then clients may listen exclusively
           to this signal in preference to that signal.</p>
 
         <p>All channel-specific handles that are mentioned in this signal
