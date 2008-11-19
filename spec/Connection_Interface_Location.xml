@@ -76,7 +76,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           (e.g. the correct city).
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="PostalCode" value="4">
+      <tp:enumvalue suffix="Postal_Code" value="4">
         <tp:docstring>
           The location indicates the correct postal code.
         </tp:docstring>
