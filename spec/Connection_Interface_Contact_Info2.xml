@@ -147,15 +147,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <method name="RequestContactInfo"
       tp:name-for-bindings="Request_Contact_Info">
-      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          An integer handle for the contact to request info for.
+          An array of handles representing contacts.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Request information of a given contact. The function will return
-        after GotContactInfo signal has been emitted with avialable data
-	for each contact, or an error returned. 
+        Request information for a set of contacts. This will cause
+        <tp:dbus-ref>GotContactInfo</tp:dbus-ref> to be emitted for each
+        contact before the function returns; if information cannot be retrieved
+        for some contacts, the signal will be emitted for the successful subset
+        before this method returns an error.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
