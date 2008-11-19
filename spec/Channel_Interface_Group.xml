@@ -741,7 +741,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               change, providing more specific information than the
               <tp:type>Channel_Group_Change_Reason</tp:type> enum allows. If
               this key is present, 'change-reason' MUST be set to the closest
-              available reason.</dd>
+              available reason.
+
+              <tp:rationale>
+                A SIP connection manager might want to signal "402 Payment
+                required" as something more specific than Error or
+                Permission_Denied so that a SIP-aware UI could handle it
+                specially; including a namespaced error permits this to be done
+                without <tp:type>Channel_Group_Change_Reason</tp:type> being
+                extended to encompass every error any CM ever wants to report.
+              </tp:rationale>
+            </dd>
 
             <dt>debug-message (s)</dt>
             <dd>Debugging information on the change. SHOULD NOT be shown to
