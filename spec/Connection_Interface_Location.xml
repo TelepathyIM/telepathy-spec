@@ -186,7 +186,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 in this specification.
               </tp:rationale>
             </li>
-            <li>horizontal-error-m - d: vertical position error in metres if
+            <li>horizontal-error-m - d: horizontal position error in metres if
               known
               <tp:rationale>
                 This exists as a struct field in GeoClue; the name is new
