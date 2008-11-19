@@ -251,9 +251,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Return the current locations of the given contacts, if they are
         already known. If any of the given contacts' locations are not known,
-        request their current locations, and later emit LocationUpdated for
-        them; the LocationUpdated signal for contacts whose location could
-        not be determined will have an empty Location.
+        request their current locations, and later emit
+        <tp:member-ref>LocationUpdated</tp:member-ref> for them; the
+        <tp:member-ref>LocationUpdated</tp:member-ref> signal for contacts
+        whose location could not be determined will have an empty Location.
       </tp:docstring>
 
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
