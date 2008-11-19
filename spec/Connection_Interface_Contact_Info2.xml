@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
 <node name="/Connection_Interface_Contact_Info2" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright> Copyright (C) 2005, 2006 Collabora Limited </tp:copyright>
-  <tp:copyright> Copyright (C) 2005, 2006 Nokia Corporation </tp:copyright>
-  <tp:copyright> Copyright (C) 2006 INdT </tp:copyright>
+  <tp:copyright> Copyright (C) 2008 Collabora Limited </tp:copyright>
+  <tp:copyright> Copyright (C) 2008 Nokia Corporation </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
     <p>This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -154,7 +153,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Request information for a set of contacts. This will cause
-        <tp:dbus-ref>GotContactInfo</tp:dbus-ref> to be emitted for each
+        <tp:member-ref>GotContactInfo</tp:member-ref> to be emitted for each
         contact before the function returns; if information cannot be retrieved
         for some contacts, the signal will be emitted for the successful subset
         before this method returns an error.
