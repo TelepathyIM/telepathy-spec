@@ -197,8 +197,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Change_Notification" value="1">
         <tp:docstring>
           Indicates that the protocol provides notification of changes to
-          contacts' information, and hence that <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">GotContactInfo</tp:dbus-ref>
+          contacts' information, and hence that
+          <tp:member-ref>GotContactInfo</tp:member-ref>
           will be emitted when contacts' information changes.
         </tp:docstring>
       </tp:enumvalue>
@@ -206,8 +206,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Push" value="2">
         <tp:docstring>
           Indicates that the protocol pushes all contacts' information to the
-          connection manager without prompting. If set, <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">RequestContactInfo</tp:dbus-ref>
+          connection manager without prompting. If set,
+          <tp:member-ref>RequestContactInfo</tp:member-ref>
           will not cause a network roundtrip.  This flag implies
           Change_Notification.
         </tp:docstring>
