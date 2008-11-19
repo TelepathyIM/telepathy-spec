@@ -208,6 +208,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <tp:enum name="Contact_Info_Flag" value-prefix="Contact_Info_Flag"
+      type="u">
+      <tp:docstring>
+        Flags defining the behaviour of contact information on this protocol.
+        Some protocols provide no information on contacts without an explicit
+        request; others always push information to the connection manager as
+        and when it changes.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="Change_Notification" value="1">
+        <tp:docstring>
+          Indicates that the protocol provides notification of changes to
+          contacts' information, and hence that <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">GotContactInfo</tp:dbus-ref>
+          will be emitted when contacts' information changes.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Push" value="2">
+        <tp:docstring>
+          Indicates that the protocol pushes all contacts' information to the
+          connection manager without prompting. If set, <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">RequestContactInfo</tp:dbus-ref>
+          will not cause a network roundtrip.  This flag implies
+          Change_Notification.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <property name="ContactInfoFlags" type="u" access="read"
+      tp:type="Contact_Info_Flag" tp:name-for-bindings="Contact_Info_Flags">
+      <tp:docstring>
+        An integer representing the bitwise-OR of flags on this channel. This
+        property should be constant over the lifetime of a connection.
+      </tp:docstring>
+    </property>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for requesting information about a contact on a given
         connection. Information is represented as a list of fields forming a
