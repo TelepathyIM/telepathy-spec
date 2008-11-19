@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               access="readwrite" tp:name-for-bindings="Parameters">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Each tube has a dictionary of arbitrary parameters. Parameters are
-          commonly used for bootstrap legacy protocols where you can't
+          commonly used to bootstrap legacy protocols where you can't
           negotiate parameters in-band. The allowable keys,
           types and values are defined by the service. Connection managers
           must support the value being a string (D-Bus type 's'), array of bytes
