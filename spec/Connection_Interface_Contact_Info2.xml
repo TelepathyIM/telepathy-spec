@@ -145,8 +145,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the details of a particular contact.
       </tp:docstring>
     </signal>
-    <method name="RequestAllContactInfo"
-      tp:name-for-bindings="Request_All_Contact_Info">
+    <method name="RequestContactInfo"
+      tp:name-for-bindings="Request_Contact_Info">
       <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           An integer handle for the contact to request info for.
@@ -156,30 +156,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Request information of a given contact. The function will return
         after GotContactInfo signal has been emitted with avialable data
 	for each contact, or an error returned. 
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-      </tp:possible-errors>
-    </method>
-    <method name="RequestContactInfo"
-      tp:name-for-bindings="Request_Contact_Info">
-      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
-        <tp:docstring>
-          An integer handle for the contact to request info for.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" name="FieldName" type="s">
-        <tp:docstring>
-	  vCard field name.
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Request information for a given contact, only fields with a given
-	name are returned by a GotContactInfo signal before function returns.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
