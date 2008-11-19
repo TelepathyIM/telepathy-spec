@@ -34,6 +34,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A list of (lowercased) vCard field types applicable to this field.
           For example, a contact's preferred home address would have flags
           'home' and 'pref'.
+
+          <tp:rationale>
+            This is a list of strings rather than a bitwise OR of enum members
+            because vCard field types are essentially arbitrary strings.
+          </tp:rationale>
         </tp:docstring>
       </tp:member>
       <tp:member type="as" name="Field_Value">
