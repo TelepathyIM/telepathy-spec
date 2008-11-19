@@ -223,10 +223,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="Members_Changed_Details" value="4096">
         <tp:docstring>
-          Indicates that <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChangedDetails</tp:dbus-ref>
-          will be emitted for changes to this group's members in addition to <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>.
+          Indicates that <tp:member-ref>MembersChangedDetails</tp:member-ref>
+          will be emitted for changes to this group's members in addition to
+          <tp:member-ref>MembersChanged</tp:member-ref>.
           Clients can then connect to the former and ignore emission of the latter.
         </tp:docstring>
       </tp:flag>
@@ -754,10 +753,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Emitted when contacts join any of the three lists (members, local
           pending or remote pending) or when they leave any of the three
           lists. This signal provides a superset of the information provided by
-          <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>;
-          if the channel's <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">GroupFlags</tp:dbus-ref>
+          <tp:member-ref>MembersChanged</tp:member-ref>;
+          if the channel's <tp:member-ref>GroupFlags</tp:member-ref>
           contains Members_Changed_Details, then clients may listen exclusively
           to this signal in preference to that signal.</p>
 
