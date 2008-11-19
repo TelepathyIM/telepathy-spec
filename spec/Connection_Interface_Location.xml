@@ -251,8 +251,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Return the current locations of the given contacts, if they are
         already known. If any of the given contacts' locations are not known,
-        request their current locations, and later emit LocationUpdate for
-        them; the LocationUpdate signal for contacts whose location could
+        request their current locations, and later emit LocationUpdated for
+        them; the LocationUpdated signal for contacts whose location could
         not be determined will have an empty Location.
       </tp:docstring>
 
@@ -273,7 +273,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </method>
 
-    <signal name="LocationUpdate" tp:name-for-bindings="Location_Update">
+    <signal name="LocationUpdated" tp:name-for-bindings="Location_Updated">
       <tp:docstring>
         Emitted when a contact's location changes or becomes known.
       </tp:docstring>
