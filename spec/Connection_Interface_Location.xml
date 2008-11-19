@@ -163,7 +163,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 This is from XEP-0080
               </tp:rationale>
             </li>
-            <li>accuracy-class - i (<tp:type>Location_Accuracy_Level</tp:type>):
+            <li>accuracy-level - i (<tp:type>Location_Accuracy_Level</tp:type>):
               an indication of accuracy, which SHOULD be omitted if it would be
               Location_Accuracy_Level_None or
               Location_Accuracy_Level_Detailed
