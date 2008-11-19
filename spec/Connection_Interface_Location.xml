@@ -250,29 +250,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="GetLocations" tp:name-for-bindings="Get_Locations">
       <tp:docstring>
         Return the current locations of the given contacts, if they are
-        already known. This method does not make any network requests.
-      </tp:docstring>
-
-      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          The contacts whose locations should be returned.
-        </tp:docstring>
-      </arg>
-
-      <arg direction="out" name="Locations" type="a{ua{sv}}"
-        tp:type="Contact_Locations">
-        <tp:docstring>
-          The contacts' locations, if known. Contacts whose locations
-          are not already known are omitted from the mapping; contacts known
-          to have no location information appear in the mapping with an empty
-          Location dictionary.
-        </tp:docstring>
-      </arg>
-    </method>
-
-    <method name="RequestLocations" tp:name-for-bindings="Request_Locations">
-      <tp:docstring>
-        Return the current locations of the given contacts, if they are
         already known. If any of the given contacts' locations are not known,
         request their current locations, and later emit LocationUpdate for
         them; the LocationUpdate signal for contacts whose location could
