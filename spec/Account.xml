@@ -229,14 +229,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               to be be bother by error messages, or change the account
               configuration: temporarily disabling the account is quicker.</li>
           </ul>
+        </tp:rationale>
 
-          <p>The AccountManager SHOULD allow this property to be set on invalid
-            accounts, but MUST NOT attempt to put invalid accounts online
-            even if they become Enabled.</p>
+        <p>The AccountManager SHOULD allow this property to be set on invalid
+          accounts, but MUST NOT attempt to put invalid accounts online
+          even if they become Enabled.</p>
 
-          <tp:rationale>
-            <p>There doesn't seem to be any good reason not to allow this.</p>
-          </tp:rationale>
+        <tp:rationale>
+          <p>There doesn't seem to be any good reason not to allow this.</p>
         </tp:rationale>
       </tp:docstring>
     </property>
