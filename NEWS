@@ -2,13 +2,51 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.15 (UNRELEASED)
+telepathy-spec 0.17.16 (UNRELEASED)
 ===================================
+
+...
+
+telepathy-spec 0.17.15 (2008-11-21)
+===================================
+
+The "new shipment of groove" release.
 
 API changes:
 
 * Account.Nickname is now of type 's', rather than the meaningless 'as'.
   This matches what was actually implemented in Mission Control 5.
+
+API additions:
+
+* Introduce the Avatar type (a struct containing a byte array and a MIME type)
+  and use it on the Account.Interface.Avatar.Avatar property
+
+Changes to experimental API:
+
+* Add the sending flags that were in effect to the MessageSent signal, so
+  Observers can tell whether a delivery report was requested
+
+* Incoming Messages SHOULD always have a message-received timestamp
+
+Additions to experimental API:
+
+* Messages: add delivery-dbus-error, delivery-dbus-error-message
+
+* Add the Account property to ChannelRequest objects (passed straight through
+  from CreateChannel and EnsureChannel)
+
+* Add Channel.Type.FileTransfer, a channel used to send a single file to a
+  contact
+
+* Add Channel.Type.StreamTube and Channel.Type.DBusTube, the new "one
+  channel per tube" version of Tubes
+
+* Add a use-case description for a channel closing while undispatched
+
+Fixes:
+
+* Many enhancements to cross-references and other minor corrections
 
 telepathy-spec 0.17.14 (2008-10-30)
 ===================================

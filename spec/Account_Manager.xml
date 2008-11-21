@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       tp:name-for-bindings="Valid_Accounts">
       <tp:docstring>
         A list of the valid (complete, usable) accounts. Change notification
-        is via AccountValidityChanged.
+        is via <tp:member-ref>AccountValidityChanged</tp:member-ref>.
 
         <tp:rationale>
           This split between valid and invalid accounts makes it easy to
@@ -78,7 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       tp:name-for-bindings="Invalid_Accounts">
       <tp:docstring>
         A list of incomplete or otherwise unusable accounts. Change
-        notification is via AccountValidityChanged.
+        notification is via
+        <tp:member-ref>AccountValidityChanged</tp:member-ref>.
       </tp:docstring>
     </property>
 
