@@ -532,6 +532,21 @@ USA.</p>
               Channel_Text_Send_Error_Unknown.
             </dd>
 
+            <dt>delivery-dbus-error (s - DBus_Error_Name)</dt>
+            <dd>
+              The reason for the failure, specified as a (possibly
+              implementation-specific) D-Bus error. MUST be omitted if this was
+              a successful delivery. If set, the 'delivery-error' key SHOULD be
+              set to the closest available value.
+            </dd>
+
+            <dt>delivery-error-message (s)</dt>
+            <dd>
+              Debugging information on why the message could not be delivered.
+              MUST be omitted if this was a successful delivery; MAY always be
+              omitted.
+            </dd>
+
             <dt>delivery-echo (aa{sv} - Message_Part[])</dt>
             <dd>
               <p>The message content, as defined by the Messages interface.
@@ -832,6 +847,14 @@ USA.</p>
         </tp:docstring>
       </arg>
 
+      <arg name="Flags" type="u" tp:type="Message_Sending_Flags">
+        <tp:docstring>
+          <p>Flags affecting how the message was sent.  The flags might be a
+            subset of those passed to SendMessage if the caller requested
+            unsupported flags.</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Message_Token" type="s" tp:type="Sent_Message_Token">
         <tp:docstring>
           An opaque token used to match any incoming delivery or failure
@@ -1014,7 +1037,7 @@ USA.</p>
           later.
 
           <tp:rationale>
-            Similar to "202 Accepted" success code in SIP; analogous to 
+            Similar to "202 Accepted" success code in SIP; analogous to
             251 and 252 responses in SMTP.
           </tp:rationale>
         </tp:docstring>

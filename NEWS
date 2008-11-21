@@ -5,6 +5,8 @@ checkouts.
 telepathy-spec 0.17.15 (UNRELEASED)
 ===================================
 
+The "new shipment of groove" release.
+
 API changes:
 
 * Account.Nickname is now of type 's', rather than the meaningless 'as'.
