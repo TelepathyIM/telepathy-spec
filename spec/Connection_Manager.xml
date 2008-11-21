@@ -246,37 +246,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         following well-known names and types should be used where appropriate:</p>
 
         <dl>
-          <dt>s:account</dt>
+          <dt>account (s)</dt>
           <dd>The identifier for the user's account on the server</dd>
 
-          <dt>s:server</dt><dd>A fully qualified domain name or numeric IPv4 or IPv6
+          <dt>server (s)</dt><dd>A fully qualified domain name or numeric IPv4 or IPv6
         address. Using the fully-qualified domain name form is recommended
         whenever possible. If this parameter is specified and the account
         for that protocol also specifies a server, this parameter should
         override that in the user id.</dd>
 
-      <dt>q:port</dt><dd>A TCP or UDP port number. If this parameter is specified
+      <dt>port (q)</dt><dd>A TCP or UDP port number. If this parameter is specified
         and the account for that protocol also specifies a port, this
         parameter should override that in the account.</dd>
 
-      <dt>s:password</dt><dd>A password associated with the account.</dd>
+      <dt>password (s)</dt><dd>A password associated with the account.</dd>
 
-      <dt>b:require-encryption</dt><dd>Require encryption for this connection. A
+      <dt>require-encryption (b)</dt><dd>Require encryption for this connection. A
         connection should fail to connect if require-encryption is set
         and an encrypted connection is not possible.</dd>
 
-      <dt>b:register</dt><dd>This account should be created on the server if it
+      <dt>register (b)</dt><dd>This account should be created on the server if it
         does not already exist.</dd>
 
-      <dt>s:ident</dt><dd>The local username to report to the server if
+      <dt>ident (s)</dt><dd>The local username to report to the server if
         necessary, such as in IRC.</dd>
 
-      <dt>s:fullname</dt><dd>The user's full name if the service requires this
+      <dt>fullname (s)</dt><dd>The user's full name if the service requires this
         when authenticating or registering.</dd>
 
-      <dt>s:stun-server</dt><dd>The IP address or FQDN of a STUN server to use
+      <dt>stun-server (s)</dt><dd>The IP address or FQDN of a STUN server to use
         for NAT traversal, without any ":port" suffix.</dd>
-      <dt>q:stun-port</dt><dd>The UDP port number on the stun-server to use for
+      <dt>stun-port (q)</dt><dd>The UDP port number on the stun-server to use for
         STUN. Only significant if the stun-server is also supplied.</dd>
         </dl>
 
