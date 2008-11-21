@@ -395,26 +395,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:rationale>
       </tp:docstring>
 
-      <tp:enumvalue name="Whitelist">
+      <tp:enumvalue suffix="Whitelist" value="0">
         <tp:docstring>
           The associated variant is a list of contacts (signature 'au',
           Contact_Handle[]) who can see the extended presence information.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="Publish_List">
+      <tp:enumvalue suffix="Publish_List" value="1">
         <tp:docstring>
           All contacts in the user's 'publish' contact list can see the
           extended presence information. The associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="Group">
+      <tp:enumvalue suffix="Group" value="2">
         <tp:docstring>
           The associated variant is a handle of type Group (signature 'u',
           Group_Handle) representing a group of contacts who can see the
           extended presence information.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue name="Open">
+      <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
           Anyone with access to the service can see the extended presence
           information.
