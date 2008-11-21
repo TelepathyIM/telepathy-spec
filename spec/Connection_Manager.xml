@@ -153,7 +153,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Get a list of the parameters which must or may be provided to the
-        RequestConnection method when connecting to the given protocol,
+        <tp:member-ref>RequestConnection</tp:member-ref> method when connecting
+        to the given protocol,
         or registering (the boolean &quot;register&quot; parameter is available,
         and set to true).
       </tp:docstring>
@@ -193,7 +194,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when a new Connection object is created.
+        Emitted when a new <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref> object
+        is created.
       </tp:docstring>
     </signal>
 
@@ -232,7 +235,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           method.</p>
 
         <p>The parameters which must and may be provided in the parameters
-        dictionary can be discovered with the GetParameters method. These
+        dictionary can be discovered with the
+        <tp:member-ref>GetParameters</tp:member-ref> method. These
         parameters, their types, and their default values may be cached
         in files so that all available connection managers do not need to be
         started to discover which protocols are available.</p>
@@ -277,7 +281,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </dl>
 
         <p>Every successful RequestConnection call will cause the emission of a
-        NewConnection signal for the same newly created connection. The
+        <tp:member-ref>NewConnection</tp:member-ref> signal for the same newly
+        created connection. The
         requester can use the returned object path and service name
         independently of the emission of that signal. In that case this signal
         emission is most useful for, e.g. other processes that are monitoring
@@ -350,8 +355,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </p>
 
     <p>Connection managers' capabilities can be determined dynamically by
-      calling their ListProtocols method, then for each protocol of interest,
-      calling GetParameters to discover the required and optional parameters.
+      calling their <tp:member-ref>ListProtocols</tp:member-ref> method, then
+      for each protocol of interest, calling
+      <tp:member-ref>GetParameters</tp:member-ref> to discover the required and
+      optional parameters.
       However, since it is inefficient to activate all possible connection
       managers on the system just to find out what they can do, there
       is a standard mechanism to store static information about CMs in
