@@ -209,7 +209,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="Parameters" type="a{sv}"
         tp:type="String_Variant_Map">
         <tp:docstring>
-          A dictionary mapping parameter name to the variant boxed value
+          A dictionary mapping parameter names to values of the appropriate
+          type, as indicated by <tp:member-ref>GetParameters</tp:member-ref>
+          and the above well-known list.
         </tp:docstring>
       </arg>
       <arg direction="out" type="s" tp:type="DBus_Bus_Name">
