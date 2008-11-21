@@ -51,7 +51,9 @@ USA.</p>
         unfriendly to offer the user controls that may have no effect.
       </tp:rationale>
 
-      <p>This interface also replaces Text.SendError, adding support for
+      <p>This interface also replaces <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">Text.SendError</tp:dbus-ref>,
+        adding support for
         protocols where the message content is not echoed back to the sender on
         failure, adding support for receiving positive acknowledgements,
         and using the Messages queue for state-recovery
@@ -59,9 +61,16 @@ USA.</p>
         currently a process handling them).</p>
 
       <p>If this interface is present, clients that support it SHOULD
-        listen for the MessageSent and MessageReceived signals, and
-        ignore the Sent, SendError and Received signal on the Text interface
-        (which are guaranteed to duplicate signals from this interface).</p>
+        listen for the <tp:member-ref>MessageSent</tp:member-ref> and
+        <tp:member-ref>MessageReceived</tp:member-ref> signals, and
+        ignore the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>,
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
+        and <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
+        signals on the Text interface (which are guaranteed to duplicate
+        signals from this interface).</p>
     </tp:docstring>
 
     <property name="SupportedContentTypes" type="as" access="read"
@@ -150,7 +159,8 @@ USA.</p>
 
       <tp:flag suffix="One_Attachment" value="1">
         <tp:docstring>
-          SendMessage will accept messages containing a textual message body,
+          <tp:member-ref>SendMessage</tp:member-ref> will accept messages
+          containing a textual message body,
           plus a single attachment of any type listed in the
           SupportedContentTypes property. It does not make sense for this
           flag to be set if Message_Part_Support_Flag_Data_Only is not also set
@@ -705,8 +715,11 @@ USA.</p>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Submit a message to the server for sending.
           If this method returns successfully, the message has been submitted
-          to the server and the MessageSent signal is emitted. A corresponding
-          Sent signal on the Text interface MUST also be emitted.</p>
+          to the server and the <tp:member-ref>MessageSent</tp:member-ref>
+          signal is emitted. A corresponding
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
+          signal on the Text interface MUST also be emitted.</p>
 
         <p>This method MUST return before the MessageSent signal is
           emitted.</p>
@@ -786,7 +799,9 @@ USA.</p>
     <signal name="MessageSent" tp:name-for-bindings="Message_Sent">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Signals that a message has been submitted for sending. This
-          MUST be emitted exactly once per emission of the Sent signal on the
+          MUST be emitted exactly once per emission of the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
+          signal on the
           Text interface.</p>
 
         <tp:rationale>
@@ -844,8 +859,8 @@ USA.</p>
       tp:name-for-bindings="Pending_Messages_Removed">
       <tp:docstring>
         The messages with the given IDs have been removed from the
-        PendingMessages list. Clients SHOULD NOT attempt to acknowledge
-        those messages.
+        <tp:member-ref>PendingMessages</tp:member-ref> list. Clients SHOULD NOT
+        attempt to acknowledge those messages.
 
         <tp:rationale>
           This completes change notification for the PendingMessages property
@@ -918,7 +933,9 @@ USA.</p>
       <tp:docstring>
         Signals that a message has been received and added to the pending
         messages queue. This MUST be emitted exactly once per emission of the
-        Received signal on the Text interface.
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
+        signal on the Text interface.
 
         <tp:rationale>
           The double signal-emission provides compatibility with older
