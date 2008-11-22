@@ -138,6 +138,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
         <tp:added version="0.17.2"/>
       </tp:flag>
+      <tp:flag suffix="DBus_Property" value="16">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          This parameter is also a D-Bus property on the resulting <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>; a
+          parameter named <code>com.example.Duck.Macaroni</code> with this flag
+          corresponds to the <code>Macaroni</code> property on the
+          <code>com.example.Duck</code> interface.  Its value can be queried
+          and possibly changed on an existing Connection using methods on the
+          <code>org.freedesktop.DBus.Properties</code> interface.
+        </tp:docstring>
+        <tp:added version="0.17.UNRELEASED"/>
+      </tp:flag>
     </tp:flags>
 
     <method name="GetParameters" tp:name-for-bindings="Get_Parameters">
