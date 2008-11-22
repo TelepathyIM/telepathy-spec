@@ -129,8 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="CreateAccount" tp:name-for-bindings="Create_Account">
       <tp:docstring>
         Request the creation of a new account. The account manager SHOULD NOT
-        allow invalid accounts to be created. Accounts created through this
-        API SHOULD have an empty PresetParameters property.
+        allow invalid accounts to be created.
       </tp:docstring>
 
       <arg name="Connection_Manager" direction="in" type="s"
