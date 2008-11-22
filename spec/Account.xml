@@ -281,10 +281,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <method name="UpdateParameters" tp:name-for-bindings="Update_Parameters">
-      <tp:docstring>
-        Change the value of the <tp:member-ref>Parameters</tp:member-ref> property. Any changes will not
-        take effect until the next time the account is disconnected and
-        reconnected.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Change the value of the <tp:member-ref>Parameters</tp:member-ref>
+        property. If any of the changed parameters'
+        <tp:type>Conn_Mgr_Param_Flags</tp:type> include
+        <code>DBus_Property</code>, the change will be applied to the
+        corresponding D-Bus Property on the active
+        <tp:member-ref>Connection</tp:member-ref> if there is one; changes to
+        other parameters will not take effect until the next time the account
+        is disconnected and reconnected.
 
         <tp:rationale>
           Migration tools that twiddle the settings of all accounts shouldn't
@@ -292,6 +297,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           persuaded otherwise, though. Or we could add a Reconnect() method.
         </tp:rationale>
       </tp:docstring>
+
+      <tp:changed version="0.17.UNRELEASED">
+        parameters which are also D-Bus properties can and should be updated on
+        existing Connections
+      </tp:changed>
 
       <arg name="Set" type="a{sv}" direction="in">
         <tp:docstring>
