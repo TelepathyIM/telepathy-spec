@@ -171,7 +171,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="SetContactInfo" tp:name-for-bindings="Set_Contact_Info">
       <tp:docstring>
         Set new contact information for this connection, replacing existing
-        information.
+        information.  This method is only suppported if
+        <tp:member-ref>ContactInfoFlags</tp:member-ref> contains
+        <code>Can_Set</code>.
       </tp:docstring>
       <arg direction="in" name="ContactInfo" type="a(sasas)"
         tp:type="Contact_Info_Field[]">
@@ -184,6 +186,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            Setting your own information is not supported on this protocol.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
@@ -196,14 +203,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and when it changes.
       </tp:docstring>
 
-      <tp:enumvalue suffix="Change_Notification" value="1">
+      <tp:enumvalue suffix="Can_Set" value="1">
+        <tp:docstring>
+          Indicates that <tp:member-ref>SetContactInfo</tp:member-ref> is
+          supported on this connection.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Change_Notification" value="2">
         <tp:docstring>
           Indicates that the protocol provides notification of changes to
           contacts' information.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Push" value="2">
+      <tp:enumvalue suffix="Push" value="4">
         <tp:docstring>
           Indicates that the protocol pushes all contacts' information to the
           connection manager without prompting. If set,
