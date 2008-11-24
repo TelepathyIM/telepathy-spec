@@ -107,8 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    EMAIL;TYPE=INTERNET,PREF:wee.ninja@collabora.co.uk
    EMAIL;TYPE=INTERNET:wee.ninja@example.com
    URL:http://www.thinkgeek.com/geektoys/plush/8823/
-   END:vCard
-        </pre>
+   END:vCard</pre>
 
         <p>would be represented by (in Python-like syntax):</p>
 
@@ -123,8 +122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   ('email', ['internet','pref'], ['wee.ninja@collabora.co.uk']),
   ('email', ['internet'], ['wee.ninja@example.com']),
   ('url', [], ['http://www.thinkgeek.com/geektoys/plush/8823/']),
-]
-        </pre>
+]</pre>
       </tp:docstring>
     </tp:struct>
 
