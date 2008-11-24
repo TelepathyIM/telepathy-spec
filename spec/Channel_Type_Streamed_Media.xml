@@ -338,30 +338,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     signals to indicate when streams have been added, removed and changed
     status.</p>
 
-      <p>Channels of this type are expected to provide the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface">Group</tp:dbus-ref>
-        interface
-        and be "anonymous" (have no associated handle). To make a media call
-        to a contact, clients should request a new, empty streamed media
-        channel, then call <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
-        to add the contact to the channel.
-        The local user should be in the group's <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">Members</tp:dbus-ref>,
-        while the contact
-        should be absent from the channel until a call is made, appear in
+      <p>To make a media call to a contact, clients should call <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>
+        with <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>
+        = <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>,
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemotePendingMembers</tp:dbus-ref>
-        from when the call is attempted until the call is
-        accepted, then move to the group's members.</p>
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+        = Contact, and one of <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+        or <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+        (which should yield a channel with the local user in <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">Members</tp:dbus-ref>,
+        and the remote contact as <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+        but not in any group members list), then call
+        <tp:member-ref>RequestStreams</tp:member-ref> to initiate the call (at
+        which point the contact should appear in the channel's <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemotePendingMembers</tp:dbus-ref>).</p>
 
-      <p>Similarly, incoming calls should be signalled as having handle type 0
-        and handle 0. The remote contact should be in the group's members,
-        with the local user in the <tp:dbus-ref
+      <p>Incoming calls should be signalled as <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+        = Contact, <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+        set to the remote contact, with the local user in <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">LocalPendingMembers</tp:dbus-ref>;
         to accept the call, <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
         can be used to move the local user to the group's members.</p>
+
+      <p>In the past, several other patterns have been used to place outgoing
+        calls; see
+        <tt>http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels</tt>
+        for the details.</p>
 
     <p>In general this should be used in conjunction with the <tp:dbus-ref
       namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
