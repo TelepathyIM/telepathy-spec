@@ -191,7 +191,15 @@
         <tp:docstring>
           The <tp:dbus-ref
             namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
-          object.
+          object, which MUST have been returned by <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT">CreateChannel</tp:dbus-ref>
+          or <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT">EnsureChannel</tp:dbus-ref>
+          before this method is called.
+
+          <tp:rationale>
+            See those methods for the rationale of this ordering.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
