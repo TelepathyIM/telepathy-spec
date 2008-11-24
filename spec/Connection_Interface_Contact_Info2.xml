@@ -144,6 +144,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the details of a particular contact.
       </tp:docstring>
     </signal>
+
     <method name="RequestContactInfo"
       tp:name-for-bindings="Request_Contact_Info">
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
@@ -166,6 +167,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="SetContactInfo" tp:name-for-bindings="Set_Contact_Info">
       <tp:docstring>
         Set new contact information for this connection, replacing existing
