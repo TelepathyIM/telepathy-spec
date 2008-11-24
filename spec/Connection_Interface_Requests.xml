@@ -117,7 +117,10 @@
       <arg direction="in" name="Request" type="a{sv}"
         tp:type="Qualified_Property_Value_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>A dictionary containing desirable properties. Some properties
+          <p>A dictionary containing desirable properties, which MUST include
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>.
+            Some properties
             are defined such that only an exact match makes sense, and
             connection managers MUST NOT satisfy a request with a channel
             where that property does not match; some properties are defined
