@@ -36,7 +36,7 @@
         = FALSE) is offered to
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref>s
         by the channel dispatcher, it also offers the Approvers a list of all
-        the running or activatable ChannelHandlers whose
+        the running or activatable handlers whose
         <tp:member-ref>HandlerChannelFilter</tp:member-ref> property
         (possibly as cached in the .client file) indicates that they
         are able to handle the channel. The Approvers can choose one of
