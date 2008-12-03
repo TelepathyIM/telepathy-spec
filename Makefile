@@ -138,7 +138,7 @@ dist:
 	$(TAR) -ztvf "$$distname".tar.gz;\
 	rm -rf tmp/"$$distname"
 
-BRANCH = $(shell sh tools/git-which-branch.sh misc)
+BRANCH = $(shell sh tools/git-which-branch.sh misc | tr -d '\n' | tr -C "[:alnum:]" _)
 UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
