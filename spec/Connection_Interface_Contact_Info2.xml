@@ -103,7 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    ORG:Collabora, Ltd.;Human Resources
    ADR;TYPE=WORK,POSTAL,PARCEL:;;11 Kings Parade;Cambridge;Cambridgeshire
     ;CB2 1SJ;UK
-   TEL;TYPE=VOICE,WORK:+44 1223 362967
+   TEL;TYPE=VOICE,WORK:+44 1223 362967, +44 7700 900753
    EMAIL;TYPE=INTERNET,PREF:wee.ninja@collabora.co.uk
    EMAIL;TYPE=INTERNET:wee.ninja@example.com
    URL:http://www.thinkgeek.com/geektoys/plush/8823/
@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   ('adr', ['work','postal','parcel'], ['','','11 Kings Parade','Cambridge',
                                        'Cambridgeshire','CB2 1SJ','UK']),
   ('tel', ['voice','work'], ['+44 1223 362967']),
+  ('tel', ['voice','work'], ['+44 7700 900753']),
   ('email', ['internet','pref'], ['wee.ninja@collabora.co.uk']),
   ('email', ['internet'], ['wee.ninja@example.com']),
   ('url', [], ['http://www.thinkgeek.com/geektoys/plush/8823/']),
