@@ -48,7 +48,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           corresponding to the semicolon-separated elements of the field (with
           empty strings for empty elements).  A vCard field with multiple
           comma-separated values should be represented by several
-          <tp:type>Contact_Info_Field</tp:type>s.
+          <tp:type>Contact_Info_Field</tp:type>s.  Characters which are
+          required to be escaped in vCard values, such as semi-colons, should
+          not be escaped in this list.
 
           <tp:rationale>
             An earlier draft of this interface split structured vCard fields
@@ -100,7 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    VERSION:3.0
    FN:Wee Ninja
    N:Ninja;Wee;;;-san
-   ORG:Collabora, Ltd.;Human Resources
+   ORG:Collabora, Ltd.;Human Resources\; Company Policy Enforcement
    ADR;TYPE=WORK,POSTAL,PARCEL:;;11 Kings Parade;Cambridge;Cambridgeshire
     ;CB2 1SJ;UK
    TEL;TYPE=VOICE,WORK:+44 1223 362967, +44 7700 900753
@@ -115,7 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 [
   ('fn', [], ['Wee Ninja']),
   ('n', [], ['Ninja', 'Wee', '', '', '-san']),
-  ('org', [], ['Collabora, Ltd.', 'Human Resources']),
+  ('org', [], ['Collabora, Ltd.', 'Human Resources; Company Policy Enforcement']),
   ('adr', ['work','postal','parcel'], ['','','11 Kings Parade','Cambridge',
                                        'Cambridgeshire','CB2 1SJ','UK']),
   ('tel', ['voice','work'], ['+44 1223 362967']),
