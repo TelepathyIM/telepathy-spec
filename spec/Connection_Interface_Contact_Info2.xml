@@ -129,10 +129,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:struct>
 
-    <signal name="GotContactInfo" tp:name-for-bindings="Got_Contact_Info">
+    <signal name="ContactInfoChanged" tp:name-for-bindings="ContactInfoChanged">
       <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          An integer handle of the contact ID on the server.
+          An integer handle for the contact whose info has changed.
         </tp:docstring>
       </arg>
       <arg name="ContactInfo" type="a(sasas)" tp:type="Contact_Info_Field[]">
@@ -141,8 +141,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when information has been received from the server with
-        the details of a particular contact.
+        Emitted when a contact's information has changed or been received for
+        the first time on this connection.
       </tp:docstring>
     </signal>
 
