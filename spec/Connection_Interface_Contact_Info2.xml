@@ -240,7 +240,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for requesting information about a contact on a given
-        connection. Information is represented as a list of fields forming a
+        connection. Information is represented as a list of
+        <tp:type>Contact_Info_Field</tp:type>s forming a
         structured representation of a vCard (as defined by RFC 2426), using
         field names and semantics defined therein.</p>
     </tp:docstring>
