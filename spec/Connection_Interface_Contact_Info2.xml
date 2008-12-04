@@ -129,6 +129,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:struct>
 
+    <tp:mapping name="Contact_Info_Map" array-name="">
+      <tp:docstring>A dictionary whose keys are contact handles and whose
+        values are contact information..</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
+      <tp:member type="a(sasas)" tp:type="Contact_Info_Field[]"
+        name="Contact_Info"/>
+    </tp:mapping>
+
     <signal name="ContactInfoChanged" tp:name-for-bindings="ContactInfoChanged">
       <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
@@ -145,6 +153,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the first time on this connection.
       </tp:docstring>
     </signal>
+
+    <method name="GetContactInfo"
+      tp:name-for-bindings="Get_Contact_Info">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          An array of handles representing contacts.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="ContactInfo" type="a{ua(sasas)}"
+        tp:type="Contact_Info_Map">
+        <tp:docstring>
+          A dictionary mapping contact handles to information, whose keys are
+          the subset of the requested list of handles for which information was
+          cached.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Request information on several contacts at once.  This SHOULD only
+        return cached information, omitting handles for which no information is
+        cached from the returned map.  For contacts without cached information,
+        the information SHOULD be requested from the network, with the result
+        signalled later by <tp:member-ref>ContactInfoChanged</tp:member-ref>.
+      </tp:docstring>
+    </method>
 
     <method name="RequestContactInfo"
       tp:name-for-bindings="Request_Contact_Info">
