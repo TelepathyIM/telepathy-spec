@@ -180,24 +180,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="RequestContactInfo"
       tp:name-for-bindings="Request_Contact_Info">
-      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          An array of handles representing contacts.
+          An integer handle for a contact.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" name="Contact_Info" type="a(sasas)"
+        tp:type="Contact_Info_Field[]">
+        <tp:docstring>
+          Information about that contact.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Request information for a set of contacts. This will cause
-        <tp:member-ref>GotContactInfo</tp:member-ref> to be emitted for each
-        contact before the function returns; if information cannot be retrieved
-        for some contacts, the signal will be emitted for the successful subset
-        before this method returns an error.
+        Retrieve information for a contact, requesting it from the network if
+        it is not cached locally.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The contact's information could not be retrieved.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
