@@ -435,7 +435,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <dl>
       <dt>s (string)</dt>
-        <dd>The UTF-8 string</dd>
+        <dd>The UTF-8 string, with the standard backslash escape
+          sequences supported by the Desktop Entry Specification
+          (the "localestring" type from the Desktop Entry Specification)</dd>
       <dt>o (object path)</dt>
         <dd>The object path as an ASCII string</dd>
       <dt>b (boolean)</dt>
@@ -447,6 +449,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dd>ASCII decimal integer, optionally prefixed with "-"</dd>
       <dt>d (double-precision floating point)</dt>
         <dd>ASCII decimal number</dd>
+      <dt>as (array of string)</dt>
+        <dd>A sequence of UTF-8 strings each followed by a semicolon, with
+          any semicolons they contain escaped with a backslash
+          (the "localestrings" type from the Desktop Entry Specification)</dd>
     </dl>
 
     <p>Currently, no other D-Bus signatures are allowed to have default values,
