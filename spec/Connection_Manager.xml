@@ -423,6 +423,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to Conn_Mgr_Param_Flag_Register</li>
       <li><code>secret</code>, corresponding
         to Conn_Mgr_Param_Flag_Secret</li>
+      <li><code>dbus-property</code>, corresponding
+        to Conn_Mgr_Param_Flag_DBus_Property</li>
     </ul>
 
     <p>The group may also contain a key <code>default-<em>p</em></code>
