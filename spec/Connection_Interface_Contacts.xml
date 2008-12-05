@@ -48,7 +48,7 @@
           Aliasing interface was requested)
         </dd>
         <dt>org.freedesktop.Telepathy.Connection.Interface.Avatars/token
-          (type s)</dt>
+          (type s, <tp:type>Avatar_Token</tp:type>)</dt>
         <dd>The same string that would be returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.Avatars">GetKnownAvatarTokens</tp:dbus-ref>
           (omitted from the result if the contact's avatar token is not known,

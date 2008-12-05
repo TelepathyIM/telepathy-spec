@@ -5,7 +5,14 @@ checkouts.
 telepathy-spec 0.17.16 (UNRELEASED)
 ===================================
 
-...
+API changes:
+
+* Avatar tokens are now required to make the triple (connection manager name,
+  protocol, token) unique.
+
+  Previously, the triple (our account, their identifier, token) was required
+  to be unique, but this would require every avatar cache implementation to
+  be aware of a persistent identifier for the account.
 
 telepathy-spec 0.17.15 (2008-11-21)
 ===================================

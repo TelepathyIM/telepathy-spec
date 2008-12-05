@@ -21,11 +21,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Avatars">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
+    <tp:simple-type name="Avatar_Token" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An opaque token chosen by the connection manager, representing
+          a particular avatar.</p>
+
+        <tp:rationale>
+          <p>Because avatars can be relatively large images, most protocols
+            provide a way to detect whether an old avatar is still valid,
+            or whether an avatar has changed, without pushing the actual
+            avatar data to all clients.</p>
+        </tp:rationale>
+
+        <p>The connection manager MUST choose these tokens in a way that
+          makes it highly unlikely that two different avatars with the same
+          connection manager and protocol will have the same token.</p>
+
+        <tp:rationale>
+          <p>This means that clients MAY use the triple
+            (<tp:type>Connection_Manager_Name</tp:type>,
+            <tp:type>Protocol</tp:type>, avatar token) as a key for
+            their avatar cache. For instance, an avatar for a
+            telepathy-gabble Jabber contact might be stored in a file
+            .../gabble/jabber/4e199b4a1c40b497a95fcd1cd896351733849949.png.</p>
+        </tp:rationale>
+
+        <p>For instance, some protocols (like XMPP) identify avatars by a
+          hash of the avatar data; in this case, the hash can be used as the
+          avatar token.</p>
+
+        <p>Some protocols identify avatars by the timestamp of the last
+          change to the avatar; in these protocols it would be necessary for
+          the connection manager to encode both the timestamp and the
+          contact's identifier into the avatar token in order to ensure
+          uniqueness.</p>
+      </tp:docstring>
+    </tp:simple-type>
+
     <tp:mapping name="Avatar_Token_Map">
       <tp:docstring>A dictionary whose keys are contact handles and whose
         values are avatar tokens.</tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
-      <tp:member type="s" name="Token"/>
+      <tp:member type="s" tp:type="Avatar_Token" name="Token"/>
     </tp:mapping>
 
     <signal name="AvatarUpdated" tp:name-for-bindings="Avatar_Updated">
@@ -34,7 +71,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           An integer handle for the contact whose avatar has changed
         </tp:docstring>
       </arg>
-      <arg name="New_Avatar_Token" type="s">
+      <arg name="New_Avatar_Token" tp:type="Avatar_Token" type="s">
         <tp:docstring>
           Unique token for their new avatar
         </tp:docstring>
@@ -47,13 +84,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>RequestAvatars</tp:member-ref>.
       </tp:docstring>
     </signal>
+
     <signal name="AvatarRetrieved" tp:name-for-bindings="Avatar_Retrieved">
       <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The contact whose avatar has been retrieved
         </tp:docstring>
       </arg>
-      <arg name="Token" type="s">
+      <arg name="Token" tp:type="Avatar_Token" type="s">
         <tp:docstring>
           The token corresponding to the avatar
         </tp:docstring>
@@ -73,6 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when the avatar for a contact has been retrieved.
       </tp:docstring>
     </signal>
+
     <method name="GetAvatarRequirements"
       tp:name-for-bindings="Get_Avatar_Requirements">
       <arg direction="out" type="as">
@@ -115,13 +154,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="GetAvatarTokens" tp:name-for-bindings="Get_Avatar_Tokens">
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
         An array of handles representing contacts
         </tp:docstring>
       </arg>
-      <arg direction="out" type="as">
+      <arg direction="out" type="as" name="Tokens" tp:type="Avatar_Token[]">
         <tp:docstring>
           An array of avatar tokens or empty strings (if no avatar is set) in the
           same order as the given array of contact handles
@@ -141,6 +181,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="GetKnownAvatarTokens"
       tp:name-for-bindings="Get_Known_Avatar_Tokens">
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
@@ -148,7 +189,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         An array of handles representing contacts
         </tp:docstring>
       </arg>
-      <arg direction="out" type="a{us}" tp:type="Avatar_Token_Map">
+      <arg direction="out" type="a{us}" name="Tokens" tp:type="Avatar_Token_Map">
         <tp:docstring>
           A dictionary of handles mapped to avatar tokens, containing only
           the known avatar tokens.
@@ -173,6 +214,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="RequestAvatar" tp:name-for-bindings="Request_Avatar">
       <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
@@ -206,6 +248,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
+
     <method name="RequestAvatars" tp:name-for-bindings="Request_Avatars">
       <arg direction="in" name="Contacts" type="au"
         tp:type="Contact_Handle[]">
@@ -225,6 +268,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
+
     <method name="SetAvatar" tp:name-for-bindings="Set_Avatar">
       <arg direction="in" name="Avatar" type="ay">
         <tp:docstring>
@@ -236,7 +280,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A string representing the image MIME type
         </tp:docstring>
       </arg>
-      <arg direction="out" type="s">
+      <arg direction="out" type="s" name="Token" tp:type="Avatar_Token">
         <tp:docstring>
           The string token of the new avatar
         </tp:docstring>
@@ -254,6 +298,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
+
     <method name="ClearAvatar" tp:name-for-bindings="Clear_Avatar">
       <tp:added version="0.15.0" />
       <tp:docstring>
@@ -264,13 +309,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for requesting avatars for contacts on a given connection,
     receiving notification when avatars are changed, and publishing your own
     avatar.</p>
 
-    <p>Avatars are identified by a unique (per contact) token which represents a
-    hash or timestamp (depending on the protocol) of the contacts' avatar data.
+    <p>Avatars are identified by a string, the <tp:type>Avatar_Token</tp:type>,
+    which represents a particular avatar. Tokens MUST be chosen by the
+    connection manager in such a way that the triple
+    (<tp:type>Connection_Manager_Name</tp:type>, <tp:type>Protocol</tp:type>,
+    <tp:type>Avatar_Token</tp:type>) uniquely identifies an avatar.
     An empty token means that an avatar has not been set for this contact, and
     a changed token implies the contact's avatar has changed, but the strings
     should otherwise be considered opaque by clients.</p>
