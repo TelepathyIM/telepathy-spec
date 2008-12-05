@@ -70,6 +70,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
+    <property name="RelayInfo" type="a{ss}" access="read"
+      tp:type="String_String_Map" tp:name-for-bindings="Relay_Info">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A map containing relay information for this stream, to be used
+        with google relay. Map keys are:</p>
+        <ul>
+            <li>stun.ip - IP address of STUN server</li>
+            <li>stun.port - port of STUN server</li>
+            <li>relay.ip - IP address of relay server</li>
+            <li>relay.udp_port - UDP port of relay server</li>
+            <li>relay.tcp_port - TCP port of relay server</li>
+            <li>relay.ssltcp_port - SSLTCP port of relay server</li>
+            <li>username - Username for relay</li>
+            <li>pasword - Password for relay</li>
+            <li>magic_cookie - Magic cookie for relay</li>
+        </ul>
+        <p>If relaying is not possible for this stream, the map is empty.
+        </p>
+      </tp:docstring>
+    </property>
+
     <signal name="AddRemoteCandidate"
       tp:name-for-bindings="Add_Remote_Candidate">
       <arg name="Candidate_ID" type="s">
