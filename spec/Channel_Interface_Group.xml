@@ -221,6 +221,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           specification 0.17.6 are fully supported.
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Members_Changed_Detailed" value="4096">
+        <tp:docstring>
+          Indicates that <tp:member-ref>MembersChangedDetailed</tp:member-ref>
+          will be emitted for changes to this group's members in addition to
+          <tp:member-ref>MembersChanged</tp:member-ref>.
+          Clients can then connect to the former and ignore emission of the latter.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <property name="GroupFlags" type="u" tp:type="Channel_Group_Flags"
@@ -690,6 +698,90 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
+    <signal name="MembersChangedDetailed"
+      tp:name-for-bindings="Members_Changed_Detailed">
+      <arg name="Added" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          A list of members added to the channel
+        </tp:docstring>
+      </arg>
+      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          A list of members removed from the channel
+        </tp:docstring>
+      </arg>
+      <arg name="Local_Pending" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          A list of members who are pending local approval
+        </tp:docstring>
+      </arg>
+      <arg name="Remote_Pending" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          A list of members who are pending remote approval
+        </tp:docstring>
+      </arg>
+      <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Information about the change, which may include the following
+            well-known keys:</p>
+
+          <dl>
+            <dt>actor (u — <tp:type>Contact_Handle</tp:type>)</dt>
+            <dd>The contact handle of the person who made the change; 0 or
+              omitted if unknown or not applicable.</dd>
+
+            <dt>change-reason (u — <tp:type>Channel_Group_Change_Reason</tp:type>)</dt>
+            <dd>A reason for the change.</dd>
+
+            <dt>message (s)</dt>
+            <dd>A string message from the server regarding the change</dd>
+
+            <dt>error (s — <tp:type>DBus_Error_Name</tp:type>)</dt>
+            <dd>A (possibly implementation-specific) DBus error describing the
+              change, providing more specific information than the
+              <tp:type>Channel_Group_Change_Reason</tp:type> enum allows. This
+              MUST only be present if it is strictly more informative than
+              'change-reason'; if present, 'change-reason' MUST be set to the
+              closest available reason.
+
+              <tp:rationale>
+                A SIP connection manager might want to signal "402 Payment
+                required" as something more specific than Error or
+                Permission_Denied so that a SIP-aware UI could handle it
+                specially; including a namespaced error permits this to be done
+                without <tp:type>Channel_Group_Change_Reason</tp:type> being
+                extended to encompass every error any CM ever wants to report.
+              </tp:rationale>
+            </dd>
+
+            <dt>debug-message (s)</dt>
+            <dd>Debugging information on the change. SHOULD NOT be shown to
+              users in normal circumstances.</dd>
+          </dl>
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when contacts join any of the three lists (members, local
+          pending or remote pending) or when they leave any of the three
+          lists. This signal provides a superset of the information provided by
+          <tp:member-ref>MembersChanged</tp:member-ref>;
+          if the channel's <tp:member-ref>GroupFlags</tp:member-ref>
+          contains Members_Changed_Detailed, then clients may listen exclusively
+          to this signal in preference to that signal.</p>
+
+        <p>All channel-specific handles that are mentioned in this signal
+          MUST be represented in the value of the
+          <tp:member-ref>HandleOwners</tp:member-ref> property.  In practice,
+          this will mean that
+          <tp:member-ref>HandleOwnersChanged</tp:member-ref> is emitted
+          <em>before</em> emitting a MembersChangedDetailed signal in which
+          channel-specific handles are added, but that it is emitted
+          <em>after</em> emitting a MembersChangedDetailed signal in which
+          channel-specific handles are removed.</p>
+      </tp:docstring>
+      <tp:added version="0.17.UNRELEASED"/>
+    </signal>
+
     <method name="RemoveMembers" tp:name-for-bindings="Remove_Members">
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
@@ -777,6 +869,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     their request before they may join. A single contact should never appear on
     more than one of the three lists. The lists are empty when the channel is
     created, and the <tp:member-ref>MembersChanged</tp:member-ref> signal
+    (and, if the channel's <tp:member-ref>GroupFlags</tp:member-ref> contains
+    Members_Changed_Detailed, the
+    <tp:member-ref>MembersChangedDetailed</tp:member-ref> signal)
     should be emitted when information
     is retrieved from the server, or changes occur.</p>
 
