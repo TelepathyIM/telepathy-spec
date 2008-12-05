@@ -866,6 +866,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     their request before they may join. A single contact should never appear on
     more than one of the three lists. The lists are empty when the channel is
     created, and the <tp:member-ref>MembersChanged</tp:member-ref> signal
+    (and, if the channel's <tp:member-ref>GroupFlags</tp:member-ref> contains
+    Members_Changed_Detailed, the
+    <tp:member-ref>MembersChangedDetailed</tp:member-ref> signal)
     should be emitted when information
     is retrieved from the server, or changes occur.</p>
 
