@@ -182,7 +182,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           <p>When a Text channel implements the <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Interface">Messages.DRAFT</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.Channel.Interface">Messages</tp:dbus-ref>
             interface, that "SHOULD" becomes a "MUST".</p>
         </tp:rationale>
       </tp:docstring>
@@ -342,7 +342,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The incoming message contained non-text content which cannot be
             represented by this interface, but has been signalled
             in the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface">Messages.DRAFT</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Channel.Interface">Messages</tp:dbus-ref>
             interface.</p>
 
           <p>Connection managers SHOULD only set this flag if the non-text
