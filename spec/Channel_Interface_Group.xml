@@ -770,11 +770,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           to this signal in preference to that signal.</p>
 
         <p>All channel-specific handles that are mentioned in this signal
-          MUST be represented in the value of the HandleOwners property.
-          In practice, this will mean that HandleOwnersChanged is
-          emitted <em>before</em> emitting a MembersChanged signal in which
+          MUST be represented in the value of the
+          <tp:member-ref>HandleOwners</tp:member-ref> property.  In practice,
+          this will mean that
+          <tp:member-ref>HandleOwnersChanged</tp:member-ref> is emitted
+          <em>before</em> emitting a MembersChangedDetailed signal in which
           channel-specific handles are added, but that it is emitted
-          <em>after</em> emitting a MembersChanged signal in which
+          <em>after</em> emitting a MembersChangedDetailed signal in which
           channel-specific handles are removed.</p>
       </tp:docstring>
       <tp:added version="0.17.UNRELEASED"/>
