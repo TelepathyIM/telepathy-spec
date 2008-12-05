@@ -55,6 +55,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           the connection manager to encode both the timestamp and the
           contact's identifier into the avatar token in order to ensure
           uniqueness.</p>
+
+        <p>This token SHOULD be kept short and reasonably suitable for use
+          in a filename, but MAY contain any UTF-8 character (so clients using
+          avatar tokens in filenames MUST be prepared to escape characters
+          that are not valid in filenames). Connection managers for protocols
+          where tokens would otherwise become inconveniently large or contain
+          many unsuitable characters SHOULD hash the identifying data to
+          generate the token.</p>
       </tp:docstring>
     </tp:simple-type>
 
