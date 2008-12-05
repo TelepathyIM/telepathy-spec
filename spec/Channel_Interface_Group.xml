@@ -739,9 +739,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <dt>error (s — <tp:type>DBus_Error_Name</tp:type>)</dt>
             <dd>A (possibly implementation-specific) DBus error describing the
               change, providing more specific information than the
-              <tp:type>Channel_Group_Change_Reason</tp:type> enum allows. If
-              this key is present, 'change-reason' MUST be set to the closest
-              available reason.
+              <tp:type>Channel_Group_Change_Reason</tp:type> enum allows. This
+              MUST only be present if it is strictly more informative than
+              'change-reason'; if present, 'change-reason' MUST be set to the
+              closest available reason.
 
               <tp:rationale>
                 A SIP connection manager might want to signal "402 Payment
