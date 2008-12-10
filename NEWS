@@ -14,6 +14,42 @@ API changes:
   to be unique, but this would require every avatar cache implementation to
   be aware of a persistent identifier for the account.
 
+Changes to experimental API:
+
+* ChannelDispatcher: CreateChannel MUST return before AddRequest is called
+
+* Observer: give the ChannelDispatchOperation, if any, to ObserveChannels
+
+New API:
+
+* The MembersChangedDetailed signal on the Group interface indicates change
+  metadata in an extensible way, including an optional D-Bus error name
+
+* The Messages interface introduced in 0.17.5 is finally considered to be
+  stable, and libraries should generate bindings for it
+
+* Connection manager parameters with the new flag
+  Conn_Mgr_Param_Flag_DBus_Property are D-Bus properties on the Connection,
+  and the AccountManager SHOULD write changes through to the Connection when
+  they are changed
+
+* 'as' (string array) connection manager parameters can now have a default
+  value in a .manager file
+
+Fixes:
+
+* Many improvements to cross-references, including a fix for fd.o #18219
+
+* In Requests.CreateChannel, the request MUST include ChannelType
+
+* In StreamedMedia, describe Requests semantics
+
+Miscellaneous:
+
+* `make upload-branch` tries to name the HTML upload after the current git
+  branch, and prints a possible URL (which is correct if the local username
+  is the same as the fd.o username)
+
 telepathy-spec 0.17.15 (2008-11-21)
 ===================================
 
