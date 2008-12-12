@@ -779,7 +779,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <em>after</em> emitting a MembersChangedDetailed signal in which
           channel-specific handles are removed.</p>
       </tp:docstring>
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.16"/>
     </signal>
 
     <method name="RemoveMembers" tp:name-for-bindings="Remove_Members">

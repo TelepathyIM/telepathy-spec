@@ -298,7 +298,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:rationale>
       </tp:docstring>
 
-      <tp:changed version="0.17.UNRELEASED">
+      <tp:changed version="0.17.16">
         parameters which are also D-Bus properties can and should be updated on
         existing Connections
       </tp:changed>

@@ -22,6 +22,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:simple-type name="Avatar_Token" type="s">
+      <tp:changed version="0.17.16">strengthened uniqueness requirements
+        so (CM name, protocol, token) is unique; previously only
+        (our Account, remote contact identifier, token) was required to be
+        unique</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>An opaque token chosen by the connection manager, representing
           a particular avatar.</p>

@@ -148,7 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           and possibly changed on an existing Connection using methods on the
           <code>org.freedesktop.DBus.Properties</code> interface.
         </tp:docstring>
-        <tp:added version="0.17.UNRELEASED"/>
+        <tp:added version="0.17.16"/>
       </tp:flag>
     </tp:flags>
 
@@ -470,6 +470,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:changed version="0.17.2">Prior to version 0.17.2, support for
       CMs with no .manager file was not explicitly required.</tp:changed>
+    <tp:changed version="0.17.16">Prior to version 0.17.16 the serialization
+      of string arrays (signature 'as') was not defined</tp:changed>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
