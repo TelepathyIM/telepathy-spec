@@ -209,7 +209,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Set new contact information for this connection, replacing existing
         information.  This method is only suppported if
         <tp:member-ref>ContactInfoFlags</tp:member-ref> contains
-        <code>Can_Set</code>.
+        <code>Can_Set</code>, and may only be passed fields conforming to
+        <tp:member-ref>SupportedFields</tp:member-ref>.
       </tp:docstring>
       <arg direction="in" name="ContactInfo" type="a(sasas)"
         tp:type="Contact_Info_Field[]">
@@ -225,6 +226,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             Setting your own information is not supported on this protocol.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The supplied fields do not match the restrictions specified by
+            <tp:member-ref>SupportedFields</tp:member-ref>.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -266,15 +273,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="SupportedFields" type="as" access="read"
-      tp:name-for-bindings="Supported_Fields">
+    <tp:struct name="Field_Spec" array-name="Field_Specs">
+      <tp:docstring>A struct describing a vCard field, with flags, that may be
+        passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
+        Connection.</tp:docstring>
+
+      <tp:member type="s" name="Name">
+        <tp:docstring>A vCard field name, such as 'tel'.</tp:docstring>
+      </tp:member>
+
+      <tp:member type="as" name="Flags">
+        <tp:docstring>The set of vCard flags which may be set on this
+          field.</tp:docstring>
+      </tp:member>
+
+      <tp:member type="b" name="Mandatory">
+        <tp:docstring>True if those flags must be set on this field, as opposed
+          to being optional.</tp:docstring>
+      </tp:member>
+
+      <tp:member type="u" name="Max">
+        <tp:docstring>Maximum number of instances of this field which may be
+          set.  MAXUINT32 is used to indicate that there is no
+          limit.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <property name="SupportedFields" type="a(sasbu)" tp:type="Field_Spec[]"
+      access="read" tp:name-for-bindings="Supported_Fields">
       <tp:docstring>
-        A list of field names which can be used as the first component of a
-        <tp:type>Contact_Info_Field</tp:type> passed to
-        <tp:member-ref>SetContactInfo</tp:member-ref>.  The empty list
-        indicates that any field name is supported.  This property is
-        meaningless if <tp:member-ref>ContactInfoFlags</tp:member-ref> does not
-        contain the Can_Set <tp:type>Contact_Info_Flag</tp:type>.
+        A list of field specifications describing the kinds of fields which may
+        be passed to <tp:member-ref>SetContactInfo</tp:member-ref>.  The empty
+        list indicates that arbitrary vCard fields are permitted.  This
+        property SHOULD be the empty list, and be ignored by clients, if
+        <tp:member-ref>ContactInfoFlags</tp:member-ref> does not contain the
+        Can_Set <tp:type>Contact_Info_Flag</tp:type>.
       </tp:docstring>
     </property>
 
