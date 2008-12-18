@@ -698,6 +698,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
+    <tp:mapping name="Handle_Identifier_Map">
+      <tp:docstring>
+        A map from handles to the corresponding normalized string identifier.
+      </tp:docstring>
+      <tp:added version="0.17.UNRELEASED"/>
+
+      <tp:member type="u" name="Handle" tp:type="Contact_Handle">
+        <tp:docstring>
+          A nonzero handle
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Identifier">
+        <tp:docstring>
+          The same string that would be returned by <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection">InspectHandles</tp:dbus-ref>
+            (always present in the result)
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
     <signal name="MembersChangedDetailed"
       tp:name-for-bindings="Members_Changed_Detailed">
       <arg name="Added" type="au" tp:type="Contact_Handle[]">
