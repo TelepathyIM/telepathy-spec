@@ -89,7 +89,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <tp:rationale>
           This is effectively change notification for the valid and invalid
-          accounts lists.
+          accounts lists. On emission of this signal, the Account indicated
+          will no longer be present in either of the lists.
         </tp:rationale>
       </tp:docstring>
 
