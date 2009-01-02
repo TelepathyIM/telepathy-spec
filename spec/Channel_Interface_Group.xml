@@ -226,7 +226,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Indicates that <tp:member-ref>MembersChangedDetailed</tp:member-ref>
           will be emitted for changes to this group's members in addition to
           <tp:member-ref>MembersChanged</tp:member-ref>.
-          Clients can then connect to the former and ignore emission of the latter.
+          Clients can then connect to the former and ignore emission of the
+          latter. This flag's state MUST NOT change over the lifetime of a
+          channel.
+
+          <tp:rationale>
+            If it were allowed to change, client bindings would have to always
+            connect to MembersChanged just in case the flag ever went away (and
+            generally be unnecessarily complicated), which would mostly negate
+            the point of having this flag in the first place.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
