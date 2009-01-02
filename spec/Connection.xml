@@ -579,6 +579,13 @@ USA.</p>
             The given name is not a valid entity of the given type
           </tp:docstring>
         </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The given handle type is valid, but not implemented on this
+            connection.  For instance, a CM for a protocol that doesn't have
+            chat rooms would not implement room handles.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
