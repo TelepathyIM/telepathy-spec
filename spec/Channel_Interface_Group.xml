@@ -722,7 +722,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The same string that would be returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection">InspectHandles</tp:dbus-ref>
-            (always present in the result)
+          for this handle.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
