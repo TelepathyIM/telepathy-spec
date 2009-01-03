@@ -766,9 +766,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <dd>The string identifiers for handles mentioned in this signal, to
               give clients the minimal information necessary to react to the
               event without waiting for round-trips.  Connection managers
-              SHOULD include the identifiers for members added to the group;
-              they MAY omit the identifiers for handles which have been removed
-              from the group.
+              SHOULD include the identifiers for members added to the group and
+              for the actor (if any); they MAY omit the identifiers for handles
+              which have been removed from the group.
 
               <tp:rationale>
                 On IRC, an event such as a netsplit could cause the vast
