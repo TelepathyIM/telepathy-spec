@@ -149,9 +149,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg name="Display_Name" direction="in" type="s">
         <tp:docstring>The initial value of the new account's <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Account">DisplayName</tp:dbus-ref>
-          property. The account manager MAY modify this to make it unique,
-          for instance by appending a number or the 'account'
-          parameter.</tp:docstring>
+          property. The account manager SHOULD modify this to make it unique if
+          an Account already exists with the same display name, for instance by
+          appending a number or the 'account' parameter. Account manager
+          implementations SHOULD accept an empty string for compatability
+          reasons but account editing user interfaces should avoid passing
+          an empty string for this parameter.</tp:docstring>
       </arg>
 
       <arg name="Parameters" direction="in" type="a{sv}">
