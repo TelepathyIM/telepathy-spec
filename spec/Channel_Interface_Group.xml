@@ -762,20 +762,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <dt>change-reason (u — <tp:type>Channel_Group_Change_Reason</tp:type>)</dt>
             <dd>A reason for the change.</dd>
 
-            <dt>member-ids (a{us} — <tp:type>Handle_Identifier_Map</tp:type>)</dt>
-            <dd>The string identifiers for handles mentioned in this signal, to
+            <dt>contact-ids (a{us} — <tp:type>Handle_Identifier_Map</tp:type>)</dt>
+            <dd>
+              <p>The string identifiers for handles mentioned in this signal, to
               give clients the minimal information necessary to react to the
               event without waiting for round-trips.  Connection managers
               SHOULD include the identifiers for members added to the group and
               for the actor (if any); they MAY omit the identifiers for handles
-              which have been removed from the group.
+              which have been removed from the group.</p>
 
               <tp:rationale>
-                On IRC, an event such as a netsplit could cause the vast
+                <p>On IRC, an event such as a netsplit could cause the vast
                 majority of a channel to leave.  Given that clients should
                 already know the identifiers of a channel's members, including
                 potentially hundreds of strings in the netsplit signal is
-                unnecessary.
+                unnecessary.</p>
+              </tp:rationale>
+
+              <p>Clients MUST NOT assume that the presence or absence of a
+                handle in this mapping is meaningful. This mapping is merely
+                an optimization for round-trip reduction, and connection
+                managers MAY add additional handles, omit some handles, or
+                omit the mapping completely.</p>
               </tp:rationale>
             </dd>
 
