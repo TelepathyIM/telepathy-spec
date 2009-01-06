@@ -707,12 +707,14 @@ USA.</p>
     </tp:mapping>
 
     <tp:simple-type type="u" name="Message_Part_Index">
+      <tp:added version="0.17.17"/>
       <tp:docstring>
         The index of a message part within a message.
       </tp:docstring>
     </tp:simple-type>
 
     <tp:mapping name="Message_Part_Content_Map">
+      <tp:added version="0.17.17"/>
       <tp:docstring>
         A mapping from message part indexes to their content, as returned by
         <tp:member-ref>GetPendingMessageContent</tp:member-ref>.

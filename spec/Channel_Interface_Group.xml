@@ -711,7 +711,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         A map from handles to the corresponding normalized string identifier.
       </tp:docstring>
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.17"/>
 
       <tp:member type="u" name="Handle" tp:type="Contact_Handle">
         <tp:docstring>
