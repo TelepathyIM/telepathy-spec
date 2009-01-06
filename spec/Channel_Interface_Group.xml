@@ -226,7 +226,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Indicates that <tp:member-ref>MembersChangedDetailed</tp:member-ref>
           will be emitted for changes to this group's members in addition to
           <tp:member-ref>MembersChanged</tp:member-ref>.
-          Clients can then connect to the former and ignore emission of the latter.
+          Clients can then connect to the former and ignore emission of the
+          latter. This flag's state MUST NOT change over the lifetime of a
+          channel.
+
+          <tp:rationale>
+            If it were allowed to change, client bindings would have to always
+            connect to MembersChanged just in case the flag ever went away (and
+            generally be unnecessarily complicated), which would mostly negate
+            the point of having this flag in the first place.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
@@ -713,7 +722,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The same string that would be returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection">InspectHandles</tp:dbus-ref>
-            (always present in the result)
+          for this handle.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
@@ -757,9 +766,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <dd>The string identifiers for handles mentioned in this signal, to
               give clients the minimal information necessary to react to the
               event without waiting for round-trips.  Connection managers
-              SHOULD include the identifiers for members added to the group;
-              they MAY omit the identifiers for handles which have been removed
-              from the group.
+              SHOULD include the identifiers for members added to the group and
+              for the actor (if any); they MAY omit the identifiers for handles
+              which have been removed from the group.
 
               <tp:rationale>
                 On IRC, an event such as a netsplit could cause the vast
