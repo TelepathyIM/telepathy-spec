@@ -178,7 +178,8 @@ USA.</p>
       </tp:flag>
     </tp:flags>
 
-    <tp:mapping name="Message_Part" array-name="Message_Part_List">
+    <tp:mapping name="Message_Part" array-name="Message_Part_List"
+      array-depth="2">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Part of a message's content. In practice, this mapping never
           appears in isolation - messages are represented by a list of
