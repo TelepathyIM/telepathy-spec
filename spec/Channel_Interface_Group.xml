@@ -784,7 +784,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 an optimization for round-trip reduction, and connection
                 managers MAY add additional handles, omit some handles, or
                 omit the mapping completely.</p>
-              </tp:rationale>
             </dd>
 
             <dt>message (s)</dt>
