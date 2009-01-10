@@ -58,6 +58,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Offers a D-Bus tube providing the service specified.
       </tp:docstring>
+      <arg direction="out" name="address" type="s">
+        <tp:docstring>
+          The string describing the address of the private bus. The client
+          SHOULD not attempt to connect to the address until the tube is open.
+        </tp:docstring>
+      </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
