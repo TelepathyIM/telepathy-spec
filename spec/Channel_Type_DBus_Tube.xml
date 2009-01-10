@@ -87,14 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           SHOULD not attempt to connect to the address until the tube is open.
         </tp:docstring>
       </arg>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            The given tube ID is invalid or does not refer to a D-Bus
-            tube.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
     </method>
 
     <method name="GetDBusTubeAddress"
