@@ -80,7 +80,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="CodecChoice" tp:name-for-bindings="Codec_Choice">
       <arg direction="in" name="Codec_ID" type="u"/>
       <tp:docstring>
-        Inform the connection manager of the current codec choice.
+        Inform the connection manager of codec used to receive data.
       </tp:docstring>
     </method>
     <method name="Error" tp:name-for-bindings="Error">
@@ -255,13 +255,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Signal emitted when the connection manager wishes to inform the
         client of the codecs supported by the remote end.
+	If these codecs are compatible with the remote codecs, then the client
+	must call SupportedCodecs(), otherwise call Error().
       </tp:docstring>
     </signal>
     <signal name="SetStreamPlaying" tp:name-for-bindings="Set_Stream_Playing">
       <arg name="Playing" type="b"/>
       <tp:docstring>
         Signal emitted when the connection manager wishes to set the
-        stream playing or stopped.
+        stream playing or stopped. This means that the stream will start
+	receiving data.
       </tp:docstring>
     </signal>
     <signal name="SetStreamSending" tp:name-for-bindings="Set_Stream_Sending">
