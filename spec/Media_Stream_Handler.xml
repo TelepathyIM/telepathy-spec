@@ -209,6 +209,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         ready for an incoming call and exchange candidates/codecs before
         knowing what local codecs are available.
       </tp:docstring>
+      <tp:deprecated>
+	Local codecs should be provided in Ready().
+      </tp:deprecated>
     </method>
     <signal name="RemoveRemoteCandidate"
       tp:name-for-bindings="Remove_Remote_Candidate">
@@ -216,6 +219,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           String identifier for remote candidate to drop
         </tp:docstring>
+	<tp:deprecated>
+	  There is no case where you want to release candidates (except
+	  for an ICE reset and there you'd want to remove then all).
+	</tp:deprecated>
       </arg>
       <tp:docstring>
         Signal emitted when the connection manager wishes to inform the
