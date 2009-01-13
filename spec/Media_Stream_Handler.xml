@@ -204,14 +204,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           SupportedCodecs, which have the same semantics as the
           local codecs passed to Ready</tp:docstring>
       </arg>
-      <tp:docstring>
-        Used to provide codecs after Ready(), so the media client can go
-        ready for an incoming call and exchange candidates/codecs before
-        knowing what local codecs are available. This is useful for
-	a signalling relay, if one is an incoming Telepathy call and wants
-	to make an outgoing one, one needd to make it ready to get the
-	outgoing codecs, but does not have any local codecs yet. So one wants
-	to proceed with the signals, before having the local codecs.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Used to provide codecs after Ready(), so the media client can go
+          ready for an incoming call and exchange candidates/codecs before
+          knowing what local codecs are available.</p>
+
+        <p>This is useful for gatewaying calls between two connection managers.
+          Given an incoming call, you need to call
+          <tp:member-ref>Ready</tp:member-ref> to get the remote codecs before
+          you can use them as the "local" codecs to place the outgoing call,
+          and hence receive the outgoing call's remote codecs to use as the
+          incoming call's "local" codecs.</p>
+
+        <p>In this situation, you would pass an empty list of codecs to the
+          incoming call's Ready method, then later call SetLocalCodecs on the
+          incoming call in order to respond to the offer.</p>
       </tp:docstring>
     </method>
     <signal name="RemoveRemoteCandidate"
@@ -220,15 +227,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           String identifier for remote candidate to drop
         </tp:docstring>
-	<tp:deprecated>
-	  There is no case where you want to release candidates (except
-	  for an ICE reset and there you'd want to remove then all).
-	</tp:deprecated>
       </arg>
+      <tp:deprecated>
+        There is no case where you want to release candidates (except
+        for an ICE reset, and there you'd want to replace then all,
+        using <tp:member-ref>SetRemoteCandidateList</tp:member-ref>).
+      </tp:deprecated>
       <tp:docstring>
         Signal emitted when the connection manager wishes to inform the
         client that the remote end has removed a previously usable
         candidate.
+
+        <tp:rationale>
+          It seemed like a good idea at the time, but wasn't.
+        </tp:rationale>
       </tp:docstring>
     </signal>
     <signal name="SetActiveCandidatePair"
@@ -264,15 +276,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Signal emitted when the connection manager wishes to inform the
         client of the codecs supported by the remote end.
 	If these codecs are compatible with the remote codecs, then the client
-	must call SupportedCodecs(), otherwise call Error().
+        must call <tp:member-ref>SupportedCodecs</tp:member-ref>,
+        otherwise call <tp:member-ref>Error</tp:member-ref>.
       </tp:docstring>
     </signal>
     <signal name="SetStreamPlaying" tp:name-for-bindings="Set_Stream_Playing">
       <arg name="Playing" type="b"/>
       <tp:docstring>
-        Signal emitted when the connection manager wishes to set the
-        stream playing or stopped. This means that the stream will start
-	receiving data.
+        If emitted with argument TRUE, this means that the connection manager
+        wishes to set the stream playing; this means that the streaming
+        implementation should expect to receive data. If emitted with argument
+        FALSE this signal is basically meaningless and should be ignored.
+
+        <tp:rationale>
+          We're very sorry.
+        </tp:rationale>
       </tp:docstring>
     </signal>
     <signal name="SetStreamSending" tp:name-for-bindings="Set_Stream_Sending">
