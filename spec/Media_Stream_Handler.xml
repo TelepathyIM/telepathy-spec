@@ -207,11 +207,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Used to provide codecs after Ready(), so the media client can go
         ready for an incoming call and exchange candidates/codecs before
-        knowing what local codecs are available.
+        knowing what local codecs are available. This is useful for
+	a signalling relay, if one is an incoming Telepathy call and wants
+	to make an outgoing one, one needd to make it ready to get the
+	outgoing codecs, but does not have any local codecs yet. So one wants
+	to proceed with the signals, before having the local codecs.
       </tp:docstring>
-      <tp:deprecated>
-	Local codecs should be provided in Ready().
-      </tp:deprecated>
     </method>
     <signal name="RemoveRemoteCandidate"
       tp:name-for-bindings="Remove_Remote_Candidate">
