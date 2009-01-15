@@ -303,13 +303,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="SupportedFields" type="a(sasbu)" tp:type="Field_Spec[]"
       access="read" tp:name-for-bindings="Supported_Fields">
-      <tp:docstring>
-        A list of field specifications describing the kinds of fields which may
-        be passed to <tp:member-ref>SetContactInfo</tp:member-ref>.  The empty
-        list indicates that arbitrary vCard fields are permitted.  This
-        property SHOULD be the empty list, and be ignored by clients, if
-        <tp:member-ref>ContactInfoFlags</tp:member-ref> does not contain the
-        Can_Set <tp:type>Contact_Info_Flag</tp:type>.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of field specifications describing the kinds of fields which may
+          be passed to <tp:member-ref>SetContactInfo</tp:member-ref>.  The empty
+          list indicates that arbitrary vCard fields are permitted.  This
+          property SHOULD be the empty list, and be ignored by clients, if
+          <tp:member-ref>ContactInfoFlags</tp:member-ref> does not contain the
+          Can_Set <tp:type>Contact_Info_Flag</tp:type>.</p>
+
+        <p>For example, an implementation of XEP-0054, which defines a mapping
+          of vCards to XML for use over XMPP, would set this property to the
+          empty list. A protocol whose notion of contact information is one
+          each of personal phone number, mobile phone number, location, email
+          address and date of birth, with no attributes allowed on each piece
+          of information, would set this property to (in Python-like
+          syntax):</p>
+
+        <pre>
+[
+  ('tel', ['home'], True, 1),
+  ('tel', ['cell'], True, 1),
+  ('adr', [], True, 1),
+  ('bday', [], True, 1),
+  ('email', ['internet'], True, 1),
+]</pre>
+
+        <p>A protocol which allows users to specify up to four phone numbers,
+          which may be labelled as personal and/or mobile, would set this
+          property to <code>[ ('tel', ['home', 'cell'], False, 4), ]</code>.</p>
+
+        <tp:rationale>
+          <p>Studying existing IM protocols shows that in practice protocols
+            allow either a very restricted set of fields (such as MSN, which
+            seems to correspond roughly to the largest example above) or
+            something mapping 1-1 to vCard (such as XMPP).</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
