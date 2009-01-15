@@ -285,6 +285,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <method name="RequestLocation" tp:name-for-bindings="Request_Location">
+      <tp:docstring>
+        Return the current location of the given contact. If necessary, make
+        a request to the server for up-to-date information, and wait for a
+        reply.
+
+        <tp:rationale>
+          This method is appropriate for use in a "Contact Information..."
+          dialog; it can be used to show progress information (while waiting
+          for the method to return), and can distinguish between various error
+          conditions.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The contact whose location should be returned.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" name="Location" type="a{sv}" tp:type="Location">
+        <tp:docstring>
+          The contact's location. It MAY be empty, indicating that no location
+          information was found.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied">
+          <tp:docstring>
+            The requested contact does not allow the local user to see their
+            location information.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
     <signal name="LocationUpdated" tp:name-for-bindings="Location_Updated">
       <tp:docstring>
         Emitted when a contact's location changes or becomes known.
