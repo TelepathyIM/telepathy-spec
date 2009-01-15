@@ -221,7 +221,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>Other well-known keys:</p>
 
           <ul>
-            <li>timestamp - t (<tp:type>Unix_Timestamp64</tp:type>): the time
+            <li>timestamp - x (<tp:type>Unix_Timestamp64</tp:type>): the time
               that the contact was at this location, in seconds since
               1970-01-01T00:00:00Z (i.e. the beginning of 1970 in UTC)
               <tp:rationale>
