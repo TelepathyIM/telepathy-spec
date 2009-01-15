@@ -285,7 +285,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:member type="as" name="Flags">
         <tp:docstring>The set of vCard flags which may be set on this
-          field.</tp:docstring>
+          field. If this list is empty and the Mandatory property is unset, any
+          vCard flags may be used.</tp:docstring>
       </tp:member>
 
       <tp:member type="b" name="Mandatory">
