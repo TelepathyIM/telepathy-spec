@@ -292,7 +292,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <method name="SetLocation" tp:name-for-bindings="SetLocation">
+    <method name="SetLocation" tp:name-for-bindings="Set_Location">
       <tp:docstring>
         Set the local user's own location.
       </tp:docstring>
