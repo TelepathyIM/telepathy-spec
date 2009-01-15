@@ -252,13 +252,13 @@ USA.</p>
               the mid: and cid: URI schemes. If omitted, there is no suitable
               token.</dd>
 
-            <dt>message-sent (t - <tp:type>Unix_Timestamp64</tp:type>)</dt>
+            <dt>message-sent (x - <tp:type>Unix_Timestamp64</tp:type>)</dt>
             <dd>The time the message was sent (if unavailable, the time
               it arrived at a central server MAY be used). Omitted if no
               reasonable approximation is available; SHOULD always be present
               on outgoing messages.</dd>
 
-            <dt>message-received (t - <tp:type>Unix_Timestamp64</tp:type>)</dt>
+            <dt>message-received (x - <tp:type>Unix_Timestamp64</tp:type>)</dt>
             <dd>The time the message was received locally. SHOULD always
               be present.</dd>
 

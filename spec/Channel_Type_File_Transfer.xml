@@ -178,7 +178,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Date" type="t" access="read"
+    <property name="Date" type="x" access="read"
       tp:type="Unix_Timestamp64" tp:name-for-bindings="Date">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The last modification time of the file being transferred. This
