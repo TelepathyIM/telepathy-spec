@@ -346,6 +346,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         as specified in Channel.Type.StreamedMedia::ListStreams.
       </tp:docstring>
     </method>
+
     <method name="SupportedCodecs" tp:name-for-bindings="Supported_Codecs">
       <arg direction="in" name="Codecs" type="a(usuuua{ss})"
         tp:type="Media_Stream_Handler_Codec[]">
@@ -359,6 +360,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to notify what codecs are supported by the peer, and will thus be an
         intersection of all locally supported codecs (passed to Ready)
         and those supported by the peer.
+      </tp:docstring>
+    </method>
+
+    <method name="CodecsUpdated" tp:name-for-bindings="Codecs_Updated">
+      <arg direction="in" name="Codecs" type="a(usuuua{ss})"
+        tp:type="Media_Stream_Handler_Codec[]">
+        <tp:docstring>
+          Locally supported codecs, which SHOULD be the same as were previously
+          in effect, but possibly with different parameters.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Inform the connection manager that the parameters of the supported
+        codecs for this session have changed. The connection manager should
+        send the new parameters to the remote contact.
+
+        <tp:rationale>
+          This is required for H.264 and Theora, for example.
+        </tp:rationale>
       </tp:docstring>
     </method>
 
