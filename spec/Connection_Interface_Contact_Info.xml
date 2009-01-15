@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Connection_Interface_Contact_Info2" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/Connection_Interface_Contact_Info" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright> Copyright (C) 2008 Collabora Limited </tp:copyright>
   <tp:copyright> Copyright (C) 2008 Nokia Corporation </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
@@ -17,7 +17,7 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo2">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:struct name="Contact_Info_Field" array-name="Contact_Info_Field_List">
