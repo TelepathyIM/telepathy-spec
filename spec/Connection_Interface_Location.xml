@@ -255,6 +255,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         for a reply; if a reply with a non-empty location is later received
         for those contacts, the <tp:member-ref>LocationUpdated</tp:member-ref>
         signal will be emitted for them.
+
+        <tp:rationale>
+          This method is appropriate for "lazy" location finding, for instance
+          displaying the location (if available) of everyone in your contact
+          list.
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
