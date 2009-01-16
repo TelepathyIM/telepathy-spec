@@ -29,15 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           "adr".
         </tp:docstring>
       </tp:member>
-      <tp:member type="as" name="Field_Flags">
+      <tp:member type="as" name="Parameters">
         <tp:docstring>
-          A list of (lowercased) vCard field types applicable to this field.
-          For example, a contact's preferred home address would have flags
+          A list of (lowercased) vCard type parameters applicable to this field.
+          For example, a contact's preferred home address would have parameters
           'home' and 'pref'.
 
           <tp:rationale>
             This is a list of strings rather than a bitwise OR of enum members
-            because vCard field types are essentially arbitrary strings.
+            because vCard type parameters are essentially arbitrary strings.
           </tp:rationale>
         </tp:docstring>
       </tp:member>
@@ -275,8 +275,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <tp:struct name="Field_Spec" array-name="Field_Specs">
-      <tp:docstring>A struct describing a vCard field, with flags, that may be
-        passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
+      <tp:docstring>A struct describing a vCard field, with parameters, that
+        may be passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
         Connection.</tp:docstring>
 
       <tp:member type="s" name="Name">
