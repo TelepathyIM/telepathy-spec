@@ -349,8 +349,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:flag suffix="Parameters_Mandatory" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          If present, exactly the parameters indicated must be set on this
-          field. If absent, any subset of the parameters indicated may be used.
+          <p>If present, exactly the parameters indicated must be set on this
+            field; in the case of an empty list of parameters, this implies that
+            parameters may not be used.</p>
+          
+          <p>If absent, and the list of allowed parameters is non-empty,
+            any (possibly empty) subset of that list may be
+            used.</p>
+
+          <p>If absent, and the list of allowed parameters is empty,
+            any parameters may be used.</p>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
