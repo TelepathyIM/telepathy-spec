@@ -29,15 +29,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           "adr".
         </tp:docstring>
       </tp:member>
-      <tp:member type="as" name="Field_Flags">
+      <tp:member type="as" name="Parameters">
         <tp:docstring>
-          A list of (lowercased) vCard field types applicable to this field.
-          For example, a contact's preferred home address would have flags
+          A list of (lowercased) vCard type parameters applicable to this field.
+          For example, a contact's preferred home address would have parameters
           'home' and 'pref'.
 
           <tp:rationale>
             This is a list of strings rather than a bitwise OR of enum members
-            because vCard field types are essentially arbitrary strings.
+            because vCard type parameters are essentially arbitrary strings.
           </tp:rationale>
         </tp:docstring>
       </tp:member>
@@ -275,23 +275,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <tp:struct name="Field_Spec" array-name="Field_Specs">
-      <tp:docstring>A struct describing a vCard field, with flags, that may be
-        passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
+      <tp:docstring>A struct describing a vCard field, with parameters, that
+        may be passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
         Connection.</tp:docstring>
 
       <tp:member type="s" name="Name">
         <tp:docstring>A vCard field name, such as 'tel'.</tp:docstring>
       </tp:member>
 
-      <tp:member type="as" name="Flags">
-        <tp:docstring>The set of vCard flags which may be set on this
-          field. If this list is empty and the Mandatory property is unset, any
-          vCard flags may be used.</tp:docstring>
+      <tp:member type="as" name="Parameters">
+        <tp:docstring>The set of vCard type parameters which may be set on this
+          field. If this list is empty and the
+          Contact_Info_Field_Flag_Parameters_Mandatory
+          flag is unset, any vCard type parameters may be used.</tp:docstring>
       </tp:member>
 
-      <tp:member type="b" name="Mandatory">
-        <tp:docstring>True if those flags must be set on this field, as opposed
-          to being optional.</tp:docstring>
+      <tp:member type="u" name="Flags" tp:type="Contact_Info_Field_Flags">
+        <tp:docstring>Flags describing the behaviour of this
+          field.</tp:docstring>
       </tp:member>
 
       <tp:member type="u" name="Max">
@@ -301,7 +302,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
-    <property name="SupportedFields" type="a(sasbu)" tp:type="Field_Spec[]"
+    <property name="SupportedFields" type="a(sasuu)" tp:type="Field_Spec[]"
       access="read" tp:name-for-bindings="Supported_Fields">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of field specifications describing the kinds of fields which may
@@ -321,16 +322,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <pre>
 [
-  ('tel', ['home'], True, 1),
-  ('tel', ['cell'], True, 1),
-  ('adr', [], True, 1),
-  ('bday', [], True, 1),
-  ('email', ['internet'], True, 1),
+  ('tel', ['home'], Parameters_Mandatory, 1),
+  ('tel', ['cell'], Parameters_Mandatory, 1),
+  ('adr', [], Parameters_Mandatory, 1),
+  ('bday', [], Parameters_Mandatory, 1),
+  ('email', ['internet'], Parameters_Mandatory, 1),
 ]</pre>
 
         <p>A protocol which allows users to specify up to four phone numbers,
           which may be labelled as personal and/or mobile, would set this
-          property to <code>[ ('tel', ['home', 'cell'], False, 4), ]</code>.</p>
+          property to <code>[ ('tel', ['home', 'cell'], 0, 4), ]</code>.</p>
 
         <tp:rationale>
           <p>Studying existing IM protocols shows that in practice protocols
@@ -340,6 +341,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:rationale>
       </tp:docstring>
     </property>
+
+    <tp:flags name="Contact_Info_Field_Flags"
+      value-prefix="Contact_Info_Field_Flag" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Flags describing the behaviour of a vCard field.
+      </tp:docstring>
+      <tp:flag suffix="Parameters_Mandatory" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>If present, exactly the parameters indicated must be set on this
+            field; in the case of an empty list of parameters, this implies that
+            parameters may not be used.</p>
+          
+          <p>If absent, and the list of allowed parameters is non-empty,
+            any (possibly empty) subset of that list may be
+            used.</p>
+
+          <p>If absent, and the list of allowed parameters is empty,
+            any parameters may be used.</p>
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for requesting information about a contact on a given
