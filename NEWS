@@ -11,6 +11,13 @@ API changes:
   previously. In practice this shouldn't cause problems, as it only appeared
   in variants, where implementations should be lenient about types in any case.
 
+Changes to experimental API:
+
+* Improve the DBusTube interface: use maps (handle → D-Bus name) rather than
+  lists of structs for D-Bus names, make OfferDBusTube return the address that
+  will be used, remove GetDBusTubeAddress as a result, and turn GetDBusNames
+  into a property
+
 New API:
 
 * The FileTransfer channel type is now considered stable
