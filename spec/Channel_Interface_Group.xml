@@ -603,8 +603,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Invalid_Contact" value="7">
-        <tp:docstring>
-            The change is because the requested contact does not exist.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The change is because the requested contact does not exist.</p>
+
+          <tp:rationale>
+            <p>For instance, if the user invites a nonexistent contact to a
+              chatroom or attempts to call a nonexistent contact, this could
+              be indicated by the CM adding that contact's handle to
+              remote-pending for reason None or Invited, then removing it for
+              reason Invalid_Contact.</p>
+          </tp:rationale>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="No_Answer" value="8">
