@@ -830,6 +830,77 @@ USA.</p>
       </tp:enumvalue>
     </tp:enum>
 
+    <signal name="ConnectionError" tp:name-for-bindings="Connection_Error">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when an error occurs that renders this connection unusable.
+        </p>
+
+        <p>Whenever this signal is emitted, it MUST immediately be followed by
+          a <tp:member-ref>StatusChanged</tp:member-ref> signal with status
+          Connection_Status_Reason_Disconnected and an appropriate reason
+          code.</p>
+
+        <p>Connection managers SHOULD emit this signal on disconnection, but
+          need not do so. Clients MUST support connection managers that emit
+          StatusChanged(Disconnected, ...) without first emitting
+          ConnectionError.</p>
+
+        <tp:rationale>
+          <p>This signal provides additional information about the reason
+            for disconnection. The reason for connection is always
+            straightforward - it was requested - so it does not need further
+            explanation. However, on errors, it can be useful to provide
+            additional information.</p>
+
+          <p>The <tp:type>Connection_Status_Reason</tp:type> is not given
+            here, since it will be signalled in
+            <tp:member-ref>StatusChanged</tp:member-ref>. A reasonable client
+            implementation would be to store the information given by this
+            signal until StatusChanged is received, at which point the
+            information given by this signal can be used to supplement the
+            StatusChanged signal.</p>
+        </tp:rationale>
+
+        <arg name="Error" type="s" tp:type="DBus_Error_Name">
+          <tp:docstring>
+            The name of a D-Bus error describing the error that occurred,
+            which may correspond to a
+            <tp:type>Connection_Status_Reason</tp:type> or be a
+            protocol-specific or connection-manager-specific error in a
+            suitable namespace.
+
+            <tp:rationale>
+              For instance, a SIP connection manager could signal
+              "402 Payment Required" as an error in a
+              connection-manager-specific namespace, or a link-local
+              XMPP implementation that used Avahi could provide the error
+              given to it by the avahi-daemon.
+            </tp:rationale>
+          </tp:docstring>
+        </arg>
+
+        <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
+          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+            <p>Additional information about the error, which may include
+              the following well-known keys:</p>
+
+            <dl>
+              <dt>debug-message (s)</dt>
+              <dd>Debugging information on the change, corresponding to the
+                message part of a D-Bus error message, which SHOULD NOT be
+                displayed to users under normal circumstances</dd>
+            </dl>
+
+            <tp:rationale>
+              <p>This argument allows for future extensions. For instance,
+                if indicating DNS lookup failure, we could define a key
+                that indicates the hostname that could not be found.</p>
+            </tp:rationale>
+          </tp:docstring>
+        </arg>
+      </tp:docstring>
+    </signal>
+
     <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
       <arg name="Status" type="u" tp:type="Connection_Status">
         <tp:docstring>
