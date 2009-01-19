@@ -67,7 +67,8 @@ USA.</p>
     </method>
 
     <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
-      <arg direction="out" type="as" tp:type="DBus_Interface[]">
+      <arg direction="out" type="as" tp:type="DBus_Interface[]"
+        name="Interfaces">
         <tp:docstring>
           An array of D-Bus interface names
         </tp:docstring>
@@ -110,7 +111,7 @@ USA.</p>
     </method>
 
     <method name="GetProtocol" tp:name-for-bindings="Get_Protocol">
-      <arg direction="out" type="s" tp:type="Protocol">
+      <arg direction="out" type="s" tp:type="Protocol" name="Protocol">
         <tp:docstring>
           A string identifier for the protocol
         </tp:docstring>
@@ -157,7 +158,8 @@ USA.</p>
     </property>
 
     <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
-      <arg direction="out" type="u" tp:type="Contact_Handle">
+      <arg direction="out" type="u" tp:type="Contact_Handle"
+        name="Self_Handle">
         <tp:docstring>
           The value of the <tp:member-ref>SelfHandle</tp:member-ref> property
         </tp:docstring>
@@ -177,7 +179,8 @@ USA.</p>
     </method>
 
     <method name="GetStatus" tp:name-for-bindings="Get_Status">
-      <arg direction="out" type="u" tp:type="Connection_Status">
+      <arg direction="out" type="u" tp:type="Connection_Status"
+        name="Status">
         <tp:docstring>
           An integer representing the current status
         </tp:docstring>
@@ -246,7 +249,7 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="as">
+      <arg direction="out" type="as" name="Identifiers">
         <tp:docstring>
           An array of handle names in the same order as the given numbers
         </tp:docstring>
@@ -269,7 +272,8 @@ USA.</p>
     </method>
 
     <method name="ListChannels" tp:name-for-bindings="List_Channels">
-      <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]">
+      <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]"
+        name="Channel_Info">
         <tp:docstring>
           An array of structs representing channels.
         </tp:docstring>
@@ -429,7 +433,7 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="o">
+      <arg direction="out" type="o" name="Object_Path">
         <tp:docstring>
           The D-Bus object path for the channel created or retrieved
         </tp:docstring>
@@ -562,7 +566,8 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="au" tp:type="Handle[]">
+      <arg direction="out" type="au" tp:type="Handle[]"
+        name="Handles">
         <tp:docstring>
           An array of integer handle numbers in the same order as the given strings
         </tp:docstring>
