@@ -133,6 +133,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <tp:mapping name="DBus_Tube_Participants">
+      <tp:docstring>Represents the participants in a multi-user D-Bus tube, as
+        used by the <tp:member-ref>DBusNames</tp:member-ref> property and the
+        <tp:member-ref>DBusNamesChanged</tp:member-ref> signal.</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Handle">
+        <tp:docstring>
+          The handle of a participant in this D-Bus tube.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name">
+        <tp:docstring>
+          That participant's unique name.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
   </interface>
 
 </node>
