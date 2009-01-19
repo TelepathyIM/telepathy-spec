@@ -83,7 +83,19 @@
   <tp:error name="Cancelled">
     <tp:docstring>
       Raised by an ongoing request if it is cancelled by user request before
-      it has completed.
+      it has completed, or when operations are performed on an object which
+      the user has asked to close (for instance, a Connection where the user
+      has called Disconnect, or a Channel where the user has called Close).
+
+      <tp:rationale>
+        The second form can be used to correspond to the Requested member in
+        the <tp:type>Connection_Status_Reason</tp:type> enum, or to
+        to represent the situation where disconnecting a Connection,
+        closing a Channel, etc. has been requested by the user but this
+        request has not yet been acted on, for instance because the
+        service will only act on the request when it has finished processing
+        an event queue.
+      </tp:rationale>
     </tp:docstring>
   </tp:error>
 
