@@ -945,6 +945,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     should be emitted when information
     is retrieved from the server, or changes occur.</p>
 
+  <p>If the <tp:member-ref>MembersChanged</tp:member-ref> or
+    <tp:member-ref>MembersChangedDetailed</tp:member-ref> signal indicates
+    that the <tp:member-ref>SelfHandle</tp:member-ref> has been removed from
+    the channel, and the channel subsequently emits <tp:dbus-ref
+      namespace="org.freedesktop.Telepathy.Channel">Closed</tp:dbus-ref>,
+    clients SHOULD consider the details given in the MembersChanged or
+    MembersChangedDetailed signal to be the reason why the channel closed.</p>
+
   <p>Addition of members to the channel may be requested by using
     <tp:member-ref>AddMembers</tp:member-ref>. If
     remote acknowledgement is required, use of the AddMembers method will cause
