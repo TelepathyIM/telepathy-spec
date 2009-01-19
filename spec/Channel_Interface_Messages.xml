@@ -797,7 +797,8 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="s" tp:type="Sent_Message_Token">
+      <arg direction="out" type="s" tp:type="Sent_Message_Token"
+        name="Token">
         <tp:docstring>
           An opaque token used to match any incoming delivery or failure
           reports against this message, or an empty string if the message
