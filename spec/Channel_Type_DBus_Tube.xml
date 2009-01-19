@@ -123,7 +123,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="DBusNames" tp:name-for-bindings="DBus_Names"
-      access="read" type="a(us)" tp:type="DBus_Tube_Member[]">
+      access="read" type="a{us}" tp:type="DBus_Tube_Participants">
       <tp:docstring>
         For a multi-user (i.e. Handle_Type_Room) D-Bus tube, a mapping
         between contact handles and their unique bus names on this tube.
