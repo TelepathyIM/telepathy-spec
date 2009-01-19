@@ -246,11 +246,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A map from contacts to their locations.
       </tp:docstring>
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
-        <tp:docstring>A contact</tp:contact>
+        <tp:docstring>A contact</tp:docstring>
       </tp:member>
       <tp:member name="Location" type="a{sv}" tp:type="Location">
         <tp:docstring>The contact's location, which MAY be empty to indicate
-          that the contact's location is unknown</tp:contact>
+          that the contact's location is unknown</tp:docstring>
       </tp:member>
     </tp:mapping>
 
