@@ -56,11 +56,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:struct>
 
     <tp:struct name="DBus_Tube_Member" array-name="DBus_Tube_Member_List">
-      <tp:docstring>A struct (handle, unique name) representing a participant
-        in a D-Bus tube, as returned by GetDBusNames on the Tubes channel
-        type, and as seen in the DBusNamesChanged signal.</tp:docstring>
-      <tp:member type="u" tp:type="Contact_Handle" name="Handle"/>
-      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name"/>
+      <tp:docstring>Represents a participant in a multi-user D-Bus tube, as
+        returned by <tp:member-ref>GetDBusNames</tp:member-ref> and seen in the
+        <tp:member-ref>DBusNamesChanged</tp:member-ref> signal.</tp:docstring>
+      <tp:member type="u" tp:type="Contact_Handle" name="Handle">
+        <tp:docstring>
+          The handle of a participant in this D-Bus tube.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" tp:type="DBus_Unique_Name" name="Unique_Name">
+        <tp:docstring>
+          That participant's unique name.
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:struct name="Socket_Address_IPv4">
