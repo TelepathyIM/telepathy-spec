@@ -2,6 +2,51 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.18 (UNRELEASED)
+===================================
+
+API changes:
+
+* Unix_Timestamp64 is now a signed 64-bit integer, not unsigned as it was
+  previously. In practice this shouldn't cause problems, as it only appeared
+  in variants, where implementations should be lenient about types in any case.
+
+Changes to experimental API:
+
+* Improve the DBusTube interface: use maps (handle → D-Bus name) rather than
+  lists of structs for D-Bus names, make OfferDBusTube return the address that
+  will be used, remove GetDBusTubeAddress as a result, and turn GetDBusNames
+  into a property
+
+New API:
+
+* The FileTransfer channel type is now considered stable
+
+* A new type has been added, Rich_Presence_Access_Control, for use by
+  rich presence interfaces like Location
+
+New experimental API:
+
+* Replaced the old ContactInfo interface with a much-improved draft
+
+* Added the Location interface, hopefully the first of several "rich presence"
+  interfaces
+
+Deprecations:
+
+* MediaStreamHandler.RemoveRemoteCandidate is deprecated: it seemed like a
+  good idea at the time, but turned out not to be useful
+
+* SetStreamPlaying with argument FALSE is basically meaningless, and is now
+  deprecated
+
+Miscellaneous:
+
+* Sorted out the possible errors for RequestHandles, hopefully for the last
+  time
+
+* Some clarifications to MediaStreamHandler
+
 telepathy-spec 0.17.17 (2009-01-06)
 ===================================
 
