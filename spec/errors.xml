@@ -35,7 +35,17 @@
 
   <tp:error name="Disconnected">
     <tp:docstring>
-    The connection is not currently connected and cannot be used.
+      The connection is not currently connected and cannot be used.
+      This error may also be raised when operations are performed on a
+      Connection for which
+      <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection">StatusChanged</tp:dbus-ref>
+      has signalled status Disconnected for reason None.
+
+      <tp:rationale>
+        The second usage corresponds to None in the
+        <tp:type>Connection_Status_Reason</tp:type> enum; if a better reason
+        is available, the corresponding error should be used instead.
+      </tp:rationale>
     </tp:docstring>
   </tp:error>
 
