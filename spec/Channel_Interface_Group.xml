@@ -593,8 +593,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Banned" value="5">
-        <tp:docstring>
-            The change is due to a kick+ban operation.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The change is due to a kick+ban operation.</p>
+
+          <p>If the <tp:member-ref>SelfHandle</tp:member-ref> is removed
+            from a group for this reason, the equivalent D-Bus error is
+            <code>org.freedesktop.Telepathy.Error.Channel.Banned</code>.
+          </p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Error" value="6">
