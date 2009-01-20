@@ -469,7 +469,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           result of <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Connection">GetSelfHandle</tp:dbus-ref>
           for an active connection).</p>
-        
+
         <p>It is unspecified whether this user ID is globally unique.</p>
 
         <tp:rationale>

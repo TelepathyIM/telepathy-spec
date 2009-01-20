@@ -161,7 +161,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A dictionary of contact handles mapped to a struct containing
         a UNIX timestamp of the last activity time (in UTC), and
         a dictionary mapping the contact's current status identifiers to
-          a dictionary of optional parameter names mapped to their 
+          a dictionary of optional parameter names mapped to their
           variant-boxed values
         </tp:docstring>
       </arg>

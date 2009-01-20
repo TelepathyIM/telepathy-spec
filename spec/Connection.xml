@@ -602,7 +602,7 @@ USA.</p>
           <tp:docstring>
             The given handle type is not valid, or is not implemented on this
             connection.
-            
+
             <tp:rationale>
               For instance, a connection to a protocol that doesn't have
               chat rooms would raise this error for room handles, and all CMs

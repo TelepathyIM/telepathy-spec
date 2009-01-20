@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           com.example.ServiceName.</p>
         <p>When the tube is offered, the service name is transmitted to the
           other end.</p>
-        <p>When requesting a channel with 
+        <p>When requesting a channel with
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>,
           this property MUST be included in the request.</p>
       </tp:docstring>

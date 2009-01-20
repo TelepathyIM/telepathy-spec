@@ -353,7 +353,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>If present, exactly the parameters indicated must be set on this
             field; in the case of an empty list of parameters, this implies that
             parameters may not be used.</p>
-          
+
           <p>If absent, and the list of allowed parameters is non-empty,
             any (possibly empty) subset of that list may be
             used.</p>

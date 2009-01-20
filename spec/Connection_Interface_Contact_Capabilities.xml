@@ -140,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The underlying protocol can get several contacts' capabilities at
             the same time.</p>
         </tp:rationale>
-        
+
       </tp:docstring>
     </signal>
 
