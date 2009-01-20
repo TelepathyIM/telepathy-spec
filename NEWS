@@ -2,14 +2,23 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.18 (UNRELEASED)
+telepathy-spec 0.17.18 (2009-01-20)
 ===================================
+
+The "telekinesis" release.
 
 API changes:
 
 * Unix_Timestamp64 is now a signed 64-bit integer, not unsigned as it was
   previously. In practice this shouldn't cause problems, as it only appeared
   in variants, where implementations should be lenient about types in any case.
+
+* Changed the tp:name-for-bindings annotation on the Tubes channel type to
+  match what telepathy-glib historically generated, meaning that when
+  telepathy-glib code generation changes to use this annotation in 0.7.23,
+  it will not break ABI. (The only binding using tp:name-for-bindings so far
+  is telepathy-qt4, which is not ABI-stable yet anyway, so this change seems
+  unlikely to break things.)
 
 Changes to experimental API:
 
@@ -20,7 +29,7 @@ Changes to experimental API:
 
 New API:
 
-* The FileTransfer channel type is now considered stable
+* The FileTransfer channel type is now considered stable (much rejoicing)
 
 * A new type has been added, Rich_Presence_Access_Control, for use by
   rich presence interfaces like Location
@@ -46,6 +55,9 @@ Miscellaneous:
   time
 
 * Some clarifications to MediaStreamHandler
+
+* Added names for all 'out' parameters and made doc-generator.xsl warn
+  whenever this has not been done
 
 telepathy-spec 0.17.17 (2009-01-06)
 ===================================
