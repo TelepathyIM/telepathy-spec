@@ -267,6 +267,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:simple-type name="VCard_Field" type="s">
+      <tp:docstring>
+        A string naming a field in a vCard, such as "fn" or "adr". Although
+        these are case-insensitive in RFC 2425, in Telepathy they MUST be
+        normalized to lower case. In the terminology of RFC 2425 this is
+        called a "type name", and corresponds to the "name" production given
+        in the ABNF.
+      </tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="VCard_Type_Parameter" type="s">
+      <tp:docstring>
+        The value of the TYPE type parameter as defined by RFC 2426.
+        Other type parameters are not supported by this interface.
+      </tp:docstring>
+    </tp:simple-type>
+
     <property name="ContactInfoFlags" type="u" access="read"
       tp:type="Contact_Info_Flag" tp:name-for-bindings="Contact_Info_Flags">
       <tp:docstring>
@@ -280,11 +297,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         may be passed to <tp:member-ref>SetContactInfo</tp:member-ref> on this
         Connection.</tp:docstring>
 
-      <tp:member type="s" name="Name">
+      <tp:member type="s" name="Name" tp:type="VCard_Field">
         <tp:docstring>A vCard field name, such as 'tel'.</tp:docstring>
       </tp:member>
 
-      <tp:member type="as" name="Parameters">
+      <tp:member type="as" name="Parameters" tp:type="VCard_Type_Parameter[]">
         <tp:docstring>The set of vCard type parameters which may be set on this
           field. If this list is empty and the
           Contact_Info_Field_Flag_Parameters_Mandatory
