@@ -51,6 +51,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 <xi:include href="Channel_Type_Stream_Tube.xml"/>
 <xi:include href="Channel_Type_DBus_Tube.xml"/>
 <xi:include href="Channel_Type_File_Transfer.xml"/>
+<xi:include href="Channel_Type_Contact_Search.xml"/>
 
 <xi:include href="Channel_Interface_Call_Merging.xml"/>
 <xi:include href="Channel_Interface_Call_State.xml"/>
