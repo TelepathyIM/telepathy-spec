@@ -373,7 +373,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>In the past, several other patterns have been used to place outgoing
         calls; see
-        <tt>http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels</tt>
+        <a href="http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels">'Requesting StreamedMedia Channels' on the Telepathy wiki</a>
         for the details.</p>
 
     <p>In general this should be used in conjunction with the <tp:dbus-ref
