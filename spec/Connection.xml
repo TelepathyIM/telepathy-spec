@@ -492,6 +492,12 @@ USA.</p>
             The requested channel type cannot be created with the given handle
           </tp:docstring>
         </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
+          <tp:docstring>
+            The requested channel cannot be created because contact doesn't
+            have the required capabilities.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
         <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>

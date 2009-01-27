@@ -229,6 +229,12 @@
     </tp:docstring>
   </tp:error>
 
+  <tp:error name="Not Capable">
+    <tp:docstring>
+    Raised when requested functionality is unavailable due to contact
+    not having required capabilities.
+    </tp:docstring>
+  </tp:error>
   <tp:copyright>Copyright (C) 2005-2008 Collabora Limited</tp:copyright>
   <tp:copyright>Copyright (C) 2005-2008 Nokia Corporation</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
