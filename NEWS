@@ -2,6 +2,37 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.19 (UNRELEASED)
+===================================
+
+Changes to experimental API:
+
+* Tube.Status is now called Tube.State to be more consistent
+
+New API:
+
+* Many new errors: NotCapable (a more specific form of NotAvailable),
+  and D-Bus error forms of all the Connection disconnection reasons
+
+* ConnectionError, a signal which can emit extensible error information
+  from the Connection just before StatusChanged(Disconnected, ...) is signalled
+
+New experimental API:
+
+* A preliminary design for audio, video and transport capabilities has been
+  added to StreamedMedia.FUTURE and MediaSignalling.FUTURE
+
+Clarifications:
+
+* The reason for the SelfHandle being removed from a Group before a channel
+  closes can be taken to be the error that the channel closed.
+  (telepathy-glib already had this interpretation.)
+
+Tools:
+
+* It is now possible to have hyperlinks (or other HTML with attributes)
+  in the specification markup format
+
 telepathy-spec 0.17.18 (2009-01-20)
 ===================================
 
