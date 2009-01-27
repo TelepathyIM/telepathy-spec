@@ -40,11 +40,17 @@
     <property name="InitialAudio" tp:name-for-bindings="Initial_Audio"
       type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If set to true in a channel request, the connection manager should
-          immediately attempt to establish an audio stream to the remote
-          contact, making it unnecessary for the client to call
-          <tp:dbus-ref
+        <p>If set to true in a channel request that will create a new channel,
+          the connection manager should immediately attempt to establish an
+          audio stream to the remote contact, making it unnecessary for the
+          client to call <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">RequestStreams</tp:dbus-ref>.</p>
+
+        <p>If this property, or InitialVideo, is passed to EnsureChannel
+          (as opposed to CreateChannel), the connection manager SHOULD ignore
+          these properties when checking whether it can return an existing
+          channel as suitable; these properties only become significant when
+          the connection manager has decided to create a new channel.</p>
 
         <p>If true on a requested channel, this indicates that the audio
           stream has already been requested and the client does not need to
