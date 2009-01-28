@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.19 (UNRELEASED)
+telepathy-spec 0.17.19 (2009-01-28)
 ===================================
+
+The "out of cheese error" release.
 
 Changes to experimental API:
 
@@ -12,7 +14,12 @@ Changes to experimental API:
 New API:
 
 * Many new errors: NotCapable (a more specific form of NotAvailable),
-  and D-Bus error forms of all the Connection disconnection reasons
+  and D-Bus error forms of all the Connection disconnection reasons and
+  all the error-like Group change reasons: Offline, Channel.Kicked,
+  Busy, DoesNotExist, NoAnswer, AuthenticationFailed, EncryptionNotAvailable,
+  EncryptionError, Cert.NotProvided, Cert.Untrusted, Cert.Expired,
+  Cert.NotActivated, Cert.FingerprintMismatch, Cert.HostnameMismatch,
+  Cert.SelfSigned, Cert.Invalid
 
 * ConnectionError, a signal which can emit extensible error information
   from the Connection just before StatusChanged(Disconnected, ...) is signalled
