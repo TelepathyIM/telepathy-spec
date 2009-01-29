@@ -242,9 +242,9 @@
     <property name="Statuses" tp:name-for-bindings="Statuses" access="read"
       type="a{s(ubb)}" tp:type="Simple_Status_Spec_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A dictionary where the keys are the presence statuses that the user
-          can set on themselves for this connection, and the values are the
-          corresponding presence types.</p>
+        <p>A dictionary where the keys are the presence statuses that are
+          available on this connection, and the values are the corresponding
+          presence types.</p>
 
         <p>While the connection is in the DISCONNECTED state, it contains
           the set of presence statuses allowed to be set before connecting.
