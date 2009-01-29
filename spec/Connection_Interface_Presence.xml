@@ -27,7 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Presence">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
-    <!-- We hope to simplify these eventually -->
     <tp:mapping name="Multiple_Status_Map">
       <tp:docstring>Mapping used in
         <tp:type>Last_Activity_And_Statuses</tp:type> and passed to
@@ -281,12 +280,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
+
+    <tp:deprecated version="0.17.UNRELEASED">New client implementations
+      SHOULD use <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
+      instead. New connection managers SHOULD implement both Presence
+      and SimplePresence.</tp:deprecated>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface will become deprecated in future versions. New
-        client implementations MAY use <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
-        instead; new connection managers SHOULD implement both Presence and
-        SimplePresence.</p>
 
       <p>This interface is for services which have a concept of presence which
         can be published for yourself and monitored on your contacts.
@@ -299,28 +300,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     per connection, and a list of them can be obtained with the
     <tp:member-ref>GetStatuses</tp:member-ref> method.</p>
 
+    <p>(The SimplePresence interface which replaces this one restricts
+      presences to one status per contact, with an optional message, which is
+      in practice all that was implemented on this interface.)</p>
+
     <p>Each status has an arbitrary string identifier which should have an agreed
     meaning between the connection manager and any client which is expected to
-    make use of it. The following well-known values (in common with those in
-    Galago) should be used where possible to allow clients to identify common
-    choices:</p>
-
-    <ul>
-      <li>available (corresponding to Connection_Presence_Type_Available)</li>
-      <li>away (corresponding to Connection_Presence_Type_Away)</li>
-      <li>brb (Be Right Back) (corresponding to
-        Connection_Presence_Type_Away, but more specific)</li>
-      <li>busy (corresponding to Connection_Presence_Type_Busy)</li>
-      <li>dnd (Do Not Disturb) (corresponding to
-        Connection_Presence_Type_Busy, but more specific)</li>
-      <li>xa (Extended Away) (corresponding to
-        Connection_Presence_Type_Extended_Away)</li>
-      <li>hidden (aka Invisible) (corresponding to
-        Connection_Presence_Type_Hidden)</li>
-      <li>offline (corresponding to Connection_Presence_Type_Offline)</li>
-      <li>unknown (corresponding to Connection_Presence_Type_Unknown)</li>
-      <li>error (corresponding to Connection_Presence_Type_Error)</li>
-    </ul>
+    make use of it. The well-known values defined by the <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
+      interface SHOULD be used where possible</p>
 
     <p>As well as these well-known status identifiers, every status also has a
     numerical type value chosen from
