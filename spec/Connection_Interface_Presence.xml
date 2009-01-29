@@ -249,17 +249,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           map optional parameter names to their variant-boxed values
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request that the user's presence be changed to the given statuses and
-        desired parameters. Changes will be reflected by
-        <tp:member-ref>PresenceUpdate</tp:member-ref>
-        signals being emitted. On certain protocols, this method may be
-        called on a newly-created connection which is still in the
-        DISCONNECTED state, and will sign on with the requested status.
-        If the requested status is not available after signing on,
-        NotAvailable will be returned and the connection will remain
-        offline, or if the protocol does not support signing on with
-        a certain status, Disconnected will be returned.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the user's presence be changed to the given statuses
+          and desired parameters. Changes will be reflected by
+          <tp:member-ref>PresenceUpdate</tp:member-ref>
+          signals being emitted.</p>
+
+        <p>Statuses whose <tp:type>Connection_Presence_Type</tp:type>
+          is Offline, Error or Unknown MUST NOT be passed to this
+          function. Connection managers SHOULD reject these statuses.</p>
+
+        <tp:rationale>
+          <p>The same rationale as for <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence.SetPresence</tp:dbus-ref>
+            applies.</p>
+        </tp:rationale>
+
+        <p>On certain protocols, this method may be
+          called on a newly-created connection which is still in the
+          DISCONNECTED state, and will sign on with the requested status.
+          If the requested status is not available after signing on,
+          NotAvailable will be returned and the connection will remain
+          offline, or if the protocol does not support signing on with
+          a certain status, Disconnected will be returned.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>

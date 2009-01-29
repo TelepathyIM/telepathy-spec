@@ -151,6 +151,16 @@
               the choices would be appropriate, and incorrect information
               about the user would be conveyed.</p>
           </tp:rationale>
+
+          <p>Statuses whose <tp:type>Connection_Presence_Type</tp:type>
+            is Offline, Error or Unknown MUST NOT be passed to this
+            function. Connection managers SHOULD reject these statuses.</p>
+
+          <tp:rationale>
+            <p>To go offline, call <tp:dbus-ref
+                namespace="org.freedesktop.Telepathy.Connection">Disconnect</tp:dbus-ref>
+            instead. The "error" and "unknown" statuses make no sense.</p>
+          </tp:rationale>
         </tp:docstring>
       </arg>
       <arg direction="in" name="Status_Message" type="s">
