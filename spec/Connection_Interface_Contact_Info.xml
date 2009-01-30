@@ -270,8 +270,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="ContactInfoFlags" type="u" access="read"
       tp:type="Contact_Info_Flag" tp:name-for-bindings="Contact_Info_Flags">
       <tp:docstring>
-        An integer representing the bitwise-OR of flags on this channel. This
-        property should be constant over the lifetime of a connection.
+        An integer representing the bitwise-OR of flags on this connection.
+        This property should be constant over the lifetime of a connection.
       </tp:docstring>
     </property>
 
