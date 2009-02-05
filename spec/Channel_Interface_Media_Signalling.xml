@@ -120,6 +120,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dt>gtalk-p2p</dt>
         <dd>Google Talk peer-to-peer connectivity establishment should be used,
         as implemented in libjingle 0.3.</dd>
+
+        <dt>ice-udp</dt>
+        <dd>
+          Interactive Connectivity Establishment should be used, as defined by
+          the IETF MMUSIC working group.
+        </dd>
       </dl>
       </tp:docstring>
     </tp:property>
