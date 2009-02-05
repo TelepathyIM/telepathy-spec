@@ -258,7 +258,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           server being searched by this channel, e.g.
           "characters.shakespeare.lit".  Otherwise, the empty string.</p>
 
-        <p>This property cannot change during the lifetime of the channel.</p>
+        <tp:rationale>
+          <p>XEP 0055 defines a mechanism for XMPP clients to search services
+            of their choice for contacts, such as users.jabber.org (the "Jabber
+            User Directory").</p>
+        </tp:rationale>
+
+        <p>This property cannot change during the lifetime of the channel.
+          This property SHOULD be in the Allowed_Properties of a
+          <tp:type>Requestable_Channel_Class</tp:type> if and only if the
+          protocol supports querying multiple different servers;
+          implementations MAY use a sensible default if this is not specified
+          in a channel request, or MAY reject the request.</p>
       </tp:docstring>
     </property>
 
