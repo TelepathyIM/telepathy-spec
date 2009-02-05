@@ -123,7 +123,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    BEGIN:vCard
    VERSION:3.0
    FN:Wee Ninja
-   N:Ninja;Wee;;;-san
+   N;LANGUAGE=ja:Ninja;Wee;;;-san
    ORG:Collabora, Ltd.;Human Resources\; Company Policy Enforcement
    ADR;TYPE=WORK,POSTAL,PARCEL:;;11 Kings Parade;Cambridge;Cambridgeshire
     ;CB2 1SJ;UK
@@ -139,7 +139,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <pre>
 [
   ('fn', [], ['Wee Ninja']),
-  ('n', [], ['Ninja', 'Wee', '', '', '-san']),
+  ('n', ['language=ja'], ['Ninja', 'Wee', '', '', '-san']),
   ('org', [], ['Collabora, Ltd.', 'Human Resources; Company Policy Enforcement']),
   ('adr', ['type=work','type=postal','type=parcel'],
    ['','','11 Kings Parade','Cambridge', 'Cambridgeshire','CB2 1SJ','UK']),
