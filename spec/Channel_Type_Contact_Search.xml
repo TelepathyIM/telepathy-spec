@@ -28,22 +28,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         closed when the search is completed or the required result has been
         found in order to free unused handles.</p>
 
-      <p>The search can be cancelled at
-        any time by calling the channel's Close method. Depending on the
-        protocol, the connection manager may not be able to prevent the server
-        from sending further results; if this is the case, it MUST ignore
-        any further results.</p>
+      <p>The search can be cancelled at any time by calling the channel's
+        <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+        method.  Depending on the protocol, the connection manager may not be
+        able to prevent the server from sending further results; if this is the
+        case, it MUST ignore any further results.</p>
 
       <p>Before searching, the
         <tp:member-ref>AvailableSearchKeys</tp:member-ref> property should be
-        inspected to determine the valid search keys which can be provided
-        to the Search method. A search request is then started by providing
-        some of these terms to the Search method, and the search status will
-        change from Not_Started to In_Progress.  As results are returned by the
-        server, the
-        SearchResultReceived signal is emitted for each contact found;
-        when the search is complete, the search status will be set to
-        Completed.</p>
+        inspected to determine the valid search keys which can be provided to
+        the <tp:member-ref>Search</tp:member-ref> method. A search request is
+        then started by providing some of these terms to the Search method, and
+        the <tp:member-ref>SearchState</tp:member-ref> will change from
+        Not_Started to In_Progress.  As results are returned by the server, the
+        <tp:member-ref>SearchResultReceived</tp:member-ref> signal is emitted
+        for each contact found; when the search is complete, the search state
+        will be set to Completed.</p>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
@@ -172,7 +173,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         This property cannot change during the lifetime of a channel.
 
         <tp:rationale>
-          It can be in the NewChannels signal for round-trip reduction.
+          It can be in the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          signal for round-trip reduction.
         </tp:rationale>
       </tp:docstring>
     </property>
@@ -203,9 +206,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Send a request to start a search for contacts on this connection. A
-        valid search request will cause the SearchStateChanged signal to be
-        emitted with the status In_Progress.
+        Send a request to start a search for contacts on this connection. This
+        may only be called while the <tp:member-ref>SearchState</tp:member-ref>
+        is Not_Started; a valid search request will cause the
+        <tp:member-ref>SearchStateChanged</tp:member-ref> signal to be emitted
+        with the state In_Progress.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
