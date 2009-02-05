@@ -117,24 +117,50 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="RelayInfo" type="a{ss}" access="read"
-      tp:type="String_String_Map" tp:name-for-bindings="Relay_Info">
+    <property name="RelayInfo" type="aa{ss}" access="read"
+      tp:type="String_String_Map[]" tp:name-for-bindings="Relay_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A map containing relay information for this stream, to be used
-        with google relay. Map keys are:</p>
-        <ul>
-            <li>stun.ip - IP address of STUN server</li>
-            <li>stun.port - port of STUN server</li>
-            <li>relay.ip - IP address of relay server</li>
-            <li>relay.udp_port - UDP port of relay server</li>
-            <li>relay.tcp_port - TCP port of relay server</li>
-            <li>relay.ssltcp_port - SSLTCP port of relay server</li>
-            <li>username - Username for relay</li>
-            <li>pasword - Password for relay</li>
-            <li>magic_cookie - Magic cookie for relay</li>
-        </ul>
-        <p>If relaying is not possible for this stream, the map is empty.
-        </p>
+        <p>A list of mappings containing information about how this stream
+          can be relayed, to be used with TURN or Google relay servers.
+          Map keys are:</p>
+
+        <dl>
+          <dt><code>ip</code></dt>
+          <dd>The IP address of the relay server as a dotted-quad IPv4
+            address literal or an RFC2373 IPv6 address literal</dd>
+          <!-- Open issue: should the CM or the streaming implementation
+          be responsible for resolving hostnames to IPs? Bear in mind that
+          this might be a SRV record... -->
+
+          <dt><code>type</code></dt>
+          <dd>Either <code>udp</code> for UDP (UDP MUST be assumed if this
+            key is omitted), <code>tcp</code> for TCP, or
+            <code>tls</code> for a fake SSL/TLS session over TCP as supported
+            by the Google relay server</dd>
+
+          <dt><code>port</code></dt>
+          <dd>The UDP or TCP port of the relay server as an ASCII unsigned
+            integer</dd>
+
+          <dt><code>username</code></dt>
+          <dd>The username to use</dd>
+
+          <dt><code>password</code></dt>
+          <dd>The password to use</dd>
+
+          <dt><code>component</code></dt>
+          <dd>The component number to use this relay server for, as an
+            ASCII unsigned integer; if not included, this relay server
+            may be used for any or all components</dd>
+        </dl>
+
+        <p>The type of relay server that this represents depends on
+          the value of the <tp:member-ref>NATTraversal</tp:member-ref>
+          property. If NATTraversal is ice-udp, this is a TURN server;
+          if NATTraversal is gtalk-p2p, this is a Google relay server;
+          otherwise, the meaning of RelayInfo is undefined.</p>
+
+        <p>If relaying is not possible for this stream, the list is empty.</p>
       </tp:docstring>
     </property>
 
