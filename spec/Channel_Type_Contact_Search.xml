@@ -268,8 +268,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           This property SHOULD be in the Allowed_Properties of a
           <tp:type>Requestable_Channel_Class</tp:type> if and only if the
           protocol supports querying multiple different servers;
-          implementations MAY use a sensible default if this is not specified
-          in a channel request, or MAY reject the request.</p>
+          implementations SHOULD use a sensible default if possible if this
+          property is not specified in a channel request.</p>
+
+        <tp:rationale>
+          <p>This allows a client to perform searches on a protocol it knows
+            nothing about without requiring the user to guess a valid server's
+            hostname.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
