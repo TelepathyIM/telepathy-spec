@@ -279,8 +279,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:simple-type name="VCard_Type_Parameter" type="s">
       <tp:docstring>
-        The value of the TYPE type parameter as defined by RFC 2426.
-        Other type parameters are not supported by this interface.
+        A type parameter as defined by RFC 2426, such as "type=cell" or
+        "language=en".
       </tp:docstring>
     </tp:simple-type>
 
