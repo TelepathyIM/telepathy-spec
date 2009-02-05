@@ -39,20 +39,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         inspected to determine the valid search keys which can be provided
         to the Search method. A search request is then started by providing
         some of these terms to the Search method, and the search status will
-        be set to During. As results are returned by the server, the
+        change from Not_Started to In_Progress.  As results are returned by the
+        server, the
         SearchResultReceived signal is emitted for each contact found;
         when the search is complete, the search status will be set to
-        After.</p>
+        Completed.</p>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
-      <tp:enumvalue suffix="Before" value="0">
+      <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>The search has not started</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="During" value="1">
+      <tp:enumvalue suffix="In_Progress" value="1">
         <tp:docstring>The search is in progress</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="After" value="2">
+      <tp:enumvalue suffix="Completed" value="2">
         <tp:docstring>The search has been completed</tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -204,13 +205,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Send a request to start a search for contacts on this connection. A
         valid search request will cause the SearchStateChanged signal to be
-        emitted with the status During.
+        emitted with the status In_Progress.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The <tp:member-ref>SearchState</tp:member-ref> is no longer Before,
-            so this method is no longer available.
+            The <tp:member-ref>SearchState</tp:member-ref> is no longer
+            Not_Started, so this method is no longer available.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
