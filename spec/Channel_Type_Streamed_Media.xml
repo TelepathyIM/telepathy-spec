@@ -422,6 +422,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           connections (as implemented in libjingle 0.3) to traverse NATs.
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="NAT_Traversal_ICE_UDP" value="16">
+        <tp:docstring>
+          The handle is capable of establishing ICE UDP peer-to-peer
+          connections (as defined by the IETF MMUSIC working group) to traverse
+          NATs.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
   </interface>
