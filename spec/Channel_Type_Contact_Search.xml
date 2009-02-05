@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             (e.g. searching for each word mentioned)
             <tp:rationale>
               The "one big search box" approach to searching, as is familiar
-              from Google. The sametime plugin to Pidgin appears to search in
+              from Google. The Sametime plugin to Pidgin appears to search in
               this way.
             </tp:rationale>
           </dd>
@@ -113,8 +113,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:rationale>
               Otherwise, starting a search by identifier would require the UI
               to know the vCard field name corresponding to identifiers in
-              this protocol, which might be non-standard (like x-jabber)
-              or not exist at all.
+              this protocol, which might be non-standard (like
+              <code>x-jabber</code>) or not exist at all.
             </tp:rationale>
           </dd>
 
@@ -134,7 +134,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>Search for the search term in contacts' family names
             (the first component of the vCard field <code>n</code>).
             <tp:rationale>
-              Gadu-Gadu and TOC seem to suppor this mode of searching.
+              Gadu-Gadu and TOC seem to support this mode of searching.
             </tp:rationale>
           </dd>
 
@@ -142,7 +142,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>Search for the search term in contacts' given names
             (the second component of the vCard field <code>n</code>).
             <tp:rationale>
-              As for x-family.
+              As for <code>x-n-family</code>.
             </tp:rationale>
           </dd>
 
