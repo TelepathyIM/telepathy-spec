@@ -70,6 +70,53 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
+    <property name="STUNServer" tp:name-for-bindings="STUN_Server"
+      type="s" access="read">
+      <tp:added version="0.17.UNRELEASED"/>
+      <tp:docstring>
+        The IP address or hostname of the STUN server to use for NAT traversal.
+        <!-- Unresolved issue: should we mandate that this is an IP address? -->
+      </tp:docstring>
+    </property>
+
+    <property name="STUNPort" tp:name-for-bindings="STUN_Port"
+      type="u" access="read">
+      <tp:added version="0.17.UNRELEASED"/>
+      <tp:docstring>
+        The UDP port number to use on the
+        <tp:member-ref>STUNServer</tp:member-ref>.
+      </tp:docstring>
+    </property>
+
+    <property name="NATTraversal" tp:name-for-bindings="NAT_Traversal"
+      type="s" access="read">
+      <tp:added version="0.17.UNRELEASED"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The transport (NAT traversal technique) to be used for this
+          stream. Well-known values include:</p>
+
+        <dl>
+          <dt>none</dt>
+          <dd>Raw UDP with no attempt made at doing NAT traversal. The
+            stun-server property MUST be absent or empty.</dd>
+
+          <dt>stun</dt>
+          <dd>Raw UDP, but a STUN request should be made to the given server
+            to open a UDP port mapping and determine the external IP.
+            The <tp:member-ref>STUNServer</tp:member-ref> property MUST be
+            given and non-empty.</dd>
+
+          <dt>gtalk-p2p</dt>
+          <dd>Google Talk peer-to-peer connectivity establishment should be
+            used, as implemented in libjingle 0.3.</dd>
+
+          <dt>ice-udp</dt>
+          <dd>Interactive Connectivity Establishment should be used,
+            as defined by the IETF MMUSIC working group.</dd>
+        </dl>
+      </tp:docstring>
+    </property>
+
     <property name="RelayInfo" type="a{ss}" access="read"
       tp:type="String_String_Map" tp:name-for-bindings="Relay_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
