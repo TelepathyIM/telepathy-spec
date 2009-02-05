@@ -28,11 +28,14 @@ New API:
 
 * ConnectionError, a signal which can emit extensible error information
   from the Connection just before StatusChanged(Disconnected, ...) is signalled
+  (fd.o #17974)
 
 New experimental API:
 
 * A preliminary design for audio, video and transport capabilities has been
   added to StreamedMedia.FUTURE and MediaSignalling.FUTURE
+  (this will also address fd.o #17246, requesting initial audio/video streams,
+  when it becomes stable)
 
 Clarifications:
 
@@ -80,6 +83,7 @@ New API:
 New experimental API:
 
 * Replaced the old ContactInfo interface with a much-improved draft
+  (closes fd.o #19613, will close #13350 when stable)
 
 * Added the Location interface, hopefully the first of several "rich presence"
   interfaces
@@ -95,7 +99,7 @@ Deprecations:
 Miscellaneous:
 
 * Sorted out the possible errors for RequestHandles, hopefully for the last
-  time
+  time (fd.o #19610)
 
 * Some clarifications to MediaStreamHandler
 
@@ -273,6 +277,7 @@ New API:
 * Channel_Text_Message_Flag_Scrollback (or 'scrollback' in the Messages
   header) indicates an incoming message that is a replay of a message from
   the past, e.g. when joining an XMPP MUC or an IRC proxy that records backlog
+  (fd.o #14483)
 
 * Channel_Text_Message_Flag_Rescued (or 'rescued' in the Messages header)
   indicates an incoming message that has already been seen on this Connection,
@@ -281,7 +286,7 @@ New API:
 
 * The 'stored' ContactList indicates all the contacts stored in a persistent
   contact list on the server (e.g. the XMPP roster), and is not present at all
-  if there is no such list (e.g. in SIP presence)
+  if there is no such list (e.g. in SIP presence) (fd.o #16480)
 
 telepathy-spec 0.17.13 (2008-10-13)
 ===================================
@@ -353,6 +358,7 @@ The "release the global implementor lock" release.
 New API:
 
 * Connection.Interface.Requests has been declared to be stable.
+  (fd.o #15418, and partially addresses #14606)
 
   The EnsureChannel method introduced by Simon's dispatcher-clients branch has
   not yet been added, but will be added in a future spec release.
