@@ -90,7 +90,7 @@
     <tp:member type="v" name="Value"/>
   </tp:mapping>
 
-  <tp:mapping name="String_String_Map">
+  <tp:mapping name="String_String_Map" array-name="String_String_Map_List">
     <tp:docstring>A mapping from strings to strings representing extra
       key-value pairs.</tp:docstring>
     <tp:member type="s" name="Key"/>
