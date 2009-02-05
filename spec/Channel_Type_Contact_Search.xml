@@ -102,8 +102,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             regardless of its work/home/mobile/... status).</dd>
 
           <dt>A <tp:type>VCard_Field</tp:type> followed by
-            "<code>;type=</code>" and a
-            <tp:type>VCard_Type_Parameter</tp:type></dt>
+            "<code>;</code>" and a
+            <tp:type>VCard_Type_Parameter</tp:type> of the form
+            "<code>type=...</code>"</dt>
           <dd>Search for the search term in fields of that name and type
             only (for instance, <code>tel;type=mobile</code>).</dd>
 
