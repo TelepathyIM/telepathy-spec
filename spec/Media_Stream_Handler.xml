@@ -75,6 +75,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.UNRELEASED"/>
       <tp:docstring>
         The IP address or hostname of the STUN server to use for NAT traversal.
+        This property cannot change once the stream has been created, so there
+        is no change notification.
         <!-- Unresolved issue: should we mandate that this is an IP address? -->
       </tp:docstring>
     </property>
@@ -85,6 +87,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The UDP port number to use on the
         <tp:member-ref>STUNServer</tp:member-ref>.
+        This property cannot change once the stream has been created, so there
+        is no change notification.
       </tp:docstring>
     </property>
 
@@ -114,6 +118,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>Interactive Connectivity Establishment should be used,
             as defined by the IETF MMUSIC working group.</dd>
         </dl>
+
+        <p>This property cannot change once the stream has been created, so
+          there is no change notification.</p>
       </tp:docstring>
     </property>
 
@@ -174,6 +181,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           otherwise, the meaning of RelayInfo is undefined.</p>
 
         <p>If relaying is not possible for this stream, the list is empty.</p>
+
+        <p>This property cannot change once the stream has been created, so
+          there is no change notification.</p>
       </tp:docstring>
     </property>
 
