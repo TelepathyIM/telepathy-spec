@@ -57,6 +57,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Completed" value="2">
         <tp:docstring>The search has been completed</tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Failed" value="3">
+        <tp:docstring>The search has failed</tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <property name="SearchState" tp:name-for-bindings="Search_State"
@@ -72,9 +75,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="State" type="u" tp:type="Channel_Contact_Search_State">
         <tp:docstring>The new search state</tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when the <tp:member-ref>SearchState</tp:member-ref> property
-        changes.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when the <tp:member-ref>SearchState</tp:member-ref> property
+          changes. The implementation MUST NOT make transitions other than the
+          following:</p>
+
+        <ul>
+          <li><code>Not_Started</code> → <code>In_Progress</code></li>
+          <li><code>In_Progress</code> → <code>Completed</code></li>
+          <li><code>In_Progress</code> → <code>Failed</code></li>
+        </ul>
       </tp:docstring>
     </signal>
 
