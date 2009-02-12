@@ -47,6 +47,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         for each contact found; when the search is complete, the search state
         will be set to <code>Completed</code>. If the search fails after Search
         has been called, the state will change to <code>Failed</code>.</p>
+
+      <p>Each channel can only be used for a single search; a new channel
+        should be requested for each subsequent search. Connection managers
+        MUST support multiple ContactSearch channels being open at once (even
+        to the same server, if applicable).</p>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
