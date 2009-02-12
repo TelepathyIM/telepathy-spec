@@ -44,7 +44,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Not_Started to In_Progress.  As results are returned by the server, the
         <tp:member-ref>SearchResultReceived</tp:member-ref> signal is emitted
         for each contact found; when the search is complete, the search state
-        will be set to Completed.</p>
+        will be set to Completed. If the search fails after Search has been
+        called, the state will change to Failed.</p>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
