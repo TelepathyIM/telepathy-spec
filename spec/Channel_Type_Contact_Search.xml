@@ -41,11 +41,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the <tp:member-ref>Search</tp:member-ref> method. A search request is
         then started by providing some of these terms to the Search method, and
         the <tp:member-ref>SearchState</tp:member-ref> will change from
-        Not_Started to In_Progress.  As results are returned by the server, the
+        <code>Not_Started</code> to <code>In_Progress</code>.  As results are
+        returned by the server, the
         <tp:member-ref>SearchResultReceived</tp:member-ref> signal is emitted
         for each contact found; when the search is complete, the search state
-        will be set to Completed. If the search fails after Search has been
-        called, the state will change to Failed.</p>
+        will be set to <code>Completed</code>. If the search fails after Search
+        has been called, the state will change to <code>Failed</code>.</p>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
