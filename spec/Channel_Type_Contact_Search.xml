@@ -75,6 +75,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="State" type="u" tp:type="Channel_Contact_Search_State">
         <tp:docstring>The new search state</tp:docstring>
       </arg>
+      <arg name="Error" type="s" tp:type="DBus_Error_Name">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          If the new state is <code>Failed</code>, the name of a D-Bus error
+          describing what went wrong. Otherwise, the empty string.
+        </tp:docstring>
+      </arg>
+      <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Additional information about the state transition, which may
+            include the following well-known keys:</p>
+
+          <dl>
+            <dt>debug-message (s)</dt>
+            <dd>Debugging information on the change, corresponding to the
+              message part of a D-Bus error message, which SHOULD NOT be
+              displayed to users under normal circumstances</dd>
+          </dl>
+
+          <tp:rationale>
+            <p>This argument allows for future extensions. For instance,
+              if moving to state <code>Failed</code> because the server
+              rejected one of our search terms, we could define a key
+              that indicates which terms were invalid.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the <tp:member-ref>SearchState</tp:member-ref> property
           changes. The implementation MUST NOT make transitions other than the
