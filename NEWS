@@ -5,7 +5,35 @@ checkouts.
 telepathy-spec 0.17.20 (UNRELEASED)
 ===================================
 
-...
+Changes to experimental API:
+
+* In ContactInfo the vCard TYPE type-parameter is represented as, for instance,
+  "type=work" rather than just "work", and other type-parameters such as
+  "language" are supported using similar syntax
+
+* Tube parameters for outgoing tubes are now set when offering the tube, not
+  when requesting it
+
+* Generic Tube capabilities should be advertised on protocols like XMPP even
+  if no client supports a particular tube type, to reduce the "barrier to
+  entry" for Tube apps
+
+New API:
+
+* ice-udp is available as an additional value for MediaSignalling channels'
+  nat-traversal Telepathy property, and NAT_Traversal_ICE_UDP is a new
+  channel-type-specific capability for StreamedMedia channels
+
+Deprecations:
+
+* The old (complex) Presence interface is deprecated in favour of
+  SimplePresence; new client code should use SimplePresence, and connection
+  managers with Presence should implement SimplePresence as soon as possible
+
+Clarifications:
+
+* Setting a status of type Offline, Unknown or Error for yourself is explicitly
+  forbidden
 
 telepathy-spec 0.17.19 (2009-01-28)
 ===================================
