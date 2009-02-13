@@ -45,7 +45,34 @@ class Method (base):
         self.in_args = filter (lambda a: a.direction == Arg.DIRECTION_IN, args)
         self.out_args = filter (lambda a: a.direction == Arg.DIRECTION_OUT, args)
 
-class Property (base): pass
+class Property (base):
+    ACCESS_READ     = 0x01
+    ACCESS_WRITE    = 0x10
+    
+    ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
+
+    def __init__ (self, parent, namespace, dom):
+        super (Property, self).__init__ (parent, namespace, dom)
+
+        type_ = dom.getAttributeNS (XMLNS_TP, 'type')
+        self.type = lookup_type (type_)
+
+        self.dbus_type = dom.getAttribute ('type')
+        
+        access = dom.getAttribute ('access')
+        if access == 'read':
+            self.access = self.ACCESS_READ
+        elif access == 'write':
+            self.access = self.ACCESS_WRITE
+        elif access == 'readwrite':
+            self.access = self.ACCESS_READWRITE
+        else:
+            class UnknownAccess (Exception): pass
+            raise UnknownAccess ("Unknown access `%s' on %s" % (
+                                    access, self))
+
+    def __repr__ (self):
+        return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
 class Arg (base):
     DIRECTION_IN, DIRECTION_OUT = range (2)
@@ -121,7 +148,8 @@ class Flags (DBusType): pass
 
 def lookup_type (type_):
     if type_.endswith ('[]'):
-        type_ = type_[:-2]
+        # FIXME: should this be wrapped in some sort of Array() class?
+        return lookup_type (type_[:-2])
 
     if type_ == '': return None
     elif type_ in types:
@@ -177,6 +205,8 @@ def parse (filename):
                     errorsnode.getAttribute ('namespace'),
                     errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error')))
     # build a dictionary of ALL types in this spec
+    # FIXME: if we're doing all type parsing here, work out how to associate
+    # types with an Interface
     parse_types (None, dom, types)
     # build a dictionary of interfaces in this spec
     interfaces = build_dict (None, Interface, None,
