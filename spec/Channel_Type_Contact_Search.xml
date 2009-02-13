@@ -232,8 +232,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The set of search keys supported by this channel. Example values
         include [""] (for protocols where several address fields are
-        implicitly searched) or ["x-n-given", "x-n-family", "nickname"]
-        (for XMPP XEP-0055, without extensibility via Data Forms).
+        implicitly searched) or ["x-n-given", "x-n-family", "nickname",
+        "email"] (for XMPP XEP-0055, without extensibility via Data Forms).
         This property cannot change during the lifetime of a channel.
 
         <tp:rationale>
