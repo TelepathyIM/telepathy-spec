@@ -151,7 +151,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>Search for the search term in fields of that name and type
             only (for instance, <code>tel;type=mobile</code>).</dd>
 
-          <dt>x-telepathy-identifier</dt>
+          <dt><code>x-telepathy-identifier</code></dt>
           <dd>Search for contacts whose identifier in the IM protocol
             matches the search term (e.g. contains it as a substring)
             <tp:rationale>
