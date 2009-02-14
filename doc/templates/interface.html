@@ -6,33 +6,64 @@
   <link rel="stylesheet" href="style.css" type="text/css"/>
  </head>
  <body>
+  <div class="header">
   <h1>Interface $interface.name</h1>
+   <a href="index.html">Interface Index</a> |
+   <a href="#methods">Methods</a> | <a href="#signals">Signals</a> |
+   <a href="#properties">Properties</a>
+  </div>
+  <div class="main">
 
-  <div id="methods" class="outset method">
-   <h1>Methods</h1>
-   #for $method in $interface.methods.values()
-   <div id="$method.name" class="inset method">
-    <h2>$method.get_short_name()</h2>
+   <div id="methods" class="outset method">
+    <h1>Methods</h1>
+    #for $method in $interface.methods.values()
+    <div id="$method.name" class="inset method">
+     <h2>$method.get_short_name()</h2>
+     #if $method.in_args
+     <div class="indent">
+      <h3>Parameters</h3>
+      #for $arg in $method.in_args
+       $arg.name<br/>
+      #end for
+     </div>
+     #end if
+     #if $method.out_args
+     <div class="indent">
+      <h3>Returns</h3>
+      #for $arg in $method.out_args
+       $arg.name<br/>
+      #end for
+     </div>
+     #end if
+    </div>
+    #end for
    </div>
-   #end for
-  </div>
-   
-  <div id="signals" class="outset signal">
-   <h1>Signals</h1>
-   #for $signal in $interface.signals.values()
-   <div id="$signal.name" class="inset signal">
-    <h2>$signal.get_short_name()</h2>
+    
+   <div id="signals" class="outset signal">
+    <h1>Signals</h1>
+    #for $signal in $interface.signals.values()
+    <div id="$signal.name" class="inset signal">
+     <h2>$signal.get_short_name()</h2>
+     #if $signal.args
+     <div class="indent">
+      <h3>Parameters</h3>
+      #for $arg in $signal.args
+       $arg.name<br/>
+      #end for
+     </div>
+     #end if
+    </div>
+    #end for
    </div>
-   #end for
-  </div>
-   
-  <div id="properties" class="outset property">
-   <h1>Properties</h1>
-   #for $property in $interface.properties.values()
-   <div id="$property.name" class="inset property">
-    <h2>$property.get_short_name()</h2>
+    
+   <div id="properties" class="outset property">
+    <h1>Properties</h1>
+    #for $property in $interface.properties.values()
+    <div id="$property.name" class="inset property">
+     <h2>$property.get_short_name()</h2>
+    </div>
+    #end for
    </div>
-   #end for
   </div>
  </body>
 </html>

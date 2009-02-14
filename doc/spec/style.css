@@ -1,6 +1,24 @@
-h1, h2 {
+html, body,
+h1, h2, h3 {
 	margin: 0;
 	padding: 0;
+}
+
+div.header {
+	position: fixed;
+	background-color: white;
+	width: 100%;
+	margin: 0;
+	padding: 0.5ex;
+	border-bottom: 1px solid black;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	height: 4em;
+}
+
+div.main {
+	margin-top: 5em;
 }
 
 div.outset {
@@ -14,6 +32,10 @@ div.inset {
 	margin-top: 1ex;
 	margin-bottom: 1ex;
 	padding: 0.5ex;
+}
+
+div.indent {
+	margin-left: 1em;
 }
 
 #methods {
