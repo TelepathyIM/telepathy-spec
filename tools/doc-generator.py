@@ -29,13 +29,13 @@ def load_template (filename):
 
     return template_def
 
-interfaces = specparser.parse (sys.argv[1])
-
 # write out HTML files for each of the interfaces
+interfaces = specparser.parse (sys.argv[1])
+namespace = {}
 template_def = load_template ('interface.html')
+t = Template (template_def, namespaces = [namespace])
 for interface in interfaces.values ():
-    namespace = { 'interface': interface }
-    t = Template (template_def, namespaces = [namespace])
+    namespace['interface'] = interface
     
     # open the output file
     out = open (os.path.join (output_path, '%s.html' % interface.name), 'w')
