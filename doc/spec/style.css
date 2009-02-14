@@ -64,3 +64,8 @@ div.signal {
 div.property {
 	border: 1px solid #75507b;
 }
+
+span.permalink {
+	float: right;
+	font-size: x-small;
+}
