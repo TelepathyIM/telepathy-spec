@@ -34,6 +34,9 @@ class base (object):
     def get_short_name (self):
         return self.name.rsplit ('.', 1)[1]
 
+    def get_url (self):
+        return "%s#%s" % (self.get_interface ().get_url (), self.name)
+
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
     
@@ -129,6 +132,9 @@ class Interface (base):
 
     def get_interface (self):
         return self
+    
+    def get_url (self):
+        return "%s.html" % self.name
 
 class Error (base): pass
 
