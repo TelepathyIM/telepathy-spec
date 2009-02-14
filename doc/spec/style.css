@@ -19,6 +19,9 @@ div.header {
 
 div.main {
 	margin-top: 5em;
+	margin-left: 1ex;
+	margin-right: 1ex;
+	margin-bottom: 1ex;
 }
 
 div.outset {
