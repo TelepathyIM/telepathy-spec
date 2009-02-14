@@ -1,0 +1,41 @@
+h1, h2 {
+	margin: 0;
+	padding: 0;
+}
+
+div.outset {
+	padding: 1ex;
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+}
+
+div.inset {
+	background-color: white;
+	margin-top: 1ex;
+	margin-bottom: 1ex;
+	padding: 0.5ex;
+}
+
+#methods {
+	background-color: #fcaf3e;
+}
+
+div.method {
+	border: 1px solid #f57900;
+}
+
+#signals {
+	background-color: #729fcf;
+}
+
+div.signal {
+	border: 1px solid #3465a4;
+}
+
+#properties {
+	background-color: #ad7fa8;
+}
+
+div.property {
+	border: 1px solid #75507b;
+}

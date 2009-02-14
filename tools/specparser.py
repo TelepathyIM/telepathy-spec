@@ -31,9 +31,12 @@ class base (object):
     def get_interface (self):
         return self.parent.get_interface ()
 
+    def get_short_name (self):
+        return self.name.rsplit ('.', 1)[1]
+
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
-
+    
 class Method (base):
     def __init__ (self, parent, namespace, dom):
         super (Method, self).__init__ (parent, namespace, dom)
