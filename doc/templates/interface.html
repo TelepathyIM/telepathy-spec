@@ -14,6 +14,7 @@
   </div>
   <div class="main">
 
+   #if $interface.methods
    <div id="methods" class="outset method">
     <h1>Methods</h1>
     #for $method in $interface.methods.values()
@@ -38,7 +39,9 @@
     </div>
     #end for
    </div>
-    
+   #end if
+   
+   #if $interface.signals
    <div id="signals" class="outset signal">
     <h1>Signals</h1>
     #for $signal in $interface.signals.values()
@@ -55,7 +58,9 @@
     </div>
     #end for
    </div>
+   #end if
     
+   #if $interface.properties
    <div id="properties" class="outset property">
     <h1>Properties</h1>
     #for $property in $interface.properties.values()
@@ -65,5 +70,6 @@
     #end for
    </div>
   </div>
+  #end if
  </body>
 </html>
