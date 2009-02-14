@@ -20,7 +20,7 @@
     #for $method in $interface.methods.values()
     <div id="$method.name" class="inset method">
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
-     <h2>$method.get_short_name()</h2>
+     <h2>$method.get_short_name() ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
      #if $method.in_args
      <div class="indent">
       <h3>Parameters</h3>
@@ -48,7 +48,7 @@
     #for $signal in $interface.signals.values()
     <div id="$signal.name" class="inset signal">
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
-     <h2>$signal.get_short_name()</h2>
+     <h2>$signal.get_short_name() ($signal.get_args())</h2>
      #if $signal.args
      <div class="indent">
       <h3>Parameters</h3>

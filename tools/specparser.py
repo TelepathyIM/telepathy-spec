@@ -51,6 +51,14 @@ class Method (base):
         self.in_args = filter (lambda a: a.direction == Arg.DIRECTION_IN, args)
         self.out_args = filter (lambda a: a.direction == Arg.DIRECTION_OUT, args)
 
+    def get_in_args (self):
+        return ', '.join (map (lambda a: a.spec_name (), self.in_args))
+    def get_out_args (self):
+        if len (self.out_args) > 0:
+            return ', '.join (map (lambda a: a.spec_name (), self.out_args))
+        else:
+            return 'nothing'
+
 class Property (base):
     ACCESS_READ     = 0x01
     ACCESS_WRITE    = 0x10
@@ -101,6 +109,9 @@ class Arg (base):
             raise UnknownDirection ("Unknown direction `%s' on %s" % (
                                     direction, self.parent))
 
+    def spec_name (self):
+        return '%s: %s' % (self.dbus_type, self.name)
+
     def __repr__ (self):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
@@ -110,6 +121,9 @@ class Signal (base):
 
         self.args = map (lambda n: Arg (self, None, n),
                          dom.getElementsByTagName ('arg'))
+    
+    def get_args (self):
+        return ', '.join (map (lambda a: a.spec_name (), self.args))
 
 class Interface (base):
     def __init__ (self, parent, namespace, dom):
