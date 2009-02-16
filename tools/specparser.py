@@ -25,7 +25,8 @@ def build_name (namespace, name):
     """Returns a name by appending `name' to the namespace of this object.
     """
     return '.'.join (
-        filter (lambda n: n is not None, [namespace, name.replace (' ', '')])
+        filter (lambda n: n is not None and n != '',
+                [namespace, name.replace (' ', '')])
         )
 
 class base (object):
