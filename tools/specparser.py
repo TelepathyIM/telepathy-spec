@@ -233,7 +233,9 @@ class DBusType (base):
 
        Don't instantiate this class directly.
     """
-    pass
+
+    def get_url (self):
+        return '#FIXME'
 
 class SimpleType (DBusType): pass
 

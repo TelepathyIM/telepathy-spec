@@ -26,7 +26,9 @@
      <div class="indent">
       <h3>Parameters</h3>
       #for $arg in $method.in_args
-       $arg.short_name<br/>
+       $arg.short_name &mdash; $arg.dbus_type
+       #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+       <br/>
       #end for
      </div>
      #end if
@@ -34,7 +36,9 @@
      <div class="indent">
       <h3>Returns</h3>
       #for $arg in $method.out_args
-       $arg.short_name<br/>
+       $arg.short_name &mdash; $arg.dbus_type
+       #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+       <br/>
       #end for
      </div>
      $method.get_docstring()
@@ -55,7 +59,9 @@
      <div class="indent">
       <h3>Parameters</h3>
       #for $arg in $signal.args
-       $arg.short_name<br/>
+       $arg.short_name &mdash; $arg.dbus_type
+       #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+       <br/>
       #end for
      </div>
      #end if
@@ -68,10 +74,16 @@
    #if $interface.properties
    <div id="properties" class="outset property">
     <h1>Properties</h1>
+    <div>
+     Accessed using the org.freedesktop.DBus.Properties interface.
+    </div>
     #for $property in $interface.properties
     <div id="$property.name" class="inset property">
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
-     <h2>$property.short_name</h2>
+     <h2>
+      $property.short_name &mdash; $property.dbus_type
+      #if $property.type: (<a href="$property.type.get_url()" title="$property.type.get_title()">$property.type.short_name</a>)
+     </h2>
      $property.get_docstring()
     </div>
     #end for
