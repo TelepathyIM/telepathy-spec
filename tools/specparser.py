@@ -74,11 +74,12 @@ class base (object):
                 n.setAttribute ('class', 'rationale')
 
             # rewrite <tp:member-ref>
+            spec = self.get_spec ()
             interface = self.get_interface ()
             for n in node.getElementsByTagNameNS (XMLNS_TP, 'member-ref'):
                 key = getText (n)
                 try:
-                    o = interface.get_ref (key)
+                    o = spec.lookup (key, namespace = interface.name)
                 except KeyError:
                     print >> sys.stderr, \
                         "Key `%s' not known in interface `%s'" % (
@@ -88,27 +89,18 @@ class base (object):
                 n.tagName = 'a'
                 n.namespaceURI = None
                 n.setAttribute ('href', o.get_url ())
-                n.setAttribute ('title', o.name)
+                n.setAttribute ('title', o.get_title ())
 
             # rewrite <tp:dbus-ref>
-            spec = self.get_spec ()
             for n in node.getElementsByTagNameNS (XMLNS_TP, 'dbus-ref'):
-                key = n.getAttribute ('namespace')
-                try:
-                    interface = spec.interfaces[key]
-                except KeyError:
-                    print >> sys.stderr, \
-                        "Interface `%s' not known in spec (%s: %s)" % (
-                            key, self.name, n.toxml ())
-                    continue
-                
+                namespace = n.getAttribute ('namespace')
                 key = getText (n)
                 try:
-                    o = interface.get_ref (key)
+                    o = spec.lookup (key, namespace = namespace)
                 except KeyError:
                     print >> sys.stderr, \
-                        "Key `%s' not known in interface `%s'" % (
-                            key, interface.name)
+                        "Key `%s' not known in namespace `%s'" % (
+                            key, namespace)
                     continue
 
                 n.tagName = 'a'
@@ -128,7 +120,7 @@ class Method (base):
     def __init__ (self, parent, namespace, dom):
         super (Method, self).__init__ (parent, namespace, dom)
 
-        args = map (lambda n: Arg (self, None, n),
+        args = build_list (self, Arg, namespace,
                          dom.getElementsByTagName ('arg'))
 
         # separate arguments as input and output arguments
@@ -194,7 +186,7 @@ class Arg (base):
                                     direction, self.parent))
 
     def spec_name (self):
-        return '%s: %s' % (self.dbus_type, self.name)
+        return '%s: %s' % (self.dbus_type, self.short_name)
 
     def __repr__ (self):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
@@ -203,7 +195,7 @@ class Signal (base):
     def __init__ (self, parent, namespace, dom):
         super (Signal, self).__init__ (parent, namespace, dom)
 
-        self.args = map (lambda n: Arg (self, None, n),
+        self.args = build_list (self, Arg, namespace,
                          dom.getElementsByTagName ('arg'))
     
     def get_args (self):
@@ -214,13 +206,13 @@ class Interface (base):
         super (Interface, self).__init__ (parent, namespace, dom)
 
         # build a dictionary of methods in this interface
-        self.methods = build_dict (self, Method, self.name,
+        self.methods = build_list (self, Method, self.name,
                                    dom.getElementsByTagName ('method'))
         # build a dictionary of properties in this interface
-        self.properties = build_dict (self, Property, self.name,
+        self.properties = build_list (self, Property, self.name,
                                       dom.getElementsByTagName ('property'))
         # build a dictionary of signals in this interface
-        self.signals = build_dict (self, Signal, self.name,
+        self.signals = build_list (self, Signal, self.name,
                                    dom.getElementsByTagName ('signal'))
 
         # print '-'*78
@@ -233,17 +225,6 @@ class Interface (base):
     
     def get_url (self):
         return "%s.html" % self.name
-
-    def get_ref (self, name):
-        key = build_name (self.name, name)
-        if key in self.methods:
-            return self.methods[key]
-        elif key in self.signals:
-            return self.signals[key]
-        elif key in self.properties:
-            return self.properties[key]
-        else:
-            raise KeyError (name)
 
 class Error (base): pass
 
@@ -276,11 +257,27 @@ class Spec (object):
         # types with an Interface
         self.types = parse_types (self, dom)
         # build a dictionary of interfaces in this spec
-        self.interfaces = build_dict (self, Interface, None,
+        self.interfaces = build_list (self, Interface, None,
                                  dom.getElementsByTagName ('interface'))
+
+        # build a giant dictionary of everything
+        self.everything = {}
+        for interface in self.interfaces:
+                self.everything[interface.name] = interface
+
+                for method in interface.methods:
+                    self.everything[method.name] = method
+                for signal in interface.signals:
+                    self.everything[signal.name] = signal
+                for property in interface.properties:
+                    self.everything[property.name] = property
 
     def get_spec (self):
         return self
+
+    def lookup (self, name, namespace = None):
+        key = build_name (namespace, name)
+        return self.everything[key]
 
     def lookup_type (self, type_):
         if type_.endswith ('[]'):
@@ -309,6 +306,9 @@ def build_dict (parent, type_, namespace, nodes):
         return (o.name, o)
 
     return dict (build_tuple (n) for n in nodes)
+
+def build_list (parent, type_, namespace, nodes):
+    return map (lambda node: type_ (parent, namespace, node), nodes)
 
 def parse_types (parent, dom, d = None):
     """Parse all of the types of type nodes mentioned in 't' from the node

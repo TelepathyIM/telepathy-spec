@@ -18,7 +18,7 @@
    #if $interface.methods
    <div id="methods" class="outset method">
     <h1>Methods</h1>
-    #for $method in $interface.methods.values()
+    #for $method in $interface.methods
     <div id="$method.name" class="inset method">
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
@@ -26,7 +26,7 @@
      <div class="indent">
       <h3>Parameters</h3>
       #for $arg in $method.in_args
-       $arg.name<br/>
+       $arg.short_name<br/>
       #end for
      </div>
      #end if
@@ -34,7 +34,7 @@
      <div class="indent">
       <h3>Returns</h3>
       #for $arg in $method.out_args
-       $arg.name<br/>
+       $arg.short_name<br/>
       #end for
      </div>
      $method.get_docstring()
@@ -47,7 +47,7 @@
    #if $interface.signals
    <div id="signals" class="outset signal">
     <h1>Signals</h1>
-    #for $signal in $interface.signals.values()
+    #for $signal in $interface.signals
     <div id="$signal.name" class="inset signal">
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
@@ -55,7 +55,7 @@
      <div class="indent">
       <h3>Parameters</h3>
       #for $arg in $signal.args
-       $arg.name<br/>
+       $arg.short_name<br/>
       #end for
      </div>
      #end if
@@ -68,7 +68,7 @@
    #if $interface.properties
    <div id="properties" class="outset property">
     <h1>Properties</h1>
-    #for $property in $interface.properties.values()
+    #for $property in $interface.properties
     <div id="$property.name" class="inset property">
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>$property.short_name</h2>

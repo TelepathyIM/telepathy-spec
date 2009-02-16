@@ -34,7 +34,7 @@ spec = specparser.parse (sys.argv[1])
 namespace = {}
 template_def = load_template ('interface.html')
 t = Template (template_def, namespaces = [namespace])
-for interface in spec.interfaces.values ():
+for interface in spec.interfaces:
     namespace['interface'] = interface
     
     # open the output file
