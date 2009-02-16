@@ -105,7 +105,7 @@
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Errors.NotAvailable">
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             This method has already been called, so it is no longer
             available. Stop calling it.
