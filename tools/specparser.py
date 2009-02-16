@@ -48,6 +48,9 @@ class base (object):
     def get_spec (self):
         return self.parent.get_spec ()
 
+    def get_root_namespace (self):
+        return self.get_interface ().name
+
     def get_interface (self):
         return self.parent.get_interface ()
 
@@ -75,15 +78,15 @@ class base (object):
 
             # rewrite <tp:member-ref>
             spec = self.get_spec ()
-            interface = self.get_interface ()
+            namespace = self.get_root_namespace ()
             for n in node.getElementsByTagNameNS (XMLNS_TP, 'member-ref'):
                 key = getText (n)
                 try:
-                    o = spec.lookup (key, namespace = interface.name)
+                    o = spec.lookup (key, namespace = namespace)
                 except KeyError:
                     print >> sys.stderr, \
-                        "Key `%s' not known in interface `%s'" % (
-                            key, interface.name)
+                        "Key `%s' not known in namespace `%s'" % (
+                            key, namespace)
                     continue
 
                 n.tagName = 'a'
@@ -120,6 +123,23 @@ class PossibleError (base):
     def __init__ (self, parent, namespace, dom):
         super (PossibleError, self).__init__ (parent, namespace, dom)
 
+    def get_error (self):
+        spec = self.get_spec ()
+        return spec.errors[self.name]
+
+    def get_url (self):
+        self.get_error ().get_url ()
+
+    def get_title (self):
+        self.get_error ().get_title ()
+
+    def get_docstring (self):
+        d = super (PossibleError, self).get_docstring ()
+        if d == '':
+            return self.get_error ().get_docstring ()
+        else:
+            return d
+
 class Method (base):
     def __init__ (self, parent, namespace, dom):
         super (Method, self).__init__ (parent, namespace, dom)
@@ -131,7 +151,7 @@ class Method (base):
         self.in_args = filter (lambda a: a.direction == Arg.DIRECTION_IN, args)
         self.out_args = filter (lambda a: a.direction == Arg.DIRECTION_OUT, args)
 
-        self.possible_errors = build_list (self, PossibleError, self.name,
+        self.possible_errors = build_list (self, PossibleError, None,
                         dom.getElementsByTagNameNS (XMLNS_TP, 'error'))
 
     def get_in_args (self):
@@ -236,6 +256,9 @@ class Interface (base):
 class Error (base):
     def get_url (self):
         return '#FIXME'
+    
+    def get_root_namespace (self):
+        return self.namespace
 
 class DBusType (base):
     """The base class for all D-Bus types referred to in the spec.
@@ -285,7 +308,7 @@ class Spec (object):
 
     def get_spec (self):
         return self
-
+    
     def lookup (self, name, namespace = None):
         key = build_name (namespace, name)
         return self.everything[key]
