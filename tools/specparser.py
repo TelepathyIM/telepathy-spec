@@ -9,10 +9,6 @@ import xincludator
 
 XMLNS_TP = 'http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0'
 
-# dictionaries for global errors and types
-errors = {}
-types = {}
-
 def getText (dom):
     if dom.childNodes[0].nodeType == dom.TEXT_NODE:
         return dom.childNodes[0].data
@@ -46,6 +42,9 @@ class base (object):
                         dom.childNodes)[0]
         except IndexError:
             self.docstring = None
+
+    def get_spec (self):
+        return self.parent.get_spec ()
 
     def get_interface (self):
         return self.parent.get_interface ()
@@ -122,7 +121,7 @@ class Property (base):
         super (Property, self).__init__ (parent, namespace, dom)
 
         type_ = dom.getAttributeNS (XMLNS_TP, 'type')
-        self.type = lookup_type (type_)
+        self.type = self.get_spec ().lookup_type (type_)
 
         self.dbus_type = dom.getAttribute ('type')
         
@@ -148,7 +147,7 @@ class Arg (base):
         super (Arg, self).__init__ (parent, namespace, dom)
 
         type_ = dom.getAttributeNS (XMLNS_TP, 'type')
-        self.type = lookup_type (type_)
+        self.type = self.get_spec ().lookup_type (type_)
 
         self.dbus_type = dom.getAttribute ('type')
 
@@ -233,18 +232,21 @@ class Enum (DBusType): pass
 
 class Flags (DBusType): pass
 
-def lookup_type (type_):
-    if type_.endswith ('[]'):
-        # FIXME: should this be wrapped in some sort of Array() class?
-        return lookup_type (type_[:-2])
+class Spec (object):
+    def get_spec (self):
+        return self
 
-    if type_ == '': return None
-    elif type_ in types:
-        return types[type_]
-
-    class UnknownType (Exception): pass
-
-    raise UnknownType ("Type `%s' is unknown" % type_)
+    def lookup_type (self, type_):
+        if type_.endswith ('[]'):
+            # FIXME: should this be wrapped in some sort of Array() class?
+            return self.lookup_type (type_[:-2])
+    
+        if type_ == '': return None
+        elif type_ in self.types:
+            return self.types[type_]
+    
+        class UnknownType (Exception): pass
+        raise UnknownType ("Type `%s' is unknown" % type_)
 
 def build_dict (parent, type_, namespace, nodes):
     """Build a dictionary of D-Bus names to Python objects representing that
@@ -286,20 +288,22 @@ def parse (filename):
     dom = xml.dom.minidom.parse (filename)
     xincludator.xincludate (dom, filename)
 
+    spec = Spec ()
+
     # build a dictionary of errors in this spec
     errorsnode = dom.getElementsByTagNameNS (XMLNS_TP, 'errors')[0]
-    errors.update (build_dict (None, Error,
+    spec.errors = build_dict (spec, Error,
                     errorsnode.getAttribute ('namespace'),
-                    errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error')))
+                    errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error'))
     # build a dictionary of ALL types in this spec
     # FIXME: if we're doing all type parsing here, work out how to associate
     # types with an Interface
-    parse_types (None, dom, types)
+    spec.types = parse_types (spec, dom)
     # build a dictionary of interfaces in this spec
-    interfaces = build_dict (None, Interface, None,
+    spec.interfaces = build_dict (spec, Interface, None,
                              dom.getElementsByTagName ('interface'))
 
-    return interfaces
+    return spec
 
 if __name__ == '__main__':
     parse (sys.argv[1])

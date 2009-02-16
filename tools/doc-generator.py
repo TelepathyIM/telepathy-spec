@@ -30,11 +30,11 @@ def load_template (filename):
     return template_def
 
 # write out HTML files for each of the interfaces
-interfaces = specparser.parse (sys.argv[1])
+spec = specparser.parse (sys.argv[1])
 namespace = {}
 template_def = load_template ('interface.html')
 t = Template (template_def, namespaces = [namespace])
-for interface in interfaces.values ():
+for interface in spec.interfaces.values ():
     namespace['interface'] = interface
     
     # open the output file
@@ -44,8 +44,7 @@ for interface in interfaces.values ():
 
 # write out a TOC
 template_def = load_template ('index.html')
-namespace = { 'interfaces': interfaces }
-t = Template (template_def, namespaces = [namespace])
+t = Template (template_def, namespaces = [spec])
 
 # open the output file
 out = open (os.path.join (output_path, 'index.html'), 'w')
