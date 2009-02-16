@@ -321,7 +321,33 @@ class Struct (DBusType):
 
         return str
 
-class Enum (DBusType): pass
+class Enum (DBusType):
+    class EnumValue (base):
+        def __init__ (self, parent, namespace, dom):
+            super (Enum.EnumValue, self).__init__ (parent, namespace, dom)
+
+            # rewrite self.name
+            self.short_name = dom.getAttribute ('suffix')
+            self.name = build_name (namespace, self.short_name)
+
+            self.value = dom.getAttribute ('value')
+
+    def __init__ (self, parent, namespace, dom):
+        super (Enum, self).__init__ (parent, namespace, dom)
+        
+        self.values = build_list (self, Enum.EnumValue, self.name,
+                        dom.getElementsByTagNameNS (XMLNS_TP, 'enumvalue'))
+    
+    def get_breakdown (self):
+        str = ''
+        str += '<ul>\n'
+        for value in self.values:
+            # attempt to lookup the member.name as a type in the type system
+            str += '<li>%s (%s)</li>\n' % (value.short_name, value.value)
+            str += value.get_docstring ()
+        str += '</ul>\n'
+
+        return str
 
 class Flags (DBusType): pass
 
