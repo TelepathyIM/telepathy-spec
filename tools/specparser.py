@@ -162,7 +162,37 @@ class Method (base):
         else:
             return 'nothing'
 
-class Property (base):
+class Typed (base):
+    """The base class for all typed nodes (i.e. Arg and Property).
+
+       Don't instantiate this class directly.
+    """
+    def __init__ (self, parent, namespace, dom):
+        super (Typed, self).__init__ (parent, namespace, dom)
+
+        self.type = dom.getAttributeNS (XMLNS_TP, 'type')
+        self.dbus_type = dom.getAttribute ('type')
+        
+    def get_type (self):
+        return self.get_spec ().lookup_type (self.type)
+
+    def get_url (self):
+        t = self.get_type ()
+        if t is None: return ''
+        else: return t.get_url ()
+
+    def get_title (self):
+        t = self.get_type ()
+        if t is None: return ''
+        else: return t.get_title ()
+
+    def spec_name (self):
+        return '%s: %s' % (self.dbus_type, self.short_name)
+
+    def __repr__ (self):
+        return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
+
+class Property (Typed):
     ACCESS_READ     = 0x01
     ACCESS_WRITE    = 0x10
     
@@ -171,11 +201,6 @@ class Property (base):
     def __init__ (self, parent, namespace, dom):
         super (Property, self).__init__ (parent, namespace, dom)
 
-        type_ = dom.getAttributeNS (XMLNS_TP, 'type')
-        self.type = self.get_spec ().lookup_type (type_)
-
-        self.dbus_type = dom.getAttribute ('type')
-        
         access = dom.getAttribute ('access')
         if access == 'read':
             self.access = self.ACCESS_READ
@@ -188,17 +213,11 @@ class Property (base):
             raise UnknownAccess ("Unknown access `%s' on %s" % (
                                     access, self))
 
-    def __repr__ (self):
-        return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
-
-class Arg (base):
+class Arg (Typed):
     DIRECTION_IN, DIRECTION_OUT = range (2)
 
     def __init__ (self, parent, namespace, dom):
         super (Arg, self).__init__ (parent, namespace, dom)
-
-        self.type = dom.getAttributeNS (XMLNS_TP, 'type')
-        self.dbus_type = dom.getAttribute ('type')
 
         direction = dom.getAttribute ('direction')
         if direction == 'in':
@@ -209,21 +228,6 @@ class Arg (base):
             class UnknownDirection (Exception): pass
             raise UnknownDirection ("Unknown direction `%s' on %s" % (
                                     direction, self.parent))
-
-    def get_type (self):
-        return self.get_spec ().lookup_type (self.type)
-
-    def get_url (self):
-        return self.get_type ().get_url ()
-
-    def get_title (self):
-        return self.get_type ().get_title ()
-
-    def spec_name (self):
-        return '%s: %s' % (self.dbus_type, self.short_name)
-
-    def __repr__ (self):
-        return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
 class Signal (base):
     def __init__ (self, parent, namespace, dom):
@@ -296,7 +300,7 @@ class Spec (object):
         # build a dictionary of ALL types in this spec
         # FIXME: if we're doing all type parsing here, work out how to associate
         # types with an Interface
-        self.types = parse_types (self, dom)
+        self.generic_types = parse_types (self, dom)
         # build a dictionary of interfaces in this spec
         self.interfaces = build_list (self, Interface, None,
                                  dom.getElementsByTagName ('interface'))
@@ -312,6 +316,10 @@ class Spec (object):
                     self.everything[signal.name] = signal
                 for property in interface.properties:
                     self.everything[property.name] = property
+
+        # build a dictionary of all types
+        self.types = {}
+        for type in self.generic_types: self.types[type.short_name] = type
 
     def get_spec (self):
         return self
@@ -351,7 +359,7 @@ def build_dict (parent, type_, namespace, nodes):
 def build_list (parent, type_, namespace, nodes):
     return map (lambda node: type_ (parent, namespace, node), nodes)
 
-def parse_types (parent, dom, d = None):
+def parse_types (parent, dom):
     """Parse all of the types of type nodes mentioned in 't' from the node
        'dom' and insert them into the dictionary 'd'.
     """
@@ -363,13 +371,13 @@ def parse_types (parent, dom, d = None):
         (Struct,        'struct'),
     ]
 
-    if d is None: d = {}
+    types = []
 
     for (type_, tagname) in t:
-        d.update (build_dict (parent, type_, None,
-                    dom.getElementsByTagNameNS (XMLNS_TP, tagname)))
+        types += build_list (parent, type_, None,
+                    dom.getElementsByTagNameNS (XMLNS_TP, tagname))
 
-    return d
+    return types
 
 def parse (filename):
     dom = xml.dom.minidom.parse (filename)

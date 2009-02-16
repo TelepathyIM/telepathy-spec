@@ -108,7 +108,7 @@
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
-      #if $property.type: (<a href="$property.type.get_url()" title="$property.type.get_title()">$property.type.short_name</a>)
+      #if $property.type: (<a href="$property.get_url()" title="$property.get_title()">$property.get_type().short_name</a>)
      </h2>
      $property.get_docstring()
     </div>
