@@ -128,10 +128,10 @@ class PossibleError (base):
         return spec.errors[self.name]
 
     def get_url (self):
-        self.get_error ().get_url ()
+        return self.get_error ().get_url ()
 
     def get_title (self):
-        self.get_error ().get_title ()
+        return self.get_error ().get_title ()
 
     def get_docstring (self):
         d = super (PossibleError, self).get_docstring ()
