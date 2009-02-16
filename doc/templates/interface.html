@@ -57,7 +57,7 @@
       <h3>Possible Errors</h3>
       <ul>
       #for $error in $method.possible_errors
-       <li><a href="$error.get_url()" title="$error.get_title()">$error.short_name</a></li>
+       <li><a href="$error.get_url()" title="$error.get_title()">$error.get_error().short_name</a></li>
        $error.get_docstring()
       #end for
       </ul>
