@@ -115,6 +115,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt>ice-udp</dt>
           <dd>Interactive Connectivity Establishment should be used,
             as defined by the IETF MMUSIC working group.</dd>
+
+          <dt>wlm-8.5</dt>
+          <dd>The transport used by Windows Live Messenger 8.5 or later,
+            which resembles ICE draft 6, should be used.</dd>
+
+          <dt>wlm-2009</dt>
+          <dd>The transport used by Windows Live Messenger 2009 or later,
+            which resembles ICE draft 19, should be used.</dd>
         </dl>
 
         <p>This property cannot change once the stream has been created, so
