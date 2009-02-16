@@ -15,6 +15,12 @@ def getText (dom):
     else:
         return ''
 
+def getChildrenByName (dom, namespace, name):
+    return filter (lambda n: n.nodeType == n.ELEMENT_NODE and \
+                             n.namespaceURI == namespace and \
+                             n.localName == name,
+                   dom.childNodes)
+
 def build_name (namespace, name):
     """Returns a name by appending `name' to the namespace of this object.
     """
@@ -35,11 +41,7 @@ class base (object):
         self.parent = parent
 
         try:
-            self.docstring = filter (
-                        lambda n: n.nodeType == n.ELEMENT_NODE and \
-                                  n.namespaceURI == XMLNS_TP and \
-                                  n.localName == 'docstring',
-                        dom.childNodes)[0]
+            self.docstring = getChildrenByName (dom, XMLNS_TP, 'docstring')[0]
         except IndexError:
             self.docstring = None
 
@@ -263,6 +265,20 @@ class Enum (DBusType): pass
 class Flags (DBusType): pass
 
 class Spec (object):
+    def __init__ (self, dom):
+        # build a dictionary of errors in this spec
+        errorsnode = dom.getElementsByTagNameNS (XMLNS_TP, 'errors')[0]
+        self.errors = build_dict (self, Error,
+                        errorsnode.getAttribute ('namespace'),
+                        errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error'))
+        # build a dictionary of ALL types in this spec
+        # FIXME: if we're doing all type parsing here, work out how to associate
+        # types with an Interface
+        self.types = parse_types (self, dom)
+        # build a dictionary of interfaces in this spec
+        self.interfaces = build_dict (self, Interface, None,
+                                 dom.getElementsByTagName ('interface'))
+
     def get_spec (self):
         return self
 
@@ -318,20 +334,7 @@ def parse (filename):
     dom = xml.dom.minidom.parse (filename)
     xincludator.xincludate (dom, filename)
 
-    spec = Spec ()
-
-    # build a dictionary of errors in this spec
-    errorsnode = dom.getElementsByTagNameNS (XMLNS_TP, 'errors')[0]
-    spec.errors = build_dict (spec, Error,
-                    errorsnode.getAttribute ('namespace'),
-                    errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error'))
-    # build a dictionary of ALL types in this spec
-    # FIXME: if we're doing all type parsing here, work out how to associate
-    # types with an Interface
-    spec.types = parse_types (spec, dom)
-    # build a dictionary of interfaces in this spec
-    spec.interfaces = build_dict (spec, Interface, None,
-                             dom.getElementsByTagName ('interface'))
+    spec = Spec (dom)
 
     return spec
 
