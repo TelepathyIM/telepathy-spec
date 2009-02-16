@@ -321,10 +321,14 @@ class Struct (DBusType):
 
         return str
 
-class Enum (DBusType):
+class EnumLike (DBusType):
+    """Base class for all D-Bus types that look kind of like Enums
+
+       Don't instantiate this class directly.
+    """
     class EnumValue (base):
         def __init__ (self, parent, namespace, dom):
-            super (Enum.EnumValue, self).__init__ (parent, namespace, dom)
+            super (EnumLike.EnumValue, self).__init__ (parent, namespace, dom)
 
             # rewrite self.name
             self.short_name = dom.getAttribute ('suffix')
@@ -332,12 +336,6 @@ class Enum (DBusType):
 
             self.value = dom.getAttribute ('value')
 
-    def __init__ (self, parent, namespace, dom):
-        super (Enum, self).__init__ (parent, namespace, dom)
-        
-        self.values = build_list (self, Enum.EnumValue, self.name,
-                        dom.getElementsByTagNameNS (XMLNS_TP, 'enumvalue'))
-    
     def get_breakdown (self):
         str = ''
         str += '<ul>\n'
@@ -349,7 +347,20 @@ class Enum (DBusType):
 
         return str
 
-class Flags (DBusType): pass
+class Enum (EnumLike):
+    def __init__ (self, parent, namespace, dom):
+        super (Enum, self).__init__ (parent, namespace, dom)
+        
+        self.values = build_list (self, EnumLike.EnumValue, self.name,
+                        dom.getElementsByTagNameNS (XMLNS_TP, 'enumvalue'))
+    
+class Flags (EnumLike):
+    def __init__ (self, parent, namespace, dom):
+        super (Flags, self).__init__ (parent, namespace, dom)
+        
+        self.values = build_list (self, EnumLike.EnumValue, self.name,
+                        dom.getElementsByTagNameNS (XMLNS_TP, 'flag'))
+        self.flags = self.values # in case you're looking for it
 
 class Spec (object):
     def __init__ (self, dom):
