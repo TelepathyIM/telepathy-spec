@@ -279,6 +279,9 @@ class DBusType (base):
 
         self.dbus_type = dom.getAttribute ('type')
 
+    def get_breakdown (self):
+        return ''
+
     def get_title (self):
         return "%s %s" % (self.get_type_name (), self.name)
 
@@ -294,7 +297,28 @@ class SimpleType (DBusType):
 
 class Mapping (DBusType): pass
 
-class Struct (DBusType): pass
+class Struct (DBusType):
+    class StructMember (DBusType): pass
+    
+    def __init__ (self, parent, namespace, dom):
+        super (Struct, self).__init__ (parent, namespace, dom)
+        
+        self.members = build_list (self, Struct.StructMember, None,
+                        dom.getElementsByTagNameNS (XMLNS_TP, 'member'))
+
+        # rewrite the D-Bus type
+        self.dbus_type = '(%s)' % ''.join (map (lambda m: m.dbus_type, self.members))
+
+    def get_breakdown (self):
+        str = ''
+        str += '<ul>\n'
+        for member in self.members:
+            # attempt to lookup the member.name as a type in the type system
+            str += '<li>%s &mdash; %s</li>\n' % (member.name, member.dbus_type)
+            str += member.get_docstring ()
+        str += '</ul>\n'
+
+        return str
 
 class Enum (DBusType): pass
 

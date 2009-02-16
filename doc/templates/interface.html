@@ -123,11 +123,12 @@
     <h1>Types</h1>
     #for $type in $interface.types
      <div id="$type.name" class="inset type">
-      <span class="permalink">(<a href="$type.get_url()">Permalink</a>)</span>
+      <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
-       $type.short_name &mdash; $type.dbus_type ($type.get_type_name())
+       $type.short_name &mdash; $type.dbus_type
       </h2>
       $type.get_docstring()
+      $type.get_breakdown()
      </div>
     #end for
    </div>
