@@ -32,6 +32,7 @@
       #end for
      </div>
      #end if
+     
      #if $method.out_args
      <div class="indent">
       <h3>Returns</h3>
@@ -41,8 +42,18 @@
        <br/>
       #end for
      </div>
-     $method.get_docstring()
      #end if
+     
+     #if $method.possible_errors
+     <div class="indent">
+      <h3>Possible Errors</h3>
+      #for $error in $method.possible_errors
+       $error<br/>
+      #end for
+     </div>
+     #end if
+     
+     $method.get_docstring()
     </div>
     #end for
    </div>

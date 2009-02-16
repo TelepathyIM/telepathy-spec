@@ -115,17 +115,24 @@ class base (object):
 
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
-    
+
+class PossibleError (base):
+    def __init__ (self, parent, namespace, dom):
+        super (PossibleError, self).__init__ (parent, namespace, dom)
+
 class Method (base):
     def __init__ (self, parent, namespace, dom):
         super (Method, self).__init__ (parent, namespace, dom)
 
-        args = build_list (self, Arg, namespace,
+        args = build_list (self, Arg, self.name,
                          dom.getElementsByTagName ('arg'))
 
         # separate arguments as input and output arguments
         self.in_args = filter (lambda a: a.direction == Arg.DIRECTION_IN, args)
         self.out_args = filter (lambda a: a.direction == Arg.DIRECTION_OUT, args)
+
+        self.possible_errors = build_list (self, PossibleError, self.name,
+                        dom.getElementsByTagNameNS (XMLNS_TP, 'error'))
 
     def get_in_args (self):
         return ', '.join (map (lambda a: a.spec_name (), self.in_args))
@@ -195,7 +202,7 @@ class Signal (base):
     def __init__ (self, parent, namespace, dom):
         super (Signal, self).__init__ (parent, namespace, dom)
 
-        self.args = build_list (self, Arg, namespace,
+        self.args = build_list (self, Arg, self.name,
                          dom.getElementsByTagName ('arg'))
     
     def get_args (self):
@@ -226,7 +233,9 @@ class Interface (base):
     def get_url (self):
         return "%s.html" % self.name
 
-class Error (base): pass
+class Error (base):
+    def get_url (self):
+        return '#FIXME'
 
 class DBusType (base):
     """The base class for all D-Bus types referred to in the spec.
