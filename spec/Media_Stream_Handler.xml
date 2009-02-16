@@ -74,10 +74,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       type="s" access="read">
       <tp:added version="0.17.UNRELEASED"/>
       <tp:docstring>
-        The IP address or hostname of the STUN server to use for NAT traversal.
+        The IP address of the STUN server to use for NAT traversal, as
+        a dotted-quad IPv4 address literal or an RFC2373 IPv6 address literal.
         This property cannot change once the stream has been created, so there
-        is no change notification.
-        <!-- Unresolved issue: should we mandate that this is an IP address? -->
+        is no change notification. This MUST NOT be a DNS hostname.
+
+        <tp:rationale>
+          High-quality connection managers already need an asynchronous
+          DNS resolver, so they might as well resolve this name to an IP
+          to make life easier for streaming implementations.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
@@ -140,10 +146,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dl>
           <dt><code>ip</code> - s</dt>
           <dd>The IP address of the relay server as a dotted-quad IPv4
-            address literal or an RFC2373 IPv6 address literal</dd>
-          <!-- Open issue: should the CM or the streaming implementation
-          be responsible for resolving hostnames to IPs? Bear in mind that
-          this might be a SRV record... -->
+            address literal or an RFC2373 IPv6 address literal. This MUST NOT
+            be a DNS hostname.
+
+            <tp:rationale>
+              High-quality connection managers already need an asynchronous
+              DNS resolver, so they might as well resolve this name to an IP
+              and make life easier for streaming implementations.
+            </tp:rationale>
+          </dd>
 
           <dt><code>type</code> - s</dt>
           <dd>
