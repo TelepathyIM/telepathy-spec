@@ -65,6 +65,16 @@ div.property {
 	border: 1px solid #75507b;
 }
 
+div.docstring {
+	margin: 1ex;
+}
+
+div.rationale {
+	border-left: 2px solid gray;
+	margin: 1ex;
+	padding-left: 1ex;
+}
+
 span.permalink {
 	float: right;
 	font-size: x-small;

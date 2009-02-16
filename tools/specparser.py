@@ -13,6 +13,19 @@ XMLNS_TP = 'http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0'
 errors = {}
 types = {}
 
+def getText (dom):
+    if dom.childNodes[0].nodeType == dom.TEXT_NODE:
+        return dom.childNodes[0].data
+    else:
+        return ''
+
+def build_name (namespace, name):
+    """Returns a name by appending `name' to the namespace of this object.
+    """
+    return '.'.join (
+        filter (lambda n: n is not None, [namespace, name.replace (' ', '')])
+        )
+
 class base (object):
     """The base class for any type of XML node in the spec that implements the
        'name' attribute.
@@ -20,12 +33,9 @@ class base (object):
        Don't instantiate this class directly.
     """
     def __init__ (self, parent, namespace, dom):
-        name = dom.getAttribute ('name')
-        self.name = '.'.join (
-            filter (lambda n: n is not None,
-                    [namespace, name.replace (' ', '')])
-            )
-
+        self.short_name = name = dom.getAttribute ('name')
+        self.namespace = namespace
+        self.name = build_name (namespace, name)
         self.parent = parent
 
         try:
@@ -40,9 +50,6 @@ class base (object):
     def get_interface (self):
         return self.parent.get_interface ()
 
-    def get_short_name (self):
-        return self.name.rsplit ('.', 1)[1]
-
     def get_url (self):
         return "%s#%s" % (self.get_interface ().get_url (), self.name)
 
@@ -53,10 +60,34 @@ class base (object):
         if self.docstring is None:
             return ''
         else:
-            # make a copy of this code, turn it into a HTML <div> tag
+            # make a copy of this node, turn it into a HTML <div> tag
             node = self.docstring.cloneNode (True)
             node.tagName = 'div'
+            node.baseURI = None
             node.setAttribute ('class', 'docstring')
+
+            # rewrite <tp:rationale>
+            for n in node.getElementsByTagNameNS (XMLNS_TP, 'rationale'):
+                n.tagName = 'div'
+                n.namespaceURI = None
+                n.setAttribute ('class', 'rationale')
+
+            # rewrite <tp:member-ref>
+            interface = self.get_interface ()
+            for n in node.getElementsByTagNameNS (XMLNS_TP, 'member-ref'):
+                key = getText (n)
+                try:
+                    o = interface.get_ref (key)
+                except KeyError:
+                    print >> sys.stderr, \
+                        "Key `%s' not known in interface `%s'" % (
+                            key, interface.name)
+                    continue
+                n.tagName = 'a'
+                n.namespaceURI = None
+                n.setAttribute ('href', o.get_url ())
+                n.setAttribute ('title', o.name)
+
             return node.toxml ().encode ('ascii', 'xmlcharrefreplace')
 
     def __repr__ (self):
@@ -171,6 +202,17 @@ class Interface (base):
     
     def get_url (self):
         return "%s.html" % self.name
+
+    def get_ref (self, name):
+        key = build_name (self.name, name)
+        if key in self.methods:
+            return self.methods[key]
+        elif key in self.signals:
+            return self.signals[key]
+        elif key in self.properties:
+            return self.properties[key]
+        else:
+            raise KeyError (name)
 
 class Error (base): pass
 
