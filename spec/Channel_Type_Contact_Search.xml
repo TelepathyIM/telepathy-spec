@@ -52,6 +52,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         should be requested for each subsequent search. Connection managers
         MUST support multiple ContactSearch channels being open at once (even
         to the same server, if applicable).</p>
+
+      <p>It does not make sense to request this channel type using <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">EnsureChannel</tp:dbus-ref>;
+        clients SHOULD request channels of this type using
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>
+        instead.</p>
+
+      <tp:rationale>
+        <p>A contact search channel that is already in use for a different
+          search isn't useful.</p>
+      </tp:rationale>
     </tp:docstring>
 
     <tp:enum name="Channel_Contact_Search_State" type="u">
