@@ -82,12 +82,42 @@ class base (object):
                         "Key `%s' not known in interface `%s'" % (
                             key, interface.name)
                     continue
+
                 n.tagName = 'a'
                 n.namespaceURI = None
                 n.setAttribute ('href', o.get_url ())
                 n.setAttribute ('title', o.name)
 
+            # rewrite <tp:dbus-ref>
+            spec = self.get_spec ()
+            for n in node.getElementsByTagNameNS (XMLNS_TP, 'dbus-ref'):
+                key = n.getAttribute ('namespace')
+                try:
+                    interface = spec.interfaces[key]
+                except KeyError:
+                    print >> sys.stderr, \
+                        "Interface `%s' not known in spec (%s: %s)" % (
+                            key, self.name, n.toxml ())
+                    continue
+                
+                key = getText (n)
+                try:
+                    o = interface.get_ref (key)
+                except KeyError:
+                    print >> sys.stderr, \
+                        "Key `%s' not known in interface `%s'" % (
+                            key, interface.name)
+                    continue
+
+                n.tagName = 'a'
+                n.namespaceURI = None
+                n.setAttribute ('href', o.get_url ())
+                n.setAttribute ('title', o.get_title ())
+
             return node.toxml ().encode ('ascii', 'xmlcharrefreplace')
+
+    def get_title (self):
+        return '%s %s' % (self.__class__.__name__, self.name)
 
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
