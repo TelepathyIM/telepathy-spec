@@ -197,9 +197,7 @@ class Arg (base):
     def __init__ (self, parent, namespace, dom):
         super (Arg, self).__init__ (parent, namespace, dom)
 
-        type_ = dom.getAttributeNS (XMLNS_TP, 'type')
-        self.type = self.get_spec ().lookup_type (type_)
-
+        self.type = dom.getAttributeNS (XMLNS_TP, 'type')
         self.dbus_type = dom.getAttribute ('type')
 
         direction = dom.getAttribute ('direction')
@@ -211,6 +209,15 @@ class Arg (base):
             class UnknownDirection (Exception): pass
             raise UnknownDirection ("Unknown direction `%s' on %s" % (
                                     direction, self.parent))
+
+    def get_type (self):
+        return self.get_spec ().lookup_type (self.type)
+
+    def get_url (self):
+        return self.get_type ().get_url ()
+
+    def get_title (self):
+        return self.get_type ().get_title ()
 
     def spec_name (self):
         return '%s: %s' % (self.dbus_type, self.short_name)

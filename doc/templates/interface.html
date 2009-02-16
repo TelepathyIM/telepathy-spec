@@ -29,7 +29,7 @@
       #for $arg in $method.in_args
        <li>
         $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_docstring()
       #end for
@@ -44,7 +44,7 @@
       #for $arg in $method.out_args
        <li>
         $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_docstring()
       #end for
@@ -84,7 +84,7 @@
       #for $arg in $signal.args
        <li>
        $arg.short_name &mdash; $arg.dbus_type
-       #if $arg.type: (<a href="$arg.type.get_url()" title="$arg.type.get_title()">$arg.type.short_name</a>)
+       #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_docstring()
       #end for
