@@ -243,20 +243,18 @@ class Interface (base):
     def __init__ (self, parent, namespace, dom):
         super (Interface, self).__init__ (parent, namespace, dom)
 
-        # build a dictionary of methods in this interface
+        # build a list of methods in this interface
         self.methods = build_list (self, Method, self.name,
                                    dom.getElementsByTagName ('method'))
-        # build a dictionary of properties in this interface
+        # build a list of properties in this interface
         self.properties = build_list (self, Property, self.name,
                                       dom.getElementsByTagName ('property'))
-        # build a dictionary of signals in this interface
+        # build a list of signals in this interface
         self.signals = build_list (self, Signal, self.name,
                                    dom.getElementsByTagName ('signal'))
 
-        # print '-'*78
-        # print self.methods
-        # print self.properties
-        # print self.signals
+        # build a list of types in this interface
+        self.types = parse_types (self, dom)
 
     def get_interface (self):
         return self
@@ -276,11 +274,23 @@ class DBusType (base):
 
        Don't instantiate this class directly.
     """
+    def __init__ (self, parent, namespace, dom):
+        super (DBusType, self).__init__ (parent, namespace, dom)
+
+        self.dbus_type = dom.getAttribute ('type')
+
+    def get_title (self):
+        return "%s %s" % (self.get_type_name (), self.name)
+
+    def get_type_name (self):
+        return self.__class__.__name__
 
     def get_url (self):
         return '#FIXME'
 
-class SimpleType (DBusType): pass
+class SimpleType (DBusType):
+    def get_type_name (self):
+        return 'Simple Type'
 
 class Mapping (DBusType): pass
 
@@ -297,16 +307,20 @@ class Spec (object):
         self.errors = build_dict (self, Error,
                         errorsnode.getAttribute ('namespace'),
                         errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error'))
-        # build a dictionary of ALL types in this spec
-        # FIXME: if we're doing all type parsing here, work out how to associate
-        # types with an Interface
-        self.generic_types = parse_types (self, dom)
-        # build a dictionary of interfaces in this spec
+        # build a list of generic types
+        self.generic_types = parse_types (self,
+                    dom.getElementsByTagNameNS (XMLNS_TP, 'generic-types')[0])
+        # build a list of interfaces in this spec
         self.interfaces = build_list (self, Interface, None,
                                  dom.getElementsByTagName ('interface'))
 
-        # build a giant dictionary of everything
+        # build a giant dictionary of everything (interfaces, methods, signals
+        # and properties); also build a dictionary of types
         self.everything = {}
+        self.types = {}
+
+        for type in self.generic_types: self.types[type.short_name] = type
+
         for interface in self.interfaces:
                 self.everything[interface.name] = interface
 
@@ -317,9 +331,8 @@ class Spec (object):
                 for property in interface.properties:
                     self.everything[property.name] = property
 
-        # build a dictionary of all types
-        self.types = {}
-        for type in self.generic_types: self.types[type.short_name] = type
+                for type in interface.types:
+                    self.types[type.short_name] = type
 
     def get_spec (self):
         return self

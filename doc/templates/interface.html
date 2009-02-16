@@ -8,9 +8,11 @@
  <body>
   <div class="header">
   <h1>Interface $interface.name</h1>
-   <a href="index.html">Interface Index</a> |
-   <a href="#methods">Methods</a> | <a href="#signals">Signals</a> |
-   <a href="#properties">Properties</a>
+   <a href="index.html">Interface Index</a>
+   #if $interface.methods: | <a href="#methods">Methods</a>
+   #if $interface.signals: | <a href="#signals">Signals</a>
+   #if $interface.properties: | <a href="#properties">Properties</a>
+   #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
     $interface.get_docstring()
@@ -114,7 +116,24 @@
     </div>
     #end for
    </div>
-  </div>
-  #end if
+   #end if
+
+   #if $interface.types
+   <div id="types" class="outset type">
+    <h1>Types</h1>
+    #for $type in $interface.types
+     <div id="$type.name" class="inset type">
+      <span class="permalink">(<a href="$type.get_url()">Permalink</a>)</span>
+      <h2>
+       $type.short_name &mdash; $type.dbus_type ($type.get_type_name())
+      </h2>
+      $type.get_docstring()
+     </div>
+    #end for
+   </div>
+   #end if
+   
+   </div>
+
  </body>
 </html>

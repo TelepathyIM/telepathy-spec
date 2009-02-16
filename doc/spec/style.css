@@ -65,6 +65,14 @@ div.property {
 	border: 1px solid #75507b;
 }
 
+#types {
+	background-color: #e9b96e;
+}
+
+div.type {
+	border: 1px solid #c17d11;
+}
+
 div.docstring {
 	margin: 1ex;
 }
