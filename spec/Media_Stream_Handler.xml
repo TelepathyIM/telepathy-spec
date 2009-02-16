@@ -130,7 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="RelayInfo" type="aa{ss}" access="read"
+    <property name="RelayInfo" type="aa{sv}" access="read"
       tp:type="String_String_Map[]" tp:name-for-bindings="Relay_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of mappings containing information about how this stream
@@ -138,30 +138,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Map keys are:</p>
 
         <dl>
-          <dt><code>ip</code></dt>
+          <dt><code>ip</code> - s</dt>
           <dd>The IP address of the relay server as a dotted-quad IPv4
             address literal or an RFC2373 IPv6 address literal</dd>
           <!-- Open issue: should the CM or the streaming implementation
           be responsible for resolving hostnames to IPs? Bear in mind that
           this might be a SRV record... -->
 
-          <dt><code>type</code></dt>
-          <dd>Either <code>udp</code> for UDP (UDP MUST be assumed if this
-            key is omitted), <code>tcp</code> for TCP, or
-            <code>tls</code> for a fake SSL/TLS session over TCP as supported
-            by the Google relay server</dd>
+          <dt><code>type</code> - s</dt>
+          <dd>
+            <p>Either <code>udp</code> for UDP (UDP MUST be assumed if this
+              key is omitted), <code>tcp</code> for TCP, or
+              <code>tls</code>.</p>
 
-          <dt><code>port</code></dt>
+            <p>The precise meaning of this key depends on the
+              <tp:member-ref>NATTraversal</tp:member-ref> property: if
+              NATTraversal is <code>ice-udp</code>, <code>tls</code> means
+              TLS over TCP as referenced by ICE draft 19, and if
+              NATTraversal is <code>gtalk-p2p</code>, <code>tls</code> means
+              a fake SSL session over TCP as implemented by libjingle.</p>
+          </dd>
+
+          <dt><code>port</code> - u</dt>
           <dd>The UDP or TCP port of the relay server as an ASCII unsigned
             integer</dd>
 
-          <dt><code>username</code></dt>
+          <dt><code>username</code> - s</dt>
           <dd>The username to use</dd>
 
-          <dt><code>password</code></dt>
+          <dt><code>password</code> - s</dt>
           <dd>The password to use</dd>
 
-          <dt><code>component</code></dt>
+          <dt><code>component</code> - u</dt>
           <dd>The component number to use this relay server for, as an
             ASCII unsigned integer; if not included, this relay server
             may be used for any or all components.
