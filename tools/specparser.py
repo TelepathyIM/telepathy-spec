@@ -28,6 +28,15 @@ class base (object):
 
         self.parent = parent
 
+        try:
+            self.docstring = filter (
+                        lambda n: n.nodeType == n.ELEMENT_NODE and \
+                                  n.namespaceURI == XMLNS_TP and \
+                                  n.localName == 'docstring',
+                        dom.childNodes)[0]
+        except IndexError:
+            self.docstring = None
+
     def get_interface (self):
         return self.parent.get_interface ()
 
@@ -36,6 +45,19 @@ class base (object):
 
     def get_url (self):
         return "%s#%s" % (self.get_interface ().get_url (), self.name)
+
+    def get_docstring (self):
+        """Get the docstring for this node, but do node substitution to
+           rewrite types, interfaces, etc. as links.
+        """
+        if self.docstring is None:
+            return ''
+        else:
+            # make a copy of this code, turn it into a HTML <div> tag
+            node = self.docstring.cloneNode (True)
+            node.tagName = 'div'
+            node.setAttribute ('class', 'docstring')
+            return node.toxml ().encode ('ascii', 'xmlcharrefreplace')
 
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
