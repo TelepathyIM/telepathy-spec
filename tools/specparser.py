@@ -296,30 +296,48 @@ class SimpleType (DBusType):
     def get_type_name (self):
         return 'Simple Type'
 
-class Mapping (DBusType): pass
+class StructLike (DBusType):
+    """Base class for all D-Bus types that look kind of like Structs
 
-class Struct (DBusType):
-    class StructMember (DBusType): pass
+       Don't instantiate this class directly.
+    """
+    class StructMember (Typed): pass
     
     def __init__ (self, parent, namespace, dom):
-        super (Struct, self).__init__ (parent, namespace, dom)
+        super (StructLike, self).__init__ (parent, namespace, dom)
         
-        self.members = build_list (self, Struct.StructMember, None,
+        self.members = build_list (self, StructLike.StructMember, None,
                         dom.getElementsByTagNameNS (XMLNS_TP, 'member'))
-
-        # rewrite the D-Bus type
-        self.dbus_type = '(%s)' % ''.join (map (lambda m: m.dbus_type, self.members))
 
     def get_breakdown (self):
         str = ''
         str += '<ul>\n'
         for member in self.members:
-            # attempt to lookup the member.name as a type in the type system
-            str += '<li>%s &mdash; %s</li>\n' % (member.name, member.dbus_type)
+            # attempt to lookup the member up in the type system
+            t = member.get_type ()
+
+            str += '<li>%s &mdash; %s' % (member.name, member.dbus_type)
+            if t: str += ' (<a href="%s" title="%s">%s</a>)' % (
+                            t.get_url (), t.get_title (), t.short_name)
+            str += '</li>\n'
             str += member.get_docstring ()
         str += '</ul>\n'
 
         return str
+
+class Mapping (StructLike):
+    def __init__ (self, parent, namespace, dom):
+        super (Mapping, self).__init__ (parent, namespace, dom)
+        
+        # rewrite the D-Bus type
+        self.dbus_type = 'a{%s}' % ''.join (map (lambda m: m.dbus_type, self.members))
+
+class Struct (StructLike):
+    def __init__ (self, parent, namespace, dom):
+        super (Struct, self).__init__ (parent, namespace, dom)
+        
+        # rewrite the D-Bus type
+        self.dbus_type = '(%s)' % ''.join (map (lambda m: m.dbus_type, self.members))
 
 class EnumLike (DBusType):
     """Base class for all D-Bus types that look kind of like Enums
