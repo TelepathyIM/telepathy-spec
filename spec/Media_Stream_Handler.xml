@@ -101,14 +101,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <dl>
           <dt>none</dt>
-          <dd>Raw UDP with no attempt made at doing NAT traversal. The
-            stun-server property MUST be absent or empty.</dd>
+          <dd>Raw UDP, with or without STUN, should be used. If the
+            <tp:member-ref>STUNServer</tp:member-ref> property is non-empty,
+            STUN SHOULD be used.</dd>
 
           <dt>stun</dt>
-          <dd>Raw UDP, but a STUN request should be made to the given server
-            to open a UDP port mapping and determine the external IP.
-            The <tp:member-ref>STUNServer</tp:member-ref> property MUST be
-            given and non-empty.</dd>
+          <dd>A synonym for 'none'.</dd>
 
           <dt>gtalk-p2p</dt>
           <dd>Google Talk peer-to-peer connectivity establishment should be
