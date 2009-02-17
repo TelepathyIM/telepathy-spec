@@ -99,13 +99,15 @@ div.added span.version {
 	font-weight: bold;
 }
 
-div.deprecated {
+div.deprecated,
+div.havoc {
 	border-left: 2px solid #a40000;
 	margin: 1ex;
 	padding-left: 1ex;
 }
 
-div.deprecated span.version {
+div.deprecated span.version,
+span.warning {
 	color: #a40000;
 	font-weight: bold;
 }

@@ -294,6 +294,10 @@ class Interface (base):
         # build a list of types in this interface
         self.types = parse_types (self, dom)
 
+        # find out if this interface causes havoc
+        self.causes_havoc = dom.getAttributeNS (XMLNS_TP, 'causes-havoc')
+        if self.causes_havoc == '': self.causes_havoc = None
+
     def get_interface (self):
         return self
     

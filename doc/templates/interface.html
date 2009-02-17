@@ -15,6 +15,13 @@
    #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
+    #if $interface.causes_havoc
+    <div class="havoc"><span class="warning">WARNING:</span>
+     This interface is $interface.causes_havoc and is likely to cause havoc
+     to your API/ABI if bindings are generated. Do not include this interface
+     in libraries that care about compatibility.
+    </div>
+    #end if
     $interface.get_added_html()
     $interface.get_deprecated_html()
     $interface.get_docstring()
