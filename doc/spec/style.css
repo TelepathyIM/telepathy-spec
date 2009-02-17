@@ -84,6 +84,14 @@ div.type {
 	border: 1px solid #c17d11;
 }
 
+#errors {
+	background-color: #ef2929;
+}
+
+div.error {
+	border: 1px solid #cc0000;
+}
+
 div.docstring {
 	margin: 1ex;
 }
