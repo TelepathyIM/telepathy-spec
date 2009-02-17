@@ -468,9 +468,14 @@ class Spec (object):
         self.errors = build_dict (self, Error,
                         errorsnode.getAttribute ('namespace'),
                         errorsnode.getElementsByTagNameNS (XMLNS_TP, 'error'))
+
         # build a list of generic types
-        self.generic_types = parse_types (self,
+        try:
+            self.generic_types = parse_types (self,
                     dom.getElementsByTagNameNS (XMLNS_TP, 'generic-types')[0])
+        except IndexError:
+            self.generic_types = []
+
         # build a list of interfaces in this spec
         self.interfaces = build_list (self, Interface, None,
                                  dom.getElementsByTagName ('interface'))
@@ -502,11 +507,14 @@ class Spec (object):
         self.copyrights = map (getText,
                                getChildrenByName (node, XMLNS_TP, 'copyright'))
 
-        license = getChildrenByName (node, XMLNS_TP, 'license')[0]
-        license.tagName = 'div'
-        license.namespaceURI = None
-        license.setAttribute ('class', 'license')
-        self.license = license.toxml ()
+        try:
+            license = getChildrenByName (node, XMLNS_TP, 'license')[0]
+            license.tagName = 'div'
+            license.namespaceURI = None
+            license.setAttribute ('class', 'license')
+            self.license = license.toxml ()
+        except IndexError:
+            self.license = ''
 
     def get_spec (self):
         return self
@@ -526,6 +534,9 @@ class Spec (object):
     
         class UnknownType (Exception): pass
         raise UnknownType ("Type `%s' is unknown" % type_)
+
+    def __repr__ (self):
+        return '%s(%s)' % (self.__class__.__name__, self.title)
 
 def build_dict (parent, type_, namespace, nodes):
     """Build a dictionary of D-Bus names to Python objects representing that
