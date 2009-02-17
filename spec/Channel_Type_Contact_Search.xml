@@ -31,9 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>The search can be cancelled at any time by calling the channel's
         <tp:dbus-ref
         namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-        method.  Depending on the protocol, the connection manager may not be
-        able to prevent the server from sending further results; if this is the
-        case, it MUST ignore any further results.</p>
+        method.</p>
 
       <p>Before searching, the
         <tp:member-ref>AvailableSearchKeys</tp:member-ref> property should be
@@ -328,6 +326,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>SearchStateChanged</tp:member-ref> don't have to
             handle a useless error.</p>
         </tp:rationale>
+
+        <p>Depending on the protocol, the connection manager may not be
+          able to prevent the server from sending further results after this
+          method returns; if this is the case, it MUST ignore any further
+          results.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
