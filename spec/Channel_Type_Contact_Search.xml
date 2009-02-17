@@ -310,6 +310,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <method name="Stop" tp:name-for-bindings="Stop">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Stop the current search. This may not be called while the
+          <tp:member-ref>SearchState</tp:member-ref> is Not_Started. If called
+          while the SearchState is In_Progress,
+          <tp:member-ref>SearchStateChanged</tp:member-ref> will be emitted,
+          with the state Failed and the error
+          <code>org.freedesktop.Telepathy.Errors.Cancelled</code>.</p>
+
+        <p>Calling this method on a search in state Completed or Failed
+          succeeds, but has no effect.</p>
+
+        <tp:rationale>
+          <p>Specifying Stop to succeed when the search has finished means that
+            clients who call Stop just before receiving
+            <tp:member-ref>SearchStateChanged</tp:member-ref> don't have to
+            handle a useless error.</p>
+        </tp:rationale>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The <tp:member-ref>SearchState</tp:member-ref> is Not_Started, so
+            this method is not yet available.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
     <signal name="SearchResultReceived"
       tp:name-for-bindings="Search_Result_Received">
       <arg name="Contact" type="u" tp:type="Contact_Handle">
