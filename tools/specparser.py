@@ -10,9 +10,12 @@ import xincludator
 XMLNS_TP = 'http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0'
 
 def getText (dom):
-    if dom.childNodes[0].nodeType == dom.TEXT_NODE:
-        return dom.childNodes[0].data
-    else:
+    try:
+        if dom.childNodes[0].nodeType == dom.TEXT_NODE:
+            return dom.childNodes[0].data
+        else:
+            return ''
+    except IndexError:
         return ''
 
 def getChildrenByName (dom, namespace, name):
@@ -46,6 +49,11 @@ class base (object):
         except IndexError:
             self.docstring = None
 
+        try:
+            self.added = getChildrenByName (dom, XMLNS_TP, 'added')[0]
+        except IndexError:
+            self.added = None
+
     def get_spec (self):
         return self.parent.get_spec ()
 
@@ -57,6 +65,18 @@ class base (object):
 
     def get_url (self):
         return "%s#%s" % (self.get_interface ().get_url (), self.name)
+
+    def get_added (self):
+        if self.added:
+            return (self.added.getAttribute ('version'), getText (self.added))
+        else:
+            return ''
+
+    def get_added_html (self):
+        if self.added:
+            return '<div class="added"><span class="version">Added in %s.</span>\n%s</div>' % self.get_added ()
+        else:
+            return ''
 
     def get_docstring (self):
         """Get the docstring for this node, but do node substitution to

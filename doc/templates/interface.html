@@ -15,6 +15,7 @@
    #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
+    $interface.get_added_html()
     $interface.get_docstring()
 
    #if $interface.methods
@@ -24,6 +25,9 @@
     <div id="$method.name" class="inset method">
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
+
+     $method.get_added_html()
+
      #if $method.in_args
      <div class="indent">
       <h3>Parameters</h3>
@@ -33,6 +37,7 @@
         $arg.short_name &mdash; $arg.dbus_type
         #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
+       $arg.get_added_html()
        $arg.get_docstring()
       #end for
       </ul>
@@ -48,6 +53,7 @@
         $arg.short_name &mdash; $arg.dbus_type
         #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
+       $arg.get_added_html()
        $arg.get_docstring()
       #end for
       </ul>
@@ -60,12 +66,13 @@
       <ul>
       #for $error in $method.possible_errors
        <li><a href="$error.get_url()" title="$error.get_title()">$error.get_error().short_name</a></li>
+       $error.get_added_html()
        $error.get_docstring()
       #end for
       </ul>
      </div>
      #end if
-     
+    
      $method.get_docstring()
     </div>
     #end for
@@ -79,6 +86,9 @@
     <div id="$signal.name" class="inset signal">
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
+     
+     $signal.get_added_html()
+     
      #if $signal.args
      <div class="indent">
       <h3>Parameters</h3>
@@ -88,11 +98,13 @@
        $arg.short_name &mdash; $arg.dbus_type
        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
+       $arg.get_added_html()
        $arg.get_docstring()
       #end for
       </ul>
      </div>
      #end if
+
      $signal.get_docstring()
     </div>
     #end for
@@ -112,6 +124,8 @@
       $property.short_name &mdash; $property.dbus_type
       #if $property.type: (<a href="$property.get_url()" title="$property.get_title()">$property.get_type().short_name</a>)
      </h2>
+
+     $property.get_added_html()
      $property.get_docstring()
     </div>
     #end for
@@ -127,6 +141,8 @@
       <h2>
        $type.short_name &mdash; $type.dbus_type
       </h2>
+
+      $type.get_added_html()
       $type.get_docstring()
       $type.get_breakdown()
      </div>
