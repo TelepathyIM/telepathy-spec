@@ -326,8 +326,16 @@ class Interface (base):
         self.causes_havoc = dom.getAttributeNS (XMLNS_TP, 'causes-havoc')
         if self.causes_havoc == '': self.causes_havoc = None
 
+        # find out what we're required to also implement
+        self.requires = map (lambda n: n.getAttribute ('interface'),
+                             getChildrenByName (dom, XMLNS_TP, 'requires'))
+
     def get_interface (self):
         return self
+
+    def get_requires (self):
+        spec = self.get_spec ()
+        return map (lambda r: spec.lookup (r), self.requires)
     
     def get_url (self):
         return '%s.html' % self.name

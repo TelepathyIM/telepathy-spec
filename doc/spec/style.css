@@ -108,6 +108,7 @@ div.access {
 	margin-left: 1ex;
 }
 
+div.requires,
 div.docstring {
 	margin: 1ex;
 }

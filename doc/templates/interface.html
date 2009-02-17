@@ -24,6 +24,18 @@
     #end if
     $interface.get_added_html()
     $interface.get_deprecated_html()
+
+    #if $interface.requires
+    <div class="requires">
+     Objects implementing this interface must also implement:
+     <ul>
+     #for $req in $interface.get_requires()
+      <li><a href="$req.get_url()" title="$req.get_title()">$req.name</a></li>
+     #end for
+     </ul>
+    </div>
+    #end if
+
     $interface.get_docstring()
 
    #if $interface.methods
