@@ -176,12 +176,23 @@
       </tp:docstring>
     </property>
 
-    <property name="MSNTransportAvailable"
-      tp:name-for-bindings="MSN_Transport_Available"
+    <property name="WLM85TransportAvailable"
+      tp:name-for-bindings="WLM_8_5_Transport_Available"
       type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same as <tp:member-ref>ICETransportAvailable</tp:member-ref>,
-          but for the variant of ICE used by MSN.</p>
+          but for the transport implemented by Windows Live Messenger 8.5 or
+          later (which resembles ICE draft 6).</p>
+      </tp:docstring>
+    </property>
+
+    <property name="WLM2009TransportAvailable"
+      tp:name-for-bindings="WLM_2009_Transport_Available"
+      type="b" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The same as <tp:member-ref>ICETransportAvailable</tp:member-ref>,
+          but for the transport implemented by Windows Live Messenger 2009
+          or later (which resembles ICE draft 19).</p>
       </tp:docstring>
     </property>
 
