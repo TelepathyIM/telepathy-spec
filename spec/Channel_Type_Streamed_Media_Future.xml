@@ -118,9 +118,9 @@
         <ul>
           <li>{ ChannelType = StreamedMedia }</li>
           <li>{ ChannelType = StreamedMedia, InitialAudio = true }
-            if receiving audio-only or audio+video calls is supported</li>
+            if receiving calls with audio is supported</li>
           <li>{ ChannelType = StreamedMedia, InitialVideo = true }
-            if receiving video-only or audio+video calls is supported</li>
+            if receiving calls with video is supported</li>
         </ul>
 
         <tp:rationale>
