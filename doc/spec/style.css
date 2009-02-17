@@ -17,6 +17,7 @@ ul {
 
 div.header {
 	position: fixed;
+	height: 4em;
 	background-color: white;
 	width: 100%;
 	margin: 0;
@@ -25,7 +26,6 @@ div.header {
 	top: 0;
 	left: 0;
 	z-index: 1;
-	height: 4em;
 }
 
 div.main {

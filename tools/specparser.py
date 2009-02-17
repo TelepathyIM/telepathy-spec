@@ -467,6 +467,19 @@ class Spec (object):
                 for type in interface.types:
                     self.types[type.short_name] = type
 
+        # get some extra bits for the HTML
+        node = dom.getElementsByTagNameNS (XMLNS_TP, 'spec')[0]
+        self.title = getText (getChildrenByName (node, XMLNS_TP, 'title')[0])
+        self.version = getText (getChildrenByName (node, XMLNS_TP, 'version')[0])
+        self.copyrights = map (getText,
+                               getChildrenByName (node, XMLNS_TP, 'copyright'))
+
+        license = getChildrenByName (node, XMLNS_TP, 'license')[0]
+        license.tagName = 'div'
+        license.namespaceURI = None
+        license.setAttribute ('class', 'license')
+        self.license = license.toxml ()
+
     def get_spec (self):
         return self
     
