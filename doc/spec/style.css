@@ -99,6 +99,17 @@ div.added span.version {
 	font-weight: bold;
 }
 
+div.deprecated {
+	border-left: 2px solid #a40000;
+	margin: 1ex;
+	padding-left: 1ex;
+}
+
+div.deprecated span.version {
+	color: #a40000;
+	font-weight: bold;
+}
+
 div.rationale {
 	border-left: 2px solid gray;
 	margin: 1ex;

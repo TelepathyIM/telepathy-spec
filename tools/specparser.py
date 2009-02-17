@@ -53,6 +53,11 @@ class base (object):
             self.added = getChildrenByName (dom, XMLNS_TP, 'added')[0]
         except IndexError:
             self.added = None
+        
+        try:
+            self.deprecated = getChildrenByName (dom, XMLNS_TP, 'deprecated')[0]
+        except IndexError:
+            self.deprecated = None
 
     def get_spec (self):
         return self.parent.get_spec ()
@@ -72,9 +77,21 @@ class base (object):
         else:
             return ''
 
+    def get_deprecated (self):
+        if self.deprecated:
+            return (self.deprecated.getAttribute ('version'), getText (self.deprecated))
+        else:
+            return ''
+
     def get_added_html (self):
         if self.added:
             return '<div class="added"><span class="version">Added in %s.</span>\n%s</div>' % self.get_added ()
+        else:
+            return ''
+    
+    def get_deprecated_html (self):
+        if self.deprecated:
+            return '<div class="deprecated"><span class="version">Deprecated in %s.</span>\n%s</div>' % self.get_deprecated ()
         else:
             return ''
 
