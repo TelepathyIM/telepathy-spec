@@ -41,6 +41,11 @@ div.main {
 	margin-bottom: 1ex;
 }
 
+div.main a[name] {
+	position: relative;
+	top: -4.5em;
+}
+
 div.outset {
 	padding: 1ex;
 	margin-top: 1ex;
@@ -58,7 +63,7 @@ div.indent {
 	margin-left: 1em;
 }
 
-#methods {
+div.methods {
 	background-color: #fcaf3e;
 }
 
@@ -66,7 +71,7 @@ div.method {
 	border: 1px solid #f57900;
 }
 
-#signals {
+div.signals {
 	background-color: #729fcf;
 }
 
@@ -74,7 +79,7 @@ div.signal {
 	border: 1px solid #3465a4;
 }
 
-#properties {
+div.properties {
 	background-color: #ad7fa8;
 }
 
@@ -82,7 +87,7 @@ div.property {
 	border: 1px solid #75507b;
 }
 
-#types {
+div.types {
 	background-color: #e9b96e;
 }
 
@@ -90,7 +95,7 @@ div.type {
 	border: 1px solid #c17d11;
 }
 
-#errors {
+div.errors {
 	background-color: #ef2929;
 }
 

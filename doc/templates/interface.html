@@ -27,10 +27,12 @@
     $interface.get_docstring()
 
    #if $interface.methods
-   <div id="methods" class="outset method">
+   <div class="outset methods method">
+    <a name="methods"></a>
     <h1>Methods</h1>
     #for $method in $interface.methods
-    <div id="$method.name" class="inset method">
+    <div class="inset method">
+     <a name="$method.name"></a>
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
 
@@ -92,10 +94,12 @@
    #end if
    
    #if $interface.signals
-   <div id="signals" class="outset signal">
+   <div class="outset signals signal">
+    <a name="signals"></a>
     <h1>Signals</h1>
     #for $signal in $interface.signals
-    <div id="$signal.name" class="inset signal">
+    <div class="inset signal">
+     <a name="$signal.name"></a>
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
 
@@ -126,13 +130,15 @@
    #end if
     
    #if $interface.properties
-   <div id="properties" class="outset property">
+   <div class="outset properties property">
+    <a name="properties"></a>
     <h1>Properties</h1>
     <div>
      Accessed using the org.freedesktop.DBus.Properties interface.
     </div>
     #for $property in $interface.properties
-    <div id="$property.name" class="inset property">
+    <div class="inset property">
+     <a name="$property.name"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
@@ -149,10 +155,12 @@
    #end if
 
    #if $interface.types
-   <div id="types" class="outset type">
+   <div class="outset types type">
+    <a name="types"></a>
     <h1>Types</h1>
     #for $type in $interface.types
-     <div id="$type.name" class="inset type">
+     <div class="inset type">
+      <a name="$type.name"></a>
       <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
        $type.short_name &mdash; $type.dbus_type

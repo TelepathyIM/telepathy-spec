@@ -12,10 +12,12 @@
    <a href="#errors">Errors</a>
   </div>
   <div class="main">
-   <div id="errors" class="outset error">
+   <div class="outset errors error">
+    <a name="errors"></a>
     <h1>Errors</h1>
     #for $error in $spec.errors.values()
-     <div id="$error.name" class="inset error">
+     <div class="inset error">
+      <a name="$error.name"></a>
       <span class="permalink">(<a href="$error.get_url()">Permalink</a>)</span>
       <h2>
        $error.short_name

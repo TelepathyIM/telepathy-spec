@@ -12,10 +12,12 @@
    <a href="#types">Types</a>
   </div>
   <div class="main">
-   <div id="types" class="outset type">
+   <div class="outset types type">
+    <a name="types"></a>
     <h1>Generic Types</h1>
     #for $type in $spec.generic_types
-     <div id="$type.name" class="inset type">
+     <div class="inset type">
+      <a name="$type.name"></a>
       <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
        $type.short_name &mdash; $type.dbus_type
