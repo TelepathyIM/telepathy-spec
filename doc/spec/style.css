@@ -92,6 +92,11 @@ div.error {
 	border: 1px solid #cc0000;
 }
 
+div.access {
+	font-weight: bold;
+	margin-left: 1ex;
+}
+
 div.docstring {
 	margin: 1ex;
 }

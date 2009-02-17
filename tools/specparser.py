@@ -251,8 +251,8 @@ class Typed (base):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
 class Property (Typed):
-    ACCESS_READ     = 0x01
-    ACCESS_WRITE    = 0x10
+    ACCESS_READ     = 1
+    ACCESS_WRITE    = 2
     
     ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
 
@@ -270,6 +270,14 @@ class Property (Typed):
             class UnknownAccess (Exception): pass
             raise UnknownAccess ("Unknown access `%s' on %s" % (
                                     access, self))
+
+    def get_access (self):
+        if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
+            return 'Read/Write'
+        elif self.access & self.ACCESS_READ:
+            return 'Read only'
+        elif self.access & self.ACCESS_WRITE:
+            return 'Write only'
 
 class Arg (Typed):
     DIRECTION_IN, DIRECTION_OUT = range (2)
