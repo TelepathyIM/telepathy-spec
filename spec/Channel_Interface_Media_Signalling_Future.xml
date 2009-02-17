@@ -165,8 +165,8 @@
       </tp:docstring>
     </property>
 
-    <property name="GoogleP2PTransportAvailable"
-      tp:name-for-bindings="Google_P2P_Transport_Available"
+    <property name="GTalkP2PTransportAvailable"
+      tp:name-for-bindings="GTalk_P2P_Transport_Available"
       type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same as <tp:member-ref>ICETransportAvailable</tp:member-ref>,
