@@ -302,11 +302,11 @@ class Interface (base):
         return self
     
     def get_url (self):
-        return "%s.html" % self.name
+        return '%s.html' % self.name
 
 class Error (base):
     def get_url (self):
-        return '#FIXME'
+        return 'errors.html#%s' % self.name
     
     def get_root_namespace (self):
         return self.namespace
@@ -334,7 +334,12 @@ class DBusType (base):
         return self.__class__.__name__
 
     def get_url (self):
-        return '#FIXME'
+        if isinstance (self.parent, Interface):
+            html = self.parent.get_url ()
+        else:
+            html = 'generic-types.html'
+
+        return '%s#%s' % (html, self.name)
 
 class SimpleType (DBusType):
     def get_type_name (self):
