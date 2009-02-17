@@ -2,7 +2,7 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.20 (UNRELEASED)
+telepathy-spec 0.17.21 (UNRELEASED)
 ===================================
 
 Changes to experimental API:
@@ -34,6 +34,9 @@ Clarifications:
 
 * Setting a status of type Offline, Unknown or Error for yourself is explicitly
   forbidden
+
+(Version 0.17.19 was mistakenly tagged as telepathy-spec-0.17.20, so 0.17.20
+was not used as a release version to avoid confusion.)
 
 telepathy-spec 0.17.19 (2009-01-28)
 ===================================
