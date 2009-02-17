@@ -45,8 +45,22 @@ for interface in spec.interfaces:
 # write out a TOC
 template_def = load_template ('index.html')
 t = Template (template_def, namespaces = [spec])
-
-# open the output file
 out = open (os.path.join (output_path, 'index.html'), 'w')
+print >> out, t
+out.close ()
+
+# write out the generic types
+namespace = { 'spec': spec }
+template_def = load_template ('generic-types.html')
+t = Template (template_def, namespaces = namespace)
+out = open (os.path.join (output_path, 'generic-types.html'), 'w')
+print >> out, t
+out.close ()
+
+# write out the errors
+namespace = { 'spec': spec }
+template_def = load_template ('errors.html')
+t = Template (template_def, namespaces = namespace)
+out = open (os.path.join (output_path, 'errors.html'), 'w')
 print >> out, t
 out.close ()

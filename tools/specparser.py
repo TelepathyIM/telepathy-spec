@@ -292,7 +292,7 @@ class Interface (base):
                                    dom.getElementsByTagName ('signal'))
 
         # build a list of types in this interface
-        self.types = parse_types (self, dom)
+        self.types = parse_types (self, dom, self.name)
 
         # find out if this interface causes havoc
         self.causes_havoc = dom.getAttributeNS (XMLNS_TP, 'causes-havoc')
@@ -320,6 +320,9 @@ class DBusType (base):
         super (DBusType, self).__init__ (parent, namespace, dom)
 
         self.dbus_type = dom.getAttribute ('type')
+    
+    def get_root_namespace (self):
+        return self.namespace
 
     def get_breakdown (self):
         return ''
@@ -342,7 +345,9 @@ class StructLike (DBusType):
 
        Don't instantiate this class directly.
     """
-    class StructMember (Typed): pass
+    class StructMember (Typed):
+        def get_root_namespace (self):
+            return self.parent.get_root_namespace ()
     
     def __init__ (self, parent, namespace, dom):
         super (StructLike, self).__init__ (parent, namespace, dom)
@@ -394,6 +399,8 @@ class EnumLike (DBusType):
             self.name = build_name (namespace, self.short_name)
 
             self.value = dom.getAttribute ('value')
+        def get_root_namespace (self):
+            return self.parent.get_root_namespace ()
 
     def get_breakdown (self):
         str = ''
@@ -493,7 +500,7 @@ def build_dict (parent, type_, namespace, nodes):
 def build_list (parent, type_, namespace, nodes):
     return map (lambda node: type_ (parent, namespace, node), nodes)
 
-def parse_types (parent, dom):
+def parse_types (parent, dom, namespace = None):
     """Parse all of the types of type nodes mentioned in 't' from the node
        'dom' and insert them into the dictionary 'd'.
     """
@@ -508,7 +515,7 @@ def parse_types (parent, dom):
     types = []
 
     for (type_, tagname) in t:
-        types += build_list (parent, type_, None,
+        types += build_list (parent, type_, namespace,
                     dom.getElementsByTagNameNS (XMLNS_TP, tagname))
 
     return types

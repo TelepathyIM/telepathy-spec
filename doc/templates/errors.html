@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+ <head>
+  <title>Errors</title>
+  <link rel="stylesheet" href="style.css" type="text/css"/>
+ </head>
+ <body>
+  <div class="header">
+  <h1>Errors</h1>
+   <a href="index.html">Interface Index</a>
+   <a href="#errors">Errors</a>
+  </div>
+  <div class="main">
+   <div id="errors" class="outset error">
+    <h1>Errors</h1>
+    #for $error in $spec.errors.values()
+     <div id="$error.name" class="inset error">
+      <span class="permalink">(<a href="$error.get_url()">Permalink</a>)</span>
+      <h2>
+       $error.short_name
+      </h2>
+
+      $error.get_added_html()
+      $error.get_deprecated_html()
+      $error.get_docstring()
+     </div>
+    #end for
+   </div>
+   </div>
+
+ </body>
+</html>
