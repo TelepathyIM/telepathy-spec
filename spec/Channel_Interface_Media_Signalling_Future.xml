@@ -22,7 +22,7 @@
   <interface name="org.freedesktop.Telepathy.Channel.Interface.MediaSignalling.FUTURE">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.MediaSignalling"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.MediaSignalling"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface contains functionality which we intend to incorporate
