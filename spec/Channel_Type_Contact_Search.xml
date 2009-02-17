@@ -28,13 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         closed when the search is completed or the required result has been
         found in order to free unused handles.</p>
 
-      <p>The search can be cancelled at any time by calling the channel's
-        <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-        method.  Depending on the protocol, the connection manager may not be
-        able to prevent the server from sending further results; if this is the
-        case, it MUST ignore any further results.</p>
-
       <p>Before searching, the
         <tp:member-ref>AvailableSearchKeys</tp:member-ref> property should be
         inspected to determine the valid search keys which can be provided to
@@ -46,7 +39,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>SearchResultReceived</tp:member-ref> signal is emitted
         for each contact found; when the search is complete, the search state
         will be set to <code>Completed</code>. If the search fails after Search
-        has been called, the state will change to <code>Failed</code>.</p>
+        has been called, the state will change to <code>Failed</code>.  A
+        running search can be cancelled by calling
+        <tp:member-ref>Stop</tp:member-ref>.</p>
+
+      <p>The client should call the channel's <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+        method when it is finished with the channel, so that any handles held
+        only by the channel can be released.</p>
 
       <p>Each channel can only be used for a single search; a new channel
         should be requested for each subsequent search. Connection managers
@@ -307,6 +307,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="Stop" tp:name-for-bindings="Stop">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Stop the current search. This may not be called while the
+          <tp:member-ref>SearchState</tp:member-ref> is Not_Started. If called
+          while the SearchState is In_Progress,
+          <tp:member-ref>SearchStateChanged</tp:member-ref> will be emitted,
+          with the state Failed and the error
+          <code>org.freedesktop.Telepathy.Errors.Cancelled</code>.</p>
+
+        <p>Calling this method on a search in state Completed or Failed
+          succeeds, but has no effect.</p>
+
+        <tp:rationale>
+          <p>Specifying Stop to succeed when the search has finished means that
+            clients who call Stop just before receiving
+            <tp:member-ref>SearchStateChanged</tp:member-ref> don't have to
+            handle a useless error.</p>
+        </tp:rationale>
+
+        <p>Depending on the protocol, the connection manager may not be
+          able to prevent the server from sending further results after this
+          method returns; if this is the case, it MUST ignore any further
+          results.</p>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The <tp:member-ref>SearchState</tp:member-ref> is Not_Started, so
+            this method is not yet available.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
