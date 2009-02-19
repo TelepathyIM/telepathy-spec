@@ -12,19 +12,30 @@
 #set lprefix = len ($prefix)
 #set $star = []
 #for $item in $spec.everything.values() + $spec.errors.values() + $spec.generic_types
-#if $item.__class__.__name__ == 'Interface': #set $name = $item.name[lprefix:]
-#else: #set $name = $item.short_name
-#echo $star.append(($name, $item))
+ #if $item.__class__.__name__ == 'Interface'
+  #set $name = $item.name[lprefix:]
+ #else
+  #set $name = $item.short_name
+ #end if
+ #echo $star.append(($name, $item))
+ #slurp
 #end for
 #echo $star.sort(key = lambda t: t[0])
-#set $groups = groupby($star, key = lambda t: t[0][0])
+#slurp
+## one use iterators...
+#set $groups = [ (l, list(g)) for l, g in (groupby($star, key = lambda t: t[0][0])) ]
+#set $letters = set(map(lambda t: t[0], groups))
 
  <body>
   <div class="header">
    <h1>Full Index</h1>
    <a href="index.html">Interface Index</a>
    #for $a in map(chr, xrange(ord('A'), ord('Z')+1))
-   | <a href="#$a">$a</a>
+    #if $a in $letters
+     | <a href="#$a">$a</a>
+    #else
+     | $a
+    #end if
    #end for
   </div>
 
@@ -33,9 +44,9 @@
    #for l, g in $groups
     <tr><th colspan="3"><a name="$l"></a>$l</th></tr>
     #for $n in $g
-     #if $n[1].deprecated:
+     #if $n[1].deprecated
       <tr class="deprecated">
-     #else:
+     #else
       <tr>
      #end if
       <td>
