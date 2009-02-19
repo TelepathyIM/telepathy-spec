@@ -25,7 +25,20 @@
   <h3>Interfaces</h3>
   <ul>
   #for $interface in $interfaces
-   <li><a href="$interface.get_url()">$interface.name</a></li>
+   #if $interface.causes_havoc
+    <li class="causes-havoc">
+   #elif $interface.deprecated
+    <li class="deprecated">
+   #else
+    <li>
+   #end if
+    <a href="$interface.get_url()">$interface.name</a>
+    #if $interface.causes_havoc
+     (unstable)
+    #elif $interface.deprecated
+     (deprecated)
+    #end if
+   </li>
   #end for
   </ul>
 

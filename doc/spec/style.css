@@ -123,6 +123,12 @@ table.summary td {
 	padding-right: 1ex;
 }
 
+li.causes-havoc {
+	font-style: italic;
+}
+
+li.deprecated,
+li.deprecated a,
 table.summary tr.deprecated td,
 table.summary tr.deprecated td a {
 	color: gray;
