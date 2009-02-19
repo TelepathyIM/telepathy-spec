@@ -216,24 +216,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             </tp:rationale>
           </dd>
 
-          <dt><code>x-search-offset</code></dt>
-          <dd>
-            <p>For protocols that support paging results, the offset from the
-              start of the results that should be returned, i.e. the number of
-              contacts from the beginning that should be omitted.</p>
-
-            <p>For example, if the search terms match 50 contacts, this key
-              is set to <code>"20"</code> and <code>x-search-limit</code>
-              is set to <code>"10"</code>, then the ten contacts from the 21st
-              to the 30th should be returned.</p>
-
-            <p>Connection managers for protocols which do not natively support
-              restricting the number of results returned MUST NOT support
-              either this term or <code>x-search-limit</code>: all results
-              should be signalled, and the client can provide its own paging as
-              desired.</p>
-          </dd>
-
           <dt><code>x-search-limit</code></dt>
           <dd>For protocols that support limiting results, the maximum number
             of results that should be returned.  For example, if the search
