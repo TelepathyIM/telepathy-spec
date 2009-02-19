@@ -9,9 +9,24 @@
   <div class="header">
   <h1>Generic Types</h1>
    <a href="index.html">Interface Index</a>
-   <a href="#types">Types</a>
+   | <a href="#summary">Summary</a>
+   | <a href="#types">Types</a>
   </div>
   <div class="main">
+    <div class="summary">
+     <a name="summary"></a>
+     <h3>Generic Types</h3>
+     <table class="summary">
+      #for $type in $spec.generic_types
+      <tr>
+       <td><a href="$type.get_url()">$type.short_name</a></td>
+       <td>$type.get_type_name()</td>
+       <td>$type.dbus_type</td>
+      </tr>
+      #end for
+     </table>
+    </div>
+
    <div class="outset types type">
     <a name="types"></a>
     <h1>Generic Types</h1>
