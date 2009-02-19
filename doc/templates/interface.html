@@ -82,8 +82,8 @@
     in libraries that care about compatibility.
    </div>
    #end if
-   $interface.get_added_html()
-   $interface.get_deprecated_html()
+   $interface.get_added()
+   $interface.get_deprecated()
 
    #if $interface.requires
    <div class="requires">
@@ -112,8 +112,8 @@
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
 
-     $method.get_added_html()
-     $method.get_deprecated_html()
+     $method.get_added()
+     $method.get_deprecated()
 
      #if $method.in_args
      <div class="indent">
@@ -124,8 +124,8 @@
         $arg.short_name &mdash; $arg.dbus_type
         #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
-       $arg.get_added_html()
-       $arg.get_deprecated_html()
+       $arg.get_added()
+       $arg.get_deprecated()
        $arg.get_docstring()
       #end for
       </ul>
@@ -141,8 +141,8 @@
         $arg.short_name &mdash; $arg.dbus_type
         #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
-       $arg.get_added_html()
-       $arg.get_deprecated_html()
+       $arg.get_added()
+       $arg.get_deprecated()
        $arg.get_docstring()
       #end for
       </ul>
@@ -155,8 +155,8 @@
       <ul>
       #for $error in $method.possible_errors
        <li><a href="$error.get_url()" title="$error.get_title()">$error.get_error().short_name</a></li>
-       $error.get_added_html()
-       $error.get_deprecated_html()
+       $error.get_added()
+       $error.get_deprecated()
        $error.get_docstring()
       #end for
       </ul>
@@ -179,8 +179,8 @@
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
 
-     $signal.get_added_html()
-     $signal.get_deprecated_html()
+     $signal.get_added()
+     $signal.get_deprecated()
 
      #if $signal.args
      <div class="indent">
@@ -191,8 +191,8 @@
        $arg.short_name &mdash; $arg.dbus_type
        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
        </li>
-       $arg.get_added_html()
-       $arg.get_deprecated_html()
+       $arg.get_added()
+       $arg.get_deprecated()
        $arg.get_docstring()
       #end for
       </ul>
@@ -222,8 +222,8 @@
      </h2>
       <div class="access">$property.get_access()</div>
 
-     $property.get_added_html()
-     $property.get_deprecated_html()
+     $property.get_added()
+     $property.get_deprecated()
      $property.get_docstring()
     </div>
     #end for
@@ -242,8 +242,8 @@
        $type.short_name &mdash; $type.dbus_type
       </h2>
 
-      $type.get_added_html()
-      $type.get_deprecated_html()
+      $type.get_added()
+      $type.get_deprecated()
       $type.get_docstring()
       $type.get_breakdown()
      </div>
