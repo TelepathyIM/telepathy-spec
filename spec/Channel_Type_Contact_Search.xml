@@ -215,16 +215,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               Gadu-Gadu and TOC appear to support this.
             </tp:rationale>
           </dd>
-
-          <dt><code>x-search-limit</code></dt>
-          <dd>For protocols that support limiting results, the maximum number
-            of results that should be returned.  For example, if the search
-            terms match <i>Antonius</i>, <i>Bridget</i> and <i>Charles</i> and
-            this key is set to <code>"2"</code>, the search service SHOULD only
-            return <i>Antonius</i> and <i>Bridget</i>.</dd>
         </dl>
       </tp:docstring>
     </tp:simple-type>
+
+    <property name="Limit" type="u" access="read"
+      tp:name-for-bindings="Limit">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If supported by the protocol, the maximum number of results that
+          should be returned, where <code>0</code> represents no limit. If the
+          protocol does not support limiting results, this should be
+          <code>0</code>.</p>
+
+        <p>For example, if the terms passed to
+          <tp:member-ref>Search</tp:member-ref> match <i>Antonius</i>,
+          <i>Bridget</i> and <i>Charles</i> and this property is
+          <code>2</code>, the search service SHOULD only return <i>Antonius</i>
+          and <i>Bridget</i>.</p>
+
+        <p>This property cannot change during the lifetime of the channel.
+          This property SHOULD be in the Allowed_Properties of a
+          <tp:type>Requestable_Channel_Class</tp:type> if and only if the
+          protocol supports specifying a limit; implementations SHOULD use
+          <code>0</code> as the default if possible, or a protocol-specific
+          sensible default otherwise.</p>
+      </tp:docstring>
+    </property>
 
     <property name="AvailableSearchKeys" type="as" access="read"
       tp:name-for-bindings="Available_Search_Keys">
