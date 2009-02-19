@@ -263,12 +263,12 @@ class Typed (base):
     def get_type (self):
         return self.get_spec ().lookup_type (self.type)
 
-    def get_url (self):
+    def get_type_url (self):
         t = self.get_type ()
         if t is None: return ''
         else: return t.get_url ()
 
-    def get_title (self):
+    def get_type_title (self):
         t = self.get_type ()
         if t is None: return ''
         else: return t.get_title ()

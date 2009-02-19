@@ -53,7 +53,7 @@
        <td><a href="$property.get_url()">$property.short_name</a></td>
        <td>
         $property.dbus_type
-        #if $property.type: (<a href="$property.get_url()" title="$property.get_title()">$property.get_type().short_name</a>)
+        #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
        </td>
        <td>$property.get_access()</td>
       </tr>
@@ -122,7 +122,7 @@
       #for $arg in $method.in_args
        <li>
         $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
+        #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
        $arg.get_deprecated()
@@ -139,7 +139,7 @@
       #for $arg in $method.out_args
        <li>
         $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
+        #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
        $arg.get_deprecated()
@@ -189,7 +189,7 @@
       #for $arg in $signal.args
        <li>
        $arg.short_name &mdash; $arg.dbus_type
-       #if $arg.get_type(): (<a href="$arg.get_url()" title="$arg.get_title()">$arg.get_type().short_name</a>)
+       #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
        $arg.get_deprecated()
@@ -218,7 +218,7 @@
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
-      #if $property.type: (<a href="$property.get_url()" title="$property.get_title()">$property.get_type().short_name</a>)
+      #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
      </h2>
       <div class="access">$property.get_access()</div>
 
