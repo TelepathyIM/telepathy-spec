@@ -108,6 +108,21 @@ div.access {
 	margin-left: 1ex;
 }
 
+div.summary {
+	padding: 0.5ex;
+	background-color: #eeeeec;
+	border: 1px solid #d3d7cf;
+}
+
+table.summary {
+	margin: 1ex;
+	font-size: small;
+}
+
+table.summary td {
+	padding-right: 1ex;
+}
+
 div.requires,
 div.docstring {
 	margin: 1ex;

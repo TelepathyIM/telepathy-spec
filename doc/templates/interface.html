@@ -8,35 +8,99 @@
  <body>
   <div class="header">
   <h1>Interface $interface.name</h1>
-   <a href="index.html">Interface Index</a>
+   <a href="index.html">Interface Index</a> | <a href="#summary">Summary</a>
+   #if $interface.docstring: | <a href="#description">Description</a>
    #if $interface.methods: | <a href="#methods">Methods</a>
    #if $interface.signals: | <a href="#signals">Signals</a>
    #if $interface.properties: | <a href="#properties">Properties</a>
    #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
-    #if $interface.causes_havoc
-    <div class="havoc"><span class="warning">WARNING:</span>
-     This interface is $interface.causes_havoc and is likely to cause havoc
-     to your API/ABI if bindings are generated. Do not include this interface
-     in libraries that care about compatibility.
-    </div>
-    #end if
-    $interface.get_added_html()
-    $interface.get_deprecated_html()
 
-    #if $interface.requires
-    <div class="requires">
-     Objects implementing this interface must also implement:
-     <ul>
-     #for $req in $interface.get_requires()
-      <li><a href="$req.get_url()" title="$req.get_title()">$req.name</a></li>
-     #end for
-     </ul>
-    </div>
+    <div class="summary">
+     <a name="summary"></a>
+     #if $interface.methods
+     <h3>Methods</h3>
+     <table class="summary">
+      #for $method in $interface.methods
+      <tr>
+       <td><a href="$method.get_url()">$method.short_name</a></td>
+       <td>($method.get_in_args())</td>
+       <td>&#8594;</td>
+       <td>$method.get_out_args()</td>
+      </tr>
+      #end for
+     </table>
+     #end if
+    
+     #if $interface.signals
+     <h3>Signals</h3>
+     <table class="summary">
+      #for $signal in $interface.signals
+      <tr>
+       <td><a href="$signal.get_url()">$signal.short_name</a></td>
+       <td>($signal.get_args())</td>
+      </tr>
+      #end for
+     </table>
     #end if
+    
+     #if $interface.properties
+     <h3>Properties</h3>
+     <table class="summary">
+      #for $property in $interface.properties
+      <tr>
+       <td><a href="$property.get_url()">$property.short_name</a></td>
+       <td>
+        $property.dbus_type
+        #if $property.type: (<a href="$property.get_url()" title="$property.get_title()">$property.get_type().short_name</a>)
+       </td>
+       <td>$property.get_access()</td>
+      </tr>
+      #end for
+    </table>
+    #end if
+     
+     #if $interface.types
+     <h3>Types</h3>
+     <table class="summary">
+      #for $type in $interface.types
+      <tr>
+       <td><a href="$type.get_url()">$type.short_name</a></td>
+       <td>$type.get_type_name()</td>
+       <td>$type.dbus_type</td>
+      </tr>
+      #end for
+     </table>
+    #end if
+   </div>
 
+   #if $interface.causes_havoc
+   <div class="havoc"><span class="warning">WARNING:</span>
+    This interface is $interface.causes_havoc and is likely to cause havoc
+    to your API/ABI if bindings are generated. Do not include this interface
+    in libraries that care about compatibility.
+   </div>
+   #end if
+   $interface.get_added_html()
+   $interface.get_deprecated_html()
+
+   #if $interface.requires
+   <div class="requires">
+    Objects implementing this interface must also implement:
+    <ul>
+    #for $req in $interface.get_requires()
+     <li><a href="$req.get_url()" title="$req.get_title()">$req.name</a></li>
+    #end for
+    </ul>
+   </div>
+   #end if
+
+   #if $interface.docstring
+    <a name="description"></a>
+    <h3>Description</h3>
     $interface.get_docstring()
+   #end if
 
    #if $interface.methods
    <div class="outset methods method">
