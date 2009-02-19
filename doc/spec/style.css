@@ -123,6 +123,11 @@ table.summary td {
 	padding-right: 1ex;
 }
 
+table.summary tr.deprecated td,
+table.summary tr.deprecated td a {
+	color: gray;
+}
+
 div.requires,
 div.docstring {
 	margin: 1ex;

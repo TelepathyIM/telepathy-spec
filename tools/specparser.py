@@ -78,6 +78,9 @@ class base (object):
             self.deprecated = getChildrenByName (dom, XMLNS_TP, 'deprecated')[0]
         except IndexError:
             self.deprecated = None
+    
+    def get_type_name (self):
+        return self.__class__.__name__
 
     def get_spec (self):
         return self.parent.get_spec ()
@@ -394,9 +397,6 @@ class DBusType (base):
 
     def get_title (self):
         return "%s %s" % (self.get_type_name (), self.name)
-
-    def get_type_name (self):
-        return self.__class__.__name__
 
     def get_url (self):
         if isinstance (self.parent, Interface):

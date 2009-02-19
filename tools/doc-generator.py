@@ -87,3 +87,11 @@ t = Template (template_def, namespaces = namespace)
 out = open (os.path.join (output_path, 'errors.html'), 'w')
 print >> out, t
 out.close ()
+
+# write out the fullindex
+namespace = { 'spec': spec }
+template_def = load_template ('fullindex.html')
+t = Template (template_def, namespaces = namespace)
+out = open (os.path.join (output_path, 'fullindex.html'), 'w')
+print >> out, t
+out.close ()
