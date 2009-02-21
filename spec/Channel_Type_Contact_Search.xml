@@ -73,10 +73,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="In_Progress" value="1">
         <tp:docstring>The search is in progress</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Completed" value="2">
+      <tp:enumvalue suffix="More_Available" value="2">
+        <tp:docstring>The search has paused, but more results can be retrieved
+          by calling <tp:member-ref>More</tp:member-ref>.</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Completed" value="3">
         <tp:docstring>The search has been completed</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Failed" value="3">
+      <tp:enumvalue suffix="Failed" value="4">
         <tp:docstring>The search has failed</tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -127,6 +131,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <ul>
           <li><code>Not_Started</code> → <code>In_Progress</code></li>
+          <li><code>In_Progress</code> → <code>More_Available</code></li>
+          <li><code>More_Available</code> → <code>In_Progress</code></li>
           <li><code>In_Progress</code> → <code>Completed</code></li>
           <li><code>In_Progress</code> → <code>Failed</code></li>
         </ul>
@@ -305,6 +311,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="More" tp:name-for-bindings="More">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Request that a search in <tp:member-ref>SearchState</tp:member-ref>
+        <code>More_Available</code> move back to state <code>In_Progress</code>
+        and continue listing up to <tp:member-ref>Limit</tp:member-ref> more results.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The <tp:member-ref>SearchState</tp:member-ref> is not
+            <code>More_Available</code>.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
