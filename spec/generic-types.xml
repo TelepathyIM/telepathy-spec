@@ -97,7 +97,7 @@
     <tp:member type="s" name="Value"/>
   </tp:mapping>
 
-  <tp:struct name="Socket_Address_IP">
+  <tp:struct name="Socket_Address_IP" array-name="Socket_Address_IP_List">
     <tp:docstring>An IP address and port.</tp:docstring>
     <tp:member type="s" name="Address">
       <tp:docstring>Either a dotted-quad IPv4 address literal as for
