@@ -160,7 +160,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               a fake SSL session over TCP as implemented by libjingle.</p>
           </dd>
 
-          <dt><code>port</code> - u</dt>
+          <dt><code>port</code> - q</dt>
           <dd>The UDP or TCP port of the relay server as an ASCII unsigned
             integer</dd>
 
