@@ -486,6 +486,9 @@ class EnumLike(DBusType):
         for value in self.values:
             # attempt to lookup the member.name as a type in the type system
             str += '<li>%s (%s)</li>\n' % (value.short_name, value.value)
+            str += value.get_added()
+            str += value.get_changed()
+            str += value.get_deprecated()
             str += value.get_docstring()
         str += '</ul>\n'
 
