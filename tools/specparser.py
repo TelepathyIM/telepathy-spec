@@ -245,6 +245,13 @@ class Method(Base):
         self.in_args = filter(lambda a: a.direction == Arg.DIRECTION_IN, args)
         self.out_args = filter(lambda a: a.direction == Arg.DIRECTION_OUT, args)
 
+        for arg in args:
+            if arg.direction == Arg.DIRECTION_IN or \
+               arg.direction == Arg.DIRECTION_OUT:
+                continue
+
+            print >> sys.stderr, "WARNING: '%s' of method '%s' does not specify a suitable direction" % (arg, self)
+
         self.possible_errors = build_list(self, PossibleError, None,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'error'))
 
@@ -315,7 +322,7 @@ class Property(Typed):
             return 'Write only'
 
 class Arg(Typed):
-    DIRECTION_IN, DIRECTION_OUT = range(2)
+    DIRECTION_IN, DIRECTION_OUT, DIRECTION_UNSPECIFIED = range(3)
 
     def __init__(self, parent, namespace, dom):
         super(Arg, self).__init__(parent, namespace, dom)
@@ -323,8 +330,10 @@ class Arg(Typed):
         direction = dom.getAttribute('direction')
         if direction == 'in':
             self.direction = self.DIRECTION_IN
-        elif direction == 'out' or direction == '':
+        elif direction == 'out':
             self.direction = self.DIRECTION_OUT
+        elif direction == '':
+            self.direction = self.DIRECTION_UNSPECIFIED
         else:
             raise UnknownDirection("Unknown direction '%s' on %s" % (
                                     direction, self.parent))
@@ -335,6 +344,12 @@ class Signal(Base):
 
         self.args = build_list(self, Arg, self.name,
                                dom.getElementsByTagName('arg'))
+
+        for arg in self.args:
+            if arg.direction == Arg.DIRECTION_UNSPECIFIED:
+                continue
+
+            print >> sys.stderr, "WARNING: '%s' of signal '%s' does not specify a suitable direction" % (arg, self)
 
     def get_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.args))
