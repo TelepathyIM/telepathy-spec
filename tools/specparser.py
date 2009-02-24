@@ -73,12 +73,12 @@ class Base (object):
             self.added = getChildrenByName (dom, XMLNS_TP, 'added')[0]
         except IndexError:
             self.added = None
-        
+
         try:
             self.deprecated = getChildrenByName (dom, XMLNS_TP, 'deprecated')[0]
         except IndexError:
             self.deprecated = None
-    
+
     def get_type_name (self):
         return self.__class__.__name__
 
@@ -159,7 +159,7 @@ class Base (object):
             self._convert_to_html (node)
 
             return node.toxml ().encode ('ascii', 'xmlcharrefreplace')
-    
+
     def _convert_to_html (self, node):
 
         # rewrite <tp:rationale>
@@ -167,7 +167,7 @@ class Base (object):
             n.tagName = 'div'
             n.namespaceURI = None
             n.setAttribute ('class', 'rationale')
-    
+
         # rewrite <tp:member-ref>
         spec = self.get_spec ()
         namespace = self.get_root_namespace ()
@@ -180,12 +180,12 @@ class Base (object):
                     "Key `%s' not known in namespace `%s'" % (
                         key, namespace)
                 continue
-    
+
             n.tagName = 'a'
             n.namespaceURI = None
             n.setAttribute ('href', o.get_url ())
             n.setAttribute ('title', o.get_title ())
-    
+
         # rewrite <tp:dbus-ref>
         for n in node.getElementsByTagNameNS (XMLNS_TP, 'dbus-ref'):
             namespace = n.getAttribute ('namespace')
@@ -197,7 +197,7 @@ class Base (object):
                     "Key `%s' not known in namespace `%s'" % (
                         key, namespace)
                 continue
-    
+
             n.tagName = 'a'
             n.namespaceURI = None
             n.setAttribute ('href', o.get_url ())
@@ -262,7 +262,7 @@ class Typed (Base):
 
         self.type = dom.getAttributeNS (XMLNS_TP, 'type')
         self.dbus_type = dom.getAttribute ('type')
-        
+
     def get_type (self):
         return self.get_spec ().lookup_type (self.type)
 
@@ -285,7 +285,7 @@ class Typed (Base):
 class Property (Typed):
     ACCESS_READ     = 1
     ACCESS_WRITE    = 2
-    
+
     ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
 
     def __init__ (self, parent, namespace, dom):
@@ -333,7 +333,7 @@ class Signal (Base):
 
         self.args = build_list (self, Arg, self.name,
                          dom.getElementsByTagName ('arg'))
-    
+
     def get_args (self):
         return ', '.join (map (lambda a: a.spec_name (), self.args))
 
@@ -368,14 +368,14 @@ class Interface (Base):
     def get_requires (self):
         spec = self.get_spec ()
         return map (lambda r: spec.lookup (r), self.requires)
-    
+
     def get_url (self):
         return '%s.html' % self.name
 
 class Error (Base):
     def get_url (self):
         return 'errors.html#%s' % self.name
-    
+
     def get_root_namespace (self):
         return self.namespace
 
@@ -388,7 +388,7 @@ class DBusType (Base):
         super (DBusType, self).__init__ (parent, namespace, dom)
 
         self.dbus_type = dom.getAttribute ('type')
-    
+
     def get_root_namespace (self):
         return self.namespace
 
@@ -418,10 +418,10 @@ class StructLike (DBusType):
     class StructMember (Typed):
         def get_root_namespace (self):
             return self.parent.get_root_namespace ()
-    
+
     def __init__ (self, parent, namespace, dom):
         super (StructLike, self).__init__ (parent, namespace, dom)
-        
+
         self.members = build_list (self, StructLike.StructMember, None,
                         dom.getElementsByTagNameNS (XMLNS_TP, 'member'))
 
@@ -444,14 +444,14 @@ class StructLike (DBusType):
 class Mapping (StructLike):
     def __init__ (self, parent, namespace, dom):
         super (Mapping, self).__init__ (parent, namespace, dom)
-        
+
         # rewrite the D-Bus type
         self.dbus_type = 'a{%s}' % ''.join (map (lambda m: m.dbus_type, self.members))
 
 class Struct (StructLike):
     def __init__ (self, parent, namespace, dom):
         super (Struct, self).__init__ (parent, namespace, dom)
-        
+
         # rewrite the D-Bus type
         self.dbus_type = '(%s)' % ''.join (map (lambda m: m.dbus_type, self.members))
 
@@ -486,14 +486,14 @@ class EnumLike (DBusType):
 class Enum (EnumLike):
     def __init__ (self, parent, namespace, dom):
         super (Enum, self).__init__ (parent, namespace, dom)
-        
+
         self.values = build_list (self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS (XMLNS_TP, 'enumvalue'))
-    
+
 class Flags (EnumLike):
     def __init__ (self, parent, namespace, dom):
         super (Flags, self).__init__ (parent, namespace, dom)
-        
+
         self.values = build_list (self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS (XMLNS_TP, 'flag'))
         self.flags = self.values # in case you're looking for it
@@ -555,7 +555,7 @@ class Spec (object):
 
     def get_spec (self):
         return self
-    
+
     def lookup (self, name, namespace = None):
         key = build_name (namespace, name)
         return self.everything[key]
@@ -564,11 +564,11 @@ class Spec (object):
         if type_.endswith ('[]'):
             # FIXME: should this be wrapped in some sort of Array() class?
             return self.lookup_type (type_[:-2])
-    
+
         if type_ == '': return None
         elif type_ in self.types:
             return self.types[type_]
-    
+
         class UnknownType (Exception): pass
         raise UnknownType ("Type `%s' is unknown" % type_)
 
