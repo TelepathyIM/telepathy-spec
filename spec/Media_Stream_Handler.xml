@@ -70,31 +70,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
-    <property name="STUNServer" tp:name-for-bindings="STUN_Server"
-      type="s" access="read">
+    <property name="STUNServers" tp:name-for-bindings="STUN_Servers"
+      type="a(sq)" tp:type="Socket_Address_IP[]" access="read">
       <tp:added version="0.17.UNRELEASED"/>
       <tp:docstring>
-        The IP address of the STUN server to use for NAT traversal, as
-        a dotted-quad IPv4 address literal or an RFC2373 IPv6 address literal.
+        The IP addresses of possible STUN servers to use for NAT traversal, as
+        dotted-quad IPv4 address literals or RFC2373 IPv6 address literals.
         This property cannot change once the stream has been created, so there
-        is no change notification. This MUST NOT be a DNS hostname.
+        is no change notification. The IP addresses MUST NOT be given as DNS
+        hostnames.
 
         <tp:rationale>
           High-quality connection managers already need an asynchronous
           DNS resolver, so they might as well resolve this name to an IP
           to make life easier for streaming implementations.
         </tp:rationale>
-      </tp:docstring>
-    </property>
-
-    <property name="STUNPort" tp:name-for-bindings="STUN_Port"
-      type="u" access="read">
-      <tp:added version="0.17.UNRELEASED"/>
-      <tp:docstring>
-        The UDP port number to use on the
-        <tp:member-ref>STUNServer</tp:member-ref>.
-        This property cannot change once the stream has been created, so there
-        is no change notification.
       </tp:docstring>
     </property>
 
@@ -108,7 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dl>
           <dt>none</dt>
           <dd>Raw UDP, with or without STUN, should be used. If the
-            <tp:member-ref>STUNServer</tp:member-ref> property is non-empty,
+            <tp:member-ref>STUNServers</tp:member-ref> property is non-empty,
             STUN SHOULD be used.</dd>
 
           <dt>stun</dt>

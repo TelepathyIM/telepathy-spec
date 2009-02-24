@@ -120,7 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:property name="stun-server" type="s">
       <tp:deprecated version="0.17.UNRELEASED">Use the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServer</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServers</tp:dbus-ref>
         property on the Media.StreamHandler, if available; use this
         as a fallback.</tp:deprecated>
       <tp:docstring>
@@ -131,7 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:property name="stun-port" type="q">
       <tp:deprecated version="0.17.UNRELEASED">Use the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServer</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServers</tp:dbus-ref>
         property on the Media.StreamHandler, if available; use this
         as a fallback.</tp:deprecated>
       <tp:docstring>
