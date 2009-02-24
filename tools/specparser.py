@@ -181,7 +181,7 @@ class Base (object):
                 o = spec.lookup (key, namespace = namespace)
             except KeyError:
                 print >> sys.stderr, \
-                    "Key `%s' not known in namespace `%s'" % (
+                    "WARNING: Key '%s' not known in namespace '%s'" % (
                         key, namespace)
                 continue
 
@@ -198,7 +198,7 @@ class Base (object):
                 o = spec.lookup (key, namespace = namespace)
             except KeyError:
                 print >> sys.stderr, \
-                    "Key `%s' not known in namespace `%s'" % (
+                    "WARNING: Key '%s' not known in namespace '%s'" % (
                         key, namespace)
                 continue
 
