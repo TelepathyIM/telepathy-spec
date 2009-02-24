@@ -52,7 +52,7 @@ def build_name (namespace, name):
                 [namespace, name.replace (' ', '')])
         )
 
-class base (object):
+class Base (object):
     """The base class for any type of XML node in the spec that implements the
        'name' attribute.
 
@@ -209,7 +209,7 @@ class base (object):
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
-class PossibleError (base):
+class PossibleError (Base):
     def __init__ (self, parent, namespace, dom):
         super (PossibleError, self).__init__ (parent, namespace, dom)
 
@@ -230,7 +230,7 @@ class PossibleError (base):
         else:
             return d
 
-class Method (base):
+class Method (Base):
     def __init__ (self, parent, namespace, dom):
         super (Method, self).__init__ (parent, namespace, dom)
 
@@ -252,7 +252,7 @@ class Method (base):
         else:
             return 'nothing'
 
-class Typed (base):
+class Typed (Base):
     """The base class for all typed nodes (i.e. Arg and Property).
 
        Don't instantiate this class directly.
@@ -327,7 +327,7 @@ class Arg (Typed):
             raise UnknownDirection ("Unknown direction `%s' on %s" % (
                                     direction, self.parent))
 
-class Signal (base):
+class Signal (Base):
     def __init__ (self, parent, namespace, dom):
         super (Signal, self).__init__ (parent, namespace, dom)
 
@@ -337,7 +337,7 @@ class Signal (base):
     def get_args (self):
         return ', '.join (map (lambda a: a.spec_name (), self.args))
 
-class Interface (base):
+class Interface (Base):
     def __init__ (self, parent, namespace, dom):
         super (Interface, self).__init__ (parent, namespace, dom)
 
@@ -372,14 +372,14 @@ class Interface (base):
     def get_url (self):
         return '%s.html' % self.name
 
-class Error (base):
+class Error (Base):
     def get_url (self):
         return 'errors.html#%s' % self.name
     
     def get_root_namespace (self):
         return self.namespace
 
-class DBusType (base):
+class DBusType (Base):
     """The base class for all D-Bus types referred to in the spec.
 
        Don't instantiate this class directly.
@@ -460,7 +460,7 @@ class EnumLike (DBusType):
 
        Don't instantiate this class directly.
     """
-    class EnumValue (base):
+    class EnumValue (Base):
         def __init__ (self, parent, namespace, dom):
             super (EnumLike.EnumValue, self).__init__ (parent, namespace, dom)
 
@@ -581,7 +581,7 @@ def build_dict (parent, type_, namespace, nodes):
 
        e.g. 'org.freedesktop.Telepathy.Channel' : Interface(Channel)
 
-       Works for any Python object inheriting from 'base' whose XML node
+       Works for any Python object inheriting from 'Base' whose XML node
        implements the 'name' attribute.
     """
 
