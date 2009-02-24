@@ -97,6 +97,19 @@
     <tp:member type="s" name="Value"/>
   </tp:mapping>
 
+  <tp:struct name="Socket_Address_IP">
+    <tp:docstring>An IP address and port.</tp:docstring>
+    <tp:member type="s" name="Address">
+      <tp:docstring>Either a dotted-quad IPv4 address literal as for
+        <tp:type>Socket_Address_IPv4</tp:type>, or an RFC2373 IPv6 address
+        as for <tp:type>Socket_Address_IPv6</tp:type>.
+      </tp:docstring>
+    </tp:member>
+    <tp:member type="q" name="Port">
+      <tp:docstring>The TCP or UDP port number.</tp:docstring>
+    </tp:member>
+  </tp:struct>
+
   <tp:struct name="Socket_Address_IPv4">
     <tp:docstring>An IPv4 address and port.</tp:docstring>
     <tp:member type="s" name="Address">
