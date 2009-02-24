@@ -83,6 +83,8 @@ class Base(object):
         except IndexError:
             self.deprecated = None
 
+        self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
+
     def get_type_name(self):
         return self.__class__.__name__
 
@@ -98,54 +100,43 @@ class Base(object):
     def get_url(self):
         return "%s#%s" % (self.get_interface().get_url(), self.name)
 
-    def get_added(self):
-        if self.added is None:
+    def _get_generic_with_ver(self, nnode, htmlclass, txt):
+        if nnode is None:
             return ''
         else:
             # make a copy of this node, turn it into a HTML <div> tag
-            node = self.added.cloneNode(True)
+            node = nnode.cloneNode(True)
             node.tagName = 'div'
             node.baseURI = None
-            node.setAttribute('class', 'added')
+            node.setAttribute('class', htmlclass)
 
             try:
                 node.removeAttribute('version')
 
                 span = xml.dom.minidom.parseString(
-                    '<span class="version">Added in %s.\n</span>' %
-                            self.added.getAttribute('version')).firstChild
+                    ('<span class="version">%s\n</span>' % txt) %
+                            nnode.getAttribute('version')).firstChild
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
                 print >> sys.stderr, \
-                    'WARNING: %s was added, but gives no version' % self
+                    'WARNING: %s was %s, but gives no version' % (self, htmlclass)
 
             self._convert_to_html(node)
 
             return node.toxml().encode('ascii', 'xmlcharrefreplace')
+
+    def get_added(self):
+        return self._get_generic_with_ver(self.added, 'added',
+                                          "Added in %s.")
 
     def get_deprecated(self):
-        if self.deprecated is None:
-            return ''
-        else:
-            # make a copy of this node, turn it into a HTML <div> tag
-            node = self.deprecated.cloneNode(True)
-            node.tagName = 'div'
-            node.baseURI = None
-            node.setAttribute('class', 'deprecated')
-            try:
-                node.removeAttribute('version')
+        return self._get_generic_with_ver(self.deprecated, 'deprecated',
+                                          "Deprecated since %s.")
 
-                span = xml.dom.minidom.parseString(
-                    '<span class="version">Deprecated since %s.\n</span>' %
-                            self.deprecated.getAttribute('version')).firstChild
-                node.insertBefore(span, node.firstChild)
-            except xml.dom.NotFoundErr:
-                print >> sys.stderr, \
-                    'WARNING: %s is deprecated, but gives no version' % self
-
-            self._convert_to_html(node)
-
-            return node.toxml().encode('ascii', 'xmlcharrefreplace')
+    def get_changed(self):
+        return '\n'.join(map(lambda n:
+            self._get_generic_with_ver(n, 'changed', "Changed in %s."),
+            self.changed))
 
     def get_docstring(self):
         """Get the docstring for this node, but do node substitution to

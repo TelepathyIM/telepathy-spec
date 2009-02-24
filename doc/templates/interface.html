@@ -83,6 +83,7 @@
    </div>
    #end if
    $interface.get_added()
+   $interface.get_changed()
    $interface.get_deprecated()
 
    #if $interface.requires
@@ -113,6 +114,7 @@
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
 
      $method.get_added()
+     $method.get_changed()
      $method.get_deprecated()
 
      #if $method.in_args
@@ -125,6 +127,7 @@
         #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
+       $arg.get_changed()
        $arg.get_deprecated()
        $arg.get_docstring()
       #end for
@@ -142,6 +145,7 @@
         #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
+       $arg.get_changed()
        $arg.get_deprecated()
        $arg.get_docstring()
       #end for
@@ -156,6 +160,7 @@
       #for $error in $method.possible_errors
        <li><a href="$error.get_url()" title="$error.get_title()">$error.get_error().short_name</a></li>
        $error.get_added()
+       $error.get_changed()
        $error.get_deprecated()
        $error.get_docstring()
       #end for
@@ -180,6 +185,7 @@
      <h2>$signal.short_name ($signal.get_args())</h2>
 
      $signal.get_added()
+     $signal.get_changed()
      $signal.get_deprecated()
 
      #if $signal.args
@@ -192,6 +198,7 @@
        #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
        </li>
        $arg.get_added()
+       $arg.get_changed()
        $arg.get_deprecated()
        $arg.get_docstring()
       #end for
@@ -223,6 +230,7 @@
       <div class="access">$property.get_access()</div>
 
      $property.get_added()
+     $property.get_changed()
      $property.get_deprecated()
      $property.get_docstring()
     </div>
@@ -243,6 +251,7 @@
       </h2>
 
       $type.get_added()
+      $type.get_changed()
       $type.get_deprecated()
       $type.get_docstring()
       $type.get_breakdown()

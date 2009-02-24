@@ -150,6 +150,17 @@ div.added span.version {
 	font-weight: bold;
 }
 
+div.changed {
+	border-left: 2px solid #8f5902;
+	margin: 1ex;
+	padding-left: 1ex;
+}
+
+div.changed span.version {
+	color: #8f5902;
+	font-weight: bold;
+}
+
 div.deprecated,
 div.havoc {
 	border-left: 2px solid #a40000;
