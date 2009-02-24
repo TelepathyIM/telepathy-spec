@@ -127,7 +127,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="RelayInfo" type="aa{sv}" access="read"
-      tp:type="String_String_Map[]" tp:name-for-bindings="Relay_Info">
+      tp:type="String_Variant_Map[]" tp:name-for-bindings="Relay_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of mappings containing information about how this stream
           can be relayed, to be used with TURN or Google relay servers.
