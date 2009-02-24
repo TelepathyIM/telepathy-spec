@@ -29,6 +29,10 @@ import xincludator
 
 XMLNS_TP = 'http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0'
 
+class UnknownAccess (Exception): pass
+class UnknownDirection (Exception): pass
+class UnknownType (Exception): pass
+
 def getText (dom):
     try:
         if dom.childNodes[0].nodeType == dom.TEXT_NODE:
@@ -299,8 +303,7 @@ class Property (Typed):
         elif access == 'readwrite':
             self.access = self.ACCESS_READWRITE
         else:
-            class UnknownAccess (Exception): pass
-            raise UnknownAccess ("Unknown access `%s' on %s" % (
+            raise UnknownAccess ("Unknown access '%s' on %s" % (
                                     access, self))
 
     def get_access (self):
@@ -323,8 +326,7 @@ class Arg (Typed):
         elif direction == 'out' or direction == '':
             self.direction = self.DIRECTION_OUT
         else:
-            class UnknownDirection (Exception): pass
-            raise UnknownDirection ("Unknown direction `%s' on %s" % (
+            raise UnknownDirection ("Unknown direction '%s' on %s" % (
                                     direction, self.parent))
 
 class Signal (Base):
@@ -569,8 +571,7 @@ class Spec (object):
         elif type_ in self.types:
             return self.types[type_]
 
-        class UnknownType (Exception): pass
-        raise UnknownType ("Type `%s' is unknown" % type_)
+        raise UnknownType ("Type '%s' is unknown" % type_)
 
     def __repr__ (self):
         return '%s(%s)' % (self.__class__.__name__, self.title)
