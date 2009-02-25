@@ -18,10 +18,17 @@
      <h3>Generic Types</h3>
      <table class="summary">
       #for $type in $spec.generic_types
-      <tr>
+       #if $type.deprecated
+        <tr class="deprecated">
+       #else
+        <tr>
+       #end if
        <td><a href="$type.get_url()">$type.short_name</a></td>
        <td>$type.get_type_name()</td>
        <td>$type.dbus_type</td>
+       <td>
+        #if $type.deprecated: (deprecated)
+       </td>
       </tr>
       #end for
      </table>

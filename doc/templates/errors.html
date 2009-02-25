@@ -18,8 +18,15 @@
     <h3>Errors</h3>
     <table class="summary">
      #for $error in $spec.errors.values()
-      <tr>
+      #if $error.deprecated
+       <tr class="deprecated">
+      #else
+       <tr>
+      #end if
        <td><a href="$error.get_url()">$error.short_name</a></td>
+       <td>
+        #if $error.deprecated: (deprecated)
+       </td>
       </tr>
      #end for
     </table>

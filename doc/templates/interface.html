@@ -23,11 +23,18 @@
      <h3>Methods</h3>
      <table class="summary">
       #for $method in $interface.methods
-      <tr>
+       #if $method.deprecated
+        <tr class="deprecated">
+       #else
+        <tr>
+       #end if
        <td><a href="$method.get_url()">$method.short_name</a></td>
        <td>($method.get_in_args())</td>
        <td>&#8594;</td>
        <td>$method.get_out_args()</td>
+       <td>
+        #if $method.deprecated: (deprecated)
+       </td>
       </tr>
       #end for
      </table>
@@ -37,9 +44,16 @@
      <h3>Signals</h3>
      <table class="summary">
       #for $signal in $interface.signals
-      <tr>
+       #if $signal.deprecated
+        <tr class="deprecated">
+       #else
+        <tr>
+       #end if
        <td><a href="$signal.get_url()">$signal.short_name</a></td>
        <td>($signal.get_args())</td>
+       <td>
+        #if $signal.deprecated: (deprecated)
+       </td>
       </tr>
       #end for
      </table>
@@ -49,13 +63,20 @@
      <h3>Properties</h3>
      <table class="summary">
       #for $property in $interface.properties
-      <tr>
+       #if $property.deprecated
+        <tr class="deprecated">
+       #else
+        <tr>
+       #end if
        <td><a href="$property.get_url()">$property.short_name</a></td>
        <td>
         $property.dbus_type
         #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
        </td>
        <td>$property.get_access()</td>
+       <td>
+        #if $property.deprecated: (deprecated)
+       </td>
       </tr>
       #end for
     </table>
@@ -65,10 +86,17 @@
      <h3>Types</h3>
      <table class="summary">
       #for $type in $interface.types
-      <tr>
+       #if type.deprecated
+        <tr class="deprecated">
+       #else
+        <tr>
+       #end if
        <td><a href="$type.get_url()">$type.short_name</a></td>
        <td>$type.get_type_name()</td>
        <td>$type.dbus_type</td>
+       <td>
+        #if $type.deprecated: (deprecated)
+       </td>
       </tr>
       #end for
      </table>
