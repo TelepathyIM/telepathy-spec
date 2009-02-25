@@ -32,6 +32,8 @@ XMLNS_TP = 'http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0'
 class UnknownAccess(Exception): pass
 class UnknownDirection(Exception): pass
 class UnknownType(Exception): pass
+class UnnamedItem(Exception): pass
+class UntypedItem(Exception): pass
 
 def getText(dom):
     try:
@@ -84,6 +86,12 @@ class Base(object):
             self.deprecated = None
 
         self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
+
+        self.validate()
+
+    def validate(self):
+        if self.short_name == '':
+            raise UnnamedItem("Node referred to by '%s' has no name" % dom.toxml())
 
     def get_type_name(self):
         return self.__class__.__name__
@@ -265,6 +273,9 @@ class Typed(Base):
 
         self.type = dom.getAttributeNS(XMLNS_TP, 'type')
         self.dbus_type = dom.getAttribute('type')
+
+        if self.dbus_type == '':
+            raise UntypedItem("Node referred to by '%s' has no type" % dom.toxml())
 
     def get_type(self):
         return self.get_spec().lookup_type(self.type)
@@ -477,6 +488,12 @@ class EnumLike(DBusType):
             self.name = build_name(namespace, self.short_name)
 
             self.value = dom.getAttribute('value')
+
+            super(EnumLike.EnumValue, self).validate()
+
+        def validate(self):
+            pass
+
         def get_root_namespace(self):
             return self.parent.get_root_namespace()
 
