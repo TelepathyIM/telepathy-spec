@@ -274,9 +274,9 @@ class Typed(Base):
         self.type = dom.getAttributeNS(XMLNS_TP, 'type')
         self.dbus_type = dom.getAttribute('type')
 
+        # check we have a dbus type
         if self.dbus_type == '':
             raise UntypedItem("Node referred to by '%s' has no type" % dom.toxml())
-
     def get_type(self):
         return self.get_spec().lookup_type(self.type)
 
@@ -398,6 +398,51 @@ class Error(Base):
     def get_root_namespace(self):
         return self.namespace
 
+class DBusList(object):
+    """Stores a list of a given DBusType. Provides some basic validation to
+       determine whether or not the type is sane.
+    """
+    def __init__(self, child):
+        self.child = child
+
+        if isinstance(child, DBusType):
+            self.ultimate = child
+            self.depth = 1
+
+            if self.child.array_name == '':
+                # FIXME: is not having an array_name an error?
+                self.name = self.child.name + '_List'
+                self.short_name = self.child.short_name + '_List'
+            else:
+                self.name = build_name(self.child.namespace,
+                                       self.child.array_name)
+                self.short_name = self.child.array_name
+
+        elif isinstance(child, DBusList):
+            self.ultimate = child.ultimate
+            self.depth = child.depth + 1
+            self.name = self.child.name + '_List'
+            self.short_name = self.child.short_name + '_List'
+
+            # check that our child can operate at this depth
+            maxdepth = int(self.ultimate.array_depth)
+            if self.depth > maxdepth:
+                raise TypeError("Type '%s' has exceeded its maximum depth (%i)" % (self, maxdepth))
+
+        else:
+            raise TypeError("DBusList can contain only a DBusType or DBusList not '%s'" % child)
+
+        self.dbus_type = 'a' + self.child.dbus_type
+
+    def get_url(self):
+        return self.ultimate.get_url()
+
+    def get_title(self):
+        return "Array of %s" % self.child.get_title()
+
+    def __repr__(self):
+        return 'Array(%s)' % self.child
+
 class DBusType(Base):
     """The base class for all D-Bus types referred to in the spec.
 
@@ -407,6 +452,8 @@ class DBusType(Base):
         super(DBusType, self).__init__(parent, namespace, dom)
 
         self.dbus_type = dom.getAttribute('type')
+        self.array_name = dom.getAttribute('array-name')
+        self.array_depth = dom.getAttribute('array-depth')
 
     def get_root_namespace(self):
         return self.namespace
@@ -581,6 +628,8 @@ class Spec(object):
         except IndexError:
             self.license = ''
 
+        # FIXME: we need to check all args for type correctness
+
     def get_spec(self):
         return self
 
@@ -590,8 +639,7 @@ class Spec(object):
 
     def lookup_type(self, type_):
         if type_.endswith('[]'):
-            # FIXME: should this be wrapped in some sort of Array() class?
-            return self.lookup_type(type_[:-2])
+            return DBusList(self.lookup_type(type_[:-2]))
 
         if type_ == '': return None
         elif type_ in self.types:
