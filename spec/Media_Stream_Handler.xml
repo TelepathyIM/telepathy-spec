@@ -88,13 +88,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="CreatedLocally" tp:name-for-bindings="CreatedLocally"
+    <property name="CreatedLocally" tp:name-for-bindings="Created_Locally"
       type="b" access="read">
       <tp:added version="0.17.UNRELEASED"/>
       <tp:docstring>
-        True if we were the creator of this stream, FALSE otherwise.
+        True if we were the creator of this stream, false otherwise.
         <tp:rationale>
-          This information is needed for some nat traversal mechanisms. Such
+          This information is needed for some nat traversal mechanisms, such
           as ICE-UDP, where the creator gets the role of the controlling agent.
         </tp:rationale>
       </tp:docstring>
