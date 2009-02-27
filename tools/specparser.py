@@ -219,7 +219,10 @@ class PossibleError(Base):
 
     def get_error(self):
         spec = self.get_spec()
-        return spec.errors[self.name]
+        try:
+            return spec.errors[self.name]
+        except KeyError:
+            return External(self.name)
 
     def get_url(self):
         return self.get_error().get_url()
@@ -357,6 +360,27 @@ class Signal(Base):
     def get_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.args))
 
+class External(object):
+    """External objects are objects that are referred to in another spec.
+
+       We have to attempt to look them up if at all possible.
+    """
+
+    def __init__(self, name):
+        self.name = self.short_name = name
+
+    def get_url(self):
+        return None
+
+    def get_title(self):
+        return 'External %s' % self.name
+
+    def get_docstring(self):
+        return None
+
+    def __repr__(self):
+        return '%s(%s)' % (self.__class__.__name__, self.name)
+
 class Interface(Base):
     def __init__(self, parent, namespace, dom):
         super(Interface, self).__init__(parent, namespace, dom)
@@ -387,7 +411,14 @@ class Interface(Base):
 
     def get_requires(self):
         spec = self.get_spec()
-        return map(lambda r: spec.lookup(r), self.requires)
+
+        def lookup(r):
+            try:
+                return spec.lookup(r)
+            except KeyError:
+                return External(r)
+
+        return map(lookup, self.requires)
 
     def get_url(self):
         return '%s.html' % self.name
@@ -476,6 +507,10 @@ class DBusType(Base):
 class SimpleType(DBusType):
     def get_type_name(self):
         return 'Simple Type'
+
+class ExternalType(DBusType):
+    def get_type_name(self):
+        return 'External Type'
 
 class StructLike(DBusType):
     """Base class for all D-Bus types that look kind of like Structs
@@ -687,6 +722,7 @@ def parse_types(parent, dom, namespace = None):
         (Flags,         'flags'),
         (Mapping,       'mapping'),
         (Struct,        'struct'),
+        (ExternalType,  'external-type'),
     ]
 
     types = []
