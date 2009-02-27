@@ -91,7 +91,8 @@ class Base(object):
 
     def validate(self):
         if self.short_name == '':
-            raise UnnamedItem("Node referred to by '%s' has no name" % dom.toxml())
+            raise UnnamedItem("Node %s of %s has no name" % (
+                self.__class__.__name__, self.parent))
 
     def get_type_name(self):
         return self.__class__.__name__
@@ -576,17 +577,19 @@ class Flags(EnumLike):
 class Spec(object):
     def __init__(self, dom):
         # build a dictionary of errors in this spec
-        errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
-        self.errors = build_dict(self, Error,
+        try:
+            errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
+            self.errors = build_dict(self, Error,
                         errorsnode.getAttribute('namespace'),
                         errorsnode.getElementsByTagNameNS(XMLNS_TP, 'error'))
+        except IndexError:
+            self.errors = {}
 
         # build a list of generic types
-        try:
-            self.generic_types = parse_types(self,
-                    dom.getElementsByTagNameNS(XMLNS_TP, 'generic-types')[0])
-        except IndexError:
-            self.generic_types = []
+        self.generic_types = reduce (lambda a, b: a + b,
+                map(lambda l: parse_types(self, l),
+                        dom.getElementsByTagNameNS(XMLNS_TP, 'generic-types')),
+                [])
 
         # build a list of interfaces in this spec
         self.interfaces = build_list(self, Interface, None,
@@ -615,7 +618,12 @@ class Spec(object):
         # get some extra bits for the HTML
         node = dom.getElementsByTagNameNS(XMLNS_TP, 'spec')[0]
         self.title = getText(getChildrenByName(node, XMLNS_TP, 'title')[0])
-        self.version = getText(getChildrenByName(node, XMLNS_TP, 'version')[0])
+
+        try:
+            self.version = getText(getChildrenByName(node, XMLNS_TP, 'version')[0])
+        except IndexError:
+            self.version = None
+
         self.copyrights = map(getText,
                               getChildrenByName(node, XMLNS_TP, 'copyright'))
 
