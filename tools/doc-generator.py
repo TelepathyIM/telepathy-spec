@@ -24,7 +24,9 @@
 #
 
 import sys
+import os
 import os.path
+import shutil
 
 try:
     from Cheetah.Template import Template
@@ -35,10 +37,17 @@ except ImportError, e:
 
 import specparser
 
-template_path = os.path.join (os.path.dirname (sys.argv[0]),
-                              '../doc/templates')
-output_path = os.path.join (os.path.dirname (sys.argv[0]),
-                              '../doc/spec')
+program, spec_file, output_path = sys.argv
+
+template_path = os.path.join(os.path.dirname(program), '../doc/templates')
+
+# make the output path
+try:
+    os.mkdir(output_path)
+except OSError:
+    pass
+# copy in the CSS
+shutil.copy(os.path.join(template_path, 'style.css'), output_path)
 
 def load_template (filename):
     try:
@@ -53,7 +62,7 @@ def load_template (filename):
     return template_def
 
 # write out HTML files for each of the interfaces
-spec = specparser.parse (sys.argv[1])
+spec = specparser.parse(spec_file)
 namespace = {}
 template_def = load_template ('interface.html')
 t = Template (template_def, namespaces = [namespace])
