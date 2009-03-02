@@ -15,6 +15,13 @@ ul {
 	padding: 0;
 }
 
+hr {
+	border-style: none;
+	color: #cccccc;
+	background-color: #cccccc;
+	height: 1px;
+}
+
 div.header {
 	position: fixed;
 	height: 4em;

@@ -183,7 +183,10 @@
      </div>
      #end if
      
+     $method.get_docstring()
+     
      #if $method.possible_errors
+     <hr/>
      <div class="indent">
       <h3>Possible Errors</h3>
       <ul>
@@ -197,8 +200,6 @@
       </ul>
      </div>
      #end if
-    
-     $method.get_docstring()
     </div>
     #end for
    </div>
