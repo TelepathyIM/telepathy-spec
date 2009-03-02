@@ -17,6 +17,7 @@
   </div>
   <div class="main">
 
+    #if $interface.methods or $interface.signals or $interface.properties or $interface.types
     <div class="summary">
      <a name="summary"></a>
      #if $interface.methods
@@ -102,6 +103,7 @@
      </table>
     #end if
    </div>
+   #end if
 
    #if $interface.causes_havoc
    <div class="havoc"><span class="warning">WARNING:</span>
