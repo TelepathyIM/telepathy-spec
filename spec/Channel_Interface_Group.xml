@@ -950,16 +950,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A string message, which can be blank if desired
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Requests the removal of contacts from a channel, reject their request
-        for channel membership on the pending local list, or rescind their
-        invitation on the pending remote list. A message may be provided along
-        with the request, which will be sent to the server if supported. See
-        the CHANNEL_GROUP_FLAG_MESSAGE_REMOVE,
-        CHANNEL_GROUP_FLAG_MESSAGE_REJECT and
-        CHANNEL_GROUP_FLAG_MESSAGE_RESCIND
-        <tp:member-ref>GroupFlags</tp:member-ref> to see in which cases this
-        message should be provided.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Requests the removal of contacts from a channel, reject their
+          request for channel membership on the pending local list, or
+          rescind their invitation on the pending remote list.</p>
+
+        <p>If the <tp:member-ref>SelfHandle</tp:member-ref> is in a Group,
+          it can be removed via this method, in order to leave the group
+          gracefully. This is the recommended way to leave a chatroom, close
+          or reject a <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+          call, and so on, and connection managers SHOULD support doing this,
+          regardless of the value of <tp:member-ref>GroupFlags</tp:member-ref>.
+          If doing so fails with PermissionDenied, this is considered to a bug
+          in the connection manager, but clients MUST recover by falling back
+          to closing the channel with the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          method.</p>
+
+        <p>Removing other contacts from the local pending list is always
+          allowed. Removing other contacts from the channel's members
+          is allowed if Channel_Group_Flag_Can_Remove is in the
+          <tp:member-ref>GroupFlags</tp:member-ref>,
+          while removing other contacts from the remote pending list is
+          allowed if Channel_Group_Flag_Can_Rescind is in the
+          <tp:member-ref>GroupFlags</tp:member-ref>.</p>
+          
+        <p>A message may be provided along with the request, which will be
+          sent to the server if supported. See the
+          Channel_Group_Flag_Message_Remove,
+          Channel_Group_Flag_Message_Reject and
+          Channel_Group_Flag_Message_Rescind
+          <tp:member-ref>GroupFlags</tp:member-ref> to see in which cases this
+          message should be provided.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
