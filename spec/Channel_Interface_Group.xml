@@ -241,6 +241,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
+      <tp:flag suffix="Message_Depart" value="8192">
+        <tp:added version="0.17.UNRELEASED"/>
+        <tp:docstring>
+          A message may be sent to the server when calling
+          <tp:member-ref>RemoveMembers</tp:member-ref> on
+          the <tp:member-ref>SelfHandle</tp:member-ref>.
+
+          <tp:rationale>
+            This would be set for XMPP Multi-User Chat or IRC channels,
+            but not for a typical implementation of streamed media calls.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <property name="GroupFlags" type="u" tp:type="Channel_Group_Flags"
@@ -979,6 +992,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>A message may be provided along with the request, which will be
           sent to the server if supported. See the
           Channel_Group_Flag_Message_Remove,
+          Channel_Group_Flag_Message_Depart,
           Channel_Group_Flag_Message_Reject and
           Channel_Group_Flag_Message_Rescind
           <tp:member-ref>GroupFlags</tp:member-ref> to see in which cases this
