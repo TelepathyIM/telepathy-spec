@@ -973,8 +973,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           gracefully. This is the recommended way to leave a chatroom, close
           or reject a <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-          call, and so on, and connection managers SHOULD support doing this,
-          regardless of the value of <tp:member-ref>GroupFlags</tp:member-ref>.
+          call, and so on.</p>
+
+        <p>Accordingly, connection managers SHOULD support
+          doing this, regardless of the value of
+          <tp:member-ref>GroupFlags</tp:member-ref>.
           If doing so fails with PermissionDenied, this is considered to a bug
           in the connection manager, but clients MUST recover by falling back
           to closing the channel with the <tp:dbus-ref
