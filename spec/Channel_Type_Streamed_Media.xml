@@ -259,6 +259,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Emitted when a new stream has been added to this channel.
+        Clients SHOULD assume that the stream's
+        <tp:type>Media_Stream_State</tp:type> is initially Disconnected.
       </tp:docstring>
     </signal>
 
