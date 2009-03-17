@@ -2,8 +2,17 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.21 (UNRELEASED)
+telepathy-spec 0.17.21 (2009-03-17)
 ===================================
+
+The "no new parser yet" release.
+
+API changes:
+
+* It is now explicitly stated that removing the SelfHandle from a Group is the
+  recommended way to depart gracefully. All connection managers should allow
+  this (telepathy-glib 0.7.27 will have the necessary support code in
+  TpGroupMixin).
 
 Changes to experimental API:
 
@@ -19,6 +28,9 @@ Changes to experimental API:
   entry" for Tube apps
 
 New API:
+
+* The new Message_Depart flag in Channel_Group_Flags indicates whether a
+  message can be provided when departing from a Group
 
 * ice-udp is available as an additional value for MediaSignalling channels'
   nat-traversal Telepathy property, and NAT_Traversal_ICE_UDP is a new
