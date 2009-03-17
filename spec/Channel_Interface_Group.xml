@@ -984,14 +984,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           method.</p>
 
-        <p>Removing other contacts from the local pending list is always
-          allowed. Removing other contacts from the channel's members
-          is allowed if Channel_Group_Flag_Can_Remove is in the
+        <p>Removing any contact from the local pending list is always
+          allowed. Removing contacts other than the
+          <tp:member-ref>SelfHandle</tp:member-ref> from the channel's members
+          is allowed if and only if Channel_Group_Flag_Can_Remove is in the
           <tp:member-ref>GroupFlags</tp:member-ref>,
-          while removing other contacts from the remote pending list is
-          allowed if Channel_Group_Flag_Can_Rescind is in the
+          while removing contacts other than the
+          <tp:member-ref>SelfHandle</tp:member-ref> from the remote pending list
+          is allowed if and only if Channel_Group_Flag_Can_Rescind is in the
           <tp:member-ref>GroupFlags</tp:member-ref>.</p>
-          
+
         <p>A message may be provided along with the request, which will be
           sent to the server if supported. See the
           Channel_Group_Flag_Message_Remove,
