@@ -328,6 +328,9 @@ class Property(Typed):
         elif self.access & self.ACCESS_WRITE:
             return 'Write only'
 
+class AwkwardTelepathyProperty(Typed):
+    pass
+
 class Arg(Typed):
     DIRECTION_IN, DIRECTION_OUT, DIRECTION_UNSPECIFIED = range(3)
 
@@ -395,6 +398,9 @@ class Interface(Base):
         # build a list of signals in this interface
         self.signals = build_list(self, Signal, self.name,
                                   dom.getElementsByTagName('signal'))
+        # build a list of old-style Telepathy Properties in this interface
+        self.tpproperties = build_list(self, AwkwardTelepathyProperty,
+                self.name, dom.getElementsByTagNameNS(XMLNS_TP, 'property'))
 
         # build a list of types in this interface
         self.types = parse_types(self, dom, self.name)
@@ -645,6 +651,8 @@ class Spec(object):
                 for signal in interface.signals:
                     self.everything[signal.name] = signal
                 for property in interface.properties:
+                    self.everything[property.name] = property
+                for property in interface.tpproperties:
                     self.everything[property.name] = property
 
                 for type in interface.types:
