@@ -8,8 +8,10 @@ CANONXML = xmllint --nsclean --noblanks --c14n --nonet
 XML_LINEBREAKS = perl -pe 's/>/>\n/g'
 DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
 RST2HTML = rst2html
+PYTHON = python
 
 XMLS = $(wildcard spec/*.xml)
+TEMPLATES = $(wildcard doc/templates/*)
 INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
 INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
 ASYNC_INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/async/%.xml)
@@ -42,6 +44,7 @@ $(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
 GENERATED_FILES = \
 	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
+	doc/spec/index.html \
 	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \
 	$(CANONICAL_NAMES)
@@ -59,6 +62,10 @@ test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
 	@install -d test/output
 	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > tmp/$@
 	mv tmp/$@ $@
+
+doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
+	@install -d doc
+	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 	@install -d introspect

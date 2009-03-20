@@ -1,5 +1,7 @@
 .*.sw?
+*.pyc
 /doc/*.html
+/doc/spec
 /doc/telepathy-spec.devhelp2
 /telepathy-spec-*.tar*
 /test/output

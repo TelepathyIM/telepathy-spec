@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Avatars">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
-    <tp:simple-type name="Avatar_Token" type="s">
+    <tp:simple-type name="Avatar_Token" type="s"
+      array-name="Avatar_Token_List">
       <tp:changed version="0.17.16">strengthened uniqueness requirements
         so (CM name, protocol, token) is unique; previously only
         (our Account, remote contact identifier, token) was required to be
