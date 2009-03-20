@@ -13,11 +13,12 @@
    #if $interface.methods: | <a href="#methods">Methods</a>
    #if $interface.signals: | <a href="#signals">Signals</a>
    #if $interface.properties: | <a href="#properties">Properties</a>
+   #if $interface.tpproperties: | <a href="#tpproperties">Telepathy Properties</a>
    #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
 
-    #if $interface.methods or $interface.signals or $interface.properties or $interface.types
+    #if $interface.methods or $interface.signals or $interface.properties or $interface.types or $interface.tpproperties
     <div class="summary">
      <a name="summary"></a>
      #if $interface.methods
@@ -59,7 +60,7 @@
       #end for
      </table>
     #end if
-    
+
      #if $interface.properties
      <h3>Properties</h3>
      <table class="summary">
@@ -82,7 +83,22 @@
       #end for
     </table>
     #end if
-     
+
+     #if $interface.tpproperties
+     <h3>Telepathy Properties</h3>
+     <table class="summary">
+      #for $property in $interface.tpproperties
+       <tr class="deprecated">
+       <td><a href="$property.get_url()">$property.short_name</a></td>
+       <td>
+        $property.dbus_type
+        #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
+       </td>
+      </tr>
+      #end for
+    </table>
+    #end if
+
      #if $interface.types
      <h3>Types</h3>
      <table class="summary">
@@ -242,7 +258,7 @@
     #end for
    </div>
    #end if
-    
+
    #if $interface.properties
    <div class="outset properties property">
     <a name="properties"></a>
@@ -260,6 +276,30 @@
      </h2>
       <div class="access">$property.get_access()</div>
 
+     $property.get_added()
+     $property.get_changed()
+     $property.get_deprecated()
+     $property.get_docstring()
+    </div>
+    #end for
+   </div>
+   #end if
+
+   #if $interface.tpproperties
+   <div class="outset tpproperties property">
+    <a name="tpproperties"></a>
+    <h1>Telepathy Properties</h1>
+    <div>
+     Accessed using the org.freedesktop.Telepathy.Properties interface.
+    </div>
+    #for $property in $interface.tpproperties
+    <div class="inset property">
+     <a name="$property.name"></a>
+     <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
+     <h2>
+      $property.short_name &mdash; $property.dbus_type
+      #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
+     </h2>
      $property.get_added()
      $property.get_changed()
      $property.get_deprecated()
