@@ -17,23 +17,27 @@
       interfaces.</tp:rationale>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Bus_Name" type="s">
+  <tp:simple-type name="DBus_Bus_Name" type="s"
+    array-name="DBus_Bus_Name_List">
     <tp:docstring>A string representing a D-Bus bus name - either a well-known
       name like "org.freedesktop.Telepathy.MissionControl" or a unique name
       like ":1.123"</tp:docstring>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Well_Known_Name" type="s">
+  <tp:simple-type name="DBus_Well_Known_Name" type="s"
+    array-name="DBus_Well_Known_Name_List">
     <tp:docstring>A string representing a D-Bus well-known
       name like "org.freedesktop.Telepathy.MissionControl".</tp:docstring>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Unique_Name" type="s">
+  <tp:simple-type name="DBus_Unique_Name" type="s"
+    array-name="DBus_Unique_Name_List">
     <tp:docstring>A string representing a D-Bus unique name, such as
       ":1.123"</tp:docstring>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Interface" type="s">
+  <tp:simple-type name="DBus_Interface" type="s"
+    array-name="DBus_Interface_List">
     <tp:docstring>An ASCII string representing a D-Bus interface - two or more
       elements separated by dots, where each element is a non-empty
       string of ASCII letters, digits and underscores, not starting with
@@ -60,7 +64,8 @@
       characters. For example, "Ping".</tp:docstring>
   </tp:simple-type>
 
-  <tp:simple-type name="DBus_Qualified_Member" type="s">
+  <tp:simple-type name="DBus_Qualified_Member" type="s"
+    array-name="DBus_Qualified_Member_List">
     <tp:docstring>A string representing the full name of a D-Bus method,
       signal or property, consisting of a DBus_Interface, followed by
       a dot, followed by a DBus_Member. For example,
