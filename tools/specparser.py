@@ -34,6 +34,7 @@ class UnknownDirection(Exception): pass
 class UnknownType(Exception): pass
 class UnnamedItem(Exception): pass
 class UntypedItem(Exception): pass
+class UnsupportedArray(Exception): pass
 
 def getText(dom):
     try:
@@ -442,9 +443,8 @@ class DBusList(object):
             self.depth = 1
 
             if self.child.array_name == '':
-                # FIXME: is not having an array_name an error?
-                self.name = self.child.name + '_List'
-                self.short_name = self.child.short_name + '_List'
+                raise UnsupportedArray("Type '%s' does not support being "
+                        "used in an array" % self.child.name)
             else:
                 self.name = build_name(self.child.namespace,
                                        self.child.array_name)
