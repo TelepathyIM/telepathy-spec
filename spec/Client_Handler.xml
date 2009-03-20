@@ -34,7 +34,7 @@
       <p>When a new incoming channel (one with
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Requested</tp:dbus-ref>
         = FALSE) is offered to
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref>s
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver.DRAFT</tp:dbus-ref>s
         by the channel dispatcher, it also offers the Approvers a list of all
         the running or activatable handlers whose
         <tp:member-ref>HandlerChannelFilter</tp:member-ref> property
