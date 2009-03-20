@@ -90,6 +90,10 @@ div.properties {
 	background-color: #ad7fa8;
 }
 
+div.tpproperties {
+	background-color: #999999;
+}
+
 div.property {
 	border: 1px solid #75507b;
 }
