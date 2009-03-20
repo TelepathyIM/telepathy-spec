@@ -140,7 +140,8 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Channels" type="a(oa{sv})" direction="in">
+      <arg name="Channels" type="a(oa{sv})" direction="in"
+        tp:type="Channel_Details[]">
         <tp:docstring>
           The channels and their immutable properties. Their well-known
           bus name is the same as that of the Connection.
