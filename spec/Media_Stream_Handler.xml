@@ -246,7 +246,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           String identifier for remote candidate to drop
         </tp:docstring>
       </arg>
-      <tp:deprecated>
+      <tp:deprecated version="0.17.18">
         There is no case where you want to release candidates (except
         for an ICE reset, and there you'd want to replace then all,
         using <tp:member-ref>SetRemoteCandidateList</tp:member-ref>).

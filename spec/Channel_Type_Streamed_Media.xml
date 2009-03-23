@@ -22,7 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Group"/>
 
-    <tp:enum name="Media_Stream_Type" type="u">
+    <tp:enum name="Media_Stream_Type" type="u"
+      array-name="Media_Stream_Type_List">
       <tp:enumvalue suffix="Audio" value="0">
         <tp:docstring>An audio stream</tp:docstring>
       </tp:enumvalue>
@@ -86,7 +87,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         name="Pending_Send_Flags"/>
     </tp:struct>
 
-    <tp:simple-type name="Stream_ID" type="u"/>
+    <tp:simple-type name="Stream_ID" type="u"
+      array-name="Stream_ID_List">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An unsigned integer identifying a stream within a channel.</p>
+      </tp:docstring>
+    </tp:simple-type>
 
     <method name="ListStreams" tp:name-for-bindings="List_Streams">
       <arg direction="out" type="a(uuuuuu)" tp:type="Media_Stream_Info[]"

@@ -121,7 +121,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:struct>
 
-    <tp:enum name="Tube_Type" type="u">
+    <tp:enum name="Tube_Type" type="u" array-name="Tube_Type_List">
       <tp:enumvalue suffix="DBus" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The tube is D-Bus tube as described by the
@@ -193,7 +193,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:enum>
 
-    <tp:enum name="Socket_Access_Control" type="u">
+    <tp:enum name="Socket_Access_Control" type="u"
+      array-name="Socket_Access_Control_List">
       <tp:enumvalue suffix="Localhost" value="0">
         <tp:docstring>
           The IP or Unix socket can be accessed by any local user (e.g.
