@@ -292,7 +292,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           <p>Historically, it was not clear from the StreamAdded signal what
-            the state of the stream was. telepathy-spec 0.17.UNRELEASED
+            the state of the stream was. telepathy-spec 0.17.22
             clarified this.</p>
         </tp:rationale>
 

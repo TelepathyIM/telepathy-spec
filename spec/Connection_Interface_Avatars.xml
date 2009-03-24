@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="SupportedAvatarMIMETypes"
       tp:name-for-bindings="Supported_Avatar_MIME_Types"
       type="as" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -142,7 +142,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="MinimumAvatarHeight"
       tp:name-for-bindings="Minimum_Avatar_Height"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -156,7 +156,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="MinimumAvatarWidth"
       tp:name-for-bindings="Minimum_Avatar_Width"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -170,7 +170,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="RecommendedAvatarHeight"
       tp:name-for-bindings="Recommended_Avatar_Height"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.22"/>
       <tp:docstring>
         The recommended height in pixels of an avatar on this protocol, or 0 if
         there is no preferred height.
@@ -189,7 +189,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="RecommendedAvatarWidth"
       tp:name-for-bindings="Recommended_Avatar_Width"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED"/>
+      <tp:added version="0.17.22"/>
       <tp:docstring>
         The recommended width in pixels of an avatar on this protocol, or 0 if
         there is no preferred width.
@@ -206,7 +206,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="MaximumAvatarHeight"
       tp:name-for-bindings="Maximum_Avatar_Height"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -220,7 +220,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="MaximumAvatarWidth"
       tp:name-for-bindings="Maximum_Avatar_Width"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -234,7 +234,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="MaximumAvatarBytes"
       tp:name-for-bindings="Maximum_Avatar_Bytes"
       type="u" access="read">
-      <tp:added version="0.17.UNRELEASED">Fall back to calling
+      <tp:added version="0.17.22">Fall back to calling
         <tp:member-ref>GetAvatarRequirements</tp:member-ref> if getting this
           property fails.</tp:added>
       <tp:docstring>
@@ -247,7 +247,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="GetAvatarRequirements"
       tp:name-for-bindings="Get_Avatar_Requirements">
-      <tp:deprecated version="0.17.UNRELEASED">Use GetAll to retrieve the
+      <tp:deprecated version="0.17.22">Use GetAll to retrieve the
         D-Bus properties on this interface, falling back to this method
         on failure.</tp:deprecated>
       <arg direction="out" type="as" name="MIME_Types">

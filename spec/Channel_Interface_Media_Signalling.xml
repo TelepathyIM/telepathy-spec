@@ -105,7 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <tp:property name="nat-traversal" type="s">
-      <tp:deprecated version="0.17.UNRELEASED">Use the <tp:dbus-ref
+      <tp:deprecated version="0.17.22">Use the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
         property on the Media.StreamHandler, if available; use this
         as a fallback.</tp:deprecated>
@@ -119,7 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:property>
 
     <tp:property name="stun-server" type="s">
-      <tp:deprecated version="0.17.UNRELEASED">Use the <tp:dbus-ref
+      <tp:deprecated version="0.17.22">Use the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServers</tp:dbus-ref>
         property on the Media.StreamHandler, if available; use this
         as a fallback.</tp:deprecated>
@@ -130,7 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:property>
 
     <tp:property name="stun-port" type="q">
-      <tp:deprecated version="0.17.UNRELEASED">Use the <tp:dbus-ref
+      <tp:deprecated version="0.17.22">Use the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Media.StreamHandler">STUNServers</tp:dbus-ref>
         property on the Media.StreamHandler, if available; use this
         as a fallback.</tp:deprecated>
@@ -140,7 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:property>
 
     <tp:property name="gtalk-p2p-relay-token" type="s">
-      <tp:deprecated version="0.17.UNRELEASED">XMPP connection managers
+      <tp:deprecated version="0.17.22">XMPP connection managers
         supporting the Google Talk relay server SHOULD make the necessary
         HTTP requests to find a username and password, and use those
         to populate the <tp:dbus-ref
