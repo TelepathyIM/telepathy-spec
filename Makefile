@@ -151,7 +151,7 @@ UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
-	rsync -zvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) doc/spec \
+	rsync -rzvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/
