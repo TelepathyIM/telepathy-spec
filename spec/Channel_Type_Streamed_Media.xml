@@ -230,11 +230,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         MEDIA_STREAM_PENDING_REMOTE_SEND flag set, and the signal emitted again
         with the flag cleared when the remote end has replied.</p>
 
-        <p>If streams of the requested types have already been requested
-          via this method or <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">FUTURE.InitialAudio</tp:dbus-ref>/<tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">FUTURE.InitialVideo</tp:dbus-ref>,
-          this method SHOULD return successfully.</p>
+        <p>If streams of the requested types already exist, calling this
+          method results in the creation of additional streams. Accordingly,
+          clients wishing to have exactly one audio stream or exactly one
+          video stream SHOULD check for the current streams using
+          <tp:member-ref>ListStreams</tp:member-ref> before calling this
+          method.</p>
       </tp:docstring>
       <tp:changed version="0.17.2">
         <p>It is valid to use a handle which is neither
