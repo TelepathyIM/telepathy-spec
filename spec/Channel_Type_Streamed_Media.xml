@@ -279,10 +279,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The stream type (a value from MediaStreamType)
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when a new stream has been added to this channel.
-        Clients SHOULD assume that the stream's
-        <tp:type>Media_Stream_State</tp:type> is initially Disconnected.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a new stream has been added to this channel.
+          Clients SHOULD assume that the stream's
+          <tp:type>Media_Stream_State</tp:type> is initially Disconnected.</p>
+
+        <p>If a connection manager needs to represent the addition of a stream
+          whose state is already Connecting or Connected, it MUST do this
+          by emitting StreamAdded, closely followed by
+          <tp:member-ref>StreamStateChanged</tp:member-ref> indicating a
+          change to the appropriate state.</p>
+
+        <tp:rationale>
+          <p>Historically, it was not clear from the StreamAdded signal what
+            the state of the stream was. telepathy-spec 0.17.UNRELEASED
+            clarified this.</p>
+        </tp:rationale>
+
+        <p>Similarly, clients SHOULD assume that the initial
+          <tp:type>Media_Stream_Direction</tp:type> of a newly added stream
+          is Receive, and that the initial
+          <tp:type>Media_Stream_Pending_Send</tp:type> is
+          Pending_Local_Send.</p>
+
+        <p>If a connection manager needs to represent the addition of a stream
+          whose direction or pending-send differs from those initial values,
+          it MUST do so by emitting StreamAdded, closely followed by
+          <tp:member-ref>StreamDirectionChanged</tp:member-ref> indicating a
+          change to the appropriate direction and pending-send state.</p>
+
+        <tp:rationale>
+          <p>StreamAdded doesn't itself indicate the stream's direction; this
+            is unfortunate, but is preserved for compatibility.</p>
+
+          <p>This is the appropriate direction for streams added by a remote
+            contact on existing connection managers, and does not violate
+            user privacy by automatically sending audio or video (audio streams
+            start off muted, video streams start off not sending). For
+            streams added by the local user using the client receiving the
+            signal, the true direction can also be determined from the return
+            value of the <tp:member-ref>RequestStreams</tp:member-ref>
+            method.</p>
+
+          <p>Existing clients typically operate by maintaining a separate
+            idea of the directions that they would like the streams to have,
+            and enforcing these intended directions by calling
+            <tp:member-ref>RequestStreamDirection</tp:member-ref> whenever
+            needed.</p>
+        </tp:rationale>
       </tp:docstring>
     </signal>
 
@@ -303,12 +347,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The new pending send flags (as defined in ListStreams)
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when the direction or pending flags of a stream are changed. If
-        the MEDIA_STREAM_PENDING_LOCAL_SEND flag is set, the remote user has
-        requested that we begin sending on this stream.
-        <tp:member-ref>RequestStreamDirection</tp:member-ref>
-        should be called to indicate whether or not this change is acceptable.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when the direction or pending flags of a stream are
+          changed.</p>
+
+        <p>If the MEDIA_STREAM_PENDING_LOCAL_SEND flag is set, the remote user
+          has requested that we begin sending on this stream.
+          <tp:member-ref>RequestStreamDirection</tp:member-ref>
+          should be called to indicate whether or not this change is
+          acceptable.</p>
+
+        <tp:rationale>
+          <p>This allows for a MSN-style user interface, "Fred has asked you
+            to enable your webcam. (Accept | Reject)", if desired.</p>
+        </tp:rationale>
       </tp:docstring>
     </signal>
 
@@ -391,6 +443,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         which point the contact should appear in the channel's <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemotePendingMembers</tp:dbus-ref>).</p>
 
+      <p>In the past, several other patterns have been used to place outgoing
+        calls; see
+        <a href="http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels">'Requesting StreamedMedia Channels' on the Telepathy wiki</a>
+        for the details.</p>
+
       <p>Incoming calls should be signalled as <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
         = Contact, <tp:dbus-ref
@@ -400,11 +457,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to accept the call, <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
         can be used to move the local user to the group's members.</p>
-
-      <p>In the past, several other patterns have been used to place outgoing
-        calls; see
-        <a href="http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels">'Requesting StreamedMedia Channels' on the Telepathy wiki</a>
-        for the details.</p>
 
     <p>In general this should be used in conjunction with the <tp:dbus-ref
       namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
