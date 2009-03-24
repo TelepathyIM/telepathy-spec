@@ -443,6 +443,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         which point the contact should appear in the channel's <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemotePendingMembers</tp:dbus-ref>).</p>
 
+      <p>In the past, several other patterns have been used to place outgoing
+        calls; see
+        <a href="http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels">'Requesting StreamedMedia Channels' on the Telepathy wiki</a>
+        for the details.</p>
+
       <p>Incoming calls should be signalled as <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
         = Contact, <tp:dbus-ref
@@ -452,11 +457,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to accept the call, <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
         can be used to move the local user to the group's members.</p>
-
-      <p>In the past, several other patterns have been used to place outgoing
-        calls; see
-        <a href="http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels">'Requesting StreamedMedia Channels' on the Telepathy wiki</a>
-        for the details.</p>
 
     <p>In general this should be used in conjunction with the <tp:dbus-ref
       namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
