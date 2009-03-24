@@ -347,12 +347,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The new pending send flags (as defined in ListStreams)
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when the direction or pending flags of a stream are changed. If
-        the MEDIA_STREAM_PENDING_LOCAL_SEND flag is set, the remote user has
-        requested that we begin sending on this stream.
-        <tp:member-ref>RequestStreamDirection</tp:member-ref>
-        should be called to indicate whether or not this change is acceptable.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when the direction or pending flags of a stream are
+          changed.</p>
+
+        <p>If the MEDIA_STREAM_PENDING_LOCAL_SEND flag is set, the remote user
+          has requested that we begin sending on this stream.
+          <tp:member-ref>RequestStreamDirection</tp:member-ref>
+          should be called to indicate whether or not this change is
+          acceptable.</p>
+
+        <tp:rationale>
+          <p>This allows for a MSN-style user interface, "Fred has asked you
+            to enable your webcam. (Accept | Reject)", if desired.</p>
+        </tp:rationale>
       </tp:docstring>
     </signal>
 
