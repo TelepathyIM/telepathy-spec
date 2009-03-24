@@ -114,7 +114,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             STUN SHOULD be used.</dd>
 
           <dt>stun</dt>
-          <dd>A synonym for 'none'.</dd>
+          <dd>A deprecated synonym for 'none'.</dd>
 
           <dt>gtalk-p2p</dt>
           <dd>Google Talk peer-to-peer connectivity establishment should be
