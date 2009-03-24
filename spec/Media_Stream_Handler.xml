@@ -141,9 +141,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="RelayInfo" type="aa{sv}" access="read"
       tp:type="String_Variant_Map[]" tp:name-for-bindings="Relay_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of mappings containing information about how this stream
-          can be relayed, to be used with TURN or Google relay servers.
-          Map keys are:</p>
+        <p>A list of mappings describing TURN or Google relay servers
+          available for the client to use in its candidate gathering, as
+          determined from the protocol. Map keys are:</p>
 
         <dl>
           <dt><code>ip</code> - s</dt>
