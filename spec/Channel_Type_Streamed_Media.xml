@@ -458,6 +458,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
         can be used to move the local user to the group's members.</p>
 
+      <p>When the local user accepts an incoming call, the connection manager
+        SHOULD change the direction of any streams with pending local send
+        to be sending, without altering whether those streams are
+        receiving.</p>
+
+      <tp:rationale>
+        <p>This matches existing practice, and means that a client
+          can answer incoming calls and get an unmuted microphone/activated
+          webcam without having to take additional action to accept the
+          stream directions.</p>
+      </tp:rationale>
+
     <p>In general this should be used in conjunction with the <tp:dbus-ref
       namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
     interface to exchange connection candidates and codec choices with
