@@ -468,6 +468,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           can answer incoming calls and get an unmuted microphone/activated
           webcam without having to take additional action to accept the
           stream directions.</p>
+
+        <p>It does, however, introduce a race condition: a client believing
+          that it is accepting an audio-only call by calling AddMembers
+          can inadvertantly accept an audio + video call (and hence activate
+          sending from a webcam without the user's permission) if a video
+          stream is added just before AddMembers is processed. This race
+          should be removed when this specification is revised.</p>
       </tp:rationale>
 
     <p>In general this should be used in conjunction with the <tp:dbus-ref
