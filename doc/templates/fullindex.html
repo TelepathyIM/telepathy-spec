@@ -20,10 +20,10 @@
  #echo $star.append(($name, $item))
  #slurp
 #end for
-#echo $star.sort(key = lambda t: t[0])
+#echo $star.sort(key = lambda t: t[0].title())
 #slurp
 ## one use iterators...
-#set $groups = [ (l, list(g)) for l, g in (groupby($star, key = lambda t: t[0][0])) ]
+#set $groups = [ (l, list(g)) for l, g in (groupby($star, key = lambda t: t[0][0].upper())) ]
 #set $letters = set(map(lambda t: t[0], groups))
 
  <body>
