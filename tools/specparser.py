@@ -65,6 +65,8 @@ class Base(object):
 
        Don't instantiate this class directly.
     """
+    devhelp_name = ""
+
     def __init__(self, parent, namespace, dom):
         self.short_name = name = dom.getAttribute('name')
         self.namespace = namespace
@@ -239,6 +241,8 @@ class PossibleError(Base):
             return d
 
 class Method(Base):
+    devhelp_name = "function"
+
     def __init__(self, parent, namespace, dom):
         super(Method, self).__init__(parent, namespace, dom)
 
@@ -273,6 +277,7 @@ class Typed(Base):
 
        Don't instantiate this class directly.
     """
+
     def __init__(self, parent, namespace, dom):
         super(Typed, self).__init__(parent, namespace, dom)
 
@@ -486,6 +491,9 @@ class DBusType(Base):
 
        Don't instantiate this class directly.
     """
+
+    devhelp_name = "typedef"
+
     def __init__(self, parent, namespace, dom):
         super(DBusType, self).__init__(parent, namespace, dom)
 
@@ -523,6 +531,7 @@ class StructLike(DBusType):
 
        Don't instantiate this class directly.
     """
+
     class StructMember(Typed):
         def get_root_namespace(self):
             return self.parent.get_root_namespace()
@@ -557,6 +566,9 @@ class Mapping(StructLike):
         self.dbus_type = 'a{%s}' % ''.join(map(lambda m: m.dbus_type, self.members))
 
 class Struct(StructLike):
+
+    devhelp_name = "struct"
+
     def __init__(self, parent, namespace, dom):
         super(Struct, self).__init__(parent, namespace, dom)
 
@@ -601,6 +613,9 @@ class EnumLike(DBusType):
         return str
 
 class Enum(EnumLike):
+
+    devhelp_name = "enum"
+
     def __init__(self, parent, namespace, dom):
         super(Enum, self).__init__(parent, namespace, dom)
 

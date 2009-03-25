@@ -104,3 +104,11 @@ t = Template(template_def, namespaces=namespace)
 out = open(os.path.join(output_path, 'fullindex.html'), 'w')
 print >> out, unicode(t).encode('utf-8')
 out.close()
+
+# write out the devhelp2 file
+namespace = { 'spec': spec, 'name': 'telepathy-spec' }
+template_def = load_template('devhelp.devhelp2')
+t = Template(template_def, namespaces=namespace)
+out = open(os.path.join(output_path, 'telepathy-spec.devhelp2'), 'w')
+print >> out, unicode(t).encode('utf-8')
+out.close()
