@@ -211,7 +211,7 @@ class Base(object):
             n.setAttribute('title', o.get_title())
 
     def get_title(self):
-        return '%s %s' % (self.__class__.__name__, self.name)
+        return '%s %s' % (self.get_type_name(), self.name)
 
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
@@ -334,7 +334,8 @@ class Property(Typed):
             return 'Write only'
 
 class AwkwardTelepathyProperty(Typed):
-    pass
+    def get_type_name(self):
+        return 'Telepathy Property'
 
 class Arg(Typed):
     DIRECTION_IN, DIRECTION_OUT, DIRECTION_UNSPECIFIED = range(3)
@@ -506,9 +507,6 @@ class DBusType(Base):
 
     def get_breakdown(self):
         return ''
-
-    def get_title(self):
-        return "%s %s" % (self.get_type_name(), self.name)
 
     def get_url(self):
         if isinstance(self.parent, Interface):

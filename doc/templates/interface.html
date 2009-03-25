@@ -286,14 +286,14 @@
    #end if
 
    #if $interface.tpproperties
-   <div class="outset tpproperties property">
+   <div class="outset tpproperties tpproperty">
     <a name="tpproperties"></a>
     <h1>Telepathy Properties</h1>
     <div>
      Accessed using the org.freedesktop.Telepathy.Properties interface.
     </div>
     #for $property in $interface.tpproperties
-    <div class="inset property">
+    <div class="inset tpproperty">
      <a name="$property.name"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>

@@ -6,6 +6,7 @@
 #end for
   <sub name="Generic Types" link="generic-types.html"/>
   <sub name="Errors" link="errors.html"/>
+  <sub name="Full Index" link="fullindex.html"/>
  </chapters>
  <functions>
 #for $obj in $spec.everything.values() + $spec.types.values() + $spec.errors.values()
