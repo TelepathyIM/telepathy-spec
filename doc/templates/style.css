@@ -138,6 +138,10 @@ table.summary td {
 	padding-right: 1ex;
 }
 
+li.chapter {
+	margin-top: 1ex;
+}
+
 li.causes-havoc {
 	font-style: italic;
 }

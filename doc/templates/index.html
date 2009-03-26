@@ -2,12 +2,12 @@
 <!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
-  <title>$title &mdash v$version</title>
+  <title>$spec.title &mdash v$spec.version</title>
   <link rel="stylesheet" href="style.css" type="text/css"/>
  </head>
  <body>
   <div class="header">
-   <h1>$title</h1>
+   <h1>$spec.title</h1>
    <a href="#interfaces">Interfaces</a>
    | <a href="generic-types.html">Generic Types</a>
    | <a href="errors.html">Errors</a>
@@ -15,30 +15,38 @@
   </div>
 
   <div class="main">
-  <h3 class="version">Version $version</h3>
+  <h3 class="version">Version $spec.version</h3>
   <p class="copyrights">
-   #echo '<br/>'.join($copyrights)
+   #echo '<br/>'.join($spec.copyrights)
   </p>
-  $license
+  $spec.license
 
   <a name="interfaces"></a>
   <h3>Interfaces</h3>
   <ul>
-  #for $interface in $interfaces
-   #if $interface.causes_havoc
-    <li class="causes-havoc">
-   #elif $interface.deprecated
-    <li class="deprecated">
-   #else
-    <li>
+  #for ($chapter, $interfaces) in $spec.group_by_chapters()
+   #if $chapter is not None
+    <li class="chapter">$chapter.short_name</li>
+    $chapter.get_docstring()
+    <ul>
    #end if
-    <a href="$interface.get_url()">$interface.name</a>
+   #for $interface in $interfaces
     #if $interface.causes_havoc
-     (unstable)
+     <li class="causes-havoc">
     #elif $interface.deprecated
-     (deprecated)
+     <li class="deprecated">
+    #else
+     <li>
     #end if
-   </li>
+     <a href="$interface.get_url()">$interface.name</a>
+     #if $interface.causes_havoc
+      (unstable)
+     #elif $interface.deprecated
+      (deprecated)
+     #end if
+    </li>
+   #end for
+   #if $chapter: </ul>
   #end for
   </ul>
 

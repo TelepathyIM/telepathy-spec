@@ -24,6 +24,7 @@
 
 import sys
 import xml.dom.minidom
+from itertools import groupby
 
 import xincludator
 
@@ -216,6 +217,10 @@ class Base(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
+class Chapter(Base):
+    def get_root_namespace(self):
+        return None
+
 class PossibleError(Base):
     def __init__(self, parent, namespace, dom):
         super(PossibleError, self).__init__(parent, namespace, dom)
@@ -391,6 +396,19 @@ class External(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
+def get_chapter_node (dom):
+    """Walk up the DOM tree until we hit either tp:chapter (at which point
+       we return the chapter node) or tp:spec (at which point we return None).
+    """
+
+    if dom.parentNode.namespaceURI == XMLNS_TP:
+        if dom.parentNode.localName == 'chapter':
+            return dom.parentNode
+        elif dom.parentNode.localName == 'spec':
+            return None
+
+    return get_chapter_node(dom.parentNode)
+
 class Interface(Base):
     def __init__(self, parent, namespace, dom):
         super(Interface, self).__init__(parent, namespace, dom)
@@ -418,6 +436,9 @@ class Interface(Base):
         # find out what we're required to also implement
         self.requires = map(lambda n: n.getAttribute('interface'),
                              getChildrenByName(dom, XMLNS_TP, 'requires'))
+
+        # find out if this interface is part of a chapter
+        self.chapter = get_chapter_node(dom)
 
     def get_interface(self):
         return self
@@ -696,6 +717,19 @@ class Spec(object):
 
     def get_spec(self):
         return self
+
+    def group_by_chapters(self):
+        """Group consecutive interfaces that are part of the same chapter.
+        """
+        spec = self.get_spec()
+
+        def chapter(dom):
+            # ignore None elements
+            if dom is not None: return Chapter(spec, None, dom)
+            else: return None
+
+        return [ (chapter(c), list(i))
+            for (c, i) in groupby(self.interfaces, key=lambda i: i.chapter) ]
 
     def lookup(self, name, namespace=None):
         key = build_name(namespace, name)

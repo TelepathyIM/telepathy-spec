@@ -75,8 +75,9 @@ for interface in spec.interfaces:
     out.close()
 
 # write out a TOC
+namespace = { 'spec': spec }
 template_def = load_template('index.html')
-t = Template(template_def, namespaces=[spec])
+t = Template(template_def, namespaces=namespace)
 out = open(os.path.join(output_path, 'index.html'), 'w')
 print >> out, unicode(t).encode('utf-8')
 out.close()
