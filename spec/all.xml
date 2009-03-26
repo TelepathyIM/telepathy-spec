@@ -26,18 +26,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 </tp:license>
 
 <xi:include href="Connection_Manager.xml"/>
-<xi:include href="Connection.xml"/>
-<xi:include href="Connection_Interface_Aliasing.xml"/>
-<xi:include href="Connection_Interface_Avatars.xml"/>
-<xi:include href="Connection_Interface_Capabilities.xml"/>
-<xi:include href="Connection_Interface_Contact_Capabilities.xml"/>
-<xi:include href="Connection_Interface_Contact_Info.xml"/>
-<xi:include href="Connection_Interface_Contacts.xml"/>
-<xi:include href="Connection_Interface_Location.xml"/>
-<xi:include href="Connection_Interface_Presence.xml"/>
-<xi:include href="Connection_Interface_Renaming.xml"/>
-<xi:include href="Connection_Interface_Requests.xml"/>
-<xi:include href="Connection_Interface_Simple_Presence.xml"/>
+
+<tp:chapter name="Connection Object">
+ <tp:docstring>
+  Connections model a single connection to an IM account.
+ </tp:docstring>
+ <xi:include href="Connection.xml"/>
+ <xi:include href="Connection_Interface_Aliasing.xml"/>
+ <xi:include href="Connection_Interface_Avatars.xml"/>
+ <xi:include href="Connection_Interface_Capabilities.xml"/>
+ <xi:include href="Connection_Interface_Contact_Capabilities.xml"/>
+ <xi:include href="Connection_Interface_Contact_Info.xml"/>
+ <xi:include href="Connection_Interface_Contacts.xml"/>
+ <xi:include href="Connection_Interface_Location.xml"/>
+ <xi:include href="Connection_Interface_Presence.xml"/>
+ <xi:include href="Connection_Interface_Renaming.xml"/>
+ <xi:include href="Connection_Interface_Requests.xml"/>
+ <xi:include href="Connection_Interface_Simple_Presence.xml"/>
+</tp:chapter>
 
 <xi:include href="Channel_Bundle.xml"/>
 
