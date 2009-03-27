@@ -140,6 +140,7 @@ table.summary td {
 
 li.chapter {
 	margin-top: 1ex;
+	font-weight: bold;
 }
 
 li.causes-havoc {
