@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 </tp:license>
 
 <tp:section name="Connection Managers">
- <tp:docstring>
+ <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
   <p>
    A Connection Manager is a factory for connections.
   </p>
@@ -34,7 +34,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <xi:include href="Connection_Manager.xml"/>
  
  <tp:section name="Connection Object">
-  <tp:docstring>
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
    <p>
     Connections represent active protocol sessions.
    </p>
@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <xi:include href="Channel_Bundle.xml"/>
  
  <tp:section name="Channel Object">
-  <tp:docstring>
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
    <p>
     A Channel is used by Telepathy to exchange data between local
     applications and remote servers. A given connection will have many
@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <xi:include href="Channel_Future.xml"/>
 
   <tp:section name="Channel Types">
-   <tp:docstring>
+   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
      Each Channel implements one of the following types:
     </p>
@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:section>
    
   <tp:section name="Channel Interfaces">
-   <tp:docstring>
+   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
      A Channel may also implement one or more of the following interfaces,
      depending on its type:
@@ -119,7 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 </tp:section>
 
 <tp:section name="The Account Manager">
- <tp:docstring>
+ <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
   <p>
    The Account Manager is a desktop service that provides account configuration
    and can manage the connection managers. In general, clients will use the
@@ -133,7 +133,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 </tp:section>
 
 <tp:section name="The Channel Dispatcher">
- <tp:docstring>
+ <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
   <p>
    The Channel Dispatcher is a desktop service whose purpose is to dispatch
    incoming Telepathy Channels to the appropriate client (e.g. incoming text
@@ -147,7 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 </tp:section>
 
 <tp:section name="Clients">
- <tp:docstring>
+ <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
   <p>
    Clients should implement one or more of these interfaces to be able to
    handle channels coming in from the Channel Dispatcher.
