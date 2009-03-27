@@ -139,9 +139,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    incoming Telepathy Channels to the appropriate client (e.g. incoming text
    chat, file transfer, tubes, etc.).
   </p>
-  <p>
-   Clients should implement the appropriate Clients interfaces below.
-  </p>
  </tp:docstring>
  <xi:include href="Channel_Dispatcher.xml"/>
  <xi:include href="Channel_Dispatcher_Interface_Operation_List.xml"/>
@@ -152,8 +149,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 <tp:section name="Clients">
  <tp:docstring>
   <p>
-   Clients should implement these interfaces to be able to handle channels
-   coming in from the Channel Dispatcher.
+   Clients should implement one or more of these interfaces to be able to
+   handle channels coming in from the Channel Dispatcher.
   </p>
  </tp:docstring>
  <xi:include href="Client.xml"/>
