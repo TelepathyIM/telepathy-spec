@@ -521,6 +521,14 @@ class SimpleType(DBusType):
         return 'Simple Type'
 
 class ExternalType(DBusType):
+    def __init__(self, parent, namespace, dom):
+        super(ExternalType, self).__init__(parent, namespace, dom)
+
+        # FIXME: until we are able to cross reference external types to learn
+        # about their array names, we're just going to assume they work like
+        # this
+        self.array_name = self.short_name + '_List'
+
     def get_type_name(self):
         return 'External Type'
 
