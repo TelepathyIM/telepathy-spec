@@ -98,6 +98,14 @@ out = open(os.path.join(output_path, 'errors.html'), 'w')
 print >> out, unicode(t).encode('utf-8')
 out.close()
 
+# write out the interfaces list
+namespace = { 'spec': spec }
+template_def = load_template('interfaces.html')
+t = Template(template_def, namespaces=namespace)
+out = open(os.path.join(output_path, 'interfaces.html'), 'w')
+print >> out, unicode(t).encode('utf-8')
+out.close()
+
 # write out the fullindex
 namespace = { 'spec': spec }
 template_def = load_template('fullindex.html')
