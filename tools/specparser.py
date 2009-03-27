@@ -24,7 +24,6 @@
 
 import sys
 import xml.dom.minidom
-from itertools import groupby
 
 import xincludator
 
@@ -217,10 +216,6 @@ class Base(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
-class Chapter(Base):
-    def get_root_namespace(self):
-        return None
-
 class PossibleError(Base):
     def __init__(self, parent, namespace, dom):
         super(PossibleError, self).__init__(parent, namespace, dom)
@@ -396,19 +391,6 @@ class External(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
-def get_chapter_node (dom):
-    """Walk up the DOM tree until we hit either tp:chapter (at which point
-       we return the chapter node) or tp:spec (at which point we return None).
-    """
-
-    if dom.parentNode.namespaceURI == XMLNS_TP:
-        if dom.parentNode.localName == 'chapter':
-            return dom.parentNode
-        elif dom.parentNode.localName == 'spec':
-            return None
-
-    return get_chapter_node(dom.parentNode)
-
 class Interface(Base):
     def __init__(self, parent, namespace, dom):
         super(Interface, self).__init__(parent, namespace, dom)
@@ -436,9 +418,6 @@ class Interface(Base):
         # find out what we're required to also implement
         self.requires = map(lambda n: n.getAttribute('interface'),
                              getChildrenByName(dom, XMLNS_TP, 'requires'))
-
-        # find out if this interface is part of a chapter
-        self.chapter = get_chapter_node(dom)
 
     def get_interface(self):
         return self
@@ -649,7 +628,43 @@ class Flags(EnumLike):
                         dom.getElementsByTagNameNS(XMLNS_TP, 'flag'))
         self.flags = self.values # in case you're looking for it
 
-class Spec(object):
+class SectionBase(object):
+    """A SectionBase is an abstract base class for any type of node that can
+       contain a <tp:section>, which means the top-level Spec object, or any
+       Section object.
+
+       It should not be instantiated directly.
+    """
+
+    def __init__(self, dom):
+
+        self.items = []
+
+        def recurse(nodes):
+            # iterate through the list of child nodes
+            for node in nodes:
+                if node.nodeType != node.ELEMENT_NODE: continue
+
+                if node.tagName == 'node':
+                    # recurse into this level for interesting items
+                    recurse(node.childNodes)
+                elif node.namespaceURI == XMLNS_TP and \
+                     node.localName == 'section':
+                    self.items.append(Section(self, None, node))
+                elif node.tagName == 'interface':
+                    self.items.append(Interface(self, None, node))
+
+        recurse(dom.childNodes)
+
+class Section(Base, SectionBase):
+    def __init__(self, parent, namespace, dom):
+        Base.__init__(self, parent, namespace, dom)
+        SectionBase.__init__(self, dom)
+
+    def get_root_namespace(self):
+        return None
+
+class Spec(SectionBase):
     def __init__(self, dom):
         # build a dictionary of errors in this spec
         try:
@@ -666,9 +681,16 @@ class Spec(object):
                         dom.getElementsByTagNameNS(XMLNS_TP, 'generic-types')),
                 [])
 
+        # create a top-level section for this Spec
+        SectionBase.__init__(self, dom.documentElement)
+
         # build a list of interfaces in this spec
-        self.interfaces = build_list(self, Interface, None,
-                                 dom.getElementsByTagName('interface'))
+        self.interfaces = []
+        def recurse(items):
+            for item in items:
+                if isinstance(item, Section): recurse(item.items)
+                elif isinstance(item, Interface): self.interfaces.append(item)
+        recurse(self.items)
 
         # build a giant dictionary of everything (interfaces, methods, signals
         # and properties); also build a dictionary of types
@@ -717,19 +739,6 @@ class Spec(object):
 
     def get_spec(self):
         return self
-
-    def group_by_chapters(self):
-        """Group consecutive interfaces that are part of the same chapter.
-        """
-        spec = self.get_spec()
-
-        def chapter(dom):
-            # ignore None elements
-            if dom is not None: return Chapter(spec, None, dom)
-            else: return None
-
-        return [ (chapter(c), list(i))
-            for (c, i) in groupby(self.interfaces, key=lambda i: i.chapter) ]
 
     def lookup(self, name, namespace=None):
         key = build_name(namespace, name)

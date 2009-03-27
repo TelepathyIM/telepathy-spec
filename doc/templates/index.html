@@ -24,30 +24,33 @@
   <a name="interfaces"></a>
   <h3>Interfaces</h3>
   <ul>
-  #for ($chapter, $interfaces) in $spec.group_by_chapters()
-   #if $chapter is not None
-    <li class="chapter">$chapter.short_name</li>
-    $chapter.get_docstring()
-    <ul>
-   #end if
-   #for $interface in $interfaces
-    #if $interface.causes_havoc
-     <li class="causes-havoc">
-    #elif $interface.deprecated
-     <li class="deprecated">
+  #def output($items)
+   #for $item in $items
+    #if $item.__class__.__name__ == 'Section'
+     <li class="chapter">$item.short_name</li>
+     $item.get_docstring()
+     <ul>
+      $output($item.items)
+     </ul>
     #else
-     <li>
-    #end if
-     <a href="$interface.get_url()">$interface.name</a>
-     #if $interface.causes_havoc
-      (unstable)
-     #elif $interface.deprecated
-      (deprecated)
+     #if $item.causes_havoc
+      <li class="causes-havoc">
+     #elif $item.deprecated
+      <li class="deprecated">
+     #else
+      <li>
      #end if
-    </li>
+      <a href="$item.get_url()">$item.name</a>
+      #if $item.causes_havoc
+       (unstable)
+      #elif $item.deprecated
+       (deprecated)
+      #end if
+     </li>
+    #end if
    #end for
-   #if $chapter: </ul>
-  #end for
+  #end def
+  $output($spec.items)
   </ul>
 
   <a name="other"></a>
