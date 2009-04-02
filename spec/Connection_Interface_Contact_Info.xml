@@ -280,8 +280,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           Indicates that the protocol pushes all contacts' information to the
           connection manager without prompting. If set,
-          <tp:member-ref>RequestContactInfo</tp:member-ref> will not cause a
-          network roundtrip and
           <tp:member-ref>ContactInfoChanged</tp:member-ref> will be emitted
           whenever contacts' information changes.
         </tp:docstring>
