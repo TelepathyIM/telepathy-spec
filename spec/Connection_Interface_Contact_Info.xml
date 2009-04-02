@@ -197,9 +197,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Request information on several contacts at once.  This SHOULD only
         return cached information, omitting handles for which no information is
-        cached from the returned map.  For contacts without cached information,
-        the information SHOULD be requested from the network, with the result
-        signalled later by <tp:member-ref>ContactInfoChanged</tp:member-ref>.
+        cached from the returned map.
       </tp:docstring>
     </method>
 
