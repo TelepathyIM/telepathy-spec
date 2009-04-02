@@ -407,6 +407,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:type>Contact_Info_Field</tp:type>s forming a
         structured representation of a vCard (as defined by RFC 2426), using
         field names and semantics defined therein.</p>
+
+      <p>On some protocols, information about your contacts is pushed to you,
+        with change notification; on others, like XMPP, the client must
+        explicitly request the avatar, and has no way to tell whether it has
+        changed without retrieving it in its entirety. This distinction is
+        exposed by <tp:member-ref>ContactInfoFlags</tp:member-ref> containing
+        <tp:type>Contact_Info_Flag</tp:type>_Push.</p>
+
+      <p>On protocols with the Push flag set, UIs can connect to
+        <tp:member-ref>ContactInfoChanged</tp:member-ref>, call
+        <tp:member-ref>GetContactInfo</tp:member-ref> once at login for the set
+        of contacts they are interested in, and then be sure they will receive
+        the latest contact info. On protocols like XMPP, clients can do the
+        same, but will receive (at most) opportunistic updates if the info is
+        retrieved for other reasons. Clients may call
+        <tp:member-ref>RequestContactInfo</tp:member-ref> to force a contact's
+        info to be updated, but MUST NOT do so without direct user action or to
+        refresh its own cache after a number of days.</p>
+
+      <tp:rationale>
+        <p>We don't want clients to accidentally cause a ridiculous amount of
+          network traffic.</p>
+      </tp:rationale>
     </tp:docstring>
   </interface>
 </node>
