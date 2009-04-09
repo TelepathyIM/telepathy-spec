@@ -108,13 +108,14 @@
             paths.</p>
         </tp:rationale>
 
-        <p>This method can raise any D-Bus error. If it does, or if the
-          handler loses its bus name before all the channels have closed, the
+        <p>This method can raise any D-Bus error. If it does, the
           handler is assumed to have failed or crashed, and the channel
-          dispatcher MUST recover in an implementation-specific way.</p>
+          dispatcher MUST recover in an implementation-specific way; it MAY
+          attempt to dispatch the channels to another handler, or close the
+          channels.</p>
 
-        <p>It is RECOMMENDED that the channel dispatcher attempts to
-          close the channels using
+        <p>If closing the channels, it is RECOMMENDED that the channel
+          dispatcher attempts to close the channels using
           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>,
           but resorts to calling
@@ -122,6 +123,17 @@
             namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
           (if available) or ignoring the channel (if not) if the same handler
           repeatedly fails to handle channels.</p>
+
+        <p>After HandleChannels returns successfully, the client process is
+          considered to be responsible for the channel until it its unique
+          name disappears from the bus.</p>
+
+        <tp:rationale>
+          <p>If a process has multiple Client bus names - some temporary and
+            some long-lived - and drops one of the temporary bus names in order
+            to reduce the set of channels that it will handle, any channels
+            that it is already handling should remain unaffected.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Account" type="o" direction="in">
@@ -258,8 +270,7 @@
     <property name="HandledChannels" tp:name-for-bindings="Handled_Channels"
       type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of the channels that this Handler is currently handling.
-        </p>
+        <p>A list of the channels that this process is currently handling.</p>
 
         <p>There is no change notification.</p>
 
@@ -274,6 +285,17 @@
             channels can be re-dispatched, and the only issue visible to
             the user is that unhandled channels that they have already
             approved might be sent back to Approvers.</p>
+        </tp:rationale>
+
+        <p>The value of this property SHOULD be the same for all Client
+          instances that share a unique bus name, and SHOULD include all
+          channels that are being handled, even if they were conceptually
+          handled by a different Client instance.</p>
+
+        <tp:rationale>
+          <p>Otherwise, when a process released a temporary Client name,
+            channels that it handled because of that Client name would no
+            longer be state-recoverable.</p>
         </tp:rationale>
       </tp:docstring>
     </property>
