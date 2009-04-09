@@ -191,6 +191,11 @@ org.freedesktop.Telepathy.Channel.Requested b=true
           the filter, and some that do not, then only a subset of the channels
           (those that do match the filter) are passed to this method.</p>
 
+        <p>If the channel dispatcher will split up the channels from a single
+          NewChannels signal and dispatch them separately (for instance 
+          because no installed Handler can handle all of them), it will call
+          ObserveChannels several times.</p>
+
         <p>The observer MUST NOT return from this method call until it is ready
           for a handler for the channel to run (which may change the channel's
           state).</p>
