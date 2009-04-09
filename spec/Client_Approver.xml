@@ -76,7 +76,10 @@
 
         <p>This property works in exactly the same way as the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.DRAFT.ObserverChannelFilter</tp:dbus-ref>
-          property. In the .client file, it is represented in the
+          property. In particular, it cannot change while the approver process
+          continues to own the corresponding Client bus name.</p>
+
+        <p>In the .client file, it is represented in the
           same way as ObserverChannelFilter, but the group has the same
           name as this interface and the keys start with
           ApproverChannelFilter instead of ObserverChannelFilter.</p>
