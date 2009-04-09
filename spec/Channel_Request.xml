@@ -37,6 +37,12 @@
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelDispatcher.DRAFT.CreateChannel</tp:dbus-ref>
           for rationale for ChannelRequest being a separate object.</p>
       </tp:rationale>
+
+      <p>A channel request can be cancelled by any client (not just the one
+        that requested it). This means that the ChannelDispatcher will
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+        the resulting channel, or refrain from requesting it at all, rather
+        than dispatching it to a handler.</p>
     </tp:docstring>
 
     <property name="Account" tp:name-for-bindings="Account"
