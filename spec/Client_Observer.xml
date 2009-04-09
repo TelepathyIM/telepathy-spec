@@ -279,6 +279,19 @@ org.freedesktop.Telepathy.Channel.Requested b=true
         </tp:docstring>
       </arg>
 
+      <arg name="Requests_Satisfied" type="ao" direction="in">
+        <tp:docstring>
+          The requests satisfied by these channels.
+
+          <tp:rationale>
+            If the same process is an Observer and a Handler, it can be useful
+            to be given this information as soon as possible (it will also
+            be passed to <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT.HandleChannels</tp:dbus-ref>).
+          </tp:rationale>
+        </tp:docstring>
+      </arg>
+
       <arg name="Observer_Info" type="a{sv}" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Additional information about these channels. No keys are
