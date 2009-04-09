@@ -209,6 +209,17 @@ org.freedesktop.Telepathy.Channel.Requested b=true
             channel handler starts up faster and acknowledges messages,
             logger never sees those messages.</p>
         </tp:rationale>
+
+        <p>The channel dispatcher SHOULD NOT change its behaviour based on
+          whether this method succeeds or fails: there are no defined D-Bus
+          errors for this method, and if it fails, this only indicates that
+          an Observer is somehow broken.</p>
+
+        <tp:rationale>
+          <p>The expected error response in the channel dispatcher is to
+            log a warning, and otherwise continue as though this method
+            had succeeded.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Account" type="o" direction="in">
