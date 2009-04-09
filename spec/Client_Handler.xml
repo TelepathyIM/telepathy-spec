@@ -208,18 +208,58 @@
     <method name="AddRequest" tp:name-for-bindings="Add_Request">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that channels have been
-          requested, and that if the request is successful, they will be
-          handled by this Handler.</p>
+          requested, and that if the request is successful, they will probably
+          be handled by this Handler.</p>
 
         <tp:rationale>
           <p>This allows the UI to start preparing to handle the channels
             in advance (e.g. render a window with an "in progress" message),
             improving perceived responsiveness.</p>
+
+          <p>The use of "probably" is because you can't necessarily tell from
+            a channel request which handler will handle particular channels.
+            A reasonable heuristic would be to match the request against the
+            <tp:member-ref>HandlerChannelFilter</tp:member-ref>, and respect
+            the preferred handler (if any).</p>
         </tp:rationale>
 
-        <p>(FIXME: how do we know the returned channels will be handled by
-          this handler? Do we just assume that they'll match the
-          HandlerChannelFilter iff the request does?)</p>
+        <p>If the request succeeds and is given to the expected Handler,
+          the Requests_Satisfied parameter to
+          <tp:member-ref>HandleChannels</tp:member-ref> can be used to match
+          the channel to a previous <tp:member-ref>AddRequest</tp:member-ref>
+          call.</p>
+
+        <tp:rationale>
+          <p>This lets the UI direct the channels to the window that it
+            already opened.</p>
+        </tp:rationale>
+
+        <p>If the request fails, the expected handler is notified by the
+          channel dispatcher calling its
+          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method.</p>
+
+        <tp:rationale>
+          <p>This lets the UI close the window or display the error.</p>
+        </tp:rationale>
+
+        <p>If the request succeeds but the channel is not dispatched to the
+          expected handler, the handler that was expected is notified by
+          the channel dispatcher calling its
+          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method
+          with the NotYours error.</p>
+
+        <tp:rationale>
+          <p>Expected handling is for the UI to close the window it
+            previously opened.</p>
+        </tp:rationale>
+
+        <p>Handlers SHOULD NOT return an error from this method; errors
+          returned from this method SHOULD NOT alter the channel dispatcher's
+          behaviour.</p>
+
+        <tp:rationale>
+          <p>Calls to this method are merely a notification.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Request" type="o" direction="in">
@@ -261,6 +301,14 @@
         <p>Called by the ChannelDispatcher to indicate that a request
           previously passed to <tp:member-ref>AddRequest</tp:member-ref>
           has failed and should be disregarded.</p>
+
+        <p>Handlers SHOULD NOT return an error from this method; errors
+          returned from this method SHOULD NOT alter the channel dispatcher's
+          behaviour.</p>
+
+        <tp:rationale>
+          <p>Calls to this method are merely a notification.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Request" type="o" direction="in">
