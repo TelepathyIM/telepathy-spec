@@ -65,11 +65,11 @@
           to the Observer.</p>
       </tp:rationale>
 
-      <p>Whenever new channels are signalled, the channel dispatcher
-        will notify all running or activatable observers whose
+      <p>Whenever a collection of new channels is signalled, the channel
+        dispatcher will notify all running or activatable observers whose
         <tp:member-ref>ObserverChannelFilter</tp:member-ref> property
         (possibly as cached in the .client file) indicates that they are
-        interested in the channel.</p>
+        interested in some of the channels.</p>
 
       <p>Observers are activated for all channels in which they have
         registered an interest - incoming, outgoing or automatically created -
@@ -158,7 +158,13 @@ org.freedesktop.Telepathy.Channel.Requested b=true
     <method name="ObserveChannels" tp:name-for-bindings="Observe_Channels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when channels in which the
-          observer has registered an interest are created.</p>
+          observer has registered an interest are announced in a <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          signal.</p>
+
+        <p>If the same NewChannels signal announces some channels that match
+          the filter, and some that do not, then only a subset of the channels
+          (those that do match the filter) are passed to this method.</p>
 
         <p>The observer MUST NOT return from this method call until it is ready
           for a handler for the channel to run (which may change the channel's
@@ -167,7 +173,7 @@ org.freedesktop.Telepathy.Channel.Requested b=true
         <tp:rationale>
           <p>The channel dispatcher must wait for observers to start up,
             to avoid the following race: text channel logger (observer) gets
-            ObserveChannel, text channel handler gets
+            ObserveChannels, text channel handler gets
             <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
             channel handler starts up faster and acknowledges messages,
