@@ -78,6 +78,15 @@
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">Requested</tp:dbus-ref>
         property.</p>
+
+      <p>Because it might take time for an observer to become ready (for
+        instance, a Text logger needs to wait until pending messages have been
+        downloaded), the channel dispatcher must wait (up to some timeout) for
+        all observers to return from
+        <tp:member-ref>ObserveChannels</tp:member-ref> before letting anything
+        destructive happen. Destructive things (e.g. acknowledging messages)
+        are defined to be done by handlers, therefore HandleWith and Claim
+        aren't allowed to succeed until all observers are ready.</p>
     </tp:docstring>
 
     <property name="ObserverChannelFilter"
