@@ -110,6 +110,7 @@ maintainer-upload-snapshot: doc/spec.html
 		tmp/spec.html
 	scp tmp/spec.html \
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
+	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
 maintainer-upload-release: doc/spec.html
 	@install -d tmp
@@ -125,7 +126,8 @@ maintainer-upload-release: doc/spec.html
 	rsync -vzP telepathy-spec-$$version.tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
 	rsync -vzP telepathy-spec-$$version.tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
 	rsync -vzP doc/spec.html telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html ; \
-	rsync -vzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
+	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
+	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/ ; \
 	rsync -vzP doc/spec.html telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec.html
 
 dist:
