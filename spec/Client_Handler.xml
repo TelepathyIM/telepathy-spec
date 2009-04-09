@@ -27,9 +27,24 @@
     <tp:requires interface="org.freedesktop.Telepathy.Client.DRAFT"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>Channel handlers are the eventual handler for a channel or a
-        channel bundle; a typical channel handler is a user interface
-        process handling channels of a particular type.</p>
+      <p>Handlers are the user interface for a channel. They turn an abstract
+        Telepathy channel into something the user wants to see, like a text
+        message stream or an audio and/or video call.</p>
+
+      <p>For its entire lifetime, each channel on a connection known to the
+        channel dispatcher is either being processed by the channel dispatcher,
+        or being handled by precisely one Handler.</p>
+
+      <p>Because each channel is only handled by one Handler, handlers may
+        perform actions that only make sense to do once, such as acknowledging
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>
+        messages, doing the actual streaming for <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+        channels with the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
+        interface, or transferring the file in <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">FileTransfer</tp:dbus-ref>
+        channels.</p>
 
       <p>When a new incoming channel (one with
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Requested</tp:dbus-ref>
