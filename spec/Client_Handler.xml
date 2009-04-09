@@ -164,12 +164,16 @@
       </arg>
 
       <arg name="Requests_Satisfied" type="ao" direction="in">
-        <tp:docstring>
-          The requests satisfied by these channels.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The requests satisfied by these channels.</p>
 
           <tp:rationale>
-            There can be more than one, if they were EnsureChannel
-            requests.
+            <p>This tells the handler that these channels match previous
+              <tp:member-ref>AddRequest</tp:member-ref> calls that it may have
+              received.</p>
+
+            <p>There can be more than one, if they were EnsureChannel
+              requests.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
