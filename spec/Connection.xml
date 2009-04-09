@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
 USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Requests"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Contacts"/>
 
     <tp:struct name="Channel_Info" array-name="Channel_Info_List">
       <tp:docstring>A struct representing a channel, as returned by
@@ -381,6 +383,15 @@ USA.</p>
     </method>
 
     <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
+      <tp:deprecated version="0.17.UNRELEASED">Use
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.CreateChannel</tp:dbus-ref>
+        or <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.EnsureChannel</tp:dbus-ref>
+        instead. Connection managers MAY implement RequestChannel by
+        raising NotImplemented, or implement fewer types of channel via
+        this API.</tp:deprecated>
+
       <arg direction="in" name="Type" type="s" tp:type="DBus_Interface">
         <tp:docstring>
           A D-Bus interface name representing base channel type
@@ -1012,6 +1023,11 @@ USA.</p>
       bus names and object paths with more than 7 components. We now restrict
       Connection bus names/object paths to have exactly 7
       components.</tp:changed>
+
+    <tp:changed version="0.17.UNRELEASED">The Requests and Contacts interfaces
+      are now mandatory. Their functionality will be merged into the main
+      Connection interface at some point in future.</tp:changed>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
