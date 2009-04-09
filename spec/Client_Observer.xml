@@ -242,19 +242,28 @@ org.freedesktop.Telepathy.Channel.Requested b=true
         </tp:docstring>
       </arg>
 
-      <arg name="DispatchOperation" type="o" direction="in">
-        <tp:docstring>
-          The path to the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT</tp:dbus-ref>
-          for these channels, or the special value '/' if there is no
-          ChannelDispatchOperation (because the channels were requested, not incoming).
+      <arg name="Dispatch_Operation" type="o" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The path to the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT</tp:dbus-ref>
+            for these channels, or the special value '/' if there is no
+            ChannelDispatchOperation (because the channels were requested, not
+            incoming).</p>
+
+          <p>If the Observer calls <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Claim</tp:dbus-ref>
+            or <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">HandleWith</tp:dbus-ref>
+            on the dispatch operation, it MUST be careful to avoid deadlock,
+            since these methods cannot return until the Observer has returned
+            from <tp:member-ref>ObserveChannels</tp:member-ref>.</p>
 
           <tp:rationale>
-            This allows an Observer to <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Claim</tp:dbus-ref>
-            a set of channels without having to match up calls to this method
-            with calls to <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.Approver.DRAFT">AddDispatchOperation</tp:dbus-ref>.
+            <p>This allows an Observer to <tp:dbus-ref
+                namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Claim</tp:dbus-ref>
+              a set of channels without having to match up calls to this method
+              with calls to <tp:dbus-ref
+                namespace="org.freedesktop.Telepathy.Client.Approver.DRAFT">AddDispatchOperation</tp:dbus-ref>.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
