@@ -87,11 +87,9 @@
         <p>A specification of the channels in which this observer is
           interested. The <tp:member-ref>ObserveChannels</tp:member-ref> method
           should be called by the channel dispatcher whenever any of the new
-          channels in a NewChannels signal match this description.</p>
-
-        <p>(FIXME: open issue: do we want this, and the corresponding
-          Approver and Handler properties, to be able to change at
-          runtime?)</p>
+          channels in a <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          signal match this description.</p>
 
         <p>Only certain D-Bus types have useful semantics for matching like this,
           so only certain types are allowed:</p>
@@ -116,10 +114,28 @@
 
         </dl>
 
-        <p>This property never changes while the observer process is
-          running. For activatable processes, the filter can change due to an
-          upgrade - the channel dispatcher SHOULD observe changes to .client files
-          using a mechanism like inotify.</p>
+        <p>This property never changes while the observer process owns its
+          Client bus name. For activatable processes, the filter can change
+          due to an upgrade - the channel dispatcher SHOULD observe changes to
+          .client files using a mechanism like inotify.</p>
+
+        <tp:rationale>
+          <p>Not allowing this property to change is a simplification,
+            particularly for activatable processes (we reject the possibility
+            that a process with a .client file, when activated, has a filter
+            that differs from what its .client file said).</p>
+
+          <p>If an Observer wants to add extra channels to its list of
+            interests at runtime, it can register an additional Client bus name
+            (for instance, the org.freedesktop.Telepathy.Client.Empathy process
+            with unique name :1.42 could additionally register
+            org.freedesktop.Telepathy.Client.Empathy._1_42) with additional
+            filters. To remove those filters, it can release the bus name;
+            it could even re-claim the bus name immediately, with different
+            filters.</p>
+
+          <p>The same principle is applied to Approvers and Handlers.</p>
+        </tp:rationale>
 
         <p>For observers that have a .client file, the channel dispatcher
           may discover this property from keys of the form
