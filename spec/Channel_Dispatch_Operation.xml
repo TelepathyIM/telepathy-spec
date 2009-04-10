@@ -26,7 +26,7 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel dispatch operation is an object in the ChannelDispatcher
-        representing a bundle of unrequested channels being announced to
+        representing a batch of unrequested channels being announced to
         client
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver.DRAFT</tp:dbus-ref>
         processes.</p>
@@ -232,15 +232,16 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The well-known bus name (starting with
             <code>org.freedesktop.Telepathy.Client.</code>) of the channel
-            handler that should handle the channel.</p>
+            handler that should handle the channel, or the empty string
+            if the client has no preferred channel handler.</p>
         </tp:docstring>
       </arg>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-            The selected handler is not a syntactically correct
-            <tp:type>DBus_Bus_Name</tp:type> or does not start with
+            The selected handler is non-empty, but is not a syntactically
+            correct <tp:type>DBus_Bus_Name</tp:type> or does not start with
             "<code>org.freedesktop.Telepathy.Client.</code>".
           </tp:docstring>
         </tp:error>
