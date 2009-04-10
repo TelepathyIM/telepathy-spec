@@ -176,6 +176,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             namespace="org.freedesktop.Telepathy.ConnectionManager">RequestConnection</tp:dbus-ref>.</tp:docstring>
       </arg>
 
+      <arg name="Properties" direction="in" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The values of any other properties to be set immediately on the
+            new Account.</p>
+
+          <p>(FIXME: how does the caller tell which properties this AM will
+            accept "at construct time"?)</p>
+
+          <p>(FIXME: what happens if the caller gets a property value wrong?
+            As currently implemented in MC, it's silently ignored)</p>
+
+          <p>(FIXME: what happens if the caller passes an unsupported property
+            value?)</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Account" direction="out" type="o">
         <tp:docstring>The new <tp:dbus-ref
           namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>.</tp:docstring>
