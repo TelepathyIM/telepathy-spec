@@ -164,17 +164,6 @@
             <code>org.freedesktop.Telepathy.Error.NotAvailable</code> MAY
             be used as a fallback; this means that this error SHOULD NOT be
             given any more specific meaning.</p>
-
-          <p>FIXME: or should we invent a new OtherError for that purpose?</p>
-
-          <p>FIXME: we need to specify errors for these situations:</p>
-
-          <ul>
-            <li>kicked from a chatroom</li>
-            <li>outgoing call rejected</li>
-            <li>outgoing call timed out</li>
-            <li>incoming call terminated</li>
-          </ul>
         </tp:docstring>
       </arg>
 
