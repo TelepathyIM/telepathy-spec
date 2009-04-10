@@ -67,12 +67,14 @@
         specification:</p>
 
       <dl>
-        <dt>Observer</dt>
+        <dt><tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client">Observer.DRAFT</tp:dbus-ref></dt>
         <dd><p>Observers monitor the creation of new channels. This
             functionality can be used for things like message logging.
             All observers are notified simultaneously.</p></dd>
 
-        <dt>Approver</dt>
+        <dt><tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client">Approver.DRAFT</tp:dbus-ref></dt>p
         <dd>
           <p>Approvers notify the user that new channels have been created,
             and also select which channel handler will be used for the channel,
@@ -80,7 +82,8 @@
             channel handler.</p>
         </dd>
 
-        <dt>Handler</dt>
+        <dt><tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref></dt>
         <dd>
           <p>Each new channel or set of channels is passed to exactly one
             handler as its final destination. A typical channel handler is a
