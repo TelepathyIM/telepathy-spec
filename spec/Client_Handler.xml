@@ -183,9 +183,10 @@
           <p>The requests satisfied by these channels.</p>
 
           <tp:rationale>
-            <p>This tells the handler that these channels match previous
-              <tp:member-ref>AddRequest</tp:member-ref> calls that it may have
-              received.</p>
+            <p>If the handler implements RequestNotification, this tells it
+              that these channels match previous <tp:dbus-ref
+                namespace="org.freedesktop.Telepathy.Client.Handler.Interface.RequestNotification.DRAFT">AddRequest</tp:dbus-ref>
+              calls that it may have received.</p>
 
             <p>There can be more than one, if they were EnsureChannel
               requests.</p>
@@ -203,135 +204,6 @@
       </arg>
 
       <!-- FIXME: invent a way to say "any error is possible" in spec markup -->
-    </method>
-
-    <method name="AddRequest" tp:name-for-bindings="Add_Request">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the ChannelDispatcher to indicate that channels have been
-          requested, and that if the request is successful, they will probably
-          be handled by this Handler.</p>
-
-        <tp:rationale>
-          <p>This allows the UI to start preparing to handle the channels
-            in advance (e.g. render a window with an "in progress" message),
-            improving perceived responsiveness.</p>
-
-          <p>The use of "probably" is because you can't necessarily tell from
-            a channel request which handler will handle particular channels.
-            A reasonable heuristic would be to match the request against the
-            <tp:member-ref>HandlerChannelFilter</tp:member-ref>, and respect
-            the preferred handler (if any).</p>
-        </tp:rationale>
-
-        <p>If the request succeeds and is given to the expected Handler,
-          the Requests_Satisfied parameter to
-          <tp:member-ref>HandleChannels</tp:member-ref> can be used to match
-          the channel to a previous <tp:member-ref>AddRequest</tp:member-ref>
-          call.</p>
-
-        <tp:rationale>
-          <p>This lets the UI direct the channels to the window that it
-            already opened.</p>
-        </tp:rationale>
-
-        <p>If the request fails, the expected handler is notified by the
-          channel dispatcher calling its
-          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method.</p>
-
-        <tp:rationale>
-          <p>This lets the UI close the window or display the error.</p>
-        </tp:rationale>
-
-        <p>If the request succeeds but the channel is not dispatched to the
-          expected handler, the handler that was expected is notified by
-          the channel dispatcher calling its
-          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method
-          with the NotYours error.</p>
-
-        <tp:rationale>
-          <p>Expected handling is for the UI to close the window it
-            previously opened.</p>
-        </tp:rationale>
-
-        <p>Handlers SHOULD NOT return an error from this method; errors
-          returned from this method SHOULD NOT alter the channel dispatcher's
-          behaviour.</p>
-
-        <tp:rationale>
-          <p>Calls to this method are merely a notification.</p>
-        </tp:rationale>
-      </tp:docstring>
-
-      <arg name="Request" type="o" direction="in">
-        <tp:docstring>
-          The <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
-          object, which MUST have been returned by <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT">CreateChannel</tp:dbus-ref>
-          or <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT">EnsureChannel</tp:dbus-ref>
-          before this method is called.
-
-          <tp:rationale>
-            See those methods for the rationale of this ordering.
-          </tp:rationale>
-        </tp:docstring>
-      </arg>
-
-      <arg name="Properties" type="a{sv}"
-        tp:type="Qualified_Property_Value_Map" direction="in">
-        <tp:docstring>
-          <p>Some of the properties of the ChannelRequest. To avoid race
-            conditions, this dictionary MUST NOT include properties whose
-            values could subsequently change. It SHOULD include as many
-            properties as possible, given that constraint.</p>
-
-          <p>In particular, the properties <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">Requests</tp:dbus-ref>
-            and <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
-            MUST be included.</p>
-        </tp:docstring>
-      </arg>
-    </method>
-
-    <method name="RemoveFailedRequest"
-      tp:name-for-bindings="Remove_Failed_Request">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the ChannelDispatcher to indicate that a request
-          previously passed to <tp:member-ref>AddRequest</tp:member-ref>
-          has failed and should be disregarded.</p>
-
-        <p>Handlers SHOULD NOT return an error from this method; errors
-          returned from this method SHOULD NOT alter the channel dispatcher's
-          behaviour.</p>
-
-        <tp:rationale>
-          <p>Calls to this method are merely a notification.</p>
-        </tp:rationale>
-      </tp:docstring>
-
-      <arg name="Request" type="o" direction="in">
-        <tp:docstring>
-          The request that failed.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Error" type="s" tp:type="DBus_Error_Name" direction="in">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The name of the D-Bus error with which the request failed.</p>
-
-          <p>If this is <code>org.freedesktop.Telepathy.Error.NotYours</code>,
-            this indicates that the request succeeded, but all the resulting
-            channels were given to some other handler.</p>
-        </tp:docstring>
-      </arg>
-
-      <arg name="Message" type="s" direction="in">
-        <tp:docstring>
-          Any message supplied with the D-Bus error.
-        </tp:docstring>
-      </arg>
     </method>
 
     <property name="HandledChannels" tp:name-for-bindings="Handled_Channels"
