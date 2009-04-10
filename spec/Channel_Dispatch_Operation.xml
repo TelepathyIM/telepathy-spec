@@ -341,6 +341,11 @@
           operation is no longer present and further methods must not be
           called on it.</p>
 
+        <p>Approvers that have a user interface SHOULD stop notifying the user
+          about the channels in response to this signal; they MAY assume that
+          on errors, they would have received
+          <tp:member-ref>ChannelLost</tp:member-ref> first.</p>
+
         <p>Its object path SHOULD NOT be reused for a subsequent dispatch
           operation; the ChannelDispatcher MUST choose object paths
           in a way that avoids immediate re-use.</p>
