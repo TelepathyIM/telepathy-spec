@@ -62,13 +62,32 @@
         dispatch operation SHOULD be created for each channel, each with
         a list of channel handlers that could handle that channel.</p>
 
+      <p>If no handler at all can handle a channel, the channel dispatcher
+        SHOULD terminate that channel instead of creating a channel dispatcher
+        for it. It is RECOMMENDED that the channel dispatcher closes
+        the channels using <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
+        if supported, or <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Channel.Close</tp:dbus-ref>
+        otherwise. As a special case, the channel dispatcher SHOULD NOT close
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">ContactList</tp:dbus-ref>
+        channels, and if Close fails, the channel dispatcher SHOULD ignore
+        that channel.</p>
+
+      <tp:rationale>
+        <p>ContactList channels are strange. We hope to replace them with
+          something better, such as an interface on the Connection, in a
+          future version of this specification.</p>
+      </tp:rationale>
+
       <p>When listing channel handlers, priority SHOULD be given to
         channel handlers that are already handling channels from the same
         bundle.</p>
 
       <p>If a handler with <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">BypassApproval</tp:dbus-ref>
-        <code>= True</code> could handle the channels in the dispatch
+        <code>= True</code> could handle all of the channels in the dispatch
         operation, then the channel dispatcher SHOULD call <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
         on that handler, and (assuming the call succeeds) emit
