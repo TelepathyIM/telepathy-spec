@@ -299,7 +299,14 @@
             For instance, for Text channels it is necessary
             to acknowledge any messages that have already been displayed to
             the user first - ideally, the approver would display and then
-            acknowledge the messages.</p>
+            acknowledge the messages - or to call <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
+            if the destructive behaviour of that method is desired.</p>
+
+          <p>Similarly, an Approver for StreamedMedia channels can close the
+            channel with a reason (e.g. "busy") if desired. The channel
+            dispatcher, which is designed to have no specific knowledge
+            of particular channel types, can't do that.</p>
         </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
