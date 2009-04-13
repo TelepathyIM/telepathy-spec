@@ -287,12 +287,10 @@
         tp:type="Unix_Timestamp64">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The time at which user action occurred, or 0 if this channel
-            request is for some reason not involving user action.
-            The <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
-            property will be set to this value, and it will eventually be
-            passed as the <code>User_Action_Time</code> parameter of <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>.</p>
+            request is for some reason not involving user action.</p>
+
+          <p>This parameter is used in the same way as the corresponding
+            parameter to <tp:member-ref>CreateChannel</tp:member-ref>.</p>
         </tp:docstring>
       </arg>
 
@@ -303,30 +301,10 @@
             <code>org.freedesktop.Telepathy.Client.</code>)
             of the preferred handler for this
             channel, or an empty string to indicate that any handler would be
-            acceptable.</p>
-
-          <tp:rationale>
-            <p>This must be the well-known bus name, not the unique name,
-              to ensure that all handlers do indeed have the Client API,
-              and the Client object on the handler can be located easily.</p>
-
-            <p>This is partly so the channel dispatcher can call
-              <tp:dbus-ref
-                namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
-              on it, and partly so the channel dispatcher
-              can recover state if it crashes and is restarted.</p>
-          </tp:rationale>
-
-          <p>If this is a well-known bus name, the channel dispatcher SHOULD
-            call <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">AddRequest</tp:dbus-ref>
-            on that Handler after this method has returned.</p>
-
-          <tp:rationale>
-            <p>This ordering allows a Handler which calls EnsureChannel with
-              itself as the preferred handler to associate the call to
-              AddRequest with that call.</p>
-          </tp:rationale>
+            acceptable. The behaviour and rationale are the same as for the
+            corresponding parameter to
+            <tp:member-ref>CreateChannel</tp:member-ref>, except as noted
+            here.</p>
 
           <p>If any new channels are created in response to this
             request, the channel dispatcher SHOULD dispatch as many as
