@@ -68,6 +68,20 @@
       </tp:docstring>
     </property>
 
+    <property name="PreferredHandler" tp:name-for-bindings="Preferred_Handler"
+      type="s" tp:type="DBus_Well_Known_Name" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Either the well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>)
+            of the preferred handler for this
+            channel, or an empty string to indicate that any handler would be
+            acceptable.</p>
+
+        <p>This property is set when the channel request is created,
+          and can never change.</p>
+      </tp:docstring>
+    </property>
+
     <property name="Requests" tp:name-for-bindings="Requests" type="aa{sv}"
       tp:type="Qualified_Property_Value_Map[]"
       access="read">
