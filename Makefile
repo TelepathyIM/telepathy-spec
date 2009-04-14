@@ -103,7 +103,7 @@ clean:
 	rm -rf test/output
 	rm -rf tmp
 
-maintainer-upload-snapshot: doc/spec.html
+maintainer-upload-snapshot: doc/spec.html doc/spec/index.html
 	@install -d tmp
 	cp doc/spec.html tmp/spec.html
 	sed -i~ -e 's!\(<h2>Version [0-9][0-9.]*\)\(</h2>\)!\1 (git commit '`git rev-list -n 1 --abbrev-commit --abbrev=8 HEAD`', '`date +%Y-%m-%d`')\2!' \
@@ -112,7 +112,7 @@ maintainer-upload-snapshot: doc/spec.html
 		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
-maintainer-upload-release: doc/spec.html
+maintainer-upload-release: doc/spec.html doc/spec/index.html
 	@install -d tmp
 	set -e ; \
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\

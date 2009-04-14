@@ -278,13 +278,15 @@
         <p>Called by an approver to claim channels for handling
           internally. If this method is called successfully, the process
           calling this method becomes the handler for the channel, but
-          <em>does not</em> have the HandleChannels method called on it.</p>
-        <!-- FIXME: tp:dbus-ref -->
+          <em>does not</em> have the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
+          method called on it.</p>
 
         <p>Clients that call Claim on channels but do not immediately
           close them SHOULD implement the Handler interface and its
-          CurrentlyHandledChannels property.</p>
-        <!-- FIXME: tp:dbus-ref -->
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandledChannels</tp:dbus-ref>
+          property.</p>
 
         <p>Approvers wishing to reject channels MUST call this method to
           claim ownership of them, and MUST NOT call
@@ -297,7 +299,14 @@
             For instance, for Text channels it is necessary
             to acknowledge any messages that have already been displayed to
             the user first - ideally, the approver would display and then
-            acknowledge the messages.</p>
+            acknowledge the messages - or to call <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
+            if the destructive behaviour of that method is desired.</p>
+
+          <p>Similarly, an Approver for StreamedMedia channels can close the
+            channel with a reason (e.g. "busy") if desired. The channel
+            dispatcher, which is designed to have no specific knowledge
+            of particular channel types, can't do that.</p>
         </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation
