@@ -48,17 +48,14 @@ USA.</p>
     </tp:struct>
 
     <method name="Connect" tp:name-for-bindings="Connect">
-      <tp:docstring>
-        Request that the connection be established. This will be done
-        asynchronously and errors will be returned by emitting
-        <tp:member-ref>StatusChanged</tp:member-ref> signals.
-      </tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the connection be established. This will be done
+          asynchronously and errors will be returned by emitting
+          <tp:member-ref>StatusChanged</tp:member-ref> signals.</p>
 
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          The connection is already connecting or connected
-        </tp:error>
-      </tp:possible-errors>
+        <p>Calling this method on a Connection that is already connecting
+          or connected is allowed, and has no effect.</p>
+      </tp:docstring>
     </method>
 
     <method name="Disconnect" tp:name-for-bindings="Disconnect">
