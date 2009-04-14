@@ -23,9 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="Error_Code" type="u"
         tp:type="Media_Stream_Error"/>
       <arg direction="in" name="Message" type="s"/>
+      <tp:deprecated version="0.13.4">
+        Use <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Media">StreamHandler.Error</tp:dbus-ref>
+        on each StreamHandler object instead.
+      </tp:deprecated>
       <tp:docstring>
-        THIS METHOD IS DEPRECATED AND SHOULD NOT BE USED. Instead the Error
-        function should be used on the relevant MediaStreamHandler objects.
         Informs the connection manager that an error occured in this session.
         If used, the connection manager must terminate the session and all of
         the streams within it, and may also emit a StreamError signal on the
