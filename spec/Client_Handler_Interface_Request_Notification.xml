@@ -37,7 +37,8 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that channels have been
           requested, and that if the request is successful, they will probably
-          be handled by this Handler.</p>
+          be handled by this Handler. The ChannelDispatcher SHOULD only
+          call this method on one handler per request.</p>
 
         <tp:rationale>
           <p>This allows the UI to start preparing to handle the channels
@@ -71,10 +72,14 @@
           <p>This lets the UI close the window or display the error.</p>
         </tp:rationale>
 
-        <p>If the request succeeds but the channel is not dispatched to the
-          expected handler, the handler that was expected is notified by
-          the channel dispatcher calling its
-          <tp:member-ref>RemoveRequest</tp:member-ref> method
+        <p>The channel dispatcher SHOULD remember which handler was notified,
+          and if the channel request succeeds, it SHOULD dispatch the channels
+          to the expected handler, unless the channels do not match that
+          handler's <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandlerChannelFilter</tp:dbus-ref>.
+          If the channels are not dispatched to the expected handler, the
+          handler that was expected is notified by the channel dispatcher
+          calling its <tp:member-ref>RemoveRequest</tp:member-ref> method
           with the NotYours error.</p>
 
         <tp:rationale>
