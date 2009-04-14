@@ -51,14 +51,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <arg name="Media_Type" type="u" tp:type="Media_Stream_Type">
         <tp:docstring>
-          Enum for type of media that this stream should handle
-          (a value from MediaStreamType)
+          Type of media that this stream should handle
         </tp:docstring>
       </arg>
       <arg name="Direction" type="u" tp:type="Media_Stream_Direction">
         <tp:docstring>
-          Enum for direction of this stream (a value from
-          MediaStreamDirection)
+          Direction of this stream
         </tp:docstring>
       </arg>
       <tp:docstring>
