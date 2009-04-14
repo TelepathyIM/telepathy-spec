@@ -65,7 +65,7 @@
 
         <p>If the request fails, the expected handler is notified by the
           channel dispatcher calling its
-          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method.</p>
+          <tp:member-ref>RemoveRequest</tp:member-ref> method.</p>
 
         <tp:rationale>
           <p>This lets the UI close the window or display the error.</p>
@@ -74,7 +74,7 @@
         <p>If the request succeeds but the channel is not dispatched to the
           expected handler, the handler that was expected is notified by
           the channel dispatcher calling its
-          <tp:member-ref>RemoveFailedRequest</tp:member-ref> method
+          <tp:member-ref>RemoveRequest</tp:member-ref> method
           with the NotYours error.</p>
 
         <tp:rationale>
@@ -124,8 +124,8 @@
       </arg>
     </method>
 
-    <method name="RemoveFailedRequest"
-      tp:name-for-bindings="Remove_Failed_Request">
+    <method name="RemoveRequest"
+      tp:name-for-bindings="Remove_Request">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the ChannelDispatcher to indicate that a request
           previously passed to <tp:member-ref>AddRequest</tp:member-ref>
