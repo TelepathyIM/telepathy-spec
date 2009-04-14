@@ -214,13 +214,22 @@
     <property name="PossibleHandlers" tp:name-for-bindings="Possible_Handlers"
       type="as" access="read" tp:type="DBus_Well_Known_Name[]">
       <tp:docstring>
-        The well known bus names (starting with
-        <code>org.freedesktop.Telepathy.Client.</code>) of the possible
-        <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref>s
-        for these channels. The channel dispatcher MUST place the most
-        preferred handlers first, according to some reasonable heuristic.
-        As a result, approvers SHOULD use the first handler by default.
+        <p>The well known bus names (starting with
+          <code>org.freedesktop.Telepathy.Client.</code>) of the possible
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref>s
+          for these channels. The channel dispatcher MUST place the most
+          preferred handlers first, according to some reasonable heuristic.
+          As a result, approvers SHOULD use the first handler by default.</p>
+
+        <p>The heuristic used to prioritize handlers SHOULD give a higher
+          priority to handlers that are already running.</p>
+
+        <tp:rationale>
+          <p>If, for instance, Empathy and Kopete have similar functionality,
+            and Empathy is running, we should prefer to send channels to it
+            rather than launching Kopete via service activation.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
