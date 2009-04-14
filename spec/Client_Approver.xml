@@ -130,6 +130,35 @@
         </tp:rationale>
       </tp:docstring>
 
+      <arg name="Channels" direction="in"
+        type="a(oa{sv})" tp:type="Channel_Details[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The initial value of the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT.Channels</tp:dbus-ref>
+            property, containing the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>s
+            to be dispatched and their properties.</p>
+
+          <tp:rationale>
+            <p>This can't be signalled to the approver through the Properties
+              parameter of this method, because Channels is not an immutable
+              property.</p>
+          </tp:rationale>
+
+          <p>The actual channels to be dispatched may reduce as channels are
+            closed: this is signalled by <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT.ChannelLost</tp:dbus-ref>.
+          </p>
+
+          <p>Approvers SHOULD connect to ChannelLost and <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT.Finished</tp:dbus-ref>.
+            (if desired) before returning from AddDispatchOperation, since
+            those signals are guaranteed not to be emitted until after all
+            AddDispatchOperation calls have returned (with success or failure)
+            or timed out.</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="DispatchOperation" type="o" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The
@@ -141,19 +170,16 @@
       <arg name="Properties" type="a{sv}"
         tp:type="Qualified_Property_Value_Map" direction="in">
         <tp:docstring>
-          Properties of the channel dispatch operation. This MUST NOT include
-          properties that could change, SHOULD include as many properties as
-          possible given that constraint, and MUST include at least the
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Account</tp:dbus-ref>,
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Connection</tp:dbus-ref>,
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Channels</tp:dbus-ref>
-          and
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">PossibleHandlers</tp:dbus-ref>
-          properties.
+          <p>Properties of the channel dispatch operation. This MUST NOT
+            include properties that could change, SHOULD include as many
+            properties as possible given that constraint, and MUST include at
+            least the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Account</tp:dbus-ref>,
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">Connection</tp:dbus-ref>
+            and <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelDispatchOperation.DRAFT">PossibleHandlers</tp:dbus-ref>
+            properties.</p>
         </tp:docstring>
       </arg>
     </method>
