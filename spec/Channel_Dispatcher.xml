@@ -211,6 +211,11 @@
               itself as the preferred handler to associate the call to
               AddRequest with that call.</p>
           </tp:rationale>
+
+          <p>This is copied to the ChannelRequest that is returned,
+            as the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">PreferredHandler</tp:dbus-ref>
+            property.</p>
         </tp:docstring>
       </arg>
 
