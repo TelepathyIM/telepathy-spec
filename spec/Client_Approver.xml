@@ -86,12 +86,9 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this approver is
           interested. The <tp:member-ref>AddDispatchOperation</tp:member-ref>
-          method should be called by the channel dispatcher whenever the
-          channels in a channel dispatch operation
-          match this description.</p>
-
-        <p>(FIXME: what happens if some but not all of the channels
-          match this?)</p>
+          method should be called by the channel dispatcher whenever at least
+          one of the channels in a channel dispatch operation matches this
+          description.</p>
 
         <p>This property works in exactly the same way as the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.DRAFT.ObserverChannelFilter</tp:dbus-ref>
@@ -143,6 +140,17 @@
             <p>This can't be signalled to the approver through the Properties
               parameter of this method, because Channels is not an immutable
               property.</p>
+          </tp:rationale>
+
+          <p>This argument always contains all of the channels in the channel
+            dispatch operation, even if not all of them actually match
+            the <tp:member-ref>ApproverChannelFilter</tp:member-ref>.</p>
+
+          <tp:rationale>
+            <p>This seems the least bad way to handle such a situation;
+              see the discussion on
+              <a href="http://bugs.freedesktop.org/show_bug.cgi?id=21090">bug
+                #21090</a>.</p>
           </tp:rationale>
 
           <p>The actual channels to be dispatched may reduce as channels are
