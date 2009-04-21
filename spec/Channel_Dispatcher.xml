@@ -102,7 +102,7 @@
     <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to create a channel. This initially just creates a
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object, which can be used to continue the request and track its
           success or failure.</p>
 
@@ -122,10 +122,10 @@
         <p>If this method is called for an Account that is disabled, invalid
           or otherwise unusable, no error is signalled until
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Proceed</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Proceed</tp:dbus-ref>
           is called, at which point
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Failed</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Failed</tp:dbus-ref>
           is emitted with an appropriate error.</p>
 
         <tp:rationale>
@@ -169,7 +169,7 @@
           <p>The time at which user action occurred, or 0 if this channel
             request is for some reason not involving user action.
             The <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.ChannelRequest">UserActionTime</tp:dbus-ref>
             property will be set to this value, and it will eventually be
             passed as the <code>User_Action_Time</code> parameter of <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>.</p>
@@ -215,7 +215,7 @@
 
           <p>This is copied to the ChannelRequest that is returned,
             as the <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">PreferredHandler</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.ChannelRequest">PreferredHandler</tp:dbus-ref>
             property.</p>
         </tp:docstring>
       </arg>
@@ -223,7 +223,7 @@
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
           A
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object.
         </tp:docstring>
       </arg>
@@ -245,17 +245,17 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to ensure that a channel exists, creating it if
           necessary.  This initially just creates a <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object, which can be used to continue the request and track its
           success or failure.</p>
 
         <p>If this method is called for an Account that is disabled, invalid
           or otherwise unusable, no error is signalled until
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Proceed</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Proceed</tp:dbus-ref>
           is called, at which point
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT.Failed</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest.Failed</tp:dbus-ref>
           is emitted with an appropriate error.</p>
 
         <tp:rationale>
@@ -347,7 +347,7 @@
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
           A
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object.
         </tp:docstring>
       </arg>

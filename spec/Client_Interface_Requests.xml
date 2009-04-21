@@ -99,7 +99,7 @@
       <arg name="Request" type="o" direction="in">
         <tp:docstring>
           The <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelRequest.DRAFT</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object, which MUST have been returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.ChannelDispatcher">CreateChannel</tp:dbus-ref>
           or <tp:dbus-ref
@@ -121,9 +121,9 @@
             properties as possible, given that constraint.</p>
 
           <p>In particular, the properties <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">Requests</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.ChannelRequest">Requests</tp:dbus-ref>
             and <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.ChannelRequest.DRAFT">UserActionTime</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.ChannelRequest">UserActionTime</tp:dbus-ref>
             MUST be included.</p>
         </tp:docstring>
       </arg>
