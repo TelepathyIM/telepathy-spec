@@ -28,7 +28,7 @@
       <p>A channel dispatch operation is an object in the ChannelDispatcher
         representing a batch of unrequested channels being announced to
         client
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver.DRAFT</tp:dbus-ref>
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref>
         processes.</p>
 
       <p>These objects can result from new incoming channels or channels
@@ -111,7 +111,7 @@
         approver to claim the channels or request that they are handled.
         See
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Approver.DRAFT">AddDispatchOperation</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Client.Approver">AddDispatchOperation</tp:dbus-ref>
         for more details on this.</p>
 
       <p>Finally, if the approver requested it, the channel dispatcher SHOULD
@@ -170,7 +170,7 @@
         <p>This signal MUST NOT be emitted until all Approvers that were
           invoked have returned (successfully or with an error) from
           their <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Approver.DRAFT">AddDispatchOperation</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Client.Approver">AddDispatchOperation</tp:dbus-ref>
           method.</p>
 
         <tp:rationale>
@@ -395,7 +395,7 @@
         <p>This signal MUST NOT be emitted until all Approvers that were
           invoked have returned (successfully or with an error) from
           their <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Approver.DRAFT">AddDispatchOperation</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Client.Approver">AddDispatchOperation</tp:dbus-ref>
           method.</p>
 
         <tp:rationale>

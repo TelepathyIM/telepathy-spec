@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Client.Approver.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Client.Approver"
     tp:causes-havoc="experimental">
     <tp:added version="0.17.12">(as a draft)</tp:added>
 
