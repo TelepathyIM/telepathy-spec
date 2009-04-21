@@ -20,8 +20,8 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Client.Observer.DRAFT"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Client.Observer"
+    tp:causes-havoc="not yet final">
     <tp:added version="0.17.12">(as a draft)</tp:added>
 
     <tp:requires interface="org.freedesktop.Telepathy.Client"/>
@@ -164,14 +164,14 @@
 
 <pre>
 [org.freedesktop.Telepathy.Client]
-Interfaces=org.freedesktop.Telepathy.Client.Observer.DRAFT;
+Interfaces=org.freedesktop.Telepathy.Client.Observer;
 
-[org.freedesktop.Telepathy.Client.Observer.DRAFT.ObserverChannelFilter 0]
+[org.freedesktop.Telepathy.Client.Observer.ObserverChannelFilter 0]
 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
 org.freedesktop.Telepathy.Channel.TargetHandleType u=1
 org.freedesktop.Telepathy.Channel.Requested b=true
 
-[org.freedesktop.Telepathy.Client.Observer.DRAFT.ObserverChannelFilter 1]
+[org.freedesktop.Telepathy.Client.Observer.ObserverChannelFilter 1]
 org.freedesktop.Telepathy.Channel.Type s=org.freedesktop.Telepathy.Channel.Type.Text
 org.freedesktop.Telepathy.Channel.TargetHandleType u=2
 org.freedesktop.Telepathy.Channel.Requested b=true

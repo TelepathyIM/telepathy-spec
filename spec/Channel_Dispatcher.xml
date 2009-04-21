@@ -68,7 +68,7 @@
 
       <dl>
         <dt><tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Observer.DRAFT</tp:dbus-ref></dt>
+            namespace="org.freedesktop.Telepathy.Client">Observer</tp:dbus-ref></dt>
         <dd><p>Observers monitor the creation of new channels. This
             functionality can be used for things like message logging.
             All observers are notified simultaneously.</p></dd>

@@ -75,7 +75,7 @@
           or for suitable channels that must be handled separately.</p>
 
         <p>This property works in exactly the same way as the
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.DRAFT.ObserverChannelFilter</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Client.Observer.ObserverChannelFilter</tp:dbus-ref>
           property. In particular, it cannot change while the handler process
           continues to own the corresponding Client bus name.</p>
 
