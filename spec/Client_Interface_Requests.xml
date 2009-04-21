@@ -22,7 +22,7 @@
 
   <interface name="org.freedesktop.Telepathy.Client.Interface.Requests"
     tp:causes-havoc="not yet final">
-    <tp:added version="0.17.UNRELEASED">(as a draft; functionality
+    <tp:added version="0.17.23">(as a draft; functionality
       moved from Handler)</tp:added>
 
     <tp:requires interface="org.freedesktop.Telepathy.Client"/>

@@ -2,10 +2,84 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.23 (UNRELEASED)
+telepathy-spec 0.17.23 (2009-04-21)
 ===================================
 
-...
+The "the future is mandatory" release.
+
+Changes to stable API:
+
+* fd.o #14620: Connection.Connect is defined to be idempotent, matching what
+  has always been implemented in practice. (smcv)
+
+* All Connections must implement the Requests and Contacts interfaces, which
+  are no longer considered optional. RequestChannel, ListChannels and listening
+  for NewChannel are now deprecated. (smcv)
+
+* All Connections that implement the deprecated Presence interface must also
+  implement the non-deprecated SimplePresence interface; clients should not
+  attempt to support the old Presence interface. (smcv)
+
+Changes to experimental API:
+
+* fd.o #21148: ChannelDispatcher, ChannelDispatchOperation, ChannelRequest,
+  Client, Observer, Approver and Handler are considered to be a little less
+  experimental. We don't yet recommend generating bindings for them in stable
+  libraries, but hopefully they won't change much more now. Accordingly,
+  the .DRAFT suffix has been removed. (smcv)
+
+* fd.o #21180: Handler: added an a{sv} parameter to HandleChannels for future
+  expansion. (smcv)
+
+* fd.o #20908: Observer: added a Requests_Satisfied parameter to
+  ObserveChannels. (smcv)
+
+* fd.o #21093: Approver: altered AddDispatchOperation to pass the channels as
+  a top-level argument, since the Channels property of the CDO is mutable (smcv)
+
+* fd.o #21176: Handler: moved request notification to a new
+  Client.Interface.Requests interface. (smcv)
+
+Additions to stable API:
+
+* CreateChannel and EnsureChannel may raise Offline. (wjt)
+
+* fd.o #21109: added a Terminated error; Group change reason None is either
+  Terminated or Cancelled, depending on the actor. (smcv)
+
+* fd.o #20920: StreamedMedia: RequestStreams may raise NotImplemented and
+  NotCapable, and should prefer them over InvalidArgument and NotAvailable.
+  (smcv)
+
+* fd.o #20920: Group: AddMember may raise NotCapable. (smcv)
+
+* Accounts have a HasBeenOnline property. (smcv)
+
+Additions to experimental API:
+
+* fd.o #21013: ChannelRequest: added a PreferredHandler property. (smcv)
+
+* fd.o #21180: ChannelRequest: added an Interfaces property. (smcv)
+
+Clarifications:
+
+* fd.o #21090: Approver: AddDispatchOperation is called for all channel
+  dispatch operations where at least of the channels matches the filter. (smcv)
+
+* fd.o #21089: Observer: ObserveChannels only sees channels that match the
+  filter. (smcv)
+
+* fd.o #21112: FileTransfer: clarified how RequestableChannelClasses and
+  ContentHashType relate. (wjt)
+
+* fd.o #21179: added some recommendations for a high-quality channel dispatcher   implementation. (smcv)
+
+Tools:
+
+* The new-style (multi-page) HTML output has a devhelp index and various
+  visual improvements. (davyd, wjt)
+
+* The new-style HTML spec is uploaded correctly. (smcv, wjt)
 
 telepathy-spec 0.17.22 (2009-03-24)
 ===================================

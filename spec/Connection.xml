@@ -26,7 +26,7 @@ USA.</p>
     <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Contacts"/>
 
     <tp:struct name="Channel_Info" array-name="Channel_Info_List">
-      <tp:deprecated version="0.17.UNRELEASED"/>
+      <tp:deprecated version="0.17.23"/>
       <tp:docstring>A struct representing a channel, as returned by
         ListChannels on the Connection interface.</tp:docstring>
       <tp:member type="o" name="Channel">
@@ -272,7 +272,7 @@ USA.</p>
     </method>
 
     <method name="ListChannels" tp:name-for-bindings="List_Channels">
-      <tp:deprecated version="0.17.UNRELEASED">Use the
+      <tp:deprecated version="0.17.23">Use the
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.Channels</tp:dbus-ref>
         property instead.
@@ -295,7 +295,7 @@ USA.</p>
     </method>
 
     <signal name="NewChannel" tp:name-for-bindings="New_Channel">
-      <tp:deprecated version="0.17.UNRELEASED">Connection managers MUST still
+      <tp:deprecated version="0.17.23">Connection managers MUST still
         emit this signal, but clients SHOULD listen for the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.NewChannels</tp:dbus-ref>
         signal instead.
@@ -393,7 +393,7 @@ USA.</p>
     </method>
 
     <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
-      <tp:deprecated version="0.17.UNRELEASED">Use
+      <tp:deprecated version="0.17.23">Use
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.CreateChannel</tp:dbus-ref>
         or <tp:dbus-ref
@@ -1034,7 +1034,7 @@ USA.</p>
       Connection bus names/object paths to have exactly 7
       components.</tp:changed>
 
-    <tp:changed version="0.17.UNRELEASED">The Requests and Contacts interfaces
+    <tp:changed version="0.17.23">The Requests and Contacts interfaces
       are now mandatory. Their functionality will be merged into the main
       Connection interface at some point in future.</tp:changed>
 

@@ -17,7 +17,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.ChannelHandler">
-    <tp:deprecated version="0.17.UNRELEASED">
+    <tp:deprecated version="0.17.23">
       Clients should implement <tp:dbus-ref
         namespace="org.freedesktop.Telepathy">Client.Handler</tp:dbus-ref>
       instead.

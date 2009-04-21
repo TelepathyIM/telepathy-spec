@@ -260,7 +260,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             A stream type given is not implemented by the connection manager.
-            Since 0.17.UNRELEASED, connection managers SHOULD raise this error
+            Since 0.17.23, connection managers SHOULD raise this error
             in preference to InvalidArgument.
             <tp:rationale>
               Connection managers can't know whether an unknown number
@@ -279,7 +279,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
           <tp:docstring>
             That contact's client does not implement one of the given stream
-            types. Since 0.17.UNRELEASED, connection managers SHOULD raise
+            types. Since 0.17.23, connection managers SHOULD raise
             this in preference to NotAvailable.
           </tp:docstring>
         </tp:error>
