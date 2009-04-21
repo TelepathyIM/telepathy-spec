@@ -116,6 +116,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <xi:include href="Media_Session_Handler.xml"/>
   <xi:include href="Media_Stream_Handler.xml"/>
  </tp:section>
+
+ <tp:section name="Debugging">
+  <xi:include href="Debug.xml"/>
+ </tp:section>
 </tp:section>
 
 <tp:section name="The Account Manager">
