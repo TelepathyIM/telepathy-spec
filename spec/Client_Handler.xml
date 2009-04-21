@@ -183,9 +183,9 @@
           <p>The requests satisfied by these channels.</p>
 
           <tp:rationale>
-            <p>If the handler implements RequestNotification, this tells it
+            <p>If the handler implements Requests, this tells it
               that these channels match previous <tp:dbus-ref
-                namespace="org.freedesktop.Telepathy.Client.Handler.Interface.RequestNotification.DRAFT">AddRequest</tp:dbus-ref>
+                namespace="org.freedesktop.Telepathy.Client.Interface.Requests">AddRequest</tp:dbus-ref>
               calls that it may have received.</p>
 
             <p>There can be more than one, if they were EnsureChannel

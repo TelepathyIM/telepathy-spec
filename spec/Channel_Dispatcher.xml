@@ -202,9 +202,9 @@
           </tp:rationale>
 
           <p>If this is a well-known bus name and the handler has the
-            RequestNotification interface, the channel dispatcher SHOULD
+            Requests interface, the channel dispatcher SHOULD
             call <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.Handler.Interface.RequestNotification.DRAFT">AddRequest</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.Client.Interface.Requests">AddRequest</tp:dbus-ref>
             on that Handler after this method has returned.</p>
 
           <tp:rationale>
