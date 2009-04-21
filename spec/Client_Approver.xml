@@ -30,7 +30,7 @@
       <p>Approvers are clients that notify the user that new channels have
         been created by a contact, and allow the user to accept or reject
         those channels. The new channels are represented by a <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">ChannelDispatcher.DRAFT</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy">ChannelDispatchOperation.DRAFT</tp:dbus-ref>
         object, which is passed to the
         <tp:member-ref>AddDispatchOperation</tp:member-ref> method.</p>
 

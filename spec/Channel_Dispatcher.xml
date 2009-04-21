@@ -21,8 +21,8 @@
       USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.DRAFT"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.ChannelDispatcher"
+    tp:causes-havoc="not yet final">
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>The channel dispatcher is responsible for responding to new
@@ -260,7 +260,7 @@
 
         <tp:rationale>
           <p>The rationale is as for <tp:dbus-ref
-              namespace='org.freedesktop.Telepathy.ChannelDispatcher.DRAFT'>CreateChannel</tp:dbus-ref>.</p>
+              namespace='org.freedesktop.Telepathy.ChannelDispatcher'>CreateChannel</tp:dbus-ref>.</p>
         </tp:rationale>
       </tp:docstring>
 
@@ -327,11 +327,11 @@
 
           <tp:rationale>
             <p>An address book application, for example, might call <tp:dbus-ref
-                namespace='org.freedesktop.Telepathy.ChannelDispatcher.DRAFT'>EnsureChannel</tp:dbus-ref>
+                namespace='org.freedesktop.Telepathy.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>
               to ensure that a text channel with a particular contact is
               displayed to the user; it does not care whether a new channel was
               made. An IM client might call <tp:dbus-ref
-                namespace='org.freedesktop.Telepathy.ChannelDispatcher.DRAFT'>EnsureChannel</tp:dbus-ref>
+                namespace='org.freedesktop.Telepathy.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>
               in response to the user double-clicking an entry in the contact
               list, with itself as the <code>Preferred_Handler</code>; if the
               user already has a conversation with that contact in another
