@@ -52,9 +52,9 @@
 
       <p>First, the channel dispatcher SHOULD construct a list of all the
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref>s
+          namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>s
         that could handle all the channels (based on their <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandlerChannelFilter</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>
         property), ordered by
         priority in some implementation-dependent way. If there are handlers
         which could handle all the channels, one channel dispatch operation
@@ -86,10 +86,10 @@
         bundle.</p>
 
       <p>If a handler with <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">BypassApproval</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Client.Handler">BypassApproval</tp:dbus-ref>
         <code>= True</code> could handle all of the channels in the dispatch
         operation, then the channel dispatcher SHOULD call <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Client.Handler">HandleChannels</tp:dbus-ref>
         on that handler, and (assuming the call succeeds) emit
         <tp:member-ref>Finished</tp:member-ref> and stop processing those
         channels without involving any approvers.</p>
@@ -217,7 +217,7 @@
         <p>The well known bus names (starting with
           <code>org.freedesktop.Telepathy.Client.</code>) of the possible
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref>s
+            namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>s
           for these channels. The channel dispatcher MUST place the most
           preferred handlers first, according to some reasonable heuristic.
           As a result, approvers SHOULD use the first handler by default.</p>
@@ -257,7 +257,7 @@
         <p>(FIXME: list some possible errors)</p>
 
         <p>If the channel handler raises an error from <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>,
+            namespace="org.freedesktop.Telepathy.Client.Handler">HandleChannels</tp:dbus-ref>,
           this method
           MAY respond by raising that same error, even if it is not
           specifically documented here.</p>
@@ -315,13 +315,13 @@
           internally. If this method is called successfully, the process
           calling this method becomes the handler for the channel, but
           <em>does not</em> have the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Client.Handler">HandleChannels</tp:dbus-ref>
           method called on it.</p>
 
         <p>Clients that call Claim on channels but do not immediately
           close them SHOULD implement the Handler interface and its
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandledChannels</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Client.Handler">HandledChannels</tp:dbus-ref>
           property.</p>
 
         <p>Approvers wishing to reject channels MUST call this method to

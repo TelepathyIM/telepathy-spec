@@ -83,7 +83,7 @@
         </dd>
 
         <dt><tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Handler.DRAFT</tp:dbus-ref></dt>
+            namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref></dt>
         <dd>
           <p>Each new channel or set of channels is passed to exactly one
             handler as its final destination. A typical channel handler is a
@@ -172,7 +172,7 @@
               namespace="org.freedesktop.Telepathy.ChannelRequest">UserActionTime</tp:dbus-ref>
             property will be set to this value, and it will eventually be
             passed as the <code>User_Action_Time</code> parameter of <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>.</p>
+              namespace="org.freedesktop.Telepathy.Client.Handler">HandleChannels</tp:dbus-ref>.</p>
         </tp:docstring>
       </arg>
 
@@ -196,7 +196,7 @@
 
             <p>This is partly so the channel dispatcher can call
               <tp:dbus-ref
-                namespace="org.freedesktop.Telepathy.Client.Handler.DRAFT">HandleChannels</tp:dbus-ref>
+                namespace="org.freedesktop.Telepathy.Client.Handler">HandleChannels</tp:dbus-ref>
               on it, and partly so the channel dispatcher
               can recover state if it crashes and is restarted.</p>
           </tp:rationale>
