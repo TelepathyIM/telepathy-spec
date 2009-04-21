@@ -25,7 +25,7 @@
     <tp:added version="0.17.UNRELEASED">(as a draft; functionality
       moved from Handler)</tp:added>
 
-    <tp:requires interface="org.freedesktop.Telepathy.Client.DRAFT"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Client"/>
     <tp:requires interface="org.freedesktop.Telepathy.Client.Handler"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
