@@ -24,7 +24,7 @@
     tp:causes-havoc="experimental">
     <tp:added version="0.17.12">(as a draft)</tp:added>
 
-    <tp:requires interface="org.freedesktop.Telepathy.Client.DRAFT"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Client"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Observers monitor the creation of new channels. This
@@ -163,7 +163,7 @@
           a local client:</p>
 
 <pre>
-[org.freedesktop.Telepathy.Client.DRAFT]
+[org.freedesktop.Telepathy.Client]
 Interfaces=org.freedesktop.Telepathy.Client.Observer.DRAFT;
 
 [org.freedesktop.Telepathy.Client.Observer.DRAFT.ObserverChannelFilter 0]

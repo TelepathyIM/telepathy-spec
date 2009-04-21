@@ -24,7 +24,7 @@
     tp:causes-havoc="experimental">
     <tp:added version="0.17.12">(as a draft)</tp:added>
 
-    <tp:requires interface="org.freedesktop.Telepathy.Client.DRAFT"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Client"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Handlers are the user interface for a channel. They turn an abstract
