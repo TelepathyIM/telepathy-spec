@@ -21,7 +21,7 @@
   </tp:license>
 
   <interface name="org.freedesktop.Telepathy.Client.Interface.Requests"
-    tp:causes-havoc="experimental">
+    tp:causes-havoc="not yet final">
     <tp:added version="0.17.UNRELEASED">(as a draft; functionality
       moved from Handler)</tp:added>
 
