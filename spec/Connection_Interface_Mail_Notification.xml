@@ -133,12 +133,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the value has been initially received from the server.
       </tp:docstring>
     </signal>
-    <tp:docstring>
-      An interface to support receiving notifications about a e-mail account
-    associated with this connection. It is intended that the connection
-    manager has the means to provide necessary information (URL, cookies) so
-    that the client is able to open the user's inbox and possibly invidual
-    messages without having to re-authenticate.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An interface to support receiving notifications about a e-mail
+        account associated with this connection. It is intended that the
+        connection manager has the means to provide necessary
+        information (URL, cookies) so that the client is able to open
+        the user's inbox and possibly individual messages without having
+        to re-authenticate.</p>
+
+      <p>When the number of unread emails in the inbox changes, the
+        <tp:member-ref>UnreadMailStatusChanged</tp:member-ref> signal
+        will be emitted, with the new values of
+        <tp:member-ref>UnreadMailCount</tp:member-ref>,
+        <tp:member-ref>URL</tp:member-ref>, and
+        <tp:member-ref>Cookies</tp:member-ref>. Some protocols also
+        provide information about the individual messages received. On
+        such protocols, the <tp:member-ref>MailReceived</tp:member-ref>
+        signal will also be emitted, with information about the mail
+        (and possibly a URL to display that particular mail, rather than
+        the inbox).</p>
+
+      <!-- FIXME: Are there any protocols that give you the latter but
+           not the former?
+        -->
     </tp:docstring>
   </interface>
 </node>
