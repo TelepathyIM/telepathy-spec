@@ -20,7 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.MailNotification">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <method name="GetUnreadMailStatus">
+    <method name="GetUnreadMailStatus"
+      tp:name-for-bindings="Get_Unread_Mail_Status">
       <arg direction="out" name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox
@@ -46,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
-    <signal name="MailReceived">
+    <signal name="MailReceived" tp:name-for-bindings="Mail_Received">
       <arg name="url" type="s">
         <tp:docstring>
           The URL to use for displaying the message, or none if the user should
@@ -108,7 +109,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </dl>
       </tp:docstring>
     </signal>
-    <signal name="UnreadMailStatusChanged">
+    <signal name="UnreadMailStatusChanged"
+      tp:name-for-bindings="Unread_Mail_Status_Changed">
       <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox
