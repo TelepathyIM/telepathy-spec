@@ -48,15 +48,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MailReceived" tp:name-for-bindings="Mail_Received">
       <arg name="url" type="s">
         <tp:docstring>
-          The URL to use for displaying the message, or none if the user should
-          be directed to the inbox previously emitted by
-          UnreadMailStatusChanged
+          The URL to use for displaying the message, if possible; if a
+          URL for this particular message is not available, this should
+          be the empty string (in which case a user interface might
+          direct the user to <tp:member-ref>URL</tp:member-ref>).
         </tp:docstring>
       </arg>
       <arg name="cookies" type="a(ss)">
         <tp:docstring>
           Array of name-value pair structs of the cookies to use when displaying
-          the message, if any
+          the message, if any.
         </tp:docstring>
       </arg>
       <arg name="details" type="a{sv}">
