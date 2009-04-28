@@ -27,9 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>When offering a stream tube, the initiating client creates a local
         listening socket and offers it to the recipient client using the
-        <tp:member-ref>OfferStreamTube</tp:member-ref> method.  When a
+        <tp:member-ref>Offer</tp:member-ref> method.  When a
         recipient accepts a stream tube using the
-        <tp:member-ref>AcceptStreamTube</tp:member-ref> method, the
+        <tp:member-ref>Accept</tp:member-ref> method, the
         recipient's connection manager creates a new local listening socket.
         Each time the recipient's client connects to this socket, the
         initiator's connection manager proxies this connection to the
@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:docstring>
 
-    <method name="OfferStreamTube" tp:name-for-bindings="Offer_Stream_Tube">
+    <method name="Offer" tp:name-for-bindings="Offer">
       <tp:docstring>
         Offer a stream tube exporting the local socket specified.
       </tp:docstring>
@@ -91,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <method name="AcceptStreamTube" tp:name-for-bindings="Accept_Stream_Tube">
+    <method name="Accept" tp:name-for-bindings="Accept">
       <tp:docstring>
         Accept a stream tube that's in the "local pending" state. The
         connection manager will attempt to open the tube. The tube remains in
