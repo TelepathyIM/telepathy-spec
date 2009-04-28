@@ -81,7 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>,
           this property MUST NOT be included in the request. This property is undefined until the tube is offered
           (using <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type.StreamTube.DRAFT">Offer</tp:dbus-ref>
-          or <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type.DBusTube.DRAFT">OfferDBusTube</tp:dbus-ref>).
+          or <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type.DBusTube.DRAFT">Offer</tp:dbus-ref>).
           Once it has been offered, this property MUST NOT change.</p>
         <p>When receiving an incoming tube, this property is immutable and so advertised in the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.NewChannels</tp:dbus-ref>
