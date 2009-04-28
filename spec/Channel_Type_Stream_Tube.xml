@@ -137,8 +137,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <signal name="StreamTubeNewConnection"
-            tp:name-for-bindings="Stream_Tube_New_Connection">
+    <signal name="NewConnection"
+            tp:name-for-bindings="New_Connection">
       <tp:docstring>
         Emitted on a stream tube when a participant opens a new connection
         to its socket.
