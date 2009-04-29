@@ -152,8 +152,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           property. The account manager SHOULD modify this to make it unique if
           an Account already exists with the same display name, for instance by
           appending a number or the 'account' parameter. Account manager
-          implementations SHOULD accept an empty string but account editing user
-          interfaces should avoid passing an empty string for this parameter.
+          implementations SHOULD accept an empty string, but account editing
+          user interfaces should avoid passing an empty string for this
+          parameter.
 
           <tp:rationale>
             <p>The account creation UI may ask the user for a name for the new
