@@ -307,7 +307,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:changed>
 
       <tp:changed version="0.17.UNRELEASED">
-        return a boolean indicating whether to reconnect
+        return an array of the parameters that won't change until the account
+        is reconnected
       </tp:changed>
 
       <arg name="Set" type="a{sv}" direction="in">
@@ -327,12 +328,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Reconnect_Required" type="b" direction="out">
+      <arg name="Reconnect_Required" type="as" direction="out">
         <tp:docstring>
-          If true, some or all of the parameter changes will not take effect
-          until the account is reconnected: user interfaces that require
-          "instant apply" semantics MAY call
-          <tp:member-ref>Reconnect</tp:member-ref> in response.
+          A list of the names of parameters with changes that will not take
+          effect until the account is reconnected (this may be empty, e.g. if
+          all the parameters are D-Bus properties or parameters for which the
+          account manager has specific support). User interfaces that
+          require "instant apply" semantics MAY call
+          <tp:member-ref>Reconnect</tp:member-ref> in response to receiving
+          a non-empty list.
         </tp:docstring>
       </arg>
 
