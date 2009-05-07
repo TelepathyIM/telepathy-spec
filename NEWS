@@ -16,6 +16,12 @@ Changes to stable API:
   properties to set on the new account immediately. CreateAccount fails without
   creating an account if these cannot be set.
 
+Changes to experimental API:
+
+* In new-style Tubes, OfferStreamTube, AcceptDBusTube etc. are just called
+  Offer and Accept, since the interfaces are mutually exclusive; similarly,
+  StreamTubeNewConnection is now just called NewConnection
+
 New stable API:
 
 * fd.o #20905: Account.Reconnect allows a UI to require that the Account be
