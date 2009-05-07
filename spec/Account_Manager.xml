@@ -130,6 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="SupportedAccountProperties"
       tp:name-for-bindings="Supported_Account_Properties"
       type="as" tp:type="DBus_Qualified_Member[]" access="read">
+      <tp:added version="0.17.24"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of the fully qualified names of properties that can be set
           via the Properties argument to
@@ -197,6 +198,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>. The
         account manager SHOULD NOT allow invalid accounts to be created.
       </tp:docstring>
+      <tp:changed version="0.17.24">added the Properties argument</tp:changed>
 
       <arg name="Connection_Manager" direction="in" type="s"
         tp:type="Connection_Manager_Name">

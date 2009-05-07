@@ -306,7 +306,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         existing Connections
       </tp:changed>
 
-      <tp:changed version="0.17.UNRELEASED">
+      <tp:changed version="0.17.24">
         return an array of the parameters that won't change until the account
         is reconnected
       </tp:changed>
@@ -481,6 +481,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <method name="Reconnect" tp:name-for-bindings="Reconnect">
+      <tp:added version="0.17.24"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Re-connect this account. If the account is currently disconnected
           and the requested presence is offline, or if the account

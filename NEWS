@@ -2,6 +2,39 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.24 (2009-05-07)
+===================================
+
+The "robot finds kitten" release.
+
+Changes to stable API:
+
+* fd.o #20905: Account.UpdateParameters now returns a list of the parameter
+  changes that will not take effect until Reconnect is called.
+
+* fd.o #19428: AccountManager.CreateAccount now additionally takes a map of
+  properties to set on the new account immediately. CreateAccount fails without
+  creating an account if these cannot be set.
+
+New stable API:
+
+* fd.o #20905: Account.Reconnect allows a UI to require that the Account be
+  reconnected with a single method call.
+
+* AccountManager.SupportedAccountProperties lists properties that can be passed
+  to CreateAccount.
+
+New experimental API:
+
+* A new Debug interface allows debug logs from processes such as connection
+  managers to be gathered by a UI. telepathy-gabble implements the current
+  draft, and Empathy contains a client for it.
+
+Clarifications:
+
+* fd.o #19183: clarify the relationship between Requests.NewChannels and
+  the deprecated RequestChannel method.
+
 telepathy-spec 0.17.23 (2009-04-21)
 ===================================
 
