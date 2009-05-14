@@ -99,8 +99,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
-          The type of access control the connection manager should apply to
-          the socket.
+          <p>The type of access control the connection manager should apply to
+          the socket.</p>
+
+          <p>Note that if you plan to establish more than one connection
+          through the tube, the Socket_Access_Control_Port access control
+          can't be used as you can't connect more than once from the same
+          port.</p>
         </tp:docstring>
       </arg>
       <arg direction="in" name="access_control_param" type="v">
