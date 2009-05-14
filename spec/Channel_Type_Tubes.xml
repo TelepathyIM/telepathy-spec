@@ -175,7 +175,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
       <tp:enumvalue suffix="Credentials" value="3">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The connecting process must send a single zero (NUL) byte when
+          <p>May only be used on UNIX sockets.
+            The connecting process must send a byte when
             it first connects, which is not considered to be part of the data
             stream. If the operating system uses sendmsg() with SCM_CREDS or
             SCM_CREDENTIALS to pass credentials over sockets, the connecting
