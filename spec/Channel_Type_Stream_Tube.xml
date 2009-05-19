@@ -166,6 +166,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the credentials.</p>
         </tp:docstring>
       </arg>
+      <arg name="Id" type="u">
+        <tp:docstring>
+          The unique ID associated with this connection. This ID will be used
+          to identifiy the connection when reporting errors.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Service" type="s" access="read"
