@@ -186,6 +186,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
+    <signal name="ConnectionClosed"
+            tp:name-for-bindings="Connection_Closed"
+            tp:type="Stream_Tube_Connection_Closed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a connection has been closed.</p>
+      </tp:docstring>
+      <arg name="Id" type="u">
+        <tp:docstring>
+          The ID of the connection.
+        </tp:docstring>
+      </arg>
+      <arg name="Error" type="s" tp:type="DBus_Error_Name">
+        <tp:docstring>
+          The name of a D-Bus error describing the error that occurred.
+        </tp:docstring>
+      </arg>
+    </signal>
+
     <property name="Service" type="s" access="read"
               tp:name-for-bindings="Service">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
