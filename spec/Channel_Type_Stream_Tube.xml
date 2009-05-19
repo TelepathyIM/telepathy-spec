@@ -98,7 +98,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The type of access control the connection manager should apply to
           the socket.</p>
 
@@ -148,7 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <arg name="connection_param" type="v">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A parameter which can be used by the listening process to identify
           the connection. Note that this parameter has a meaningful value
           only in the Socket_Access_Control_Port and
