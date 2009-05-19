@@ -142,12 +142,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         Emitted on a stream tube when a participant opens a new connection
         to its socket.
       </tp:docstring>
-      <arg name="handle" type="u" tp:type="Contact_Handle">
+      <arg name="Handle" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The handle of the participant who opened the new connection
         </tp:docstring>
       </arg>
-      <arg name="connection_param" type="v">
+      <arg name="Connection_Param" type="v">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A parameter which can be used by the listening process to identify
           the connection. Note that this parameter has a meaningful value
