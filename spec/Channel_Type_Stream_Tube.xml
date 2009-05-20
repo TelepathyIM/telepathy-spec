@@ -139,7 +139,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="NewRemoteConnection"
             tp:name-for-bindings="New_Remote_Connection">
       <tp:docstring>
-        Emitted when a participant opens a new connection to its socket.
+        Emitted each time a participant opens a new connection to its socket.
       </tp:docstring>
       <arg name="Handle" type="u" tp:type="Contact_Handle">
         <tp:docstring>
