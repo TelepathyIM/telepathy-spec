@@ -168,7 +168,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg name="Connection_ID" type="u">
         <tp:docstring>
           The unique ID associated with this connection. This ID will be used
-          to identifiy the connection when reporting errors.
+          to identifiy the connection when reporting errors with
+          <tp:member-ref>ConnectionClosed</tp:member-ref>.
         </tp:docstring>
       </arg>
     </signal>
@@ -181,7 +182,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg name="Connection_ID" type="u">
         <tp:docstring>
           The unique ID associated with this connection. This ID will be used
-          to identifiy the connection when reporting errors.
+          to identifiy the connection when reporting errors with
+          <tp:member-ref>ConnectionClosed</tp:member-ref>.
         </tp:docstring>
       </arg>
     </signal>
