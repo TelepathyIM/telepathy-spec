@@ -271,6 +271,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <tp:simple-type name="Stream_Tube_Connection_ID" type="u">
+      <tp:docstring>An identifier for a stream tube connection.
+        These are defined with the
+        <tp:member-ref>NewLocalConnection</tp:member-ref> or
+        <tp:member-ref>NewRemoteConnection</tp:member-ref> signals
+        and are used by <tp:member-ref>ConnectionClosed</tp:member-ref>
+        to identify the closed connection.
+        </tp:docstring>
+    </tp:simple-type>
+
   </interface>
 
 </node>
