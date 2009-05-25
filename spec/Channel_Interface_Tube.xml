@@ -153,11 +153,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="TubeChannelStateChanged"
             tp:name-for-bindings="Tube_Channel_State_Changed">
       <tp:docstring>
-        Emitted when the state of the tube channel changes.
+        Emitted when the state of the tube channel changes. Valid state
+        transitions are documented with <tp:type>Tube_Channel_State</tp:type>.
       </tp:docstring>
       <arg name="State" type="u" tp:type="Tube_Channel_State">
         <tp:docstring>
-          The new state of the tube; see the Tube_Channel_State enumeration.
+          The new state of the tube.
         </tp:docstring>
       </arg>
     </signal>
