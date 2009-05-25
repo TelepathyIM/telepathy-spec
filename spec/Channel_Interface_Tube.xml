@@ -34,10 +34,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       type. A tube channel contains exactly one tube; if you need several
       tubes, you have to create several tube channels.</p>
 
-      <p>Tube channels can be requested for handles of type
-      HANDLE_TYPE_CONTACT (for 1-1 communication) or of type
-      HANDLE_TYPE_ROOM (to communicate with others in the room
-      simultaneously).</p>
+      <p>Tube channels can be requested for <tp:type>Handle_Type</tp:type>
+        Contact (for 1-1 communication) or Room (to communicate with others in
+        the room simultaneously).</p>
 
       <p>As an exception to the usual handling of capabilities, connection managers
         for protocols with capability discovery, such as XMPP, SHOULD advertise the
