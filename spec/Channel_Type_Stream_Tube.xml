@@ -200,8 +200,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <arg name="Error" type="s" tp:type="DBus_Error_Name">
-        <tp:docstring>
-          The name of a D-Bus error describing the error that occurred.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The name of a D-Bus error describing the error that occurred.</p>
+
+          <p>The following errors can be used:</p>
+          <ul>
+            <li><code>org.freedesktop.Telepathy.Error.Cancelled</code>:
+               user closed the socket or the tube.</li>
+            <li><code>org.freedesktop.Telepathy.Error.ConnectionLost</code>:
+               the bytestream relaying connection's data has been broken.</li>
+            <li><code>org.freedesktop.Telepathy.Error.ConnectionRefused</code>:
+               the tube offer refused the connection.</li>
+          </ul>
         </tp:docstring>
       </arg>
       <arg name="Message" type="s">
