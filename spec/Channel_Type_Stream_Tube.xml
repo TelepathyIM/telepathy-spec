@@ -152,7 +152,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the connection. Note that this parameter has a meaningful value
           only in the Socket_Access_Control_Port and
           Socket_Access_Control_Credentials cases. If a different
-          Socket_Access_Control has been choosed when offering the tube, this
+          Socket_Access_Control has been chosen when offering the tube, this
           parameter should be ignored.</p>
 
           <p>In the Socket_Access_Control_Port case, the variant
