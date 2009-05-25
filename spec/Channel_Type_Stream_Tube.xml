@@ -204,6 +204,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The name of a D-Bus error describing the error that occurred.
         </tp:docstring>
       </arg>
+      <arg name="Message" type="s">
+        <tp:docstring>
+          A debug message.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Service" type="s" access="read"
