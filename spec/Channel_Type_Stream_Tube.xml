@@ -165,7 +165,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the credentials.</p>
         </tp:docstring>
       </arg>
-      <arg name="Connection_ID" type="u">
+      <arg name="Connection_ID" type="u" tp:type="Stream_Tube_Connection_ID">
         <tp:docstring>
           The unique ID associated with this connection. This ID will be used
           to identifiy the connection when reporting errors with
@@ -179,7 +179,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the tube application connects to CM's socket.</p>
       </tp:docstring>
-      <arg name="Connection_ID" type="u">
+      <arg name="Connection_ID" type="u" tp:type="Stream_Tube_Connection_ID">
         <tp:docstring>
           The unique ID associated with this connection. This ID will be used
           to identifiy the connection when reporting errors with
@@ -194,7 +194,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a connection has been closed.</p>
       </tp:docstring>
-      <arg name="Connection_ID" type="u">
+      <arg name="Connection_ID" type="u" tp:type="Stream_Tube_Connection_ID">
         <tp:docstring>
           The ID of the connection.
         </tp:docstring>
