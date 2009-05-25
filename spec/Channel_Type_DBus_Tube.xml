@@ -167,6 +167,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
+    <property name="SupportedAccessesControl" type="au"
+              tp:type="Socket_Access_Control[]" access="read"
+              tp:name-for-bindings="Supported_Accesses_Control">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of the accesses control that are supported with this channel.
+        Note that only Socket_Access_Control_Localhost and
+        Socket_Access_Control_Credentials can be used with D-Bus tubes.</p>
+
+        <p>When requesting a channel with
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>,
+          this property MUST NOT be included in the request.</p>
+
+      </tp:docstring>
+    </property>
+
   </interface>
 
 </node>
