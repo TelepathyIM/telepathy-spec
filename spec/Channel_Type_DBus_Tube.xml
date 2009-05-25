@@ -132,7 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A string representing the service name that will be used over the
           tube. It SHOULD be a well-known D-Bus service name, of the form
-          com.example.ServiceName.</p>
+          <tt>com.example.ServiceName</tt>.</p>
         <p>When the tube is offered, the service name is transmitted to the
           other end.</p>
         <p>When requesting a channel with
