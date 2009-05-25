@@ -92,8 +92,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Accept a D-Bus tube that's in the "local pending" state. The
         connection manager will attempt to open the tube. The tube remains in
-        the "local pending" state until the TubeStateChanged signal is
-        emitted.
+        the "local pending" state until the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Tube.DRAFT">TubeChannelStateChanged</tp:dbus-ref>
+        signal is emitted.
       </tp:docstring>
       <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
         <tp:docstring>
