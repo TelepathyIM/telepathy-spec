@@ -66,6 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           to send with the tube offer.
         </tp:docstring>
       </arg>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The access control the connection manager applies to the D-Bus socket.
+        </tp:docstring>
+      </arg>
       <arg direction="out" name="address" type="s">
         <tp:docstring>
           The string describing the address of the private bus. The client
@@ -90,6 +95,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         the "local pending" state until the TubeStateChanged signal is
         emitted.
       </tp:docstring>
+      <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
+        <tp:docstring>
+          The access control the connection manager applies to the D-Bus socket.
+        </tp:docstring>
+      </arg>
       <arg direction="out" name="address" type="s">
         <tp:docstring>
           The string describing the address of the private bus. The client
