@@ -66,10 +66,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Each tube has a dictionary of arbitrary parameters. Parameters are
           commonly used to bootstrap legacy protocols where you can't
           negotiate parameters in-band. The allowable keys,
-          types and values are defined by the service. Connection managers
-          must support the value being a string (D-Bus type 's'), array of bytes
-          (D-Bus type 'ay'), unsigned integer (D-Bus type 'u'), integer (D-Bus
-          type 'i') and boolean (D-Bus type 'b').</p>
+          types and values are defined by the service, but connection managers
+          must support the value being a string (D-Bus type <tt>'s'</tt>),
+          array of bytes (D-Bus type <tt>'ay'</tt>), unsigned integer (D-Bus
+          type <tt>'u'</tt>), integer (D-Bus type <tt>'i'</tt>) and boolean
+          (D-Bus type <tt>'b'</tt>).</p>
+
         <p>When the tube is offered, the parameters are transmitted with the
           offer and appear as a property of the incoming tube for other
           participants.</p>
