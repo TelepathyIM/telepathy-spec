@@ -144,8 +144,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           The tube channel has been requested but the tube is not yet offered.
           The client should offer the tube to the recipient and the tube's
-          state will be Remote_Pending. The method to offer the tube depend on
-          the tube type.
+          state will be Remote_Pending. The method used to offer the tube
+          depends on the tube type.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
