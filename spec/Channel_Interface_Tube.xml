@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         that such a tube is supported.</p>
 
         <tp:rationale>
-          <p>To lower the barrier entry of new tube application, CM SHOULD accept to offer tubes of any
+          <p>To lower the barrier to entry for new tube application, CM SHOULD accept to offer tubes of any
             <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Channel.Type.StreamTube.DRAFT">Service</tp:dbus-ref> or
             <tp:dbus-ref
