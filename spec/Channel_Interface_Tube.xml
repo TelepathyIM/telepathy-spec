@@ -39,23 +39,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         the room simultaneously).</p>
 
       <p>As an exception to the usual handling of capabilities, connection managers
-        for protocols with capability discovery, such as XMPP, SHOULD advertise the
+        for protocols with capability discovery (such as XMPP) SHOULD advertise the
         capability representing each Tube type that they support
        (<tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Type.DBusTube.DRAFT</tp:dbus-ref> and/or
         <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Type.StreamTube.DRAFT</tp:dbus-ref>)
         even if no client has indicated via
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities.DRAFT">SetSelfCapabilities</tp:dbus-ref>
-        that such a tube is supported.</p>
+        that such a tube is supported. They SHOULD also allow clients to offer tubes with any
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.StreamTube.DRAFT">Service</tp:dbus-ref> or
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.DBusTube.DRAFT">ServiceName</tp:dbus-ref>
+        to any contact which supports the corresponding tube capability.</p>
 
-        <tp:rationale>
-          <p>To lower the barrier to entry for new tube application, CM SHOULD accept to offer tubes of any
-            <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Type.StreamTube.DRAFT">Service</tp:dbus-ref> or
-            <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Type.DBusTube.DRAFT">ServiceName</tp:dbus-ref>
-            if the contact announced to support tubes.</p>
-        </tp:rationale>
+      <tp:rationale>
+        <p>This lowers the barrier to entry for those writing new tube
+          applications, and preserves interoperability with older versions of
+          the Telepathy stack which did not support rich capabilities.</p>
+      </tp:rationale>
     </tp:docstring>
 
     <property name="Parameters" type="a{sv}" tp:type="String_Variant_Map"
