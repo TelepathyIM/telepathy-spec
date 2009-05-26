@@ -169,11 +169,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="SupportedAccessesControl" type="au"
+    <property name="SupportedAccessControls" type="au"
               tp:type="Socket_Access_Control[]" access="read"
-              tp:name-for-bindings="Supported_Accesses_Control">
+              tp:name-for-bindings="Supported_Access_Controls">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of the accesses control that are supported with this channel.
+        <p>A list of the access control types that are supported with this channel.
         Note that only Socket_Access_Control_Localhost and
         Socket_Access_Control_Credentials can be used with D-Bus tubes.</p>
 
