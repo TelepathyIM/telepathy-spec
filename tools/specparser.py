@@ -168,6 +168,8 @@ class Base(object):
             return node.toxml().encode('ascii', 'xmlcharrefreplace')
 
     def _convert_to_html(self, node):
+        spec = self.get_spec()
+        namespace = self.get_root_namespace()
 
         # rewrite <tp:rationale>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'rationale'):
@@ -175,9 +177,14 @@ class Base(object):
             n.namespaceURI = None
             n.setAttribute('class', 'rationale')
 
+        # rewrite <tp:type>
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'type'):
+            t = spec.lookup_type(getText(n))
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', t.get_url())
+
         # rewrite <tp:member-ref>
-        spec = self.get_spec()
-        namespace = self.get_root_namespace()
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'member-ref'):
             key = getText(n)
             try:
