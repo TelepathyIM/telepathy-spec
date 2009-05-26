@@ -19,6 +19,14 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.Tubes">
+
+    <tp:deprecated version="0.17.25">Client implementations
+      SHOULD use <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Channel.Type">StreamTube</tp:dbus-ref> and
+        <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Channel.Type">DBusTube</tp:dbus-ref>
+      instead.</tp:deprecated>
+
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A "tube" is a mechanism for arbitrary data transfer. Two types of
