@@ -222,6 +222,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Netmask" value="2">
+        <tp:deprecated version="0.17.25">This has never been implemented.
+        If you want to share a service to your whole LAN, Telepathy is
+        not the way to do it.</tp:deprecated>
         <tp:docstring>
           May only be used on IP sockets. The associated variant must contain
           a struct Socket_Netmask_IPv4 (or Socket_Netmask_IPv6) with
