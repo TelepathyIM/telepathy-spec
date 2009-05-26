@@ -178,7 +178,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="NewLocalConnection"
             tp:name-for-bindings="New_Local_Connection">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when the tube application connects to CM's socket.</p>
+        <p>Emitted when the tube application connects to the CM's socket.</p>
       </tp:docstring>
       <arg name="Connection_ID" type="u" tp:type="Stream_Tube_Connection_ID">
         <tp:docstring>
