@@ -17,10 +17,9 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.DBusTube.DRAFT"
-      tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Channel.Type.DBusTube">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Tube.DRAFT"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Tube"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A D-Bus tube is an ordered reliable transport, for transporting D-Bus
         traffic.</p>
@@ -62,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         tp:type="String_Variant_Map">
         <tp:docstring>
           The dictionary of arbitrary
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface.Tube.DRAFT">Parameters</tp:dbus-ref>
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface.Tube">Parameters</tp:dbus-ref>
           to send with the tube offer.
         </tp:docstring>
       </arg>
@@ -93,7 +92,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         Accept a D-Bus tube that's in the "local pending" state. The
         connection manager will attempt to open the tube. The tube remains in
         the "local pending" state until the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Tube.DRAFT">TubeChannelStateChanged</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Tube">TubeChannelStateChanged</tp:dbus-ref>
         signal is emitted.
       </tp:docstring>
       <arg direction="in" name="access_control" type="u" tp:type="Socket_Access_Control">
