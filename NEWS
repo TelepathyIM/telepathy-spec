@@ -2,6 +2,44 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.25 (UNRELEASED)
+===================================
+
+Changes to stable API:
+
+* Socket_Access_Control_Credentials: the byte sent with the credentials is not
+  guaranteed to be '\0' any more.
+
+New stable API:
+
+* Three new errors have been added: ConnectionRefused, ConnectionFailed and
+  ConnectionLost. They will be used to report stream tube connection problems.
+
+* Channel.Interface.Tube is now undrafted.
+
+* Channel.Type.StreamTube is now undrafted with the following changes:
+  - The access_control_param in the Offer method has been removed. It doesn't
+    make any sense in that context.
+  - The NewConnection signal has been renamed to NewRemoteConnection and gained
+    two new arguments which are used to identify the connection.
+  - The NewLocalConnection signal has been added. This is the equivalent of
+    NewRemoteConnection on the accepting side.
+  - The ConnectionClosed signal has been added to report tube connection
+    problems.
+
+* Channel.Type.DBusTube is now undrafted with the following changes:
+  - The Offer and Accept methods now have an access_control argument used
+    to choose the access control policy on the tube D-Bus server.
+  - The channel now has a SupportedAccessControls D-Bus property containing
+    the supported access control types.
+
+Deprecations:
+
+* Channel.Type.Tubes is now deprecated in favor of the new tube API.
+
+* Socket_Access_Control_Netmask is now deprecated as it has never been
+  implemented and doesn't really make sense.
+
 telepathy-spec 0.17.24 (2009-05-07)
 ===================================
 
