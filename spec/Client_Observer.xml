@@ -192,7 +192,7 @@ org.freedesktop.Telepathy.Channel.Requested b=true
           (those that do match the filter) are passed to this method.</p>
 
         <p>If the channel dispatcher will split up the channels from a single
-          NewChannels signal and dispatch them separately (for instance 
+          NewChannels signal and dispatch them separately (for instance
           because no installed Handler can handle all of them), it will call
           ObserveChannels several times.</p>
 
