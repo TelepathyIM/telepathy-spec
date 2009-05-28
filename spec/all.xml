@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </p>
  </tp:docstring>
  <xi:include href="Connection_Manager.xml"/>
- 
+
  <tp:section name="Connection Object">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
    <p>
@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  </tp:section>
 
  <xi:include href="Channel_Bundle.xml"/>
- 
+
  <tp:section name="Channel Object">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
    <p>
@@ -88,7 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_File_Transfer.xml"/>
    <xi:include href="Channel_Type_Contact_Search.xml"/>
   </tp:section>
-   
+
   <tp:section name="Channel Interfaces">
    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
