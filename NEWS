@@ -2,6 +2,26 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.26 (UNRELEASED)
+===================================
+
+New stable API:
+
+* ChannelDispatcher is finally declared to be stable, as is its optional
+  OperationList interface. The ChannelDispatchOperation and ChannelRequest
+  objects that it exports are also considered to be stable.
+
+* The Client interface is also declared stable, along with client types
+  Observer, Approver and Handler, and the optional Requests interface for
+  Handlers.
+
+Fixes:
+
+* The punctuation used in naming the new errors from 0.17.25 has been
+  corrected, meaning that code-generation tools will produce the right names
+  (this change was already backported into the copies of telepathy-spec found
+  in telepathy-glib and telepathy-qt4).
+
 telepathy-spec 0.17.25 (2009-05-27)
 ===================================
 
