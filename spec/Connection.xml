@@ -698,8 +698,18 @@ USA.</p>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>There was an error sending or receiving on the network socket.</p>
 
-          <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.NetworkError</code>.</p>
+          <p>When the status changes from Connecting to Disconnected for this
+            reason, the equivalent D-Bus error is either
+            <code>org.freedesktop.Telepathy.Error.NetworkError</code>,
+            <code>org.freedesktop.Telepathy.Error.ConnectionRefused</code>,
+            <code>org.freedesktop.Telepathy.Error.ConnectionFailed</code>
+            or some more specific error.</p>
+
+          <p>When the status changes from Connected to Disconnected for this
+            reason, the equivalent D-Bus error is either
+            <code>org.freedesktop.Telepathy.Error.NetworkError</code>,
+            <code>org.freedesktop.Telepathy.Error.ConnectionLost</code>
+            or some more specific error.</p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -895,8 +905,12 @@ USA.</p>
         <tp:docstring>
           The name of a D-Bus error describing the error that occurred,
           which may correspond to a
-          <tp:type>Connection_Status_Reason</tp:type> or be a
-          protocol-specific or connection-manager-specific error in a
+          <tp:type>Connection_Status_Reason</tp:type>, or may be a more
+          specific Telepathy error
+          (such as
+          <code>org.freedesktop.Telepathy.Errors.ConnectionRefused</code>
+          for Connection_Status_Reason_Network_Error)
+          or a protocol-specific or connection-manager-specific error in a
           suitable namespace.
 
           <tp:rationale>
