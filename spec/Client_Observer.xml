@@ -21,7 +21,7 @@
   </tp:license>
 
   <interface name="org.freedesktop.Telepathy.Client.Observer">
-    <tp:added version="0.17.UNRELEASED">(as a stable interface)</tp:added>
+    <tp:added version="0.17.26">(as a stable interface)</tp:added>
 
     <tp:requires interface="org.freedesktop.Telepathy.Client"/>
 

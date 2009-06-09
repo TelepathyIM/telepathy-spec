@@ -2,7 +2,7 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.26 (UNRELEASED)
+telepathy-spec 0.17.26 (2009-06-09)
 ===================================
 
 New stable API:
