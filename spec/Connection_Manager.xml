@@ -303,6 +303,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt>stun-port (q)</dt>
           <dd>The UDP port number on the stun-server to use for STUN. Only
             significant if the stun-server is also supplied.</dd>
+
+          <dt>keepalive-interval (u)</dt>
+          <dd>The time in seconds between pings sent to the server to ensure
+            that the connection is still alive, or <tt>0</tt> to disable such
+            pings.</dd>
         </dl>
 
         <p>Every successful RequestConnection call will cause the emission of a
