@@ -137,6 +137,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               information about it</li>
           </ul>
 
+          <p>Since the previous strings have data intented to be read by users,
+            the language used should be stated using:</p>
+
+          <ul>
+            <li>language - s: a specific language or locale of location
+              information in a format compatible to RFC 4646. Note that UTF-8
+              is the only allowed encoding, e.g. "en" or "fr-CA".</li>
+          </ul>
+
           <p>Positions are represented by the following well-known keys:</p>
 
           <ul>
