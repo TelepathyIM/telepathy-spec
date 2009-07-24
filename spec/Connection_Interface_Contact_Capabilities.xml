@@ -259,11 +259,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The handle zero MUST NOT be included in the request.</p>
         </tp:docstring>
       </arg>
-      <!-- There was a bug in dbus-glib that prevent to use the right type:
-           Instead of a{ua(a{sv}as)}, we used a(ua{sv}as) as a workaround.
-           See http://bugs.freedesktop.org/show_bug.cgi?id=17329
-           Now there is a fix, so we don't use the workaround anymore.
-        -->
       <arg direction="out" type="a{ua(a{sv}as)}"
            tp:type="Contact_Capabilities_Map" name="Contact_Capabilities">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
