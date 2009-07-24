@@ -109,6 +109,35 @@
       </tp:docstring>
     </property>
 
+    <property name="Capabilities" tp:name-for-bindings="Capabilities"
+      type="as" tp:type="Client_Capability[]" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The set of additional capabilities supported by this handler.
+          This describes things like support for streamed media codecs and
+          NAT traversal mechanisms: see the Contact Capabilities
+          interface for more details.</p>
+
+        <p>For handlers that have a <code>.client</code> file, the
+          channel dispatcher may discover this property from the
+          <code>org.freedesktop.Telepathy.Client.Handler.Capabilities</code>
+          group; for each capability, that group contains a key
+          whose name is the capability, with value <code>true</code>.
+          Keys with other values SHOULD NOT appear in this group.</p>
+
+        <p>For instance, the <code>.client</code> file for a streamed media
+          handler that supports ICE-UDP NAT traversal, Speex audio,
+          and Theora and H264 video might contain this group:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.Handler.Capabilities]
+org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/ice-udp=true
+org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/audio/speex=true
+org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/theora=true
+org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264=true
+</pre>
+      </tp:docstring>
+    </property>
+
     <method name="HandleChannels" tp:name-for-bindings="Handle_Channels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called by the channel dispatcher when this client should handle these
