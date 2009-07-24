@@ -154,6 +154,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         that the set is kept accurate - for example, a client may remove
         capabilities or type specific capability flags when it exits
         which are still provided by another client.</p>
+
+        <p>On connections managed by the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>,
+          this method SHOULD NOT be used by clients other than the
+          ChannelDispatcher itself.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
