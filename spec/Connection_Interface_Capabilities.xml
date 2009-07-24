@@ -56,12 +56,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       well-defined or consistent, and as far as we know it was never
       implemented correctly. This usage is now deprecated.</tp:changed>
 
-    <!-- FIXME: are the type-specific flags sufficient, in a world that has
-    the Requests interface? It'd be nice if we could advertise capabilities
-    that are not defined in terms of a channel type but rather in terms of
-    a property or something, e.g. Channel.Interface.TLS.Secure for
-    individually TLS'd channels. -->
-
     <tp:flags name="Connection_Capability_Flags"
       value-prefix="Connection_Capability_Flag" type="u">
       <tp:flag suffix="Create" value="1">
