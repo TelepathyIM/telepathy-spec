@@ -416,7 +416,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           representing information about this contact</tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when a bunch of search results are received from the server.
+        Emitted when a some search results are received from the server.
+        This signal can be fired arbitrarily many times.
       </tp:docstring>
     </signal>
 
