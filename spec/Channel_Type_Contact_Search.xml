@@ -375,13 +375,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="SearchResultReceived"
-      tp:name-for-bindings="Search_Result_Received">
-      <arg name="Contact" type="u" tp:type="Contact_Handle">
-        <tp:docstring>An integer handle for the contact, which will remain
-          valid at least until this Channel closes</tp:docstring>
-      </arg>
-      <arg name="Info" type="a(sasas)" tp:type="Contact_Info_Field[]">
+    <tp:mapping name="Contact_Search_Result_Map">
+      <tp:docstring>A map from contact handle to search result.</tp:docstring>
+      <tp:member name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The search key to match against
+          An integer handle for the contact, which will remain valid at least
+          until this Channel closes.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Info" type="a(sasas)" tp:type="Contact_Info_Field[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>An array of fields representing information about this
             contact, in the same format used in the <tp:dbus-ref
@@ -402,9 +406,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               look it up.</p>
           </tp:rationale>
         </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <signal name="SearchResultReceived"
+      tp:name-for-bindings="Search_Result_Received">
+      <arg name="Result" type="a{ua(sasas)}" tp:type="Contact_Search_Result_Map">
+        <tp:docstring>A mapping from contact handle to an array of fields
+          representing information about this contact</tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when a search result is received from the server.
+        Emitted when a bunch of search results are received from the server.
       </tp:docstring>
     </signal>
 
