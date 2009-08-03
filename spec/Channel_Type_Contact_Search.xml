@@ -416,7 +416,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Emitted when a some search results are received from the server.
-        This signal can be fired arbitrarily many times.
+        This signal can be fired arbitrarily many times so clients MUST NOT
+        assume they'll get only one signal.
       </tp:docstring>
     </signal>
 
