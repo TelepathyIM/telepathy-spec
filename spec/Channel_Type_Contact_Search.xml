@@ -379,9 +379,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>A map from contact handle to search result.</tp:docstring>
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          The search key to match against
-          An integer handle for the contact, which will remain valid at least
-          until this Channel closes.
+          An integer handle for the contact.
         </tp:docstring>
       </tp:member>
 
@@ -413,7 +411,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Search_Result_Received">
       <arg name="Result" type="a{ua(sasas)}" tp:type="Contact_Search_Result_Map">
         <tp:docstring>A mapping from contact handle to an array of fields
-          representing information about this contact</tp:docstring>
+          representing information about this contact. Handles in this mapping
+          MUST remain valid until the Channel closes.</tp:docstring>
       </arg>
       <tp:docstring>
         Emitted when a some search results are received from the server.
