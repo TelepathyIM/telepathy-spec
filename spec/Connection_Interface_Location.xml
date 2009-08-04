@@ -213,12 +213,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 called "direction" in GeoClue
               </tp:rationale>
             </li>
-            <li>climb - d: rate of change of 'alt' in metres per second
-              <tp:rationale>
-                This is a struct field in GeoClue; the name is new to this
-                specification, but seems uncontroversial
-              </tp:rationale>
-            </li>
           </ul>
 
           <p>Other well-known keys:</p>
