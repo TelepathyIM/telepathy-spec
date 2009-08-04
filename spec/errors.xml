@@ -385,7 +385,8 @@
   <tp:error name="Resource Unavailable">
     <tp:docstring>
       Raised if a request cannot be satisfied because a process local to the
-      user has insufficient resources.
+      user has insufficient resources. Clients MAY try again
+      later.
 
       <tp:rationale>
         For instance, the <tp:dbus-ref
