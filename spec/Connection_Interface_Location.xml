@@ -91,8 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Detailed" value="6">
         <tp:docstring>
-          The location's accuracy is given by the error, horizontal-error-m
-          and/or vertical-error-m keys.
+          The location's accuracy is given by the accuracy key.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -191,24 +190,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             </li>
             -->
 
-            <li>error - d: horizontal position error in arc-minutes (1/60
-              degree) if known
+            <li>accuracy - d: horizontal position error in metres if
+              known
               <tp:rationale>
                 This is from XEP-0080
-              </tp:rationale>
-            </li>
-            <li>vertical-error-m - d: vertical position error in metres if
-              known
-              <tp:rationale>
-                This exists as a struct field in GeoClue; the name is new
-                in this specification.
-              </tp:rationale>
-            </li>
-            <li>horizontal-error-m - d: horizontal position error in metres if
-              known
-              <tp:rationale>
-                This exists as a struct field in GeoClue; the name is new
-                in this specification.
               </tp:rationale>
             </li>
           </ul>
