@@ -50,6 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         possible.</p>
     </tp:docstring>
 
+    <!-- Potentially to be reinstated later:
+         http://bugs.freedesktop.org/show_bug.cgi?id=19585
     <tp:enum name="Location_Accuracy_Level" type="i">
       <tp:docstring>
         A location accuracy level. This should be kept in sync with
@@ -94,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
+    -->
 
     <tp:mapping name="Location">
       <tp:docstring>
@@ -173,6 +176,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 This is from XEP-0080
               </tp:rationale>
             </li>
+
+            <!-- Potentially to be reinstated later:
+                 http://bugs.freedesktop.org/show_bug.cgi?id=19585
             <li>accuracy-level - i (<tp:type>Location_Accuracy_Level</tp:type>):
               an indication of accuracy, which SHOULD be omitted if it would be
               Location_Accuracy_Level_None or
@@ -183,6 +189,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
                 with any future XEP-0080 terminology.
               </tp:rationale>
             </li>
+            -->
+
             <li>error - d: horizontal position error in arc-minutes (1/60
               degree) if known
               <tp:rationale>
