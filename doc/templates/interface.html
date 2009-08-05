@@ -16,6 +16,8 @@
    #if $interface.signals: | <a href="#signals">Signals</a>
    #if $interface.properties: | <a href="#properties">Properties</a>
    #if $interface.tpproperties: | <a href="#tpproperties">Telepathy Properties</a>
+   #if $interface.contact_attributes: | <a href="#contact-attributes">Contact Attributes</a>
+   #if $interface.handler_capability_tokens: | <a href="#handler-capability-tokens">Handler Capability Tokens</a>
    #if $interface.types: | <a href="#types">Types</a>
   </div>
   <div class="main">
@@ -95,6 +97,38 @@
        <td>
         $property.dbus_type
         #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
+       </td>
+      </tr>
+      #end for
+    </table>
+    #end if
+
+     #if $interface.contact_attributes
+     <h3>Contact Attributes</h3>
+     <table class="summary">
+      #for $token in $interface.contact_attributes
+       <tr class="contact-attribute">
+       <td><a href="$token.get_url()">$token.name</a></td>
+       <td>
+        $token.dbus_type
+        #if $token.type: (<a href="$token.get_type_url()" title="$token.get_type_title()">$token.get_type().short_name</a>)
+       </td>
+      </tr>
+      #end for
+    </table>
+    #end if
+
+     #if $interface.handler_capability_tokens
+     <h3>Handler Capability Tokens</h3>
+     <table class="summary">
+      #for $token in $interface.handler_capability_tokens
+       <tr class="handler-capability-token">
+         <td><a href="$token.get_url()">$token.name</a>
+           #if $token.is_family
+             (etc.)
+           #end if
+         </td>
+       <td>
        </td>
       </tr>
       #end for
@@ -306,6 +340,57 @@
      $property.get_changed()
      $property.get_deprecated()
      $property.get_docstring()
+    </div>
+    #end for
+   </div>
+   #end if
+
+   #if $interface.contact_attributes
+   <div class="outset contact-attributes">
+    <a name="contact-attributes"></a>
+    <h1>Contact Attributes</h1>
+    <div>
+      Attributes that a contact can have, accessed with the
+      org.freedesktop.Telepathy.Connection.Interface.Contacts interface.
+    </div>
+    #for $token in $interface.contact_attributes
+    <div class="inset contact-attribute">
+     <a name="$token.name"></a>
+     <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
+     <h2>
+      $token.name &mdash; $token.dbus_type
+      #if $token.type: (<a href="$token.get_type_url()" title="$token.get_type_title()">$token.get_type().short_name</a>)
+     </h2>
+     $token.get_added()
+     $token.get_changed()
+     $token.get_deprecated()
+     $token.get_docstring()
+    </div>
+    #end for
+   </div>
+   #end if
+
+   #if $interface.handler_capability_tokens
+   <div class="outset handler-capability-tokens">
+    <a name="handler-capability-tokens"></a>
+    <h1>Handler Capability Tokens</h1>
+    <div>
+      Tokens representing capabilities that a Client.Handler can have.
+    </div>
+    #for $token in $interface.handler_capability_tokens
+    <div class="inset handler-capability-token">
+     <a name="$token.name"></a>
+     <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
+     <h2>
+      $token.name
+      #if $token.is_family
+      (etc.)
+      #end if
+     </h2>
+     $token.get_added()
+     $token.get_changed()
+     $token.get_deprecated()
+     $token.get_docstring()
     </div>
     #end for
    </div>

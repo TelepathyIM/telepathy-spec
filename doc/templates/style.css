@@ -99,7 +99,25 @@ div.tpproperties {
 }
 
 div.tpproperty {
-	border: 1px solid: #333333;
+	border: 1px solid #333333;
+}
+
+div.contact-attributes {
+	background-color: #ccccff;
+	border: 1px solid #9999cc;
+}
+
+div.contact-attribute {
+	border: 1px solid #9999cc;
+}
+
+div.handler-capability-tokens {
+	background-color: #339933;
+	border: 1px solid #228822;
+}
+
+div.handler-capability-token {
+	border: 1px solid #228822;
 }
 
 div.types {
