@@ -50,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
     </tp:docstring>
 
-    <tp:simple-type name="Client_Capability" type="s"
-      array-name="Client_Capability_List">
+    <tp:simple-type name="Handler_Capability_Token" type="s"
+      array-name="Handler_Capability_Token_List">
       <tp:docstring>
         A <tp:type>DBus_Interface</tp:type>, followed by a slash '/' character
         and an identifier for a capability defined by that interface. The
@@ -141,8 +141,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:simple-type>
 
-    <tp:struct name="Client_Capabilities"
-      array-name="Client_Capabilities_List">
+    <tp:struct name="Handler_Capabilities"
+      array-name="Handler_Capabilities_List">
       <tp:docstring>
         A structure representing the capabilities of a single client.
       </tp:docstring>
@@ -166,7 +166,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Capabilities" type="as" tp:type="Client_Capability[]">
+      <tp:member name="Capabilities"
+        type="as" tp:type="Handler_Capability_Token[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           An array of client capabilities supported by this client, to be
           used by the connection manager to determine what capabilities to
@@ -214,8 +215,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           capabilities. Doing so MUST NOT fail.</p>
       </tp:docstring>
 
-      <arg direction="in" name="Client_Capabilities" type="a(saa{sv}as)"
-        tp:type="Client_Capabilities[]">
+      <arg direction="in" name="Handler_Capabilities" type="a(saa{sv}as)"
+        tp:type="Handler_Capabilities[]">
         <tp:docstring>
           <p>The capabilities of one or more clients.</p>
 
@@ -224,7 +225,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             the capabilities indicated.</p>
 
           <p>As a result, if a client becomes unavailable, this method SHOULD
-            be called with a <tp:type>Client_Capabilities</tp:type> structure
+            be called with a <tp:type>Handler_Capabilities</tp:type> structure
             containing its name, an empty list of channel classes, and an
             empty list of capabilities. When this is done, the connection
             manager SHOULD free all memory associated with that client name.</p>

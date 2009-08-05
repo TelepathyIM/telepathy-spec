@@ -110,7 +110,7 @@
     </property>
 
     <property name="Capabilities" tp:name-for-bindings="Capabilities"
-      type="as" tp:type="Client_Capability[]" access="read">
+      type="as" tp:type="Handler_Capability_Token[]" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The set of additional capabilities supported by this handler.
           This describes things like support for streamed media codecs and
