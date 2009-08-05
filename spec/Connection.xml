@@ -954,6 +954,16 @@ USA.</p>
       </tp:docstring>
     </signal>
 
+    <tp:contact-attribute name="contact-id" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The same string that would be returned by
+          <tp:member-ref>InspectHandles</tp:member-ref>. As a special case,
+          this is always present in the result of <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
+          whether it was explicitly requested or not.</p>
+      </tp:docstring>
+    </tp:contact-attribute>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This models a connection to a single user account on a communication
         service. Its basic capability is to provide the facility to request and
