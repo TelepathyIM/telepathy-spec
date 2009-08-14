@@ -2,6 +2,83 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.17.27 (UNRELEASED)
+===================================
+
+The "goths in hot weather" release.
+
+API changes:
+
+* The D-Bus error equivalent of Name_In_Use is no longer considered to be
+  NotYours; instead, we've split up the three cases, as new errors
+  RegistrationExists, AlreadyConnected and ConnectionReplaced (smcv)
+
+New stable API:
+
+* The Location interface is now considered stable, with some changes to the
+  set of known keys (smcv, pierlux, cassidy)
+  - "language" has been added
+  - "horizontal-error-m" is now called accuracy as per XEP-0080
+  - "error" has been removed (it was in arc-minutes, which are a bizarre unit,
+    and was deprecated in XEP-0080)
+  - "climb", "vertical-error-m" and "accuracy-level" have been removed
+  - "countrycode" is still there, despite its omission from XEP-0080; we've
+    asked for its inclusion in the XEP
+
+* The Debug interface is now considered stable, with no further changes
+
+* New D-Bus errors: ResourceUnavailable, ServiceBusy, RegistrationExists,
+  AlreadyConnected and ConnectionReplaced (smcv)
+
+* New Media_Stream_Error codes: Codec_Negotiation_Failed, Connection_Failed,
+  Network_Error, No_Codecs, Invalid_CM_Behavior, Media_Error (Tester)
+
+* New well-known CM parameter: keepalive-interval (wjt)
+
+* ConnectionManager explicitly allows byte ('y') parameters, serialized in
+  .manager files as ASCII decimal numbers (smcv)
+
+* ConnectionRefused etc. can be used as more specific versions of NetworkError
+  when a Connection breaks (smcv)
+
+* StreamedMedia channels have a new pseudo-capability Immutable_Streams,
+  indicating that streams cannot be added or removed, for instance in calls
+  using Google's Jingle variants (smcv)
+
+* Each Handler has a new Capabilities property, listing "capability tokens"
+  which will later be used by the ContactCapabilities interface; the
+  MediaSignalling interface defines an initial set of capability tokens (smcv)
+
+Deprecations:
+
+* Media_Stream_Error_EOS never really made sense and is now deprecated (Tester)
+
+Changes to experimental API:
+
+* ContactCapabilities.DRAFT2 replaces the previous draft (smcv)
+  - Handlers now have a list of capability tokens indicating supported
+    transports, codecs etc., which cannot be expressed easily in terms of
+    filters
+  - As a result, the NAT traversal flags in MediaSignalling.FUTURE no longer
+    exist
+  - SetSelfCapabilities is replaced by UpdateCapabilities, which gives the
+    CM a set of structs representing clients, and requires the CM to remember
+    which client has which capabilities
+
+* ContactSearch.DRAFT2 replaces the previous draft (cassidy)
+  - SearchResultReceived now contains multiple rows
+
+New experimental API:
+
+* StreamedMedia.FUTURE.ImmutableStreams is similar to the Immutable_Streams
+  pseudo-capability (wjt)
+
+Tools and formatting:
+
+* There is now specific markup for contact attributes and for handler
+  capability tokens, and the spec tools have been extended to turn it into
+  nice HTML (smcv)
+
 telepathy-spec 0.17.26 (2009-06-09)
 ===================================
 
