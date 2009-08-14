@@ -157,6 +157,20 @@ org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/audio/speex=true
 org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/theora=true
 org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264=true
 </pre>
+
+        <p>Like the <tp:member-ref>HandlerChannelFilter</tp:member-ref>
+          property, this property cannot change while the Handler owns its
+          Client bus name. However, the <code>.client</code> file, if any,
+          can change (due to upgrades or installation of pluggable codecs),
+          and the capabilities really supported by the handler might not
+          exactly match what is cached in the <code>.client</code> file.</p>
+
+        <tp:rationale>
+          <p>The client file is installed statically and is intended to list
+            codecs etc. that the handler guarantees it can support (e.g. by
+            having a hard dependency on them), whereas the running handler
+            process might be able to find additional codecs.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
