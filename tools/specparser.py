@@ -402,18 +402,21 @@ class Interface(Base):
     def __init__(self, parent, namespace, dom):
         super(Interface, self).__init__(parent, namespace, dom)
 
-        # build a list of methods in this interface
+        # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
                                   dom.getElementsByTagName('method'))
-        # build a list of properties in this interface
         self.properties = build_list(self, Property, self.name,
                                      dom.getElementsByTagName('property'))
-        # build a list of signals in this interface
         self.signals = build_list(self, Signal, self.name,
                                   dom.getElementsByTagName('signal'))
-        # build a list of old-style Telepathy Properties in this interface
         self.tpproperties = build_list(self, AwkwardTelepathyProperty,
                 self.name, dom.getElementsByTagNameNS(XMLNS_TP, 'property'))
+        self.handler_capability_tokens = build_list(self,
+                HandlerCapabilityToken, self.name,
+                dom.getElementsByTagNameNS(XMLNS_TP,
+                    'handler-capability-token'))
+        self.contact_attributes = build_list(self, ContactAttribute, self.name,
+                dom.getElementsByTagNameNS(XMLNS_TP, 'contact-attribute'))
 
         # build a list of types in this interface
         self.types = parse_types(self, dom, self.name)
@@ -643,6 +646,32 @@ class Flags(EnumLike):
                         dom.getElementsByTagNameNS(XMLNS_TP, 'flag'))
         self.flags = self.values # in case you're looking for it
 
+class TokenBase(Base):
+
+    devhelp_name = "macro"      # it's a constant, which is near enough...
+    separator = '/'
+
+    def __init__(self, parent, namespace, dom):
+        super(TokenBase, self).__init__(parent, namespace, dom)
+        self.name = namespace + '/' + self.short_name
+
+class ContactAttribute(TokenBase, Typed):
+
+    def get_type_name(self):
+        return 'Contact Attribute'
+
+class HandlerCapabilityToken(TokenBase):
+
+    def get_type_name(self):
+        return 'Handler Capability Token'
+
+    def __init__(self, parent, namespace, dom):
+        super(HandlerCapabilityToken, self).__init__(parent, namespace, dom)
+
+        is_family = dom.getAttribute('is-family')
+        assert is_family in ('yes', 'no', '')
+        self.is_family = (is_family == 'yes')
+
 class SectionBase(object):
     """A SectionBase is an abstract base class for any type of node that can
        contain a <tp:section>, which means the top-level Spec object, or any
@@ -725,6 +754,10 @@ class Spec(SectionBase):
                     self.everything[property.name] = property
                 for property in interface.tpproperties:
                     self.everything[property.name] = property
+                for token in interface.contact_attributes:
+                    self.everything[token.name] = token
+                for token in interface.handler_capability_tokens:
+                    self.everything[token.name] = token
 
                 for type in interface.types:
                     self.types[type.short_name] = type

@@ -90,7 +90,7 @@
         </tp:rationale>
 
         <p>Connection managers that support the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities.DRAFT</tp:dbus-ref>
+            namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities.DRAFT2</tp:dbus-ref>
           interface SHOULD represent the capabilities of receiving audio
           and/or video calls by including a channel class in
           a contact's capabilities with ChannelType = StreamedMedia
@@ -106,8 +106,9 @@
         </tp:rationale>
 
         <p>Clients that are willing to receive audio and/or video calls
-          SHOULD include the following filters if calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities.DRAFT">SetSelfCapabilities</tp:dbus-ref>
+          SHOULD include the following among their channel classes if
+          calling <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities.DRAFT2">UpdateCapabilities</tp:dbus-ref>
           (clients of a <tp:dbus-ref
             namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>
           SHOULD instead arrange for the ChannelDispatcher to do this,
