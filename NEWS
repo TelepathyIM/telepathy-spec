@@ -2,7 +2,7 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.27 (UNRELEASED)
+telepathy-spec 0.17.27 (2009-08-16)
 ===================================
 
 The "goths in hot weather" release.
@@ -60,7 +60,7 @@ Changes to experimental API:
     transports, codecs etc., which cannot be expressed easily in terms of
     filters
   - As a result, the NAT traversal flags in MediaSignalling.FUTURE no longer
-    exist
+    exist, and that pseudo-interface has been removed
   - SetSelfCapabilities is replaced by UpdateCapabilities, which gives the
     CM a set of structs representing clients, and requires the CM to remember
     which client has which capabilities
