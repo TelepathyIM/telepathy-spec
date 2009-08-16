@@ -395,7 +395,7 @@
         This type isn't actually used by the SimplePresence interface, but
         it's included here so it can be referenced by rich presence interfaces
         such as <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">Location.DRAFT</tp:dbus-ref>.
+          namespace="org.freedesktop.Telepathy.Connection.Interface">Location</tp:dbus-ref>.
       </tp:docstring>
 
       <tp:member name="Type" type="u" tp:type="Rich_Presence_Access_Control_Type">
