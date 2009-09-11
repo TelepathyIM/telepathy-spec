@@ -560,17 +560,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>InitialVideo</tp:member-ref> when the channel is
           requested, or by calling
           <tp:member-ref>RequestStreams</tp:member-ref> on a channel with no
-          streams), the channel's streams cannot be changed;
+          streams), a stream of a different content type cannot be added;
           subsequent calls to <tp:member-ref>RequestStreams</tp:member-ref>
-          or <tp:member-ref>RemoveStreams</tp:member-ref> will fail.</p>
+          that attempt to do so will fail.</p>
 
         <p>If this property is missing, clients SHOULD assume that it is false,
           and thus that the channel's streams can be changed once the call has
           started.</p>
 
-        <p>If this property is present in all of the StreamedMedia
-          entries in a contact's capabilities, then user interfaces MAY choose
-          to show a separate "call" option for each class of call.</p>
+        <p>If this property is present in the "allowed" set in all of the
+          StreamedMedia entries in a contact's capabilities, then user
+          interfaces MAY choose to show a separate "call" option for each
+          class of call.</p>
 
           <tp:rationale>
             <p>For example, once an audio-only Google Talk call has started,
@@ -583,26 +584,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             </p>
           </tp:rationale>
 
-        <p>For incoming channels, this property MUST be included in the channel's immutable properties
-          (as announced in <tp:dbus-ref
+        <p>This property is immutable, and therefore SHOULD be announced
+          in <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
-          etc.). For outgoing calls, this property MAY be omitted from the
-          channel's immutable properties for calls without
-          <tp:member-ref>InitialAudio</tp:member-ref> or
-          <tp:member-ref>InitialVideo</tp:member-ref>, in which case its value
-          is undefined until <tp:member-ref>RequestStreams</tp:member-ref>
-          has been called at least once.</p>
-
-        <tp:rationale>
-          <p>The protocol mechanism used for the call might only be selected
-            when the CM knows what kind of call is desired. For example, if an
-            XMPP contact is signed in with Google Mail (with video support) and
-            Another client which supports modern Jingle (which supports
-            modifying the streams in a call) but only for audio calls, the
-            call's streams will be immutable if the UI requests Audio+Video,
-            but mutable if the UI just requests audio (a second audio stream
-            could be added, for instance).</p>
-        </tp:rationale>
+          etc.</p>
       </tp:docstring>
     </property>
 
