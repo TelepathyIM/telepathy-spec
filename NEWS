@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.28 (UNRELEASED)
+telepathy-spec 0.17.28 (2009-09-14)
 ===================================
+
+The "build your own desk" release.
 
 New stable API:
 
@@ -15,6 +17,9 @@ New stable API:
 
 * The ImmutableStreams property has been added to the StreamedMedia channel
   type, with minor changes to its semantics so it is better-defined (wjt)
+
+* fd.o #23409: CallStates has an In_Progress state, similar to SIP 183
+  Session Progress (mikhailz/smcv)
 
 Additions to stable API:
 
