@@ -5,7 +5,21 @@ checkouts.
 telepathy-spec 0.17.28 (UNRELEASED)
 ===================================
 
-???
+New stable API:
+
+* The ContactCapabilities interface is now considered to be stable, with the
+  same semantics as in draft 2
+
+* The InitialAudio and InitialVideo properties have been added to the
+  StreamedMedia channel type, with the same semantics as the draft versions
+
+* The ImmutableStreams property has been added to the StreamedMedia channel
+  type, with minor changes to its semantics so it is better-defined (wjt)
+
+Additions to stable API:
+
+* CreateChannel and EnsureChannel may raise PermissionDenied, for instance if
+  a server refuses to perform a contact search (cassidy)
 
 telepathy-spec 0.17.27 (2009-08-16)
 ===================================
