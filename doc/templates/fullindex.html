@@ -1,5 +1,4 @@
 #from itertools import groupby
-#from os.path import commonprefix
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -8,16 +7,9 @@
   <link rel="stylesheet" href="style.css" type="text/css"/>
  </head>
 
-#set $prefix = commonprefix(map (lambda o: o.name, $spec.interfaces))
-#set lprefix = len ($prefix)
 #set $star = []
 #for $item in $spec.everything.values() + $spec.errors.values() + $spec.generic_types
- #if $item.__class__.__name__ == 'Interface'
-  #set $name = $item.name[lprefix:]
- #else
-  #set $name = $item.short_name
- #end if
- #echo $star.append(($name, $item))
+ #echo $star.append(($item.short_name, $item))
  #slurp
 #end for
 #echo $star.sort(key = lambda t: t[0].title())
