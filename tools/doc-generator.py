@@ -61,64 +61,44 @@ def load_template(filename):
 
     return template_def
 
-# write out HTML files for each of the interfaces
 spec = specparser.parse(spec_file, "org.freedesktop.Telepathy")
+
+# write out HTML files for each of the interfaces
+
+# Not using render_template here to avoid recompiling it n times.
 namespace = {}
 template_def = load_template('interface.html')
 t = Template(template_def, namespaces = [namespace])
 for interface in spec.interfaces:
     namespace['interface'] = interface
-    
+
     # open the output file
     out = open(os.path.join(output_path, '%s.html' % interface.name), 'w')
     print >> out, unicode(t).encode('utf-8')
     out.close()
 
-# write out the generic types
-namespace = { 'spec': spec }
-template_def = load_template('generic-types.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'generic-types.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+def render_template(name, namespaces, target=None):
+    if target is None:
+        target = name
 
-# write out the errors
-namespace = { 'spec': spec }
-template_def = load_template('errors.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'errors.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+    namespace = { 'spec': spec }
+    template_def = load_template(name)
+    t = Template(template_def, namespaces=namespaces)
+    out = open(os.path.join(output_path, target), 'w')
+    print >> out, unicode(t).encode('utf-8')
+    out.close()
 
-# write out the interfaces list
-namespace = { 'spec': spec }
-template_def = load_template('interfaces.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'interfaces.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+namespaces = { 'spec': spec }
 
-# write out the fullindex
-namespace = { 'spec': spec }
-template_def = load_template('fullindex.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'fullindex.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+render_template('generic-types.html', namespaces)
+render_template('errors.html', namespaces)
+render_template('interfaces.html', namespaces)
+render_template('fullindex.html', namespaces)
 
-# write out the devhelp2 file
-namespace = { 'spec': spec, 'name': 'telepathy-spec' }
-template_def = load_template('devhelp.devhelp2')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'telepathy-spec.devhelp2'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+dh_namespaces = { 'spec': spec, 'name': 'telepathy-spec' }
+render_template('devhelp.devhelp2', dh_namespaces,
+    target='telepathy-spec.devhelp2')
 
 # write out the TOC last, because this is the file used as the target in the
 # Makefile.
-namespace = { 'spec': spec }
-template_def = load_template('index.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'index.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
+render_template('index.html', namespaces)
