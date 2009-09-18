@@ -48,7 +48,7 @@
       </td>
       <td>$n[1].get_type_name()</td>
       <td>
-       #if $n[1].parent != $spec: $n[1].parent.name
+       #if $n[1].parent.__class__.__name__ == 'Interface': $n[1].parent.name
       </td>
      </tr>
     #end for
