@@ -399,8 +399,15 @@ class External(object):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
 class Interface(Base):
-    def __init__(self, parent, namespace, dom):
+    def __init__(self, parent, namespace, dom, spec_namespace):
         super(Interface, self).__init__(parent, namespace, dom)
+
+        # If you're writing a spec with more than one top-level namespace, you
+        # probably want to replace spec_namespace with a list.
+        if self.name.startswith(spec_namespace + "."):
+            self.short_name = self.name[len(spec_namespace) + 1:]
+        else:
+            self.short_name = self.name
 
         # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
@@ -680,7 +687,7 @@ class SectionBase(object):
        It should not be instantiated directly.
     """
 
-    def __init__(self, dom):
+    def __init__(self, dom, spec_namespace):
 
         self.items = []
 
@@ -694,22 +701,24 @@ class SectionBase(object):
                     recurse(node.childNodes)
                 elif node.namespaceURI == XMLNS_TP and \
                      node.localName == 'section':
-                    self.items.append(Section(self, None, node))
+                    self.items.append(Section(self, None, node,
+                        spec_namespace))
                 elif node.tagName == 'interface':
-                    self.items.append(Interface(self, None, node))
+                    self.items.append(Interface(self, None, node,
+                        spec_namespace))
 
         recurse(dom.childNodes)
 
 class Section(Base, SectionBase):
-    def __init__(self, parent, namespace, dom):
+    def __init__(self, parent, namespace, dom, spec_namespace):
         Base.__init__(self, parent, namespace, dom)
-        SectionBase.__init__(self, dom)
+        SectionBase.__init__(self, dom, spec_namespace)
 
     def get_root_namespace(self):
         return None
 
 class Spec(SectionBase):
-    def __init__(self, dom):
+    def __init__(self, dom, spec_namespace):
         # build a dictionary of errors in this spec
         try:
             errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
@@ -726,7 +735,7 @@ class Spec(SectionBase):
                 [])
 
         # create a top-level section for this Spec
-        SectionBase.__init__(self, dom.documentElement)
+        SectionBase.__init__(self, dom.documentElement, spec_namespace)
 
         # build a list of interfaces in this spec
         self.interfaces = []
@@ -845,11 +854,11 @@ def parse_types(parent, dom, namespace = None):
 
     return types
 
-def parse(filename):
+def parse(filename, spec_namespace):
     dom = xml.dom.minidom.parse(filename)
     xincludator.xincludate(dom, filename)
 
-    spec = Spec(dom)
+    spec = Spec(dom, spec_namespace)
 
     return spec
 

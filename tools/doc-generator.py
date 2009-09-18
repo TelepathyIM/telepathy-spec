@@ -62,7 +62,7 @@ def load_template(filename):
     return template_def
 
 # write out HTML files for each of the interfaces
-spec = specparser.parse(spec_file)
+spec = specparser.parse(spec_file, "org.freedesktop.Telepathy")
 namespace = {}
 template_def = load_template('interface.html')
 t = Template(template_def, namespaces = [namespace])
