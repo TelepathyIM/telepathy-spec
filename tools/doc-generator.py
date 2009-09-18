@@ -74,14 +74,6 @@ for interface in spec.interfaces:
     print >> out, unicode(t).encode('utf-8')
     out.close()
 
-# write out a TOC
-namespace = { 'spec': spec }
-template_def = load_template('index.html')
-t = Template(template_def, namespaces=namespace)
-out = open(os.path.join(output_path, 'index.html'), 'w')
-print >> out, unicode(t).encode('utf-8')
-out.close()
-
 # write out the generic types
 namespace = { 'spec': spec }
 template_def = load_template('generic-types.html')
@@ -119,5 +111,14 @@ namespace = { 'spec': spec, 'name': 'telepathy-spec' }
 template_def = load_template('devhelp.devhelp2')
 t = Template(template_def, namespaces=namespace)
 out = open(os.path.join(output_path, 'telepathy-spec.devhelp2'), 'w')
+print >> out, unicode(t).encode('utf-8')
+out.close()
+
+# write out the TOC last, because this is the file used as the target in the
+# Makefile.
+namespace = { 'spec': spec }
+template_def = load_template('index.html')
+t = Template(template_def, namespaces=namespace)
+out = open(os.path.join(output_path, 'index.html'), 'w')
 print >> out, unicode(t).encode('utf-8')
 out.close()
