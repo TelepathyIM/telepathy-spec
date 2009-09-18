@@ -65,7 +65,8 @@ test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	@install -d doc
-	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/
+	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/ telepathy-spec \
+		org.freedesktop.Telepathy
 
 $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 	@install -d introspect

@@ -37,7 +37,7 @@ except ImportError, e:
 
 import specparser
 
-program, spec_file, output_path = sys.argv
+program, spec_file, output_path, project, namespace = sys.argv
 
 template_path = os.path.join(os.path.dirname(program), '../doc/templates')
 
@@ -61,7 +61,7 @@ def load_template(filename):
 
     return template_def
 
-spec = specparser.parse(spec_file, "org.freedesktop.Telepathy")
+spec = specparser.parse(spec_file, namespace)
 
 # write out HTML files for each of the interfaces
 
@@ -95,9 +95,9 @@ render_template('errors.html', namespaces)
 render_template('interfaces.html', namespaces)
 render_template('fullindex.html', namespaces)
 
-dh_namespaces = { 'spec': spec, 'name': 'telepathy-spec' }
+dh_namespaces = { 'spec': spec, 'name': project }
 render_template('devhelp.devhelp2', dh_namespaces,
-    target='telepathy-spec.devhelp2')
+    target=('%s.devhelp2' % project))
 
 # write out the TOC last, because this is the file used as the target in the
 # Makefile.
