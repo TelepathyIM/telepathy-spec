@@ -86,6 +86,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_DBus_Tube.xml"/>
    <xi:include href="Channel_Type_File_Transfer.xml"/>
    <xi:include href="Channel_Type_Contact_Search.xml"/>
+   <xi:include href="Channel_Type_Call.xml"/>
   </tp:section>
 
   <tp:section name="Channel Interfaces">
@@ -113,6 +114,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <tp:section name="Media">
   <xi:include href="Media_Session_Handler.xml"/>
   <xi:include href="Media_Stream_Handler.xml"/>
+ </tp:section>
+
+ <tp:section name="Calls">
+   <xi:include href="Call_Content.xml"/>
+   <xi:include href="Call_Content_Interface_Media.xml"/>
+   <xi:include href="Call_Stream.xml"/>
+   <xi:include href="Call_Stream_Interface_Media.xml"/>
  </tp:section>
 
  <tp:section name="Debugging">
