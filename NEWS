@@ -2,10 +2,136 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.17.29 (UNRELEASED)
-===================================
+telepathy-spec 0.18.0 (2009-09-24)
+==================================
 
-...
+This is a new stable version of telepathy-spec, intended to serve as a
+reference point for future work. The D-Bus API is identical to 0.17.28
+(the only changes were some improvements to the documentation tools, by wjt).
+
+This spec version is supported by the upcoming 0.8.x stable branch of
+telepathy-glib.
+
+The versions of connection managers recommended for use with GNOME 2.28 and
+Maemo 5 can be expected to support most of 0.18.0, with the notable exception
+of ContactCapabilities (which was finished slightly too late). Connection
+managers that support "most of" 0.18.0, except for ContactCapabilities, include:
+
+* telepathy-gabble >= 0.8.0 (stable branch)
+* telepathy-salut >= 0.3.10
+* telepathy-sofiasip >= 0.5.18
+* telepathy-haze >= 0.3.2
+* telepathy-idle >= 0.1.5
+* telepathy-butterfly >= 0.5.0
+
+There have been many changes since the 0.16.0 stable release (almost two years
+ago!), here's a summary:
+
+Connection managers
+-------------------
+
+Significant API changes include:
+
+* Several new calling conventions were introduced for StreamedMedia channels,
+  while continuing to support everything that already worked. Details at:
+  <http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels>
+* Channels are not guaranteed to be unique per (channel type, handle type,
+  handle) triple, even if the handle type is nonzero
+* Channel.Interface.Hold has changed considerably
+* Text.SendError has different semantics (which match what was actually
+  implemented in practice)
+* GetKnownAvatarTokens' special behaviour for the self-handle has different
+  semantics (which, again, match what was actually implemented)
+* The allowed characters in connection manager and protocol names are
+  explicitly specified to be a subset of what D-Bus would allow
+
+New stable API includes, in no particular order:
+
+* mandatory InitiatorHandle, InitiatorID and TargetID properties on all
+  channels
+* the mandatory Contacts interface on Connection, for round-trip reduction
+  when inspecting batches of contacts
+* the mandatory Requests interface on Connection, an extensible version of
+  the old RequestChannel/ListChannels/NewChannel functionality with better
+  sematics
+* the SimplePresence interface on Connection, replacing Presence
+* the ContactCapabilities interface on Connection, intended to replace
+  Capabilities (not yet implemented in all connection managers, though)
+* the Location interface on Connection, for geolocation
+* StreamTube and DBusTube channels (one channel per tube), deprecating the
+  Tubes channel type
+* the FileTransfer channel type
+* change notification for the self-handle (mainly for IRC)
+* the Messages interface on Text channels, which supports extensible metadata,
+  MIME-style attachments and alternatives, and extensible delivery-reports,
+  and lays the foundations for future support for formatted messages
+* the "rescued" and "scrollback" message flags
+* removing the SelfHandle from a Group, a newly documented way to depart
+  gracefully
+* an optional CallState interface on StreamedMedia channels
+* Hold support in MediaSignalling (and its related objects)
+* the Busy presence type
+* more well-known protocol names
+* a Secret flag for CM parameters that represent a password, private key etc.
+* CM parameters that are also D-Bus properties, and so can be changed by the
+  account manager while remaining online
+* the .manager file syntax (previously undocumented)
+* D-Bus core Properties on several interfaces (most notably Group and Channel),
+  for round-trip reduction
+* Text channels that "respawn" when closed with unacknowledged messages, to
+  avoid data loss on race conditions by behaving as if Close() had won the race
+* the Destroyable interface, to circumvent the "respawn" mechanism and forcibly
+  close a channel with possible data loss, intended for use by the
+  ChannelDispatcher when no Handler can deal with a channel
+* many new D-Bus error names
+* the "stored" ContactList
+
+Deprecations include:
+
+* the Tubes channel type (use StreamTube and DBusTube instead)
+* the Presence interface (use SimplePresence instead)
+* RequestChannel, ListChannels and NewChannel (use Requests instead)
+* handle = 0 in the Capabilities interface, which we never actually implemented
+* passing clear=TRUE to Text.ListPendingMessages, which was never really safe
+
+Account Manager
+---------------
+
+The new AccountManager service, and its AccountManager and Account objects,
+replace part of the functionality of Mission Control 4's D-Bus and C API.
+
+Mission Control 5.x provides a reference implementation of this service.
+
+Channel Dispatcher
+------------------
+
+The new ChannelDispatcher service, and its ChannelDispatcher,
+ChannelDispatchOperation and ChannelRequest objects, replace the rest of the
+functionality of Mission Control 4's D-Bus and C API.
+
+Again, Mission Control 5.x provides a reference implementation of this service.
+
+Clients that handle channels are now expected to implement the Handler
+interface, which replaces the ChannelHandler interface used by MC 4.
+
+The concepts of Observers, Approvers and Handlers have been introduced,
+together with common functionality in the Client interface. These describe
+Telepathy clients which interact with channels, and can interact with the
+ChannelDispatcher to provide user interfaces, logging and other functionality.
+
+Tools and code generation
+-------------------------
+
+The canonical form of the HTML documentation generated from the XML spec is now
+a multi-page document; the old single-page version is still generated, for now,
+but expect it to be removed early in 0.19.
+
+Unstable and experimental interfaces are explicitly marked as such. Various
+existing interfaces that were never actually implemented have been marked as
+experimental.
+
+The spec is much more informative, with syntax for too much new stuff to
+describe here.
 
 telepathy-spec 0.17.28 (2009-09-14)
 ===================================
