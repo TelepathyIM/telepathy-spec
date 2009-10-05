@@ -46,8 +46,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="Hangup" tp:name-for-bindings="Hangup">
       <tp:docstring>
         End the call
-        FIXME: add the possibility to add a reason ? maybe possibility to give
-        errors.
+        FIXME: add the possibility to add a reason and give
+          to give more detailed errors.
       </tp:docstring>
     </method>
 
@@ -123,20 +123,41 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:mapping name="Call_State_Map">
       <tp:docstring>
-        A map from contacts to call states.
+        A map from contacts to call states. slates
       </tp:docstring>
 
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>A contact involved in this call.</tp:docstring>
       </tp:member>
-
-      <tp:member name="State" type="u" tp:type="Channel_Call_State_Flags">
-        <tp:docstring>State flags for the given contact.</tp:docstring>
-      </tp:member>
+      <tp:member type="a{sv}" name="State" tp:type="Contact_Call_State"/>
     </tp:mapping>
 
-    <tp:flags name="Call_State_Flags"
-        value-prefix="Channel_Call_State" type="u">
+    <tp:enum type="u" name="CallState" tp:name-for-bindings="Call_State">
+      <tp:enumvalue suffix="Pending" value = "1">
+        <tp:docstring>
+          This contact hasn't accepted the Call yet
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Accepted" value = "2">
+        <tp:docstring>
+          The contact accepted this call
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Ended" value = "3">
+        <tp:docstring>
+          The contact successfully ended its side of the call
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Error" value = "4">
+        <tp:docstring>
+          The contact ended the call because of an error condition.
+          FIXME: add well-known keys for errors
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:flags name="CallFlags" tp:name-for-bindings="Call_Flags"
+        value-prefix="Channel_Call_Flags" type="u">
       <tp:docstring>
         A set of flags representing call states.
       </tp:docstring>
@@ -180,19 +201,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           outgoing call has reached a gateway, for instance.
         </tp:docstring>
       </tp:flag>
-
-      <tp:flag suffix="Pending" value="32">
-        <tp:docstring>
-          The contact hasn't accepted the call yet.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Accepted" value="64">
-        <tp:docstring>
-          The contact has accepted the call
-        </tp:docstring>
-      </tp:flag>
     </tp:flags>
+
+    <tp:mapping name="Contact_Call_State" value-prefix="Contact_Call_State">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        A mapping representing the state of a single contact in a call.
+
+        The following two keys are guaranteed to exist:
+        <dl>
+          <dt> State (u - <tp:type>CallState</tp:type>) </dt>
+          <dd> The status of the contact in the call </dd>
+
+          <dt> Flags (u - <tp:type>CallFlags</tp:type>) </dt>
+          <dd> Extra informational information about the status
+              of this contact </dd>
+        </dl>
+
+      </tp:docstring>
+
+      <tp:member type="s" name="Key">
+        <tp:docstring>
+           Well-known key
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="v" name="Value">
+        <tp:docstring>
+          The value of the key as described above
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
 
     <signal name="CallStateChanged"
             tp:name-for-bindings="Call_State_Changed">
@@ -200,11 +238,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Emitted when the state of a contact on the call changed</p>
       </tp:docstring>
       <arg name="StateChanges" tp:name-for-bindings="State_Changes"
-        type="a{uu}" tp:type="Call_State_Map">
+        type="a{ua{sv}}" tp:type="Call_State_Map">
       </arg>
     </signal>
 
-    <property name="CallState" type="a{uu}" access="read"
+    <property name="CallState" type="a{ua{sv}}" access="read"
       tp:name-for-bindings="Call_State" tp:type="Call_State_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Current state of the various contacts involved in this call</p>
@@ -216,9 +254,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
-          If this property is TRUE then the media streaming is done by a
+          If this property is TRUE then all the media streaming is done by a
           specialized component If this is FALSE then the handler should handle
-          the media streaming itself.
+          the media streaming at least some parts itself.
           <tp:rationale>
             A connection-manager might be intended for a specialized hardware
             device, which will take care of the audio streaming. (e.g.
@@ -251,8 +289,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If set to true in a channel request that will create a new channel,
           the connection manager should immediately attempt to establish an
           audio stream to the remote contact, making it unnecessary for the
-          client to call <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.Call.Draft">AddContent</tp:dbus-ref>.</p>
+          client to call
+          <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type.Call.Draft">AddContent</tp:dbus-ref>.
+          </p>
 
         <p>If this property, or InitialVideo, is passed to EnsureChannel
           (as opposed to CreateChannel), the connection manager SHOULD ignore
