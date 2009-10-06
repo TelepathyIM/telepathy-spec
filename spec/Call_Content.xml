@@ -79,7 +79,11 @@
       tp:name-for-bindings="Streams"
       type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The streams related to this content </p>
+        <p> The list of
+           <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Call">Stream.Draft</tp:dbus-ref>
+           that exist in this content.
+        </p>
 
         <tp:rational>
           In a conference call multiple parties can share one media contnet (say
