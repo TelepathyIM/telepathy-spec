@@ -75,6 +75,10 @@ $(TEST_ASYNC_INTROSPECT): $(TEST_INTROSPECT) tools/make_all_async.py
 	python tools/make_all_async.py $< $@
 
 all: $(GENERATED_FILES)
+	@echo "Your spec HTML starts at:"
+	@echo
+	@echo file://$(CURDIR)/doc/spec/index.html
+	@echo
 
 TEST_CANONICALIZED_FILES = test/output/introspect.canon
 
