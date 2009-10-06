@@ -114,7 +114,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="Contents" type="ao" access="read"
               tp:name-for-bindings="Contents">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The list of Contents that are part of this call. ChangeNotification
+        <p> The list of
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Call">Content.Draft</tp:dbus-ref>
+            objects  that are part of this call. ChangeNotification
             happens via the <tp:member-ref>ContentAdded</tp:member-ref> and
             <tp:member-ref>ContentRemoved</tp:member-ref> signals.
         </p>
@@ -322,7 +325,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
           with <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>
-          = <tp:dbus-ref
+           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type">Call.Draft</tp:dbus-ref>
           and <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
