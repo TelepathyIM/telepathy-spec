@@ -28,7 +28,6 @@ TEST_XMLS = $(wildcard test/input/*.xml)
 TEST_INTERFACE_XMLS = test/input/_Test.xml
 TEST_INTROSPECT = test/output/_Test.introspect.xml
 TEST_GENERATED_FILES = \
-	test/output/spec.html \
 	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
 
 RST = \
@@ -49,18 +48,11 @@ GENERATED_FILES = \
 	$(INTROSPECT) $(ASYNC_INTROSPECT) \
 	$(CANONICAL_NAMES)
 
-doc/spec.html: $(XMLS) tools/doc-generator.xsl
-	@install -d tmp/doc
-	$(XSLTPROC) tools/doc-generator.xsl spec/all.xml > tmp/$@
-	mv tmp/$@ $@
+doc/spec.html: doc/templates/oldspec.html
+	cp $< $@
 doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
 	@install -d tmp/doc
 	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > tmp/$@
-	mv tmp/$@ $@
-test/output/spec.html: $(TEST_XMLS) tools/doc-generator.xsl
-	@install -d tmp/test/output
-	@install -d test/output
-	$(XSLTPROC) tools/doc-generator.xsl test/input/all.xml > tmp/$@
 	mv tmp/$@ $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
@@ -83,18 +75,18 @@ $(TEST_ASYNC_INTROSPECT): $(TEST_INTROSPECT) tools/make_all_async.py
 	python tools/make_all_async.py $< $@
 
 all: $(GENERATED_FILES)
+	@echo "Your spec HTML starts at:"
+	@echo
+	@echo file://$(CURDIR)/doc/spec/index.html
+	@echo
 
-TEST_CANONICALIZED_FILES = test/output/spec.html.canon \
-			   test/output/introspect.canon
+TEST_CANONICALIZED_FILES = test/output/introspect.canon
 
-test/output/spec.html.canon: test/output/spec.html
-	$(CANONXML) $< > $@
 test/output/introspect.canon: test/output/_Test.introspect.xml
 	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
 
 check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
 	@e=0; \
-	diff -u test/expected/spec.html.canon test/output/spec.html.canon || e=1; \
 	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
 	exit $$e
 
@@ -104,16 +96,11 @@ clean:
 	rm -rf test/output
 	rm -rf tmp
 
-maintainer-upload-snapshot: doc/spec.html doc/spec/index.html
+maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
-	cp doc/spec.html tmp/spec.html
-	sed -i~ -e 's!\(<h2>Version [0-9][0-9.]*\)\(</h2>\)!\1 (git commit '`git rev-list -n 1 --abbrev-commit --abbrev=8 HEAD`', '`date +%Y-%m-%d`')\2!' \
-		tmp/spec.html
-	scp tmp/spec.html \
-		telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
-maintainer-upload-release: doc/spec.html doc/spec/index.html
+maintainer-upload-release: doc/spec/index.html
 	@install -d tmp
 	set -e ; \
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
@@ -126,10 +113,8 @@ maintainer-upload-release: doc/spec.html doc/spec/index.html
 	gpg --verify telepathy-spec-$$version.tar.gz.asc; \
 	rsync -vzP telepathy-spec-$$version.tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
 	rsync -vzP telepathy-spec-$$version.tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
-	rsync -vzP doc/spec.html telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot.html ; \
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/ ; \
-	rsync -vzP doc/spec.html telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec.html
+	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
 dist:
 	@install -d tmp
@@ -157,4 +142,4 @@ upload-branch: all
 	rsync -rzvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
-	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/
+	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
