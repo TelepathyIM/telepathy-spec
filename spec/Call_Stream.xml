@@ -45,12 +45,20 @@
     </method>
 
     <method name="RequestReceiving" tp:name-for-bindings="RequestReceiving">
+      <tp:docstring>
+        Request the remote contact to stop or start sending on this stream.
+      </tp:docstring>
+      <arg name="Contact" tp:name-for-bindings="Contact"
+          type="u" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Contact from which sending is requested</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Receive" tp:name-for-bindings="Receive"
           type="b" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Request to start receiving media over this stream</p>
-          FIXME should this actually be on an interface, on most protocols
-          it's not very meaningful afaik?
         </tp:docstring>
       </arg>
 
@@ -62,40 +70,54 @@
       </tp:possible-errors>
     </method>
 
-    <signal name="DirectionChanged" tp:name-for-bindings="Direction_Changed">
+    <signal name="SendersChanged"
+        tp:name-for-bindings="Senders_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when the direction on a stream has changed</p>
       </tp:docstring>
-      <arg name="CurrentDirection" tp:name-for-bindings="Current_Direction"
-          type="u" tp:Type="Media_Stream_Direction">
+
+      <arg name="Updates" type="a{uu}" tp:type="Contact_Sending_State_Map">
         <tp:docstring>
-          The new direction of this stream
+          A mapping from channel-specific handles to their updated sending
+          state.
         </tp:docstring>
-       </arg>
-      <arg name="PendingDirection" tp:name-for-bindings="Pending_Direction"
-          type="u" tp:Type="Media_Stream_Pending_Direction">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p> The new pending direction of this stream </p>
-          FIXME mu?
+      </arg>
+      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          The channel-specific handles that were removed from
+          the keys of the Senders property, as a result of the
+          contact leaving this stream
         </tp:docstring>
       </arg>
     </signal>
 
-    <property name="CurrentDirection" tp:name-for-bindings="Current_Direction"
-        type="u" access="read" tp:Type="Media_Stream_Direction">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The direction of this stream</p>
-       </tp:docstring>
-     </property>
+    <tp:enum name="SendingState" tp:name-for-bindings="Sending_State" type="u">
+      <tp:enumvalue suffix="PendingSend" value = "1">
+        <tp:docstring>
+          The contact has been asked to start sending Media.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Sending" value = "2">
+        <tp:docstring>
+          The contact is sending media.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
 
-    <property name="PendingDirection" tp:name-for-bindings="Pending_Direction"
-        type="u" access="read" tp:Type="Media_Stream_Pending_Direction">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The pending direction of this stream </p>
-        FIXME should move the a seperate interface like RequestReceiving ?
-       </tp:docstring>
-     </property>
+    <tp:mapping name="Contact_Sending_State_Map">
+      <tp:member name="Contact" type="u" tp:type="Contact_Handle">
+      </tp:member>
+      <tp:member name="Sending" type="u" tp:type="SendingState">
+         <tp:docstring>
+         </tp:docstring>
+      </tp:member>
+    </tp:mapping>
 
+    <property name="Senders" tp:name-for-bindings="Senders"
+        type="a{uu}" access="read" tp:type="Contact_Sending_State_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p> A map from contacts to their sending state</p>
+      </tp:docstring>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
