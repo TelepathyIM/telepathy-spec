@@ -26,7 +26,91 @@
     <tp:requires interface="org.freedesktop.Telepathy.Call.Content"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      Interface to use by a software implementation of media streaming.
+
+      FIXME: How should the streaming implementation know when it is its turn
+      to set the codecs.
     </tp:docstring>
+
+    <tp:mapping name = "Codec_Map">
+      <tp:member name="identifier" type="u">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Numeric identifier for the code. This will be used as the PT in the
+          SDP or content description.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="name" type="s">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The name of the codec.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="clockrate" type="u">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The clockrate of the codec
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="channels" type="u">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Number of channels of the codec if applicable, otherwise 0
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="parameters" type="a{ss}">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Extra parameters for this codec
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:mapping name = "Codec_Parameter_Map">
+      <tp:member name="identifier" type="u">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Numeric identifier for the code. This will be used as the PT in the
+          SDP or content description.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="parameters" type="a{ss}">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Extra parameters for this codec
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:mapping name="Contact_Codec_Map">
+      <tp:member name="Handle" type="u" tp:type="Contact_Handle">
+      </tp:member>
+      <tp:member name="Codecs" type="a{usuua{ss}}" tp:type="Codec_Map">
+      </tp:member>
+    </tp:mapping>
+
+    <signal name="CodecsChanged" tp:name-for-bindings="Codecs_Changed"
+        type="a{ua{usuua{ss}}}au">
+      <arg name="UpdateCodecs" type="a{ua{usuua{ss}}}"
+        tp:type="Contact_Codec_Map">
+      </arg>
+      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
+      </arg>
+    </signal>
+
+    <method name="SetCodecs" tp:name-for-bindings="Set_Codecs">
+      <arg name="codecs" direction="in"
+        type="a{usuua{ss}}" tp:type="Codec_Map">
+      </arg>
+    </method>
+
+    <method name="UpdateCodecParameters"
+        tp:name-for-bindings="Update_Codec_Parameters">
+      <arg name="codecs" direction="in"
+        type="a{ua{ss}}" tp:type="Codec_Parameter_Map">
+      </arg>
+    </method>
+
+    <property name="ContactCodecMap" tp:name-for-bindings="Contact_Codec_Map"
+      type="a{ua{usuua{ss}}}" tp:type="Contact_Codec_Map" access="read">
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
