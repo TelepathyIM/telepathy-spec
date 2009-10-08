@@ -53,6 +53,32 @@
       </tp:docstring>
     </property>
 
+    <tp:enum name="CallContentDisposition" type="u">
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The content has no specific disposition
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="EarlyMedia" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The content has no specific disposition
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Initial" value="2">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The content was initially part of the call. When answer is called on
+          the channel, all streams of this content will be set to sending if
+          they were pending.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <property name="Disposition" tp:name-for-bindings="Disposition"
+        type="u" tp:type="CallContentDisposition" access="read">
+
+    </property>
+
     <signal name="StreamAdded" tp:name-for-bindings="Stream_Added">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
          <p>Emitted when a stream is added to a call</p>
