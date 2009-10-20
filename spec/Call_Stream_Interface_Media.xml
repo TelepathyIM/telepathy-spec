@@ -96,15 +96,6 @@
       </tp:docstring>
     </method>
 
-    <method name="SetSelectedCandidate"
-        tp:name-for-bindings="Set_Selected_Candidate">
-      <arg name="candidate"
-        type="(usqa{sv})" tp:type="Candidate" direction="in">
-        <tp:docstring>
-        </tp:docstring>
-      </arg>
-    </method>
-
     <tp:enum type="u" name="Stream_Transport_Type">
       <tp:enumvalue suffix="Raw_UDP" value="0" />
       <tp:enumvalue suffix="ICE" value="1" />
@@ -116,32 +107,6 @@
     <property name="Transport" tp:name-for-bindings="Transport"
         type="u" tp:type="Stream_Transport_Type" access="read">
     </property>
-
-    <tp:mapping name="Handle_Candidate_Map">
-      <tp:member name="Contact" type="u" tp:type="Contact_Handle" />
-      <tp:member name="Candidates" type="a(usqa{sv})" tp:type="Candidate[]" />
-    </tp:mapping>
-
-    <property name="RemoteCandidates" tp:name-for-bindings="Remote_Candidates"
-      type="a(usqa{sv})" tp:type="Candidate[]" access="read">
-    </property>
-
-    <signal name="RemoteCandidatesAdded"
-        tp:name-for-bindings="Remote_Candidates_Added">
-      <arg name="Candidates"
-        type="a(usqa{sv})" tp:type="Candidate[]"/>
-    </signal>
-
-    <property name="RemoteCredentials"
-      tp:name-for-bindings="Remote_Credentials"
-      type="ss" access="read">
-    </property>
-
-    <signal name="RemoteCredentialsSet"
-        tp:name-for-bindings="Remote_Credentials_Set">
-      <arg name="username" type="s" />
-      <arg name="password" type="s" />
-    </signal>
 
     <property name="LocalCandidates" tp:name-for-bindings="Local_Candidates"
       type="a(usqa{sv})" tp:type="Candidate[]" access="read">
@@ -162,34 +127,6 @@
       <arg name="username" type="s" />
       <arg name="password" type="s" />
     </signal>
-
-    <property name="SelectedCandidate"
-        tp:name-for-bindings="Selected_Candidate"
-      type="(usqa{sv})" tp:type="Candidate" access="read">
-    </property>
-
-    <signal name="CandidateSelected"
-        tp:name-for-bindings="Candidate_Selected">
-      <arg name="Candidate"
-        type="(usqa{sv})" tp:type="Candidate"/>
-    </signal>
-
-    <property name="StreamState" tp:name-for-bindings="Stream_State"
-      type="u" tp:type="Media_Stream_Type"
-      access="read">
-    </property>
-
-    <signal name="StreamStateChanged"
-        tp:name-for-bindings="Stream_State_Changed">
-      <arg name="state"
-      type="u" tp:type="Media_Stream_Type"/>
-    </signal>
-
-    <method name="SetStreamState"
-        tp:name-for-bindings="Set_Stream_State">
-      <arg name="state" type="u" tp:type="Media_Stream_Type"
-        direction="in" />
-    </method>
 
     <signal name="STUNServersAdded"
         tp:name-for-bindings="STUN_Servers_Added">
@@ -292,8 +229,21 @@
       </tp:docstring>
     </property>
 
+    <signal name="EndpointsChanged"
+        tp:name-for-bindings="Endpoints_Changed">
+      <arg name="EndpointsAdded" type="ao" />
+      <arg name="EndpointsRemoved" type="ao" />
+    </signal>
 
-
+    <property name="Endpoints" tp:name-for-bindings="Endpoints"
+      type="ao" access="read">
+        <p> The list of endpoints
+           <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Call.Stream"
+              >Endpoint.Draft</tp:dbus-ref>
+           that exist for this stream.
+        </p>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
