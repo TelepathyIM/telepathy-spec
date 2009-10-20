@@ -32,7 +32,7 @@
       to set the codecs.
     </tp:docstring>
 
-    <tp:mapping name = "Codec_Map">
+    <tp:struct name="Codec" array-name="Codec_List">
       <tp:member name="identifier" type="u">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Numeric identifier for the code. This will be used as the PT in the
@@ -62,7 +62,7 @@
           Extra parameters for this codec
         </tp:docstring>
       </tp:member>
-    </tp:mapping>
+    </tp:struct>
 
     <tp:mapping name = "Codec_Parameter_Map">
       <tp:member name="identifier" type="u">
@@ -82,13 +82,13 @@
     <tp:mapping name="Contact_Codec_Map">
       <tp:member name="Handle" type="u" tp:type="Contact_Handle">
       </tp:member>
-      <tp:member name="Codecs" type="a{usuua{ss}}" tp:type="Codec_Map">
+      <tp:member name="Codecs" type="a(usuua{ss})" tp:type="Codec[]">
       </tp:member>
     </tp:mapping>
 
     <signal name="CodecsChanged" tp:name-for-bindings="Codecs_Changed"
-        type="a{ua{usuua{ss}}}au">
-      <arg name="UpdateCodecs" type="a{ua{usuua{ss}}}"
+        type="a{ua(usuua{ss}})au">
+      <arg name="UpdateCodecs" type="a{ua(usuua{ss})}"
         tp:type="Contact_Codec_Map">
       </arg>
       <arg name="Removed" type="au" tp:type="Contact_Handle[]">
@@ -97,19 +97,15 @@
 
     <method name="SetCodecs" tp:name-for-bindings="Set_Codecs">
       <arg name="codecs" direction="in"
-        type="a{usuua{ss}}" tp:type="Codec_Map">
+        type="a(usuua{ss})" tp:type="Codec[]">
       </arg>
-    </method>
-
-    <method name="UpdateCodecParameters"
-        tp:name-for-bindings="Update_Codec_Parameters">
-      <arg name="codecs" direction="in"
-        type="a{ua{ss}}" tp:type="Codec_Parameter_Map">
-      </arg>
+      <tp:docstring>
+        Set or update the local codec mapping
+      </tp:docstring>
     </method>
 
     <property name="ContactCodecMap" tp:name-for-bindings="Contact_Codec_Map"
-      type="a{ua{usuua{ss}}}" tp:type="Contact_Codec_Map" access="read">
+      type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map" access="read">
     </property>
   </interface>
 </node>
