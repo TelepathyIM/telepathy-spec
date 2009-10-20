@@ -119,6 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <tp:section name="Calls">
    <xi:include href="Call_Content.xml"/>
    <xi:include href="Call_Content_Interface_Media.xml"/>
+   <xi:include href="Call_Content_Codec_Offer.xml"/>
    <xi:include href="Call_Stream.xml"/>
    <xi:include href="Call_Stream_Interface_Media.xml"/>
  </tp:section>

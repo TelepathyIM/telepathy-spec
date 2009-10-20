@@ -107,6 +107,20 @@
     <property name="ContactCodecMap" tp:name-for-bindings="Contact_Codec_Map"
       type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map" access="read">
     </property>
+
+    <signal name="NewCodecOffer" tp:name-for-bindings="New_Codec_Offer">
+      <arg name="Offer" type="o" />
+    </signal>
+
+    <property name="CodecOffer" tp:name-for-bindings="Codec_Offer"
+      type="o" access="read">
+      <tp:docstring>
+        If this object path is not "/" then refers to the current outstanding
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Call.Content"
+            >CodecOffer.Draft</tp:dbus-ref> object.
+      </tp:docstring>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
