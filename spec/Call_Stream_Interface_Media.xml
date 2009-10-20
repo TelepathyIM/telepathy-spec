@@ -68,6 +68,10 @@
           <dd> Password of this candidate
             (only if credentials are per candidate)</dd>
 
+          <dt> RawUDPFallback (b) </dt>
+          <dd> Indicate whether this candidate may be used to provide a UDP
+               fallback</dd>
+
         </dl>
       </tp:docstring>
     </tp:mapping>
