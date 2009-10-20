@@ -77,7 +77,7 @@
     </tp:mapping>
 
     <tp:struct name="Candidate" array-name="Candidate_List">
-      <tp:docstring>A mushroom and a snake</tp:docstring>
+      <tp:docstring>A Stream Candidate</tp:docstring>
 
       <tp:member name="component" type="u" />
       <tp:member name="ip" type="s" />
