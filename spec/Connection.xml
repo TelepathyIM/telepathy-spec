@@ -978,6 +978,33 @@ USA.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
+    <property name="Sidecars" tp:name-for-bindings="Sidecars"
+        type="a(os)" access="read" tp:type="Sidecar_Info[]">
+      <tp:docstring>
+        <p>A list of objects providing additional connection-specific
+          functionality. These will often be implemented by plug-ins to the
+          connection managers; for example, support for XMPP XEPs which have no
+          generic Telepathy interfaces might be implemented by Gabble plugins,
+          which would expose sidecar objects and/or new channel types.</p>
+
+        <p>If this property is missing, it should be assumed to be the
+          empty list.</p>
+      </tp:docstring>
+      <tp:added version="0.19.UNRELEASED"/>
+    </property>
+
+    <tp:struct name="Sidecar_Info" array-name="Sidecar_Info_List">
+      <tp:member type="o" name="Sidecar">
+        <tp:docstring>The object path of a sidecar attached to a connection (on
+          the same bus name).</tp:docstring>
+      </tp:member>
+      <tp:member type="s" tp:type="DBus_Interface" name="Interface">
+        <tp:docstring>The primary D-Bus interface of the sidecar
+          object.</tp:docstring>
+      </tp:member>
+      <tp:added version="0.19.UNRELEASED"/>
+    </tp:struct>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This models a connection to a single user account on a communication
         service. Its basic capability is to provide the facility to request and
