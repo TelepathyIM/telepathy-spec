@@ -123,7 +123,7 @@
     </signal>
 
     <property name="LocalCredentials" tp:name-for-bindings="Local_Credentials"
-      type="ss" access="read">
+      type="(ss)" access="read">
     </property>
 
     <signal name="LocalCredentialsSet"

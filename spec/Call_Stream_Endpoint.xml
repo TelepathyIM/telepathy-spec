@@ -30,7 +30,7 @@
 
     <property name="RemoteCredentials"
       tp:name-for-bindings="Remote_Credentials"
-      type="ss" access="read">
+      type="(ss)" access="read">
     </property>
 
     <signal name="RemoteCredentialsSet"
