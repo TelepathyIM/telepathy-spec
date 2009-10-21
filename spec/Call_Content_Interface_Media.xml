@@ -110,6 +110,7 @@
 
     <signal name="NewCodecOffer" tp:name-for-bindings="New_Codec_Offer">
       <arg name="Offer" type="o" />
+      <arg name="Codecs" type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map" />
     </signal>
 
     <property name="CodecOffer" tp:name-for-bindings="Codec_Offer"
