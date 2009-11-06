@@ -979,16 +979,15 @@ USA.</p>
     </tp:contact-attribute>
 
     <property name="Sidecars" tp:name-for-bindings="Sidecars"
-        type="a{oa{sv}}" tp:type='Sidecar_Map' access="read">
+        type="a{s(oa{sv})}" tp:type='Sidecar_Map' access="read">
       <tp:docstring>
-        <p>A set of objects (which implement the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Sidecar.DRAFT</tp:dbus-ref>
-          interface) providing additional connection-specific functionality,
-          together with their immutable properties. These will often be
-          implemented by plug-ins to the connection managers; for example,
-          support for XMPP XEPs which have no generic Telepathy interfaces
-          might be implemented by Gabble plugins, which would expose sidecar
-          objects and/or new channel types.</p>
+        <p>A set of objects providing additional connection-specific
+          functionality, together with their immutable properties and indexed
+          by the interface they implement. These will often be implemented by
+          plug-ins to the connection managers; for example, support for XMPP
+          XEPs which have no generic Telepathy interfaces might be implemented
+          by Gabble plugins, which would expose sidecar objects and/or new
+          channel types.</p>
 
         <p>This property may only change when the connection moves to state
           Connected (as signalled by
@@ -999,26 +998,55 @@ USA.</p>
           state Disconnected.</p>
 
         <p>If this property is missing, it should be assumed to be the
-          empty list.</p>
+          empty mapping.</p>
       </tp:docstring>
       <tp:added version="0.19.UNRELEASED"/>
     </property>
 
-    <tp:struct name="Sidecar_Map">
-      <tp:member type="o" name="Sidecar">
-        <tp:docstring>The path of a object attached to a connection (on
-          the same bus name), which implements the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Sidecar.DRAFT</tp:dbus-ref>
-          interface.</tp:docstring>
-      </tp:member>
-      <tp:member name="Properties" type="a{sv}"
-        tp:type="Qualified_Property_Value_Map">
-        <tp:docstring>Immutable properties of this sidecar object, which MUST
-          include the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Sidecar.DRAFT">Interfaces</tp:dbus-ref>
-          it implements.</tp:docstring>
-      </tp:member>
+    <tp:mapping name="Sidecar_Map">
       <tp:added version="0.19.UNRELEASED"/>
+
+      <tp:docstring>A mapping from an interface name to details of an object
+        implementing that interface, as used by the
+        <tp:member-ref>Sidecars</tp:member-ref> property.</tp:docstring>
+
+      <tp:member type="s" name="Main_Interface">
+        <tp:docstring>
+          The "primary" interface implemented by an object attached
+          to a connection. For example, a Gabble plugin implementing
+          fine-grained control of XEP-0016 privacy lists might expose an object
+          implementing <tt>com.example.PrivacyLists</tt>.
+
+          <tp:rationale>There is an implicit assumption that any connection
+            manager plugin will only want to export one “primary” object per
+            feature it implements, since there is a one-to-one mapping between
+            interface and object. This is reasonable since Sidecars are
+            (intended to be) analogous to extra interfaces on the connection,
+            providing once-per-connection shared functionality; it also makes
+            client code straightforward (look up the interface you care about
+            in a dictionary, build a proxy object from the value). More
+            “plural” plugins are likely to want to implement new types of
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>
+            instead.</tp:rationale>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="(oa{sv})" name="Details" tp:type="Sidecar_Details">
+        <tp:docstring>Immutable properties of this sidecar
+          object.</tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:struct name="Sidecar_Details">
+      <tp:member type="o" name="Path">
+        <tp:docstring>The object path of the sidecar, exported by the same bus
+          name as the Connection to which it is attached.</tp:docstring>
+      </tp:member>
+      <tp:member type="a{sv}" tp:type="Qualified_Property_Value_Map"
+                 name="Properties">
+        <tp:docstring>Immutable properties of the sidecar.</tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
