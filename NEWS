@@ -5,7 +5,15 @@ checkouts.
 telepathy-spec 0.19.0 (UNRELEASED)
 ==================================
 
-...
+Enhancements:
+
+* fd.o #24938: added 'skype' (Skype) and 'tel' (telephony) to the list of
+  well-known protocol names (smcv)
+
+Clarifications:
+
+* fd.o #24851: declared that ChatState makes no sense without Text, validating
+  the decision to put ChatState API on Tp::TextChannel in telepathy-qt4 (smcv)
 
 telepathy-spec 0.18.0 (2009-09-24)
 ==================================
