@@ -35,6 +35,7 @@ class UnknownType(Exception): pass
 class UnnamedItem(Exception): pass
 class UntypedItem(Exception): pass
 class UnsupportedArray(Exception): pass
+class BadNameForBindings(Exception): pass
 
 def getText(dom):
     try:
@@ -223,6 +224,24 @@ class Base(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
+class DBusConstruct(Base):
+    """Base class for signals, methods and properties."""
+
+    def __init__(self, parent, namespace, dom):
+        super(DBusConstruct, self).__init__(parent, namespace, dom)
+
+        self.name_for_bindings = dom.getAttributeNS(XMLNS_TP,
+                'name-for-bindings')
+
+        if not self.name_for_bindings:
+            raise BadNameForBindings('%s has no name-for-bindings'
+                    % self)
+
+        if self.name_for_bindings.replace('_', '') != self.short_name:
+            raise BadNameForBindings('%s name-for-bindings = %s does not '
+                    'match short_name = %s' % (self, self.name_for_bindings,
+                        self.short_name))
+
 class PossibleError(Base):
     def __init__(self, parent, namespace, dom):
         super(PossibleError, self).__init__(parent, namespace, dom)
@@ -247,7 +266,7 @@ class PossibleError(Base):
         else:
             return d
 
-class Method(Base):
+class Method(DBusConstruct):
     devhelp_name = "function"
 
     def __init__(self, parent, namespace, dom):
@@ -313,7 +332,7 @@ class Typed(Base):
     def __repr__(self):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
-class Property(Typed):
+class Property(DBusConstruct, Typed):
     ACCESS_READ     = 1
     ACCESS_WRITE    = 2
 
@@ -361,7 +380,7 @@ class Arg(Typed):
             raise UnknownDirection("Unknown direction '%s' on %s" % (
                                     direction, self.parent))
 
-class Signal(Base):
+class Signal(DBusConstruct):
     def __init__(self, parent, namespace, dom):
         super(Signal, self).__init__(parent, namespace, dom)
 
