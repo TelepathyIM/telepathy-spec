@@ -212,7 +212,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         The following two keys are guaranteed to exist:
         <dl>
-          <dt> State (u - <tp:type>CallState</tp:type>) </dt>
+          <dt> State (u - <tp:type>Call_State</tp:type>) </dt>
           <dd> The status of the contact in the call </dd>
 
           <dt> Flags (u - <tp:type>CallFlags</tp:type>) </dt>
