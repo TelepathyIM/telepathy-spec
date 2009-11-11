@@ -135,7 +135,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="a{sv}" name="State" tp:type="Contact_Call_State"/>
     </tp:mapping>
 
-    <tp:enum type="u" name="CallState" tp:name-for-bindings="Call_State">
+    <tp:enum type="u" name="Call_State">
       <tp:enumvalue suffix="Pending" value = "1">
         <tp:docstring>
           This contact hasn't accepted the Call yet
