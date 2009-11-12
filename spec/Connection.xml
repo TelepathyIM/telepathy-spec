@@ -978,46 +978,48 @@ USA.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
-    <property name="Sidecars" tp:name-for-bindings="Sidecars"
-        type="a{s(oa{sv})}" tp:type='Sidecar_Map' access="read">
-      <tp:docstring>
-        <p>A set of objects providing additional connection-specific
-          functionality, together with their immutable properties and indexed
-          by the interface they implement. These will often be implemented by
-          plug-ins to the connection managers; for example, support for XMPP
-          XEPs which have no generic Telepathy interfaces might be implemented
-          by Gabble plugins, which would expose sidecar objects and/or new
-          channel types.</p>
-
-        <p>This property may only change when the connection moves to state
-          Connected (as signalled by
-          <tp:member-ref>StatusChanged</tp:member-ref>); interested clients who
-          checked this property before the connection became connected may
-          re-retrieve it to discover new sidecars. Once a sidecar is announced
-          for a connection, it MUST remain alive until the connection moves to
-          state Disconnected.</p>
-
-        <p>If this property is missing, it should be assumed to be the
-          empty mapping.</p>
-      </tp:docstring>
-      <tp:added version="0.19.UNRELEASED"/>
-    </property>
-
-    <tp:mapping name="Sidecar_Map">
+    <method name="EnsureSidecar" tp:name-for-bindings="Ensure_Sidecar">
       <tp:added version="0.19.UNRELEASED"/>
 
-      <tp:docstring>A mapping from an interface name to details of an object
-        implementing that interface, as used by the
-        <tp:member-ref>Sidecars</tp:member-ref> property.</tp:docstring>
-
-      <tp:member type="s" name="Main_Interface">
+      <arg direction="in" name="Main_Interface" type="s"
+           tp:type="DBus_Interface">
         <tp:docstring>
           The "primary" interface implemented by an object attached
           to a connection. For example, a Gabble plugin implementing
           fine-grained control of XEP-0016 privacy lists might expose an object
           implementing <tt>com.example.PrivacyLists</tt>.
+        </tp:docstring>
+      </arg>
 
-          <tp:rationale>There is an implicit assumption that any connection
+      <arg direction="out" name="Path" type="o">
+        <tp:docstring>The object path of the sidecar, exported by the same bus
+          name as the Connection to which it is attached.</tp:docstring>
+      </arg>
+      <arg direction="out" name="Properties" type="a{sv}"
+           tp:type="Qualified_Property_Value_Map">
+        <tp:docstring>Immutable properties of the sidecar.</tp:docstring>
+      </arg>
+
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request an object with a particular interface providing additional
+          connection-specific functionality, together with its immutable
+          properties. These will often be implemented by plug-ins to the
+          connection managers; for example, support for an XMPP XEP for which
+          no generic Telepathy interface exists might be implemented by a
+          Gabble plugin exposing a sidecar with a particular interface.</p>
+
+        <p>This method may be called at any point during the lifetime of a
+          connection, even before its <tp:type>Connection_Status</tp:type>
+          changes to Connected. It MAY take a long time to
+          return—perhaps it needs to wait for a connection to be established
+          and for all the services supported by the server to be discovered
+          before determining whether necessary server-side support is
+          available—so callers SHOULD override the default method timeout (25
+          seconds) with a much higher value (perhaps even MAX_INT32, meaning
+          “no timeout” in recent versions of libdbus).</p>
+
+        <tp:rationale>
+          <p>There is an implicit assumption that any connection
             manager plugin will only want to export one “primary” object per
             feature it implements, since there is a one-to-one mapping between
             interface and object. This is reasonable since Sidecars are
@@ -1028,26 +1030,35 @@ USA.</p>
             “plural” plugins are likely to want to implement new types of
             <tp:dbus-ref
               namespace="org.freedesktop.Telepathy">Channel</tp:dbus-ref>
-            instead.</tp:rationale>
+            instead.</p>
+        </tp:rationale>
+      </tp:docstring>
+
+      <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:docstring>
+          The requested sidecar is not implemented by this connection manager,
+          or a necessary server-side component does not exist. (FIXME: split
+          these two errors out? Then again, once we list the guaranteed and
+          possible sidecars on a Protocol object, clients can tell the
+          difference themselves, because they shouldn't be calling this in the
+          first case.)
         </tp:docstring>
-      </tp:member>
+      </tp:error>
 
-      <tp:member type="(oa{sv})" name="Details" tp:type="Sidecar_Details">
-        <tp:docstring>Immutable properties of this sidecar
-          object.</tp:docstring>
-      </tp:member>
-    </tp:mapping>
+      <tp:error name="org.freedesktop.Telepathy.Error.ServiceBusy">
+        <tp:docstring>
+          A server-side component needed by the requested sidecar reported it
+          is currently too busy, or did not respond for some
+          implementation-defined time. The caller may wish to try again later.
+        </tp:docstring>
+      </tp:error>
 
-    <tp:struct name="Sidecar_Details">
-      <tp:member type="o" name="Path">
-        <tp:docstring>The object path of the sidecar, exported by the same bus
-          name as the Connection to which it is attached.</tp:docstring>
-      </tp:member>
-      <tp:member type="a{sv}" tp:type="Qualified_Property_Value_Map"
-                 name="Properties">
-        <tp:docstring>Immutable properties of the sidecar.</tp:docstring>
-      </tp:member>
-    </tp:struct>
+      <tp:error name="org.freedesktop.Telepathy.Error.Cancelled">
+        <tp:docstring>
+          The connection was disconnected while the sidecar was being set up.
+        </tp:docstring>
+      </tp:error>
+    </method>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This models a connection to a single user account on a communication
