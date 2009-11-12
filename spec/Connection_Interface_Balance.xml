@@ -66,9 +66,10 @@
       </tp:member>
       <tp:member type="s" name="Currency">
         <tp:docstring>
-          The international currency code represented by this amount, such
-          as "EUR", "USD", or "JPY". An empty string can be used to indicate
-          that the currency is not known.
+          The currency code represented by this amount, which SHOULD be an
+          international currency code such as "EUR", "USD", or "JPY" if
+          possible. An empty string can be used to indicate that the currency
+          is not known.
         </tp:docstring>
       </tp:member>
     </tp:struct>
