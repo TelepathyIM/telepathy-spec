@@ -81,63 +81,24 @@
           A negative amount may be possible on some services, and indicates
           that the user owes money to the service provider.</p>
 
-        <p>On initial connection, this property is likely to have an unknown
+        <p>On initial connection, this property may have an unknown
           value, represented by Amount = 0, Scale = 2**32 and
           Currency = "".</p>
-
-        <p>On services where <tp:member-ref>ChangeNotification</tp:member-ref>
-          is FALSE, the value of this property contains the last known
-          balance, which will be unknown until a current balance has been
-          downloaded using <tp:member-ref>RequestBalance</tp:member-ref>.</p>
       </tp:docstring>
     </property>
 
-    <method name="RequestBalance" tp:name-for-bindings="Request_Balance">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Get the current value of the balance, making a network request to
-          the server or waiting for a previous network request to complete
-          if necessary.</p>
-      </tp:docstring>
-
-      <arg name="Balance" direction="out"
-        type="(ius)" tp:type="Currency_Amount">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>An up-to-date value of the balance.</p>
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Errors.Disconnected" />
-        <tp:error name="org.freedesktop.Telepathy.Errors.NotAvailable" />
-      </tp:possible-errors>
-    </method>
-
     <signal name="BalanceChanged" tp:name-for-bindings="Balance_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when the user's balance has changed. On services
-          where <tp:member-ref>ChangeNotification</tp:member-ref> is FALSE,
-          this will only be emitted if a client calls
-          <tp:member-ref>RequestBalance</tp:member-ref>.</p>
+        <p>Emitted when the user's balance has changed.</p>
       </tp:docstring>
 
       <arg name="Balance" type="(ius)" tp:type="Currency_Amount">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>An up-to-date value of the balance.</p>
+          <p>The new value of the <tp:member-ref>AccountBalance</tp:member-ref>
+            property.</p>
         </tp:docstring>
       </arg>
     </signal>
-
-    <property name="ChangeNotification"
-      tp:name-for-bindings="Change_Notification"
-      access="read" type="b">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If TRUE, clients can expect timely notification of
-          changes to the balance. If FALSE, the
-          <tp:member-ref>BalanceChanged</tp:member-ref> signal will not be
-          emitted unless
-          <tp:member-ref>RequestBalance</tp:member-ref> is called.</p>
-      </tp:docstring>
-    </property>
 
   </interface>
 </node>
