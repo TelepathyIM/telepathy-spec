@@ -235,7 +235,8 @@
         tp:name-for-bindings="Retrieved_Server_Info" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if the initial information about STUN servers and Relay servers
-           has been retrieved.
+           has been retrieved. Change notification via the ServerInfoRetrieved
+           signal.
         </p>
       </tp:docstring>
     </property>
