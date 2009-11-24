@@ -44,10 +44,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <method name="Hangup" tp:name-for-bindings="Hangup">
+      <arg direction="in" name="Reason"
+        type="u" > <!-- tp:type="Call_State_Reason"> -->
+        A generic hangup reason.
+      </arg>
+      <arg direction="in" name="Detailed_Hangup_Reason"
+        type="s" tp:type="DBus_Error_Name">
+        A more specific reason for the call hangup, if one is available.
+        "" otherwise.
+      </arg>
+      <arg direction="in" name="Message" type="string">
+        Human readable message.
+      </arg>
       <tp:docstring>
-        End the call
-        FIXME: add the possibility to add a reason and give
-          to give more detailed errors.
+        Request the ending of the call.
       </tp:docstring>
     </method>
 
