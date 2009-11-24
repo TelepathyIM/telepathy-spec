@@ -202,7 +202,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:flag suffix="Clearing" value="32">
         <tp:docstring>
-          The call is being cleared
+          This flag only occurs when the CallState is Ended. The call with
+          this flag set has ended, but not all resources corresponding to the
+          call have been freed yet.
+
+          Depending on the protocol there might be some audible feedback while
+          the clearing flag is set.
+
+          <tp:rationale>
+            In calls following the ITU-T Q.931 standard there is a period of
+            time between the call ending and the underlying channel being
+            completely free for re-use.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
