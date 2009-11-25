@@ -236,8 +236,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:enumvalue suffix="Unknown" value="0" />
     </tp:enum>
 
+    <tp:struct name="Call_State_Reason">
+      <tp:member type="u" tp:type="Handle" name="actor"/>
+      <tp:member type="u" tp:type="Call_State_Change_Reason" name="Reason"/>
+      <tp:member type="s" tp:type="DBus_Error_Name" name="DbusReason" />
+    </tp:struct>
+
     <property name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
-      type="uuss" access="read"> <!-- tp:type="Call_State_Reason_Struct"> -->
+      type="(uus)" access="read"  tp:type="Call_State_Reason">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The reason the call is in the state it is in :) </p>
       </tp:docstring>
@@ -256,7 +262,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         type="u" tp:type="Call_Flags">
       </arg>
       <arg name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
-        type="uuss">
+        type="(uus)">
       </arg>
       <arg name="Details" tp:name-for-bindings="Details" type="a{sv}">
       </arg>
