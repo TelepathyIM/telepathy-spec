@@ -127,11 +127,41 @@
             requestable?]</strong>
         </p>
 
-        <p>Change notification is via
-          <strong>[FIXME: add some sort of signal]</strong>.
-        </p>
+        <p>Change notification is via the
+          <tp:member-ref>ChannelMerged</tp:member-ref> and
+          <tp:member-ref>ChannelRemoved</tp:member-ref> signals.</p>
       </tp:docstring>
     </property>
+
+    <signal name="ChannelMerged" tp:name-for-bindings="Channel_Merged">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a new channel is added to the value of
+          <tp:member-ref>Channels</tp:member-ref>.</p>
+      </tp:docstring>
+
+      <arg name="Channel" type="o">
+        <tp:docstring>The channel that was added to
+          <tp:member-ref>Channels</tp:member-ref>.</tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="ChannelRemoved" tp:name-for-bindings="Channel_Removed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a channel is removed from the value of
+          <tp:member-ref>Channels</tp:member-ref>, either because it closed
+          or because it was split using the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Interface"
+            >Splittable.DRAFT.Split</tp:dbus-ref> method.</p>
+
+        <p><strong>[FIXME: relative ordering of this vs. Closed? Do we
+            care?]</strong></p>
+      </tp:docstring>
+
+      <arg name="Channel" type="o">
+        <tp:docstring>The channel that was removed from
+          <tp:member-ref>Channels</tp:member-ref>.</tp:docstring>
+      </arg>
+    </signal>
 
     <property name="InitialChannels" tp:name-for-bindings="Initial_Channels"
       access="read" type="ao">
