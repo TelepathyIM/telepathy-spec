@@ -323,11 +323,12 @@
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Errors.NotAvailable">
-          <tp:docstring>
+          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
             The given channel is theoretically suitable for merging into this
             one, but that's not currently possible for some reason (for
             instance, this SHOULD be raised if a limit on the number of
-            channels in a conference is exceeded). [FIXME: PermissionDenied?]
+            channels in a conference is exceeded).
+            <strong>[FIXME: PermissionDenied?]</strong>
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
