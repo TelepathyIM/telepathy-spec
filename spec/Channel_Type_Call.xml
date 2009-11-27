@@ -399,17 +399,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="HardwareStreaming" tp:name-for-bindings="Hardware_Streaming"
         type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>
-          If this property is TRUE then all the media streaming is done by a
-          specialized component If this is FALSE then the handler should handle
-          the media streaming at least some parts itself.
-          <tp:rationale>
-            A connection-manager might be intended for a specialized hardware
-            device, which will take care of the audio streaming. (e.g.
-            telepathy-yafono which uses GSM hardware which does the audio actual
-            streaming for the call)
-          </tp:rationale>
-        </p>
+        <p>If this property is TRUE, all of the media streaming is done by some
+          mechanism outside the scope of Telepathy.</p>
+
+        <tp:rationale>
+          <p>A connection manager might be intended for a specialized hardware
+            device, which will take care of the audio streaming (e.g.
+            telepathy-yafono, which uses GSM hardware which does the actual
+            audio streaming for the call).</p>
+        </tp:rationale>
+
+        <p>If this is FALSE, the handler is responsible for doing the actual
+          media streaming for at least some contents itself. Those contents
+          will have the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content.Interface"
+            >Media.DRAFT</tp:dbus-ref> interface, to communicate the necessary
+          information to a streaming implementation. Connection managers SHOULD
+          operate like this, if possible.</p>
+
+        <tp:rationale>
+          <p>Many connection managers (such as telepathy-gabble) only do the
+            call signalling, and expect the client to do the actual streaming
+            using something like
+            <a href="http://farsight.freedesktop.org/">Farsight</a>, to improve
+            latency and allow better UI integration.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
