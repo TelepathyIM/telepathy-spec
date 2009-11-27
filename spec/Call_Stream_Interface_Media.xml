@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Stream.Interface.Media.Draft"
+  <interface name="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT"
       tp:causes-havoc="experimental">
     <tp:added version="0.17.UNRELEASED">(as a draft)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.Call.Stream"/>
@@ -252,7 +252,7 @@
         <p> The list of endpoints
            <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call.Stream"
-              >Endpoint.Draft</tp:dbus-ref>
+              >Endpoint.DRAFT</tp:dbus-ref>
            that exist for this stream.
         </p>
     </property>

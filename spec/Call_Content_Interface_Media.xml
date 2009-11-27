@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Content.Interface.Media.Draft"
+  <interface name="org.freedesktop.Telepathy.Call.Content.Interface.Media.DRAFT"
       tp:causes-havoc="experimental">
     <tp:added version="0.17.UNRELEASED">(as a draft)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.Call.Content"/>
@@ -91,7 +91,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The object path to the
             <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content"
-              >CodecOffer.Draft</tp:dbus-ref>
+              >CodecOffer.DRAFT</tp:dbus-ref>
         </tp:docstring>
       </tp:member>
       <tp:member name="CodecMap" type="a{ua(usuua{ss})}"
@@ -135,7 +135,7 @@
         The object path to the current
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Call.Content"
-            >CodecOffer.Draft</tp:dbus-ref> object and the
+            >CodecOffer.DRAFT</tp:dbus-ref> object and the
           Codec map associated with it.
         If the object path is "/" then there isn't an outstanding CodecOffer
       </tp:docstring>
