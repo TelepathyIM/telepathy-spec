@@ -222,24 +222,56 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <tp:enum type="u" name="Call_State">
-      <tp:enumvalue suffix="PendingInitiator" value = "1">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The state of a call, as a whole.</p>
+
+        <p>The allowed transitions are:</p>
+
+        <ul>
+          <li>Pending_Initiator → Pending_Receiver (for outgoing calls,
+            when <tp:member-ref>Accept</tp:member-ref> is called)</li>
+          <li>Pending_Receiver → Accepted (for incoming calls, when
+            <tp:member-ref>Accept</tp:member-ref> is called; for outgoing
+            calls to a contact, when the remote contact accepts the call;
+            for joining a conference call, when the local user successfully
+            joins the conference)</li>
+          <li>Accepted → Pending_Receiver (when transferred to another
+            contact)</li>
+          <li>any state → Ended (when the call is terminated normally, or
+            when an error occurs)</li>
+        </ul>
+      </tp:docstring>
+
+      <tp:enumvalue suffix="Unknown" value = "0">
         <tp:docstring>
-          The initiator hasn't accepted the call yet
+          The call state is not known. This call state MUST NOT appear as a
+          value of the <tp:member-ref>CallState</tp:member-ref> property, but
+          MAY be used by client code to represent calls whose state is as yet
+          unknown.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="PendingReceiver" value = "2">
+      <tp:enumvalue suffix="Pending_Initiator" value = "1">
         <tp:docstring>
-          This receiver hasn't accepted the Call yet
+          The initiator of the call hasn't accepted the call yet. This state
+          only makes sense for outgoing calls, where it means that the local
+          user has not yet sent any signalling messages to the remote user(s),
+          and will not do so until <tp:member-ref>Accept</tp:member-ref> is
+          called.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Pending_Receiver" value = "2">
+        <tp:docstring>
+          The receiver (the contact being called) hasn't accepted the call yet.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Accepted" value = "3">
         <tp:docstring>
-          The contact accepted this call
+          The contact being called has accepted the call.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Ended" value = "4">
         <tp:docstring>
-          The call has  ended
+          The call has ended, either via normal termination or an error.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
