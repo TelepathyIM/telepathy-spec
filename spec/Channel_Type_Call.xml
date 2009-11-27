@@ -276,15 +276,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:flags name="Call_Flags" value-prefix="Channel_Call_Flags" type="u">
+    <tp:flags name="Call_Flags" value-prefix="Call_Flag" type="u">
       <tp:docstring>
-        A set of flags representing call states.
+        A set of flags representing the status of the call as a whole,
+        providing more specific information than the
+        <tp:member-ref>CallState</tp:member-ref>. Many of these flags only make
+        sense in a particular state.
       </tp:docstring>
 
       <tp:flag suffix="Ringing" value="1">
         <tp:docstring>
-          The contact has been alerted about the call but has not responded
-          (e.g. 180 Ringing in SIP).
+          The local contact has been alerted about the call but has not
+          responded; if possible, the remote contact(s) have been informed of
+          this fact. This flag only makes sense on incoming calls in
+          state Call_State_Pending_Receiver. It SHOULD be set when
+          <tp:member-ref>Ringing</tp:member-ref> is called successfully, and
+          unset when the state changes.
+          [FIXME: does this make sense for outgoing calls too?]
         </tp:docstring>
       </tp:flag>
 
@@ -292,12 +300,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           The contact is temporarily unavailable, and the call has been placed
           in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
+          This flag only makes sense on outgoing 1-1 calls in
+          state Call_State_Pending_Receiver. It SHOULD be set or unset
+          according to informational messages from other contacts.
         </tp:docstring>
       </tp:flag>
 
       <tp:flag suffix="Held" value="4">
         <tp:docstring>
-          The call has been put on hold.
+          The call has been put on hold by the local user, e.g. using the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
+            >Hold</tp:dbus-ref> interface. This flag SHOULD only be set if
+          there is at least one Content, and all Contents are locally held;
+          it makes sense on calls in state Call_State_Pending_Receiver or
+          Call_State_Accepted.
+
+          <tp:rationale>
+            Otherwise, in transient situations where some but not all contents
+            are on hold, UIs would falsely indicate that the call as a whole
+            is on hold, which could lead to the user saying something they'll
+            regret, while under the impression that the other contacts can't
+            hear them!
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
@@ -305,7 +329,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           The initiator of the call originally called a contact other than the
           current recipient of the call, but the call was then forwarded or
-          diverted.
+          diverted. This flag only makes sense on outgoing calls, in state
+          Call_State_Pending_Receiver or Call_State_Accepted. It SHOULD be
+          set or unset according to informational messages from other contacts.
         </tp:docstring>
       </tp:flag>
 
@@ -316,6 +342,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           (so the Ringing state is not appropriate). This corresponds to SIP's
           status code 183 Session Progress, and could be used when the
           outgoing call has reached a gateway, for instance.
+          This flag only makes sense on outgoing calls in state
+          Call_State_Pending_Receiver, and SHOULD be set or unset according to
+          informational messages from servers, gateways and other
+          infrastructure.
         </tp:docstring>
       </tp:flag>
 
@@ -460,18 +490,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <tp:flags type="u" name="Call_Member_Flags" value-prefix="Call_Member_Flag">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A set of flags representing the status of a remote contact in a
+          call.</p>
+
+        <p>It is protocol- and client-specific whether a particular contact
+          will ever have a particular flag set on them, and Telepathy clients
+          SHOULD NOT assume that a flag will ever be set.</p>
+
+        <tp:rationale>
+          <p>180 Ringing in SIP, and its equivalent in XMPP, are optional
+            informational messages, and implementations are not required
+            to send them. The same applies to the messages used to indicate
+            hold state.</p>
+        </tp:rationale>
+      </tp:docstring>
+
       <tp:flag suffix="Ringing" value = "1">
         <tp:docstring>
-          The call member is currently ringing.
+          The remote contact's client has told us that the contact has been
+          alerted about the call but has not responded.
         </tp:docstring>
       </tp:flag>
+
       <tp:flag suffix="Held" value = "2">
         <tp:docstring>
-          The call member has put the call on hold.
+          The call member has put this call on hold.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
-
 
     <tp:mapping name="Call_Member_Map" array-name="Call_Member_Map_List">
       <tp:docstring>A mapping from handles to their current state in the call.
@@ -509,7 +556,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       type="a{uu}" access="read" tp:type="Call_Member_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         A mapping from the remote contacts that are part of this call to flags
-        discribing their status.
+        discribing their status. This mapping never has the local user's handle
+        as a key.
       </tp:docstring>
     </property>
 
