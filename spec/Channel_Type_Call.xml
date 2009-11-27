@@ -587,7 +587,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
           interface SHOULD represent the capabilities of receiving audio
           and/or video calls by including a channel class in
-          a contact's capabilities with ChannelType = CAll
+          a contact's capabilities with ChannelType = Call
           in the fixed properties dictionary, and InitialAudio and/or
           InitialVideo in the allowed properties list. Clients wishing to
           discover whether a particular contact is likely to be able to
