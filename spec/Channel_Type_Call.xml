@@ -67,10 +67,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <method name="Accept" tp:name-for-bindings="Accept">
-      <tp:docstring>
-        Accept the incoming call. The self-handles callstate changes to
-        include accepted.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>For incoming calls in state Call_State_Pending_Receiver, accept the
+          incoming call; this changes the
+          <tp:member-ref>CallState</tp:member-ref> to Call_State_Accepted.</p>
+
+        <p>For outgoing calls in state Call_State_Pending_Initiator, actually
+          call the remote contact; this changes the
+          <tp:member-ref>CallState</tp:member-ref> to
+          Call_State_Pending_Receiver.</p>
+
+        <p>Otherwise, this method SHOULD fail with the error NotAvailable.</p>
+
+        <p>This method should be called exactly once per Call, by whatever
+          client (user interface) is handling the channel.</p>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The call is not in one of the states where this method makes sense.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="Hangup" tp:name-for-bindings="Hangup">
