@@ -205,7 +205,9 @@
             <p>The filter should be disregarded for ease of use of this
               interface: clients will usually use this argument to request
               channels be sent to themself, and this should trump the filter
-              not matching.</p>
+              not matching. This also allows a client to become the handler
+              for a channel produced by one of its own requests, while not
+              being a candidate to handle other channels of that type.</p>
           </tp:rationale>
 
           <p>If this is a well-known bus name and the handler has the
