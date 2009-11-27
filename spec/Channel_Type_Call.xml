@@ -436,10 +436,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <signal name="CallMembersChanged"
       tp:name-for-bindings="Call_Members_Changed">
-      <arg name="FlagsChanged" type="a{uu}" tp:type="Call_Member_Map">
+      <tp:docstring>
+        Emitted when the <tp:member-ref>CallMembers</tp:member-ref> property
+        changes in any way, either because contacts have been added to the
+        call, contacts have been removed from the call, or contacts' flags
+        have changed.
+      </tp:docstring>
+
+      <arg name="Flags_Changed" type="a{uu}" tp:type="Call_Member_Map">
+        <tp:docstring>
+          A map from members of the call to their new call member flags,
+          including at least the members who have been added to
+          <tp:member-ref>CallMembers</tp:member-ref>, and the members whose
+          flags have changed.
+        </tp:docstring>
       </arg>
       <arg name="Removed"  type="au" tp:type="Contact_Handle[]">
-        A lost of Handles of contacts removed from members.
+        <tp:docstring>
+          A list of members who have left the call, i.e. keys to be removed
+          from <tp:member-ref>CallMembers</tp:member-ref>.
+        </tp:docstring>
       </arg>
     </signal>
 
