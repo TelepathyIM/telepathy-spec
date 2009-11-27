@@ -274,6 +274,15 @@
             incorporating any 1-1 chats at all - indeed, this is the normal
             way to do it - or as a continuation of a single 1-1 chat, and then
             invite other people in later.</p>
+
+          <p>The sense of this property is a bit awkward, but it avoids making it
+            an anti-capability. If the sense were inverted, then its presence in
+            RequestableChannelClasses would imply that the protocol <em>lacks</em>
+            a feature; as it stands, it is additive. (Contrast with
+            <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"
+              >ImmutableStreams</tp:dbus-ref>, which is the wrong way around for
+            backwards-compatibility reasons.)</p>
         </tp:rationale>
 
         <p>If false, <tp:member-ref>InitialChannels</tp:member-ref> SHOULD be
