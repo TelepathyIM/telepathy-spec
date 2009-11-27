@@ -315,7 +315,9 @@
       tp:name-for-bindings="Supports_Non_Merges"
       access="read" type="b">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p><strong>[FIXME: needs a better name]</strong></p>
+        <p><strong>[FIXME: needs a better name; or perhaps it could be implied
+            by InitialInvitees being requestable in XMPP/MSN but not in
+            GSM?]</strong></p>
 
         <p>If true, requests with <tp:member-ref>InitialChannels</tp:member-ref>
           omitted, empty, or one element long should be expected to succeed.</p>
