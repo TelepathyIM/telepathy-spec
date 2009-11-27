@@ -134,13 +134,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="AddContent" tp:name-for-bindings="Add_Content">
       <tp:docstring>
+        [FIXME]
       </tp:docstring>
-      <arg direction="in" name="ContentName" type="s">
+      <arg direction="in" name="Content_Name" type="s">
         <tp:docstring>
           The suggested name of the content to add
+
+          <tp:rationale>
+            [FIXME: rationale]
+          </tp:rationale>
         </tp:docstring>
       </arg>
-      <arg direction="in" name="ContentType" type="u"
+      <arg direction="in" name="Content_Type" type="u"
           tp:type="Media_Stream_Type">
         <tp:docstring>
           The media type of the content to add
@@ -148,17 +153,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg direction="out" name="Content" type="o">
         <tp:docstring>
-          Path to the created content
+          Path to the newly-created <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy"
+            >Call.Content.DRAFT</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
+            [FIXME: when?]
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
+            [FIXME: when?]
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
