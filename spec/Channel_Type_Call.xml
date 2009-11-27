@@ -176,14 +176,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="ContentAdded"
             tp:name-for-bindings="Content_Added">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a new content is added to the call</p>
+        <p>Emitted when a new <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call"
+            >Content.DRAFT</tp:dbus-ref> is added to the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          The object path of the added content
+          Path to the newly-created <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call"
+            >Content.DRAFT</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
-       <arg name="ContentType" type="u" tp:type="Media_Stream_Type">
+       <arg name="Content_Type" type="u" tp:type="Media_Stream_Type">
           <tp:docstring>
             The media type of the content which was added
           </tp:docstring>
@@ -192,11 +196,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <signal name="ContentRemoved" tp:name-for-bindings="Content_Removed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a contents is removed from a call</p>
+        <p>Emitted when a <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call"
+            >Content.DRAFT</tp:dbus-ref> is removed from the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          The content which was removed
+          The <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call"
+            >Content.DRAFT</tp:dbus-ref> which was removed.
         </tp:docstring>
       </arg>
     </signal>
@@ -204,12 +211,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="Contents" type="ao" access="read"
               tp:name-for-bindings="Contents">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The list of
-            <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
-            objects  that are part of this call. ChangeNotification
-            happens via the <tp:member-ref>ContentAdded</tp:member-ref> and
-            <tp:member-ref>ContentRemoved</tp:member-ref> signals.
+        <p>The list of
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
+          objects  that are part of this call. Change notification
+          is via the <tp:member-ref>ContentAdded</tp:member-ref> and
+          <tp:member-ref>ContentRemoved</tp:member-ref> signals.
         </p>
       </tp:docstring>
     </property>
