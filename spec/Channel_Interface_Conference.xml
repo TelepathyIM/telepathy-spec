@@ -195,8 +195,8 @@
           where its value has at least two elements SHOULD be expected to
           succeed on any implementation of this interface.</p>
 
-          Whether a request with 0 or 1 elements in the list will succeed is
-          indicated by <tp:member-ref>SupportsNonMerges</tp:member-ref>.
+        <p>Whether a request with 0 or 1 elements in the list will succeed is
+          indicated by <tp:member-ref>SupportsNonMerges</tp:member-ref>.</p>
 
         <tp:rationale>
           <p>In GSM, a pair of calls can be merged into a conference. In XMPP
