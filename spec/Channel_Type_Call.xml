@@ -31,9 +31,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:docstring>
 
     <method name="Ringing" tp:name-for-bindings="Ringing">
-      <tp:docstring>
-        Indicate the local user is alerted about the incoming call.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Indicate that the local user has been alerted about the incoming
+          call.</p>
+
+        <p>This method is only useful if the channel's
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >Requested</tp:dbus-ref> property is false, and the
+          <tp:member-ref>CallState</tp:member-ref> is
+          Call_State_Pending_Initiator. While this is the case,
+          this method SHOULD change the
+          <tp:member-ref>CallFlags</tp:member-ref> to include
+          Call_Flag_Ringing, and notify the remote contact that the local
+          user has been alerted (if the protocol implements this); repeated
+          calls to this method SHOULD succeed, but have no further effect.</p>
+
+        <p>In all other states, this method SHOULD fail with the error
+          NotAvailable.</p>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The call was <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel"
+              >Requested</tp:dbus-ref>, so ringing does not make sense.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The call is no longer in state Call_State_Pending_Initiator.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="Accept" tp:name-for-bindings="Accept">
