@@ -263,6 +263,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             capabilities with the same code.</p>
         </tp:rationale>
 
+        <p>Channel classes with target handle type Handle_Type_Room or
+          Handle_Type_None indicate that if a channel matching the channel
+          class is created, then inviting the contact to that channel
+          can be expected to succeed.</p>
+
+        <tp:rationale>
+          <p>To support room-based XMPP protocols like
+            <a href="http://telepathy.freedesktop.org/wiki/Muji">Muji</a>
+            and MUC Tubes, it's necessary to be able to discover who can be
+            invited to a given room channel; most XMPP contacts won't
+            support being invited into a Muji conference call, at least
+            in the short to medium term.</p>
+        </tp:rationale>
+
         <p>No interpretation is defined for channel classes with any other
           target handle type, or for channel classes that do not fix a
           target handle type, in this version of the Telepathy
