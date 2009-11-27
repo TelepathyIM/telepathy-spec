@@ -218,6 +218,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:flag>
     </tp:flags>
 
+    <property name="CallStateDetails"
+      tp:name-for-bindings="Call_State_Details" type="a{sv}" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+
+      </tp:docstring>
+    </property>
+
     <property name="CallState" type="u" access="read"
       tp:name-for-bindings="Call_State" tp:type="Call_State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -233,7 +240,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <tp:enum name="Call_State_Change_Reason" type="u">
-      <tp:enumvalue suffix="Unknown" value="0" />
+      <tp:enumvalue suffix="Unknown" value="0">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          We just don't know
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="UserRequested" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Change requested by the contact
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="UserRequested" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Change requested by the contact
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:struct name="Call_State_Reason">
@@ -249,7 +270,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-
     <signal name="CallStateChanged"
             tp:name-for-bindings="Call_State_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -264,7 +284,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
         type="(uus)">
       </arg>
-      <arg name="Details" tp:name-for-bindings="Details" type="a{sv}">
+      <arg name="CallStateDetails"
+        tp:name-for-bindings="Call_State_Details" type="a{sv}">
       </arg>
     </signal>
 
@@ -282,6 +303,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             streaming for the call)
           </tp:rationale>
         </p>
+      </tp:docstring>
+    </property>
+
+    <tp:flags type="u" name="Call_Member_Flags" value-prefix="Call_Member_Flag">
+      <tp:flag suffix="Ringing" value = "1">
+        <tp:docstring>
+          The call member is currently ringing.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Held" value = "2">
+        <tp:docstring>
+          The call member has put the call on hold.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
+
+    <tp:mapping name="Call_Member_Map" array-name="Call_Member_Map_List">
+      <tp:docstring>A mapping from handles to their current state in the call.
+        </tp:docstring>
+      <tp:member type="u" tp:type="Handle" name="key"/>
+      <tp:member type="u" tp:type="Call_Member_Flags" name="Flag"/>
+    </tp:mapping>
+
+    <signal name="CallMembersChanged"
+      tp:name-for-bindings="Call_Members_Changed">
+      <arg name="FlagsChanged" type="a{uu}" tp:type="Call_Member_Map">
+      </arg>
+      <arg name="Removed"  type="au" tp:type="Contact_Handle[]">
+        A lost of Handles of contacts removed from members.
+      </arg>
+    </signal>
+
+    <property name="CallMembers" tp:name-for-bindings="Call_Members"
+      type="a{uu}" access="read" tp:type="Call_Member_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        A mapping from the remote contacts that are part of this call to flags
+        discribing their status.
       </tp:docstring>
     </property>
 
