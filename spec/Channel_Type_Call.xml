@@ -360,19 +360,39 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="CallStateChanged"
             tp:name-for-bindings="Call_State_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when the state of a contact on the call changed</p>
+        <p>Emitted when the state of the call as a whole changes.</p>
+
+        <p>This signal is emitted for any change in the properties
+          corresponding to its arguments, even if the other properties
+          referenced remain unchanged.</p>
       </tp:docstring>
-      <arg name="CallState" tp:name-for-bindings="Call_State"
-        type="u" tp:type="Call_State">
+
+      <arg name="Call_State" type="u" tp:type="Call_State">
+        <tp:docstring>
+          The new value of the <tp:member-ref>CallState</tp:member-ref>
+          property.
+        </tp:docstring>
       </arg>
-      <arg name="CallFlags" tp:name-for-bindings="Call_Flags"
-        type="u" tp:type="Call_Flags">
+
+      <arg name="Call_Flags" type="u" tp:type="Call_Flags">
+        <tp:docstring>
+          The new value of the <tp:member-ref>CallFlags</tp:member-ref>
+          property.
+        </tp:docstring>
       </arg>
-      <arg name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
-        type="(uus)">
+
+      <arg name="Call_State_Reason" type="(uus)">
+        <tp:docstring>
+          The new value of the <tp:member-ref>CallStateReason</tp:member-ref>
+          property.
+        </tp:docstring>
       </arg>
-      <arg name="CallStateDetails"
-        tp:name-for-bindings="Call_State_Details" type="a{sv}">
+
+      <arg name="Call_State_Details" type="a{sv}">
+        <tp:docstring>
+          The new value of the <tp:member-ref>CallStateDetails</tp:member-ref>
+          property.
+        </tp:docstring>
       </arg>
     </signal>
 
