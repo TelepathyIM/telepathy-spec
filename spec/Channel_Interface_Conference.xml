@@ -248,6 +248,69 @@
       </tp:docstring>
     </property>
 
+    <property name="InitialInvitees" tp:name-for-bindings="Initial_Invitees"
+      access="read" type="au">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of additional contacts invited to this conference when it
+          was created.</p>
+
+        <p>This property SHOULD be requestable, and appear in the allowed
+          properties in <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests"
+            >RequestableChannelClasses</tp:dbus-ref>, in all connection
+          managers that can implement its semantics (in practice, this is
+          likely to mean exactly those connection managers where
+          <tp:member-ref>SupportsNonMerges</tp:member-ref> will be true).</p>
+
+        <p>If included in a request, the given contacts are automatically
+          invited into the new channel, as if they had been added with
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
+            >Group.AddMembers</tp:dbus-ref>(InitialInvitees,
+          <tp:member-ref>InvitationMessage</tp:member-ref> immediately after
+          the channel was created.</p>
+
+        <tp:rationale>
+          <p>This is a simple convenience API for the common case that a UI
+            upgrades a 1-1 chat to a multi-user chat solely in order to invite
+            someone else to participate.</p>
+        </tp:rationale>
+
+        <p>If the local user was not the initiator of this channel, the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
+            >Group.SelfHandle</tp:dbus-ref> SHOULD appear in the value of this
+          property, together with any other contacts invited at the same time
+          (if that information is known).</p>
+
+        <p>This property is immutable.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="InvitationMessage" tp:name-for-bindings="Invitation_Message"
+      access="read" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The message that was sent to the
+          <tp:member-ref>InitialInvitees</tp:member-ref> when they were
+          invited.</p>
+
+        <p>This property SHOULD be requestable, and appear in the allowed
+          properties in <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests"
+            >RequestableChannelClasses</tp:dbus-ref>, in protocols where
+          invitations can have an accompanying text message.</p>
+
+        <tp:rationale>
+          <p>This allows invitations with a message to be sent when using
+            <tp:member-ref>InitialInvitees</tp:member-ref>.</p>
+        </tp:rationale>
+
+        <p>If the local user was not the initiator of this channel, the
+          message with which they were invited (if any) SHOULD appear in the
+          value of this property.</p>
+
+        <p>This property is immutable.</p>
+      </tp:docstring>
+    </property>
+
     <property name="SupportsNonMerges"
       tp:name-for-bindings="Supports_Non_Merges"
       access="read" type="b">
