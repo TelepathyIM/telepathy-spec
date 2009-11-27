@@ -93,21 +93,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <method name="Hangup" tp:name-for-bindings="Hangup">
+      <tp:docstring>
+        Request that the call is ended.
+      </tp:docstring>
+
       <arg direction="in" name="Reason"
         type="u"  tp:type="Call_State_Change_Reason">
-        A generic hangup reason.
+        <tp:docstring>
+          A generic hangup reason.
+        </tp:docstring>
       </arg>
+
       <arg direction="in" name="Detailed_Hangup_Reason"
         type="s" tp:type="DBus_Error_Name">
-        A more specific reason for the call hangup, if one is available.
-        "" otherwise.
+        <tp:docstring>
+          A more specific reason for the call hangup, if one is available, or
+          an empty string otherwise.
+        </tp:docstring>
       </arg>
-      <arg direction="in" name="Message" type="string">
-        Human readable message.
+
+      <arg direction="in" name="Message" type="s">
+        <tp:docstring>
+          A human-readable message to be sent to the remote contact(s).
+
+          <tp:rationale>
+            XMPP Jingle allows calls to be terminated with a human-readable
+            message.
+          </tp:rationale>
+        </tp:docstring>
       </arg>
-      <tp:docstring>
-        Request the ending of the call.
-      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The call has already been ended.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="AddContent" tp:name-for-bindings="Add_Content">
