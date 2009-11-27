@@ -43,19 +43,20 @@
         <p>Active and held GSM calls C1, C2 can be merged into a single
           channel Cn with the Conference interface, by calling
           <code>CreateChannel({...ChannelType: ...Call,
-            ...InitialChannels: [C1, C2]})</code> which returns Cn.</p>
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1, C2]})</code>
+          which returns Cn.</p>
 
         <p>An XMPP 1-1 conversation C1 can be continued in a newly created
           multi-user chatroom Cn by calling
           <code>CreateChannel({...ChannelType: ...Text,
-            ...InitialChannels: [C1]})</code>
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
           which returns Cn.</p>
 
         <p>An XMPP 1-1 conversation C1 can be continued in a specified
           multi-user chatroom by calling
           <code>CreateChannel({...ChannelType: ...Text, ...HandleType: ROOM,
             ...TargetID: 'telepathy@conf.example.com',
-            ...InitialChannels: [C1]})</code>
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
           which returns a Conference channel.</p>
 
         <p>Either of the XMPP cases could work for Call channels, to
@@ -66,7 +67,7 @@
           with a contact X can be moved to a representation as a nameless
           chatroom, Cn, to which more contacts can be invited, by calling
           <code>CreateChannel({...ChannelType: ...Text,
-            ...InitialChannels: [C1]})</code>
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
           which returns Cn. C1 SHOULD remain open, with no underlying
           switchboard attached. If X establishes a new switchboard with the
           local user, C1 SHOULD pick up that switchboard rather than letting
@@ -86,9 +87,11 @@
           to MSN.</p>
       </tp:rationale>
 
-      <p>The Group MAY have channel-specific handles for participants; clients
-        SHOULD support both Conferences that have channel-specific handles, and
-        those that do not.</p>
+      <p>The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface"
+          >Group</tp:dbus-ref> MAY have channel-specific handles for participants;
+        clients SHOULD support both Conferences that have channel-specific handles,
+        and those that do not.</p>
 
       <tp:rationale>
         <p>In the GSM case, the Conference's Group interface MAY have
@@ -166,7 +169,7 @@
     <property name="InitialChannels" tp:name-for-bindings="Initial_Channels"
       access="read" type="ao">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The initial value of Channels.</p>
+        <p>The initial value of <tp:member-ref>Channels</tp:member-ref>.</p>
 
         <p>This property SHOULD be requestable. Omitting it from a request is
           equivalent to providing it with an empty list as value. Requests
@@ -174,7 +177,7 @@
           succeed on any implementation of this interface.</p>
 
           Whether a request with 0 or 1 elements in the list will succeed is
-          indicated by SupportsNonMerges.
+          indicated by <tp:member-ref>SupportsNonMerges</tp:member-ref>.
 
         <tp:rationale>
           <p>In GSM, a pair of calls can be merged into a conference. In XMPP
@@ -184,10 +187,11 @@
             inviting the targets of all the other channels into it.</p>
         </tp:rationale>
 
-        <p>If possible, the Channels' states SHOULD NOT be altered by merging
-          them into a conference. However, depending on the protocol, the
-          Channels MAY be placed in a "frozen" state by placing them in this
-          property's value or by calling Merge on them.
+        <p>If possible, the <tp:member-ref>Channels</tp:member-ref>' states SHOULD
+          NOT be altered by merging them into a conference. However, depending on
+          the protocol, the Channels MAY be placed in a "frozen" state by placing
+          them in this property's value or by calling
+          <tp:member-ref>Merge</tp:member-ref> on them.
           <strong>[FIXME: there's nothing in RequestableChannelClasses yet
             to say what will happen, see #24906 comment 6]</strong></p>
 
@@ -231,15 +235,19 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p><strong>[FIXME: needs a better name]</strong></p>
 
-        <p>If true, requests with InitialChannels omitted, empty, or one
-          element long should be expected to succeed.</p>
+        <p>If true, requests with <tp:member-ref>InitialChannels</tp:member-ref>
+          omitted, empty, or one element long should be expected to succeed.</p>
 
-        <p>This property SHOULD appear in requestable channel classes for
+        <p>This property SHOULD appear in <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Connection.Interface.Requests"
+              >RequestableChannelClasses</tp:dbus-ref> for
           conference channels if and only if its value on those channels will
           be true.</p>
 
         <tp:rationale>
-          <p>Putting this in RequestableChannelClasses means clients can find
+          <p>Putting this in <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Connection.Interface.Requests"
+              >RequestableChannelClasses</tp:dbus-ref> means clients can find
             out whether their request will succeed early enough to do
             something about it.</p>
 
@@ -249,9 +257,10 @@
             invite other people in later.</p>
         </tp:rationale>
 
-        <p>If false, InitialChannels SHOULD be supplied in all requests for
-          this channel class, and contain at least two channels. Requests
-          where this requirement is not met SHOULD fail with NotImplemented.
+        <p>If false, <tp:member-ref>InitialChannels</tp:member-ref> SHOULD be
+          supplied in all requests for this channel class, and contain at least
+          two channels. Requests where this requirement is not met SHOULD fail
+          with NotImplemented.
         </p>
 
         <tp:rationale>
@@ -270,9 +279,11 @@
         <p>Request that the given channel be incorporated into this
           channel.</p>
 
-        <p>The given channel SHOULD be added to Channels if and only if the
+        <p>The given channel SHOULD be added to
+          <tp:member-ref>Channels</tp:member-ref> if and only if the
           underlying protocol signals the merge in some way. It MUST NOT be
-          added to InitialChannels (to preserve immutability).</p>
+          added to <tp:member-ref>InitialChannels</tp:member-ref> (to preserve
+          immutability).</p>
 
         <tp:rationale>
           <p>In GSM it is possible to merge additional calls into an ongoing
