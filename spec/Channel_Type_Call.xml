@@ -645,32 +645,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:handler-capability-token name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
-          property is <code>gtalk-p2p</code>.</p>
+            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          property is Stream_Transport_Type_GTALK_P2P.</p>
       </tp:docstring>
     </tp:handler-capability-token>
 
-    <tp:handler-capability-token name="ice-udp">
+    <tp:handler-capability-token name="ice">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
-          property is <code>ice-udp</code>.</p>
+            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          property is Stream_Transport_Type_ICE.</p>
       </tp:docstring>
     </tp:handler-capability-token>
 
-    <tp:handler-capability-token name="wlm-8.5">
+    <tp:handler-capability-token name="msn">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
-          property is <code>wlm-8.5</code>.</p>
+            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          property is Stream_Transport_Type_MSN.</p>
       </tp:docstring>
     </tp:handler-capability-token>
 
-    <tp:handler-capability-token name="wlm-2009">
+    <tp:handler-capability-token name="wlm2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
-          property is <code>wlm-2009</code>.</p>
+            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          property is Stream_Transport_Type_WLM2009.</p>
       </tp:docstring>
     </tp:handler-capability-token>
 
