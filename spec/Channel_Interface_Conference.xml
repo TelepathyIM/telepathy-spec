@@ -112,6 +112,25 @@
           handles, since users' identities are always visible.</p>
       </tp:rationale>
 
+      <p>Connection managers implementing channels with this interface
+        MUST NOT allow the object paths of channels that could be merged
+        into a Conference to be re-used, unless the channel re-using the
+        object path is equivalent to the channel that previously used it.</p>
+
+      <tp:rationale>
+        <p>If you upgrade some channels into a conference, and then close
+          the original channels, <tp:member-ref>InitialChannels</tp:member-ref>
+          (which is immutable) will contain paths to channels which no longer
+          exist. This implies that you should not re-use channel object paths,
+          unless future incarnations of the path are equivalent.</p>
+
+        <p>For instance, on protocols where you can only have
+          zero or one 1-1 text channels with Emily at one time, it would
+          be OK to re-use the same object path for every 1-1 text channel
+          with Emily; but on protocols where this is not true, it would
+          be misleading.</p>
+      </tp:rationale>
+
     </tp:docstring>
 
     <property name="Channels" tp:name-for-bindings="Channels"
