@@ -240,6 +240,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <li>any state → Ended (when the call is terminated normally, or
             when an error occurs)</li>
         </ul>
+
+        <p>Clients MAY consider unknown values from this enum to be an
+          error - additional values will not be defined after the Call
+          specification is declared to be stable.</p>
       </tp:docstring>
 
       <tp:enumvalue suffix="Unknown" value = "0">
@@ -370,52 +374,150 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="CallStateDetails"
       tp:name-for-bindings="Call_State_Details" type="a{sv}" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A map used to provide optional extensible details for the
+          <tp:member-ref>CallState</tp:member-ref>,
+          <tp:member-ref>CallFlags</tp:member-ref> and/or
+          <tp:member-ref>CallStateReason</tp:member-ref>.</p>
 
+        <p>Well-known keys and their corresponding value types include:</p>
+
+        <dl>
+          <dt>hangup-message - s</dt>
+          <dd>An optional human-readable message sent when the call was ended,
+            corresponding to the Message argument to the
+            <tp:member-ref>Hangup</tp:member-ref> method. This is only
+            applicable when the call state is Call_State_Ended.
+            <tp:rationale>
+              XMPP Jingle can send such messages.
+            </tp:rationale>
+          </dd>
+
+          <dt>queue-message - s</dt>
+          <dd>An optional human-readable message sent when the local contact
+            is being held in a queue. This is only applicable when
+            Call_Flag_Queued is in the call flags.
+            <tp:rationale>
+              SIP 182 notifications can have human-readable messages attached.
+            </tp:rationale>
+          </dd>
+
+          <dt>debug-message - s</dt>
+          <dd>A message giving further details of any error indicated by the
+            <tp:member-ref>CallStateReason</tp:member-ref>. This will not
+            normally be localized or suitable for display to users, and is only
+            applicable when the call state is Call_State_Ended.</dd>
+        </dl>
       </tp:docstring>
     </property>
 
     <property name="CallState" type="u" access="read"
       tp:name-for-bindings="Call_State" tp:type="Call_State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Current state of this call</p>
+        <p>The current high-level state of this call. The
+          <tp:member-ref>CallFlags</tp:member-ref> provide additional
+          information, and the <tp:member-ref>CallStateReason</tp:member-ref>
+          and <tp:member-ref>CallStateDetails</tp:member-ref> explain the
+          reason for the current values for those properties.</p>
+
+        <p>Clients MAY consider unknown values in this property to be an
+          error.</p>
       </tp:docstring>
     </property>
 
     <property name="CallFlags" type="u" access="read"
       tp:name-for-bindings="Call_Flags" tp:type="Call_Flags">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Current state of this call</p>
+        <p>Flags representing the status of the call as a whole,
+          providing more specific information than the
+          <tp:member-ref>CallState</tp:member-ref>.</p>
+
+        <p>Clients are expected to ignore unknown flags in this property,
+          without error.</p>
       </tp:docstring>
     </property>
 
     <tp:enum name="Call_State_Change_Reason" type="u">
+      <tp:docstring>
+        A simple representation of the reason for a change in the call's
+        state, which may be used by simple clients, or used as a fallback
+        when the DBus_Reason member of a <tp:type>Call_State_Reason</tp:type>
+        struct is not understood.
+      </tp:docstring>
+
       <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          We just don't know
+          We just don't know. Unknown values of this enum SHOULD also be
+          treated like this.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="UserRequested" value="1">
+
+      <tp:enumvalue suffix="User_Requested" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Change requested by the contact
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="UserRequested" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Change requested by the contact
+          <p>The change was requested by the contact indicated by the Actor
+            member of a <tp:type>Call_State_Reason</tp:type> struct.</p>
+
+          <p>If the Actor is the local user, the DBus_Reason SHOULD be the
+            empty string.</p>
+
+          <p>If the Actor is a remote user, the DBus_Reason SHOULD be the empty
+            string if the call was terminated normally, but MAY be a non-empty
+            error name to indicate error-like call termination reasons (call
+            rejected as busy, kicked from a conference by a moderator, etc.).</p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
     <tp:struct name="Call_State_Reason">
-      <tp:member type="u" tp:type="Handle" name="actor"/>
-      <tp:member type="u" tp:type="Call_State_Change_Reason" name="Reason"/>
-      <tp:member type="s" tp:type="DBus_Error_Name" name="DbusReason" />
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A description of the reason for a change to the
+          <tp:member-ref>CallState</tp:member-ref> and/or
+          <tp:member-ref>CallFlags</tp:member-ref>.</p>
+      </tp:docstring>
+
+      <tp:member type="u" tp:type="Contact_Handle" name="Actor">
+        <tp:docstring>
+          The contact responsible for the change, or 0 if no contact was
+          responsible.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="u" tp:type="Call_State_Change_Reason" name="Reason">
+        <tp:docstring>
+          The reason, chosen from a limited set of possibilities defined by
+          the Telepathy specification.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="s" tp:type="DBus_Error_Name" name="DBus_Reason">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A specific reason for the change, which may be a D-Bus error in
+            the Telepathy namespace, a D-Bus error in any other namespace
+            (for implementation-specific errors), or the empty string to
+            indicate that the state change was not an error.</p>
+
+          <p>This SHOULD be an empty string for changes to any state other
+            than Ended.</p>
+
+          <p>The errors Cancelled and Terminated SHOULD NOT be used here;
+            an empty string SHOULD be used instead.</p>
+
+          <tp:rationale>
+            <p>Those error names are used to indicate normal call
+              termination by the local user or another user, respectively,
+              in contexts where a D-Bus error name must appear.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <property name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
       type="(uus)" access="read"  tp:type="Call_State_Reason">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The reason the call is in the state it is in :) </p>
+        <p>The reason for the last change to the
+          <tp:member-ref>CallState</tp:member-ref> and/or
+          <tp:member-ref>CallFlags</tp:member-ref>. The
+          <tp:member-ref>CallStateDetails</tp:member-ref> MAY provide additional
+          information.</p>
       </tp:docstring>
     </property>
 
