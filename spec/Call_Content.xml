@@ -112,23 +112,25 @@
        </arg>
     </signal>
 
-    <property name="Streams"
-      tp:name-for-bindings="Streams"
+    <property name="Streams" tp:name-for-bindings="Streams"
       type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The list of
+        <p>The list of
            <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call">Stream.DRAFT</tp:dbus-ref>
-           that exist in this content.
-        </p>
+           objects that exist in this content.</p>
 
-        <tp:rational>
-          In a conference call multiple parties can share one media contnet (say
-          audio), but the streaming of that media can either be shared or
-          seperate. For example in a multicast conference all contacts would
-          share one stream, while in a Muji conference there would be a stream
-          for each participant.
-        </tp:rational>
+        <tp:rationale>
+          <p>In a conference call multiple parties can share one media content
+            (say, audio), but the streaming of that media can either be shared
+            or separate. For example, in a multicast conference all contacts
+            would share one stream, while in a Muji conference there would be
+            a stream for each participant.</p>
+        </tp:rationale>
+
+        <p>Change notification is via
+          <tp:member-ref>StreamAdded</tp:member-ref> and
+          <tp:member-ref>StreamRemoved</tp:member-ref>.</p>
       </tp:docstring>
     </property>
   </interface>
