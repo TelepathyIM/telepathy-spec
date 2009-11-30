@@ -248,8 +248,9 @@
       </tp:docstring>
     </property>
 
-    <property name="InitialInvitees" tp:name-for-bindings="Initial_Invitees"
-      access="read" type="au">
+    <property name="InitialInviteeHandles"
+      tp:name-for-bindings="Initial_Invitee_Handles"
+      access="read" type="au" tp:type="Contact_Handle[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of additional contacts invited to this conference when it
           was created.</p>
@@ -265,7 +266,7 @@
         <p>If included in a request, the given contacts are automatically
           invited into the new channel, as if they had been added with
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
-            >Group.AddMembers</tp:dbus-ref>(InitialInvitees,
+            >Group.AddMembers</tp:dbus-ref>(InitialInviteeHandles,
           <tp:member-ref>InvitationMessage</tp:member-ref> immediately after
           the channel was created.</p>
 
@@ -274,6 +275,9 @@
             upgrades a 1-1 chat to a multi-user chat solely in order to invite
             someone else to participate.</p>
         </tp:rationale>
+
+        <p>At most one of InitialInviteeHandles and InitialInviteeIDs may
+          appear in each request.</p>
 
         <p>If the local user was not the initiator of this channel, the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
@@ -285,11 +289,33 @@
       </tp:docstring>
     </property>
 
+    <property name="InitialInviteeIDs"
+      tp:name-for-bindings="Initial_Invitee_IDs"
+      access="read" type="as">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of additional contacts invited to this conference when it
+          was created.</p>
+
+        <p>This property SHOULD be requestable, as an alternative to
+          <tp:member-ref>InitialInviteeHandles</tp:member-ref>. Its semantics
+          are the same, except that it takes a list of the string
+          representations of contact handles.</p>
+
+        <p>At most one of InitialInviteeHandles and InitialInviteeIDs may
+          appear in each request.</p>
+
+        <p>When a channel is created, the values of InitialInviteeHandles and
+          InitialInviteeIDs MUST correspond to each other.</p>
+
+        <p>This property is immutable.</p>
+      </tp:docstring>
+    </property>
+
     <property name="InvitationMessage" tp:name-for-bindings="Invitation_Message"
       access="read" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The message that was sent to the
-          <tp:member-ref>InitialInvitees</tp:member-ref> when they were
+          <tp:member-ref>InitialInviteeHandles</tp:member-ref> when they were
           invited.</p>
 
         <p>This property SHOULD be requestable, and appear in the allowed
@@ -300,7 +326,8 @@
 
         <tp:rationale>
           <p>This allows invitations with a message to be sent when using
-            <tp:member-ref>InitialInvitees</tp:member-ref>.</p>
+            <tp:member-ref>InitialInviteeHandles</tp:member-ref> or
+            <tp:member-ref>InitialInviteeIDs</tp:member-ref>.</p>
         </tp:rationale>
 
         <p>If the local user was not the initiator of this channel, the
@@ -316,7 +343,7 @@
       access="read" type="b">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p><strong>[FIXME: needs a better name; or perhaps it could be implied
-            by InitialInvitees being requestable in XMPP/MSN but not in
+            by InitialInviteeHandles being requestable in XMPP/MSN but not in
             GSM?]</strong></p>
 
         <p>If true, requests with <tp:member-ref>InitialChannels</tp:member-ref>
