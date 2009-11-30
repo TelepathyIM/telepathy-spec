@@ -39,19 +39,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:enum>
 
-    <tp:simple-type name="Email" type="a(sv)" array-name="Email_List">
+    <tp:enum name="Email_Type" type="u"> 
+      <tp:enumvalue suffix="single" value="0">
+        <tp:docstring>
+          The e-mail is represented as a single reply by only
+          one sender.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="thread" value="1">
+        <tp:docstring>
+          The e-mail refer to a thread where multiple person may
+          have replied.
+        </tp:docstring>
+      </tp:enumvalue>
       <tp:docstring>
-        E-mail representation has been reduced to an array of pairs
-        with possible keys (of type strings) are listed above. All keys are optional
-        except the "id" key that must be provided by every protocol that support
-        unread mail listing. Without this key, it would not be impossible to unlist
-        the e-mails that are no longer marked as unread.
+        E-mail representation type.
+      </tp:docstring>
+    </tp:enum>
+
+
+    <tp:simple-type name="Email" type="a{sv}" array-name="Email_List">
+      <tp:docstring>
+        E-mail representation has been reduced to hash table with possible keys (of type strings) 
+        listed above. All keys are optional except the "id" key that must be provided by every 
+        protocol that support unread mail listing. Without this key, it would not be impossible to 
+        unlist the e-mails that are no longer marked as unread.
       
         <dl>
           <dt>u:id</dt>
           <dd>A unique ID for this email</dd>
 
-          <dt>s:type</dt>
+          <dt>u:type (see <tp:type>Email_Type</tp:type>)</dt>
           <dd>
             Type of e-mail. This can be set to "single", which means e-mails 
             are represented separately, or "thread", when information is described
@@ -61,10 +79,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt>s:url</dt>
           <dd>This URL should allow client to load this precise message.</dd>
 
-          <dt>u:method</dt>
+          <dt>u:method (see <tp:type>HTTP_Method</tp:type>)</dt>
           <dd>
-            The HTTP method to use when opening URL (refer to 
-            <tp:type>HTTP_Method</tp:type> for possible values). If unset, GET
+            The HTTP method to use when opening URL. If unset, GET
             is assumed.
           </dd>
 
@@ -74,7 +91,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             It is a list of key/value pair with string for both keys and values.
           </dd>
 
-          <dt>a(s):cookies</dt>
+          <dt>as:cookies</dt>
           <dd>Cookies to set when loading the URL.</dd>
 
           <dt>a(ss):senders</dt>
@@ -155,7 +172,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Cookies" type="a(s)" tp:name-for-bindings="Cookies"
+    <property name="Cookies" type="as" tp:name-for-bindings="Cookies"
       access="read">
       <tp:docstring>
         Array of the cookies to use when opening the 
@@ -207,7 +224,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A list of <tp:type>Email</tp:type> that are being added to
           <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
-          empty if the protocol does not support listing unread emails
+          empty if the protocol does not support listing unread e-mails
           or threads.
         </tp:docstring>
       </arg>
@@ -225,8 +242,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A list of emails ID that are being removed from
           <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
-          empty if the protocol does not support listing unread emails
-          or thread.
+          empty if the protocol does not support listing unread e-mails
+          or threads.
         </tp:docstring>
       </arg>
     </signal>
@@ -245,7 +262,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>Method</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="cookies" type="a(s)">
+      <arg name="cookies" type="as">
         <tp:docstring>
           Array of strings of the cookies to use when opening
           the inbox, if any (the new value of
