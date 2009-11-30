@@ -86,7 +86,7 @@
     <property name="Disposition" tp:name-for-bindings="Disposition"
         type="u" tp:type="Call_Content_Disposition" access="read">
       <tp:docstring>
-        The disposition of this content
+        The disposition of this content. This property cannot change.
       </tp:docstring>
     </property>
 
