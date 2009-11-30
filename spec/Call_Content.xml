@@ -54,18 +54,23 @@
       </tp:docstring>
     </property>
 
-    <tp:enum name="CallContentDisposition" type="u">
+    <tp:enum name="Call_Content_Disposition" type="u">
+      <tp:docstring>
+        [FIXME]
+      </tp:docstring>
+
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The content has no specific disposition
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="EarlyMedia" value="1">
+      <tp:enumvalue suffix="Early_Media" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The content has no specific disposition
+          [FIXME: what does this mean?]
         </tp:docstring>
       </tp:enumvalue>
+
       <tp:enumvalue suffix="Initial" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The content was initially part of the call. When answer is called on
@@ -76,8 +81,10 @@
     </tp:enum>
 
     <property name="Disposition" tp:name-for-bindings="Disposition"
-        type="u" tp:type="CallContentDisposition" access="read">
-
+        type="u" tp:type="Call_Content_Disposition" access="read">
+      <tp:docstring>
+        The disposition of this content
+      </tp:docstring>
     </property>
 
     <signal name="StreamAdded" tp:name-for-bindings="Stream_Added">
