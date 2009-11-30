@@ -23,11 +23,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>A channel type for making audio and video calls. </p>
-      A Call channel can have one or more <tp:dbus-ref
-      namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
-      objects, which represent the actual Media that forms the Call (e.g. an
-      audio content and a video content).
+      <p>A channel type for making audio and video calls.</p>
+
+      <p>A Call channel can have one or more <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
+        objects, which represent the actual Media that forms the Call (e.g. an
+        audio content and a video content).</p>
     </tp:docstring>
 
     <method name="Ringing" tp:name-for-bindings="Ringing">
