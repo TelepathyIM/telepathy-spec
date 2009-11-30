@@ -279,13 +279,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
+    <method name="Subscribe"
+        tp:name-for-bindings="Subscribe">
+      <tp:docstring>
+        This method subscribes a client to the notification interface. This
+        should be called if a client wants to get notified of incoming
+        e-mails. Before anyone subscribes to the interface, the connection
+        manager should try to minimized memory usage and network traffic as
+        much as possible. The Control Manager must detect client disconnection
+        (e.g. in case of crash) and free resources that are no longer required.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="Unsubscribe"
+        tp:name-for-bindings="Unsubscribe">
+      <tp:docstring>
+        This method unsubscribes a client from the notification interface. This
+        should called if a client no longer wants tot get notified of incoming
+        e-mails. When all the client has been Unsubscribed, the Connection Manager
+        should free all non-required information and reduce network traffic. It must
+        be possible to call Subscribe later.
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+      </tp:possible-errors>
+    </method>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support receiving notifications about a e-mail
         account associated with this connection. It is intended that the
         connection manager has the means to provide necessary
         information (URL, method, cookies, POST data) so that the client is 
         able to open the user's inbox and possibly individual messages without 
-        having to re-authenticate.</p>
+        having to re-authenticate. To use this interface, a client must first
+        subscribe using the <tp:member-ref>Subscribe</tp:member-ref> method.</p>
 
       <p>When unread e-mails arrive into the inbox, the
         <tp:member-ref>UnreadEmailsAdded</tp:member-ref> signal
