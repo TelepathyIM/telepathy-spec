@@ -101,11 +101,59 @@
     </method>
 
     <tp:enum type="u" name="Stream_Transport_Type">
-      <tp:enumvalue suffix="Raw_UDP" value="0" />
-      <tp:enumvalue suffix="ICE" value="1" />
-      <tp:enumvalue suffix="GTALK_P2P" value="2" />
-      <tp:enumvalue suffix="MSN" value="3" />
-      <tp:enumvalue suffix="WLM2009" value="4" />
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        A transport that can be used for streaming.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="Raw_UDP" value="0">
+        <tp:docstring>
+          Raw UDP, with or without STUN. All streaming clients are assumed to
+          support this transport, so there is no handler capability token for
+          it in the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type"
+            >Call.DRAFT</tp:dbus-ref> interface.
+          [This corresponds to "none" or "stun" in the old Media.StreamHandler
+          interface.]
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="ICE" value="1">
+        <tp:docstring>
+          Interactive Connectivity Establishment, as defined by the IETF MMUSIC
+          working group.
+          [FIXME: do we want this to cover both ICE-UDP and ICE-TCP, or split
+          them?]
+          [This corresponds to "ice-udp" in the old Media.StreamHandler
+          interface.]
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="GTalk_P2P" value="2">
+        <tp:docstring>
+          Google Talk peer-to-peer connectivity establishment, as implemented
+          by libjingle 0.3.
+          [This corresponds to "gtalk-p2p" in the old Media.StreamHandler
+          interface.]
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="WLM_8_5" value="3">
+        <tp:docstring>
+          The transport used by Windows Live Messenger 8.5 or later, which
+          resembles ICE draft 6.
+          [This corresponds to "wlm-8.5" in the old Media.StreamHandler
+          interface.]
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="WLM_2009" value="4">
+        <tp:docstring>
+          The transport used by Windows Live Messenger 2009 or later, which
+          resembles ICE draft 19.
+          [This corresponds to "wlm-2009" in the old Media.StreamHandler
+          interface.]
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <property name="Transport" tp:name-for-bindings="Transport"
