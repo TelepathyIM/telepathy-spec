@@ -608,15 +608,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
 
       <tp:flag suffix="Ringing" value = "1">
-        <tp:docstring>
-          The remote contact's client has told us that the contact has been
-          alerted about the call but has not responded.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The remote contact's client has told us that the contact has been
+            alerted about the call but has not responded.</p>
+
+          <tp:rationale>
+            <p>This is a flag per member, not a flag for the call as a whole,
+              because in Muji conference calls, you could invite someone and
+              have their state be "ringing" for a while.</p>
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
       <tp:flag suffix="Held" value = "2">
-        <tp:docstring>
-          The call member has put this call on hold.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The call member has put this call on hold.</p>
+
+          <tp:rationale>
+            <p>This is a flag per member, not a flag for the call as a whole,
+              because in conference calls, any member could put the conference
+              on hold.</p>
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
     </tp:flags>
