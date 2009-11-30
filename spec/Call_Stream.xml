@@ -90,13 +90,24 @@
       </arg>
     </signal>
 
-    <tp:enum name="SendingState" tp:name-for-bindings="Sending_State" type="u">
-      <tp:enumvalue suffix="PendingSend" value = "1">
+    <tp:enum name="Sending_State" type="u">
+      <tp:docstring>
+        Tristate indicating whether a contact is sending media.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
-          The contact has been asked to start sending Media.
+          The contact is not sending media and has not been asked to do so.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Sending" value = "2">
+
+      <tp:enumvalue suffix="Pending_Send" value="1">
+        <tp:docstring>
+          The contact has been asked to start sending media.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Sending" value="2">
         <tp:docstring>
           The contact is sending media.
         </tp:docstring>
@@ -106,7 +117,7 @@
     <tp:mapping name="Contact_Sending_State_Map">
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
       </tp:member>
-      <tp:member name="Sending" type="u" tp:type="SendingState">
+      <tp:member name="Sending" type="u" tp:type="Sending_State">
          <tp:docstring>
          </tp:docstring>
       </tp:member>
