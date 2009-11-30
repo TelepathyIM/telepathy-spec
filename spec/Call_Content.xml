@@ -35,21 +35,22 @@
 
     <property name="Name" tp:name-for-bindings="Name" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The name of the content </p>
+        <p>The name of the content.
+          [FIXME: rationale?]</p>
       </tp:docstring>
     </property>
 
     <property name="Type" tp:name-for-bindings="Type"
-        type="u" tp:Type="Media_Stream_type" access="read">
+        type="u" tp:type="Media_Stream_Type" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> The media type of this content </p>
+        <p>The media type of this content</p>
       </tp:docstring>
     </property>
 
     <property name="Creator" tp:name-for-bindings="Creator"
-        type="u" tp:Type="Contact_Handle" access="read">
+        type="u" tp:type="Contact_Handle" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> Creator of this content </p>
+        <p>The creator of this content</p>
       </tp:docstring>
     </property>
 
