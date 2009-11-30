@@ -39,7 +39,8 @@
           represented by (Amount = 3210, Scale = 3, Currency = "GBP")
           in a service that records balance in units of 0.001 pounds.</p>
 
-        <p>As a special case, if Amount = 0, Scale = 2**32 and Currency = "",
+        <p>As a special case, if Amount = 0, Scale = 2**32 - 1 (i.e.
+          the largest possible 32-bit unsigned integer) and Currency = "",
           this indicates an unknown amount.</p>
       </tp:docstring>
 
@@ -81,8 +82,8 @@
           that the user owes money to the service provider.</p>
 
         <p>On initial connection, this property may have an unknown
-          value, represented by Amount = 0, Scale = 2**32 and
-          Currency = "".</p>
+          value, represented by Amount = 0, Scale = 2**32 - 1 (the largest
+          possible 32-bit unsigned integer) and Currency = "".</p>
       </tp:docstring>
     </property>
 
