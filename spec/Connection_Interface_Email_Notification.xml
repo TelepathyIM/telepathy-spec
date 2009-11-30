@@ -23,67 +23,77 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
-    <property name="UnreadMailCount" type="u" access="read"
-      tp:name-for-bindings="Unread_Mail_Count">
-      <tp:docstring>
-        The number of unread messages in the inbox.
-      </tp:docstring>
-    </property>
-
-    <property name="URL" type="s" tp:name-for-bindings="URL"
-      access="read">
-      <tp:docstring>
-          URL of the inbox
-      </tp:docstring>
-    </property>
-
-    <property name="Cookies" type="a(ss)" tp:name-for-bindings="Cookies"
-      access="read">
-      <tp:docstring>
-        Array of name-value pair structs of the cookies to use when
-        opening the inbox, if any
-      </tp:docstring>
-    </property>
-
-    <signal name="MailReceived" tp:name-for-bindings="Mail_Received">
-      <arg name="url" type="s">
+    <tp:enum name="HTTP_Method" type="u"> 
+      <tp:enumvalue suffix="Get" value="0">
         <tp:docstring>
-          The URL to use for displaying the message, if possible; if a
-          URL for this particular message is not available, this should
-          be the empty string (in which case a user interface might
-          direct the user to <tp:member-ref>URL</tp:member-ref>).
+          Use GET method when opening the URL.
         </tp:docstring>
-      </arg>
-      <arg name="cookies" type="a(ss)">
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Post" value="1">
         <tp:docstring>
-          Array of name-value pair structs of the cookies to use when displaying
-          the message, if any.
+          Use POST method when opening the URL.
         </tp:docstring>
-      </arg>
-      <arg name="details" type="a{sv}">
-        <tp:docstring>
-          A mapping of well known string keys to variant values of details of
-          the message.
-        </tp:docstring>
-      </arg>
+      </tp:enumvalue>
       <tp:docstring>
-        Emitted when a new e-mail message arrives to the inbox associated with
-        this connection. The notification may have detailed information in the
-        details hash table. For this information, the following well-known
-        string keys and types should be used where appropriate:
+        HTTP Method.
+      </tp:docstring>
+    </tp:enum>
 
+    <tp:simple-type name="Email" type="a(sv)" array-name="Email_List">
+      <tp:docstring>
+        E-mail representation has been reduced to an array of pairs
+        with possible keys (of type strings) are listed above. All keys are optional
+        except the "id" key that must be provided by every protocol that support
+        unread mail listing. Without this key, it would not be impossible to unlist
+        the e-mails that are no longer marked as unread.
+      
         <dl>
-          <dt>s:sender-address</dt>
-          <dd>The e-mail address of the sender.</dd>
+          <dt>u:id</dt>
+          <dd>A unique ID for this email</dd>
 
-          <dt>s:sender-displayname</dt>
-          <dd>The display name of the sender.</dd>
+          <dt>s:type</dt>
+          <dd>
+            Type of e-mail. This can be set to "single", which means e-mails 
+            are represented separately, or "thread", when information is described
+            by the protocol as thread. Note that threads may have multiple unread senders.
+          </dd>
 
-          <dt>s:to-addresses</dt>
-          <dd>A comma-separated string list of e-mail addresses of the recipients.</dd>
+          <dt>s:url</dt>
+          <dd>This URL should allow client to load this precise message.</dd>
 
-          <dt>s:cc-addresses</dt>
-          <dd>A comma-separated string list of e-mail addresses of the carbon copy recipients.</dd>
+          <dt>u:method</dt>
+          <dd>
+            The HTTP method to use when opening URL (refer to 
+            <tp:type>HTTP_Method</tp:type> for possible values). If unset, GET
+            is assumed.
+          </dd>
+
+          <dt>a(ss):post-data</dt>
+          <dd>
+            When method is POST, this data must be sent along with the POST request. 
+            It is a list of key/value pair with string for both keys and values.
+          </dd>
+
+          <dt>a(s):cookies</dt>
+          <dd>Cookies to set when loading the URL.</dd>
+
+          <dt>a(ss):senders</dt>
+          <dd>
+            An array of sender display name and e-mail address pair. Note that 
+            only e-mails thread may have multiple senders.
+          </dd>
+
+          <dt>a(ss):to-addresses</dt>
+          <dd>
+            An array of display name and e-mail address pair of
+            the recipients.
+          </dd>
+
+          <dt>a(ss):cc-addresses</dt>
+          <dd>
+            An array of display name and e-mail address pair of the carbon
+            copy recipients.
+          </dd>
 
           <dt>s:subject</dt>
           <dd>The subject of the message.</dd>
@@ -103,60 +113,192 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt>s:content-type</dt>
           <dd>MIME type of the message contents.</dd>
 
+          <dt>s:snippet</dt>
+          <dd>
+            A small part of the message body (content-type should
+            be set if this message is HTML encoded).
+          </dd>
+
           <dt>s:body</dt>
-          <dd>The body of the message.</dd>
+          <dd>
+            The body of the message (content-type should
+            be set if this message is HTML encoded).
+          </dd>
+
+          <dt>s:folder</dt>
+          <dd>
+            The name of the folder containing this emails. 
+            If unset, inbox will be assumed.
+          </dd>
         </dl>
       </tp:docstring>
+    </tp:simple-type>
+   
+    <property name="UnreadEmailCount" type="u" access="read"
+      tp:name-for-bindings="Unread_Email_Count">
+      <tp:docstring>
+        The number of unread messages in the inbox.
+      </tp:docstring>
+    </property>
+
+    <property name="InboxURL" type="s" tp:name-for-bindings="Inbox_URL"
+      access="read">
+      <tp:docstring>
+          URL of the inbox.
+      </tp:docstring>
+    </property>
+
+    <property name="Method" type="u" tp-type="HTTP_Method" 
+      tp:name-for-bindings="Method" access="read">
+      <tp:docstring>
+          HTTP Method to use along with <tp:member-ref>InboxURL</tp:member-ref>.
+      </tp:docstring>
+    </property>
+
+    <property name="Cookies" type="a(s)" tp:name-for-bindings="Cookies"
+      access="read">
+      <tp:docstring>
+        Array of the cookies to use when opening the 
+        <tp:member-ref>InboxURL</tp:member-ref>.
+        (a cookie is a string, e.g. "session=1; path=/; domain=toto.com")
+      </tp:docstring>
+    </property>
+
+    <property name="PostData" type="a(ss)" tp:name-for-bindings="Post_Data"
+      access="read">
+      <tp:docstring>
+        Array of key/value pairs of the POST data to send when opening the
+        <tp:member-ref>InboxURL</tp:member-ref>. This should be ignored if 
+        <tp:member-ref>Method</tp:member-ref> is not "POST".
+      </tp:docstring>
+    </property>
+
+    <property name="UnreadEmails" type="a(sv)" tp-type="Email_List"
+      tp:name-for-bindings="Unread_Emails" access="read">
+      <tp:docstring>
+        A array of unread <tp:type>Email</tp:type>s.
+      </tp:docstring>
+    </property>
+
+    <signal name="EmailsReceived" tp:name-for-bindings="Emails_Received">
+      <arg name="emails" type="a(sv)" tp-type="Email_List">
+        <tp:docstring>
+          An array of <tp:type>Email</tp:type>s. Those e-mails do not have a unique "ID".
+        </tp:docstring>
+      </arg>
+
+      <tp:docstring>
+        Emitted when new e-mails messages arrive to the inbox associated with
+        this connection. This signal is used for protocol that are not able
+        to maintained <tp:member-ref>UnreadEmails</tp:member-ref> list but
+        receives real-time notification about newly arrived emails.
+      </tp:docstring>
     </signal>
-    <signal name="UnreadMailStatusChanged"
-      tp:name-for-bindings="Unread_Mail_Status_Changed">
+
+    <signal name="UnreadEmailsAdded"
+      tp:name-for-bindings="Unread_Emails_Added">
       <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox (the new value of
-          <tp:member-ref>UnreadMailCount</tp:member-ref>).
+          <tp:member-ref>UnreadEmailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
+      <arg name="emails" type="a(a(sv))" tp-type="Email_List">
+        <tp:docstring>
+          A list of <tp:type>Email</tp:type> that are being added to
+          <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
+          empty if the protocol does not support listing unread emails
+          or threads.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="UnreadEmailsRemoved"
+      tp:name-for-bindings="Unread_Emails_Removed">
+      <arg name="count" type="u">
+        <tp:docstring>
+          Number of unread messages in the inbox (the new value of
+          <tp:member-ref>UnreadEmailCount</tp:member-ref>).
+        </tp:docstring>
+      </arg>
+        <arg name="emails" type="a(u)">
+        <tp:docstring>
+          A list of emails ID that are being removed from
+          <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
+          empty if the protocol does not support listing unread emails
+          or thread.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="InboxURLChanged"
+      tp:name-for-bindings="Inbox_URL_Changed">
       <arg name="url" type="s">
         <tp:docstring>
           URL of the inbox (the new value of
-          <tp:member-ref>URL</tp:member-ref>).
+          <tp:member-ref>InboxURL</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="cookies" type="a(ss)">
+      <arg name="method" type="u">
         <tp:docstring>
-          Array of name-value pair structs of the cookies to use when opening
+          HTTP Method for opening inbox URL (the new value of
+          <tp:member-ref>Method</tp:member-ref>).
+        </tp:docstring>
+      </arg>
+      <arg name="cookies" type="a(s)">
+        <tp:docstring>
+          Array of strings of the cookies to use when opening
           the inbox, if any (the new value of
           <tp:member-ref>Cookies</tp:member-ref>).
         </tp:docstring>
       </arg>
+      <arg name="post_data" type="a(ss)">
+        <tp:docstring>
+          Array of name-value pair structs of the POST data to use when opening
+          the inbox, if any (the new value of
+          <tp:member-ref>PostData</tp:member-ref>).
+        </tp:docstring>
+      </arg>
       <tp:docstring>
         Emitted when the unread message status for the user's inbox changes or
-        the value has been initially received from the server.
+        the value has been initially received from the IM server.
       </tp:docstring>
     </signal>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support receiving notifications about a e-mail
         account associated with this connection. It is intended that the
         connection manager has the means to provide necessary
-        information (URL, cookies) so that the client is able to open
-        the user's inbox and possibly individual messages without having
-        to re-authenticate.</p>
+        information (URL, method, cookies, POST data) so that the client is 
+        able to open the user's inbox and possibly individual messages without 
+        having to re-authenticate.</p>
 
-      <p>When the number of unread e-mails in the inbox changes, the
-        <tp:member-ref>UnreadMailStatusChanged</tp:member-ref> signal
-        will be emitted, with the new values of
-        <tp:member-ref>UnreadMailCount</tp:member-ref>,
-        <tp:member-ref>URL</tp:member-ref>, and
-        <tp:member-ref>Cookies</tp:member-ref>. Some protocols also
-        provide information about the individual messages received. On
-        such protocols, the <tp:member-ref>MailReceived</tp:member-ref>
-        signal will also be emitted, with information about the e-mail
-        (and possibly a URL to display that particular e-mail, rather than
-        the inbox).</p>
+      <p>When unread e-mails arrive into the inbox, the
+        <tp:member-ref>UnreadEmailsAdded</tp:member-ref> signal
+        will be emitted with the new value of
+        <tp:member-ref>UnreadEmailCount</tp:member-ref> and when
+        available the detailed list of new emails. When some e-mails are
+        no longer unread, the
+        <tp:member-ref>UnreadEmailsRemoved</tp:member-ref> signal
+        will be emitted with the new values of
+        <tp:member-ref>UnreadEmailCount</tp:member-ref> and when
+        available the list of removed e-mail unique IDs. If any
+        information about how to open the inbox is changed, the
+        <tp:member-ref>InboxURLChanged</tp:member-ref> signal will be
+        emitted with the new value of
+        <tp:member-ref>InboxURL</tp:member-ref>,
+        <tp:member-ref>Method</tp:member-ref>,
+        <tp:member-ref>PostData</tp:member-ref> and
+        <tp:member-ref>Cookies</tp:member-ref>.
+      </p>
+      <p>
+        Some protocol may not be able to provide a list of unread e-emails
+        but may provide some information about the messages received. On
+        such protocols, the <tp:member-ref>EmailsReceived</tp:member-ref>
+        signal will also be emitted, with information about the e-mails.
+        The protocol does not keep track of any of this information.
+      </p>
 
-      <!-- FIXME: Are there any protocols that give you the latter but
-           not the former?
-        -->
     </tp:docstring>
   </interface>
 </node>
