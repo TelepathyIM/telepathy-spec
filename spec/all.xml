@@ -160,6 +160,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <xi:include href="Client_Observer.xml"/>
  <xi:include href="Client_Approver.xml"/>
  <xi:include href="Client_Handler.xml"/>
+ <xi:include href="Client_Handler_Future.xml"/>
  <xi:include href="Client_Interface_Requests.xml"/>
 
  <xi:include href="Channel_Handler.xml"/>
