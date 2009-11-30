@@ -82,6 +82,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>This method should be called exactly once per Call, by whatever
           client (user interface) is handling the channel.</p>
+
+        <p>When this method is called, for each <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call"
+            >Content.DRAFT</tp:dbus-ref> whose <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content.DRAFT"
+            >Disposition</tp:dbus-ref> is Call_Content_Disposition_Initial,
+            any streams where the sending state is Sending_State_Pending_Send
+            will be moved to Sending_State_Sending.
+            [FIXME: what does this actually mean in terms of properties?]</p>
       </tp:docstring>
 
       <tp:possible-errors>

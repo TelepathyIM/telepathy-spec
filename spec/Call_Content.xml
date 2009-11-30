@@ -73,9 +73,12 @@
 
       <tp:enumvalue suffix="Initial" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The content was initially part of the call. When answer is called on
-          the channel, all streams of this content will be set to sending if
-          they were pending.
+          The content was initially part of the call. When <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT"
+            >Accept</tp:dbus-ref> is called on the channel, all streams of
+          this content where the sending state is Sending_State_Pending_Send
+          will be moved to Sending_State_Sending.
+          [FIXME: what does this actually mean in terms of properties?]
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
