@@ -309,7 +309,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Held" value="4">
+      <tp:flag suffix="Locally_Held" value="4">
         <tp:docstring>
           The call has been put on hold by the local user, e.g. using the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
