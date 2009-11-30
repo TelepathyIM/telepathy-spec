@@ -288,7 +288,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         sense in a particular state.
       </tp:docstring>
 
-      <tp:flag suffix="Ringing" value="1">
+      <tp:flag suffix="Locally_Ringing" value="1">
         <tp:docstring>
           The local contact has been alerted about the call but has not
           responded; if possible, the remote contact(s) have been informed of
@@ -296,7 +296,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           state Call_State_Pending_Receiver. It SHOULD be set when
           <tp:member-ref>Ringing</tp:member-ref> is called successfully, and
           unset when the state changes.
-          [FIXME: does this make sense for outgoing calls too?]
         </tp:docstring>
       </tp:flag>
 
