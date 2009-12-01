@@ -126,8 +126,7 @@ dist:
 		> "$$distname".tar;\
 	rm -rf tmp/"$$distname";\
 	mkdir tmp/"$$distname";\
-	$(GIT) log --stat > tmp/"$$distname"/ChangeLog || \
-		$(GIT) log > tmp/"$$distname"/ChangeLog;\
+	$(GIT) log telepathy-spec-0.16.0.. > tmp/"$$distname"/ChangeLog; \
 	$(TAR) -rf "$$distname".tar -C tmp --owner 0 --group 0 --mode 0664 \
 		"$$distname"/ChangeLog;\
 	$(GZIP) -9 "$$distname".tar;\
