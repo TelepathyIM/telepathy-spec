@@ -158,13 +158,6 @@
 
         <p>Change notification is via
           <tp:member-ref>CodecsChanged</tp:member-ref>.</p>
-
-        <p>The local user's handle MUST be present in this map, using the
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
-            >Group.SelfHandle</tp:dbus-ref> if the channel implements
-          Group, or the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy"
-            >Connection.SelfHandle</tp:dbus-ref> otherwise.</p>
       </tp:docstring>
     </property>
 
