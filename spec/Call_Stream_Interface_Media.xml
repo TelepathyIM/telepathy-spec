@@ -232,7 +232,7 @@
       type="(ss)" tp:type="Stream_Credentials" access="read">
       <tp:docstring>
         [FIXME]. Change notification is via
-        <tp:member-ref>LocalCredentialsChanged</tp:member-ref>.
+        <tp:member-ref>LocalCredentialsSet</tp:member-ref>.
       </tp:docstring>
 
     </property>
