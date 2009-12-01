@@ -169,8 +169,41 @@
     </property>
 
     <signal name="NewCodecOffer" tp:name-for-bindings="New_Codec_Offer">
-      <arg name="Offer" type="o" />
-      <arg name="Codecs" type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map" />
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a new <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content"
+            >CodecOffer.DRAFT</tp:dbus-ref> appears. The streaming
+          implementation MUST respond by calling the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content.CodecOffer.DRAFT"
+            >Accept</tp:dbus-ref> or <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content.CodecOffer.DRAFT"
+            >Reject</tp:dbus-ref> method on the codec offer object.</p>
+
+        <p>Emission of this signal indicates that the
+          <tp:member-ref>CodecOffer</tp:member-ref> property has changed to
+          <code>(Offer, Codecs)</code>.</p>
+      </tp:docstring>
+
+      <arg name="Offer" type="o">
+        <tp:docstring>
+          The object path of the new codec offer. This replaces any previous
+          codec offer.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Codecs" type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content"
+              >CodecOffer.DRAFT.RemoteContactCodecMap</tp:dbus-ref> property
+            of the codec offer.</p>
+
+          <tp:rationale>
+            <p>Having the RemoteContactCodecMap property here saves a D-Bus
+              round-trip - it shouldn't be necessary to get the property
+              from the CodecOffer object, in practice.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="CodecOffer" tp:name-for-bindings="Codec_Offer"
