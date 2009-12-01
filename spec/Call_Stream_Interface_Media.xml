@@ -291,8 +291,22 @@
 
     <signal name="EndpointsChanged"
         tp:name-for-bindings="Endpoints_Changed">
-      <arg name="EndpointsAdded" type="ao" />
-      <arg name="EndpointsRemoved" type="ao" />
+      <tp:docstring>
+        Emitted when the <tp:member-ref>Endpoints</tp:member-ref> property
+        changes.
+      </tp:docstring>
+
+      <arg name="EndpointsAdded" type="ao">
+        <tp:docstring>
+          Endpoints that were added.
+        </tp:docstring>
+      </arg>
+
+      <arg name="EndpointsRemoved" type="ao">
+        <tp:docstring>
+          Endpoints that no longer exist.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Endpoints" tp:name-for-bindings="Endpoints"
@@ -303,6 +317,9 @@
               >Endpoint.DRAFT</tp:dbus-ref>
            that exist for this stream.
         </p>
+
+        <p>Change notification is via the
+          <tp:member-ref>EndpointsChanged</tp:member-ref> signal.</p>
     </property>
   </interface>
 </node>
