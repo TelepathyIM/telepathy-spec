@@ -138,12 +138,16 @@
     </signal>
 
     <method name="SetCodecs" tp:name-for-bindings="Set_Codecs">
-      <arg name="codecs" direction="in"
-        type="a(usuua{ss})" tp:type="Codec[]">
-      </arg>
       <tp:docstring>
-        Set or update the local codec mapping
+        Set or update the local codec mapping.
       </tp:docstring>
+
+      <arg name="Codecs" direction="in"
+        type="a(usuua{ss})" tp:type="Codec[]">
+        <tp:docstring>
+          The codecs now supported by the local user.
+        </tp:docstring>
+      </arg>
     </method>
 
     <property name="ContactCodecMap" tp:name-for-bindings="Contact_Codec_Map"
