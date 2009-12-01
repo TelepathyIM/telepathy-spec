@@ -208,13 +208,27 @@
 
     <property name="CodecOffer" tp:name-for-bindings="Codec_Offer"
       type="(oa{ua(usuua{ss})})" tp:type="Codec_Offering" access="read">
-      <tp:docstring>
-        The object path to the current
-        <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Call.Content"
-            >CodecOffer.DRAFT</tp:dbus-ref> object and the
-          Codec map associated with it.
-        If the object path is "/" then there isn't an outstanding CodecOffer
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The object path to the current
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Call.Content"
+              >CodecOffer.DRAFT</tp:dbus-ref> object, and its
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content"
+              >CodecOffer.DRAFT.RemoteContactCodecMap</tp:dbus-ref> property.
+            If the object path is "/" then there isn't an outstanding
+          codec offer, and the mapping MUST be empty.</p>
+
+        <tp:rationale>
+          <p>Having the RemoteContactCodecMap property here saves a D-Bus
+            round-trip - it shouldn't be necessary to get the property
+            from the CodecOffer object, in practice.</p>
+        </tp:rationale>
+
+        <p>Change notification is via
+          <tp:member-ref>NewCodecOffer</tp:member-ref> (which replaces the
+          value of this property with a new codec offer), and
+          <tp:member-ref>CodecsChanged</tp:member-ref> (which implies that
+          there is no longer any active codec offer).</p>
       </tp:docstring>
     </property>
   </interface>
