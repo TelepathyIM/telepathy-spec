@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.0 (UNRELEASED)
+telepathy-spec 0.19.0 (2009-12-01)
 ==================================
+
+The "horses are interesting, if brittle, animals" release.
 
 New stable API:
 
