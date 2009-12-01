@@ -35,8 +35,8 @@
 
     <signal name="RemoteCredentialsSet"
         tp:name-for-bindings="Remote_Credentials_Set">
-      <arg name="username" type="s" />
-      <arg name="password" type="s" />
+      <arg name="Username" type="s" />
+      <arg name="Password" type="s" />
     </signal>
 
     <property name="RemoteCandidates" tp:name-for-bindings="Remote_Candidates"
@@ -62,7 +62,7 @@
 
     <method name="SetSelectedCandidate"
         tp:name-for-bindings="Set_Selected_Candidate">
-      <arg name="candidate"
+      <arg name="Candidate"
         type="(usqa{sv})" tp:type="Candidate" direction="in">
         <tp:docstring>
         </tp:docstring>
@@ -82,7 +82,7 @@
 
     <method name="SetStreamState"
         tp:name-for-bindings="Set_Stream_State">
-      <arg name="state" type="u" tp:type="Media_Stream_State"
+      <arg name="State" type="u" tp:type="Media_Stream_State"
         direction="in" />
     </method>
 
