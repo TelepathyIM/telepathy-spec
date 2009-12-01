@@ -225,9 +225,9 @@
 
             <p>The precise meaning of this key depends on the
               <tp:member-ref>Transport</tp:member-ref> property: if
-              Transport is <code>ice-udp</code>, <code>tls</code> means
+              Transport is ICE, <code>tls</code> means
               TLS over TCP as referenced by ICE draft 19, and if
-              Transport is <code>gtalk-p2p</code>, <code>tls</code> means
+              Transport is GTalk_P2P, <code>tls</code> means
               a fake SSL session over TCP as implemented by libjingle.</p>
           </dd>
 
@@ -262,8 +262,8 @@
 
         <p>The type of relay server that this represents depends on
           the value of the <tp:member-ref>Transport</tp:member-ref>
-          property. If Transport is ice-udp, this is a TURN server;
-          if NATTraversal is gtalk-p2p, this is a Google relay server;
+          property. If Transport is ICE, this is a TURN server;
+          if Transport is GTalk_P2P, this is a Google relay server;
           otherwise, the meaning of RelayInfo is undefined.</p>
 
         <p>If relaying is not possible for this stream, the list is empty.</p>
