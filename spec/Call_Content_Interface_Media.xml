@@ -68,21 +68,6 @@
       </tp:member>
     </tp:struct>
 
-    <tp:mapping name = "Codec_Parameter_Map">
-      <tp:member name="identifier" type="u">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Numeric identifier for the code. This will be used as the PT in the
-          SDP or content description.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="parameters" type="a{ss}">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Extra parameters for this codec
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
-
     <tp:mapping name="Contact_Codec_Map">
       <tp:docstring>
         A map from contacts to the lists of codecs they support.
