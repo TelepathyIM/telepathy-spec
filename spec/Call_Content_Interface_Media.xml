@@ -84,24 +84,42 @@
     </tp:mapping>
 
     <tp:mapping name="Contact_Codec_Map">
+      <tp:docstring>
+        A map from contacts to the lists of codecs they support.
+      </tp:docstring>
+
       <tp:member name="Handle" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          A contact
+        </tp:docstring>
       </tp:member>
+
       <tp:member name="Codecs" type="a(usuua{ss})" tp:type="Codec[]">
+        <tp:docstring>
+          The codecs that the contact supports
+        </tp:docstring>
       </tp:member>
     </tp:mapping>
 
     <tp:struct name="Codec_Offering">
-      <tp:member name="CodecOffer" type="o">
+      <tp:docstring>
+        A codec offer and its corresponding remote contact codec map.
+      </tp:docstring>
+
+      <tp:member name="Codec_Offer" type="o">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The object path to the
             <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content"
               >CodecOffer.DRAFT</tp:dbus-ref>
         </tp:docstring>
       </tp:member>
-      <tp:member name="CodecMap" type="a{ua(usuua{ss})}"
+
+      <tp:member name="Remote_Contact_Codec_Map" type="a{ua(usuua{ss})}"
           tp:type="Contact_Codec_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The CodecMap of this offer.
+          The <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content"
+            >CodecOffer.DRAFT.RemoteContactCodecMap</tp:dbus-ref> property
+          of the codec offer.
         </tp:docstring>
       </tp:member>
     </tp:struct>
