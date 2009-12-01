@@ -273,9 +273,10 @@
     <signal name="ServerInfoRetrieved"
       tp:name-for-bindings="Server_Info_Retrieved">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p> Signals that the initial information about STUN and Relay servers
-            has been retrieived.
-        </p>
+        <p>Signals that the initial information about STUN and Relay servers
+          has been retrieved, i.e. the
+          <tp:member-ref>RetrievedServerInfo</tp:member-ref> property is now
+          true.</p>
       </tp:docstring>
     </signal>
 
@@ -283,9 +284,14 @@
         tp:name-for-bindings="Retrieved_Server_Info" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if the initial information about STUN servers and Relay servers
-           has been retrieved. Change notification via the ServerInfoRetrieved
-           signal.
-        </p>
+          has been retrieved. Change notification is via the
+          <tp:member-ref>ServerInfoRetrieved</tp:member-ref> signal.</p>
+
+        <tp:rationale>
+          <p>Streaming implementations that can't cope with STUN and relay
+            servers being added later SHOULD wait for this property
+            to become true before proceeding.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
