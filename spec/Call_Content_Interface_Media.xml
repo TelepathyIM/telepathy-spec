@@ -33,31 +33,35 @@
     </tp:docstring>
 
     <tp:struct name="Codec" array-name="Codec_List">
-      <tp:member name="identifier" type="u">
+      <tp:docstring>
+        A description of a codec.
+      </tp:docstring>
+
+      <tp:member name="Identifier" type="u">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Numeric identifier for the code. This will be used as the PT in the
+          Numeric identifier for the codec. This will be used as the PT in the
           SDP or content description.
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="name" type="s">
+      <tp:member name="Name" type="s">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The name of the codec.
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="clockrate" type="u">
+      <tp:member name="Clockrate" type="u">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The clockrate of the codec
         </tp:docstring>
       </tp:member>
-      <tp:member name="channels" type="u">
+      <tp:member name="Channels" type="u">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Number of channels of the codec if applicable, otherwise 0
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="parameters" type="a{ss}">
+      <tp:member name="Parameters" type="a{ss}">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Extra parameters for this codec
         </tp:docstring>
