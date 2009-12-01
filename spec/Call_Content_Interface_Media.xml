@@ -109,12 +109,31 @@
       </tp:member>
     </tp:struct>
 
-    <signal name="CodecsChanged" tp:name-for-bindings="Codecs_Changed"
-        type="a{ua(usuua{ss}})au">
-      <arg name="UpdateCodecs" type="a{ua(usuua{ss})}"
+    <signal name="CodecsChanged" tp:name-for-bindings="Codecs_Changed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when the codecs in use change.</p>
+
+        <p>As well as acting as change notification for the
+          <tp:member-ref>ContactCodecMap</tp:member-ref>, emission of this
+          signal implies that the <tp:member-ref>CodecOffer</tp:member-ref>
+          property has changed to <code>('/', {})</code>.</p>
+      </tp:docstring>
+
+      <arg name="Updated_Codecs" type="a{ua(usuua{ss})}"
         tp:type="Contact_Codec_Map">
+        <tp:docstring>
+          A map from contacts to their codecs. Each pair in this map is added
+          to the <tp:member-ref>ContactCodecMap</tp:member-ref> property,
+          replacing any previous pair with that key.
+        </tp:docstring>
       </arg>
-      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
+
+      <arg name="Removed_Contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          A list of keys which were removed from the
+          <tp:member-ref>ContactCodecMap</tp:member-ref>, probably because
+          those contacts left the call.
+        </tp:docstring>
       </arg>
     </signal>
 
