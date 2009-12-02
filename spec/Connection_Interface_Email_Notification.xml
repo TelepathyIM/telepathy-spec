@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Connection_Interface_Mail_Notification"
+<node name="/Connection_Interface_Email_Notification"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
   >
   <tp:copyright> Copyright (C) 2007 Collabora Limited </tp:copyright>
