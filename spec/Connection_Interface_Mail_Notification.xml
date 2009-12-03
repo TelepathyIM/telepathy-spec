@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Connection_Interface_Email_Notification"
+<node name="/Connection_Interface_Mail_Notification"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0"
   >
   <tp:copyright> Copyright (C) 2007 Collabora Limited </tp:copyright>
@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface
-    name="org.freedesktop.Telepathy.Connection.Interface.EmailNotification.DRAFT"
+    name="org.freedesktop.Telepathy.Connection.Interface.MailNotification.DRAFT"
     tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
@@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:enum>
 
-    <tp:enum name="Email_Type" type="u"> 
+    <tp:enum name="Mail_Type" type="u"> 
       <tp:enumvalue suffix="single" value="0">
         <tp:docstring>
           The e-mail is represented as a single reply by only
@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
 
-    <tp:simple-type name="Email" type="a{sv}" array-name="Email_List">
+    <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
       <tp:docstring>
         E-mail representation has been reduced to hash table with possible keys (of type strings) 
         listed above. All keys are optional except the "id" key that must be provided by every 
@@ -67,9 +67,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       
         <dl>
           <dt>u:id</dt>
-          <dd>A unique ID for this email</dd>
+          <dd>A unique ID for this e-mail</dd>
 
-          <dt>u:type (see <tp:type>Email_Type</tp:type>)</dt>
+          <dt>u:type (see <tp:type>Mail_Type</tp:type>)</dt>
           <dd>
             Type of e-mail. This can be set to "single", which means e-mails 
             are represented separately, or "thread", when information is described
@@ -141,15 +141,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <dt>s:folder</dt>
           <dd>
-            The name of the folder containing this emails. 
+            The name of the folder containing this e-mails. 
             If unset, inbox will be assumed.
           </dd>
         </dl>
       </tp:docstring>
     </tp:simple-type>
    
-    <property name="UnreadEmailCount" type="u" access="read"
-      tp:name-for-bindings="Unread_Email_Count">
+    <property name="UnreadMailCount" type="u" access="read"
+      tp:name-for-bindings="Unread_Mail_Count">
       <tp:docstring>
         The number of unread messages in the inbox.
       </tp:docstring>
@@ -187,58 +187,58 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="UnreadEmails" type="a(a{sv})" tp:type="Email[]"
-      tp:name-for-bindings="Unread_Emails" access="read">
+    <property name="UnreadMails" type="a(a{sv})" tp:type="Mail[]"
+      tp:name-for-bindings="Unread_Mails" access="read">
       <tp:docstring>
-        A array of unread <tp:type>Email</tp:type>s.
+        A array of unread <tp:type>Mail</tp:type>s.
       </tp:docstring>
     </property>
 
-    <signal name="EmailsReceived" tp:name-for-bindings="Emails_Received">
-      <arg name="emails" type="a(sv)" tp:type="Email[]">
+    <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
+      <arg name="mails" type="a(sv)" tp:type="Mail[]">
         <tp:docstring>
-          An array of <tp:type>Email</tp:type>s. Those e-mails do not have a unique "ID".
+          An array of <tp:type>Mail</tp:type>s. Those e-mails do not have a unique "ID".
         </tp:docstring>
       </arg>
 
       <tp:docstring>
         Emitted when new e-mails messages arrive to the inbox associated with
         this connection. This signal is used for protocol that are not able
-        to maintained <tp:member-ref>UnreadEmails</tp:member-ref> list but
-        receives real-time notification about newly arrived emails.
+        to maintained <tp:member-ref>UnreadMails</tp:member-ref> list but
+        receives real-time notification about newly arrived e-mails.
       </tp:docstring>
     </signal>
 
-    <signal name="UnreadEmailsAdded"
-      tp:name-for-bindings="Unread_Emails_Added">
+    <signal name="UnreadMailsAdded"
+      tp:name-for-bindings="Unread_Mails_Added">
       <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox (the new value of
-          <tp:member-ref>UnreadEmailCount</tp:member-ref>).
+          <tp:member-ref>UnreadMailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="emails" type="a(a(sv))" tp:type="Email[]">
+      <arg name="mails" type="a(a(sv))" tp:type="Mail[]">
         <tp:docstring>
-          A list of <tp:type>Email</tp:type> that are being added to
-          <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
+          A list of <tp:type>Mail</tp:type> that are being added to
+          <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
           empty if the protocol does not support listing unread e-mails
           or threads.
         </tp:docstring>
       </arg>
     </signal>
 
-    <signal name="UnreadEmailsRemoved"
-      tp:name-for-bindings="Unread_Emails_Removed">
+    <signal name="UnreadMailsRemoved"
+      tp:name-for-bindings="Unread_Mails_Removed">
       <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox (the new value of
-          <tp:member-ref>UnreadEmailCount</tp:member-ref>).
+          <tp:member-ref>UnreadMailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
-        <arg name="emails" type="a(u)">
+        <arg name="mails" type="a(u)">
         <tp:docstring>
-          A list of emails ID that are being removed from
-          <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
+          A list of e-mails ID that are being removed from
+          <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
           empty if the protocol does not support listing unread e-mails
           or threads.
         </tp:docstring>
@@ -324,14 +324,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         subscribe using the <tp:member-ref>Subscribe</tp:member-ref> method.</p>
 
       <p>When unread e-mails arrive into the inbox, the
-        <tp:member-ref>UnreadEmailsAdded</tp:member-ref> signal
+        <tp:member-ref>UnreadMailsAdded</tp:member-ref> signal
         will be emitted with the new value of
-        <tp:member-ref>UnreadEmailCount</tp:member-ref> and when
-        available the detailed list of new emails. When some e-mails are
+        <tp:member-ref>UnreadMailCount</tp:member-ref> and when
+        available the detailed list of new e-mails. When some e-mails are
         no longer unread, the
-        <tp:member-ref>UnreadEmailsRemoved</tp:member-ref> signal
+        <tp:member-ref>UnreadMailsRemoved</tp:member-ref> signal
         will be emitted with the new values of
-        <tp:member-ref>UnreadEmailCount</tp:member-ref> and when
+        <tp:member-ref>UnreadMailCount</tp:member-ref> and when
         available the list of removed e-mail unique IDs. If any
         information about how to open the inbox is changed, the
         <tp:member-ref>InboxURLChanged</tp:member-ref> signal will be
@@ -342,13 +342,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>Cookies</tp:member-ref>.
       </p>
       <p>
-        Some protocol may not be able to provide a list of unread e-emails
+        Some protocol may not be able to provide a list of unread e-mails
         but may provide some information about the messages received. On
-        such protocols, the <tp:member-ref>EmailsReceived</tp:member-ref>
+        such protocols, the <tp:member-ref>MailsReceived</tp:member-ref>
         signal will also be emitted, with information about the e-mails.
         The protocol does not keep track of any of this information.
       </p>
-
     </tp:docstring>
   </interface>
 </node>
