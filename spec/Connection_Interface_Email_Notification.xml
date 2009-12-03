@@ -162,7 +162,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Method" type="u" tp-type="HTTP_Method" 
+    <property name="Method" type="u" tp:type="HTTP_Method" 
       tp:name-for-bindings="Method" access="read">
       <tp:docstring>
           HTTP Method to use along with <tp:member-ref>InboxURL</tp:member-ref>.
@@ -187,7 +187,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="UnreadEmails" type="a(sv)" tp-type="Email_List"
+    <property name="UnreadEmails" type="a(a{sv})" tp:type="Email[]"
       tp:name-for-bindings="Unread_Emails" access="read">
       <tp:docstring>
         A array of unread <tp:type>Email</tp:type>s.
@@ -195,7 +195,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <signal name="EmailsReceived" tp:name-for-bindings="Emails_Received">
-      <arg name="emails" type="a(sv)" tp-type="Email_List">
+      <arg name="emails" type="a(sv)" tp:type="Email[]">
         <tp:docstring>
           An array of <tp:type>Email</tp:type>s. Those e-mails do not have a unique "ID".
         </tp:docstring>
@@ -217,7 +217,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>UnreadEmailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="emails" type="a(a(sv))" tp-type="Email_List">
+      <arg name="emails" type="a(a(sv))" tp:type="Email[]">
         <tp:docstring>
           A list of <tp:type>Email</tp:type> that are being added to
           <tp:member-ref>UnreadEmails</tp:member-ref>. This list will be
