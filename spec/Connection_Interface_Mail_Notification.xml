@@ -57,13 +57,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:enum>
 
-
     <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
       <tp:docstring>
         E-mail representation has been reduced to hash table with possible keys (of type strings) 
         listed above. All keys are optional except the "id" key that must be provided by every 
         protocol that support unread mail listing. Without this key, it would not be impossible to 
         unlist the e-mails that are no longer marked as unread.
+        <tp:rationale>
+          The hash map will allow extending the protocol without any ABI 
+          changes. Only the documentation will need to be updated.
+        </tp:rationale>
       
         <dl>
           <dt>u:id</dt>
@@ -122,7 +125,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>A boolean of whether this message has attachments.</dd>
 
           <dt>s:content-type</dt>
-          <dd>MIME type of the message contents.</dd>
+          <dd>
+            MIME type of the message contents. Plain text should be
+            assumed if unset.
+          </dd>
 
           <dt>s:snippet</dt>
           <dd>
@@ -257,6 +263,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Emitted when the unread message status for the user's inbox changes or
         the value has been initially received from the IM server.
+        <tp:rationale>
+          To minimize overhead of e-mail notification, some protocol may not
+          try to get any information about unread e-mails before a first client
+          call Subscribe. There might be a delay between the call to Subscribe 
+          and the time the Connection Manager get the URL. In this case, 
+          firering InboxURLChanged signal is required to tell the client 
+          that this information is now available. The empty string will be used
+          when URL is not available. Also some protocol may rely on session ID
+          as authentication. Session IDs are often updated and this signal
+          should serve that purpose.
+        </tp:rationale>
       </tp:docstring>
     </signal>
 
