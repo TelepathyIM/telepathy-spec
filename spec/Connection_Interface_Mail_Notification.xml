@@ -242,7 +242,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
-      <arg name="mails" type="a(sv)" tp:type="Mail[]">
+      <arg name="mails" type="a(a{sv})" tp:type="Mail[]">
         <tp:docstring>
           An array of <tp:type>Mail</tp:type>s. Those e-mails do not have a unique "ID".
         </tp:docstring>
@@ -264,7 +264,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>UnreadMailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="mails" type="a(a(sv))" tp:type="Mail[]">
+      <arg name="mails" type="a(a{sv})" tp:type="Mail[]">
         <tp:docstring>
           A list of <tp:type>Mail</tp:type> that are being added to
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
