@@ -195,9 +195,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         A bitmask of supported features for e-mails notification.
         <tp:rational>
-          This property explicitly state the behaviour and availability
+          This property explicitly state the behavior and availability
           of the other properties and signal within this interface. A
-          conntection manager that cannot at least set one of the flag
+          connection manager that cannot at least set one of the flag
           describe in the enumeration <tp:type>Capability</tp:type>
           should not provide this interface.
         </tp:rational>
@@ -321,7 +321,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           try to get any information about unread e-mails before a first client
           call Subscribe. There might be a delay between the call to Subscribe 
           and the time the connection manager get the URL. In this case, 
-          firering InboxURLChanged signal is required to tell the client 
+          emitting InboxURLChanged signal is required to tell the client 
           that this information is now available. The empty string will be used
           when URL is not available. Also some protocol may rely on session ID
           as authentication. Session IDs are often updated and this signal
