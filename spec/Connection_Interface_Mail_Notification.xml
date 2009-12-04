@@ -91,9 +91,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             It is a list of key/value pair with string for both keys and values.
           </dd>
 
-          <dt>as:cookies</dt>
-          <dd>Cookies to set when loading the URL.</dd>
-
           <dt>a(ss):senders</dt>
           <dd>
             An array of sender display name and e-mail address pair. Note that 
@@ -166,15 +163,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Method" access="read">
       <tp:docstring>
           HTTP Method to use along with <tp:member-ref>InboxURL</tp:member-ref>.
-      </tp:docstring>
-    </property>
-
-    <property name="Cookies" type="as" tp:name-for-bindings="Cookies"
-      access="read">
-      <tp:docstring>
-        Array of the cookies to use when opening the 
-        <tp:member-ref>InboxURL</tp:member-ref>.
-        (a cookie is a string, e.g. "session=1; path=/; domain=toto.com")
       </tp:docstring>
     </property>
 
@@ -259,13 +247,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>Method</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="cookies" type="as">
-        <tp:docstring>
-          Array of strings of the cookies to use when opening
-          the inbox, if any (the new value of
-          <tp:member-ref>Cookies</tp:member-ref>).
-        </tp:docstring>
-      </arg>
       <arg name="post_data" type="a(ss)">
         <tp:docstring>
           Array of name-value pair structs of the POST data to use when opening
@@ -318,7 +299,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>An interface to support receiving notifications about a e-mail
         account associated with this connection. It is intended that the
         connection manager has the means to provide necessary
-        information (URL, method, cookies, POST data) so that the client is 
+        information (URL, method, POST data) so that the client is 
         able to open the user's inbox and possibly individual messages without 
         having to re-authenticate. To use this interface, a client must first
         subscribe using the <tp:member-ref>Subscribe</tp:member-ref> method.</p>
@@ -337,9 +318,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>InboxURLChanged</tp:member-ref> signal will be
         emitted with the new value of
         <tp:member-ref>InboxURL</tp:member-ref>,
-        <tp:member-ref>Method</tp:member-ref>,
-        <tp:member-ref>PostData</tp:member-ref> and
-        <tp:member-ref>Cookies</tp:member-ref>.
+        <tp:member-ref>Method</tp:member-ref> and
+        <tp:member-ref>PostData</tp:member-ref>.
       </p>
       <p>
         Some protocol may not be able to provide a list of unread e-mails
