@@ -124,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <div class="indent">
         <h3>Keys</h3>
         <ul>
-          <li>id &#8212; u</li>
+          <li>id &#8212; x</li>
           <div class="docstring">A unique ID for this e-mail</div>
 
           <li>type &#8212; u (<tp:type>Mail_Type</tp:type>)</li>
@@ -295,7 +295,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
         </tp:docstring>
       </arg>
-      <arg name="mails_removed" type="au">
+      <arg name="mails_removed" type="ax">
         <tp:docstring>
           A list of e-mails ID that are being removed from
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
