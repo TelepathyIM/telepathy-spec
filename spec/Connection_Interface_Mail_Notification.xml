@@ -29,8 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The protocol provide up-to-date information about the number of 
           unread e-mails (or e-mails thread) in the user's mailbox. The
           connection manager will update this value by emitting the
-          <tp:member-ref>UnreadMailsAdded</tp:member-ref> and
-          <tp:member-ref>UnreadMailsRemoved</tp:member-ref> signals.
+          <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Has_Prop_UnreadMails" value="2">
@@ -41,8 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           property. Connection managers that support this feature must not emit 
           <tp:member-ref>MailsReceived</tp:member-ref> signal.
           The connection manager will update this value by emitting the
-          <tp:member-ref>UnreadMailsAdded</tp:member-ref> and
-          <tp:member-ref>UnreadMailsRemoved</tp:member-ref> signals.
+          <tp:member-ref>UnreadMailsChanged</tp:member-ref> signals.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Has_Signal_MailsReceived" value="4">
@@ -257,33 +255,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <signal name="UnreadMailsAdded"
-      tp:name-for-bindings="Unread_Mails_Added">
+    <signal name="UnreadMailsChanged"
+      tp:name-for-bindings="Unread_Mails_Changed">
       <arg name="count" type="u">
         <tp:docstring>
           Number of unread messages in the inbox (the new value of
           <tp:member-ref>UnreadMailCount</tp:member-ref>).
         </tp:docstring>
       </arg>
-      <arg name="mails" type="aa{sv}" tp:type="Mail[]">
+      <arg name="mails_added" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
-          A list of <tp:type>Mail</tp:type> that are being added to
+          A list of <tp:type>Mail</tp:type> that are being added or updated in
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
           empty if the protocol does not support listing unread e-mails
           or threads.
+          <tp:rationale>
+            Mails may be updated when the URL information (url and POST Data) 
+            have changed, or senders were added or removed from an e-mails 
+            thread (see <tp:type>Mail_Type</tp:type>).
+          </tp:rationale>
         </tp:docstring>
       </arg>
-    </signal>
-
-    <signal name="UnreadMailsRemoved"
-      tp:name-for-bindings="Unread_Mails_Removed">
-      <arg name="count" type="u">
-        <tp:docstring>
-          Number of unread messages in the inbox (the new value of
-          <tp:member-ref>UnreadMailCount</tp:member-ref>).
-        </tp:docstring>
-      </arg>
-        <arg name="mails" type="a(u)">
+      <arg name="mails_removed" type="au">
         <tp:docstring>
           A list of e-mails ID that are being removed from
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
@@ -375,17 +368,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         having to re-authenticate. To use this interface, a client must first
         subscribe using the <tp:member-ref>Subscribe</tp:member-ref> method.</p>
 
-      <p>When unread e-mails arrive into the inbox, the
-        <tp:member-ref>UnreadMailsAdded</tp:member-ref> signal
+      <p>When unread e-mails arrive into the into or unread e-mails are marked 
+        read or deleted the
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal
         will be emitted with the new value of
-        <tp:member-ref>UnreadMailCount</tp:member-ref> and when
-        available the detailed list of new e-mails. When some e-mails are
-        no longer unread, the
-        <tp:member-ref>UnreadMailsRemoved</tp:member-ref> signal
-        will be emitted with the new values of
-        <tp:member-ref>UnreadMailCount</tp:member-ref> and when
-        available the list of removed e-mail unique IDs. If any
-        information about how to open the inbox is changed, the
+        <tp:member-ref>UnreadMailCount</tp:member-ref>, an array
+        of new or modified mails and the list of removed e-mail unique IDs. 
+        If any information about how to open the inbox is changed, the
         <tp:member-ref>InboxURLChanged</tp:member-ref> signal will be
         emitted with the new value of
         <tp:member-ref>InboxURL</tp:member-ref>,
