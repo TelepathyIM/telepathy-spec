@@ -2,18 +2,71 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.0 (UNRELEASED)
+telepathy-spec 0.19.1 (UNRELEASED)
 ==================================
 
-Enhancements:
+...
+
+telepathy-spec 0.19.0 (2009-12-01)
+==================================
+
+The "horses are interesting, if brittle, animals" release.
+
+New stable API:
+
+* fd.o #24903: Connection.Interface.Balance, an API for machine-readable
+  account balance (e.g. SkypeOut credit) (mikhailz, Naveen)
 
 * fd.o #24938: added 'skype' (Skype) and 'tel' (telephony) to the list of
   well-known protocol names (smcv)
 
+New experimental API:
+
+* fd.o #24906, fd.o #24939: Conference (draft 1), an interface for multi-user
+  text or media conferences that can be made by merging or upgrading 1-1
+  channels (smcv)
+
+* fd.o #24906: MergeableConference (draft 1), an extra interface for Conference
+  channels that can have additional 1-1 channels merged into them
+
+* fd.o #24906: Splittable (draft 1), an interface for 1-1 channels that can be
+  removed from a Conference
+
+* fd.o #24936: Call (draft 1), a channel type for calls (and a collection of
+  subsidiary objects in the org.freedesktop.Telepathy.Call namespace),
+  which will eventually replace StreamedMedia (and MediaSignalling where
+  applicable) (sjoerd, smcv)
+
+* fd.o #24661: EnsureSidecar, a method to request extra one-per-connection
+  objects (conceptually the same as Connection interfaces, but implementable
+  as plugins) (wjt)
+
+Experimental API removed:
+
+* Channel.Interface.CallMerging has been superseded by Conference and removed
+
 Clarifications:
+
+* fd.o #24004: specified that PreferredHandler applies even if that handler's
+  filter doesn't match the channel, which has been implemented since
+  telepathy-mission-control 5.3.2 (wjt)
 
 * fd.o #24851: declared that ChatState makes no sense without Text, validating
   the decision to put ChatState API on Tp::TextChannel in telepathy-qt4 (smcv)
+
+* fd.o #25316: specified that TargetHandleType should be a fixed property
+  in all ContactCapabilities, and defined a meaning for non-CONTACT entries
+  in ContactCapabilities (smcv)
+
+* fixed some confusing typos (sjoerd, smcv)
+
+Tools changes:
+
+* The old single-page HTML spec has been replaced by a simple redirect to the
+  multi-page version
+
+* The spec parser correctly verifies that every method, signal and property
+  has tp:name-for-bindings, which is necessary for good code generation
 
 telepathy-spec 0.18.0 (2009-09-24)
 ==================================
