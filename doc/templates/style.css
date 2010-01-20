@@ -219,6 +219,13 @@ div.rationale {
 }
 
 span.permalink {
-	float: right;
 	font-size: x-small;
+}
+
+div.inset span.permalink {
+	float: right;
+}
+
+li.chapter span.permalink {
+	font-weight: normal;
 }

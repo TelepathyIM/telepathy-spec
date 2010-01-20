@@ -28,7 +28,12 @@
   #def output($items)
    #for $item in $items
     #if $item.__class__.__name__ == 'Section'
-     <li class="chapter">$item.short_name</li>
+     #set $anchor = $item.short_name.replace(' ', '-')
+     <li class="chapter">
+      <a name="$anchor"></a>
+      $item.short_name
+      <span class="permalink">(<a href="#$anchor">Permalink</a>)</span>
+     </li>
      $item.get_docstring()
      <ul>
       $output($item.items)
