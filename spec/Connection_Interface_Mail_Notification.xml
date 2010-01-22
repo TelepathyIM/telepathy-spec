@@ -303,12 +303,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="Subscribe"
         tp:name-for-bindings="Subscribe">
       <tp:docstring>
-        This method subscribes a client to the notification interface. This
-        should be called if a client wants to get notified of incoming
-        e-mails. Before anyone subscribes to the interface, the connection
-        manager should try to minimized memory usage and network traffic as
-        much as possible. The Control Manager must detect client disconnection
-        (e.g. in case of crash) and free resources that are no longer required.
+        <p>This method subscribes a client to the notification interface. This
+          must be called by clients before using this interface.</p>
+        
+        <p>The CM tracks a subscription count (like a refcount) for each
+          unique bus name that has called Subscribe(). When a client calls
+          Unsubscribe(), it releases one "reference". If a client exits
+          (or crash), it releases all of its "references".</p>
+        
+        <tp:rationale>
+            The reference count imposed on the subscribtion should simplify
+            implementation of connection manager with plug-ins. Two plug-ins
+            interested in mail notification may call Subscribe independently
+            without relying on the CM to handle this particular action.
+        </tp:rationale>
+
+        <tp:rationale>
+            This method exists to initiate real time messages if at least
+            one client is interested in it. This may also be used to reduce
+            memory and network overhead when there is no active subscription.
+            An example of protocol that benifits from this method is the
+            Google XMPP Mail Notification extension. In this protocol, the CM
+            receives a notification telling that something has changed. To get
+            more information, the CM must request this information. Knowing
+            that nobody is currently interested in this information, the CM
+            can avoid generating useless network traffic. In the same situation,
+            the CM may free the list of unread messages and reduce memory
+            overhead.
+        </tp:rationale>
+
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -321,11 +344,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="Unsubscribe"
         tp:name-for-bindings="Unsubscribe">
       <tp:docstring>
-        This method unsubscribes a client from the notification interface. This
-        should called if a client no longer wants tot get notified of incoming
-        e-mails. When all the client has been Unsubscribed, the connection manager
-        should free all non-required information and reduce network traffic. It must
-        be possible to call Subscribe later.
+        This method unsubscribes a client from the notification interface.
+        This should be called when a client no longer need the mail
+        notification interface.
+        <tp:rationale>
+          When the last client unsubscribe from this interface, the CM may
+          free any uneeded data and reduce network traffic. See
+          <tp:member-ref>Unsubscribe</tp:member-ref> for more rationale on
+          this topic.
+        </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -390,7 +417,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         information (URL, method, POST data) so that the client is 
         able to open the user's inbox and possibly individual messages without 
         having to re-authenticate. To use this interface, a client must first
-        subscribe using the <tp:member-ref>Subscribe</tp:member-ref> method.</p>
+        subscribe using the <tp:member-ref>Subscribe</tp:member-ref>
+        method.</p>
 
       <p>When unread e-mails arrive into the into or unread e-mails are marked 
         read or deleted the
@@ -402,15 +430,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         mail client must call <tp:member-ref>RequestInboxURL</tp:member-ref>
         or <tp:member-ref>RequestMailURL</tp:member-ref>. Those methods
         will do proper actions to retreive the information and provide
-        authentication free URL to the requested Web client interface.
-      </p>
-      <p>
-        Some protocol may not be able to provide a list of unread e-mails
+        authentication free URL to the requested Web client interface.</p>
+
+      <p>Some protocol may not be able to provide a list of unread e-mails
         but may provide some information about the messages received. On
         such protocols, the <tp:member-ref>MailsReceived</tp:member-ref>
         signal will also be emitted, with information about the e-mails.
-        The protocol does not keep track of any of this information.
-      </p>
+        The protocol does not keep track of any of this information.</p>
     </tp:docstring>
   </interface>
 </node>
