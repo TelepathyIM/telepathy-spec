@@ -24,39 +24,105 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:flags name="Mail_Notification_Flags" value-prefix="Mail_Notification" type="u" >
-      <tp:flag suffix="Has_Prop_UnreadMailCount" value="1">
+      <tp:flag suffix="Supports_Unread_Mail_Count" value="1">
         <tp:docstring>
-          The protocol provide up-to-date information about the number of 
-          unread e-mails (or e-mails thread) in the user's mailbox. The
+          The CM provides the number of unread e-mails (or e-mail
+          threads) in the main folder of your e-mail account set as
+          <tp:member-ref>UnreadMailCount</tp:member-ref> property. The
           connection manager will update this value by emitting the
           <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Has_Prop_UnreadMails" value="2">
+      <tp:flag suffix="Supports_Unread_Mails" value="2">
         <tp:docstring>
-          The protocol provide an up-to-date details' list about currently
-          unread e-mails. The connection manager must also provide the 
-          <tp:member-ref>UnreadMailCount</tp:member-ref>
-          property. Connection managers that support this feature must not emit 
-          <tp:member-ref>MailsReceived</tp:member-ref> signal.
-          The connection manager will update this value by emitting the
+          The CM provides a detailed list of unread e-mails set as
+          <tp:member-ref>UnreadMails</tp:member-ref> property. This flag
+          implies that <tt>Supports_Unread_Mail_Count</tt> is set and
+          cannot be combine with flag <tt>Emits_Mails_Received</tt>.
+          The CM will update the list by emitting the
           <tp:member-ref>UnreadMailsChanged</tp:member-ref> signals.
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Has_Signal_MailsReceived" value="4">
+      <tp:flag suffix="Emits_Mails_Received" value="4">
         <tp:docstring>
-        This connection manager emits <tp:member-ref>MailsReceived</tp:member-ref>
-        signal which provide details about newly arrived e-mails but does not 
-        maintain their read status afterward. It must only emit this signal if
-        they have real-time information about e-mails or threads but would not
-        be unable to remove them from the <tp:member-ref>UnreadMails</tp:member-ref> 
-        array because unread to read status is not reported.
+          This CM emits <tp:member-ref>MailsReceived</tp:member-ref>
+          signal which provide details about newly arrived e-mails but does
+          not maintain their read/unread status afterward. This flag cannot
+          be combined with <tt>Supports_Unread_Mails</tt>.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Supports_Request_Inbox_URL" value="8">
+        <tp:docstring>
+          The CM provides a URL (with optional POST data) that leads to the
+          the inbox folder of the e-mail account inside a web base client.
+          This URL can be obtained via the 
+          <tp:member-ref>RequestInboxURL</tp:member-ref> method. It is
+          strongly advised to set this flag if 
+          <tt>Supports_Unread_Mail_Count</tt> is set.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Supports_Request_Mail_URL" value="16">
+        <tp:docstring>
+          The CM provides a URL (with optional POST data) that leads to the
+          a specific mail inside a web base client. This URL can be obtained
+          via the <tp:member-ref>RequestMailURL</tp:member-ref> method. It is
+          strongly advised to set this flag if 
+          <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
+          is set.
+          <tp:rationale>
+            Client should fallback to 
+            <tp:member-ref>RequestInboxURL</tp:member-ref> if
+            <tt>Supports_Request_Mail_URL</tt> is not set.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Supports_Request_Compose_URL" value="32">
+        <tp:docstring>
+          The CM provides a URL (with optional POST data) that leads to a
+          e-mail editor inside a web base client. This URL can be obtained
+          via the <tp:member-ref>RequestComposeURL</tp:member-ref> method.
+          This flag is optional and does not depend on any other flags.
         </tp:docstring>
       </tp:flag>
       <tp:docstring>
-        Flags representing capabilities that may be provided by a connection 
-        manager. Those value can be used as bitfield. Some flags may depend 
-        or conflict with others.
+        <p>Flags representing capabilities provided by a connection manager.
+          Those values can be used as bitfield. Some flags depends or
+          conflicts with each others. Those relations implies four
+          different groups of protocols. While it's not mandatory, it is
+          strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is 
+          supported to ensure that there always exists a way to open unread
+          messages.</p>
+
+        <p>1) Supports_Unread_Mail_Count only
+          <tp:rationale>This flag is generally combined with other flags but
+            still make sense alone. This is supported by most protocols
+            including MSN, Yahoo and Google Talk. It allows a UI to display
+            messages like 'GMail: 4 unread messages'.
+          </tp:rationale>
+        </p>
+
+        <p>2) Emist_Mails_Received only
+          <tp:rationale>This is the lowest level of mail notification support.
+            It does not allow tracking information about the mail account. No
+            supported protocol has this limited set of feature, but it is
+            usefull while integrating external IM library with limited
+            support of abstracted protocols (like libpurple where
+            unread mail count is broken).
+          </tp:rationale>
+        </p>
+
+        <p>3) Supports_Unread_Mail_Count and Supports_Unread_Mails
+          <tp:rationale>This allow full state recovery of unread mail status.
+            It is provided by Google XMPP Mail Notification Extension.
+          </tp:rationale>
+        </p>
+
+        <p>4) Supports_Unread_Mail_Count and Emits_Mails_Received
+          <tp:rationale>This is the most common level of support, it is
+            provided by protocols like MSN and Yahoo.
+          </tp:rationale>
+        </p>
+
       </tp:docstring>
     </tp:flags>
 
@@ -381,6 +447,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           information that leads to authentication free Web access.
         </tp:rationale>
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
+      </tp:possible-errors>
     </method>
 
     <method name="RequestMailURL"
@@ -404,10 +475,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method create and return a URL and optionnal POST data that allow
+        This method creates and return a URL and optionnal POST data that allow
         openning specific mail of your Web mail account. Refer to 
-        <tp:member-ref>RequestInboxURL</tp:member-ref>.
+        <tp:member-ref>RequestInboxURL</tp:member-ref> for rationale.
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="RequestComposeURL"
+      tp:name-for-bindings="Request_Compose_URL">
+      <arg direction="out" name="url" type="(sua(ss))" tp:type="Mail_URL" >
+        <tp:docstring>
+          A struture that contains URL and any additional data to open Web
+          mail client without re-authentication.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        This method assemble and return an URL and optional POST data that
+        allow openning the mail compositer page of your Web mail account.
+        <tp:rationale>
+            The goal is to allow a Web mail user to have the same level of
+            integration as if he were using a native mail client.
+        </tp:rationale>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
+      </tp:possible-errors>
     </method>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
