@@ -224,7 +224,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             by the protocol as thread. Note that threads may have multiple unread senders.
           </div>
 
-          <li>url_data &#8212; s</li>
+          <li>url-data &#8212; s</li>
           <div class="docstring">An opaque string used to build URL when
             calling <tp:member-ref>RequestMailURL</tp:member-ref>.
           </div>
