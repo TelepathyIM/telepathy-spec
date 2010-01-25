@@ -55,9 +55,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The CM provides a URL (with optional POST data) that leads to the
           the inbox folder of the e-mail account inside a web base client.
-          This URL can be obtained via the 
+          This URL can be obtained via the
           <tp:member-ref>RequestInboxURL</tp:member-ref> method. It is
-          strongly advised to set this flag if 
+          strongly advised to set this flag if
           <tt>Supports_Unread_Mail_Count</tt> is set.
         </tp:docstring>
       </tp:flag>
@@ -66,11 +66,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The CM provides a URL (with optional POST data) that leads to the
           a specific mail inside a web base client. This URL can be obtained
           via the <tp:member-ref>RequestMailURL</tp:member-ref> method. It is
-          strongly advised to set this flag if 
+          strongly advised to set this flag if
           <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
           is set.
           <tp:rationale>
-            Client should fallback to 
+            Client should fallback to
             <tp:member-ref>RequestInboxURL</tp:member-ref> if
             <tt>Supports_Request_Mail_URL</tt> is not set.
           </tp:rationale>
@@ -89,7 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Those values can be used as bitfield. Some flags depends or
           conflicts with each others. Those relations implies four
           different groups of protocols. While it's not mandatory, it is
-          strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is 
+          strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is
           supported to ensure that there always exists a way to open unread
           messages.</p>
 
@@ -126,7 +126,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </tp:flags>
 
-    <tp:enum name="HTTP_Method" type="u"> 
+    <tp:enum name="HTTP_Method" type="u">
       <tp:enumvalue suffix="Get" value="0">
         <tp:docstring>
           Use GET method when opening the URL.
@@ -144,7 +144,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:struct name="HTTP_Post_Data" array-name="HTTP_Post_Data_List">
       <tp:docstring>
-        A pair (key, value) representing POST Data.
+        A pair (key, value) representing POST data compatible with
+        application/x-www-form-urlencoded type. The strings must be
+        valid UTF-8 strings. The character set for the key must follow
+        the rules defined in
+        <a href="http://www.w3.org/TR/html401/types.html#type-cdata">
+        W3 specification for CDATA</a>. The value should not be
+        encoded with HTML entity.
+        <tp:rationale>
+          This data may be used to generate a HTML file that will
+          automatically load the URL with appropriate POST data (in which case
+          the client must convert the
+          <a href="http://www.ietf.org/rfc/rfc1738.txt">reserved characters</a>
+          into HTML entities) or may use it as-is inside an UTF-8 API that will
+          instruct the browser how to load the URL (like the Netscape Plug-in
+          API). For this reason, the choice of non encoded UTF-8 strings is prefered.
+        </tp:rationale>
       </tp:docstring>
       <tp:member type="s" name="key"/>
       <tp:member type="s" name="value"/>
@@ -158,7 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="s" name="address"/>
     </tp:struct>
 
-    <tp:enum name="Mail_Type" type="u"> 
+    <tp:enum name="Mail_Type" type="u">
       <tp:enumvalue suffix="single" value="0">
         <tp:docstring>
           The e-mail is represented as a single reply by only
@@ -178,7 +193,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:struct name="Mail_URL">
       <tp:docstring>
-        Structure that contains required information to open Web base e-mail 
+        Structure that contains required information to open Web base e-mail
         UI without need for re-authentication.
       </tp:docstring>
       <tp:member type="s" name="url">
@@ -202,15 +217,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
       <tp:docstring>
-        E-mail representation has been reduced to hash table with possible keys (of type strings) 
-        listed above. All keys are optional except the "id" key that must be provided by every 
-        protocol that support unread mail listing. Without this key, it would not be impossible to 
+        E-mail representation has been reduced to hash table with possible keys (of type strings)
+        listed above. All keys are optional except the "id" key that must be provided by every
+        protocol that support unread mail listing. Without this key, it would not be impossible to
         unlist the e-mails that are no longer marked as unread.
         <tp:rationale>
-          The hash map will allow extending the protocol without any ABI 
+          The hash map will allow extending the protocol without any ABI
           changes. Only the documentation will need to be updated.
         </tp:rationale>
-      
+
         <div class="indent">
         <h3>Keys</h3>
         <ul>
@@ -219,7 +234,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <li>type &#8212; u (<tp:type>Mail_Type</tp:type>)</li>
           <div class="docstring">
-            Type of e-mail. This can be set to "single", which means e-mails 
+            Type of e-mail. This can be set to "single", which means e-mails
             are represented separately, or "thread", when information is described
             by the protocol as thread. Note that threads may have multiple unread senders.
           </div>
@@ -231,7 +246,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <li>senders &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
           <div class="docstring">
-            An array of sender display name and e-mail address pair. Note that 
+            An array of sender display name and e-mail address pair. Note that
             only e-mails thread may have multiple senders.
           </div>
 
@@ -279,18 +294,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <li>folder &#8212; s</li>
           <div class="docstring">
-            The name of the folder containing this e-mails. 
+            The name of the folder containing this e-mails.
             If unset, inbox will be assumed.
           </div>
         </ul>
         </div>
       </tp:docstring>
     </tp:simple-type>
-   
+
     <property name="Capabilities" type="u" access="read"
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
       <tp:docstring>
-        Integer representing the bitwise-OR of supported features for e-mails 
+        Integer representing the bitwise-OR of supported features for e-mails
         notification on this server.
         <tp:rational>
           This property explicitly state the behavior and availability
@@ -346,8 +361,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           empty if the protocol does not support listing unread e-mails
           or threads.
           <tp:rationale>
-            Mails may be updated when the URL information (url and POST Data) 
-            have changed, or senders were added or removed from an e-mails 
+            Mails may be updated when the URL information (url and POST Data)
+            have changed, or senders were added or removed from an e-mails
             thread (see <tp:type>Mail_Type</tp:type>).
           </tp:rationale>
         </tp:docstring>
@@ -361,7 +376,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or 
+        Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or
         <tp:member-ref>UnreadMailCount</tp:member-ref> have changed.
       </tp:docstring>
     </signal>
@@ -371,12 +386,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         <p>This method subscribes a client to the notification interface. This
           must be called by clients before using this interface.</p>
-        
+
         <p>The CM tracks a subscription count (like a refcount) for each
           unique bus name that has called Subscribe(). When a client calls
           Unsubscribe(), it releases one "reference". If a client exits
           (or crash), it releases all of its "references".</p>
-        
+
         <tp:rationale>
             The reference count imposed on the subscribtion should simplify
             implementation of connection manager with plug-ins. Two plug-ins
@@ -438,7 +453,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         This method create and return a URL and optionnal POST data that allow
-        openning the Inbox folder of your Web mail account. This URL may 
+        openning the Inbox folder of your Web mail account. This URL may
         contains token with short life time. Thus, a client should not reuse it
         and request a new URL whenever it is needed.
         <tp:rationale>
@@ -476,7 +491,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         This method creates and return a URL and optionnal POST data that allow
-        openning specific mail of your Web mail account. Refer to 
+        openning specific mail of your Web mail account. Refer to
         <tp:member-ref>RequestInboxURL</tp:member-ref> for rationale.
       </tp:docstring>
       <tp:possible-errors>
@@ -513,18 +528,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>An interface to support receiving notifications about a e-mail
         account associated with this connection. It is intended that the
         connection manager has the means to provide necessary
-        information (URL, method, POST data) so that the client is 
-        able to open the user's inbox and possibly individual messages without 
+        information (URL, method, POST data) so that the client is
+        able to open the user's inbox and possibly individual messages without
         having to re-authenticate. To use this interface, a client must first
         subscribe using the <tp:member-ref>Subscribe</tp:member-ref>
         method.</p>
 
-      <p>When unread e-mails arrive into the into or unread e-mails are marked 
+      <p>When unread e-mails arrive into the into or unread e-mails are marked
         read or deleted the
         <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal
         will be emitted with the new value of
         <tp:member-ref>UnreadMailCount</tp:member-ref>, an array
-        of new or modified mails and the list of removed e-mail unique IDs. 
+        of new or modified mails and the list of removed e-mail unique IDs.
         To open the web base mail client for the inbox folder or a specific
         mail client must call <tp:member-ref>RequestInboxURL</tp:member-ref>
         or <tp:member-ref>RequestMailURL</tp:member-ref>. Those methods
