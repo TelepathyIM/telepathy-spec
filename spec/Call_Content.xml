@@ -33,6 +33,10 @@
 
     </tp:docstring>
 
+    <method name="Remove" tp:name-for-bindings="Remove">
+      <tp:docstring>Remove the content from the call.</tp:docstring>
+    </method>
+
     <property name="Name" tp:name-for-bindings="Name" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the content.
