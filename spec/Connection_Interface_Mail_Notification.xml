@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="Emits_Mails_Received" value="4">
         <tp:docstring>
-          This CM emits <tp:member-ref>MailsReceived</tp:member-ref>
+          The CM emits <tp:member-ref>MailsReceived</tp:member-ref>
           signal which provide details about newly arrived e-mails but does
           not maintain their read/unread status afterward. This flag cannot
           be combined with <tt>Supports_Unread_Mails</tt>.
@@ -70,7 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
           is set.
           <tp:rationale>
-            Client should fallback to
+            If possible client should fallback to
             <tp:member-ref>RequestInboxURL</tp:member-ref> if
             <tt>Supports_Request_Mail_URL</tt> is not set.
           </tp:rationale>
@@ -78,7 +78,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="Supports_Request_Compose_URL" value="32">
         <tp:docstring>
-          The CM provides a URL (with optional POST data) that leads to a
+          The CM provides an URL (with optional POST data) that leads to a
           e-mail editor inside a web base client. This URL can be obtained
           via the <tp:member-ref>RequestComposeURL</tp:member-ref> method.
           This flag is optional and does not depend on any other flags.
@@ -134,7 +134,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Post" value="1">
         <tp:docstring>
-          Use POST method when opening the URL.
+          Use POST method when opening the URL. Refer to
+          <tp:type>HTTP_Post_Data</tp:type> for more details.
         </tp:docstring>
       </tp:enumvalue>
       <tp:docstring>
@@ -149,7 +150,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         valid UTF-8 strings. The character set for the key must follow
         the rules defined in
         <a href="http://www.w3.org/TR/html401/types.html#type-cdata">
-        W3 specification for CDATA</a>. The value should not be
+        W3 specification for CDATA</a>. The value should <b>not</b> be
         encoded with HTML entity.
         <tp:rationale>
           This data may be used to generate a HTML file that will
@@ -158,7 +159,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <a href="http://www.ietf.org/rfc/rfc1738.txt">reserved characters</a>
           into HTML entities) or may use it as-is inside an UTF-8 API that will
           instruct the browser how to load the URL (like the Netscape Plug-in
-          API). For this reason, the choice of non encoded UTF-8 strings is prefered.
+          API). For this reason, the choice of non encoded UTF-8 strings is
+          prefered.
         </tp:rationale>
       </tp:docstring>
       <tp:member type="s" name="key"/>
@@ -176,7 +178,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:enum name="Mail_Type" type="u">
       <tp:enumvalue suffix="single" value="0">
         <tp:docstring>
-          The e-mail is represented as a single reply by only
+          The e-mail is represented as a single message send by only
           one sender.
         </tp:docstring>
       </tp:enumvalue>
@@ -217,10 +219,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
       <tp:docstring>
-        E-mail representation has been reduced to hash table with possible keys (of type strings)
-        listed above. All keys are optional except the "id" key that must be provided by every
-        protocol that support unread mail listing. Without this key, it would not be impossible to
-        unlist the e-mails that are no longer marked as unread.
+        E-mail representation has been reduced to hash table with possible
+        keys (of type strings) listed above. All keys are optional except the
+        "id" key that must be provided by every protocol that supports unread
+        mail listing. Without this key, it would not be impossible to unlist
+        the e-mails that are no longer marked as unread.
         <tp:rationale>
           The hash map will allow extending the protocol without any ABI
           changes. Only the documentation will need to be updated.
@@ -235,8 +238,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>type &#8212; u (<tp:type>Mail_Type</tp:type>)</li>
           <div class="docstring">
             Type of e-mail. This can be set to "single", which means e-mails
-            are represented separately, or "thread", when information is described
-            by the protocol as thread. Note that threads may have multiple unread senders.
+            are represented separately, or "thread", when information is
+            described by the protocol as thread. Note that threads may have
+            multiple unread senders.
           </div>
 
           <li>url-data &#8212; s</li>
@@ -266,13 +270,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <div class="docstring">The subject of the message.</div>
 
           <li>sent-timestamp &#8212; u</li>
-          <div class="docstring">A UNIX timestamp of when the message has been sent (in seconds).</div>
+          <div class="docstring">A UNIX timestamp of when the message has been
+            sent (in seconds) (optional).
+          </div>
 
           <li>received-timestamp &#8212; u</li>
-          <div class="docstring">A UNIX timestamp of when the message has been received (in seconds).</div>
+          <div class="docstring">A UNIX timestamp of when the message has been
+            received (in seconds).
+          </div>
 
           <li>has-attachments &#8212; b</li>
-          <div class="docstring">A boolean of whether this message has attachments.</div>
+          <div class="docstring">A boolean of whether this message has
+            attachments.
+          </div>
 
           <li>content-type &#8212; s</li>
           <div class="docstring">
@@ -334,7 +344,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
       <arg name="mails" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
-          An array of <tp:type>Mail</tp:type>s. Those e-mails do not have a unique "ID".
+          An array of <tp:type>Mail</tp:type>s. Those e-mails do not have a
+          unique "ID".
         </tp:docstring>
       </arg>
 
@@ -393,15 +404,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           (or crash), it releases all of its "references".</p>
 
         <tp:rationale>
-            The reference count imposed on the subscribtion should simplify
+            The reference count imposed on the subscription should simplify
             implementation of connection manager with plug-ins. Two plug-ins
             interested in mail notification may call Subscribe independently
             without relying on the CM to handle this particular action.
         </tp:rationale>
 
         <tp:rationale>
-            This method exists to initiate real time messages if at least
-            one client is interested in it. This may also be used to reduce
+            This method exists to initiate real time messages in the case
+            at least one client is subscribed. This may also be used to reduce
             memory and network overhead when there is no active subscription.
             An example of protocol that benifits from this method is the
             Google XMPP Mail Notification extension. In this protocol, the CM
@@ -452,9 +463,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method create and return a URL and optionnal POST data that allow
-        openning the Inbox folder of your Web mail account. This URL may
-        contains token with short life time. Thus, a client should not reuse it
+        This method creates and returns an URL and an optionnal POST data that
+        allow openning the Inbox folder of your Web mail account. This URL may
+        contains token with short lifetime. Thus, a client should not reuse it
         and request a new URL whenever it is needed.
         <tp:rationale>
           We are not using properties here because the tokens may not be shared
