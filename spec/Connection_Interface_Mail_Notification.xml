@@ -332,7 +332,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Unread_Mail_Count">
       <tp:docstring>
         The number of unread messages in the Inbox. Change notification is via
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref>.
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property
+        can be used if <tt>Supports_Unread_Mail_Count</tt> flag is set in
+        <tp:member-ref>Capabilities</tp:member-ref>.
       </tp:docstring>
     </property>
 
@@ -340,7 +342,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Unread_Mails" access="read">
       <tp:docstring>
         A array of unread <tp:type>Mail</tp:type>s. Change notification is via
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref>.
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property
+        can be used if <tt>Supports_Unread_Mails</tt> flag is set in
+        <tp:member-ref>Capabilities</tp:member-ref>.
       </tp:docstring>
     </property>
 
@@ -356,7 +360,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Emitted when new e-mails messages arrive to the inbox associated with
         this connection. This signal is used for protocol that are not able
         to maintained <tp:member-ref>UnreadMails</tp:member-ref> list but
-        receives real-time notification about newly arrived e-mails.
+        receives real-time notification about newly arrived e-mails. It MAY be
+        emited only if <tt>Emits_Mails_Received</tt> flag is set in
+        <tp:member-ref>Capabilities</tp:member-ref>.
       </tp:docstring>
     </signal>
 
@@ -391,7 +397,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or
-        <tp:member-ref>UnreadMailCount</tp:member-ref> have changed.
+        <tp:member-ref>UnreadMailCount</tp:member-ref> have changed. It MAY be
+        emited only if <tt>Supports_Unread_Mail_Count</tt> flag is set in
+        <tp:member-ref>Capabilities</tp:member-ref>. <tt>mails_added</tt> and
+        <tt>mails_removed</tt> may not be empty list if 
+        <tt>Supports_Unread_Mails</tt> flag is set.
       </tp:docstring>
     </signal>
 
@@ -469,7 +479,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         This method creates and returns an URL and an optionnal POST data that
         allow openning the Inbox folder of your Web mail account. This URL may
         contains token with short lifetime. Thus, a client should not reuse it
-        and request a new URL whenever it is needed.
+        and request a new URL whenever it is needed. This method is implemented
+        only if <tt>Supports_Request_Inbox_URL</tt> flag is set in
+        <tp:member-ref>Capabilities</tp:member-ref>.
         <tp:rationale>
           We are not using properties here because the tokens may not be shared
           between clients and that network may be required to obtain the
@@ -504,9 +516,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method creates and return a URL and optionnal POST data that allow
-        openning specific mail of your Web mail account. Refer to
-        <tp:member-ref>RequestInboxURL</tp:member-ref> for rationale.
+        This method creates and return a URL and optionnal POST data that
+        allow openning specific mail of your Web mail account. Refer to
+        <tp:member-ref>RequestInboxURL</tp:member-ref> for rationale. This
+        method is implemented only if <tt>Supports_Request_Mail_URL</tt> flag
+        is set in <tp:member-ref>Capabilities</tp:member-ref>.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -524,11 +538,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method assemble and return an URL and optional POST data that
+        This method assembles and returns an URL and optional POST data that
         allow openning the mail compositer page of your Web mail account.
+        This method is implemented only if <tt>Supports_Request_Compose_URL</tt>
+        flag is set in <tp:member-ref>Capabilities</tp:member-ref>.
         <tp:rationale>
-            The goal is to allow a Web mail user to have the same level of
-            integration as if he were using a native mail client.
+          The goal is to allow a Web mail user to have the same level of
+          integration as if he were using a native mail client.
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
