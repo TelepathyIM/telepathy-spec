@@ -211,8 +211,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="a(ss)" name="Post_Data" tp:type="HTTP_Post_Data[]">
         <tp:docstring>
           Array of name-value pair structs of the POST data to use when opening
-          the URL. Because of the nature of the POST data, this information MAY
-          NOT be shared between clients.
+          the URL. Because the POST data frequently contains short-lived credential
+          tokens, this information MAY NOT be shared between clients.
         </tp:docstring>
       </tp:member>
     </tp:struct>
