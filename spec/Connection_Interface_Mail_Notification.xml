@@ -316,7 +316,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
       <tp:docstring>
         Integer representing the bitwise-OR of supported features for e-mails
-        notification on this server.
+        notification on this server. This property cannot change after the 
+        Connection becomes CONNECTED.
         <tp:rational>
           This property explicitly state the behavior and availability
           of the other properties and signals within this interface. A
@@ -330,14 +331,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="UnreadMailCount" type="u" access="read"
       tp:name-for-bindings="Unread_Mail_Count">
       <tp:docstring>
-        The number of unread messages in the inbox.
+        The number of unread messages in the Inbox. Change notification is via
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>.
       </tp:docstring>
     </property>
 
     <property name="UnreadMails" type="aa{sv}" tp:type="Mail[]"
       tp:name-for-bindings="Unread_Mails" access="read">
       <tp:docstring>
-        A array of unread <tp:type>Mail</tp:type>s.
+        A array of unread <tp:type>Mail</tp:type>s. Change notification is via
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>.
       </tp:docstring>
     </property>
 
