@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The CM provides a detailed list of unread e-mails set as
           <tp:member-ref>UnreadMails</tp:member-ref> property. This flag
           implies that <tt>Supports_Unread_Mail_Count</tt> is set and
-          cannot be combine with flag <tt>Emits_Mails_Received</tt>.
+          CANNOT be combine with flag <tt>Emits_Mails_Received</tt>.
           The CM will update the list by emitting the
           <tp:member-ref>UnreadMailsChanged</tp:member-ref> signals.
         </tp:docstring>
@@ -47,7 +47,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The CM emits <tp:member-ref>MailsReceived</tp:member-ref>
           signal which provide details about newly arrived e-mails but does
-          not maintain their read/unread status afterward. This flag cannot
+          NOT maintain their read/unread status afterward. This flag CANNOT
           be combined with <tt>Supports_Unread_Mails</tt>.
         </tp:docstring>
       </tp:flag>
@@ -70,9 +70,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
           is set.
           <tp:rationale>
-            If possible client should fallback to
+            If possible client SHOULD fallback to
             <tp:member-ref>RequestInboxURL</tp:member-ref> if
-            <tt>Supports_Request_Mail_URL</tt> is not set.
+            <tt>Supports_Request_Mail_URL</tt> is NOT set.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
@@ -81,14 +81,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The CM provides an URL (with optional POST data) that leads to a
           e-mail editor inside a web base client. This URL can be obtained
           via the <tp:member-ref>RequestComposeURL</tp:member-ref> method.
-          This flag is optional and does not depend on any other flags.
+          This flag is optional and does NOT depend on any other flags.
         </tp:docstring>
       </tp:flag>
       <tp:docstring>
         <p>Flags representing capabilities provided by a connection manager.
           Those values can be used as bitfield. Some flags depends or
           conflicts with each others. Those relations implies four
-          different groups of protocols. While it's not mandatory, it is
+          different groups of protocols. While it's NOT mandatory, it is
           strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is
           supported to ensure that there always exists a way to open unread
           messages.</p>
@@ -103,7 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>2) Emist_Mails_Received only
           <tp:rationale>This is the lowest level of mail notification support.
-            It does not allow tracking information about the mail account. No
+            It does NOT allow tracking information about the mail account. No
             supported protocol has this limited set of feature, but it is
             usefull while integrating external IM library with limited
             support of abstracted protocols (like libpurple where
@@ -146,18 +146,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:struct name="HTTP_Post_Data" array-name="HTTP_Post_Data_List">
       <tp:docstring>
         A pair (key, value) representing POST data compatible with
-        application/x-www-form-urlencoded type. The strings must be
-        valid UTF-8 strings. The character set for the key must follow
+        application/x-www-form-urlencoded type. The strings MUST be
+        valid UTF-8 strings. The character set for the key MUST follow
         the rules defined in
         <a href="http://www.w3.org/TR/html401/types.html#type-cdata">
-        W3 specification for CDATA</a>. The value should <b>not</b> be
+        W3 specification for CDATA</a>. The value SHOULD NOT be
         encoded with HTML entity.
         <tp:rationale>
-          This data may be used to generate a HTML file that will
+          This data MAY be used to generate a HTML file that will
           automatically load the URL with appropriate POST data (in which case
-          the client must convert the
+          the client MUST convert the
           <a href="http://www.ietf.org/rfc/rfc1738.txt">reserved characters</a>
-          into HTML entities) or may use it as-is inside an UTF-8 API that will
+          into HTML entities) or MAY use it as-is inside an UTF-8 API that will
           instruct the browser how to load the URL (like the Netscape Plug-in
           API). For this reason, the choice of non encoded UTF-8 strings is
           prefered.
@@ -184,7 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Thread" value="1">
         <tp:docstring>
-          The e-mail refer to a thread where multiple person may
+          The e-mail refer to a thread where multiple person MAY
           have replied.
         </tp:docstring>
       </tp:enumvalue>
@@ -211,8 +211,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="a(ss)" name="Post_Data" tp:type="HTTP_Post_Data[]">
         <tp:docstring>
           Array of name-value pair structs of the POST data to use when opening
-          the URL. Because of the nature of the POST data, this information may
-          not be shared between clients.
+          the URL. Because of the nature of the POST data, this information MAY
+          NOT be shared between clients.
         </tp:docstring>
       </tp:member>
     </tp:struct>
@@ -221,8 +221,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         E-mail representation has been reduced to hash table with possible
         keys (of type strings) listed above. All keys are optional except the
-        "id" key that must be provided by every protocol that supports unread
-        mail listing. Without this key, it would not be impossible to unlist
+        "id" key that MUST be provided by every protocol that supports unread
+        mail listing. Without this key, it would NOT be impossible to unlist
         the e-mails that are no longer marked as unread.
         <tp:rationale>
           The hash map will allow extending the protocol without any ABI
@@ -239,7 +239,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <div class="docstring">
             Type of e-mail. This can be set to "single", which means e-mails
             are represented separately, or "thread", when information is
-            described by the protocol as thread. Note that threads may have
+            described by the protocol as thread. Note that threads MAY have
             multiple unread senders.
           </div>
 
@@ -251,7 +251,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>senders &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
           <div class="docstring">
             An array of sender display name and e-mail address pair. Note that
-            only e-mails thread may have multiple senders.
+            only e-mails thread MAY have multiple senders.
           </div>
 
           <li>to-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
@@ -286,19 +286,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <li>content-type &#8212; s</li>
           <div class="docstring">
-            MIME type of the message contents. Plain text should be
+            MIME type of the message contents. Plain text SHOULD be
             assumed if unset.
           </div>
 
           <li>snippet &#8212; s</li>
           <div class="docstring">
-            A small part of the message body (content-type should
+            A small part of the message body (content-type SHOULD
             be set if this message is HTML encoded).
           </div>
 
           <li>body &#8212; s</li>
           <div class="docstring">
-            The body of the message (content-type should
+            The body of the message (content-type SHOULD
             be set if this message is HTML encoded).
           </div>
 
@@ -316,14 +316,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
       <tp:docstring>
         Integer representing the bitwise-OR of supported features for e-mails
-        notification on this server. This property cannot change after the 
+        notification on this server. This property CANNOT change after the 
         Connection becomes CONNECTED.
         <tp:rational>
           This property explicitly state the behavior and availability
           of the other properties and signals within this interface. A
           connection manager that cannot at least set one of the flag
           in the <tp:type>Mail_Notification_Flags</tp:type>
-          should not provide this interface.
+          SHOULD NOT provide this interface.
         </tp:rational>
       </tp:docstring>
     </property>
@@ -351,14 +351,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
       <arg name="Mails" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
-          An array of <tp:type>Mail</tp:type>s. Those e-mails do not have a
+          An array of <tp:type>Mail</tp:type>s. Those e-mails do NOT have a
           unique "ID".
         </tp:docstring>
       </arg>
 
       <tp:docstring>
         Emitted when new e-mails messages arrive to the inbox associated with
-        this connection. This signal is used for protocol that are not able
+        this connection. This signal is used for protocol that are NOT able
         to maintained <tp:member-ref>UnreadMails</tp:member-ref> list but
         receives real-time notification about newly arrived e-mails. It MAY be
         emited only if <tt>Emits_Mails_Received</tt> flag is set in
@@ -378,10 +378,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A list of <tp:type>Mail</tp:type> that are being added or updated in
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
-          empty if the protocol does not support listing unread e-mails
+          empty if the protocol does NOT support listing unread e-mails
           or threads.
           <tp:rationale>
-            Mails may be updated when the URL information (url and POST Data)
+            Mails MAY be updated when the URL information (url and POST Data)
             have changed, or senders were added or removed from an e-mails
             thread (see <tp:type>Mail_Type</tp:type>).
           </tp:rationale>
@@ -391,7 +391,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A list of e-mails ID that are being removed from
           <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
-          empty if the protocol does not support listing unread e-mails
+          empty if the protocol does NOT support listing unread e-mails
           or threads.
         </tp:docstring>
       </arg>
@@ -400,7 +400,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>UnreadMailCount</tp:member-ref> have changed. It MAY be
         emited only if <tt>Supports_Unread_Mail_Count</tt> flag is set in
         <tp:member-ref>Capabilities</tp:member-ref>. <tt>mails_added</tt> and
-        <tt>mails_removed</tt> may not be empty list if 
+        <tt>mails_removed</tt> MAY NOT be empty list if 
         <tt>Supports_Unread_Mails</tt> flag is set.
       </tp:docstring>
     </signal>
@@ -409,7 +409,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         tp:name-for-bindings="Subscribe">
       <tp:docstring>
         <p>This method subscribes a client to the notification interface. This
-          must be called by clients before using this interface.</p>
+          MUST be called by clients before using this interface.</p>
 
         <p>The CM tracks a subscription count (like a refcount) for each
           unique bus name that has called Subscribe(). When a client calls
@@ -417,10 +417,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           (or crash), it releases all of its "references".</p>
 
         <tp:rationale>
-            The reference count imposed on the subscription should simplify
-            implementation of connection manager with plug-ins. Two plug-ins
-            interested in mail notification may call Subscribe independently
-            without relying on the CM to handle this particular action.
+            The reference count imposed on the subscription SHOULD simplify
+            implementation of client running in the same process
+            (e.g. plug-ins). Two plug-ins interested in mail notification can
+            call Subscribe independently without relying on the CM to handle
+            this particular action.
         </tp:rationale>
 
         <tp:rationale>
@@ -450,7 +451,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         tp:name-for-bindings="Unsubscribe">
       <tp:docstring>
         This method unsubscribes a client from the notification interface.
-        This should be called when a client no longer need the mail
+        This SHOULD be called when a client no longer need the mail
         notification interface.
         <tp:rationale>
           When the last client unsubscribe from this interface, the CM may
@@ -478,12 +479,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         This method creates and returns an URL and an optionnal POST data that
         allow openning the Inbox folder of your Web mail account. This URL may
-        contains token with short lifetime. Thus, a client should not reuse it
+        contains token with short lifetime. Thus, a client SHOULD NOT reuse it
         and request a new URL whenever it is needed. This method is implemented
         only if <tt>Supports_Request_Inbox_URL</tt> flag is set in
         <tp:member-ref>Capabilities</tp:member-ref>.
         <tp:rationale>
-          We are not using properties here because the tokens may not be shared
+          We are NOT using properties here because the tokens MAY NOT be shared
           between clients and that network may be required to obtain the
           information that leads to authentication free Web access.
         </tp:rationale>
@@ -560,7 +561,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         connection manager has the means to provide necessary
         information (URL, method, POST data) so that the client is
         able to open the user's inbox and possibly individual messages without
-        having to re-authenticate. To use this interface, a client must first
+        having to re-authenticate. To use this interface, a client MUST first
         subscribe using the <tp:member-ref>Subscribe</tp:member-ref>
         method.</p>
 
@@ -571,16 +572,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>UnreadMailCount</tp:member-ref>, an array
         of new or modified mails and the list of removed e-mail unique IDs.
         To open the web base mail client for the inbox folder or a specific
-        mail client must call <tp:member-ref>RequestInboxURL</tp:member-ref>
+        mail client may call <tp:member-ref>RequestInboxURL</tp:member-ref>
         or <tp:member-ref>RequestMailURL</tp:member-ref>. Those methods
         will do proper actions to retreive the information and provide
         authentication free URL to the requested Web client interface.</p>
 
-      <p>Some protocol may not be able to provide a list of unread e-mails
+      <p>Some protocol MAY NOT be able to provide a list of unread e-mails
         but may provide some information about the messages received. On
         such protocols, the <tp:member-ref>MailsReceived</tp:member-ref>
         signal will also be emitted, with information about the e-mails.
-        The protocol does not keep track of any of this information.</p>
+        The protocol does NOT keep track of any of this information.</p>
     </tp:docstring>
   </interface>
 </node>
