@@ -188,10 +188,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
       <tp:docstring>
         E-mail representation has been reduced to hash table with possible
-        keys (of type strings) listed above. All keys are optional except the
-        "id" key that MUST be provided by every protocol that supports unread
-        mail listing. Without this key, it would NOT be impossible to unlist
-        the e-mails that are no longer marked as unread.
+        keys (of type strings) listed above. Most keys are optional unless
+        explicity stated in dedicated section. At least one of "senders"
+        and "subject" key MUST be set.
         <tp:rationale>
           The hash map will allow extending the protocol without any ABI
           changes. Only the documentation will need to be updated.
@@ -201,14 +200,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <h3>Keys</h3>
         <ul>
           <li>id &#8212; s</li>
-          <div class="docstring">A unique ID for this e-mail</div>
+          <div class="docstring">
+            A unique ID for this e-mail. CMs with <tt>Supports_Unread_Mails</tt>
+            set in <tp:member-ref>Capabilities</tp:member-ref> MUST provide this
+            key in each <tp:type>Mail</tp:type>. The ID MUST be unique within the
+            session.
+          </div>
 
           <li>type &#8212; u (<tp:type>Mail_Type</tp:type>)</li>
           <div class="docstring">
             Type of e-mail. This can be set to "single", which means e-mails
             are represented separately, or "thread", when information is
             described by the protocol as thread. Note that threads MAY have
-            multiple unread senders.
+            multiple unread senders. If unset, "single" MUST be assumed.
           </div>
 
           <li>url-data &#8212; s</li>
@@ -234,15 +238,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             copy recipients.
           </div>
 
-          <li>subject &#8212; s</li>
-          <div class="docstring">The subject of the message.</div>
-
-          <li>sent-timestamp &#8212; u</li>
+          <li>sent-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</li>
           <div class="docstring">A UNIX timestamp of when the message has been
             sent (in seconds) (optional).
           </div>
 
-          <li>received-timestamp &#8212; u</li>
+          <li>received-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</li>
           <div class="docstring">A UNIX timestamp of when the message has been
             received (in seconds).
           </div>
@@ -252,22 +253,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             attachments.
           </div>
 
+          <li>subject &#8212; s</li>
+          <div class="docstring">
+            The subject of the message. This must be encoded in UTF-8.
+          </div>
+
           <li>content-type &#8212; s</li>
           <div class="docstring">
-            MIME type of the message contents. Plain text SHOULD be
-            assumed if unset.
+            MIME type of the message content. Two types are currently supported,
+            "text/plain" where text is valid UTF-8 and "text/html" where text
+            is a valid HTML document. "text/plain" MUST be assumed if unset.
           </div>
 
-          <li>snippet &#8212; s</li>
+          <li>truncated &#8212; b</li>
           <div class="docstring">
-            A small part of the message body (content-type SHOULD
-            be set if this message is HTML encoded).
+            A boolean, TRUE means that the "content" contains only a snippet
+            of real body.
           </div>
 
-          <li>body &#8212; s</li>
+          <li>content &#8212; s</li>
           <div class="docstring">
-            The body of the message (content-type SHOULD
-            be set if this message is HTML encoded).
+            The body of the message. The text MUST be formated according to
+            "content-type".
           </div>
 
           <li>folder &#8212; s</li>
