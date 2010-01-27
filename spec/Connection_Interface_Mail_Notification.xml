@@ -319,8 +319,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
       <arg name="Mails" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
-          An array of <tp:type>Mail</tp:type>s. Those e-mails do NOT have a
-          unique "ID".
+          An array of <tp:type>Mail</tp:type>s. Those e-mail MAY NOT have the
+          "id" key or MAY have an "id" key that is not unique.
+          <tp:rationale>
+            In this context, the "id" key does not make much sense since
+            e-mails will only be sent once. CMs may still set it to put
+            additional information for method 
+            <tp:member-ref>RequestMailURL</tp:member-ref>.
+          </tp:rationale>
         </tp:docstring>
       </arg>
 
@@ -468,14 +474,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Request_Mail_URL">
       <arg direction="in" name="ID" type="s">
         <tp:docstring>
-          The mail ID as found in <tp:type>Mail</tp:type> structure.
+          The mail ID as found in <tp:type>Mail</tp:type> structure. If this
+          key is missing, use the empty string.
         </tp:docstring>
       </arg>
       <arg direction="in" name="URL_Data" type="s">
         <tp:docstring>
           An opaque string that contains information required by CM to build
           a correct URL for opening Web mail client without re-authentication.
-          This token is part of <tp:type>Mail</tp:type> structure.
+          This token is part of <tp:type>Mail</tp:type> structure, if it's
+          missing, use the empty string.
         </tp:docstring>
       </arg>
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
