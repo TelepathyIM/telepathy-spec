@@ -87,42 +87,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         <p>Flags representing capabilities provided by a connection manager.
           Those values can be used as bitfield. Some flags depends or
-          conflicts with each others. Those relations implies four
-          different groups of protocols. While it's NOT mandatory, it is
+          conflicts with each others. While it's NOT mandatory, it is
           strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is
-          supported to ensure that there always exists a way to open unread
+          set to ensure that there always exists a way to open unread
           messages.</p>
-
-        <p>1) Supports_Unread_Mail_Count only
-          <tp:rationale>This flag is generally combined with other flags but
-            still make sense alone. This is supported by most protocols
-            including MSN, Yahoo and Google Talk. It allows a UI to display
-            messages like 'GMail: 4 unread messages'.
-          </tp:rationale>
-        </p>
-
-        <p>2) Emist_Mails_Received only
-          <tp:rationale>This is the lowest level of mail notification support.
-            It does NOT allow tracking information about the mail account. No
-            supported protocol has this limited set of feature, but it is
-            usefull while integrating external IM library with limited
-            support of abstracted protocols (like libpurple where
-            unread mail count is broken).
-          </tp:rationale>
-        </p>
-
-        <p>3) Supports_Unread_Mail_Count and Supports_Unread_Mails
-          <tp:rationale>This allow full state recovery of unread mail status.
-            It is provided by Google XMPP Mail Notification Extension.
-          </tp:rationale>
-        </p>
-
-        <p>4) Supports_Unread_Mail_Count and Emits_Mails_Received
-          <tp:rationale>This is the most common level of support, it is
-            provided by protocols like MSN and Yahoo.
-          </tp:rationale>
-        </p>
-
       </tp:docstring>
     </tp:flags>
 
@@ -558,30 +526,95 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support receiving notifications about a e-mail
         account associated with this connection. It is intended that the
-        connection manager has the means to provide necessary
-        information (URL, method, POST data) so that the client is
-        able to open the user's inbox and possibly individual messages without
-        having to re-authenticate. To use this interface, a client MUST first
-        subscribe using the <tp:member-ref>Subscribe</tp:member-ref>
-        method.</p>
-
-      <p>When unread e-mails arrive into the into or unread e-mails are marked
-        read or deleted the
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal
-        will be emitted with the new value of
-        <tp:member-ref>UnreadMailCount</tp:member-ref>, an array
-        of new or modified mails and the list of removed e-mail unique IDs.
-        To open the web base mail client for the inbox folder or a specific
-        mail client may call <tp:member-ref>RequestInboxURL</tp:member-ref>
-        or <tp:member-ref>RequestMailURL</tp:member-ref>. Those methods
-        will do proper actions to retreive the information and provide
-        authentication free URL to the requested Web client interface.</p>
-
-      <p>Some protocol MAY NOT be able to provide a list of unread e-mails
-        but may provide some information about the messages received. On
-        such protocols, the <tp:member-ref>MailsReceived</tp:member-ref>
-        signal will also be emitted, with information about the e-mails.
-        The protocol does NOT keep track of any of this information.</p>
+        connection manager has the means to provide necessary information
+        so that the client is always able to open a web based mail client
+        without having to re-authenticate.
+      </p>
+      <p>
+        To use this interface, a client MUST first subscribe using the
+        <tp:member-ref>Subscribe</tp:member-ref> method. The subscription
+        mechanic aims at reducing network traffic and memory footprint in the
+        situation where nobody is currently interesting in provided
+        information.
+      </p>
+      <p>
+        Protocol often have different level of Mail Notification support. To
+        make it more explicit, the interface provides a property called
+        <tp:member-ref>Capabilities</tp:member-ref>. Possible value are
+        described by <tp:type>Mail_Notification_Flags</tp:type>. Not all
+        combinations are valid. We can regroup the mail notification in four
+        different combinations.
+      </p>
+      <p>
+        <b>1) Supports_Unread_Mail_Count only:</b>
+        <br/>
+        This flag is generally combined with other flags, but provides
+        sufficient information to be usefull. The mail count is supported
+        by most protocols including MSN, Yahoo and Google Talk. It allows 
+        a UI to permanantly display messages like 'GMail: 4 unread messages'.
+      </p>
+      <p>
+        <b>2) Emist_Mails_Received only:</b>
+        <br/>
+        In this case, the CM does not keep track of any mails. It simply emits
+        information whenever they arrived to it. Those events may be used for
+        short term display (like notification popup) to inform the user. No
+        protocol is known to only supported this single feature, but it is
+        useful for certain library integration that does not implement
+        tracking of count or have a buggy counter implementation.
+        <tp:rationale>
+          It's always better to remove a feature then enabling one that does
+          not behave properly.
+        </tp:rationale>
+      </p>
+      <p>
+        <b>3) Supports_Unread_Mail_Count and Supports_Unread_Mails:</b>
+        <br/>
+        This allow full state recovery of unread mail status. It is provided
+        by Google XMPP Mail Notification Extension. With this set of flag,
+        a client could have same display has case 1, and have let's say a
+        plus button to show more detailed information. Refer to
+        <tp:type>Mail</tp:type> documentation for the list of details that
+        MAY be provided.
+      </p>
+      <p>
+        <b>4) Supports_Unread_Mail_Count and Emits_Mails_Received</b>
+        <br/>
+        This is the most common level of support, it is provided by protocols
+        like MSN and Yahoo. This would result in a combination of case 1 and 2
+        where the client could display a counter and real-time notification.
+      </p>
+      <p>
+        In case 1, 3 and 4, client SHOULD connect to signal
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref> to get updated with
+        latest value of <tp:member-ref>UnreadMailCount</tp:member-ref>. In
+        case 3, this signal also provides updates of
+        <tp:member-ref>UnreadMails</tp:member-ref> property.
+      </p>
+      <p>
+        In case 2 and 4, client MAY connect to signal
+        <tp:member-ref>MailsReceived</tp:member-ref> to get real-time
+        notification about newly arrived e-mails.
+      </p>
+      <p>
+        Other independant features promoted within the
+        <tp:member-ref>Capabilities</tp:member-ref> are the RequestSomethingURL
+        methods. Those requests are used to obtain authentication free URL that
+        will allow client to open web base mail client. Those capabilities
+        are all optional, but flag <tt>Supports_Request_Inbox_URL</tt> is
+        recommanded for case 1, 3 and 4. Flag 
+        <tt>Supports_Request_Mail_URL</tt> is mostly usefull for case 1, 3
+        and 4, but client SHOULD fallback to Inbox URL if missing. Finally,
+        flag <tt>Supports_Request_Compose_URL</tt> is a special feature that
+        allow accessing the mail creation web interface with a single click.
+        This feature is simply optional.
+      </p>
+      <p>
+        When done with this interface, client SHOULD call
+        <tp:member-ref>Unsubscribe</tp:member-ref>. If no more clients are
+        subscribed, the CM will then be able to free any uneeded memory and
+        reduce network traffic.
+      </p>
     </tp:docstring>
   </interface>
 </node>
