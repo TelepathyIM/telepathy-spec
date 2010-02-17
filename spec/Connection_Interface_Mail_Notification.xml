@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
-    <tp:flags name="Mail_Notification_Flags" value-prefix="Mail_Notification" type="u" >
+    <tp:flags name="Mail_Notification_Flags" value-prefix="Mail_Notification_Flag" type="u" >
       <tp:flag suffix="Supports_Unread_Mail_Count" value="1">
         <tp:docstring>
           The CM provides the number of unread e-mails (or e-mail
