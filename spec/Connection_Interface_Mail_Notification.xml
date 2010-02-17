@@ -193,23 +193,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:struct name="Mail_URL">
       <tp:docstring>
-        Structure that contains required information to open Web base e-mail
-        UI without need for re-authentication.
+        A structure containing the required information to open a web-based
+        e-mail UI without needing re-authentication.
       </tp:docstring>
       <tp:member type="s" name="URL">
         <tp:docstring>
-          URL of the inbox folder or mail Web viewer.
+          The URL to which to send a request.
         </tp:docstring>
       </tp:member>
       <tp:member type="u" name="Method" tp:type="HTTP_Method">
         <tp:docstring>
-          HTTP Method for opening URL.
+          The HTTP method of the request.
         </tp:docstring>
       </tp:member>
       <tp:member type="a(ss)" name="Post_Data" tp:type="HTTP_Post_Data[]">
         <tp:docstring>
-          Array of name-value pair structs of the POST data to use when opening
-          the URL. Because the POST data frequently contains short-lived credential
+          An array of name-value pairs containing the POST data to use when
+          opening the URL.
+          Because the POST data frequently contains short-lived credential
           tokens, this information MAY NOT be shared between clients.
         </tp:docstring>
       </tp:member>
