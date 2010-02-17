@@ -132,14 +132,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </pre>
 
         <tp:rationale>
-          This data can be used to generate a HTML file that will
-          automatically load the URL with appropriate POST data, in which case
-          the client MUST convert any characters that are special within HTML
-          into HTML entities. Alternatively, it can be used in an API that will
-          instruct the browser how to load the URL (like the Netscape Plug-in
-          API), in which case the client MUST escape
-          <a href="http://www.ietf.org/rfc/rfc1738.txt">characters that are
-            reserved in URLs</a>, if appropriate for that API.
+          <p>This data can be used to generate a HTML file that will
+            automatically load the URL with appropriate POST data, in which case
+            the client MUST convert any characters that are special within HTML
+            into HTML entities. Alternatively, it can be used in an API that will
+            instruct the browser how to load the URL (like the Netscape Plug-in
+            API), in which case the client MUST escape
+            <a href="http://www.ietf.org/rfc/rfc1738.txt">characters that are
+              reserved in URLs</a>, if appropriate for that API.</p>
+
+          <p>An array of pairs is used instead of a map from keys to values,
+            because it's valid to repeat keys in both HTML and
+            x-www-form-urlencoded data.</p>
         </tp:rationale>
       </tp:docstring>
       <tp:member type="s" name="Key"/>
