@@ -167,21 +167,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
+    <!-- FIXME: should this be Mail_Notification_Type? -->
     <tp:enum name="Mail_Type" type="u">
       <tp:enumvalue suffix="Single" value="0">
         <tp:docstring>
-          The e-mail is represented as a single message send by only
-          one sender.
+          The <tp:type>Mail</tp:type> represents a single message, sent by
+          a single sender.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Thread" value="1">
         <tp:docstring>
-          The e-mail refer to a thread where multiple person MAY
-          have replied.
+          The <tp:type>Mail</tp:type> represents a thread of e-mails, which
+          MAY have more than one sender.
         </tp:docstring>
       </tp:enumvalue>
       <tp:docstring>
-        E-mail representation type.
+        <p>The type of a mail notification.</p>
+
+        <tp:rationale>
+          <p>Google Talk notifies users about new mail in terms of unread
+            threads, rather than unread e-mails.</p>
+        </tp:rationale>
       </tp:docstring>
     </tp:enum>
 
