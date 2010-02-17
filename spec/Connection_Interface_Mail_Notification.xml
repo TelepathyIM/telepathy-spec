@@ -146,17 +146,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             x-www-form-urlencoded data.</p>
         </tp:rationale>
       </tp:docstring>
-      <tp:member type="s" name="Key"/>
-      <tp:member type="s" name="Value"/>
+      <tp:member type="s" name="Key">
+        <tp:docstring>The key, corresponding to a HTML control
+          name</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Value">The value</tp:docstring>
     </tp:struct>
 
     <tp:struct name="Mail_Address" array-name="Mail_Address_List">
       <tp:docstring>
-        A pair (name, address) representing an e-mail address 
-        (e.g. ("Nicolas Dufresne", "nicolas.dufresne@collabora.co.uk") ).
+        A pair (name, address) representing an e-mail address,
+        such as ("Nicolas Dufresne", "nicolas.dufresne@collabora.co.uk").
       </tp:docstring>
-      <tp:member type="s" name="Name"/>
-      <tp:member type="s" name="Address"/>
+      <tp:member type="s" name="Name">
+        <tp:docstring>The displayed name corresponding to the e-mail
+          address</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Address">
+        <tp:docstring>The actual e-mail address</tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:enum name="Mail_Type" type="u">
