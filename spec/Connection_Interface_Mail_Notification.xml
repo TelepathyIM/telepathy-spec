@@ -192,9 +192,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
     <tp:struct name="Mail_URL">
-      <tp:docstring>
-        A structure containing the required information to open a web-based
-        e-mail UI without needing re-authentication.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A structure containing the required information to open a web-based
+          e-mail UI without needing re-authentication.</p>
+
+        <p>Because the URL and POST data frequently contain short-lived
+          credential tokens, a new URL should be requested (by calling one of
+          the methods that returns a Mail_URL) for each visit to the web-based
+          UI, and the URL should be visited soon after it is returned.</p>
       </tp:docstring>
       <tp:member type="s" name="URL">
         <tp:docstring>
@@ -210,8 +215,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           An array of name-value pairs containing the POST data to use when
           opening the URL.
-          Because the POST data frequently contains short-lived credential
-          tokens, this information MAY NOT be shared between clients.
         </tp:docstring>
       </tp:member>
     </tp:struct>
