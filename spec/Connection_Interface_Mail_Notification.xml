@@ -26,8 +26,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:flags name="Mail_Notification_Flags" value-prefix="Mail_Notification_Flag" type="u" >
       <tp:flag suffix="Supports_Unread_Mail_Count" value="1">
         <tp:docstring>
-          The CM provides the number of unread e-mails (or e-mail
-          threads) in the main folder of your e-mail account set as
+          This Connection provides the number of unread e-mails (or e-mail
+          threads) in the main folder of your e-mail account, as the
           <tp:member-ref>UnreadMailCount</tp:member-ref> property. The
           connection manager will update this value by emitting the
           <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.
@@ -35,62 +35,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="Supports_Unread_Mails" value="2">
         <tp:docstring>
-          The CM provides a detailed list of unread e-mails set as
-          <tp:member-ref>UnreadMails</tp:member-ref> property. This flag
-          implies that <tt>Supports_Unread_Mail_Count</tt> is set and
-          CANNOT be combine with flag <tt>Emits_Mails_Received</tt>.
-          The CM will update the list by emitting the
+          This Connection provides a detailed list of unread e-mails, as the
+          <tp:member-ref>UnreadMails</tp:member-ref> property. If this flag
+          is set, <tt>Supports_Unread_Mail_Count</tt> MUST be set, and
+          <tt>Emits_Mails_Received</tt> MUST NOT be set.
+          The Connection will update the list by emitting the
           <tp:member-ref>UnreadMailsChanged</tp:member-ref> signals.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Emits_Mails_Received" value="4">
         <tp:docstring>
-          The CM emits <tp:member-ref>MailsReceived</tp:member-ref>
-          signal which provide details about newly arrived e-mails but does
-          NOT maintain their read/unread status afterward. This flag CANNOT
+          This Connection emits the <tp:member-ref>MailsReceived</tp:member-ref>
+          signal, which provides details about newly arrived e-mails but does
+          not maintain their read/unread status afterwards. This flag MUST NOT
           be combined with <tt>Supports_Unread_Mails</tt>.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Supports_Request_Inbox_URL" value="8">
         <tp:docstring>
-          The CM provides a URL (with optional POST data) that leads to the
-          the inbox folder of the e-mail account inside a web base client.
-          This URL can be obtained via the
-          <tp:member-ref>RequestInboxURL</tp:member-ref> method. It is
+          This Connection can provide a URL (with optional POST data) to
+          open the the inbox of the e-mail account in a web-based client, via
+          the <tp:member-ref>RequestInboxURL</tp:member-ref> method. It is
           strongly advised to set this flag if
           <tt>Supports_Unread_Mail_Count</tt> is set.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Supports_Request_Mail_URL" value="16">
         <tp:docstring>
-          The CM provides a URL (with optional POST data) that leads to the
-          a specific mail inside a web base client. This URL can be obtained
-          via the <tp:member-ref>RequestMailURL</tp:member-ref> method. It is
+          This Connection can provide a URL (with optional POST data) to open
+          a specific mail in a web-based client, via the
+          <tp:member-ref>RequestMailURL</tp:member-ref> method. It is
           strongly advised to set this flag if
           <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
           is set.
           <tp:rationale>
             If possible client SHOULD fallback to
             <tp:member-ref>RequestInboxURL</tp:member-ref> if
-            <tt>Supports_Request_Mail_URL</tt> is NOT set.
+            <tt>Supports_Request_Mail_URL</tt> is not set.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Supports_Request_Compose_URL" value="32">
         <tp:docstring>
-          The CM provides an URL (with optional POST data) that leads to a
-          e-mail editor inside a web base client. This URL can be obtained
-          via the <tp:member-ref>RequestComposeURL</tp:member-ref> method.
-          This flag is optional and does NOT depend on any other flags.
+          The CM provides an URL (with optional POST data) to compose a new
+          e-mail in a web-based client, via the
+          <tp:member-ref>RequestComposeURL</tp:member-ref> method.
+          This flag is optional and does not depend on any other flags.
         </tp:docstring>
       </tp:flag>
       <tp:docstring>
         <p>Flags representing capabilities provided by a connection manager.
-          Those values can be used as bitfield. Some flags depends or
-          conflicts with each others. While it's NOT mandatory, it is
+          Those values can be used as bitfield. Some flags depend on, or
+          conflict with, each other. While it's not mandatory, it is
           strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is
-          set to ensure that there always exists a way to open unread
-          messages.</p>
+          set to ensure that there is a way to open unread messages.</p>
       </tp:docstring>
     </tp:flags>
 
