@@ -503,21 +503,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Request_Inbox_URL">
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
-          A struture that contains URL and any additional data to open Web
-          mail client without re-authentication.
+          A struture containing a URL and optional additional data to open a
+          webmail client without re-authentication.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method creates and returns an URL and an optionnal POST data that
-        allow openning the Inbox folder of your Web mail account. This URL may
-        contains token with short lifetime. Thus, a client SHOULD NOT reuse it
-        and request a new URL whenever it is needed. This method is implemented
-        only if <tt>Supports_Request_Inbox_URL</tt> flag is set in
+        This method creates and returns a URL and an optional POST data that
+        allow opening the Inbox folder of a webmail account. This URL MAY
+        contain tokens with a short lifetime, so clients SHOULD request a new
+        URL for each visit to the webmail interface. This method is implemented
+        only if the <tt>Supports_Request_Inbox_URL</tt> flag is set in
         <tp:member-ref>Capabilities</tp:member-ref>.
+
         <tp:rationale>
-          We are NOT using properties here because the tokens MAY NOT be shared
-          between clients and that network may be required to obtain the
-          information that leads to authentication free Web access.
+          We are not using properties here because the tokens are unsuitable
+          for sharing between clients, and network round-trips may be required
+          to obtain the information that leads to authentication free webmail
+          access.
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
@@ -531,30 +533,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Request_Mail_URL">
       <arg direction="in" name="ID" type="s">
         <tp:docstring>
-          The mail ID as found in <tp:type>Mail</tp:type> structure. If this
-          key is missing, use the empty string.
+          The mail's <tt>id</tt> as found in the <tp:type>Mail</tp:type>
+          structure, or the empty string if no <tt>id</tt> key was provided.
         </tp:docstring>
       </arg>
       <arg direction="in" name="URL_Data" type="s">
         <tp:docstring>
-          An opaque string that contains information required by CM to build
-          a correct URL for opening Web mail client without re-authentication.
-          This token is part of <tp:type>Mail</tp:type> structure, if it's
-          missing, use the empty string.
+          The <tt>url-data</tt> as found in the <tp:type>Mail</tp:type>
+          structure, or the empty string if no <tt>url-data</tt> key was
+          provided.
         </tp:docstring>
       </arg>
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
-          A struture that contains URL and any additional data to open Web
-          mail client without re-authentication.
+          A struture that contains a URL and optional additional data to open a
+          webmail client without re-authentication.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method creates and return a URL and optionnal POST data that
-        allow openning specific mail of your Web mail account. Refer to
-        <tp:member-ref>RequestInboxURL</tp:member-ref> for rationale. This
+        This method creates and returns a URL and optional POST data that
+        allow opening a specific mail in a webmail interface. This
         method is implemented only if <tt>Supports_Request_Mail_URL</tt> flag
         is set in <tp:member-ref>Capabilities</tp:member-ref>.
+        <tp:rationale>
+          See <tp:member-ref>RequestInboxURL</tp:member-ref> for design
+          rationale.
+        </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
@@ -567,18 +571,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Request_Compose_URL">
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
-          A struture that contains URL and any additional data to open Web
-          mail client without re-authentication.
+          A struture that contains a URL and optional additional data to open
+          a webmail client without re-authentication.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        This method assembles and returns an URL and optional POST data that
-        allow openning the mail compositer page of your Web mail account.
-        This method is implemented only if <tt>Supports_Request_Compose_URL</tt>
+        This method assembles and returns a URL and optional POST data that
+        allow opening the mail composition page of a webmail interface.
+        This method is implemented only if the
+        <tt>Supports_Request_Compose_URL</tt>
         flag is set in <tp:member-ref>Capabilities</tp:member-ref>.
         <tp:rationale>
-          The goal is to allow a Web mail user to have the same level of
-          integration as if he were using a native mail client.
+          The goal is to allow a webmail user to have the same level of
+          integration as if they were using a native mail client.
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
