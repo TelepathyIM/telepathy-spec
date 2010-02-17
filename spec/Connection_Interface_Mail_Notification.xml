@@ -407,31 +407,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="Mails_Added" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
           A list of <tp:type>Mail</tp:type> that are being added or updated in
-          <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
-          empty if the protocol does NOT support listing unread e-mails
-          or threads.
+          <tp:member-ref>UnreadMails</tp:member-ref>. This list MAY be
+          empty even if Count has increased, if the
+          <tt>Supports_Unread_Mails</tt> flag is not set.
+
           <tp:rationale>
-            Mails MAY be updated when the URL information (url and POST Data)
-            have changed, or senders were added or removed from an e-mails
-            thread (see <tp:type>Mail_Type</tp:type>).
+            Mails may be updated when the URL information (URL and POST data)
+            have changed, or senders were added or removed from an e-mail
+            thread (see <tp:type>Mail_Type</tp:type>_Thread).
           </tp:rationale>
         </tp:docstring>
       </arg>
       <arg name="Mails_Removed" type="as">
         <tp:docstring>
-          A list of e-mails ID that are being removed from
-          <tp:member-ref>UnreadMails</tp:member-ref>. This list will be
-          empty if the protocol does NOT support listing unread e-mails
-          or threads.
+          A list of e-mail IDs that are being removed from
+          <tp:member-ref>UnreadMails</tp:member-ref>. This list MAY be
+          empty even if Count has decreased, if the
+          <tt>Supports_Unread_Mails</tt> flag is not set.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or
-        <tp:member-ref>UnreadMailCount</tp:member-ref> have changed. It MAY be
-        emited only if <tt>Supports_Unread_Mail_Count</tt> flag is set in
-        <tp:member-ref>Capabilities</tp:member-ref>. <tt>mails_added</tt> and
-        <tt>mails_removed</tt> MAY NOT be empty list if 
-        <tt>Supports_Unread_Mails</tt> flag is set.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or
+          <tp:member-ref>UnreadMailCount</tp:member-ref> have changed. It MUST
+          NOT be emited if <tt>Supports_Unread_Mail_Count</tt> flag is not set
+          in <tp:member-ref>Capabilities</tp:member-ref>.</p>
+
+        <p><tt>Mails_Added</tt> and
+          <tt>Mails_Removed</tt> MUST be empty if the
+          <tt>Supports_Unread_Mails</tt> flag is not set.</p>
+        <!-- FIXME: is that true? -->
       </tp:docstring>
     </signal>
 
