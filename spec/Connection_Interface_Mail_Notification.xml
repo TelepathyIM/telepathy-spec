@@ -235,7 +235,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt>id &#8212; s</dt>
           <dd>
             A unique ID for this e-mail. CMs with <tt>Supports_Unread_Mails</tt>
-            set in <tp:member-ref>Capabilities</tp:member-ref> MUST provide this
+            set in <tp:member-ref>MailNotificationFlags</tp:member-ref> MUST provide this
             key in each <tp:type>Mail</tp:type>. If provided, the ID MUST be
             unique within the lifetime of the Connection.
           </dd>
@@ -330,10 +330,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
-    <!-- FIXME: this name is likely to cause a collision with other
-         interfaces? -->
-    <property name="Capabilities" type="u" access="read"
-      tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
+    <property name="MailNotificationFlags" type="u" access="read"
+      tp:type="Mail_Notification_Flags"
+      tp:name-for-bindings="Mail_Notification_Flags">
       <tp:docstring>
         Integer representing the bitwise-OR of supported features for e-mails
         notification on this server. This property MUST NOT change after the
@@ -355,7 +354,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The number of unread messages in the Inbox. Change notification is via
         <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property is
         only useful if <tt>Supports_Unread_Mail_Count</tt> is set in the
-        <tp:member-ref>Capabilities</tp:member-ref>; otherwise, it MUST be
+        <tp:member-ref>MailNotificationSupport</tp:member-ref>; otherwise, it MUST be
         zero.
       </tp:docstring>
     </property>
@@ -366,7 +365,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         A array of unread <tp:type>Mail</tp:type>s. Change notification is via
         <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property is
         only useful if <tt>Supports_Unread_Mails</tt> is set in
-        <tp:member-ref>Capabilities</tp:member-ref>; otherwise, it MUST be
+        <tp:member-ref>MailNotificationFlags</tp:member-ref>; otherwise, it MUST be
         an empty list.
       </tp:docstring>
     </property>
@@ -392,7 +391,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to maintain the <tp:member-ref>UnreadMails</tp:member-ref> list, but
         do provide real-time notification about newly arrived e-mails. It MUST
         NOT be emitted unless <tt>Emits_Mails_Received</tt> is set in
-        <tp:member-ref>Capabilities</tp:member-ref>.
+        <tp:member-ref>MailNotificationFlags</tp:member-ref>.
       </tp:docstring>
     </signal>
 
@@ -431,7 +430,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Emitted when <tp:member-ref>UnreadMails</tp:member-ref> or
           <tp:member-ref>UnreadMailCount</tp:member-ref> have changed. It MUST
           NOT be emited if <tt>Supports_Unread_Mail_Count</tt> flag is not set
-          in <tp:member-ref>Capabilities</tp:member-ref>.</p>
+          in <tp:member-ref>MailNotificationFlags</tp:member-ref>.</p>
 
         <p><tt>Mails_Added</tt> and
           <tt>Mails_Removed</tt> MUST be empty if the
@@ -513,7 +512,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         contain tokens with a short lifetime, so clients SHOULD request a new
         URL for each visit to the webmail interface. This method is implemented
         only if the <tt>Supports_Request_Inbox_URL</tt> flag is set in
-        <tp:member-ref>Capabilities</tp:member-ref>.
+        <tp:member-ref>MailNotificationFlags</tp:member-ref>.
 
         <tp:rationale>
           We are not using properties here because the tokens are unsuitable
@@ -554,7 +553,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         This method creates and returns a URL and optional POST data that
         allow opening a specific mail in a webmail interface. This
         method is implemented only if <tt>Supports_Request_Mail_URL</tt> flag
-        is set in <tp:member-ref>Capabilities</tp:member-ref>.
+        is set in <tp:member-ref>MailNotificationFlags</tp:member-ref>.
         <tp:rationale>
           See <tp:member-ref>RequestInboxURL</tp:member-ref> for design
           rationale.
@@ -580,7 +579,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         allow opening the mail composition page of a webmail interface.
         This method is implemented only if the
         <tt>Supports_Request_Compose_URL</tt>
-        flag is set in <tp:member-ref>Capabilities</tp:member-ref>.
+        flag is set in <tp:member-ref>MailNotificationFlags</tp:member-ref>.
         <tp:rationale>
           The goal is to allow a webmail user to have the same level of
           integration as if they were using a native mail client.
@@ -611,8 +610,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Protocols have various different levels of Mail Notification support.
         To describe the level of support, the interface provides a property
-        called <tp:member-ref>Capabilities</tp:member-ref>, whose possible
-        values are described by <tp:type>Mail_Notification_Flags</tp:type>.
+        called <tp:member-ref>MailNotificationFlags</tp:member-ref>.
         Not all combinations are valid; protocols can be divided into four
         categories as follows.</p>
 
@@ -659,7 +657,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>
         Orthogonal features described by the
-        <tp:member-ref>Capabilities</tp:member-ref> property include the
+        <tp:member-ref>MailNotificationFlags</tp:member-ref> property include the
         RequestSomethingURL methods, which are used to obtain URLs allowing
         clients to open a webmail client. Connections SHOULD support as many
         of these methods as possible.</p>
