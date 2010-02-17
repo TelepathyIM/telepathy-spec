@@ -224,14 +224,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:mapping name="Mail" array-name="Mail_List">
       <tp:docstring>
-        E-mail representation has been reduced to hash table with possible
-        keys (of type strings) listed above. Most keys are optional unless
-        explicity stated in dedicated section. At least one of "senders"
-        and "subject" key MUST be set.
-        <tp:rationale>
-          The hash map will allow extending the protocol without any ABI
-          changes. Only the documentation will need to be updated.
-        </tp:rationale>
+        An extensible map representing a mail or a thread of mails.
+        All keys are optional where not otherwise stated; however, at least
+        one of "senders" and "subject" must be included.
       </tp:docstring>
 
       <tp:member type="s" name="Key">
@@ -244,84 +239,89 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>
             A unique ID for this e-mail. CMs with <tt>Supports_Unread_Mails</tt>
             set in <tp:member-ref>Capabilities</tp:member-ref> MUST provide this
-            key in each <tp:type>Mail</tp:type>. The ID MUST be unique within the
-            session.
+            key in each <tp:type>Mail</tp:type>. If provided, the ID MUST be
+            unique within the lifetime of the Connection.
           </dd>
 
           <dt>type &#8212; u (<tp:type>Mail_Type</tp:type>)</dt>
           <dd>
-            Type of e-mail. This can be set to "single", which means e-mails
-            are represented separately, or "thread", when information is
-            described by the protocol as thread. Note that threads MAY have
-            multiple unread senders. If unset, "single" MUST be assumed.
+            The type of notification. If omitted, Mail_Type_Single MAY be
+            assumed. For protocols where notifications are about threads
+            rather than individual mails, this MUST be set to Mail_Type_Thread.
           </dd>
 
           <dt>url-data &#8212; s</dt>
-          <dd>An opaque string used to build URL when
-            calling <tp:member-ref>RequestMailURL</tp:member-ref>.
+          <dd>An opaque string provided to the Connection when
+            calling <tp:member-ref>RequestMailURL</tp:member-ref>,
+            containing information used by the Connection to build the URL.
           </dd>
 
           <dt>senders &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
           <dd>
-            An array of sender display name and e-mail address pair. Note that
-            only e-mails thread MAY have multiple senders.
+            An array of sender display name and e-mail address pairs. Note that
+            only e-mails represented as a thread can have multiple senders.
           </dd>
 
           <dt>to-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
           <dd>
-            An array of display name and e-mail address pair of
+            An array of display name and e-mail address pairs representing
             the recipients.
           </dd>
 
           <dt>cc-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
           <dd>
-            An array of display name and e-mail address pair of the carbon
-            copy recipients.
+            An array of display name and e-mail address pairs representing
+            the carbon-copy recipients.
           </dd>
 
           <dt>sent-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
-          <dd>A UNIX timestamp of when the message has been
-            sent (in seconds) (optional).
+          <dd>A UNIX timestamp indicating when the message was sent.
+            <!-- FIXME: what does this mean for a thread? -->
           </dd>
 
           <dt>received-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
-          <dd>A UNIX timestamp of when the message has been
-            received (in seconds).
+          <dd>A UNIX timestamp indicating when the message was received.
+            <!-- FIXME: what does this mean for a thread? -->
           </dd>
 
           <dt>has-attachments &#8212; b</dt>
-          <dd>A boolean of whether this message has
-            attachments.
-          </dd>
+          <dd>If true, this mail has attachments.</dd>
 
           <dt>subject &#8212; s</dt>
           <dd>
-            The subject of the message. This must be encoded in UTF-8.
+            The subject of the message. This MUST be encoded in UTF-8.
           </dd>
 
           <dt>content-type &#8212; s</dt>
           <dd>
-            MIME type of the message content. Two types are currently supported,
-            "text/plain" where text is valid UTF-8 and "text/html" where text
-            is a valid HTML document. "text/plain" MUST be assumed if unset.
+            <p>The MIME type of the message content. Two types are currently
+              supported: "text/plain" for plain text, and "text/html" for a
+              HTML document. If omitted, "text/plain" MUST be assumed.
+              Regardless of MIME type, the content MUST be valid UTF-8 (which
+              may require that the Connection transcodes it from a legacy
+              encoding).</p>
+
+            <tp:rationale>
+              <p>All strings on D-Bus must be UTF-8.</p>
+            </tp:rationale>
           </dd>
 
           <dt>truncated &#8212; b</dt>
           <dd>
-            A boolean, TRUE means that the "content" contains only a snippet
-            of real body.
+            If true, the content is only a partial message; if false or
+            omitted, the content is the entire message.
           </dd>
 
           <dt>content &#8212; s</dt>
           <dd>
-            The body of the message. The text MUST be formated according to
-            "content-type".
+            The body of the message, possibly truncated, encoded as appropriate
+            for "content-type".
           </dd>
 
           <dt>folder &#8212; s</dt>
           <dd>
             The name of the folder containing this e-mails.
-            If unset, inbox will be assumed.
+            If omitted, the inbox SHOULD be assumed.
           </dd>
         </dl>
         </tp:docstring>
