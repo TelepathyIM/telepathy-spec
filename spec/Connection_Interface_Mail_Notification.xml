@@ -601,71 +601,64 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         account associated with this connection. It is intended that the
         connection manager has the means to provide necessary information
         so that the client is always able to open a web based mail client
-        without having to re-authenticate.
-      </p>
-      <p>
-        To use this interface, a client MUST first subscribe using the
+        without having to re-authenticate.</p>
+
+      <p>To use this interface, a client MUST first subscribe using the
         <tp:member-ref>Subscribe</tp:member-ref> method. The subscription
         mechanic aims at reducing network traffic and memory footprint in the
         situation where nobody is currently interesting in provided
         information. When done with this interface, clients SHOULD call
         <tp:member-ref>Unsubscribe</tp:member-ref> to release resources in
-        the CM.
-      </p>
-      <p>
-        Protocols have various different levels of Mail Notification support.
+        the CM.</p>
+
+      <p>Protocols have various different levels of Mail Notification support.
         To describe the level of support, the interface provides a property
         called <tp:member-ref>Capabilities</tp:member-ref>, whose possible
         values are described by <tp:type>Mail_Notification_Flags</tp:type>.
-        Not all combinations are valid. Protocols can be grouped into four
-        levels of support:
-      </p>
-      <p>
-        <b>1) Supports_Unread_Mail_Count only:</b>
-        <br/>
-        This flag is generally combined with other flags, but provides
-        sufficient information to be useful on its own.
-        It allows a UI to display messages like 'GMail: 4 unread messages'.
-      </p>
-      <p>
-        <b>2) Emits_Mails_Received only:</b>
-        <br/>
-        In this case, the CM does not keep track of any mails; it simply emits
-        information whenever they arrived to it. Those events may be used for
-        short term display (like a notification popup) to inform the user. No
-        protocol is known to only support this single feature, but it is
-        useful for integration with libraries that that do not implement
-        tracking of the number of mails or have a buggy implementation.
-      </p>
-      <p>
-        <b>3) Supports_Unread_Mail_Count and Supports_Unread_Mails:</b>
-        <br/>
-        This allow full state recovery of unread mail status. It is provided
-        by Google XMPP Mail Notification Extension. With this set of flag,
-        a client could have same display has case 1, and have let's say a
-        plus button to show more detailed information. Refer to
-        <tp:type>Mail</tp:type> documentation for the list of details that
-        MAY be provided.
-      </p>
-      <p>
-        <b>4) Supports_Unread_Mail_Count and Emits_Mails_Received</b>
-        <br/>
-        This is the most common level of support, it is provided by protocols
-        like MSN and Yahoo. This would result in a combination of case 1 and 2
-        where the client could display a counter and real-time notification.
-      </p>
-      <p>
-        In case 1, 3 and 4, client SHOULD connect to signal
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref> to get updated with
-        latest value of <tp:member-ref>UnreadMailCount</tp:member-ref>. In
-        case 3, this signal also provides updates of
-        <tp:member-ref>UnreadMails</tp:member-ref> property.
-      </p>
-      <p>
-        In case 2 and 4, client MAY connect to signal
-        <tp:member-ref>MailsReceived</tp:member-ref> to get real-time
-        notification about newly arrived e-mails.
-      </p>
+        Not all combinations are valid; protocols can be divided into four
+        categories as follows.</p>
+
+      <p>Connections to the most capable protocols, such as Google's XMPP Mail
+        Notification extension, have the Supports_Unread_Mails flag (this
+        implies that they must also have Supports_Unread_Mail_Count, but not
+        Emits_Mails_Received). On these connections, clients
+        requiring change notification MUST monitor the
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal, and
+        either recover the initial state from the
+        <tp:member-ref>UnreadMails</tp:member-ref> property (if they require
+        details other than the number of mails) or the
+        <tp:member-ref>UnreadMailCount</tp:member-ref> property (if they
+        are only interested in the number of unread mails). The
+        <tp:member-ref>MailsReceived</tp:member-ref> signal is never emitted
+        on these connections, so clients that will display a short-term
+        notification for each new mail MUST do so in response to emission of
+        the <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.</p>
+
+      <p>The most common situation, seen in protocols like MSN and Yahoo, is
+        that the number of unread mails is provided and kept up-to-date,
+        and a separate notification is emitted with some details of each new
+        mail. This is a combination of the following two features, and clients
+        SHOULD implement one or both as appropriate for their requirements.</p>
+
+      <p>On protocols that have the Emits_Mails_Received flag (which implies
+        that they do not have Supports_Unread_Mails), the CM does not keep
+        track of any mails; it simply emits a notification whenever new mail
+        arrives. Those events may be used for short term display (like a
+        notification popup) to inform the user. No protocol is known to support
+        only this feature, but it is useful for integration with libraries that
+        that do not implement tracking of the number of mails. Clients
+        requiring these notifications MUST monitor the
+        <tp:member-ref>MailsReceived</tp:member-ref> signal on any connections
+        with this flag.</p>
+
+      <p>On protocols that have the Supports_Unread_Mail_Count flag but not
+        the Supports_Unread_Mails flag, clients cannot display complete
+        details of unread email, but can display an up-to-date count of the
+        <em>number</em> of unread mails. To do this, they must monitor the
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal, and
+        retrieve the initial state from the
+        <tp:member-ref>UnreadMailCount</tp:member-ref> property.</p>
+
       <p>
         Orthogonal features described by the
         <tp:member-ref>Capabilities</tp:member-ref> property include the
