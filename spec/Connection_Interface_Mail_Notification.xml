@@ -610,34 +610,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the CM.
       </p>
       <p>
-        Protocol often have different level of Mail Notification support. To
-        make it more explicit, the interface provides a property called
-        <tp:member-ref>Capabilities</tp:member-ref>. Possible value are
-        described by <tp:type>Mail_Notification_Flags</tp:type>. Not all
-        combinations are valid. We can regroup the mail notification in four
-        different combinations.
+        Protocols have various different levels of Mail Notification support.
+        To describe the level of support, the interface provides a property
+        called <tp:member-ref>Capabilities</tp:member-ref>, whose possible
+        values are described by <tp:type>Mail_Notification_Flags</tp:type>.
+        Not all combinations are valid. Protocols can be grouped into four
+        levels of support:
       </p>
       <p>
         <b>1) Supports_Unread_Mail_Count only:</b>
         <br/>
         This flag is generally combined with other flags, but provides
-        sufficient information to be usefull. The mail count is supported
-        by most protocols including MSN, Yahoo and Google Talk. It allows 
-        a UI to permanantly display messages like 'GMail: 4 unread messages'.
+        sufficient information to be useful on its own.
+        It allows a UI to display messages like 'GMail: 4 unread messages'.
       </p>
       <p>
-        <b>2) Emist_Mails_Received only:</b>
+        <b>2) Emits_Mails_Received only:</b>
         <br/>
-        In this case, the CM does not keep track of any mails. It simply emits
+        In this case, the CM does not keep track of any mails; it simply emits
         information whenever they arrived to it. Those events may be used for
-        short term display (like notification popup) to inform the user. No
-        protocol is known to only supported this single feature, but it is
-        useful for certain library integration that does not implement
-        tracking of count or have a buggy counter implementation.
-        <tp:rationale>
-          It's always better to remove a feature then enabling one that does
-          not behave properly.
-        </tp:rationale>
+        short term display (like a notification popup) to inform the user. No
+        protocol is known to only support this single feature, but it is
+        useful for integration with libraries that that do not implement
+        tracking of the number of mails or have a buggy implementation.
       </p>
       <p>
         <b>3) Supports_Unread_Mail_Count and Supports_Unread_Mails:</b>
@@ -669,10 +664,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         notification about newly arrived e-mails.
       </p>
       <p>
-        Other independant features promoted within the
-        <tp:member-ref>Capabilities</tp:member-ref> are the RequestSomethingURL
-        methods. Those requests are used to obtain authentication free URL that
-        will allow client to open web base mail client. Those capabilities
+        Orthogonal features described by the
+        <tp:member-ref>Capabilities</tp:member-ref> property include the
+        RequestSomethingURL methods, which are used to obtain
+        authentication-free URLs allowing clients to open a webmail client.
+        Those capabilities
         are all optional, but flag <tt>Supports_Request_Inbox_URL</tt> is
         recommanded for case 1, 3 and 4. Flag 
         <tt>Supports_Request_Mail_URL</tt> is mostly usefull for case 1, 3
