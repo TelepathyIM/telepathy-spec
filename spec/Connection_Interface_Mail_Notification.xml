@@ -150,7 +150,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>The key, corresponding to a HTML control
           name</tp:docstring>
       </tp:member>
-      <tp:member type="s" name="Value">The value</tp:docstring>
+      <tp:member type="s" name="Value">
+        <tp:docstring>The value</tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:struct name="Mail_Address" array-name="Mail_Address_List">
