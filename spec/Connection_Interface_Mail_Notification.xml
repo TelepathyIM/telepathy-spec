@@ -110,7 +110,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
     <tp:struct name="HTTP_Post_Data" array-name="HTTP_Post_Data_List">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A pair (key, value) representing POST data compatible with the
         application/x-www-form-urlencoded MIME type. The strings MUST be
         valid UTF-8 strings, and the characters used in the key MUST obey
