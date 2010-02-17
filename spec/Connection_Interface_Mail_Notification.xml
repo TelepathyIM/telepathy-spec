@@ -55,24 +55,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           This Connection can provide a URL (with optional POST data) to
           open the the inbox of the e-mail account in a web-based client, via
-          the <tp:member-ref>RequestInboxURL</tp:member-ref> method. It is
-          strongly advised to set this flag if
-          <tt>Supports_Unread_Mail_Count</tt> is set.
+          the <tp:member-ref>RequestInboxURL</tp:member-ref> method.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Supports_Request_Mail_URL" value="16">
-        <tp:docstring>
-          This Connection can provide a URL (with optional POST data) to open
-          a specific mail in a web-based client, via the
-          <tp:member-ref>RequestMailURL</tp:member-ref> method. It is
-          strongly advised to set this flag if
-          <tt>Supports_Unread_Mails</tt> or <tt>Emits_Mails_Received</tt>
-          is set.
-          <tp:rationale>
-            If possible client SHOULD fallback to
-            <tp:member-ref>RequestInboxURL</tp:member-ref> if
-            <tt>Supports_Request_Mail_URL</tt> is not set.
-          </tp:rationale>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>This Connection can provide a URL (with optional POST data) to open
+            a specific mail in a web-based client, via the
+            <tp:member-ref>RequestMailURL</tp:member-ref> method. This feature
+            is not useful unless either Emits_Mails_Received or
+            Supports_Unread_Mails is set.</p>
+
+          <p>If this flag is not set, clients SHOULD fall back to using
+            <tp:member-ref>RequestInboxURL</tp:member-ref> if available.</p>
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Supports_Request_Compose_URL" value="32">
@@ -80,15 +75,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The CM provides an URL (with optional POST data) to compose a new
           e-mail in a web-based client, via the
           <tp:member-ref>RequestComposeURL</tp:member-ref> method.
-          This flag is optional and does not depend on any other flags.
         </tp:docstring>
       </tp:flag>
       <tp:docstring>
         <p>Flags representing capabilities provided by a connection manager.
           Those values can be used as bitfield. Some flags depend on, or
-          conflict with, each other. While it's not mandatory, it is
-          strongly advised that <tt>Supports_Request_Inbox_URL</tt> flag is
-          set to ensure that there is a way to open unread messages.</p>
+          conflict with, each other.</p>
+
+        <p>Connections SHOULD implement as many of these features as the
+          underlying protocol allows, preferring to implement
+          Supports_Unread_Mails instead of Emits_Mails_Received if both are
+          possible.</p>
       </tp:docstring>
     </tp:flags>
 
@@ -664,16 +661,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Orthogonal features described by the
         <tp:member-ref>Capabilities</tp:member-ref> property include the
         RequestSomethingURL methods, which are used to obtain URLs allowing
-        clients to open a webmail client.
-        Those capabilities
-        are all optional, but flag <tt>Supports_Request_Inbox_URL</tt> is
-        recommanded for case 1, 3 and 4. Flag 
-        <tt>Supports_Request_Mail_URL</tt> is mostly usefull for case 1, 3
-        and 4, but client SHOULD fallback to Inbox URL if missing. Finally,
-        flag <tt>Supports_Request_Compose_URL</tt> is a special feature that
-        allow accessing the mail creation web interface with a single click.
-        This feature is simply optional.
-      </p>
+        clients to open a webmail client. Connections SHOULD support as many
+        of these methods as possible.</p>
     </tp:docstring>
   </interface>
 </node>
