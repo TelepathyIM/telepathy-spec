@@ -95,17 +95,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:enum name="HTTP_Method" type="u">
       <tp:enumvalue suffix="Get" value="0">
         <tp:docstring>
-          Use GET method when opening the URL.
+          Use the GET method when opening the URL.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Post" value="1">
         <tp:docstring>
-          Use POST method when opening the URL. Refer to
+          Use the POST method when opening the URL. Refer to
           <tp:type>HTTP_Post_Data</tp:type> for more details.
         </tp:docstring>
       </tp:enumvalue>
       <tp:docstring>
-        HTTP Method.
+        The HTTP Method with which to request a URL.
       </tp:docstring>
     </tp:enum>
 
