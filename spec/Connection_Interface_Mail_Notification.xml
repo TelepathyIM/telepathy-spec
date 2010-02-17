@@ -132,14 +132,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </pre>
 
         <tp:rationale>
-          This data MAY be used to generate a HTML file that will
-          automatically load the URL with appropriate POST data (in which case
-          the client MUST convert the
-          <a href="http://www.ietf.org/rfc/rfc1738.txt">reserved characters</a>
-          into HTML entities) or MAY use it as-is inside an UTF-8 API that will
+          This data can be used to generate a HTML file that will
+          automatically load the URL with appropriate POST data, in which case
+          the client MUST convert any characters that are special within HTML
+          into HTML entities. Alternatively, it can be used in an API that will
           instruct the browser how to load the URL (like the Netscape Plug-in
-          API). For this reason, the choice of non encoded UTF-8 strings is
-          prefered.
+          API), in which case the client MUST escape
+          <a href="http://www.ietf.org/rfc/rfc1738.txt">characters that are
+            reserved in URLs</a>, if appropriate for that API.
         </tp:rationale>
       </tp:docstring>
       <tp:member type="s" name="Key"/>
