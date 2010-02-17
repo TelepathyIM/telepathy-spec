@@ -445,37 +445,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>This method subscribes a client to the notification interface. This
           MUST be called by clients before using this interface.</p>
 
-        <p>The CM tracks a subscription count (like a refcount) for each
-          unique bus name that has called Subscribe(). When a client calls
+        <p>The Connection tracks a subscription count (like a refcount) for
+          each unique bus name that has called Subscribe(). When a client calls
           Unsubscribe(), it releases one "reference". If a client exits
-          (or crash), it releases all of its "references".</p>
+          (or crashes), the Connection releases all "references" held on its
+          behalf.</p>
 
         <tp:rationale>
-            The reference count imposed on the subscription SHOULD simplify
+          <p>The reference count imposed on the subscription simplifies
             implementation of client running in the same process
-            (e.g. plug-ins). Two plug-ins interested in mail notification can
-            call Subscribe independently without relying on the CM to handle
-            this particular action.
-        </tp:rationale>
+            (e.g. plug-ins): two plug-ins interested in mail notification can
+            call Subscribe and Unsubscribe independently without interfering
+            with each other.</p>
 
-        <tp:rationale>
-            This method exists to initiate real time messages in the case
-            at least one client is subscribed. This may also be used to reduce
-            memory and network overhead when there is no active subscription.
-            An example of protocol that benifits from this method is the
-            Google XMPP Mail Notification extension. In this protocol, the CM
-            receives a notification telling that something has changed. To get
-            more information, the CM must request this information. Knowing
-            that nobody is currently interested in this information, the CM
-            can avoid generating useless network traffic. In the same situation,
-            the CM may free the list of unread messages and reduce memory
-            overhead.
+          <p>This method exists to reduce memory and network overhead when
+            there is no active subscription. An example of a protocol that
+            benefits from this method is the Google XMPP Mail Notification
+            extension: in this protocol, the CM receives a notification
+            that something has changed, but to get more information, the CM
+            must request this information. Knowing that nobody is currently
+            interested in this information, the CM can avoid generating
+            useless network traffic. Similarly, the CM may free
+            the list of unread messages to reduce memory overhead.</p>
         </tp:rationale>
 
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <!-- FIXME: why would these errors be raised? -->
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
         <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
@@ -485,16 +483,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         tp:name-for-bindings="Unsubscribe">
       <tp:docstring>
         This method unsubscribes a client from the notification interface.
-        This SHOULD be called when a client no longer need the mail
-        notification interface.
+        This SHOULD be called by each client that has successfully called
+        Subscribe when it no longer needs the mail notification interface.
+
         <tp:rationale>
-          When the last client unsubscribe from this interface, the CM may
-          free any uneeded data and reduce network traffic. See
-          <tp:member-ref>Unsubscribe</tp:member-ref> for more rationale on
-          this topic.
+          See <tp:member-ref>Subscribe</tp:member-ref> for rationale.
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
+        <!-- FIXME: why would this ever raise an error? -->
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
