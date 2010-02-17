@@ -605,7 +605,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>Subscribe</tp:member-ref> method. The subscription
         mechanic aims at reducing network traffic and memory footprint in the
         situation where nobody is currently interesting in provided
-        information.
+        information. When done with this interface, clients SHOULD call
+        <tp:member-ref>Unsubscribe</tp:member-ref> to release resources in
+        the CM.
       </p>
       <p>
         Protocol often have different level of Mail Notification support. To
@@ -678,12 +680,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         flag <tt>Supports_Request_Compose_URL</tt> is a special feature that
         allow accessing the mail creation web interface with a single click.
         This feature is simply optional.
-      </p>
-      <p>
-        When done with this interface, client SHOULD call
-        <tp:member-ref>Unsubscribe</tp:member-ref>. If no more clients are
-        subscribed, the CM will then be able to free any uneeded memory and
-        reduce network traffic.
       </p>
     </tp:docstring>
   </interface>
