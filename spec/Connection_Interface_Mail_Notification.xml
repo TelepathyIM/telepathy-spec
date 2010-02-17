@@ -337,12 +337,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
       <tp:docstring>
         Integer representing the bitwise-OR of supported features for e-mails
-        notification on this server. This property CANNOT change after the 
+        notification on this server. This property MUST NOT change after the
         Connection becomes CONNECTED.
-        <tp:rational>
-          This property explicitly state the behavior and availability
+
+        <tp:rationale>
+          This property indicates the behavior and availability
           of the other properties and signals within this interface. A
-          connection manager that cannot at least set one of the flag
+          connection manager that cannot at least set one of the flags
           in the <tp:type>Mail_Notification_Flags</tp:type>
           SHOULD NOT provide this interface.
         </tp:rational>
@@ -353,9 +354,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Unread_Mail_Count">
       <tp:docstring>
         The number of unread messages in the Inbox. Change notification is via
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property
-        can be used if <tt>Supports_Unread_Mail_Count</tt> flag is set in
-        <tp:member-ref>Capabilities</tp:member-ref>.
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property is
+        only useful if <tt>Supports_Unread_Mail_Count</tt> is set in the
+        <tp:member-ref>Capabilities</tp:member-ref>; otherwise, it MUST be
+        zero.
       </tp:docstring>
     </property>
 
@@ -363,9 +365,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       tp:name-for-bindings="Unread_Mails" access="read">
       <tp:docstring>
         A array of unread <tp:type>Mail</tp:type>s. Change notification is via
-        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property
-        can be used if <tt>Supports_Unread_Mails</tt> flag is set in
-        <tp:member-ref>Capabilities</tp:member-ref>.
+        <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property is
+        only useful if <tt>Supports_Unread_Mails</tt> is set in
+        <tp:member-ref>Capabilities</tp:member-ref>; otherwise, it MUST be
+        an empty list.
       </tp:docstring>
     </property>
 
@@ -385,10 +388,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:docstring>
         Emitted when new e-mails messages arrive to the inbox associated with
-        this connection. This signal is used for protocol that are NOT able
-        to maintained <tp:member-ref>UnreadMails</tp:member-ref> list but
-        receives real-time notification about newly arrived e-mails. It MAY be
-        emited only if <tt>Emits_Mails_Received</tt> flag is set in
+        this connection. This signal is used for protocols that are not able
+        to maintain the <tp:member-ref>UnreadMails</tp:member-ref> list, but
+        do provide real-time notification about newly arrived e-mails. It MUST
+        NOT be emitted unless <tt>Emits_Mails_Received</tt> is set in
         <tp:member-ref>Capabilities</tp:member-ref>.
       </tp:docstring>
     </signal>
