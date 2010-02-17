@@ -214,7 +214,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="a(ss)" name="Post_Data" tp:type="HTTP_Post_Data[]">
         <tp:docstring>
           An array of name-value pairs containing the POST data to use when
-          opening the URL.
+          opening the URL. This MUST be an empty array if the Method is not
+          POST.
         </tp:docstring>
       </tp:member>
     </tp:struct>
