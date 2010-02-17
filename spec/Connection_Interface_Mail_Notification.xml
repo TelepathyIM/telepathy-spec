@@ -333,6 +333,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
+    <!-- FIXME: this name is likely to cause a collision with other
+         interfaces? -->
     <property name="Capabilities" type="u" access="read"
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
       <tp:docstring>
@@ -377,6 +379,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           An array of <tp:type>Mail</tp:type>s. Those e-mail MAY NOT have the
           "id" key or MAY have an "id" key that is not unique.
+          <!-- FIXME: allowing a non-unique @id is weird -->
           <tp:rationale>
             In this context, the "id" key does not make much sense since
             e-mails will only be sent once. CMs may still set it to put
