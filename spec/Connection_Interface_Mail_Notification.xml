@@ -111,13 +111,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:struct name="HTTP_Post_Data" array-name="HTTP_Post_Data_List">
       <tp:docstring>
-        <p>A pair (key, value) representing POST data compatible with
-        application/x-www-form-urlencoded type. The strings MUST be
-        valid UTF-8 strings. The character set for the key MUST follow
-        the rules defined in
+        <p>A pair (key, value) representing POST data compatible with the
+        application/x-www-form-urlencoded MIME type. The strings MUST be
+        valid UTF-8 strings, and the characters used in the key MUST obey
+        the requirements of the
         <a href="http://www.w3.org/TR/html401/types.html#type-cdata">
-        W3 specification for CDATA</a>. The value SHOULD NOT be
-        encoded with HTML entity.</p>
+          HTML CDATA type</a>. The value SHOULD NOT be
+        encoded with HTML entities.</p>
 
         <p>For example, if the POST data should contain a key "less-than" with value
         "&lt;", and a key "percent" with value "%", this should be represented as
