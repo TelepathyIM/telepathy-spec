@@ -196,7 +196,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:struct name="Mail_URL">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A structure containing the required information to open a web-based
-          e-mail UI without needing re-authentication.</p>
+          e-mail UI, without needing re-authentication (if possible).</p>
 
         <p>Because the URL and POST data frequently contain short-lived
           credential tokens, a new URL should be requested (by calling one of
@@ -507,7 +507,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
           A struture containing a URL and optional additional data to open a
-          webmail client without re-authentication.
+          webmail client, without re-authentication if possible.
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -550,7 +550,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
           A struture that contains a URL and optional additional data to open a
-          webmail client without re-authentication.
+          webmail client, without re-authentication if possible.
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -575,7 +575,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
         <tp:docstring>
           A struture that contains a URL and optional additional data to open
-          a webmail client without re-authentication.
+          a webmail client, without re-authentication if possible.
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -598,10 +598,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support receiving notifications about a e-mail
-        account associated with this connection. It is intended that the
-        connection manager has the means to provide necessary information
-        so that the client is always able to open a web based mail client
-        without having to re-authenticate.</p>
+        account associated with this connection.</p>
+
+      <p>In protocols where this is possible, this interface also allows the
+        connection manager to provide the necessary information for clients
+        to open a web-based mail client without having to re-authenticate.</p>
 
       <p>To use this interface, a client MUST first subscribe using the
         <tp:member-ref>Subscribe</tp:member-ref> method. The subscription
@@ -662,8 +663,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>
         Orthogonal features described by the
         <tp:member-ref>Capabilities</tp:member-ref> property include the
-        RequestSomethingURL methods, which are used to obtain
-        authentication-free URLs allowing clients to open a webmail client.
+        RequestSomethingURL methods, which are used to obtain URLs allowing
+        clients to open a webmail client.
         Those capabilities
         are all optional, but flag <tt>Supports_Request_Inbox_URL</tt> is
         recommanded for case 1, 3 and 4. Flag 
