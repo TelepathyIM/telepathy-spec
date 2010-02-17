@@ -222,7 +222,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
-    <tp:simple-type name="Mail" type="a{sv}" array-name="Mail_List">
+    <tp:mapping name="Mail" array-name="Mail_List">
       <tp:docstring>
         E-mail representation has been reduced to hash table with possible
         keys (of type strings) listed above. Most keys are optional unless
@@ -232,97 +232,106 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The hash map will allow extending the protocol without any ABI
           changes. Only the documentation will need to be updated.
         </tp:rationale>
+      </tp:docstring>
 
-        <div class="indent">
-        <h3>Keys</h3>
-        <ul>
-          <li>id &#8212; s</li>
-          <div class="docstring">
+      <tp:member type="s" name="Key">
+        <tp:docstring>
+          <p>A key providing information about the mail or thread. Well-known
+            keys are as follows:</p>
+
+        <dl>
+          <dt>id &#8212; s</dt>
+          <dd>
             A unique ID for this e-mail. CMs with <tt>Supports_Unread_Mails</tt>
             set in <tp:member-ref>Capabilities</tp:member-ref> MUST provide this
             key in each <tp:type>Mail</tp:type>. The ID MUST be unique within the
             session.
-          </div>
+          </dd>
 
-          <li>type &#8212; u (<tp:type>Mail_Type</tp:type>)</li>
-          <div class="docstring">
+          <dt>type &#8212; u (<tp:type>Mail_Type</tp:type>)</dt>
+          <dd>
             Type of e-mail. This can be set to "single", which means e-mails
             are represented separately, or "thread", when information is
             described by the protocol as thread. Note that threads MAY have
             multiple unread senders. If unset, "single" MUST be assumed.
-          </div>
+          </dd>
 
-          <li>url-data &#8212; s</li>
-          <div class="docstring">An opaque string used to build URL when
+          <dt>url-data &#8212; s</dt>
+          <dd>An opaque string used to build URL when
             calling <tp:member-ref>RequestMailURL</tp:member-ref>.
-          </div>
+          </dd>
 
-          <li>senders &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
-          <div class="docstring">
+          <dt>senders &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
+          <dd>
             An array of sender display name and e-mail address pair. Note that
             only e-mails thread MAY have multiple senders.
-          </div>
+          </dd>
 
-          <li>to-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
-          <div class="docstring">
+          <dt>to-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
+          <dd>
             An array of display name and e-mail address pair of
             the recipients.
-          </div>
+          </dd>
 
-          <li>cc-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</li>
-          <div class="docstring">
+          <dt>cc-addresses &#8212; a(ss) (<tp:type>Mail_Address</tp:type>)</dt>
+          <dd>
             An array of display name and e-mail address pair of the carbon
             copy recipients.
-          </div>
+          </dd>
 
-          <li>sent-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</li>
-          <div class="docstring">A UNIX timestamp of when the message has been
+          <dt>sent-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
+          <dd>A UNIX timestamp of when the message has been
             sent (in seconds) (optional).
-          </div>
+          </dd>
 
-          <li>received-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</li>
-          <div class="docstring">A UNIX timestamp of when the message has been
+          <dt>received-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
+          <dd>A UNIX timestamp of when the message has been
             received (in seconds).
-          </div>
+          </dd>
 
-          <li>has-attachments &#8212; b</li>
-          <div class="docstring">A boolean of whether this message has
+          <dt>has-attachments &#8212; b</dt>
+          <dd>A boolean of whether this message has
             attachments.
-          </div>
+          </dd>
 
-          <li>subject &#8212; s</li>
-          <div class="docstring">
+          <dt>subject &#8212; s</dt>
+          <dd>
             The subject of the message. This must be encoded in UTF-8.
-          </div>
+          </dd>
 
-          <li>content-type &#8212; s</li>
-          <div class="docstring">
+          <dt>content-type &#8212; s</dt>
+          <dd>
             MIME type of the message content. Two types are currently supported,
             "text/plain" where text is valid UTF-8 and "text/html" where text
             is a valid HTML document. "text/plain" MUST be assumed if unset.
-          </div>
+          </dd>
 
-          <li>truncated &#8212; b</li>
-          <div class="docstring">
+          <dt>truncated &#8212; b</dt>
+          <dd>
             A boolean, TRUE means that the "content" contains only a snippet
             of real body.
-          </div>
+          </dd>
 
-          <li>content &#8212; s</li>
-          <div class="docstring">
+          <dt>content &#8212; s</dt>
+          <dd>
             The body of the message. The text MUST be formated according to
             "content-type".
-          </div>
+          </dd>
 
-          <li>folder &#8212; s</li>
-          <div class="docstring">
+          <dt>folder &#8212; s</dt>
+          <dd>
             The name of the folder containing this e-mails.
             If unset, inbox will be assumed.
-          </div>
-        </ul>
-        </div>
-      </tp:docstring>
-    </tp:simple-type>
+          </dd>
+        </dl>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Value" type="v">
+        <tp:docstring>The value, of whatever type is appropriate for the
+          key.</tp:docstring>
+      </tp:member>
+    </tp:mapping>
 
     <property name="Capabilities" type="u" access="read"
       tp:type="Mail_Notification_Flags" tp:name-for-bindings="Capabilities">
