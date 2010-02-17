@@ -405,25 +405,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <arg name="Mails_Added" type="aa{sv}" tp:type="Mail[]">
-        <tp:docstring>
-          A list of <tp:type>Mail</tp:type> that are being added or updated in
-          <tp:member-ref>UnreadMails</tp:member-ref>. This list MAY be
-          empty even if Count has increased, if the
-          <tt>Supports_Unread_Mails</tt> flag is not set.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A list of <tp:type>Mail</tp:type> that are being added or updated
+            in <tp:member-ref>UnreadMails</tp:member-ref>.</p>
 
           <tp:rationale>
-            Mails may be updated when the URL information (URL and POST data)
-            have changed, or senders were added or removed from an e-mail
-            thread (see <tp:type>Mail_Type</tp:type>_Thread).
+            <p>Mails may be updated when the URL information (URL and POST data)
+              have changed, or senders were added or removed from an e-mail
+              thread (see <tp:type>Mail_Type</tp:type>_Thread).</p>
           </tp:rationale>
+
+          <p>If the <tt>Supports_Unread_Mails</tt> flag is not set, this list
+            MUST be empty, even if Count has increased.
         </tp:docstring>
       </arg>
       <arg name="Mails_Removed" type="as">
         <tp:docstring>
           A list of e-mail IDs that are being removed from
-          <tp:member-ref>UnreadMails</tp:member-ref>. This list MAY be
-          empty even if Count has decreased, if the
-          <tt>Supports_Unread_Mails</tt> flag is not set.
+          <tp:member-ref>UnreadMails</tp:member-ref>.
+          If the <tt>Supports_Unread_Mails</tt> flag is not set, this list
+          MUST be empty, even if Count has decreased.
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -435,7 +436,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p><tt>Mails_Added</tt> and
           <tt>Mails_Removed</tt> MUST be empty if the
           <tt>Supports_Unread_Mails</tt> flag is not set.</p>
-        <!-- FIXME: is that true? -->
       </tp:docstring>
     </signal>
 
