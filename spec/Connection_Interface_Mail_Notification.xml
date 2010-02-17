@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         valid UTF-8 strings, and the characters used in the key MUST obey
         the requirements of the
         <a href="http://www.w3.org/TR/html401/types.html#type-cdata">
-          HTML CDATA type</a>. The value SHOULD NOT be
+          HTML CDATA type</a>. The value MUST NOT be
         encoded with HTML entities.</p>
 
         <p>For example, if the POST data should contain a key "less-than" with value
