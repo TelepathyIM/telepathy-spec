@@ -265,13 +265,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </dd>
 
           <dt>sent-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
-          <dd>A UNIX timestamp indicating when the message was sent.
-            <!-- FIXME: what does this mean for a thread? -->
+          <dd>A UNIX timestamp indicating when the message was sent. When
+            <tp:type>Mail_Type</tp:type> is set to <tt>Thread</tt>, this value
+            indicates when the most recent message was sent.
           </dd>
 
           <dt>received-timestamp &#8212; x (<tp:type>Unix_Timestamp64</tp:type>)</dt>
-          <dd>A UNIX timestamp indicating when the message was received.
-            <!-- FIXME: what does this mean for a thread? -->
+          <dd>A UNIX timestamp indicating when the message was received. When
+            <tp:type>Mail_Type</tp:type> is set to <tt>Thread</tt>, this value
+            indicates when the most recent message was received.
           </dd>
 
           <dt>has-attachments &#8212; b</dt>
