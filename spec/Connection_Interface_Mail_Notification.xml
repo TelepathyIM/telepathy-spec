@@ -367,13 +367,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="Mails" type="aa{sv}" tp:type="Mail[]">
         <tp:docstring>
           An array of <tp:type>Mail</tp:type>s. Those e-mail MAY NOT have the
-          "id" key or MAY have an "id" key that is not unique.
-          <!-- FIXME: allowing a non-unique @id is weird -->
+          "id" key.
           <tp:rationale>
-            In this context, the "id" key does not make much sense since
-            e-mails will only be sent once. CMs may still set it to put
-            additional information for method
-            <tp:member-ref>RequestMailURL</tp:member-ref>.
+            In this context, the "id" key is not very important since
+            e-mails will only be sent once. CMs may still set it to identify
+            the e-mail when <tp:member-ref>RequestMailURL</tp:member-ref>
+            is called.
           </tp:rationale>
         </tp:docstring>
       </arg>
