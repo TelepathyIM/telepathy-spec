@@ -122,7 +122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         resulting in a POST request whose request body is "less-than=&amp;lt;&amp;percent=%25".
         If a client passes this to a browser by writing it into an HTML form, it
         could do so by representing it as:</p>
-  
+
         <pre>
         &lt;input type="hidden" name="less-than"&gt;&amp;lt;&lt;/input&gt;
         &lt;input type="hidden" name="percent"&gt;%&lt;/input&gt;
@@ -344,7 +344,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           connection manager that cannot at least set one of the flags
           in the <tp:type>Mail_Notification_Flags</tp:type>
           SHOULD NOT provide this interface.
-        </tp:rational>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
@@ -354,7 +354,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The number of unread messages in the Inbox. Change notification is via
         <tp:member-ref>UnreadMailsChanged</tp:member-ref>. This property is
         only useful if <tt>Supports_Unread_Mail_Count</tt> is set in the
-        <tp:member-ref>MailNotificationSupport</tp:member-ref>; otherwise, it MUST be
+        <tp:member-ref>MailNotificationFlags</tp:member-ref>; otherwise, it MUST be
         zero.
       </tp:docstring>
     </property>
@@ -379,7 +379,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:rationale>
             In this context, the "id" key does not make much sense since
             e-mails will only be sent once. CMs may still set it to put
-            additional information for method 
+            additional information for method
             <tp:member-ref>RequestMailURL</tp:member-ref>.
           </tp:rationale>
         </tp:docstring>
@@ -415,7 +415,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
 
           <p>If the <tt>Supports_Unread_Mails</tt> flag is not set, this list
-            MUST be empty, even if Count has increased.
+            MUST be empty, even if Count has increased.</p>
         </tp:docstring>
       </arg>
       <arg name="Mails_Removed" type="as">
