@@ -70,13 +70,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>RequestInboxURL</tp:member-ref> if available.</p>
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Supports_Request_Compose_URL" value="32">
-        <tp:docstring>
-          The CM provides an URL (with optional POST data) to compose a new
-          e-mail in a web-based client, via the
-          <tp:member-ref>RequestComposeURL</tp:member-ref> method.
-        </tp:docstring>
-      </tp:flag>
       <tp:docstring>
         <p>Flags representing capabilities provided by a connection manager.
           Those values can be used as bitfield. Some flags depend on, or
@@ -556,32 +549,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:rationale>
           See <tp:member-ref>RequestInboxURL</tp:member-ref> for design
           rationale.
-        </tp:rationale>
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
-      </tp:possible-errors>
-    </method>
-
-    <method name="RequestComposeURL"
-      tp:name-for-bindings="Request_Compose_URL">
-      <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
-        <tp:docstring>
-          A struture that contains a URL and optional additional data to open
-          a webmail client, without re-authentication if possible.
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        This method assembles and returns a URL and optional POST data that
-        allow opening the mail composition page of a webmail interface.
-        This method is implemented only if the
-        <tt>Supports_Request_Compose_URL</tt>
-        flag is set in <tp:member-ref>MailNotificationFlags</tp:member-ref>.
-        <tp:rationale>
-          The goal is to allow a webmail user to have the same level of
-          integration as if they were using a native mail client.
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
