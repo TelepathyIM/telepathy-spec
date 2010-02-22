@@ -471,10 +471,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <!-- FIXME: why would these errors be raised? -->
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
       </tp:possible-errors>
     </method>
 
@@ -496,6 +493,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             release.
           </tp:docstring>
         </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
       </tp:possible-errors>
     </method>
 
