@@ -252,9 +252,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             rather than individual mails, this MUST be set to Mail_Type_Thread.
           </dd>
 
-          <dt>url-data &#8212; s</dt>
-          <dd>An opaque string provided to the Connection when
-            calling <tp:member-ref>RequestMailURL</tp:member-ref>,
+          <dt>url-data &#8212; any type</dt>
+          <dd>An opaque identifier (typically a string or list of strings)
+            provided to the Connection when calling
+            <tp:member-ref>RequestMailURL</tp:member-ref>,
             containing information used by the Connection to build the URL.
           </dd>
 
@@ -556,11 +557,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           structure, or the empty string if no <tt>id</tt> key was provided.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="URL_Data" type="s">
+      <arg direction="in" name="URL_Data" type="v">
         <tp:docstring>
-          The <tt>url-data</tt> as found in the <tp:type>Mail</tp:type>
-          structure, or the empty string if no <tt>url-data</tt> key was
-          provided.
+          Whatever <tt>url-data</tt> was found in the <tp:type>Mail</tp:type>
+          structure, or the boolean value False (D-Bus type 'b') if no
+          <tt>url-data</tt> was provided in the Mail.
         </tp:docstring>
       </arg>
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
