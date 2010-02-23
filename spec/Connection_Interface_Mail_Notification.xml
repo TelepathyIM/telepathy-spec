@@ -419,7 +419,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:rationale>
             <p>Mails may be updated when the URL information (URL and POST data)
               have changed, or senders were added or removed from an e-mail
-              thread (see <tp:type>Mail_Type</tp:type>_Thread).</p>
+              thread.</p>
           </tp:rationale>
 
           <p>If the <tt>Supports_Unread_Mails</tt> flag is not set, this list
