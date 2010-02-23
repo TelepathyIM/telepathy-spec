@@ -220,19 +220,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <p>A unique ID for this e-mail. CMs with
               <tt>Supports_Unread_Mails</tt> set in
               <tp:member-ref>MailNotificationFlags</tp:member-ref> MUST provide
-              this key in each <tp:type>Mail</tp:type>, but CMs with
-              <tt>Emits_Mails_Received</tt> MUST NOT provide it.</p>
+              this key in each <tp:type>Mail</tp:type>.</p>
+
+            <p>If provided, the ID SHOULD be unique to a Mail at least until
+              that mail is removed with the
+              <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal
+              (in protocols with <tt>Supports_Unread_Emails</tt>), or
+              unique for the duration of a session (otherwise).</p>
 
             <tp:rationale>
               <p>In protocols with Supports_Unread_Mails, this key is used to
                 indicate which mail was removed. In protocols without that
                 feature, it's impossible to tell when a mail has been removed
-                (and hence how long the identifier will remain valid).</p>
+                (and hence how long the identifier will remain valid for use
+                with <tp:member-ref>RequestMailURL</tp:member-ref>).</p>
             </tp:rationale>
-
-            <p>If provided, the ID MUST be unique to a Mail at least until that
-              mail is removed with the
-              <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.</p>
           </dd>
 
           <dt>url-data &#8212; any type</dt>
