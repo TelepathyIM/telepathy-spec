@@ -227,10 +227,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dl>
           <dt>id &#8212; s</dt>
           <dd>
-            A unique ID for this e-mail. CMs with <tt>Supports_Unread_Mails</tt>
-            set in <tp:member-ref>MailNotificationFlags</tp:member-ref> MUST provide this
-            key in each <tp:type>Mail</tp:type>. If provided, the ID MUST be
-            unique within the lifetime of the Connection.
+            <p>A unique ID for this e-mail. CMs with
+              <tt>Supports_Unread_Mails</tt> set in
+              <tp:member-ref>MailNotificationFlags</tp:member-ref> MUST provide
+              this key in each <tp:type>Mail</tp:type>, but CMs with
+              <tt>Emits_Mails_Received</tt> MUST NOT provide it.</p>
+
+            <tp:rationale>
+              <p>In protocols with Supports_Unread_Mails, this key is used to
+                indicate which mail was removed. In protocols without that
+                feature, it's impossible to tell when a mail has been removed
+                (and hence how long the identifier will remain valid).</p>
+            </tp:rationale>
+
+            <p>If provided, the ID MUST be unique to a Mail at least until that
+              mail is removed with the
+              <tp:member-ref>UnreadMailsChanged</tp:member-ref> signal.</p>
           </dd>
 
           <dt>type &#8212; u (<tp:type>Mail_Type</tp:type>)</dt>
@@ -382,14 +394,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="MailsReceived" tp:name-for-bindings="Mails_Received">
       <arg name="Mails" type="aa{sv}" tp:type="Mail[]">
-        <tp:docstring>
-          An array of <tp:type>Mail</tp:type>s. Those e-mail MAY NOT have the
-          "id" key.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>An array of <tp:type>Mail</tp:type>s. Those e-mail MUST NOT have
+            the "id" key.</p>
+
           <tp:rationale>
-            In this context, the "id" key is not very important since
-            e-mails will only be sent once. CMs may still set it to identify
-            the e-mail when <tp:member-ref>RequestMailURL</tp:member-ref>
-            is called.
+            <p>On connections that emit this signal, it's impossible to tell
+              when a mail has been removed, and hence when "id" has become
+              invalid.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
