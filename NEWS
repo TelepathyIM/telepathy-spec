@@ -5,7 +5,29 @@ checkouts.
 telepathy-spec 0.19.1 (UNRELEASED)
 ==================================
 
-...
+New experimental API:
+
+* fd.o #13349: Connection.Interface.MailNotification (stormer/smcv/wjt,
+  based on earlier work from oggis)
+
+New stable API:
+
+* added 'mxit' and 'yahoojp' to the list of well-known protocol names, and
+  explicitly included SIMPLE (as seen in libpurple's prpl-simple) in the
+  scope of 'sip' (smcv)
+
+Fixes:
+
+* fixed incorrect documentation of Call.Ringing's interaction with CallState
+  (dilinger)
+
+* fixed some incorrect formatting, resulting in more spec text
+  appearing in the HTML version (smcv)
+
+Tools changes:
+
+* specparser now checks for text and HTML appearing outside a <tp:docstring>,
+  which would prevent them from being output correctly
 
 telepathy-spec 0.19.0 (2009-12-01)
 ==================================
