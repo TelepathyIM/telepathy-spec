@@ -179,7 +179,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          The requested protocol is not supported by this manager
+          <tp:docstring>
+            The requested protocol is not supported by this manager
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
@@ -327,13 +329,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          The requested protocol is not supported by this manager
+          <tp:docstring>
+            The requested protocol is not supported by this manager
+          </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          The requested connection already appears to exist
+          <tp:docstring>
+            The requested connection already appears to exist
+          </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          Unrecognised connection parameters
+          <tp:docstring>
+            Unrecognised connection parameters
+          </tp:docstring>
         </tp:error>
       </tp:possible-errors>
     </method>
