@@ -37,6 +37,7 @@ class UntypedItem(Exception): pass
 class UnsupportedArray(Exception): pass
 class BadNameForBindings(Exception): pass
 class BrokenHTML(Exception): pass
+class TooManyChildren(Exception): pass
 
 def getText(dom):
     try:
@@ -52,6 +53,18 @@ def getChildrenByName(dom, namespace, name):
                             n.namespaceURI == namespace and \
                             n.localName == name,
                   dom.childNodes)
+
+def getOnlyChildByName(dom, namespace, name):
+    kids = getChildrenByName(dom, namespace, name)
+
+    if len(kids) == 0:
+        return None
+
+    if len(kids) > 1:
+        raise TooManyChildren('%s node should have at most one child of type '
+                '{%s}%s' % (dom.tagName, namespace, name))
+
+    return kids[0]
 
 def build_name(namespace, name):
     """Returns a name by appending `name' to the namespace of this object.
@@ -82,20 +95,9 @@ class Base(object):
                         'to use <tp:docstring/>?' %
                     (self.__class__.__name__, self.parent))
 
-        try:
-            self.docstring = getChildrenByName(dom, XMLNS_TP, 'docstring')[0]
-        except IndexError:
-            self.docstring = None
-
-        try:
-            self.added = getChildrenByName(dom, XMLNS_TP, 'added')[0]
-        except IndexError:
-            self.added = None
-
-        try:
-            self.deprecated = getChildrenByName(dom, XMLNS_TP, 'deprecated')[0]
-        except IndexError:
-            self.deprecated = None
+        self.docstring = getOnlyChildByName(dom, XMLNS_TP, 'docstring')
+        self.added = getOnlyChildByName(dom, XMLNS_TP, 'added')
+        self.deprecated = getOnlyChildByName(dom, XMLNS_TP, 'deprecated')
 
         self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
 
