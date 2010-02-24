@@ -66,6 +66,22 @@ def getOnlyChildByName(dom, namespace, name):
 
     return kids[0]
 
+def getNamespace(n):
+    if n.namespaceURI is not None:
+        return n.namespaceURI
+    ancestor = n.parentNode
+
+    while ancestor is not None and ancestor.nodeType == n.ELEMENT_NODE:
+        if n.prefix is None:
+            xmlns = ancestor.getAttribute('xmlns')
+        else:
+            xmlns = ancestor.getAttribute('xmlns:%s' % n.prefix)
+
+        if xmlns is not None:
+            return xmlns
+
+        ancestor = ancestor.parentNode
+
 def build_name(namespace, name):
     """Returns a name by appending `name' to the namespace of this object.
     """
@@ -94,6 +110,12 @@ class Base(object):
                 raise BrokenHTML('Text found in node %s of %s, did you mean '
                         'to use <tp:docstring/>?' %
                     (self.__class__.__name__, self.parent))
+            elif child.nodeType == dom.ELEMENT_NODE:
+                if child.tagName in ('p', 'em', 'strong', 'ul', 'li', 'dl',
+                        'a', 'tt', 'code'):
+                    raise BrokenHTML('HTML element <%s> found in node %s of '
+                            '%s, did you mean to use <tp:docstring/>?' %
+                        (child.tagName, self.__class__.__name__, self.parent))
 
         self.docstring = getOnlyChildByName(dom, XMLNS_TP, 'docstring')
         self.added = getOnlyChildByName(dom, XMLNS_TP, 'added')
