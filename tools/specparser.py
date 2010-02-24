@@ -36,6 +36,7 @@ class UnnamedItem(Exception): pass
 class UntypedItem(Exception): pass
 class UnsupportedArray(Exception): pass
 class BadNameForBindings(Exception): pass
+class BrokenHTML(Exception): pass
 
 def getText(dom):
     try:
@@ -73,6 +74,13 @@ class Base(object):
         self.namespace = namespace
         self.name = build_name(namespace, name)
         self.parent = parent
+
+        for child in dom.childNodes:
+            if (child.nodeType == dom.TEXT_NODE and
+                    child.data.strip() != ''):
+                raise BrokenHTML('Text found in node %s of %s, did you mean '
+                        'to use <tp:docstring/>?' %
+                    (self.__class__.__name__, self.parent))
 
         try:
             self.docstring = getChildrenByName(dom, XMLNS_TP, 'docstring')[0]
