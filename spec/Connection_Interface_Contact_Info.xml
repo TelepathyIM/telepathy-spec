@@ -217,8 +217,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Retrieve information for a contact, requesting it from the network if
         it is not cached locally.
+
+        <tp:rationale>
+          This method is appropriate for an explicit user request to show
+          a contact's information; it allows a UI to wait for the contact
+          info to be returned.
+        </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The contact's information could not be retrieved.
