@@ -384,8 +384,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member type="as" name="Parameters" tp:type="VCard_Type_Parameter[]">
         <tp:docstring>The set of vCard type parameters which may be set on this
           field. If this list is empty and the
-          Contact_Info_Field_Flag_Parameters_Mandatory
-          flag is unset, any vCard type parameters may be used.</tp:docstring>
+          Contact_Info_Field_Flag_Params_Exact flag is not set, any vCard type
+          parameters may be used.</tp:docstring>
       </tp:member>
 
       <tp:member type="u" name="Flags" tp:type="Contact_Info_Field_Flags">
@@ -420,11 +420,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <pre>
 [
-  ('tel', ['home'], Parameters_Mandatory, 1),
-  ('tel', ['cell'], Parameters_Mandatory, 1),
-  ('adr', [], Parameters_Mandatory, 1),
-  ('bday', [], Parameters_Mandatory, 1),
-  ('email', ['internet'], Parameters_Mandatory, 1),
+  ('tel', ['home'], Params_Exact, 1),
+  ('tel', ['cell'], Params_Exact, 1),
+  ('adr', [], Params_Exact, 1),
+  ('bday', [], Params_Exact, 1),
+  ('email', ['internet'], Params_Exact, 1),
 ]</pre>
 
         <p>A protocol which allows users to specify up to four phone numbers,
@@ -456,7 +456,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         Flags describing the behaviour of a vCard field.
       </tp:docstring>
-      <tp:flag suffix="Parameters_Mandatory" value="1">
+      <tp:flag suffix="Params_Exact" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>If present, exactly the parameters indicated must be set on this
             field; in the case of an empty list of parameters, this implies that
