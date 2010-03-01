@@ -110,6 +110,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             city), region (e.g., state or province), the postal code, and the
             country name.</dd>
 
+          <dt>label</dt>
+          <dd>A free-form street address for the contact, formatted as a
+            single value (with embedded newlines where necessary) suitable for
+            printing on an address label</dd>
+
           <dt>tel</dt>
           <dd>A telephone number for the contact.</dd>
 
@@ -124,9 +129,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    VERSION:3.0
    FN:Wee Ninja
    N;LANGUAGE=ja:Ninja;Wee;;;-san
-   ORG:Collabora, Ltd.;Human Resources\; Company Policy Enforcement
+   ORG:Collabora, Ltd.;Management Division;Human Resources\; Company Policy Enforcement
    ADR;TYPE=WORK,POSTAL,PARCEL:;;11 Kings Parade;Cambridge;Cambridgeshire
     ;CB2 1SJ;UK
+   LABEL;TYPE=WORK,POSTAL,PARCEL:11 Kings Parade\nCambridge\nCambridgeshire\nUK\nCB2 1SJ
    TEL;TYPE=VOICE,WORK:+44 1223 362967, +44 7700 900753
    EMAIL;TYPE=INTERNET,PREF:wee.ninja@collabora.co.uk
    EMAIL;TYPE=INTERNET:wee.ninja@example.com
@@ -140,9 +146,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 [
   ('fn', [], ['Wee Ninja']),
   ('n', ['language=ja'], ['Ninja', 'Wee', '', '', '-san']),
-  ('org', [], ['Collabora, Ltd.', 'Human Resources; Company Policy Enforcement']),
+  ('org', [], ['Collabora, Ltd.', 'Management Division',
+    'Human Resources; Company Policy Enforcement']),
   ('adr', ['type=work','type=postal','type=parcel'],
    ['','','11 Kings Parade','Cambridge', 'Cambridgeshire','CB2 1SJ','UK']),
+  ('label', ['type=work','type=postal','type=parcel'],
+   ['''11 Kings Parade
+  Cambridge
+  Cambridgeshire
+  UK
+  CB2 1SJ''']),
   ('tel', ['type=voice','type=work'], ['+44 1223 362967']),
   ('tel', ['type=voice','type=work'], ['+44 7700 900753']),
   ('email', ['type=internet','type=pref'], ['wee.ninja@collabora.co.uk']),
