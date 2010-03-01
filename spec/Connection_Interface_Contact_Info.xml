@@ -295,7 +295,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <tp:enum name="Contact_Info_Flag" value-prefix="Contact_Info_Flag"
+    <tp:enum name="Contact_Info_Flags" value-prefix="Contact_Info_Flag"
       type="u">
       <tp:docstring>
         Flags defining the behaviour of contact information on this protocol.
@@ -340,7 +340,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:simple-type>
 
     <property name="ContactInfoFlags" type="u" access="read"
-      tp:type="Contact_Info_Flag" tp:name-for-bindings="Contact_Info_Flags">
+      tp:type="Contact_Info_Flags" tp:name-for-bindings="Contact_Info_Flags">
       <tp:docstring>
         An integer representing the bitwise-OR of flags on this connection.
         This property should be constant over the lifetime of a connection.
@@ -383,7 +383,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           list indicates that arbitrary vCard fields are permitted.  This
           property SHOULD be the empty list, and be ignored by clients, if
           <tp:member-ref>ContactInfoFlags</tp:member-ref> does not contain the
-          Can_Set <tp:type>Contact_Info_Flag</tp:type>.</p>
+          Can_Set flag.</p>
 
         <p>For example, an implementation of XEP-0054, which defines a mapping
           of vCards to XML for use over XMPP, would set this property to the
@@ -448,7 +448,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         explicitly request the avatar, and has no way to tell whether it has
         changed without retrieving it in its entirety. This distinction is
         exposed by <tp:member-ref>ContactInfoFlags</tp:member-ref> containing
-        <tp:type>Contact_Info_Flag</tp:type>_Push.</p>
+        the Push flag.</p>
 
       <p>On protocols with the Push flag set, UIs can connect to
         <tp:member-ref>ContactInfoChanged</tp:member-ref>, call
