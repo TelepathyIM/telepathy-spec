@@ -423,8 +423,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         same, but will receive (at most) opportunistic updates if the info is
         retrieved for other reasons. Clients may call
         <tp:member-ref>RequestContactInfo</tp:member-ref> to force a contact's
-        info to be updated, but MUST NOT do so without direct user action or to
-        refresh its own cache after a number of days.</p>
+        info to be updated, but MUST NOT do so unless this is either in
+        response to direct user action, or to refresh their own cache after a
+        number of days.</p>
 
       <tp:rationale>
         <p>We don't want clients to accidentally cause a ridiculous amount of
