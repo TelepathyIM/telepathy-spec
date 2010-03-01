@@ -201,6 +201,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
+    <method name="RefreshContactInfo"
+      tp:name-for-bindings="Refresh_Contact_Info">
+      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
+        <tp:docstring>
+          Integer handles for contacts.
+        </tp:docstring>
+      </arg>
+      <tp:added version="0.19.UNRELEASED"/>
+      <tp:docstring>
+        Retrieve information for the given contact, requesting it from the
+        network if an up-to-date version is not cached locally. This method
+        SHOULD return immediately, emitting
+        <tp:member-ref>ContactInfoChanged</tp:member-ref> when the contacts'
+        updated contact information is returned.
+
+        <tp:rationale>
+          This method allows a client with cached contact information to
+          update its cache after a number of days.
+        </tp:rationale>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+      </tp:possible-errors>
+    </method>
+
     <method name="RequestContactInfo"
       tp:name-for-bindings="Request_Contact_Info">
       <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
@@ -431,7 +457,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the latest contact info. On protocols like XMPP, clients can do the
         same, but will receive (at most) opportunistic updates if the info is
         retrieved for other reasons. Clients may call
-        <tp:member-ref>RequestContactInfo</tp:member-ref> to force a contact's
+        <tp:member-ref>RequestContactInfo</tp:member-ref> or
+        <tp:member-ref>RefreshContactInfo</tp:member-ref> to force a contact's
         info to be updated, but MUST NOT do so unless this is either in
         response to direct user action, or to refresh their own cache after a
         number of days.</p>
