@@ -341,9 +341,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="ContactInfoFlags" type="u" access="read"
       tp:type="Contact_Info_Flags" tp:name-for-bindings="Contact_Info_Flags">
-      <tp:docstring>
-        An integer representing the bitwise-OR of flags on this connection.
-        This property should be constant over the lifetime of a connection.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An integer representing the bitwise-OR of flags on this
+          connection.</p>
+
+        <p>This property MAY change, without change notification, at any time
+          before the connection moves to status Connection_Status_Connected.
+          It MUST NOT change after that point.</p>
+
+        <tp:rationale>
+          <p>Some XMPP servers, like Facebook Chat, do not allow the vCard to
+            be changed (and so would not have the Can_Set flag). Whether the
+            user's server is one of these cannot necessarily be detected until
+            quite late in the connection process.</p>
+        </tp:rationale>
+
       </tp:docstring>
     </property>
 
@@ -411,6 +423,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             allow either a very restricted set of fields (such as MSN, which
             seems to correspond roughly to the largest example above) or
             something mapping 1-1 to vCard (such as XMPP).</p>
+        </tp:rationale>
+
+        <p>This property MAY change, without change notification, at any time
+          before the connection moves to status Connection_Status_Connected.
+          It MUST NOT change after that point.</p>
+
+        <tp:rationale>
+          <p>Some XMPP servers, like Google Talk, only allow a small subset of
+            the "vcard-temp" protocol. Whether the user's server is one of
+            these cannot be detected until quite late in the connection
+            process.</p>
         </tp:rationale>
       </tp:docstring>
     </property>
