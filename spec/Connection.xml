@@ -66,20 +66,14 @@ USA.</p>
       </tp:docstring>
     </method>
 
-    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
-      <arg direction="out" type="as" tp:type="DBus_Interface[]"
-        name="Interfaces">
-        <tp:docstring>
-          An array of D-Bus interface names
-        </tp:docstring>
-      </arg>
-
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      access="read" type="as" tp:type="DBus_Interface[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Get the optional interfaces supported by this connection.
-          Before the connection status changes to CONNECTED, the return
-          from this method may change at any time, but it is guaranteed that
+        <p>The set of optional interfaces supported by this connection.
+          Before the connection status changes to CONNECTED,
+          this property may change at any time, but it is guaranteed that
           interfaces will only be added, not removed. After the connection
-          status changes to CONNECTED, the return from this method cannot
+          status changes to CONNECTED, this property cannot
           change further.</p>
 
         <p>There is no explicit change notification; reasonable behaviour
@@ -96,6 +90,24 @@ USA.</p>
             to have evaluated the server's functionality and enabled any extra
             interfaces for the remainder of the Connection's lifetime.</p>
         </tp:rationale>
+      </tp:docstring>
+      <tp:added version="0.19.UNRELEASED">Clients SHOULD fall back
+        to calling <tp:member-ref>GetInterfaces</tp:member-ref> if this
+        property is not supported.</tp:added>
+    </property>
+
+    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
+      <arg direction="out" type="as" tp:type="DBus_Interface[]"
+        name="Interfaces">
+        <tp:docstring>
+          The value of the <tp:member-ref>Interfaces</tp:member-ref> property
+        </tp:docstring>
+      </arg>
+
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Returns the set of optional interfaces supported by this
+          connection. See <tp:member-ref>Interfaces</tp:member-ref> for more
+          details.</p>
       </tp:docstring>
 
       <tp:possible-errors>
