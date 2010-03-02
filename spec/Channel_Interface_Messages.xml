@@ -247,10 +247,40 @@ USA.</p>
 
           <dl>
             <dt>message-token (s)</dt>
-            <dd>An opaque, globally-unique identifier for the entire message.
-              This MAY be treated as if it were a MIME Message-ID, e.g. for
-              the mid: and cid: URI schemes. If omitted, there is no suitable
-              token.</dd>
+            <dd>
+              <p>An opaque, globally-unique identifier for the entire message.
+                This MAY be treated as if it were a MIME Message-ID, e.g. for
+                the mid: and cid: URI schemes. If omitted, there is no suitable
+                token; the protocol-token key SHOULD be provided if the protocol
+                identifies messages in some less unique way.</p>
+            </dd>
+
+            <dt>protocol-token (s - <tp:type>Protocol_Message_Token</tp:type>)</dt>
+            <dd>
+              <p>An opaque token for the entire message, with whatever uniqueness
+                guarantee is provided by the underlying protocol. As described
+                for the Protocol_Message_Token type, this token is <em>not</em>
+                guaranteed to be unique between contacts, or even within the
+                scope of a Channel.</p>
+
+              <tp:rationale>
+                <p>In practice, in most protocols there is no token with the
+                  uniqueness guarantees demanded for message-token; the
+                  definition of message-token was inappropriate, but must now
+                  be preserved for the benefit of clients that rely on it, at
+                  least until Telepathy breaks backwards compatibility.</p>
+              </tp:rationale>
+
+              <p>The message-token and protocol-token SHOULD NOT both be present;
+                clients requiring an identifier with the semantics of the
+                protocol-token SHOULD look for the message-token first, falling
+                back to the protocol-token.</p>
+
+              <tp:rationale>
+                <p>This is for compatibility with CMs older than the
+                  protocol-token key.</p>
+              </tp:rationale>
+            </dd>
 
             <dt>message-sent (x - <tp:type>Unix_Timestamp64</tp:type>)</dt>
             <dd>The time the message was sent (if unavailable, the time
@@ -504,7 +534,7 @@ USA.</p>
             <dd>The status of the message. All delivery reports MUST contain
               this key in the first Message_Part.</dd>
 
-            <dt>delivery-token (s - Sent_Message_Token)</dt>
+            <dt>delivery-token (s - <tp:type>Protocol_Message_Token</tp:type>)</dt>
 
             <dd>
               <p>An identifier for the message to which this delivery report
@@ -740,22 +770,27 @@ USA.</p>
       </tp:member>
     </tp:mapping>
 
-    <tp:simple-type type="s" name="Sent_Message_Token">
+    <tp:simple-type type="s" name="Protocol_Message_Token">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>An opaque token used to identify sent messages. As a special case,
-          the empty string indicates that there is no particular
-          identification for a message.</p>
+        <p>An opaque token used to identify messages in the underlying.
+          protocol. As a special case, the empty string indicates that there
+          is no particular identification for a message.</p>
 
         <p>CM implementations SHOULD use an identifier expected to be unique,
           such as a UUID, if possible.</p>
 
-        <p>Some protocols can only track a limited number of sent messages
-          in a small message-ID space. As a result, clients MUST NOT assume
-          that message tokens will not be re-used, and SHOULD use some
-          reasonable heuristic to assign delivery reports to messages, such
-          as matching on message content or timestamp (if available), or
-          assuming that the delivery report refers to the most recent message
-          with that ID.</p>
+        <p>Some protocols can only track a limited number of messages
+          in a small message-ID space (SMS messages are identified by a single
+          byte), and some implementations send non-unique identifiers (some
+          XMPP clients use very simple message IDs, such as an incrementing
+          integer that resets to 1 at the beginning of each connection). As a
+          result, clients MUST NOT assume that protocol tokens will not be
+          re-used.</p>
+
+        <p>In particular, clients SHOULD use a heuristic to assign delivery
+          reports to messages, such as matching on message content or
+          timestamp (if available), or assuming that the delivery report
+          refers to the most recent message with that ID.</p>
       </tp:docstring>
     </tp:simple-type>
 
@@ -774,7 +809,7 @@ USA.</p>
 
         <tp:rationale>
           <p>This means that the process sending the message is the first
-            to see the <tp:type>Sent_Message_Token</tp:type>, and can
+            to see the <tp:type>Protocol_Message_Token</tp:type>, and can
             relate the message to the corresponding
             <tp:member-ref>MessageSent</tp:member-ref> signal by comparing
             message tokens (if supported by the protocol).</p>
@@ -798,7 +833,7 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg direction="out" type="s" tp:type="Sent_Message_Token"
+      <arg direction="out" type="s" tp:type="Protocol_Message_Token"
         name="Token">
         <tp:docstring>
           An opaque token used to match any incoming delivery or failure
@@ -889,7 +924,7 @@ USA.</p>
         </tp:docstring>
       </arg>
 
-      <arg name="Message_Token" type="s" tp:type="Sent_Message_Token">
+      <arg name="Message_Token" type="s" tp:type="Protocol_Message_Token">
         <tp:docstring>
           An opaque token used to match any incoming delivery or failure
           reports against this message, or an empty string if the message
