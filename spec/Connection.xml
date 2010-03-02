@@ -190,11 +190,25 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
+    <property name="Status" tp:name-for-bindings="Status"
+      access="read" type="u" tp:type="Connection_Status">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The current status of the connection. Change notification is via
+          the <tp:member-ref>StatusChanged</tp:member-ref> signal.</p>
+
+        <p>If retrieval of property succeeds and yields the value Disconnected,
+          this indicates that the connection has not yet been established.
+          If connection has been attempted and failed, the Connection object
+          SHOULD be removed from the bus entirely, meaning that retrieval of
+          this property SHOULD fail.</p>
+      </tp:docstring>
+    </property>
+
     <method name="GetStatus" tp:name-for-bindings="Get_Status">
       <arg direction="out" type="u" tp:type="Connection_Status"
         name="Status">
         <tp:docstring>
-          An integer representing the current status
+          The value of the <tp:member-ref>Status</tp:member-ref> property
         </tp:docstring>
       </arg>
 
