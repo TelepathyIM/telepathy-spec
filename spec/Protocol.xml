@@ -205,6 +205,66 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
       </tp:docstring>
     </property>
 
+    <property name="VCardField" tp:name-for-bindings="VCard_Field"
+      access="read" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The name of the most common vCard field used for this protocol's
+          contact identifiers, normalized to lower case, or the empty string
+          if there is no such field.</p>
+
+        <p>For example, this would be <code>x-jabber</code> for
+          Jabber/XMPP (including Google Talk), or <code>tel</code> for
+          telephony.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="DisplayName" tp:name-for-bindings="Display_Name"
+      access="read" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The name of the protocol in a form suitable for display to users,
+          such as "AIM" or "Yahoo!", or the empty string if none is
+          available.</p>
+
+        <p>This is effectively in the C locale (international English);
+          user interfaces requiring a localized protocol name SHOULD look
+          one up in their own message catalog based on either the Telepathy
+          <tp:type>Protocol</tp:type> name or this property, but SHOULD use
+          this English version as a fallback if no translated version can be
+          found.</p>
+
+        <tp:rationale>
+          <p>Many protocols are named after a company or product which isn't
+            translated in non-English locales. This also provides a fallback
+            display name, for UIs with no prior knowledge of a particular
+            protocol.</p>
+        </tp:rationale>
+
+        <p>If this property's value is empty, clients MAY fall back to using
+          the Telepathy <tp:type>Protocol</tp:type> name, possibly with its
+          capitalization adjusted.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="Icon" tp:name-for-bindings="Icon"
+      access="read" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The name of an icon in the system's icon theme, such as "im-msn", or
+          the empty string.</p>
+
+        <tp:rationale>
+          <p>This can be used as a default if the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Account">Icon</tp:dbus-ref>
+            property is not set on an Account, or used by the <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">AccountManager</tp:dbus-ref>
+            to choose a default icon if none is set during account
+            creation.</p>
+        </tp:rationale>
+
+        <p>If this property's value is empty, clients MAY fall back to
+          generating a name based on the <tp:type>Protocol</tp:type> name.</p>
+      </tp:docstring>
+    </property>
+
     <method name="IdentifyAccount"
       tp:name-for-bindings="Identify_Account">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
