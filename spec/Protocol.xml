@@ -58,9 +58,13 @@
           <tp:member-ref>PossibleInterfaces</tp:member-ref>, which refer to the
           interfaces of <em>connections</em> to this protocol.</p>
 
-        <tp:rationale>
-          <p>For future expansion.</p>
-        </tp:rationale>
+        <p>Connection managers with a <code>.manager</code> file
+          (as described as part of the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy"
+            >ConnectionManager</tp:dbus-ref> interface) MUST cache this
+          property in the protocol's section of the <code>.manager</code>
+          file, using the key <code>Interfaces</code>. The corresponding value
+          is a list of D-Bus interface names, each followed by a semicolon.</p>
       </tp:docstring>
     </property>
 
@@ -71,6 +75,16 @@
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager"
             >RequestConnection</tp:dbus-ref> method when connecting to the
           given protocol. This property is immutable.</p>
+
+        <p>Connection managers with a <code>.manager</code> file
+          (as described as part of the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy"
+            >ConnectionManager</tp:dbus-ref> interface) MUST cache this
+          property in the protocol's section of the <code>.manager</code>
+          file via keys of the form <code>param-<em>p</em></code> and
+          <code>default-<em>p</em></code>, as documented in the
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy"
+            >ConnectionManager</tp:dbus-ref> interface.</p>
       </tp:docstring>
     </property>
 
@@ -86,6 +100,12 @@
 
         <p>This property is immutable, and should not be confused with
           <tp:member-ref>Interfaces</tp:member-ref>.</p>
+
+        <p>Connection managers with a <code>.manager</code> file
+          MUST cache this property in the protocol's section of the
+          <code>.manager</code> file, using the key
+          <code>GuaranteedInterfaces</code>. The corresponding value
+          is a list of D-Bus interface names, each followed by a semicolon.</p>
       </tp:docstring>
     </property>
 
@@ -102,6 +122,12 @@
 
         <p>This property is immutable, and should not be confused with
           <tp:member-ref>Interfaces</tp:member-ref>.</p>
+
+        <p>Connection managers with a <code>.manager</code> file
+          MUST cache this property in the protocol's section of the
+          <code>.manager</code> file, using the key
+          <code>PossibleInterfaces</code>. The corresponding value
+          is a list of D-Bus interface names, each followed by a semicolon.</p>
       </tp:docstring>
     </property>
 
@@ -117,6 +143,43 @@
             >RequestableChannelClasses</tp:dbus-ref> property).</p>
 
         <p>This property is immutable.</p>
+
+        <p>Connection managers with a <code>.manager</code> file
+          MUST cache this property in the protocol's section of the
+          <code>.manager</code> file, using the key
+          <code>GuaranteedChannelClasses</code>. The corresponding value
+          is a list of opaque strings, each followed by a semicolon; each
+          of those strings is the name of a group in the <code>.manager</code>
+          file which represents a channel class.</p>
+
+        <p>Each group representing a channel class has a key
+          <code>allowed</code> which is a list of D-Bus property names
+          representing allowed parameters. Any other keys that do not contain
+          a space MUST be ignored. Any key containing a space represents
+          a fixed property; the key has the form
+          "<code><em>propertyname</em> <em>type</em></code>", and the value
+          is encoded in the same way as for the <code>default-<em>p</em></code>
+          keys described in the <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy"
+            >ConnectionManager</tp:dbus-ref> documentation.</p>
+
+        <p>Connection managers that have channel classes whose fixed
+          properties are not representable in this form SHOULD NOT have
+          <code>.manager</code> files.</p>
+
+        <p>For instance, this <code>.manager</code> file could represent
+          a simple Text-only connection manager:</p>
+
+<pre>[Protocol jabber]
+param-account=s required
+param-password=s required
+GuaranteedChannelClasses=text
+
+[text]
+org.freedesktop.Telepathy.Channel.ChannelType s=org.freedesktop.Telepathy.Channel.Type.Text
+org.freedesktop.Telepathy.Channel.TargetHandleType u=1
+allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy.Channel.TargetID;
+</pre>
       </tp:docstring>
     </property>
 
@@ -133,6 +196,12 @@
             >RequestableChannelClasses</tp:dbus-ref> property, or not).</p>
 
         <p>This property is immutable.</p>
+
+        <p>Connection managers with a <code>.manager</code> file
+          MUST cache this property in the protocol's section of the
+          <code>.manager</code> file, using the same representation as
+          <tp:member-ref>GuaranteedChannelClasses</tp:member-ref>, but with
+          the key <code>PossibleChannelClasses</code>.</p>
       </tp:docstring>
     </property>
 
