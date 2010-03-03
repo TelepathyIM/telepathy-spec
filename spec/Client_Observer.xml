@@ -147,7 +147,7 @@
 
         <p>For observers that have a .client file, the channel dispatcher
           may discover this property from keys of the form
-          <code><em>propertyname</em>/<em>type</em></code>,
+          "<code><em>propertyname</em> <em>type</em></code>",
           in groups in the .client file whose name is the name of this
           interface followed by <code>.ObserverChannelFilter</code>,
           a space and an ASCII decimal number starting from 0.</p>
