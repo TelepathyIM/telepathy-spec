@@ -318,6 +318,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             pings.</dd>
         </dl>
 
+        <p>Connection manager authors SHOULD avoid introducing parameters
+          whose default values would not be serializable in a
+          <code>.manager</code> file.</p>
+
+        <tp:rationale>
+          <p>The same serialization format is used in Mission Control
+            to store accounts.</p>
+        </tp:rationale>
+
         <p>Every successful RequestConnection call will cause the emission of a
         <tp:member-ref>NewConnection</tp:member-ref> signal for the same newly
         created connection. The
