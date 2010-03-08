@@ -61,7 +61,7 @@
           which returns a Conference channel.</p>
 
         <p>Either of the XMPP cases could work for Call channels, to
-          upgrade from 1-1 Jingle to multi-user Muji. Any of the XMPP cases
+          upgrade from 1-1 Jingle to multi-user Jingle. Any of the XMPP cases
           could in principle work for link-local XMPP (XEP-0174).</p>
 
         <p>The underlying switchboard representing an MSN 1-1 conversation C1
