@@ -202,6 +202,9 @@ USA.</p>
           SHOULD be removed from the bus entirely, meaning that retrieval of
           this property SHOULD fail.</p>
       </tp:docstring>
+      <tp:added version="0.19.UNRELEASED">Clients SHOULD fall back
+        to calling <tp:member-ref>GetStatus</tp:member-ref> if this
+        property is not supported.</tp:added>
     </property>
 
     <method name="GetStatus" tp:name-for-bindings="Get_Status">
