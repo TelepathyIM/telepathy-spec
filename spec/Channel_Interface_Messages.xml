@@ -185,7 +185,7 @@ USA.</p>
           appears in isolation - messages are represented by a list of
           <tp:type>Message_Part</tp:type> mappings.</p>
 
-        <p>An example of how a message might
+        <p>An example of how a rich-text message, with an embedded image, might
           look, in a Python-like syntax:</p>
 
           <pre>
@@ -213,8 +213,26 @@ USA.</p>
     'size': 101000,
     'needs-retrieval': True,
   },
-]
-          </pre>
+]</pre>
+
+        <p>An example of how a non-text message — in particular, a vCard sent
+          via SMS as implemented by telepathy-ring on Nokia's Maemo 5 —
+          looks:</p>
+
+        <pre>
+[
+  {
+    'message-token': '9de9546a-3400-4419-a505-3ea270cb834c',
+    'message-sender': 42,
+    'message-sent': 1210067943,
+    'message-received': 1210067947,
+    'message-type': 0,              # = Channel_Text_Message_Type_Normal
+    'pending-message-id': 437,
+  },
+  { 'content-type': 'text/x-vcard',
+    'content': [ 0x66, 0x69, 0x71, ...], # vCard data as an array of bytes
+  },
+]</pre>
 
         <div>
           <p>The first part of the message contains "headers" which refer

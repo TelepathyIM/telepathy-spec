@@ -26,6 +26,9 @@ Corrections and clarifications:
 
 * fd.o #26591: clarify InitiatorHandle's meaning on chatrooms (smcv)
 
+* Document how to represent vCards sent via SMS on the Messages
+  interface (wjt)
+
 Changes to experimental API:
 
 * explicitly allow Conference.InitialChannels, InitialInviteeIDs and
