@@ -474,7 +474,33 @@ USA.</p>
                 There's no point in providing the size if you're already
                 providing all the content.
               </tp:rationale>
-              </dd>
+            </dd>
+
+            <dt>thumbnail (b)</dt>
+            <dd>
+              <p>This part is a thumbnail. To represent an image together with
+                its thumbnail in a single message, there should be one part for
+                the full image followed by a part for the thumbnail (following
+                the “more complete versions first” requirement), with the same
+                'alternative' value. For example:</p>
+
+              <pre>
+[ ... ,
+  { 'alternative': 'catphoto',
+    'content-type': 'image/jpeg',
+    'size': 150000,
+    'content': [0xFF, 0xD8, ... 0xFF 0xD9],
+  },
+  { 'alternative': 'catphoto',
+    'content-type': 'image/jpeg'
+    'size': 1024,
+    'thumbnail': True,
+    'content': [0xFF, 0xD8, ... 0xFF 0xD9],
+  },
+  ...
+]
+              </pre>
+            </dd>
 
             <dt>needs-retrieval (b)</dt>
             <dd>If false or omitted, the connection
