@@ -848,6 +848,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <tp:hct name="audio">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>This client supports audio calls.</p>
+      </tp:docstring>
+    </tp:hct>
+
+    <tp:hct name="video">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>This client supports video calls.</p>
+      </tp:docstring>
+    </tp:hct>
+
     <tp:hct name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
@@ -904,10 +916,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <code>video/h264</code> on Call channels.</p>
         </tp:rationale>
 
-        <p>For example, a client could advertise support for
-          Speex, Theora and H264 by having three
-          handler capability tokens,
+        <p>For example, a client could advertise support for audio and video
+          calls using Speex, Theora and H264 by having five handler capability
+          tokens,
+          <code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT/audio</code>,
           <code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT/audio/speex</code>,
+          <code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT/video</code>,
           <code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT/video/theora</code> and
           <code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT/video/h264</code>,
           in its <tp:dbus-ref
