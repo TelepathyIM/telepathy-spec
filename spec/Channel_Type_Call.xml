@@ -848,40 +848,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <tp:handler-capability-token name="gtalk-p2p">
+    <tp:hct name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_GTalk_P2P.</p>
       </tp:docstring>
-    </tp:handler-capability-token>
+    </tp:hct>
 
-    <tp:handler-capability-token name="ice">
+    <tp:hct name="ice">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_ICE.</p>
       </tp:docstring>
-    </tp:handler-capability-token>
+    </tp:hct>
 
-    <tp:handler-capability-token name="wlm-8.5">
+    <tp:hct name="wlm-8.5">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_WLM_8_5.</p>
       </tp:docstring>
-    </tp:handler-capability-token>
+    </tp:hct>
 
-    <tp:handler-capability-token name="wlm-2009">
+    <tp:hct name="wlm-2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_WLM_2009.</p>
       </tp:docstring>
-    </tp:handler-capability-token>
+    </tp:hct>
 
-    <tp:handler-capability-token name="video/h264" is-family="yes">
-      <tp:docstring>
+    <tp:hct name="video/h264" is-family="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client supports media streaming with H264 (etc.).</p>
 
         <p>This handler capability token is a one of a family
@@ -924,7 +924,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             known to the gatewaying process.</p>
         </tp:rationale>
       </tp:docstring>
-    </tp:handler-capability-token>
+    </tp:hct>
 
   </interface>
 </node>
