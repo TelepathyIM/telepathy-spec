@@ -469,10 +469,14 @@ class Interface(Base):
                                   dom.getElementsByTagName('signal'))
         self.tpproperties = build_list(self, AwkwardTelepathyProperty,
                 self.name, dom.getElementsByTagNameNS(XMLNS_TP, 'property'))
+
+        hct_elems = (
+            dom.getElementsByTagNameNS(XMLNS_TP, 'handler-capability-token') +
+            dom.getElementsByTagNameNS(XMLNS_TP, 'hct'))
         self.handler_capability_tokens = build_list(self,
                 HandlerCapabilityToken, self.name,
-                dom.getElementsByTagNameNS(XMLNS_TP,
-                    'handler-capability-token'))
+                hct_elems)
+
         self.contact_attributes = build_list(self, ContactAttribute, self.name,
                 dom.getElementsByTagNameNS(XMLNS_TP, 'contact-attribute'))
 
