@@ -2,12 +2,14 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.2 (UNRELEASED)
+telepathy-spec 0.19.2 (2010-03-31)
 ==================================
 
 Changes to stable API:
 
 * fd.o #26837: rename Sent_Message_Token to Protocol_Message_Token (smcv)
+
+* fd.o #27325: specify GetContactAttributes to be more tolerant (wjt)
 
 New stable API:
 
@@ -16,6 +18,8 @@ New stable API:
 * fd.o #26837: add a protocol-token key to Messages headers, which doesn't
   have the impractical uniqueness requirements of message-token, but is
   still a useful way to distinguish between similar messages (smcv)
+
+* fd.o #27262: add an optional 'thumbnail' key to Messages body parts (wjt)
 
 Corrections and clarifications:
 
@@ -29,10 +33,18 @@ Corrections and clarifications:
 * Document how to represent vCards sent via SMS on the Messages
   interface (wjt)
 
+* fd.o #27391 (partial): document what a typical StreamedMedia Handler should
+  look like (wjt)
+
+* fd.o #27282: specify when MessageSent should be emitted (maiku/sjoerd)
+
 Changes to experimental API:
 
 * explicitly allow Conference.InitialChannels, InitialInviteeIDs and
   InitialInviteeHandles to be combined (smcv)
+
+* fd.o #27335: use handler capability tokens, not InitialAudio/InitialVideo,
+  to advertise support for audio/video Call channels (wjt)
 
 New experimental API:
 
@@ -41,6 +53,8 @@ New experimental API:
 Tools changes:
 
 * fd.o #26136: provide anchors for chapter headings (wjt)
+
+* Allow <tp:hct> as an abbreviation for <tp:handler-capability-token> (wjt)
 
 telepathy-spec 0.19.1 (2010-02-24)
 ==================================
