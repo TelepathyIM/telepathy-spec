@@ -2,10 +2,18 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.3 (UNRELEASED)
+telepathy-spec 0.19.3 (2010-03-31)
 ==================================
 
-...
+The "day's a write-off" release.
+
+Corrections and clarifications:
+
+* Fix the released-version annotations for 0.19.2 (smcv)
+
+Tools changes:
+
+* Don't allow the same mistake in future releases (smcv)
 
 telepathy-spec 0.19.2 (2010-03-31)
 ==================================
