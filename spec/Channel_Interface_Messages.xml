@@ -929,8 +929,9 @@ USA.</p>
         <p>Signals that a message has been submitted for sending. This
           MUST be emitted exactly once per emission of the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
-          signal on the
-          Text interface.</p>
+          signal on the Text interface. This SHOULD be emitted as soon as
+          the CM determines it's theoretically possible to send the message
+          (e.g. the parameters are supported and correct).</p>
 
         <tp:rationale>
           <p>This signal allows a process that is not the caller of
