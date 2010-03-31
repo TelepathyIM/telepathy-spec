@@ -85,10 +85,23 @@ TEST_CANONICALIZED_FILES = test/output/introspect.canon
 test/output/introspect.canon: test/output/_Test.introspect.xml
 	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
 
+CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
+
 check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
 	@e=0; \
 	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
 	exit $$e
+	@version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
+	case "$$version" in \
+		*.*.*.*) ;; \
+		*) \
+			if grep -r UNRELEASED $(CHECK_FOR_UNRELEASED); \
+			then \
+				echo "^^^ This is meant to be a release, but some files say UNRELEASED" >&2; \
+				exit 2; \
+			fi \
+			;; \
+	esac
 
 clean:
 	rm -f $(GENERATED_FILES)
@@ -100,7 +113,7 @@ maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
-maintainer-upload-release: doc/spec/index.html
+maintainer-upload-release: doc/spec/index.html check
 	@install -d tmp
 	set -e ; \
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
@@ -116,7 +129,7 @@ maintainer-upload-release: doc/spec/index.html
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
 	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
-dist:
+dist: check
 	@install -d tmp
 	set -e ;\
 	version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
