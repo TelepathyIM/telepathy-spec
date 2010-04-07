@@ -821,6 +821,9 @@ class Spec(SectionBase):
         except IndexError:
             self.errors = {}
 
+        self.sorted_errors = sorted(self.errors.values(),
+                key=lambda e: e.name)
+
         # build a list of generic types
         self.generic_types = reduce (lambda a, b: a + b,
                 map(lambda l: parse_types(self, l),
