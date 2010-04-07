@@ -810,6 +810,10 @@ class Section(Base, SectionBase):
     def get_root_namespace(self):
         return None
 
+class ErrorsSection(Section):
+    def validate(self):
+        pass
+
 class Spec(SectionBase):
     def __init__(self, dom, spec_namespace):
         # build a dictionary of errors in this spec
@@ -818,8 +822,11 @@ class Spec(SectionBase):
             self.errors = build_dict(self, Error,
                         errorsnode.getAttribute('namespace'),
                         errorsnode.getElementsByTagNameNS(XMLNS_TP, 'error'))
+            self.errors_section = ErrorsSection(self, None, errorsnode,
+                    spec_namespace)
         except IndexError:
             self.errors = {}
+            self.errors_section = None
 
         self.sorted_errors = sorted(self.errors.values(),
                 key=lambda e: e.name)

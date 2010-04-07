@@ -33,6 +33,10 @@
     </table>
    </div>
 
+   #if $spec.errors_section
+    $spec.errors_section.get_docstring()
+   #end if
+
    <div class="outset errors error">
     <a name="errors"></a>
     <h1>Errors</h1>
