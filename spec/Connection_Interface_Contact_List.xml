@@ -1,0 +1,815 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Interface_Contact_List" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright © 2009-2010 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright © 2009 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public
+      License along with this library; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
+      USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An interface for connections that have any concept of a list of
+        known contacts (roster, buddy list, friends list etc.)</p>
+
+      <tp:rationale>
+        <p>On many protocols, there's a server-side roster (as in XMPP),
+          or a set of server-side lists that can be combined to form a
+          roster (as in MSN).</p>
+
+        <p>In some protocols (like link-local XMPP), while there might not be
+          any server or roster, it's possible to list "nearby" contacts.</p>
+
+        <p>In Telepathy 0.18 and older, we represented contact lists as a
+          collection of <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type"
+            >ContactList</tp:dbus-ref> channels. This is remarkably difficult to
+          work with in practice - every client that cares about contact lists
+          has to take the union of some hard-to-define set of these
+          channels - and conflicts with the idea that channels that cannot
+          be dispatched to a handler should be closed.</p>
+      </tp:rationale>
+    </tp:docstring>
+
+    <property name="Contacts" tp:name-for-bindings="Contacts"
+      access="read"
+      type="au" tp:type="Contact_Handle[]"
+      >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of contacts somehow associated with the user.</p>
+
+        <p>This definition is deliberately vague: in practice, most user
+          interfaces should display some subset of this list, by filtering it
+          by some contact attributes (for instance, displaying all contacts
+          whose "subscribe" attribute is Yes is expected to be a common case).
+          This list MAY contain any contacts whatsoever, but MUST contain
+          at least the following:</p>
+
+        <ul>
+          <li>all contacts whose "subscribe" attribute is Ask or Yes</li>
+          <li>all contacts whose "publish" attribute is Ask or Yes</li>
+          <li>all contacts with a persistently-stored stored alias, if
+            supported</li>
+          <li>all contacts in user-defined contact groups, if supported</li>
+        </ul>
+
+        <p>This list does not need to contain every visible contact: for
+          instance, contacts seen in XMPP or IRC chatrooms SHOULD NOT appear
+          here. Blocked contacts SHOULD NOT appear here either, unless they
+          are still stored in a persistent roster/contact list as well as
+          being blocked.</p>
+
+        <tp:rationale>
+          <p>This is basically the union of the historical <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type"
+              >ContactList</tp:dbus-ref> subscribe, publish and stored
+            channels.</p>
+
+          <p>For example, XMPP, it's the roster; on link-local XMPP, it's the
+            set of visible users on the local network; on MSN, it's the union
+            of the forward and reverse buddy lists.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <method name="GetContactListAttributes"
+      tp:name-for-bindings="Get_Contact_List_Attributes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Return some contact attributes for all handles listed in
+          the <tp:member-ref>Contacts</tp:member-ref> property.</p>
+
+        <p>Calling this method is equivalent to retrieving the Contacts
+          property and immediately passing the result to <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
+          but is more straightforward and avoids the possibility that some
+          handles become invalid between the two calls.</p>
+
+        <tp:rationale>
+          <p>An easy way for an application to display a contact list is to
+            call this method with at least this interface in the Interfaces
+            argument, then check which subset of contacts should be displayed
+            (perhaps based on their subscribe attribute, for instance) and display
+            them. Any additional information required to display the contact
+            list, like aliases or presence, can be retrieved at the same
+            time.</p>
+
+          <p>In practice, most user interfaces for the contact list will
+            usually display a large proportion of the Contacts property
+            (for instance, most contacts on the contact list will usually
+            have subscribe=Yes in practice, so contact lists that display
+            subscribe=Yes contacts need to display almost the entire list),
+            so the overhead of returning information about too many contacts
+            is small.</p>
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg direction="in" name="Interfaces" type="as"
+        tp:type="DBus_Interface[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A list of strings indicating which D-Bus interfaces the calling
+            process is interested in. Equivalent to the corresponding argument
+            to GetContactAttributes.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Hold" type="b">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Whether to hold the handles on behalf of the calling process.
+            Equivalent to the corresponding argument to
+            GetContactAttributes.</p>
+
+          <p><em>FIXME: if we do distributed refcounting, we should probably
+              rename this to 'Reference' and implement handle-refcounting
+              semantics first? On the other hand, if we make handles persist
+              for the lifetime of the connection, we can just remove this
+              parameter.</em></p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" type="a{ua{sv}}" name="Attributes"
+        tp:type="Contact_Attributes_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary mapping the contact handles to contact attributes,
+            equivalent to the result of GetContactAttributes.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <tp:enum name="Presence_State" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A tristate indicating whether presence subscription is denied,
+          denied but pending permission, or allowed. The exact semantics
+          vary according to where this type is used.</p>
+      </tp:docstring>
+
+      <tp:enumvalue suffix="No" value="0">
+        <tp:docstring>Presence information cannot be seen.</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Ask" value="1">
+        <tp:docstring>Presence information cannot be seen, but permission
+          to see presence information has been requested.</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Yes" value="2">
+        <tp:docstring>Presence information can be seen.</tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:contact-attribute name="subscribe"
+      type="u" tp:type="Presence_State">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If this attribute on a contact is Yes, this connection can
+          expect to receive their presence, along with any other information
+          that has the same access control.</p>
+
+        <tp:rationale>
+          <p>This is subscription="from" or subscription="both" in XMPP,
+            the "forward list" on MSN, or the contact being "added to
+            the local user's buddy list" in ICQ, for example.</p>
+        </tp:rationale>
+
+        <p>If this attribute is No or Ask, the local user cannot generally
+          expect to receive presence from this contact. Their presence status
+          as returned by <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.SimplePresence">GetPresences</tp:dbus-ref>
+          is likely to be (Unknown, "unknown", ""), unless the local user
+          can temporarily see their presence for some other reason (for
+          instance, on XMPP, contacts seen in chatrooms will temporarily
+          have available presence).</p>
+
+        <p>If this attribute is Ask, this indicates that the local user has
+          asked to receive the contact's presence at some time. It is
+          implementation-dependent whether contacts' subscribe attributes
+          can remain set to Ask, or are reset to No, when the connection
+          disconnects.</p>
+
+        <tp:rationale>
+          <p>Some protocols store the fact that we wishes to see a contact's
+            presence; on these protocols, this attribute can remain Ask
+            indefinitely. On other protocols, only contacts who have been
+            asked during the current session will ever have Ask status.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </tp:contact-attribute>
+
+    <tp:contact-attribute name="publish"
+      type="u" tp:type="Presence_State">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If this attribute on a contact is Yes, the local user's presence
+          is published to that contact, along with any other information that
+          shares an access-control mechanism with presence (depending on
+          protocol, server configuration and/or user configuration, this may
+          include avatars, "rich presence" such as location, etc.).</p>
+
+        <tp:rationale>
+          <p>This is subscription="to" or subscription="both" in XMPP,
+            the "reverse list" on MSN, or the state of "being added to
+            the contact's buddy list" in ICQ, for example.</p>
+        </tp:rationale>
+
+        <p>If this attribute is No or Ask, the
+          local user's presence is not published to that contact; however,
+          if it is Ask, the contact has requested that the local user's
+          presence is made available to them.</p>
+
+        <p>It is implementation-dependent whether contacts' publish
+          attributes can remain set to Ask, or are reset to No, when the
+          connection disconnects.</p>
+
+        <tp:rationale>
+          <p>Some protocols store the fact that a contact wishes to see our
+            presence; on these protocols, this attribute can remain Ask
+            indefinitely. On other protocols, only contacts who have asked
+            during the current session will ever have Ask status.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </tp:contact-attribute>
+
+    <property name="SubscriptionsPersist"
+      tp:name-for-bindings="Subscriptions_Persist" type="b" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, presence subscriptions (in both directions) on this
+          connection are stored by the server or other infrastructure.</p>
+
+        <tp:rationale>
+          <p>XMPP, MSN, ICQ, etc. all behave like this.</p>
+        </tp:rationale>
+
+        <p>If false, presence subscriptions on this connection are not
+          stored.</p>
+
+        <tp:rationale>
+          <p>In SIMPLE (SIP), <em>clients</em> are expected to keep a record
+            of subscriptions, as described below. In link-local XMPP,
+            subscriptions are implicit (everyone on the local network receives
+            presence from everyone else) so nothing is ever stored.</p>
+        </tp:rationale>
+
+        <p>If <tp:member-ref>CanChangeSubscriptions</tp:member-ref>
+          is true, Telepathy clients (e.g. user interfaces or address books)
+          MAY keep a record of permission to publish and requests to subscribe
+          locally, and attempt to restore it for each Connection. If
+          SubscriptionsPersist is false, clients MAY do this for all contacts;
+          if SubscriptionsPersist is true, clients SHOULD NOT change the state
+          of contacts that were not changed locally.</p>
+
+        <tp:rationale>
+          <p>In SIMPLE (SIP), SubscriptionsPersist is false, but
+            CanChangeSubscriptions is true. Presence will not be received
+            unless clients renew any subscriptions they have for each
+            connection, in the way described. There is no server-side storage,
+            so clients have no alternative but to maintain independent contact
+            lists.</p>
+
+          <p>In protocols like XMPP and MSN, it may be useful for clients to
+            queue up subscription requests or removals made while offline and
+            process them next time the connection is online. However, clients
+            should only replay the changes, rather than resetting the contact
+            list to match a stored copy, to avoid overwriting changes that
+            were made on the server.</p>
+        </tp:rationale>
+
+        <p>Clients that replay requests like this SHOULD do so by calling
+          AuthorizePublication to pre-approve publication of presence to the
+          appropriate contacts, followed by RequestSubscription to request the
+          appropriate contacts' presences.</p>
+
+        <p>This property cannot change after the connection has moved to the
+          Connected state. Until then, its value is undefined, and it may
+          change at any time, without notification.</p>
+      </tp:docstring>
+    </property>
+
+    <tp:enum name="Contact_Metadata_Storage_Type" type="u">
+      <tp:docstring>
+        Values of this enumeration indicate the extent to which metadata
+        such as aliases and group memberships can be stored for the contacts
+        on a particular connection.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>This connection cannot store this type of metadata at all, and
+            attempting to do so will fail with NotImplemented.</p>
+
+          <tp:rationale>
+            <p>Link-local XMPP can't store aliases or group memberships at
+              all, and subscription and presence states are implicit (all
+              contacts on the local network have subscribe = publish = Yes
+              and no other contacts exist).</p>
+
+            <p>As of April 2010, the XMPP server for Facebook Chat provides a
+              read-only view of the user's Facebook contacts, so it could also
+              usefully have this storage type.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Subscribed_Or_Pending" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>This type of metadata can only be stored permanently for contacts
+            whose subscribe attribute is Ask or Yes.</p>
+
+          <tp:rationale>
+            <p>Contact aliases and groups on MSN have this behaviour.</p>
+          </tp:rationale>
+
+          <p>If this type of metadata is set on a contact with subscribe=No,
+            the Connection MUST cache it until disconnected, and return it
+            if requested. If subscription to the contact's presence is
+            subsequently requested, making it possible to store this metadata,
+            the Connection MUST store the cached value at that time.</p>
+
+          <tp:rationale>
+            <p>This supports the recommended calling pattern for adding a
+              new contact, in which alias and groups are set (without
+              necessarily waiting for a reply) before requesting the
+              contact's presence. Until the subscription request is
+              processed by the server, the alias and groups will be cached
+              in memory; when the subscription request has been processed,
+              the connection manager will store the metadata on the server.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Subscribed" value="2">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>This type of metadata can only be stored permanently for contacts
+            whose subscribe attribute is Yes.</p>
+
+          <tp:rationale>
+            <p>No service with this behaviour is currently known, but it's a
+              stricter form of Subscribed_Or_Pending.</p>
+          </tp:rationale>
+
+          <p>If this type of metadata is set on a contact with subscribe != Yes,
+            the Connection MUST cache it until disconnected, and return it
+            if requested. If subscription to the contact's presence is
+            subsequently allowed, making it possible to store this metadata,
+            the Connection MUST store the cached value at that time.</p>
+
+          <tp:rationale>
+            <p>The same rationale applies as for Subscribed_Or_Pending,
+              except that metadata must be stored until the subscription
+              request is not only processed by the server, but also allowed
+              by the remote user.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Anyone" value="3">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The user can set this metadata for any valid contact identifier,
+            whether or not they have any presence subscription relationship
+            to it, and it will be stored on their contact list.</p>
+
+          <tp:rationale>
+            <p>Contact aliases and groups on XMPP have this behaviour; it
+              is possible to put a contact in a group, or assign an alias
+              to them, without requesting that presence be shared.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:contact-attribute name="alias" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If this attribute on a contact is present in the result of
+          GetContactAttributes, its value is an name assigned to the
+          contact by the local user (a "pet name" in the terminology of
+          <a href="http://www.skyhunter.com/marcs/petnames/IntroPetNames.html"
+            >Introduction to Petname Systems</a>, or a "handle" in the
+          terminology of <a href="http://xmpp.org/extensions/xep-0165.html"
+            >XEP-0165 "Best Practices to Discourage JID Mimicking"</a>).</p>
+
+        <p>Connection managers SHOULD NOT use the same storage for names
+          not assigned by the local user, since this would undermine the
+          anti-spoofing benefits of storing a user-selected alias.</p>
+
+        <tp:rationale>
+          <p>This is a generalization of XEP-0165 to protocols other than
+            XMPP.</p>
+        </tp:rationale>
+
+        <p>For contacts with no stored aliases (including, but not limited to,
+          contacts on protocols where there is no way to store an alias
+          at all), this attribute is omitted from the result of
+          GetContactAttributes or GetContactListAttributes. User interfaces
+          MUST be able to display contacts who have no alias, for instance
+          by falling back to their identifier.</p>
+
+        <tp:rationale>
+          <p>JIDs on the XMPP roster are meant to have an alias, and in
+            most clients they always do, but it is technically
+            possible to add a contact to the roster without storing an
+            alias for them.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </tp:contact-attribute>
+
+    <property name="AliasStorage" tp:name-for-bindings="Alias_Storage"
+      type="u" tp:type="Contact_Metadata_Storage_Type" access="read">
+      <tp:docstring>
+        <p>Indicates the extent to which contacts' aliases can be set and are
+          stored.</p>
+      </tp:docstring>
+    </property>
+
+    <method name="SetContactAlias" tp:name-for-bindings="Set_Contact_Alias">
+      <tp:docstring>
+        <p>Sets a user-defined alias for a contact. Clients SHOULD NOT call
+          this method for names not assigned by the local user, since this
+          would undermine the anti-spoofing benefits of storing a
+          user-selected alias.</p>
+
+        <tp:rationale>
+          <p>This is a generalization of
+            <a href="http://xmpp.org/extensions/xep-0165.html"
+              >XEP-0165 "Best Practices to Discourage JID Mimicking"</a>)
+            to protocols other than XMPP.</p>
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Alias" type="s" direction="in">
+        <tp:docstring>
+          The new value for the contact's "alias" attribute, or the empty
+          string to remove the alias.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action, because
+            <tp:member-ref>AliasStorage</tp:member-ref> is
+            Contact_Metadata_Storage_Type_None.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="ContactChanged"
+      tp:name-for-bindings="Contact_Changed"
+      >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a contact's basic stored properties change, or when a
+          new contact is added to <tp:member-ref>Contacts</tp:member-ref>.</p>
+
+        <tp:rationale>
+          When combined with <tp:member-ref>ContactRemoved</tp:member-ref>,
+          this provides change notification for the Contacts property, and for
+          contacts' "alias", "subscribe" and "publish" attributes.
+        </tp:rationale>
+      </tp:docstring>
+
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The contact's handle.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Alias" type="s">
+        <tp:docstring>
+          The new value of the contact's "alias" attribute, or the empty
+          string if they have no alias.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Subscribe" type="u" tp:type="Presence_State">
+        <tp:docstring>
+          The new value of the contact's "subscribe" attribute.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Publish" type="u" tp:type="Presence_State">
+        <tp:docstring>
+          The new value of the contact's "publish" attribute.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="ContactRemoved"
+      tp:name-for-bindings="Contact_Removed"
+      >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a contact is removed from
+          <tp:member-ref>Contacts</tp:member-ref>. This signal also implies
+          that the contact now has subscribe = No, publish = No, and no
+          alias.</p>
+      </tp:docstring>
+
+      <arg name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The contact's handle.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="CanChangeSubscriptions" type="b" access="read"
+      tp:name-for-bindings="Can_Change_Subscriptions">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, presence subscription and publication can be changed
+          using the
+          <tp:member-ref>RequestSubscription</tp:member-ref>,
+          <tp:member-ref>AuthorizePublication</tp:member-ref> and
+          <tp:member-ref>RemoveContacts</tp:member-ref> methods.</p>
+
+        <p>If false, all of those methods will always fail; they SHOULD raise
+          the error org.freedesktop.Telepathy.Error.NotImplemented.</p>
+
+        <tp:rationale>
+          <p>In XEP-0174 "Serverless Messaging" (link-local XMPP), presence is
+            implicitly published to everyone in the local subnet, so the user
+            cannot control their presence publication.</p>
+        </tp:rationale>
+
+        <p>This property cannot change after the connection has moved to the
+          Connected state. Until then, its value is undefined, and it may
+          change at any time, without notification.</p>
+      </tp:docstring>
+    </property>
+
+    <method name="RequestSubscription" tp:name-for-bindings="Request_Subscription">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request that the given contacts allow the local user to
+          subscribe to their presence, i.e. that their subscribe attribute
+          becomes Yes.</p>
+
+        <p>Before calling this method on a connection where
+          <tp:member-ref>AliasStorage</tp:member-ref> allows aliases to be
+          stored, user interfaces SHOULD obtain, from the user, an alias to
+          identify the contact in future, and store it using
+          <tp:member-ref>SetContactAlias</tp:member-ref>. The user MAY be
+          prompted using the contact's current self-assigned nickname, or
+          something derived from the contact's (presumably self-assigned)
+          identifier, as a default, but these names chosen by the contact
+          SHOULD NOT be used without user approval.</p>
+
+        <tp:rationale>
+          <p>This is a generalization of
+            <a href="http://xmpp.org/extensions/xep-0165.html"
+              >XEP-0165 "Best Practices to Discourage JID Mimicking"</a>)
+            to protocols other than XMPP. A reasonable user interface for
+            this, as used in many XMPP clients, is to have a text entry
+            for the alias adjacent to the text entry for the identifier
+            to add.</p>
+        </tp:rationale>
+
+        <p>For contacts with subscribe=Yes, this method has no effect.
+          It MUST return successfully if all contacts are in this state.</p>
+
+        <p>For contacts with subscribe=Ask, this method SHOULD send a new
+          request, with the given message, if allowed by the underlying
+          protocol.</p>
+
+        <p>For contacts with subscribe=No, this method SHOULD request that
+          the contact allows the local user to subscribe to their presence;
+          in general, this will change their publish attribute from No
+          to Ask (although it could change directly from No to Yes in some
+          situations).</p>
+
+        <p>Any state changes that immediately result from this request MUST
+          be signalled via <tp:member-ref>ContactChanged</tp:member-ref>
+          before this method returns.</p>
+
+        <tp:rationale>
+          <p>This makes it easy for user interfaces to see what practical
+            effect this method had.</p>
+        </tp:rationale>
+
+        <p>If the remote contact accepts the request, their subscribe
+          attribute will later change from Ask to Yes; if they explicitly
+          reject the request (in protocols that allow this), their subscribe
+          attribute will later change from Ask to No.</p>
+      </tp:docstring>
+
+      <arg name="Contacts" direction="in"
+        type="au" tp:type="Contact_Handle[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>One or more contacts to whom requests are to be sent.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Message" type="s" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>An optional plain-text message from the user, to send to those
+            contacts with the subscription request. The
+            <tp:member-ref>RequestUsesMessage</tp:member-ref> property
+            indicates whether this message will be used or ignored.</p>
+
+          <p>Clients SHOULD NOT send a non-empty message without first giving
+            the user an opportunity to edit it.</p>
+
+          <tp:rationale>
+            <p>These messages are typically presented to the remote contact
+              as if the user had typed them, so as a minimum, the user should be
+              allowed to see what the UI will be saying on their behalf.</p>
+          </tp:rationale>
+
+          <p>Connections where this message is not useful MUST still allow it to
+            be non-empty.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <property name="RequestUsesMessage" type="b" access="read"
+      tp:name-for-bindings="Request_Uses_Message">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, the Message parameter to
+          <tp:member-ref>RequestSubscription</tp:member-ref> is likely to be
+          significant, and user interfaces SHOULD prompt the user for a
+          message to send with the request; a message such as "I would like
+          to add you to my contact list", translated into the local user's
+          language, might make a suitable default.</p>
+
+        <tp:rationale>
+          <p>This matches user expectations in XMPP and ICQ, for instance.</p>
+        </tp:rationale>
+
+        <p>If false, the parameter is ignored; user interfaces SHOULD avoid
+          prompting the user, and SHOULD pass an empty string to
+          RequestSubscription.</p>
+
+        <tp:rationale>
+          <p><em>FIXME: is there any such protocol?</em></p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <method name="AuthorizePublication"
+      tp:name-for-bindings="Authorize_Publication">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>For each of the given contacts, request that the local user's
+          presence is sent to that contact, i.e. that their publish attribute
+          becomes Yes.</p>
+
+        <p>For contacts with publish=Yes, this method has no effect; it
+          MUST return successfully if all contacts given have this state.</p>
+
+        <p>For contacts with publish=Ask, this method accepts the
+          contact's request to see the local user's presence, changing
+          their publish attribute from Ask to Yes.</p>
+
+        <p>For contacts with publish=No, if the protocol allows it, this
+          method allows the contacts to see the local user's presence even
+          though they have not requested it, changing their publish attribute
+          from No to Yes. Otherwise, it merely records the fact that
+          presence publication to those contacts is allowed; if any of
+          those contacts ask to receive the local user's presence
+          later in the lifetime of the connection, the connection SHOULD
+          immediately allow them to do so, changing their publish
+          attribute directly from No to Yes.</p>
+
+        <tp:rationale>
+          <p>This makes it easy to implement the common UI policy that if
+            the user attempts to subscribe to a contact's presence, requests
+            for reciprocal subscription are automatically approved.</p>
+        </tp:rationale>
+
+        <p>Any state changes that immediately result from this request MUST
+          be signalled via <tp:member-ref>ContactChanged</tp:member-ref>
+          before this method returns.</p>
+
+        <tp:rationale>
+          <p>This makes it easy for user interfaces to see what practical
+            effect this method had.</p>
+        </tp:rationale>
+
+        <p><em>FIXME: the old ContactList API allowed a message. Is there any
+            protocol where this would have made sense?</em></p>
+      </tp:docstring>
+
+      <arg name="Contacts" direction="in"
+        type="au" tp:type="Contact_Handle[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>One or more contacts to authorize.</p>
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action, because
+            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <tp:enum name="Contact_Removal_Mode" type="u">
+      <tp:docstring>
+        Values of this enumeration indicate ways in which a contact can be
+        "removed".
+      </tp:docstring>
+
+      <tp:enumvalue suffix="Full" value="0">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Attempt to remove the contact entirely. This is the mode that most
+            user interfaces will use.</p>
+
+          <p>It has the same effects as the Subscription and Publication
+            modes, combined. If possible, the contacts are then removed from
+            the contact list entirely; this will result in forgetting the
+            contacts' aliases and removing the contacts from
+            <tp:member-ref>Contacts</tp:member-ref>.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Subscription" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>For contacts with subscribe=Ask, this attempts to cancel
+            an earlier request to subscribe to the contact's presence; for
+            contacts with subscribe=Yes, this attempts to
+            unsubscribe from the contact's presence.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Publication" value="2">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>For contacts with publish=Ask, this method rejects the contact's
+            request to subscribe to the user's presence; for
+            contacts with publish=Yes, this method attempts to prevent the
+            user's presence from being received by the contact.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <method name="RemoveContacts" tp:name-for-bindings="Remove_Contacts">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Remove the given contacts from the contact list. It is
+          protocol-dependent whether this works, and under which
+          circumstances.</p>
+
+        <p>The precise meaning of "remove" is given by the Mode parameter;
+          in most cases this will be Contact_Removal_Mode_Full.</p>
+
+        <p>This method SHOULD succeed even if it was not possible to carry out
+          the request entirely or for all contacts (for instance, if there is an
+          outstanding request to subscribe to the contact's presence, and it's
+          not possible to cancel such requests). However, all signals that
+          immediately result from this method call MUST be emitted before it
+          returns, so that clients can interpret the result.</p>
+
+        <tp:rationale>
+          <p>User interfaces removing a contact from the contact list are
+            unlikely to want spurious failure notifications resulting from
+            limitations of a particular protocol. However, emitting the
+            signals first means that if a client does want to check exactly
+            what happened, it can wait for the method to return (while
+            applying change-notification signals to its local cache of the
+            contact list's state), then consult its local cache of the
+            contact list's state to see whether the contact is still there.</p>
+        </tp:rationale>
+
+        <p><em>FIXME: the old ContactList API allowed a message. Does that
+          make sense here?</em></p>
+      </tp:docstring>
+
+      <arg name="Contacts" direction="in"
+        type="au" tp:type="Contact_Handle[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>One or more contacts to remove.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Mode" direction="in"
+        type="u" tp:type="Contact_Removal_Mode">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The extent to which to remove the contacts.</p>
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action because
+            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
