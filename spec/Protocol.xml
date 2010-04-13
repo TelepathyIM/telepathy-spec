@@ -200,7 +200,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
       </tp:docstring>
     </property>
 
-    <property name="DisplayName" tp:name-for-bindings="Display_Name"
+    <property name="EnglishName" tp:name-for-bindings="English_Name"
       access="read" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the protocol in a form suitable for display to users,
