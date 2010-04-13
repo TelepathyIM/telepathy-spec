@@ -332,6 +332,24 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           impossible to do without a <tp:dbus-ref
             namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>,
           this method SHOULD perform a best-effort normalization.</p>
+
+        <tp:rationale>
+          <p>One common example of a best-effort offline normalization
+            differing from the ideal normalization is XMPP.</p>
+
+          <p>On XMPP, contacts' JIDs should normally have the resource removed
+            during normalization, but for contacts in a MUC (chatroom), the
+            resource is an integral part of the JID - so the contact JID
+            alice@example.com/Empathy should normalize to alice@example.com,
+            but the in-MUC JID wonderland@conference.example.com/Alice should
+            normalize to itself.</p>
+
+          <p>While online, the connection manager has enough context to know
+            which chatrooms the user is in, and can infer from that whether
+            to remove resources, but the best-effort normalization performed
+            while offline does not have this context, so the best that can be
+            done is to remove the resource from all JIDs.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Contact_ID" type="s">
