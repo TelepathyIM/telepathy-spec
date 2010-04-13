@@ -214,7 +214,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
 
         <p>For example, this would be <code>x-jabber</code> for
           Jabber/XMPP (including Google Talk), or <code>tel</code> for
-          telephony.</p>
+          the <abbr title="Public Switched Telephone Network">PSTN</abbr>.</p>
       </tp:docstring>
     </property>
 
