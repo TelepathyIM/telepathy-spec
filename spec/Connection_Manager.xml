@@ -80,8 +80,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <li>sip - Session Initiation Protocol (SIP), with or without
             SIMPLE support</li>
           <li>skype - Skype</li>
-          <li>tel - telephony (the PSTN, including GSM, CDMA and fixed-line
-            telephony)</li>
+          <li>tel - telephony (the
+            <abbr title="Public Switched Telephone Network">PSTN</abbr>,
+            including GSM, CDMA and fixed-line telephony)</li>
           <li>trepia - Trepia</li>
           <li>yahoo - YMSG (Yahoo! Messenger)</li>
           <li>yahoojp - Japanese version of YMSG</li>
