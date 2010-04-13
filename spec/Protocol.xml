@@ -54,9 +54,9 @@
         <p>A list of interfaces supported by this Protocol object.</p>
 
         <p>This property is immutable, and should not be confused with
-          <tp:member-ref>GuaranteedInterfaces</tp:member-ref> and
-          <tp:member-ref>PossibleInterfaces</tp:member-ref>, which refer to the
-          interfaces of <em>connections</em> to this protocol.</p>
+          <tp:member-ref>ConnectionInterfaces</tp:member-ref>,
+          which refers to the interfaces of <em>connections</em> to this
+          protocol.</p>
 
         <p>Connection managers with a <code>.manager</code> file
           (as described as part of the
@@ -88,37 +88,17 @@
       </tp:docstring>
     </property>
 
-    <property name="GuaranteedInterfaces"
-      tp:name-for-bindings="Guaranteed_Interfaces"
+    <property name="ConnectionInterfaces"
+      tp:name-for-bindings="Connection_Interfaces"
       access="read" type="as" tp:type="DBus_Interface[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of interface names which will definitely be in the
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection"
-            >Interfaces</tp:dbus-ref> property of any
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy"
-            >Connection</tp:dbus-ref> to this protocol.</p>
-
-        <p>This property is immutable, and should not be confused with
-          <tp:member-ref>Interfaces</tp:member-ref>.</p>
-
-        <p>Connection managers with a <code>.manager</code> file
-          MUST cache this property in the protocol's section of the
-          <code>.manager</code> file, using the key
-          <code>GuaranteedInterfaces</code>. The corresponding value
-          is a list of D-Bus interface names, each followed by a semicolon.</p>
-      </tp:docstring>
-    </property>
-
-    <property name="PossibleInterfaces"
-      tp:name-for-bindings="Possible_Interfaces"
-      access="read" type="as" tp:type="DBus_Interface[]">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of interface names which will might be in the
+        <p>A list of interface names which might be in the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection"
             >Interfaces</tp:dbus-ref> property of a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy"
-            >Connection</tp:dbus-ref> to this protocol, or not, depending
-          on server capabilities.</p>
+            >Connection</tp:dbus-ref> to this protocol. Whether a Connection
+          will have all, some or none of these interfaces depends on server
+          capabilities.</p>
 
         <p>This property is immutable, and should not be confused with
           <tp:member-ref>Interfaces</tp:member-ref>.</p>
@@ -126,7 +106,7 @@
         <p>Connection managers with a <code>.manager</code> file
           MUST cache this property in the protocol's section of the
           <code>.manager</code> file, using the key
-          <code>PossibleInterfaces</code>. The corresponding value
+          <code>ConnectionInterfaces</code>. The corresponding value
           is a list of D-Bus interface names, each followed by a semicolon.</p>
       </tp:docstring>
     </property>
