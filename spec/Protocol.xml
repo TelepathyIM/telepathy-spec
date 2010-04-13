@@ -350,6 +350,14 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
             while offline does not have this context, so the best that can be
             done is to remove the resource from all JIDs.</p>
         </tp:rationale>
+
+        <p>This method MAY simply raise NotImplemented on some protocols.</p>
+
+        <tp:rationale>
+          <p>In link-local XMPP, you can't talk to someone who isn't present
+            on your local network, so normalizing identifiers in advance is
+            meaningless.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Contact_ID" type="s">
