@@ -38,19 +38,14 @@
       <p>The properties on this interface SHOULD be cached in the
         <code>.manager</code> file, in the
         <code>[Protocol <em>proto</em>]</code>
-        group. For each status <em>s</em> in either
-        <tp:member-ref>GuaranteedStatuses</tp:member-ref> or
-        <tp:member-ref>PossibleStatuses</tp:member-ref>, that group should
+        group. For each status <em>s</em> in
+        <tp:member-ref>Statuses</tp:member-ref>, that group should
         contain a key of the form <code>status-<em>s</em></code> whose value
         is the <tp:type>Connection_Presence_Type</tp:type> as an ASCII
         decimal integer, followed by a space-separated sequence of tokens
         from the following set:</p>
 
       <dl>
-        <dt>maybe</dt>
-        <dd>If present, the status is in PossibleStatuses; if absent,
-          the status is in GuaranteedStatuses</dd>
-
         <dt>settable</dt>
         <dd>If present, the user can set this status on themselves using
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.SimplePresence"
@@ -75,7 +70,7 @@ param-password=s required
 status-offline=1
 status-unknown=7
 status-error=8
-status-hidden=5 maybe settable message
+status-hidden=5 settable message
 status-xa=4 settable message
 status-away=3 settable message
 status-dnd=6 settable message
@@ -86,48 +81,32 @@ status-chat=2 settable message
       <p>which corresponds to these property values (using a Python-like
         syntax):</p>
 
-<pre>GuaranteedStatuses = {
+<pre>Statuses = {
     'offline': (OFFLINE, False, False),
     'unknown': (UNKNOWN, False, False),
     'error': (ERROR, False, False),
+    'hidden': (HIDDEN, True, True),
     'xa': (EXTENDED_AWAY, True, True),
     'away': (AWAY, True, True),
     'dnd': (BUSY, True, True),
     'available': (AVAILABLE, True, True),
     'chat': (AVAILABLE, True, True),
 }
-PossibleStatuses = {
-    'hidden': (HIDDEN, True, True),
-}
 </pre>
     </tp:docstring>
 
-    <property name="GuaranteedStatuses"
-      tp:name-for-bindings="Guaranteed_Statuses"
-      type="a{s(ubb)}" access="read">
-      <tp:docstring>
-        <p>The statuses that will definitely appear in the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy"
-          >Connection.Interface.SimplePresence.Statuses</tp:dbus-ref>
-          property on any connection to this protocol that supports
-          SimplePresence. This property is immutable.</p>
-      </tp:docstring>
-    </property>
-
-    <property name="PossibleStatuses"
-      tp:name-for-bindings="Possible_Statuses"
+    <property name="Statuses"
+      tp:name-for-bindings="Statuses"
       type="a{s(ubb)}" access="read">
       <tp:docstring>
         <p>The statuses that might appear in the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy"
           >Connection.Interface.SimplePresence.Statuses</tp:dbus-ref>
           property on a connection to this protocol that supports
-          SimplePresence, or not. This property is immutable.</p>
+          SimplePresence. This property is immutable.</p>
 
-        <tp:rationale>
-          <p>On XMPP, support for the "hidden" presence type requires
-            support from the server, so it will typically appear here.</p>
-        </tp:rationale>
+        <p>Depending on server capabilities, it is possible that not all
+          of these will actually appear on the Connection.</p>
       </tp:docstring>
     </property>
 
