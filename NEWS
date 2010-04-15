@@ -2,10 +2,37 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.4 (UNRELEASED)
+telepathy-spec 0.19.4 (2010-04-15)
 ==================================
 
-...
+The "tastes of ACTUAL strawberry" release.
+
+New stable API:
+
+* fd.o #13350: ContactInfo is now considered stable. Changes since the draft
+  seen in 0.18:
+
+  - the summary explains how to use ContactInfo without causing lots of
+    network traffic
+  - GetContactInfo no longer re-fetches from the server, so clients can
+    call it as often as they need to
+  - a new RefreshContactInfo method can be used occasionally to refresh
+    cached contact info
+  - the Contact_Info_Flag type is now called Contact_Info_Flags
+  - the examples have been extended
+  - Parameters_Mandatory is now called Parameters_Exact
+
+  (andrunko/wjt/smcv)
+
+* fd.o #24768: Observers can have a Recover flag, which causes the
+  channel dispatcher to restart them if they crash, and provides a best-effort
+  way to catch up on existing channels (ptlo)
+
+Corrections and clarifications:
+
+* fd.o #27200: MailNotification.UnreadMails may have fewer than
+  UnreadMailCount messages (for instance, Google Talk limits to 30 threads)
+  (stormer)
 
 telepathy-spec 0.19.3 (2010-03-31)
 ==================================

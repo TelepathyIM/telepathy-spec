@@ -18,7 +18,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactInfo">
-    <tp:added version="0.19.UNRELEASED">(as stable API)</tp:added>
+    <tp:added version="0.19.4">(as stable API)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:struct name="Contact_Info_Field" array-name="Contact_Info_Field_List">
@@ -220,7 +220,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Integer handles for contacts.
         </tp:docstring>
       </arg>
-      <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring>
         Retrieve information for the given contact, requesting it from the
         network if an up-to-date version is not cached locally. This method

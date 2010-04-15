@@ -182,6 +182,11 @@ org.freedesktop.Telepathy.Channel.Requested b=true
 
     <property name="Recover" tp:name-for-bindings="Recover" type="b"
       access="read">
+      <tp:added version="0.19.4">
+        When using telepathy-mission-control, version 5.4.0 or later is
+        needed for this property to be useful.
+      </tp:added>
+
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, upon the startup of this observer, <tp:dbus-ref
         namespace="org.freedesktop.Telepathy.Client.Observer">ObserveChannels</tp:dbus-ref>
