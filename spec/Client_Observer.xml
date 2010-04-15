@@ -197,7 +197,7 @@ org.freedesktop.Telepathy.Channel.Requested b=true
             be restarted as soon as possible; while there is an unavoidable
             possibility that it will miss some events during this process
             (particularly <tp:dbus-ref
-              namespace="org.freedesktop.Channel.Type">Text</tp:dbus-ref>
+              namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>
             messages), this window of event loss is kept to a minimum.</p>
 
            <p>Non-activatable observers can't take advantage of this
