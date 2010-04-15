@@ -419,16 +419,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <pre>
 [
-  ('tel', ['home'], Parameters_Exact, 1),
-  ('tel', ['cell'], Parameters_Exact, 1),
+  ('tel', ['type=home'], Parameters_Exact, 1),
+  ('tel', ['type=cell'], Parameters_Exact, 1),
   ('adr', [], Parameters_Exact, 1),
   ('bday', [], Parameters_Exact, 1),
-  ('email', ['internet'], Parameters_Exact, 1),
+  ('email', ['type=internet'], Parameters_Exact, 1),
 ]</pre>
 
         <p>A protocol which allows users to specify up to four phone numbers,
           which may be labelled as personal and/or mobile, would set this
-          property to <code>[ ('tel', ['home', 'cell'], 0, 4), ]</code>.</p>
+          property to
+          <code>[ ('tel', ['type=home', 'type=cell'], 0, 4), ]</code>.</p>
 
         <tp:rationale>
           <p>Studying existing IM protocols shows that in practice protocols
