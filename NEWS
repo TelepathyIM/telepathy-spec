@@ -2,10 +2,19 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.5 (UNRELEASED)
+telepathy-spec 0.19.5 (2010-04-15)
 ==================================
 
-...
+The "error-driven development" release.
+
+Corrections and clarifications:
+
+* fd.o #13350: make Contact_Info_Flags a <tp:flags> as intended, not a
+  <tp:enum>
+
+Tools changes:
+
+* specparser: reject <tp:enum>s that look as though they should have been flags
 
 telepathy-spec 0.19.4 (2010-04-15)
 ==================================
