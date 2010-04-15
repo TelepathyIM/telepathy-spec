@@ -38,6 +38,7 @@ class UnsupportedArray(Exception): pass
 class BadNameForBindings(Exception): pass
 class BrokenHTML(Exception): pass
 class TooManyChildren(Exception): pass
+class MismatchedFlagsAndEnum(Exception): pass
 
 def getText(dom):
     try:
@@ -697,12 +698,24 @@ class Enum(EnumLike):
     def __init__(self, parent, namespace, dom):
         super(Enum, self).__init__(parent, namespace, dom)
 
+        if self.name.endswith('Flag') or self.name.endswith('Flags'):
+            raise MismatchedFlagsAndEnum('%s should probably be tp:flags, '
+                    'not tp:enum' % self.name)
+
+        if dom.getElementsByTagNameNS(XMLNS_TP, 'flag'):
+            raise MismatchedFlagsAndEnum('%s is a tp:enum, so it should not '
+                    'contain tp:flag' % self.name)
+
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'))
 
 class Flags(EnumLike):
     def __init__(self, parent, namespace, dom):
         super(Flags, self).__init__(parent, namespace, dom)
+
+        if dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'):
+            raise MismatchedFlagsAndEnum('%s is a tp:flags, so it should not '
+                    'contain tp:enumvalue' % self.name)
 
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'flag'))
