@@ -853,12 +853,9 @@ class Spec(SectionBase):
 
         try:
             license = getChildrenByName(node, XMLNS_TP, 'license')[0]
-            license.tagName = 'div'
-            license.namespaceURI = None
-            license.setAttribute('class', 'license')
-            self.license = license.toxml()
+            self.license = map(getText, license.getElementsByTagName('p'))
         except IndexError:
-            self.license = ''
+            self.license = []
 
         # FIXME: we need to check all args for type correctness
 

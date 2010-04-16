@@ -20,7 +20,12 @@
   <p class="copyrights">
    #echo '<br/>'.join($spec.copyrights)
   </p>
-  $spec.license
+
+  <div class="license">
+    #for $para in $spec.license
+    <p>$para</p>
+    #end for
+  </div>
 
   <a name="interfaces"></a>
   <h3>Interfaces</h3>
