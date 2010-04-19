@@ -127,10 +127,11 @@
 
     <signal name="GroupRenamed" tp:name-for-bindings="Group_Renamed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a group is renamed. Emission of this signal implies that
-          all its members lose the old group name and gain the new group name;
-          <tp:member-ref>GroupsChanged</tp:member-ref> is <em>not</em> redundantly
-          emitted.</p>
+        <p>Emitted when a group is renamed. If the group was not empty,
+          immediately after this signal is emitted,
+          <tp:member-ref>GroupsChanged</tp:member-ref> MUST signal
+          that the members of that group were removed from the old name
+          and added to the new name.</p>
 
         <p>On connection managers where groups behave like tags, this signal
           will probably only be emitted when
@@ -156,9 +157,9 @@
     <signal name="GroupsRemoved" tp:name-for-bindings="Groups_Removed">
       <tp:docstring>
         Emitted when one or more groups are removed. If they had members at
-        the time that they were removed,
-        <tp:member-ref>GroupsChanged</tp:member-ref> is
-        <em>not</em> redundantly emitted for their members.
+        the time that they were removed, then immediately after this signal is
+        emitted, <tp:member-ref>GroupsChanged</tp:member-ref> MUST signal
+        that their members were removed.
       </tp:docstring>
 
       <arg name="Names" type="as">
