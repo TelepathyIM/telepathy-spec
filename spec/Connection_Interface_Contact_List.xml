@@ -711,52 +711,16 @@
       </tp:possible-errors>
     </method>
 
-    <tp:enum name="Contact_Removal_Mode" type="u">
-      <tp:docstring>
-        Values of this enumeration indicate ways in which a contact can be
-        "removed".
-      </tp:docstring>
-
-      <tp:enumvalue suffix="Full" value="0">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Attempt to remove the contact entirely. This is the mode that most
-            user interfaces will use.</p>
-
-          <p>It has the same effects as the Subscription and Publication
-            modes, combined. If possible, the contacts are then removed from
-            the contact list entirely; this will result in forgetting the
-            contacts' aliases and removing the contacts from
-            <tp:member-ref>Contacts</tp:member-ref>.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Subscription" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>For contacts with subscribe=Ask, this attempts to cancel
-            an earlier request to subscribe to the contact's presence; for
-            contacts with subscribe=Yes, this attempts to
-            unsubscribe from the contact's presence.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Publication" value="2">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>For contacts with publish=Ask, this method rejects the contact's
-            request to subscribe to the user's presence; for
-            contacts with publish=Yes, this method attempts to prevent the
-            user's presence from being received by the contact.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
-
     <method name="RemoveContacts" tp:name-for-bindings="Remove_Contacts">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Remove the given contacts from the contact list. It is
+        <p>Remove the given contacts from the contact list entirely. It is
           protocol-dependent whether this works, and under which
           circumstances.</p>
 
-        <p>The precise meaning of "remove" is given by the Mode parameter;
-          in most cases this will be Contact_Removal_Mode_Full.</p>
+        <p>If possible, this method SHOULD set the contacts' subscribe and
+          publish attributes to No, remove any stored aliases for those
+          contacts, and remove the contacts from
+          <tp:member-ref>Contacts</tp:member-ref>.</p>
 
         <p>This method SHOULD succeed even if it was not possible to carry out
           the request entirely or for all contacts (for instance, if there is an
@@ -775,7 +739,6 @@
             contact list's state), then consult its local cache of the
             contact list's state to see whether the contact is still there.</p>
         </tp:rationale>
-
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -785,10 +748,77 @@
         </tp:docstring>
       </arg>
 
-      <arg name="Mode" direction="in"
-        type="u" tp:type="Contact_Removal_Mode">
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action because
+            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="Unsubscribe" tp:name-for-bindings="Unsubscribe">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Attempt to set the given contacts' subscribe attribute to No,
+          i.e. stop receiving their presence.</p>
+
+        <p>For contacts with subscribe=Ask, this attempts to cancel
+          an earlier request to subscribe to the contact's presence; for
+          contacts with subscribe=Yes, this attempts to
+          unsubscribe from the contact's presence.</p>
+
+        <p>As with <tp:member-ref>RemoveContacts</tp:member-ref>, this method
+          SHOULD succeed even if it was not possible to carry out the request
+          entirely or for all contacts; however, all signals that
+          immediately result from this method call MUST be emitted before it
+          returns.</p>
+      </tp:docstring>
+
+      <arg name="Contacts" direction="in"
+        type="au" tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The extent to which to remove the contacts.</p>
+          <p>One or more contacts to remove.</p>
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action because
+            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="Unpublish" tp:name-for-bindings="Unpublish">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Attempt to set the given contacts' publish attribute to No,
+          i.e. stop sending presence to them.</p>
+
+        <p>For contacts with publish=Ask, this method explicitly rejects the
+          contact's request to subscribe to the user's presence; for
+          contacts with publish=Yes, this method attempts to prevent the
+          user's presence from being received by the contact.</p>
+
+        <p>As with <tp:member-ref>RemoveContacts</tp:member-ref>, this method
+          SHOULD succeed even if it was not possible to carry out the request
+          entirely or for all contacts; however, all signals that
+          immediately result from this method call MUST be emitted before it
+          returns.</p>
+      </tp:docstring>
+
+      <arg name="Contacts" direction="in"
+        type="au" tp:type="Contact_Handle[]">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>One or more contacts to remove.</p>
         </tp:docstring>
       </arg>
 
