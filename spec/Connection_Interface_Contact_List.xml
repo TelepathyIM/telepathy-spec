@@ -423,7 +423,8 @@
     <signal name="ContactsChanged"
       tp:name-for-bindings="Contacts_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when contacts' basic stored properties change, when
+        <p>Emitted when the contact list becomes available, when contacts'
+          basic stored properties change, when
           new contacts are added to <tp:member-ref>Contacts</tp:member-ref>,
           or when contact are removed from Contacts.</p>
 
