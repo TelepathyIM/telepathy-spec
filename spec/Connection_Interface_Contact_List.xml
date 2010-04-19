@@ -244,6 +244,22 @@
       </tp:docstring>
     </tp:contact-attribute>
 
+    <tp:contact-attribute name="publish-request" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If the "publish" attribute is Ask, an optional message that was
+          sent by the contact asking to receive the local user's presence;
+          omitted if none was given.</p>
+
+        <tp:rationale>
+          <p>If the contact asking to receive our presence is also using
+            Telepathy, this is the message they supplied as the Message
+            argument to <tp:member-ref>RequestSubscription</tp:member-ref>.</p>
+        </tp:rationale>
+
+        <p>Otherwise, this SHOULD be omitted.</p>
+      </tp:docstring>
+    </tp:contact-attribute>
+
     <property name="SubscriptionsPersist"
       tp:name-for-bindings="Subscriptions_Persist" type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -393,7 +409,7 @@
 
     <tp:struct name="Contact_Subscriptions" array-name="">
       <tp:docstring>
-        A single contact's subscribe and publish attributes.
+        A single contact's subscribe, publish and publish-request attributes.
       </tp:docstring>
 
       <tp:member name="Subscribe" type="u" tp:type="Presence_State">
@@ -407,11 +423,19 @@
           The new value of the contact's "publish" attribute.
         </tp:docstring>
       </tp:member>
+
+      <tp:member name="Publish_Request" type="s">
+        <tp:docstring>
+          The new value of the contact's "publish-request" attribute,
+          or the empty string if that attribute would be omitted.
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:mapping name="Contact_Subscription_Map" array-name="">
       <tp:docstring>
-        A map from contacts to their subscribe and publish attributes.
+        A map from contacts to their subscribe, publish and publish-request
+        attributes.
       </tp:docstring>
 
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
@@ -420,9 +444,9 @@
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="States" type="(uu)" tp:type="Contact_Subscriptions">
+      <tp:member name="States" type="(uus)" tp:type="Contact_Subscriptions">
         <tp:docstring>
-          The contact's subscribe and publish attributes.
+          The contact's subscribe, publish and publish-request attributes.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
@@ -437,16 +461,17 @@
           or when contact are removed from that list.</p>
 
         <tp:rationale>
-          This provides change notification for that list, and for
-          contacts' "subscribe" and "publish" attributes.
+          <p>This provides change notification for that list, and for
+            contacts' "subscribe", "publish" and
+            "publish-request" attributes.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg type="a{u(uu)}" name="Changes">
+      <arg type="a{u(uus)}" name="Changes" tp:type="Contact_Subscription_Map">
         <tp:docstring>
-          The new subscribe and publish attributes of all the contacts that
-          have been added, and all the contacts for which those attributes
-          have changed.
+          The new subscribe, publish and publish-request attributes of all the
+          contacts that have been added, and all the contacts for which those
+          attributes have changed.
         </tp:docstring>
       </arg>
 
