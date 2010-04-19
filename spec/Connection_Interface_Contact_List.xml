@@ -384,51 +384,69 @@
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="ContactChanged"
-      tp:name-for-bindings="Contact_Changed"
-      >
+    <tp:struct name="Contact_Subscriptions" array-name="">
+      <tp:docstring>
+        A single contact's subscribe and publish attributes.
+      </tp:docstring>
+
+      <tp:member name="Subscribe" type="u" tp:type="Presence_State">
+        <tp:docstring>
+          The new value of the contact's "subscribe" attribute.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Publish" type="u" tp:type="Presence_State">
+        <tp:docstring>
+          The new value of the contact's "publish" attribute.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:mapping name="Contact_Subscription_Map" array-name="">
+      <tp:docstring>
+        A map from contacts to their subscribe and publish attributes.
+      </tp:docstring>
+
+      <tp:member name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The contact's handle.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="States" type="(uu)" tp:type="Contact_Subscriptions">
+        <tp:docstring>
+          The contact's subscribe and publish attributes.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <signal name="ContactsChanged"
+      tp:name-for-bindings="Contacts_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a contact's basic stored properties change, or when a
-          new contact is added to <tp:member-ref>Contacts</tp:member-ref>.</p>
+        <p>Emitted when contacts' basic stored properties change, when
+          new contacts are added to <tp:member-ref>Contacts</tp:member-ref>,
+          or when contact are removed from Contacts.</p>
 
         <tp:rationale>
-          When combined with <tp:member-ref>ContactRemoved</tp:member-ref>,
-          this provides change notification for the Contacts property, and for
+          This provides change notification for the Contacts property, and for
           contacts' "subscribe" and "publish" attributes.
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Contact" type="u" tp:type="Contact_Handle">
+      <arg type="a{u(uu)}" name="Changes">
         <tp:docstring>
-          The contact's handle.
+          The new subscribe and publish attributes of all the contacts that
+          have been added, and all the contacts for which those attributes
+          have changed.
         </tp:docstring>
       </arg>
 
-      <arg name="Subscribe" type="u" tp:type="Presence_State">
+      <arg name="Removals" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          The new value of the contact's "subscribe" attribute.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Publish" type="u" tp:type="Presence_State">
-        <tp:docstring>
-          The new value of the contact's "publish" attribute.
-        </tp:docstring>
-      </arg>
-    </signal>
-
-    <signal name="ContactRemoved"
-      tp:name-for-bindings="Contact_Removed"
-      >
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a contact is removed from
-          <tp:member-ref>Contacts</tp:member-ref>. This signal also implies
-          that the contacts now have subscribe = No and publish = No.</p>
-      </tp:docstring>
-
-      <arg name="Contact" type="u" tp:type="Contact_Handle">
-        <tp:docstring>
-          The contact's handle.
+          The contacts that have been removed from
+          <tp:member-ref>Contacts</tp:member-ref>. This also implies
+          that they have subscribe = No and publish = No; contacts in this
+          list MUST NOT also be listed in Changes.
         </tp:docstring>
       </arg>
     </signal>
@@ -501,7 +519,7 @@
           situations).</p>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactChanged</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
@@ -599,7 +617,7 @@
         </tp:rationale>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactChanged</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
