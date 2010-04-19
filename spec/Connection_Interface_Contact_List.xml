@@ -689,9 +689,6 @@
           <p>This makes it easy for user interfaces to see what practical
             effect this method had.</p>
         </tp:rationale>
-
-        <p><em>FIXME: the old ContactList API allowed a message. Is there any
-            protocol where this would have made sense?</em></p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -779,8 +776,6 @@
             contact list's state to see whether the contact is still there.</p>
         </tp:rationale>
 
-        <p><em>FIXME: the old ContactList API allowed a message. Does that
-          make sense here?</em></p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
