@@ -42,14 +42,26 @@
           channels - and conflicts with the idea that channels that cannot
           be dispatched to a handler should be closed.</p>
       </tp:rationale>
+
+      <p>The list of contacts is not exposed as a D-Bus property; it can be
+        fetched using <tp:member-ref>GetContactListAttributes</tp:member-ref>.
+      </p>
+
+      <tp:rationale>
+        <p>In some protocols, such as XMPP, the contact list may not be
+          available immediately. The
+          <tp:member-ref>GetContactListAttributes</tp:member-ref> method
+          will wait until the contact list is available before returning.
+          Using a method also allows extra attributes to be retrieved at
+          the same time.</p>
+      </tp:rationale>
     </tp:docstring>
 
-    <property name="Contacts" tp:name-for-bindings="Contacts"
-      access="read"
-      type="au" tp:type="Contact_Handle[]"
-      >
+    <method name="GetContactListAttributes"
+      tp:name-for-bindings="Get_Contact_List_Attributes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A list of contacts somehow associated with the user.</p>
+        <p>Return some contact attributes for a list of contacts somehow
+          associated with the user.</p>
 
         <p>This definition is deliberately vague: in practice, most user
           interfaces should display some subset of this list, by filtering it
@@ -81,23 +93,7 @@
           <p>For example, XMPP, it's the roster; on link-local XMPP, it's the
             set of visible users on the local network; on MSN, it's the union
             of the forward and reverse buddy lists.</p>
-        </tp:rationale>
-      </tp:docstring>
-    </property>
 
-    <method name="GetContactListAttributes"
-      tp:name-for-bindings="Get_Contact_List_Attributes">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Return some contact attributes for all handles listed in
-          the <tp:member-ref>Contacts</tp:member-ref> property.</p>
-
-        <p>Calling this method is equivalent to retrieving the Contacts
-          property and immediately passing the result to <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
-          but is more straightforward and avoids the possibility that some
-          handles become invalid between the two calls.</p>
-
-        <tp:rationale>
           <p>An easy way for an application to display a contact list is to
             call this method with at least this interface in the Interfaces
             argument, then check which subset of contacts should be displayed
@@ -107,12 +103,23 @@
             time.</p>
 
           <p>In practice, most user interfaces for the contact list will
-            usually display a large proportion of the Contacts property
+            usually display a large proportion of this list
             (for instance, most contacts on the contact list will usually
             have subscribe=Yes in practice, so contact lists that display
             subscribe=Yes contacts need to display almost the entire list),
             so the overhead of returning information about too many contacts
             is small.</p>
+        </tp:rationale>
+
+        <p>This method SHOULD NOT return before the contact list has been
+          retrieved, on protocols where this is possible.</p>
+
+        <tp:rationale>
+          <p>This makes it possible for clients to wait for the contact list.
+            For instance, on XMPP this method shouldn't return until the
+            roster has been retrieved, which is an asynchronous process.
+            However, on link-local XMPP you can't know when you have the
+            complete list, so this method would have to return immediately.</p>
         </tp:rationale>
       </tp:docstring>
 
@@ -424,12 +431,13 @@
       tp:name-for-bindings="Contacts_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the contact list becomes available, when contacts'
-          basic stored properties change, when
-          new contacts are added to <tp:member-ref>Contacts</tp:member-ref>,
-          or when contact are removed from Contacts.</p>
+          basic stored properties change, when new contacts are added to the
+          list that would be returned by
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>,
+          or when contact are removed from that list.</p>
 
         <tp:rationale>
-          This provides change notification for the Contacts property, and for
+          This provides change notification for that list, and for
           contacts' "subscribe" and "publish" attributes.
         </tp:rationale>
       </tp:docstring>
@@ -444,10 +452,11 @@
 
       <arg name="Removals" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          The contacts that have been removed from
-          <tp:member-ref>Contacts</tp:member-ref>. This also implies
-          that they have subscribe = No and publish = No; contacts in this
-          list MUST NOT also be listed in Changes.
+          The contacts that have been removed from the list that would be
+          returned by
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.
+          This also implies that they have subscribe = No and publish = No;
+          contacts MUST NOT be listed both here and in Changes.
         </tp:docstring>
       </arg>
     </signal>
@@ -655,8 +664,8 @@
 
         <p>If possible, this method SHOULD set the contacts' subscribe and
           publish attributes to No, remove any stored aliases for those
-          contacts, and remove the contacts from
-          <tp:member-ref>Contacts</tp:member-ref>.</p>
+          contacts, and remove the contacts from the result of
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
 
         <p>This method SHOULD succeed even if it was not possible to carry out
           the request entirely or for all contacts (for instance, if there is an
