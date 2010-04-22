@@ -264,6 +264,8 @@ org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264=true
           is to be handled for some reason not involving user action.
           Handlers SHOULD use this for focus-stealing prevention,
           if applicable.
+          This property has the same semantic as <tp:type>X_Server_Time</tp:type>
+          but is unsigned for historical reasons.
         </tp:docstring>
       </arg>
 
