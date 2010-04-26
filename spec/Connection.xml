@@ -1020,6 +1020,125 @@ USA.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
+    <method name="AddClientInterest" tp:name-for-bindings="Add_Client_Interest">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Register a client's interest in notifications related to one or
+          more interfaces. Interfaces that use this method MUST refer to it in
+          their documentation.</p>
+
+        <p>Depending on the interface, it might be necessary to call this
+          method before using an interface, or certain API calls might be
+          treated as equivalent to a call to this method.</p>
+
+        <p>For each interface with which this method interacts, the
+          Connection tracks an "interest count" (like a reference count) for
+          each unique bus name that has called this method. When a client
+          calls this method, for each interface, the interest count for its
+          unique bus name is incremented; when
+          <tp:member-ref>RemoveClientInterest</tp:member-ref> is called,
+          all interest counts for that unique bus name are decremented.
+          If the unique bus name leaves the bus (for instance, if the
+          client crashes or exits), all interest counts for that unique bus
+          name are set to zero.</p>
+
+        <p>The Connection can then use these reference counts to
+          avoid subscribing to protocol-level notifications unless at least
+          one client has a non-zero interest count for the relevant
+          interface.</p>
+
+        <p>For convenience or backwards compatibility, calling certain
+          methods while having an interest count of 0 MAY increment the
+          interest count. Where appropriate, this is noted in the methods'
+          documentation.</p>
+
+        <p>Because it is non-obvious whether such method calls have
+          incremented the interest count or not, any client that will ever
+          call RemoveClientInterest SHOULD always pair it with a call to
+          AddClientInterest.</p>
+
+        <tp:rationale>
+          <p>This method exists to reduce memory and network overhead when
+            there is no active subscription.</p>
+
+          <p>One situation where this is useful is <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Connection.Interface"
+              >Location</tp:dbus-ref>: on XMPP, location updates are received
+            over PEP. If the Connection advertises the
+            <code>geoloc+notify</code> capability, it will be sent location
+            updates for all contacts. To avoid consuming resources for this,
+            the connection should avoid advertising that capability until
+            a client has expressed an interest in contacts' locations.</p>
+
+          <p>Another example of a protocol that benefits from this method is
+            the Google XMPP Mail Notification extension, which can be used
+            to implement <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Connection.Interface"
+              >MailNotification.DRAFT</tp:dbus-ref>. In this protocol, the CM
+            receives a notification that something has changed, but to get
+            more information, the CM must request this information. Knowing
+            that nobody is currently interested in this information, the CM
+            can avoid generating useless network traffic. Similarly, the CM
+            may free the list of unread messages to reduce memory overhead.</p>
+        </tp:rationale>
+
+        <p>If this method is called for an interface that might require
+          protocol-level subscription, but the connection cannot set up
+          that subscription yet (for instance because the
+          <tp:member-ref>Status</tp:member-ref> is not Connected yet), the
+          Connection MUST remember the client's interest, and attempt to
+          subscribe to the appropriate protocol feature when this becomes
+          possible.</p>
+
+        <p>Clients MAY ignore errors raised by this method.</p>
+      </tp:docstring>
+
+      <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
+        direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Interfaces in which to register an interest.</p>
+
+          <p>If the Connection does not support one of these interfaces, this
+            is not considered to be an error; the unsupported interface is
+            simply ignored.</p>
+
+          <p>If this method is called for an interface that might require
+            protocol-level subscription, but the connection cannot set up
+            that subscription yet (for instance because the
+            <tp:member-ref>Status</tp:member-ref> is not Connected yet), the
+            Connection MUST remember the client's interest, and attempt to
+            subscribe to the appropriate protocol feature when this becomes
+            possible.</p>
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <method name="RemoveClientInterest"
+      tp:name-for-bindings="Remove_Client_Interest">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Release an interest registered using
+          <tp:member-ref>AddClientInterest</tp:member-ref>. See that
+          method's documentation for details.</p>
+
+        <p>Clients MAY ignore errors raised by this method.</p>
+      </tp:docstring>
+
+      <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
+        direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Interfaces in which to unregister an interest.</p>
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Raised if the client calling this method has no references to
+            release.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This models a connection to a single user account on a communication
         service. Its basic capability is to provide the facility to request and
