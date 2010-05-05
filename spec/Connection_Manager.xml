@@ -370,6 +370,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>To be compatible with older connection managers, if retrieving
           this property fails, clients SHOULD assume that its value is
           an empty list.</p>
+
+        <p>Connection managers with a non-empty list of Interfaces MUST
+          represent them in the <code>.manager</code> file, if they have one,
+          as an <code>Interfaces</code> key in the
+          group headed <code>[ConnectionManager]</code>, whose value is a list
+          of strings each followed by a semicolon.</p>
       </tp:docstring>
       <tp:added version="0.17.8"/>
     </property>
@@ -436,6 +442,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       whose list of protocols can change at any time (for instance, via
       a plugin architecture) should not install a <code>.manager</code>
       file.</p>
+
+    <p>The <code>.manager</code> file SHOULD have a group headed
+      <code>[ConnectionManager]</code>, containing a key
+      <code>Interfaces</code> representing
+      <tp:member-ref>Interfaces</tp:member-ref> as a sequence of strings
+      each followed by a semicolon (the "localestrings" type from the Desktop
+      Entry Specification).</p>
 
     <p>For each protocol name <em>proto</em> that would be returned by
       ListProtocols, the .manager file contains a group
