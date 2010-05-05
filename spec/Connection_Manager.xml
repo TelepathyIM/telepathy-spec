@@ -450,6 +450,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       each followed by a semicolon (the "localestrings" type from the Desktop
       Entry Specification).</p>
 
+    <p>The <code>[ConnectionManager]</code> group SHOULD NOT contain keys
+      <code>ObjectPath</code> or <code>BusName</code>. If it does, they MUST
+      be ignored.</p>
+
+    <tp:rationale>
+      <p>The object path and bus name are derivable from the connection
+        manager's name, which is part of the filename, so these keys are
+        redundant. They were required in very old versions of Telepathy.</p>
+    </tp:rationale>
+
     <p>For each protocol name <em>proto</em> that would be returned by
       ListProtocols, the .manager file contains a group
       headed <code>[Protocol <em>proto</em>]</code>. For each parameter
