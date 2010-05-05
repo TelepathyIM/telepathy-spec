@@ -380,13 +380,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.8"/>
     </property>
 
-    <!-- FIXME: One thing we could perhaps use Interfaces for would be a
-    ConnectionManager.Interface.Capabilities that can give hints regarding
-    the capabilities (in the sense of
-    Connection.Interface.Requests.AvailableChannelClasses and/or
-    Connection.GetInterfaces()) that a Connection from this CM is likely
-    to have -->
-
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>A D-Bus service which allows connections to be created. The manager
       processes are intended to be started by D-Bus service activation.</p>
