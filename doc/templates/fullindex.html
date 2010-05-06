@@ -8,7 +8,7 @@
  </head>
 
 #set $star = []
-#for $item in $spec.everything.values() + $spec.errors.values() + $spec.generic_types
+#for $item in $spec.everything.values() + $spec.errors.values() + $spec.types.values()
  #echo $star.append(($item.short_name, $item))
  #slurp
 #end for
