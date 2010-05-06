@@ -37,7 +37,7 @@ class UntypedItem(Exception): pass
 class UnsupportedArray(Exception): pass
 class BadNameForBindings(Exception): pass
 class BrokenHTML(Exception): pass
-class TooManyChildren(Exception): pass
+class WrongNumberOfChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
 
@@ -63,7 +63,7 @@ def getOnlyChildByName(dom, namespace, name):
         return None
 
     if len(kids) > 1:
-        raise TooManyChildren('%s node should have at most one child of type '
+        raise WrongNumberOfChildren('%s node should have at most one child of type '
                 '{%s}%s' % (dom.tagName, namespace, name))
 
     return kids[0]
@@ -663,7 +663,7 @@ class Mapping(StructLike):
         super(Mapping, self).__init__(parent, namespace, dom)
 
         if len(self.members) != 2:
-            raise TooManyChildren('%s node should have exactly two tp:members'
+            raise WrongNumberOfChildren('%s node should have exactly two tp:members'
                     % dom.tagName)
 
         # rewrite the D-Bus type
@@ -675,6 +675,10 @@ class Struct(StructLike):
 
     def __init__(self, parent, namespace, dom):
         super(Struct, self).__init__(parent, namespace, dom)
+
+        if len(self.members) == 0:
+            raise WrongNumberOfChildren('%s node should have a tp:member'
+                    % dom.tagName)
 
         # rewrite the D-Bus type
         self.dbus_type = '(%s)' % ''.join(map(lambda m: m.dbus_type, self.members))
