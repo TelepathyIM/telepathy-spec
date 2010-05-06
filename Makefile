@@ -14,7 +14,6 @@ XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
 INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
-ASYNC_INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/async/%.xml)
 CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
 
 $(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
@@ -27,8 +26,7 @@ $(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
 TEST_XMLS = $(wildcard test/input/*.xml)
 TEST_INTERFACE_XMLS = test/input/_Test.xml
 TEST_INTROSPECT = test/output/_Test.introspect.xml
-TEST_GENERATED_FILES = \
-	$(TEST_INTROSPECT) $(TEST_ASYNC_INTROSPECT)
+TEST_GENERATED_FILES = $(TEST_INTROSPECT)
 
 RST = \
     doc/cmcaps.txt \
@@ -45,7 +43,7 @@ GENERATED_FILES = \
 	doc/spec.html \
 	doc/spec/index.html \
 	doc/telepathy-spec.devhelp2 \
-	$(INTROSPECT) $(ASYNC_INTROSPECT) \
+	$(INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: doc/templates/oldspec.html
@@ -66,13 +64,6 @@ $(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
 $(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
 	@install -d test/output
 	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
-
-$(ASYNC_INTROSPECT): introspect/async/%.xml: introspect/%.xml tools/make_all_async.py
-	@install -d introspect/async
-	python tools/make_all_async.py $< $@
-$(TEST_ASYNC_INTROSPECT): $(TEST_INTROSPECT) tools/make_all_async.py
-	@install -d test/output
-	python tools/make_all_async.py $< $@
 
 all: $(GENERATED_FILES)
 	@echo "Your spec HTML starts at:"

@@ -37,8 +37,10 @@ class UntypedItem(Exception): pass
 class UnsupportedArray(Exception): pass
 class BadNameForBindings(Exception): pass
 class BrokenHTML(Exception): pass
-class TooManyChildren(Exception): pass
+class WrongNumberOfChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
+class TypeMismatch(Exception): pass
+class MissingVersion(Exception): pass
 
 def getText(dom):
     try:
@@ -62,7 +64,7 @@ def getOnlyChildByName(dom, namespace, name):
         return None
 
     if len(kids) > 1:
-        raise TooManyChildren('%s node should have at most one child of type '
+        raise WrongNumberOfChildren('%s node should have at most one child of type '
                 '{%s}%s' % (dom.tagName, namespace, name))
 
     return kids[0]
@@ -131,6 +133,9 @@ class Base(object):
             raise UnnamedItem("Node %s of %s has no name" % (
                 self.__class__.__name__, self.parent))
 
+    def check_consistency(self):
+        pass
+
     def get_type_name(self):
         return self.__class__.__name__
 
@@ -164,8 +169,8 @@ class Base(object):
                             nnode.getAttribute('version')).firstChild
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
-                print >> sys.stderr, \
-                    'WARNING: %s was %s, but gives no version' % (self, htmlclass)
+                raise MissingVersion(
+                        '%s was %s, but gives no version' % (self, htmlclass))
 
             self._convert_to_html(node)
 
@@ -317,7 +322,7 @@ class Method(DBusConstruct):
                arg.direction == Arg.DIRECTION_OUT:
                 continue
 
-            print >> sys.stderr, "WARNING: '%s' of method '%s' does not specify a suitable direction" % (arg, self)
+            raise UnknownDirection("'%s' of method '%s' does not specify a suitable direction" % (arg, self))
 
         self.possible_errors = build_list(self, PossibleError, None,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'error'))
@@ -330,6 +335,13 @@ class Method(DBusConstruct):
             return ', '.join(map(lambda a: a.spec_name(), self.out_args))
         else:
             return 'nothing'
+
+    def check_consistency(self):
+        for x in self.in_args:
+            x.check_consistency()
+
+        for x in self.out_args:
+            x.check_consistency()
 
 class Typed(Base):
     """The base class for all typed nodes (i.e. Arg and Property).
@@ -346,6 +358,7 @@ class Typed(Base):
         # check we have a dbus type
         if self.dbus_type == '':
             raise UntypedItem("Node referred to by '%s' has no type" % dom.toxml())
+
     def get_type(self):
         return self.get_spec().lookup_type(self.type)
 
@@ -358,6 +371,26 @@ class Typed(Base):
         t = self.get_type()
         if t is None: return ''
         else: return t.get_title()
+
+    def check_consistency(self):
+        t = self.get_type()
+        if t is None:
+            if self.dbus_type not in (
+                    # Basic types
+                    'y', 'b', 'n', 'q', 'i', 'u', 'x', 't', 'd', 's', 'v', 'o',
+                    'g',
+                    # QtDBus generic support
+                    'as', 'ay', 'av', 'a{sv}',
+                    # telepathy-qt4 generic support
+                    'ab', 'an', 'aq', 'ai', 'au', 'ax', 'at', 'ad', 'ao', 'ag',
+                    ):
+                raise TypeMismatch('%r type %s needs to be a named tp:type '
+                        'for QtDBus interoperability'
+                        % (self, self.dbus_type))
+        else:
+            if self.dbus_type != t.dbus_type:
+                raise TypeMismatch('%r type %s isn\'t tp:type %s\'s type %s'
+                        % (self, self.dbus_type, t, t.dbus_type))
 
     def spec_name(self):
         return '%s: %s' % (self.dbus_type, self.short_name)
@@ -424,7 +457,7 @@ class Signal(DBusConstruct):
             if arg.direction == Arg.DIRECTION_UNSPECIFIED:
                 continue
 
-            print >> sys.stderr, "WARNING: '%s' of signal '%s' does not specify a suitable direction" % (arg, self)
+            raise UnknownDirection("'%s' of signal '%s' does not specify a suitable direction" % (arg, self))
 
     def get_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.args))
@@ -574,6 +607,7 @@ class DBusType(Base):
         self.dbus_type = dom.getAttribute('type')
         self.array_name = dom.getAttribute('array-name')
         self.array_depth = dom.getAttribute('array-depth')
+        self.name = self.short_name
 
     def get_root_namespace(self):
         return self.namespace
@@ -641,6 +675,10 @@ class Mapping(StructLike):
     def __init__(self, parent, namespace, dom):
         super(Mapping, self).__init__(parent, namespace, dom)
 
+        if len(self.members) != 2:
+            raise WrongNumberOfChildren('%s node should have exactly two tp:members'
+                    % dom.tagName)
+
         # rewrite the D-Bus type
         self.dbus_type = 'a{%s}' % ''.join(map(lambda m: m.dbus_type, self.members))
 
@@ -650,6 +688,10 @@ class Struct(StructLike):
 
     def __init__(self, parent, namespace, dom):
         super(Struct, self).__init__(parent, namespace, dom)
+
+        if len(self.members) == 0:
+            raise WrongNumberOfChildren('%s node should have a tp:member'
+                    % dom.tagName)
 
         # rewrite the D-Bus type
         self.dbus_type = '(%s)' % ''.join(map(lambda m: m.dbus_type, self.members))
@@ -785,6 +827,10 @@ class Section(Base, SectionBase):
     def get_root_namespace(self):
         return None
 
+class ErrorsSection(Section):
+    def validate(self):
+        pass
+
 class Spec(SectionBase):
     def __init__(self, dom, spec_namespace):
         # build a dictionary of errors in this spec
@@ -793,8 +839,14 @@ class Spec(SectionBase):
             self.errors = build_dict(self, Error,
                         errorsnode.getAttribute('namespace'),
                         errorsnode.getElementsByTagNameNS(XMLNS_TP, 'error'))
+            self.errors_section = ErrorsSection(self, None, errorsnode,
+                    spec_namespace)
         except IndexError:
             self.errors = {}
+            self.errors_section = None
+
+        self.sorted_errors = sorted(self.errors.values(),
+                key=lambda e: e.name)
 
         # build a list of generic types
         self.generic_types = reduce (lambda a, b: a + b,
@@ -818,7 +870,8 @@ class Spec(SectionBase):
         self.everything = {}
         self.types = {}
 
-        for type in self.generic_types: self.types[type.short_name] = type
+        for type in self.generic_types:
+            self.types[type.name] = type
 
         for interface in self.interfaces:
                 self.everything[interface.name] = interface
@@ -837,7 +890,7 @@ class Spec(SectionBase):
                     self.everything[token.name] = token
 
                 for type in interface.types:
-                    self.types[type.short_name] = type
+                    self.types[type.name] = type
 
         # get some extra bits for the HTML
         node = dom.getElementsByTagNameNS(XMLNS_TP, 'spec')[0]
@@ -857,7 +910,11 @@ class Spec(SectionBase):
         except IndexError:
             self.license = []
 
-        # FIXME: we need to check all args for type correctness
+        self.check_consistency()
+
+    def check_consistency(self):
+        for x in self.everything.values():
+            x.check_consistency()
 
     def get_spec(self):
         return self
