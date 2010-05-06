@@ -594,6 +594,7 @@ class DBusType(Base):
         self.dbus_type = dom.getAttribute('type')
         self.array_name = dom.getAttribute('array-name')
         self.array_depth = dom.getAttribute('array-depth')
+        self.name = self.short_name
 
     def get_root_namespace(self):
         return self.namespace
@@ -842,7 +843,8 @@ class Spec(SectionBase):
         self.everything = {}
         self.types = {}
 
-        for type in self.generic_types: self.types[type.short_name] = type
+        for type in self.generic_types:
+            self.types[type.name] = type
 
         for interface in self.interfaces:
                 self.everything[interface.name] = interface
@@ -861,7 +863,7 @@ class Spec(SectionBase):
                     self.everything[token.name] = token
 
                 for type in interface.types:
-                    self.types[type.short_name] = type
+                    self.types[type.name] = type
 
         # get some extra bits for the HTML
         node = dom.getElementsByTagNameNS(XMLNS_TP, 'spec')[0]
