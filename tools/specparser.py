@@ -39,6 +39,7 @@ class BadNameForBindings(Exception): pass
 class BrokenHTML(Exception): pass
 class TooManyChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
+class TypeMismatch(Exception): pass
 
 def getText(dom):
     try:
@@ -130,6 +131,9 @@ class Base(object):
         if self.short_name == '':
             raise UnnamedItem("Node %s of %s has no name" % (
                 self.__class__.__name__, self.parent))
+
+    def check_consistency(self):
+        pass
 
     def get_type_name(self):
         return self.__class__.__name__
@@ -331,6 +335,13 @@ class Method(DBusConstruct):
         else:
             return 'nothing'
 
+    def check_consistency(self):
+        for x in self.in_args:
+            x.check_consistency()
+
+        for x in self.out_args:
+            x.check_consistency()
+
 class Typed(Base):
     """The base class for all typed nodes (i.e. Arg and Property).
 
@@ -346,6 +357,7 @@ class Typed(Base):
         # check we have a dbus type
         if self.dbus_type == '':
             raise UntypedItem("Node referred to by '%s' has no type" % dom.toxml())
+
     def get_type(self):
         return self.get_spec().lookup_type(self.type)
 
@@ -358,6 +370,14 @@ class Typed(Base):
         t = self.get_type()
         if t is None: return ''
         else: return t.get_title()
+
+    def check_consistency(self):
+        t = self.get_type()
+        if t is None:
+            return
+        if self.dbus_type != t.dbus_type:
+            raise TypeMismatch('%r type %s isn\'t tp:type %s\'s type %s'
+                    % (self, self.dbus_type, t, t.dbus_type))
 
     def spec_name(self):
         return '%s: %s' % (self.dbus_type, self.short_name)
@@ -864,7 +884,11 @@ class Spec(SectionBase):
         except IndexError:
             self.license = ''
 
-        # FIXME: we need to check all args for type correctness
+        self.check_consistency()
+
+    def check_consistency(self):
+        for x in self.everything.values():
+            x.check_consistency()
 
     def get_spec(self):
         return self
