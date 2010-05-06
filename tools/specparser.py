@@ -321,7 +321,7 @@ class Method(DBusConstruct):
                arg.direction == Arg.DIRECTION_OUT:
                 continue
 
-            print >> sys.stderr, "WARNING: '%s' of method '%s' does not specify a suitable direction" % (arg, self)
+            raise UnknownDirection("'%s' of method '%s' does not specify a suitable direction" % (arg, self))
 
         self.possible_errors = build_list(self, PossibleError, None,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'error'))
@@ -444,7 +444,7 @@ class Signal(DBusConstruct):
             if arg.direction == Arg.DIRECTION_UNSPECIFIED:
                 continue
 
-            print >> sys.stderr, "WARNING: '%s' of signal '%s' does not specify a suitable direction" % (arg, self)
+            raise UnknownDirection("'%s' of signal '%s' does not specify a suitable direction" % (arg, self))
 
     def get_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.args))
