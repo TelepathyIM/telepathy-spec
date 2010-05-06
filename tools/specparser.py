@@ -40,6 +40,7 @@ class BrokenHTML(Exception): pass
 class WrongNumberOfChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
+class MissingVersion(Exception): pass
 
 def getText(dom):
     try:
@@ -168,8 +169,8 @@ class Base(object):
                             nnode.getAttribute('version')).firstChild
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
-                print >> sys.stderr, \
-                    'WARNING: %s was %s, but gives no version' % (self, htmlclass)
+                raise MissingVersion(
+                        '%s was %s, but gives no version' % (self, htmlclass))
 
             self._convert_to_html(node)
 
