@@ -641,6 +641,10 @@ class Mapping(StructLike):
     def __init__(self, parent, namespace, dom):
         super(Mapping, self).__init__(parent, namespace, dom)
 
+        if len(self.members) != 2:
+            raise TooManyChildren('%s node should have exactly two tp:members'
+                    % dom.tagName)
+
         # rewrite the D-Bus type
         self.dbus_type = 'a{%s}' % ''.join(map(lambda m: m.dbus_type, self.members))
 
