@@ -113,7 +113,7 @@
 
     <property name="RequestableChannelClasses"
       tp:name-for-bindings="Requestable_Channel_Classes"
-      access="read" type="a(a{sv}as)" tp:type="Channel_Class[]">
+      access="read" type="a(a{sv}as)" tp:type="Requestable_Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of channel classes which might be requestable from a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy"
