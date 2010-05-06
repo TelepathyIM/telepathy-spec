@@ -375,10 +375,22 @@ class Typed(Base):
     def check_consistency(self):
         t = self.get_type()
         if t is None:
-            return
-        if self.dbus_type != t.dbus_type:
-            raise TypeMismatch('%r type %s isn\'t tp:type %s\'s type %s'
-                    % (self, self.dbus_type, t, t.dbus_type))
+            if self.dbus_type not in (
+                    # Basic types
+                    'y', 'b', 'n', 'q', 'i', 'u', 'x', 't', 'd', 's', 'v', 'o',
+                    'g',
+                    # QtDBus generic support
+                    'as', 'ay', 'av', 'a{sv}',
+                    # telepathy-qt4 generic support
+                    'ab', 'an', 'aq', 'ai', 'au', 'ax', 'at', 'ad', 'ao', 'ag',
+                    ):
+                raise TypeMismatch('%r type %s needs to be a named tp:type '
+                        'for QtDBus interoperability'
+                        % (self, self.dbus_type))
+        else:
+            if self.dbus_type != t.dbus_type:
+                raise TypeMismatch('%r type %s isn\'t tp:type %s\'s type %s'
+                        % (self, self.dbus_type, t, t.dbus_type))
 
     def spec_name(self):
         return '%s: %s' % (self.dbus_type, self.short_name)
