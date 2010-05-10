@@ -729,16 +729,19 @@ USA.</p>
             <dt>needs-retrieval (b)</dt>
             <dd>If false or omitted, the connection
               manager already holds this part in memory. If present and true,
-              this part will be retrieved on demand (like MIME's
-              message/external-body), so clients should expect retrieval to
-              take time; if this specification is later extended to provide a
-              streaming version of GetPendingMessageContent, clients should
-              use it for parts with this flag.</dd>
+              this part must be retrieved on demand (like MIME's
+              <tt>message/external-body</tt>) by a mechanism to be defined later.
+
+              <tp:rationale>The mechanism was meant to be
+                <tp:member-ref>GetPendingMessageContent</tp:member-ref>, but
+                that didn't work out. It's worth leaving the header in in
+                preparation for a future mechanism.
+              </tp:rationale>
+            </dd>
 
             <dt>truncated (b)</dt>
-            <dd>The content available via the 'content' key or
-              GetPendingMessageContent has been truncated by the server
-              or connection manager (equivalent to
+            <dd>The content available via the 'content' key has been truncated
+              by the server or connection manager (equivalent to
               Channel_Text_Message_Flag_Truncated in the Text interface).
             </dd>
 
@@ -852,20 +855,6 @@ USA.</p>
                 the sender. This is sometimes the only way to match it
                 against the sent message, so we include it here.
               </tp:rationale>
-
-              <p>Unlike in the Messages interface, content not visible
-                in the value for this key cannot be retrieved by another
-                means, so the connection manager SHOULD be more
-                aggressive about including (possibly truncated) message
-                content in the 'content' key.</p>
-
-              <tp:rationale>
-                The Messages interface needs to allow all content to be
-                retrieved, but in this interface, the content we provide is
-                merely a hint; so some is better than none, and it doesn't
-                seem worth providing an API as complex as Messages'
-                GetPendingMessageContent for the echoed message.
-              </tp:rationale>
             </dd>
 
           </dl>
@@ -882,6 +871,11 @@ USA.</p>
 
     <tp:mapping name="Message_Part_Content_Map">
       <tp:added version="0.17.17"/>
+      <tp:deprecated version="0.19.UNRELEASED">
+        This structure is only used by
+        <tp:member-ref>GetPendingMessageContent</tp:member-ref>, which is
+        unimplemented and deprecated.
+      </tp:deprecated>
       <tp:docstring>
         A mapping from message part indexes to their content, as returned by
         <tp:member-ref>GetPendingMessageContent</tp:member-ref>.
@@ -1154,6 +1148,14 @@ USA.</p>
 
     <method name="GetPendingMessageContent"
       tp:name-for-bindings="Get_Pending_Message_Content">
+      <tp:deprecated version='0.19.UNRELEASED'
+                     xmlns="http://www.w3.org/1999/xhtml">
+        This method has never been implemented, and in any case would have been
+        impossible to use correctly when multiple clients (such as a logger and
+        the handler) are interested in a text channel. See <a
+          href='https://bugs.freedesktop.org/show_bug.cgi?id=26417'>freedesktop.org
+        bug #26417</a> for more details.
+      </tp:deprecated>
       <tp:docstring>
         Retrieve the content of one or more parts of a pending message.
         Note that this function may take a considerable amount of time
