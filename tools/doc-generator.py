@@ -66,7 +66,7 @@ spec = specparser.parse(spec_file, namespace)
 # write out HTML files for each of the interfaces
 
 # Not using render_template here to avoid recompiling it n times.
-namespace = {}
+namespace = { 'spec': spec }
 template_def = load_template('interface.html')
 t = Template(template_def, namespaces = [namespace])
 for interface in spec.interfaces:

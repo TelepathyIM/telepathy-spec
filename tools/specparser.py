@@ -494,6 +494,14 @@ class Interface(Base):
         else:
             self.short_name = self.name
 
+        # Bit of a hack, but... I want useful information about the current
+        # page to fit in a tab in Chromium. I'm prepared to be disagreed with.
+        self.really_short_name = (
+            self.short_name.replace('Interface', 'I')
+                           .replace('Channel.', 'Chan.')
+                           .replace('Connection.', 'Conn.')
+            )
+
         # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
                                   dom.getElementsByTagName('method'))
