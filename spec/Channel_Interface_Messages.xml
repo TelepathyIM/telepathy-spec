@@ -598,7 +598,8 @@ USA.</p>
           message content, along with the corresponding value types.</p>
 
           <dl>
-            <dt>identifier (s)</dt>
+            <dt>identifier (s —
+              <tp:type>Protocol_Content_Identifier</tp:type>)</dt>
             <dd>An opaque identifier for this part.
               Parts of a message MAY reference other parts by treating
               this identifier as if it were a MIME Content-ID and using
@@ -885,6 +886,23 @@ USA.</p>
           reports to messages, such as matching on message content or
           timestamp (if available), or assuming that the delivery report
           refers to the most recent message with that ID.</p>
+      </tp:docstring>
+    </tp:simple-type>
+
+    <tp:simple-type name="Protocol_Content_Identifier" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A protocol-specific identifier for a blob of content, as used for
+          the <tt>content-id</tt> key in a <tp:type>Message_Part</tp:type>. The
+          same identifier MAY be re-used if the same content, byte-for-byte,
+          appears as a part of several messages.</p>
+
+        <tp:rationale>
+          <p>On XMPP, these identifiers might be Content-IDs for custom
+            smileys implemented using <a
+              href="http://xmpp.org/extensions/xep-0231.html">XEP-0232 Bits of
+            Binary</a>; the same smiley might well appear in multiple
+            messages.</p>
+        </tp:rationale>
       </tp:docstring>
     </tp:simple-type>
 
