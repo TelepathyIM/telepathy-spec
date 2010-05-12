@@ -153,6 +153,10 @@
             equivalent to the result of GetContactAttributes.</p>
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+      </tp:possible-errors>
     </method>
 
     <tp:enum name="Presence_State" type="u">
