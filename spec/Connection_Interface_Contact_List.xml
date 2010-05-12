@@ -599,6 +599,18 @@
             be non-empty.</p>
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            It was not possible to perform the requested action, because
+            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <property name="RequestUsesMessage" type="b" access="read"
