@@ -42,16 +42,11 @@ GENERATED_FILES = \
 	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/spec/index.html \
-	doc/telepathy-spec.devhelp2 \
 	$(INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: doc/templates/oldspec.html
 	cp $< $@
-doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
-	@install -d tmp/doc
-	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > tmp/$@
-	mv tmp/$@ $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	@install -d doc
