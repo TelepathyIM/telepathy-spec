@@ -85,6 +85,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </p>
    </tp:docstring>
    <xi:include href="Channel_Type_Contact_List.xml"/>
+   <xi:include href="Channel_Type_Server_Authentication.xml"/>
    <xi:include href="Channel_Type_Streamed_Media.xml"/>
    <xi:include href="Channel_Type_Room_List.xml"/>
    <xi:include href="Channel_Type_Text.xml"/>
@@ -112,6 +113,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Interface_Group.xml"/>
    <xi:include href="Channel_Interface_Hold.xml"/>
    <xi:include href="Channel_Interface_HTML.xml"/>
+   <xi:include href="Channel_Interface_Sasl_Authentication.xml"/>
    <xi:include href="Channel_Interface_Service_Point.xml"/>
    <xi:include href="Channel_Interface_Password.xml"/>
    <xi:include href="Channel_Interface_Media_Signalling.xml"/>
