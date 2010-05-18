@@ -159,7 +159,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:struct>
 
     <tp:struct name="Mail_Address" array-name="Mail_Address_List">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A pair (name, address) representing an e-mail address,
         such as ("Nicolas Dufresne", "nicolas.dufresne@collabora.co.uk"). At
         least one of name and address MUST be provided. A missing element will
