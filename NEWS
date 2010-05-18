@@ -5,7 +5,56 @@ checkouts.
 telepathy-spec 0.19.6 (UNRELEASED)
 ==================================
 
-...
+Changes to stable API:
+
+* The Account property must be set when calling AddRequest. This was already
+  true whenever Mission Control called this method. (cassidy)
+
+New stable API:
+
+* fd.o #28092: SupportedLocationFeatures property, with a Can_Set flag (wjt)
+
+* Contact info is now available as a ".../info" contact attribute (andrunko)
+
+* support for multiple/precomposed dial strings in the DTMF interface (ptlo)
+
+New experimental API:
+
+* ServicePoint interfaces (draft 1) for emergency contact points (dilinger/ptlo)
+
+* Mute interface (draft 1) for muting calls (dilinger/ptlo)
+
+* Forwarding interface (draft 1) for call-forwarding (ptlo)
+
+* Cellular interface (draft 1) for miscellaneous cellular-specific
+  functionality (ptlo)
+
+* Anonymity interfaces (draft 1) for anonymity enhancements such as disabling
+  caller-ID (ptlo)
+
+Fixes:
+
+* Add some tp:type annotations to Call where needed for telepathy-qt4
+  (andrunko)
+
+* Annotate the "...Capabilities/caps" contact attribute's tp:type correctly
+  (smcv)
+
+Tools changes:
+
+* specparser: numerous extra sanity checks (smcv)
+  - fd.o #24085: check consistency of type and tp:type
+  - require types to be interoperable with telepathy-qt4 (they must either
+    be on the list of types it supports specifically, or have a tp:type)
+  - disallow empty structs, which are not allowed in current D-Bus
+  - disallow unversioned added/deprecated/changed annotations
+  - disallow <arg> with an inappropriate direction
+  - disallow <tp:mapping> with fewer or more than two members
+
+* specparser: name <tp:type>s with their short name, since conceptually they
+  form a global flat namespace, and list them all in the index (smcv)
+
+* Remove various tools that are no longer used (wjt)
 
 telepathy-spec 0.19.5 (2010-04-15)
 ==================================
