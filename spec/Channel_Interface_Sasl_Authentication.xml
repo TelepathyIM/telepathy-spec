@@ -105,6 +105,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
+    <signal name="StateChanged" tp:name-for-bindings="State_Changed">
+      <tp:docstring>
+        Notifies of CurrentState changing
+      </tp:docstring>
+      <arg type="u" tp:type="Sasl_Status" name="Status">
+        <tp:docstring>
+          The status of the state.
+        </tp:docstring>
+      </arg>
+      <arg type="s" tp:type="DBus_Error_Name" name="Reason">
+        <tp:docstring>
+          The reason for the state.
+        </tp:docstring>
+      </arg>
+      <arg type="s" name="DebugMessage">
+        <tp:docstring>
+          A non-localized debug message.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <signal name="NewChallenge" tp:name-for-bindings="New_Challenge">
+      <tp:docstring>
+        Recieved a new challenge from the server.
+      </tp:docstring>
+      <arg name="ChallengeData" type="ay">
+        <tp:docstring>
+          The challenge data from the server.
+        </tp:docstring>
+      </arg>
+    </signal>
+
     <tp:enum name="Abort_Reason" type="u">
       <tp:enumvalue suffix="Invalid_Challenge" value="0">
         <tp:docstring>
