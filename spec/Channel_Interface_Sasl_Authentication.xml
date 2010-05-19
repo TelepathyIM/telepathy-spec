@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The chosen mechanism.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="InitialData" type="s">
+      <arg direction="in" name="InitialData" type="ay">
         <tp:docstring>
           Initial data to send with the mechanism.
         </tp:docstring>
