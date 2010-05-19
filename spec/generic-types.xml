@@ -165,4 +165,15 @@
     </tp:member>
   </tp:struct>
 
+  <tp:simple-type name="X_Server_Time" type="x">
+    <tp:docstring>
+      The time at which an user action occurred, or 0 if
+      for some reason the action doesn't involve user action.
+      Note that the time is dependant on the local
+      environment and so is not necessarily a wall-clock time.
+      For example in an X environment it's expected to be the X timestamp
+      of events.
+    </tp:docstring>
+  </tp:simple-type>
+
 </tp:generic-types>
