@@ -165,7 +165,7 @@
     </tp:member>
   </tp:struct>
 
-  <tp:simple-type name="X_Server_Time" type="x">
+  <tp:simple-type name="User_Action_Timestamp" type="x">
     <tp:docstring>
       The time at which an user action occurred, or 0 if
       for some reason the action doesn't involve user action.
