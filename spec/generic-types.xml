@@ -167,12 +167,15 @@
 
   <tp:simple-type name="User_Action_Timestamp" type="x">
     <tp:docstring>
-      The time at which an user action occurred, or 0 if
+      <p>The time at which an user action occurred, or 0 if
       for some reason the action doesn't involve user action.
       Note that the time is dependant on the local
       environment and so is not necessarily a wall-clock time.
       For example in an X environment it's expected to be the X timestamp
-      of events.
+      of events.</p>
+
+      <p>This corresponds to the _NET_WM_USER_TIME property in
+      <a href="http://standards.freedesktop.org/wm-spec/wm-spec-latest.html">EWMH</a>.</p>
     </tp:docstring>
   </tp:simple-type>
 
