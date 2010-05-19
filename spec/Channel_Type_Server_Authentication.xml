@@ -26,29 +26,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="AuthenticationInformation"
               tp:name-for-bindings="Authentication_Information"
               type="a{sv}" access="read">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>
+      <tp:docstring>
           Dictionary of information given by the CM which can be used by the
           handler for authentication.
-        </p>
-
-        <p>
-          Well-known keys:
-          <dl>
-            <dt>username</dt>
-            <dd>
-            string, Username to authenticate with if needed
-            </dd>
-            <dt>realm</dt>
-            <dd>
-            string, Realm to use for authentication if needed
-            </dd>
-            <dt>session-id</dt>
-            <dd>
-            XMPP session id as needed for the legacy jabber digest method.
-            </dd>
-          </dl>
-        </p>
       </tp:docstring>
     </property>
 
@@ -75,6 +55,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
+
+    <tp:mapping name="AuthDetails" array-name="AuthDetails_List">
+      <tp:docstring>
+        An extensible map representing details provided by the server for
+        authentication.
+      </tp:docstring>
+
+      <tp:member type="s" name="Key">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>
+            Well-known keys:
+            <dl>
+              <dt>username</dt>
+              <dd>
+                string, Username to authenticate with if needed
+              </dd>
+              <dt>realm</dt>
+              <dd>
+                string, Realm to use for authentication if needed
+              </dd>
+              <dt>session-id</dt>
+              <dd>
+                XMPP session id as needed for the legacy jabber digest method.
+              </dd>
+            </dl>
+          </p>
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member name="Value" type="v">
+      </tp:member>
+    </tp:mapping>
 
   </interface>
 </node>
