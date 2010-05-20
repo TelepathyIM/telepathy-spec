@@ -106,6 +106,14 @@
             matches closely related Text channels by their Bundle property.
             (This is use-case dis5)</p>
         </tp:rationale>
+
+        <p>For service-activatable handlers, this property should be specified
+          in the handler's <tt>.client</tt> file as follows:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.Handler]
+BypassApproval=true
+</pre>
       </tp:docstring>
     </property>
 

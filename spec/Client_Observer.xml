@@ -194,9 +194,17 @@ org.freedesktop.Telepathy.Channel.Requested b=true
         its <tp:dbus-ref
         namespace="org.freedesktop.Telepathy.Client.Observer">ObserverChannelFilter</tp:dbus-ref></p>
 
-        <p>When activatable client having this property disappears from the bus
-        and there are channels matching its ObserverChannelFilter,
-        ObserveChannels will be called immediately to reactivate it again.</p>
+        <p>When an activatable client having this property disappears from the
+          bus and there are channels matching its ObserverChannelFilter,
+          ObserveChannels will be called immediately to reactivate it
+          again. Such clients should specify this property in their
+          <tt>.client</tt> file as follows:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.Observer]
+Recover=true
+</pre>
+
         <tp:rationale>
           <p>This means that if an activatable Observer crashes, it will
             be restarted as soon as possible; while there is an unavoidable
