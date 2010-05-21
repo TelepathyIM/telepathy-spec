@@ -113,44 +113,43 @@
     <property name="Mandatory" type="b" access="readwrite"
       tp:name-for-bindings="Mandatory">
       <tp:docstring>
-        This specifies whether or not the anonymity settings MUST be respected
-        by the CM and any intermediaries between the local and remote contacts.
-        If this is set to true but anonymity settings cannot be followed, then
-        the session MUST be denied with a
-        <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> error.
-        Any client that makes a call to
-        <tp:member-ref>SetAnonymityModes</tp:member-ref> SHOULD also set this
-        property first (rather than accepting the CM's default value).
+        <p>This specifies whether or not the anonymity settings MUST be respected
+          by the CM and any intermediaries between the local and remote contacts.
+          If this is set to true but anonymity settings cannot be followed, then
+          the session MUST be denied with a
+          <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> error.
+          Any client that sets <tp:member-ref>AnonymityModes</tp:member-ref>
+          SHOULD also set this property first (rather than accepting the CM's
+          default value).</p>
+
+          <p>This property can also be set using a connection parameter in <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.ConnectionManager">RequestConnection</tp:dbus-ref>,
+            see <tp:type>Conn_Mgr_Param_Flags</tp:type> for more information.</p>
       </tp:docstring>
     </property>
 
-    <method name="SetAnonymityModes" tp:name-for-bindings="Set_Anonymity_Modes">
-      <arg direction="in" name="Modes" type="u" tp:type="Anonymity_Mode_Flags">
-        <tp:docstring>
-          The desired anonymity modes.
-        </tp:docstring>
-      </arg>
+    <property name="AnonymityModes" type="u" tp:type="Anonymity_Mode_Flags"
+      access="readwrite" tp:name-for-bindings="Anonymity_Modes">
       <tp:docstring>
-        Request that the anonymity modes be changed to the given values.
-        Success is indicated by the method returning and the
-        AnonymityModeChanged signal being emitted.
+        <p>The currently enabled anonymity modes for the connection. Setting
+          has the effect of requesting new modes for the connection, and may
+          raise an error if the unsupported modes are set. Successfully changing
+          the modes will result in emmision of
+          <tp:member-ref>AnonymityModesChanged</tp:member-ref> signal.</p>
+
+        <p>This property can also be set using a connection parameter in <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.ConnectionManager">RequestConnection</tp:dbus-ref>,
+          see <tp:type>Conn_Mgr_Param_Flags</tp:type> for more information.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            An unsupported mode was supplied.  Supported modes are specified
+            An unsupported mode was supplied. Supported modes are specified
             in the SupportedAnonymityModes property, and this should be
-            checked prior to calling SetAnonymityModes.
+            checked prior to setting AnonymityModes.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
-    </method>
-
-    <property name="AnonymityModes" type="u" tp:type="Anonymity_Mode_Flags"
-      access="read" tp:name-for-bindings="Anonymity_Modes">
-      <tp:docstring>
-        The currently enabled anonymity modes for the connection.
-      </tp:docstring>
     </property>
 
     <signal name="AnonymityModesChanged"
