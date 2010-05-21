@@ -128,15 +128,18 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A list of strings indicating which D-Bus interfaces the calling
             process is interested in. Equivalent to the corresponding argument
-            to GetContactAttributes.</p>
+            to <tp:dbus-ref 
+              namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
+              >GetContactAttributes</tp:dbus-ref>.</p>
         </tp:docstring>
       </arg>
 
       <arg direction="in" name="Hold" type="b">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Whether to hold the handles on behalf of the calling process.
-            Equivalent to the corresponding argument to
-            GetContactAttributes.</p>
+            Equivalent to the corresponding argument to <tp:dbus-ref 
+              namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
+              >GetContactAttributes</tp:dbus-ref>.</p>
 
           <p><em>FIXME: if we do distributed refcounting, we should probably
               rename this to 'Reference' and implement handle-refcounting
@@ -150,7 +153,10 @@
         tp:type="Contact_Attributes_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary mapping the contact handles to contact attributes,
-            equivalent to the result of GetContactAttributes.</p>
+            equivalent to the result of <tp:dbus-ref 
+              namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
+              >GetContactAttributes</tp:dbus-ref>.</p>
+
         </tp:docstring>
       </arg>
 
