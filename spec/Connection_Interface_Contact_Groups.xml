@@ -39,42 +39,6 @@
       </tp:docstring>
     </property>
 
-    <property name="DefaultGroup" tp:name-for-bindings="Default_Group"
-      access="readwrite" type="s">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If this property is the empty string, contacts can exist on the
-          contact list without being in a group, and attempts to set
-          a different value will fail.</p>
-
-        <tp:rationale>
-          <p>XMPP has this behaviour.</p>
-        </tp:rationale>
-
-        <p>Otherwise, this indicates that contacts in certain states
-          on this connection must be a member of at least one group,
-          and so contacts who would otherwise not be in any groups are
-          automatically moved to a default group. Its value is the
-          human-readable name of that group, which may be changed to any
-          non-empty value (which will rename the group as a side-effect).
-          Setting it to the empty string will fail.</p>
-
-        <tp:rationale>
-          <p>libpurple acts something like this, even if the underlying
-            protocols do not.</p>
-        </tp:rationale>
-      </tp:docstring>
-    </property>
-
-    <signal name="DefaultGroupChanged"
-      tp:name-for-bindings="Default_Group_Changed">
-      <tp:docstring>Emitted whenever <tp:member-ref>DefaultGroup</tp:member-ref>
-        changes.</tp:docstring>
-
-      <arg name="New_Value" type="s">
-        <tp:docstring>The new value.</tp:docstring>
-      </arg>
-    </signal>
-
     <property name="GroupStorage" tp:name-for-bindings="Group_Storage"
       type="u" tp:type="Contact_Metadata_Storage_Type" access="read">
       <tp:docstring>
@@ -219,9 +183,8 @@
       </arg>
 
       <arg name="Groups" type="as" direction="in">
-        <tp:docstring>The set of groups which the contact should be in.
-          If this set is empty and there is a default group, the contact
-          will be placed in the default group instead.</tp:docstring>
+        <tp:docstring>The set of groups which the contact should be
+          in.</tp:docstring>
       </arg>
 
       <tp:possible-errors>
@@ -257,10 +220,6 @@
 
         <p>If <tp:member-ref>DisjointGroups</tp:member-ref> is true,
           this will also remove each member from their previous group.</p>
-
-        <p>If a user who was in no other group is removed, and there is a
-          default group, the contact will be moved to the default group
-          instead.</p>
 
         <p>If the user is removed from a group of which they were the only
           member, the group MAY be removed automatically.</p>
@@ -356,8 +315,6 @@
       <arg name="Members" type="au" tp:type="Contact_Handle[]" direction="in">
         <tp:docstring>The set of members to remove from the group. It is not
           an error to remove members who are already not in the group.
-          If there is a default group, any members who would no longer
-          be in a group as a result are moved to the default group instead.
           If there are no members left in the group afterwards, the group MAY
           itself be removed.</tp:docstring>
       </arg>
@@ -380,9 +337,6 @@
         <p>Remove all members from the given group, then remove the group
           itself. If the group already does not exist, this method SHOULD
           return successfully.</p>
-
-        <p>If there is a default group, any members who would no longer
-          be in a group as a result are moved to the default group instead.</p>
 
         <p>Any <tp:member-ref>GroupsChanged</tp:member-ref> or
           <tp:member-ref>GroupsRemoved</tp:member-ref> signals that result from
