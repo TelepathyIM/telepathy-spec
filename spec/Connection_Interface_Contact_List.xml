@@ -384,85 +384,6 @@
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:contact-attribute name="alias" type="s">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If this attribute on a contact is present in the result of
-          GetContactAttributes, its value is an name assigned to the
-          contact by the local user (a "pet name" in the terminology of
-          <a href="http://www.skyhunter.com/marcs/petnames/IntroPetNames.html"
-            >Introduction to Petname Systems</a>, or a "handle" in the
-          terminology of <a href="http://xmpp.org/extensions/xep-0165.html"
-            >XEP-0165 "Best Practices to Discourage JID Mimicking"</a>).</p>
-
-        <p>Connection managers SHOULD NOT use the same storage for names
-          not assigned by the local user, since this would undermine the
-          anti-spoofing benefits of storing a user-selected alias.</p>
-
-        <tp:rationale>
-          <p>This is a generalization of XEP-0165 to protocols other than
-            XMPP.</p>
-        </tp:rationale>
-
-        <p>For contacts with no stored aliases (including, but not limited to,
-          contacts on protocols where there is no way to store an alias
-          at all), this attribute is omitted from the result of
-          GetContactAttributes or GetContactListAttributes. User interfaces
-          MUST be able to display contacts who have no alias, for instance
-          by falling back to their identifier.</p>
-
-        <tp:rationale>
-          <p>JIDs on the XMPP roster are meant to have an alias, and in
-            most clients they always do, but it is technically
-            possible to add a contact to the roster without storing an
-            alias for them.</p>
-        </tp:rationale>
-      </tp:docstring>
-    </tp:contact-attribute>
-
-    <property name="AliasStorage" tp:name-for-bindings="Alias_Storage"
-      type="u" tp:type="Contact_Metadata_Storage_Type" access="read">
-      <tp:docstring>
-        <p>Indicates the extent to which contacts' aliases can be set and are
-          stored.</p>
-      </tp:docstring>
-    </property>
-
-    <method name="SetContactAlias" tp:name-for-bindings="Set_Contact_Alias">
-      <tp:docstring>
-        <p>Sets a user-defined alias for a contact. Clients SHOULD NOT call
-          this method for names not assigned by the local user, since this
-          would undermine the anti-spoofing benefits of storing a
-          user-selected alias.</p>
-
-        <tp:rationale>
-          <p>This is a generalization of
-            <a href="http://xmpp.org/extensions/xep-0165.html"
-              >XEP-0165 "Best Practices to Discourage JID Mimicking"</a>)
-            to protocols other than XMPP.</p>
-        </tp:rationale>
-      </tp:docstring>
-
-      <arg name="Alias" type="s" direction="in">
-        <tp:docstring>
-          The new value for the contact's "alias" attribute, or the empty
-          string to remove the alias.
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          <tp:docstring>
-            It was not possible to perform the requested action, because
-            <tp:member-ref>AliasStorage</tp:member-ref> is
-            Contact_Metadata_Storage_Type_None.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <signal name="ContactChanged"
       tp:name-for-bindings="Contact_Changed"
       >
@@ -473,20 +394,13 @@
         <tp:rationale>
           When combined with <tp:member-ref>ContactRemoved</tp:member-ref>,
           this provides change notification for the Contacts property, and for
-          contacts' "alias", "subscribe" and "publish" attributes.
+          contacts' "subscribe" and "publish" attributes.
         </tp:rationale>
       </tp:docstring>
 
       <arg name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The contact's handle.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Alias" type="s">
-        <tp:docstring>
-          The new value of the contact's "alias" attribute, or the empty
-          string if they have no alias.
         </tp:docstring>
       </arg>
 
@@ -509,8 +423,7 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a contact is removed from
           <tp:member-ref>Contacts</tp:member-ref>. This signal also implies
-          that the contact now has subscribe = No, publish = No, and no
-          alias.</p>
+          that the contacts now have subscribe = No and publish = No.</p>
       </tp:docstring>
 
       <arg name="Contact" type="u" tp:type="Contact_Handle">
@@ -550,11 +463,13 @@
           subscribe to their presence, i.e. that their subscribe attribute
           becomes Yes.</p>
 
-        <p>Before calling this method on a connection where
-          <tp:member-ref>AliasStorage</tp:member-ref> allows aliases to be
+        <p>Before calling this method on a connection where <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Names.DRAFT"
+            >AliasStorage</tp:dbus-ref> allows aliases to be
           stored, user interfaces SHOULD obtain, from the user, an alias to
-          identify the contact in future, and store it using
-          <tp:member-ref>SetContactAlias</tp:member-ref>. The user MAY be
+          identify the contact in future, and store it using <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Names.DRAFT"
+            >SetLocalAlias</tp:dbus-ref>. The user MAY be
           prompted using the contact's current self-assigned nickname, or
           something derived from the contact's (presumably self-assigned)
           identifier, as a default, but these names chosen by the contact
