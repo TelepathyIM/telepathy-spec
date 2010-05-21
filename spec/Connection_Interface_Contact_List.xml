@@ -112,7 +112,10 @@
         </tp:rationale>
 
         <p>This method SHOULD NOT return before the contact list has been
-          retrieved, on protocols where this is possible.</p>
+          retrieved, on protocols where this is possible. As a result,
+          clients SHOULD use a longer-than-default timeout for this method
+          call, since retrieving the contact list can take a significant
+          time on some servers.</p>
 
         <tp:rationale>
           <p>This makes it possible for clients to wait for the contact list.
