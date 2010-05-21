@@ -464,12 +464,14 @@
           becomes Yes.</p>
 
         <p>Before calling this method on a connection where <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Names.DRAFT"
-            >AliasStorage</tp:dbus-ref> allows aliases to be
-          stored, user interfaces SHOULD obtain, from the user, an alias to
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
+            >GetAliasFlags</tp:dbus-ref> returns the <code>User_Set</code> flag,
+          user interfaces SHOULD obtain, from the user, an alias to
           identify the contact in future, and store it using <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Names.DRAFT"
-            >SetLocalAlias</tp:dbus-ref>. The user MAY be
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
+            >SetAliases</tp:dbus-ref>.
+          
+          The user MAY be
           prompted using the contact's current self-assigned nickname, or
           something derived from the contact's (presumably self-assigned)
           identifier, as a default, but these names chosen by the contact
