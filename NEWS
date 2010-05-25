@@ -2,6 +2,11 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.19.7 (UNRELEASED)
+==================================
+
+...
+
 telepathy-spec 0.19.6 (2010-05-25)
 ==================================
 
@@ -50,6 +55,9 @@ New experimental API:
 
 * Anonymity interfaces (draft 1) for anonymity enhancements such as disabling
   caller-ID (ptlo)
+
+* ContactList and ContactGroups interfaces (draft 1) to replace the ContactList
+  channel type (smcv)
 
 Fixes:
 
