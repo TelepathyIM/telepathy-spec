@@ -20,7 +20,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      An interface for SASL authentication.
+      The type for a channel representing an authentication step with the
+      server. The actual authentication functionality is implemented by
+      additional interfaces, such as <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy">Channel.Interface.SaslAuthentication.DRAFT</tp:dbus-ref>,
+      depending on the value of <tp:member-ref>AuthenticationMethod</tp:member-ref>.
     </tp:docstring>
 
     <property name="AuthenticationInformation"
@@ -36,10 +40,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               tp:name-for-bindings="Authentication_Method"
               type="u" tp:type="Authentication_Type" access="read">
       <tp:docstring>
-        This property defines the Method used for the current
-        authentication step. The method also defines which Interfaces
-        the channel implements. For exmaple if for the SASL method the
-        SaslAuthentication interface needs to be implemented.
+        This property defines the method used for the current
+        authentication step. The functionality for each method is on a separate
+        interface on the same channel; for example, channels with this property
+        set to <tp:type>Authentication_Type</tp:type> Sasl MUST implement
+        <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy">Channel.Interface.SaslAuthentication.DRAFT</tp:dbus-ref>.
       </tp:docstring>
     </property>
 
@@ -56,35 +62,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:mapping name="AuthDetails" array-name="AuthDetails_List">
-      <tp:docstring>
-        An extensible map representing details provided by the server for
-        authentication.
+    <tp:mapping name="Auth_Details" array-name="Auth_Details_List">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>An extensible map representing details provided by the server for
+          authentication. Well-known keys, along with the type expected in the
+          corresponding value:</p>
+
+        <dl>
+          <dt><tt>username</tt> (string)</dt>
+          <dd>
+            Username to authenticate with, if needed
+          </dd>
+          <dt><tt>realm</tt> (string)</dt>
+          <dd>
+            Realm to use for authentication, if needed
+          </dd>
+          <dt><tt>session-id</tt> (string)</dt>
+          <dd>
+            XMPP session id, as needed for the legacy jabber digest method.
+          </dd>
+        </dl>
       </tp:docstring>
 
       <tp:member type="s" name="Key">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>
-            Well-known keys:
-            <dl>
-              <dt>username</dt>
-              <dd>
-                string, Username to authenticate with if needed
-              </dd>
-              <dt>realm</dt>
-              <dd>
-                string, Realm to use for authentication if needed
-              </dd>
-              <dt>session-id</dt>
-              <dd>
-                XMPP session id as needed for the legacy jabber digest method.
-              </dd>
-            </dl>
-          </p>
+          A key for a detail, which SHOULD be one of the well-known keys, if possible.
         </tp:docstring>
       </tp:member>
 
       <tp:member name="Value" type="v">
+        <tp:docstring>
+          The detail's value.
+        </tp:docstring>
       </tp:member>
     </tp:mapping>
 

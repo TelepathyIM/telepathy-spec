@@ -19,18 +19,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Interface.SaslAuthentication.DRAFT" tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-	<tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Server.Authentication.DRAFT"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Server.Authentication.DRAFT"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       A channel interface for SASL authentication.
     </tp:docstring>
 
 
     <property name="AvailableMechanisms"
-             tp:name-for-bindings="Available_Mechanisms"
+              tp:name-for-bindings="Available_Mechanisms"
               type="as" access="read">
-      <tp:docstring>
-        Example: [ "PLAIN", "DIGEST-MD5", "SCRAM-SHA-1" ]
-        The SASL mechanisms as offered by the server.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        The SASL mechanisms as offered by the server, such as <code>[ "PLAIN",
+        "DIGEST-MD5", "SCRAM-SHA-1" ]</code>.
       </tp:docstring>
     </property>
 
@@ -50,8 +50,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               type="(uss)" tp:type="Sasl_State" access="read">
       <tp:docstring>
         The current state of the authentication.
-        Change notification via <tp:member-ref>StateChanged</tp:member-ref>
-        signal.
+        Change notification is via the
+        <tp:member-ref>StateChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
@@ -61,15 +61,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The chosen mechanism.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="InitialData" type="ay">
+      <arg direction="in" name="Initial_Data" type="ay">
         <tp:docstring>
           Initial data to send with the mechanism.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Start an authentication try using Mechanism. If the choosen SASL
-        mechanism is client-first then the first data must be passed in
-        InitialData, otherwise InitialData must be an empty array.
+        Start an authentication try using <var>Mechanism</var>. If the choosen
+        SASL mechanism is client-first then the first data must be passed in
+        <var>Initial_Data</var>, otherwise <var>Initial_Data</var> must be an
+        empty array.
       </tp:docstring>
     </method>
 
@@ -80,7 +81,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Our response to the CurrentChallenge if required.
+        Send our response to the the
+        <tp:member-ref>CurrentChallenge</tp:member-ref>, if required.
       </tp:docstring>
     </method>
 
@@ -88,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Handler accepts the authentication as finished. Can be called
         whenever the Handler considered the authentication process to
-        be (successfully) finished from its part.
+        be (successfully) finished from its point of view.
       </tp:docstring>
     </method>
 
@@ -122,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The reason for the state.
         </tp:docstring>
       </arg>
-      <arg type="s" name="DebugMessage">
+      <arg type="s" name="Debug_Message">
         <tp:docstring>
           A non-localized debug message.
         </tp:docstring>
@@ -133,7 +135,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Recieved a new challenge from the server.
       </tp:docstring>
-      <arg name="ChallengeData" type="ay">
+      <arg name="Challenge_Data" type="ay">
         <tp:docstring>
           The challenge data from the server.
         </tp:docstring>
@@ -166,8 +168,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Succeeded" value="2">
         <tp:docstring>
-          Server indicated successful authentication, handler needs to
-          Accept or Abort.
+          Server indicated successful authentication, handler needs to call
+          <tp:member-ref>Accept</tp:member-ref> or
+          <tp:member-ref>Abort</tp:member-ref> to complete the authentication
+          process.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Client_Accepted" value="3">
@@ -178,23 +182,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
       <tp:enumvalue suffix="Succeeded" value="4">
         <tp:docstring>
-          Everyone is happy (server sent success, client sent Accept),                    up to the handler to close the channel.
+          Everyone is happy (the server sent success, and the client has called
+          <tp:member-ref>Accept</tp:member-ref>); it is up to the handler to
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          the channel when it wishes.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Failed" value="5">
         <tp:docstring>
           Server indicated an authentication failure,
           Authentication can be restarted by calling
-          StartMechanism again or completely aborted by Closing
-          the channel.
+          <tp:member-ref>StartMechanism</tp:member-ref> again or completely
+          aborted by calling <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          on the channel.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Client_Failed" value="6">
         <tp:docstring>
           Client indicated an authentication failure,
           Authentication can be restarted by calling
-          StartMechanism again or completely aborted by Closing
-          the channel.
+          <tp:member-ref>StartMechanism</tp:member-ref> again or completely
+          aborted by calling <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          on the channel.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -212,7 +224,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </tp:member>
 
-      <tp:member type="s" name="DebugMessage">
+      <tp:member type="s" name="Debug_Message">
         <tp:docstring>
           A non-localized debug message.
         </tp:docstring>
