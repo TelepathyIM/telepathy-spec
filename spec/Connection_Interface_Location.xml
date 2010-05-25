@@ -395,7 +395,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="SupportedLocationFeatures"
         tp:name-for-bindings="Supported_Location_Features"
         type="u" tp:type="Location_Features" access="read">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.19.6"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         Indicates the Location features supported by this connection. This
         property MAY be undefined before <tp:dbus-ref

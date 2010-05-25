@@ -24,7 +24,7 @@
 
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Forwarding.DRAFT"
     tp:causes-havoc="experimental">
-    <tp:added version="0.19.UNRELEASED">(draft version, not API-stable)</tp:added>
+    <tp:added version="0.19.6">(draft version, not API-stable)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This connection interface is for protocols that are capable of

@@ -116,7 +116,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="MultipleTones" tp:name-for-bindings="Multiple_Tones">
-      <tp:added version="0.19.UNRELEASED" />
+      <tp:added version="0.19.6" />
       <arg direction="in" name="Tones" type="s">
         <tp:docstring>A string representation of one or more DTMF
           events.</tp:docstring>
@@ -160,7 +160,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="CurrentlySendingTones"
         tp:name-for-bindings="Currently_Sending_Tones" type="b" access="read">
-      <tp:added version="0.19.UNRELEASED" />
+      <tp:added version="0.19.6" />
       <tp:docstring>
         Indicates whether there are DTMF tones currently being sent in the
         channel. If so, the client should wait for
@@ -171,7 +171,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="InitialTones" tp:name-for-bindings="Initial_Tones"
         type="s" access="read">
-      <tp:added version="0.19.UNRELEASED" />
+      <tp:added version="0.19.6" />
       <tp:docstring>
         <p>If non-empty in a channel request that will create a new channel,
           the connection manager should send the tones immediately after
@@ -183,7 +183,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <signal name="SendingTones" tp:name-for-bindings="Sending_Tones">
-      <tp:added version="0.19.UNRELEASED" />
+      <tp:added version="0.19.6" />
       <arg name="Tones" type="s">
         <tp:docstring>DTMF string (one or more events) that is to be played.
         </tp:docstring>
@@ -199,7 +199,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <signal name="StoppedTones" tp:name-for-bindings="Stopped_Tones">
-      <tp:added version="0.19.UNRELEASED" />
+      <tp:added version="0.19.6" />
       <arg name="Cancelled" type="b">
         <tp:docstring>True if the DTMF tones were actively cancelled via
           <tp:member-ref>StopTone</tp:member-ref>.</tp:docstring>

@@ -371,7 +371,7 @@
     </method>
 
     <method name="HandleWithTime" tp:name-for-bindings="Handle_With_Time">
-      <tp:added version="0.19.UNRELEASED">
+      <tp:added version="0.19.6">
         At the time of writing, no released implementation of the
         Channel Dispatcher implements this method; clients should fall
         back to calling <tp:member-ref>HandleWith</tp:member-ref>.
