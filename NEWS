@@ -10,6 +10,12 @@ Changes to stable API:
 * The Account property must be set when calling AddRequest. This was already
   true whenever Mission Control called this method. (cassidy)
 
+* The timestamps used for "user action time", which were intended for
+  focus-stealing prevention, turned out not to be suitable for the intended
+  purpose if they were Unix timestamps. Their semantics have been changed to
+  be X server time on X GUI platforms, or undefined otherwise, with 0 and
+  2**31-1 as special values. (cassidy)
+
 New stable API:
 
 * fd.o #28092: SupportedLocationFeatures property, with a Can_Set flag (wjt)
@@ -17,6 +23,17 @@ New stable API:
 * Contact info is now available as a ".../info" contact attribute (andrunko)
 
 * support for multiple/precomposed dial strings in the DTMF interface (ptlo)
+
+* sender-nickname as a key in message headers (jonny)
+
+* a specified serialization for Recover and BypassApproval in .client files
+  (wjt)
+
+* Account.ChangingPresence property, which is true when attempts are being
+  made to change the account's presence (andrunko)
+
+* ChannelDispatchOperation.HandleWithTime method, which is like HandleWith
+  but takes a user action time argument (cassidy)
 
 New experimental API:
 
