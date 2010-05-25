@@ -34,6 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="Secure"
+             tp:name-for-bindings="Secure" type="b" access="read">
+      <tp:docstring>
+        Is this exchange secure (ie. TLS)? Good to know if you need to take
+        a calculated risk with plaintext.
+      </tp:docstring>
+    </property>
+
     <property name="CurrentChallenge" tp:name-for-bindings="Current_Challenge"
               type="ay" access="read">
       <tp:docstring>
