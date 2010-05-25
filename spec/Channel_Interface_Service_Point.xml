@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:added version="0.19.UNRELEASED">(draft version, not API-stable)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>An interface for channels 
+      <p>An interface for channels
         that can indicate when/if they are connected to some form
         of service point.  For example, when
         dialing 9-1-1 in the US, a GSM modem/network will recognize that as
