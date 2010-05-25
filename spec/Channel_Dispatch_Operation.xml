@@ -371,6 +371,11 @@
     </method>
 
     <method name="HandleWithTime" tp:name-for-bindings="Handle_With_Time">
+      <tp:added version="0.19.UNRELEASED">
+        At the time of writing, no released implementation of the
+        Channel Dispatcher implements this method; clients should fall
+        back to calling <tp:member-ref>HandleWith</tp:member-ref>.
+      </tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A variant of <tp:member-ref>HandleWith</tp:member-ref> allowing the
           approver to pass an user action time. This timestamp will be passed
