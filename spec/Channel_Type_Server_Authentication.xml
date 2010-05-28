@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="AuthenticationInformation"
               tp:name-for-bindings="Authentication_Information"
-              type="a{sv}" access="read">
+              type="a{sv}" tp:type="Auth_Details" access="read">
       <tp:docstring>
           Dictionary of information given by the CM which can be used by the
           handler for authentication.
