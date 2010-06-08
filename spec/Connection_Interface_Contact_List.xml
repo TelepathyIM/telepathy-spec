@@ -504,7 +504,7 @@
           basic stored properties change, when new contacts are added to the
           list that would be returned by
           <tp:member-ref>RequestContactList</tp:member-ref>,
-          or when contact are removed from that list.</p>
+          or when contacts are removed from that list.</p>
 
         <tp:rationale>
           <p>This provides change notification for that list, and for
