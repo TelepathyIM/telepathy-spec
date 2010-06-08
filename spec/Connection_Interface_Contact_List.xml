@@ -235,8 +235,7 @@
             >GetContactAttributes</tp:dbus-ref> until the initial contact
           list has been received, in protocols where this is applicable.
           Clients MAY wait for this by calling
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT"
-            >RequestContactList</tp:dbus-ref>.</p>
+          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
@@ -277,8 +276,7 @@
             >GetContactAttributes</tp:dbus-ref> until the initial contact
           list has been received, in protocols where this is applicable.
           Clients MAY wait for this by calling
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT"
-            >RequestContactList</tp:dbus-ref>.</p>
+          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
@@ -301,8 +299,7 @@
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
             >GetContactAttributes</tp:dbus-ref> until the initial contact
           list has been received. Clients MAY wait for this by calling
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT"
-            >RequestContactList</tp:dbus-ref>.</p>
+          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
