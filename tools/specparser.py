@@ -497,9 +497,10 @@ class Interface(Base):
         # Bit of a hack, but... I want useful information about the current
         # page to fit in a tab in Chromium. I'm prepared to be disagreed with.
         self.really_short_name = (
-            self.short_name.replace('Interface', 'I')
-                           .replace('Channel.', 'Chan.')
-                           .replace('Connection.', 'Conn.')
+            ('.'+self.short_name).replace('.Interface.', '.I.')
+                           .replace('.Channel.', '.Chan.')
+                           .replace('.Connection.', '.Conn.')
+                           .replace('.Type.', '.T.')[1:]
             )
 
         # build lists of methods, etc., in this interface
