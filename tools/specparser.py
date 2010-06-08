@@ -3,7 +3,7 @@
 #
 # Reads in a spec document and generates pretty data structures from it.
 #
-# Copyright (C) 2009 Collabora Ltd.
+# Copyright (C) 2009-2010 Collabora Ltd.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
@@ -487,12 +487,35 @@ class Interface(Base):
     def __init__(self, parent, namespace, dom, spec_namespace):
         super(Interface, self).__init__(parent, namespace, dom)
 
+        # For code generation, the <node> provides a name to be used in
+        # C function names, etc.
+        parent = dom.parentNode
+        if parent.localName != 'node':
+            raise BadNameForBindings("%s's parent is not a <node>" % self)
+
+        node_name = parent.getAttribute('name')
+
+        if node_name[0] != '/' or not node_name[1:]:
+            raise BadNameForBindings("%s's parent <node> has bad name %s"
+                    % (self, node_name))
+
+        self.name_for_bindings = node_name[1:]
+
         # If you're writing a spec with more than one top-level namespace, you
         # probably want to replace spec_namespace with a list.
         if self.name.startswith(spec_namespace + "."):
             self.short_name = self.name[len(spec_namespace) + 1:]
         else:
             self.short_name = self.name
+
+        # Bit of a hack, but... I want useful information about the current
+        # page to fit in a tab in Chromium. I'm prepared to be disagreed with.
+        self.really_short_name = (
+            ('.'+self.short_name).replace('.Interface.', '.I.')
+                           .replace('.Channel.', '.Chan.')
+                           .replace('.Connection.', '.Conn.')
+                           .replace('.Type.', '.T.')[1:]
+            )
 
         # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
@@ -540,7 +563,7 @@ class Interface(Base):
         return map(lookup, self.requires)
 
     def get_url(self):
-        return '%s.html' % self.name
+        return '%s.html' % self.name_for_bindings
 
 class Error(Base):
     def get_url(self):
