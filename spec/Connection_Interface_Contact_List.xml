@@ -137,7 +137,10 @@
             process is interested in. Equivalent to the corresponding argument
             to <tp:dbus-ref 
               namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
-              >GetContactAttributes</tp:dbus-ref>.</p>
+              >GetContactAttributes</tp:dbus-ref>,
+            except that if this list does not contain the ContactList
+            interface itself, it is treated as though that interface was also
+            requested.</p>
         </tp:docstring>
       </arg>
 
