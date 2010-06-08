@@ -3,7 +3,7 @@
 #
 # Reads in a spec document and generates pretty data structures from it.
 #
-# Copyright (C) 2009 Collabora Ltd.
+# Copyright (C) 2009-2010 Collabora Ltd.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
@@ -486,6 +486,20 @@ class External(object):
 class Interface(Base):
     def __init__(self, parent, namespace, dom, spec_namespace):
         super(Interface, self).__init__(parent, namespace, dom)
+
+        # For code generation, the <node> provides a name to be used in
+        # C function names, etc.
+        parent = dom.parentNode
+        if parent.localName != 'node':
+            raise BadNameForBindings("%s's parent is not a <node>" % self)
+
+        node_name = parent.getAttribute('name')
+
+        if node_name[0] != '/' or not node_name[1:]:
+            raise BadNameForBindings("%s's parent <node> has bad name %s"
+                    % (self, node_name))
+
+        self.name_for_bindings = node_name[1:]
 
         # If you're writing a spec with more than one top-level namespace, you
         # probably want to replace spec_namespace with a list.
