@@ -217,27 +217,44 @@
       </tp:possible-errors>
     </method>
 
-    <tp:enum name="Presence_State" type="u">
+    <tp:enum name="Subscription_State" type="u">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A tristate indicating whether presence subscription is denied,
+        <p>An enumeration indicating whether presence subscription is denied,
           denied but pending permission, or allowed. The exact semantics
           vary according to where this type is used.</p>
       </tp:docstring>
 
-      <tp:enumvalue suffix="No" value="0">
-        <tp:docstring>Presence information cannot be seen.</tp:docstring>
+      <tp:enumvalue suffix="Unknown" value="0">
+        <tp:docstring>The presence subscription state is
+          unknown.</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Ask" value="1">
-        <tp:docstring>Presence information cannot be seen, but permission
-          to see presence information has been requested.</tp:docstring>
+
+      <tp:enumvalue suffix="No" value="1">
+        <tp:docstring>Presence information cannot be seen, and permission
+          to do so has not been requested recently. The precise meaning
+          is protocol-specific; in most protocols, the Rejected state
+          will change to No between sessions.</tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Yes" value="2">
+
+      <tp:enumvalue suffix="Rejected" value="2">
+        <tp:docstring>Presence information cannot be seen. Permission
+          to see presence information has been requested, but the request
+          was declined.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Ask" value="3">
+        <tp:docstring>Presence information cannot be seen. Permission
+          to see presence information has been requested, and the request
+          has not yet been declined or accepted.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Yes" value="4">
         <tp:docstring>Presence information can be seen.</tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
     <tp:contact-attribute name="subscribe"
-      type="u" tp:type="Presence_State">
+      type="u" tp:type="Subscription_State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If this attribute on a contact is Yes, this connection can
           expect to receive their presence, along with any other information
@@ -282,7 +299,7 @@
     </tp:contact-attribute>
 
     <tp:contact-attribute name="publish"
-      type="u" tp:type="Presence_State">
+      type="u" tp:type="Subscription_State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If this attribute on a contact is Yes, the local user's presence
           is published to that contact, along with any other information that
@@ -498,13 +515,13 @@
         A single contact's subscribe, publish and publish-request attributes.
       </tp:docstring>
 
-      <tp:member name="Subscribe" type="u" tp:type="Presence_State">
+      <tp:member name="Subscribe" type="u" tp:type="Subscription_State">
         <tp:docstring>
           The new value of the contact's "subscribe" attribute.
         </tp:docstring>
       </tp:member>
 
-      <tp:member name="Publish" type="u" tp:type="Presence_State">
+      <tp:member name="Publish" type="u" tp:type="Subscription_State">
         <tp:docstring>
           The new value of the contact's "publish" attribute.
         </tp:docstring>
