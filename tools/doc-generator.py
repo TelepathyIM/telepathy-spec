@@ -73,7 +73,8 @@ for interface in spec.interfaces:
     namespace['interface'] = interface
 
     # open the output file
-    out = open(os.path.join(output_path, '%s.html' % interface.name), 'w')
+    out = open(os.path.join(output_path, '%s.html'
+        % interface.name_for_bindings), 'w')
     print >> out, unicode(t).encode('utf-8')
     out.close()
 

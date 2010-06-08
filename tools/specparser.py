@@ -563,7 +563,7 @@ class Interface(Base):
         return map(lookup, self.requires)
 
     def get_url(self):
-        return '%s.html' % self.name
+        return '%s.html' % self.name_for_bindings
 
 class Error(Base):
     def get_url(self):
