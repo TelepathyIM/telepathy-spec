@@ -135,7 +135,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A list of strings indicating which D-Bus interfaces the calling
             process is interested in. Equivalent to the corresponding argument
-            to <tp:dbus-ref 
+            to <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>,
             except that if this list does not contain the ContactList
@@ -147,7 +147,7 @@
       <arg direction="in" name="Hold" type="b">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Whether to hold the handles on behalf of the calling process.
-            Equivalent to the corresponding argument to <tp:dbus-ref 
+            Equivalent to the corresponding argument to <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>.</p>
 
@@ -163,7 +163,7 @@
         tp:type="Contact_Attributes_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary mapping the contact handles to contact attributes,
-            equivalent to the result of <tp:dbus-ref 
+            equivalent to the result of <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>.</p>
 
@@ -569,7 +569,7 @@
           identify the contact in future, and store it using <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
             >SetAliases</tp:dbus-ref>.
-          
+
           The user MAY be
           prompted using the contact's current self-assigned nickname, or
           something derived from the contact's (presumably self-assigned)
