@@ -78,6 +78,12 @@
           <tp:member-ref>GroupsRemoved</tp:member-ref>; clients can also
           distinguish between a create/remove pair and a renamed group by
           receiving <tp:member-ref>GroupRenamed</tp:member-ref>.</p>
+
+        <p>This property's value is not meaningful until the initial contact
+          list has been received, in protocols where this is applicable.
+          Clients MAY wait for this property to be meaningful by calling
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT"
+            >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
     </property>
 
