@@ -5,7 +5,12 @@ checkouts.
 telepathy-spec 0.19.7 (UNRELEASED)
 ==================================
 
-...
+Tools changes:
+
+* fd.o #28111: make page titles fit better in browser tabs (wjt)
+
+* Switch to shorter HTML filenames in output, which don't change when the
+  interface is undrafted (smcv)
 
 telepathy-spec 0.19.6 (2010-05-25)
 ==================================
