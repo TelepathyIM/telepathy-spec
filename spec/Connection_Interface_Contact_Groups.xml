@@ -83,7 +83,7 @@
           list has been received, in protocols where this is applicable.
           Clients MAY wait for this property to be meaningful by calling
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT"
-            >GetContactListAttributes</tp:dbus-ref>.</p>
+            >RequestContactList</tp:dbus-ref>.</p>
       </tp:docstring>
     </property>
 
