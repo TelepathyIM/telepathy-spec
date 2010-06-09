@@ -27,7 +27,8 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Interface for requesting the anonymity modes of a channel
-      (as defined in Connection.Interface.Anonymity.DRAFT).</p>
+        (as defined in <tp:dbus-ref namespace="org.freedesktop.Telepathy"
+          >Connection.Interface.Anonymity.DRAFT</tp:dbus-ref>).</p>
     </tp:docstring>
 
     <property name="AnonymityModes" type="u" tp:type="Anonymity_Mode_Flags"
