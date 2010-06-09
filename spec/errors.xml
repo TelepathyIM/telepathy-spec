@@ -427,7 +427,7 @@
       request for anonymity, and the earlier request specified that raising
       an error is preferable to disclosing the user's identity (for instance
       via <tp:dbus-ref namespace="org.freedesktop.Telepathy"
-        >Connection.Interface.Anonymity.DRAFT.Mandatory</tp:dbus-ref> or
+        >Connection.Interface.Anonymity.DRAFT.AnonymityMandatory</tp:dbus-ref> or
       <tp:dbus-ref namespace="org.freedesktop.Telepathy"
         >Channel.Interface.Anonymity.DRAFT.AnonymityMandatory</tp:dbus-ref>).
     </tp:docstring>

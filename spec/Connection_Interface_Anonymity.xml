@@ -111,8 +111,8 @@
       </tp:docstring>
     </property>
 
-    <property name="Mandatory" type="b" access="readwrite"
-      tp:name-for-bindings="Mandatory">
+    <property name="AnonymityMandatory" type="b" access="readwrite"
+      tp:name-for-bindings="Anonymity_Mandatory">
       <tp:docstring>
         <p>This specifies whether or not the anonymity settings MUST be respected
           by the CM and any intermediaries between the local and remote contacts.
