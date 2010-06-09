@@ -68,9 +68,10 @@
           <p>Explicitly request showing of client information. In connection
           context, this can be used to override service default. In channel
           context, this overrides connection anonymity modes.</p>
+
           <tp:rationale>
-            In GSM, it's possible to have CLIR enabled by default, and
-            explicitly suppress CLIR for a single phone call.
+            <p>In GSM, it's possible to have CLIR enabled by default, and
+              explicitly suppress CLIR for a single phone call.</p>
           </tp:rationale>
 
           <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
