@@ -68,9 +68,10 @@
           <p>Explicitly request showing of client information. In connection
           context, this can be used to override service default. In channel
           context, this overrides connection anonymity modes.</p>
+
           <tp:rationale>
-            In GSM, it's possible to have CLIR enabled by default, and
-            explicitly suppress CLIR for a single phone call.
+            <p>In GSM, it's possible to have CLIR enabled by default, and
+              explicitly suppress CLIR for a single phone call.</p>
           </tp:rationale>
 
           <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
@@ -110,14 +111,15 @@
       </tp:docstring>
     </property>
 
-    <property name="Mandatory" type="b" access="readwrite"
-      tp:name-for-bindings="Mandatory">
+    <property name="AnonymityMandatory" type="b" access="readwrite"
+      tp:name-for-bindings="Anonymity_Mandatory">
       <tp:docstring>
         <p>This specifies whether or not the anonymity settings MUST be respected
           by the CM and any intermediaries between the local and remote contacts.
           If this is set to true but anonymity settings cannot be followed, then
           the session MUST be denied with a
-          <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> error.
+          <code>org.freedesktop.Telepathy.Errors.WouldBreakAnonymity</code>
+          error.
           Any client that sets <tp:member-ref>AnonymityModes</tp:member-ref>
           SHOULD also set this property first (rather than accepting the CM's
           default value).</p>
