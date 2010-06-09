@@ -118,7 +118,8 @@
           by the CM and any intermediaries between the local and remote contacts.
           If this is set to true but anonymity settings cannot be followed, then
           the session MUST be denied with a
-          <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> error.
+          <code>org.freedesktop.Telepathy.Errors.WouldBreakAnonymity</code>
+          error.
           Any client that sets <tp:member-ref>AnonymityModes</tp:member-ref>
           SHOULD also set this property first (rather than accepting the CM's
           default value).</p>
