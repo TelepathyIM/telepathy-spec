@@ -110,7 +110,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:enumvalue value="0" suffix="None">
         <tp:docstring>
-          The service point is not used/available.
+          The channel is not communicating with a service point, or it is not
+          known whether it is communicating with a service point (e.g. an
+          ordinary call).
         </tp:docstring>
       </tp:enumvalue>
 

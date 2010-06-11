@@ -56,7 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The service point that the channel is connected to. If the channel is
         not connected to a service point, the CM MUST set the
-        <tp:type>Service_Point_Type</tp:type> field to None.
+        <tp:type>Service_Point_Type</tp:type> field to None; for instance,
+        this will be the case for ordinary calls.
       </tp:docstring>
     </property>
 
