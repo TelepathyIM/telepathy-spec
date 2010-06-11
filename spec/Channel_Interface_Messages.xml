@@ -865,7 +865,8 @@ USA.</p>
       </tp:member>
     </tp:mapping>
 
-    <tp:simple-type type="s" name="Protocol_Message_Token">
+    <tp:simple-type type="s" name="Protocol_Message_Token"
+                    array-name="Protocol_Message_Token_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>An opaque token used to identify messages in the underlying.
           protocol. As a special case, the empty string indicates that there
