@@ -33,12 +33,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:docstring>
 
    <tp:struct name="Service_Point_Info" array-name="Service_Point_Info_List">
-      <tp:member type="(us)" tp:type="Service_Point" name="ServicePoint">
+      <tp:member type="(us)" tp:type="Service_Point" name="Service_Point">
         <tp:docstring>
           The service point.
         </tp:docstring>
       </tp:member>
-      <tp:member type="as" name="ServiceIDs">
+      <tp:member type="as" name="Service_IDs">
         <tp:docstring>
           A list of IDs that are mapped to this service. This is provided as
           a convenience for the UIs, but the preferred method for
@@ -50,16 +50,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         <p>Description of a service point and IDs which are mapped to id.</p>
 
-        <p>An example Service Point info for GSM emergency calls (callable through
-        "911" and "112") could look like:</p>
+        <p>An example Service Point info for GSM emergency calls (callable
+          through "911" and "112") could look like:</p>
 
 <pre>
   ServicePointInfo = (
-    ServicePoint: (
-      ServicePointType: 1 (Emergency),
-      ServicePoint: "urn:service:sos"
+    Service_Point: (
+      Service_Point_Type: 1 (Emergency),
+      Service_Point: "urn:service:sos"
     ),
-    ServiceIDs: [ "911", "112" ]
+    Service_IDs: [ "911", "112" ]
   )
 </pre>
       </tp:docstring>
@@ -73,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <signal name="ServicePointsChanged" tp:name-for-bindings="Service_Points_Changed">
-      <arg name="ServicePoints" type="a((us)as)" tp:type="Service_Point_Info[]">
+      <arg name="Service_Points" type="a((us)as)" tp:type="Service_Point_Info[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
          <p>The new list of service points.</p>
         </tp:docstring>
@@ -86,7 +86,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:struct name="Service_Point">
       <tp:docstring>A service point.</tp:docstring>
-      <tp:member type="u" name="ServicePointType" tp:type="Service_Point_Type">
+      <tp:member type="u" name="Service_Point_Type"
+        tp:type="Service_Point_Type">
         <tp:docstring>
           The service type.
         </tp:docstring>

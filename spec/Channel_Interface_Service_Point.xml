@@ -73,7 +73,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         be in the process of connecting to the new service point.</p>
       </tp:docstring>
 
-      <arg name="ServicePoint" type="(us)" tp:type="Service_Point">
+      <arg name="Service_Point" type="(us)" tp:type="Service_Point">
         <tp:docstring>
           The new service point that is being used.
         </tp:docstring>
