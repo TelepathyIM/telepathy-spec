@@ -42,13 +42,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A list of IDs that are mapped to this service. This is provided as
           a convenience for the UIs, but the preferred method for
-          requesting channel to a service is by setting <tp:dbus-ref
+          requesting channel to a service is by setting the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Interface.ServicePoint.DRAFT">InitialServicePoint</tp:dbus-ref>
-            property in channel request.
+            property in a channel request.
         </tp:docstring>
       </tp:member>
       <tp:docstring>
-        <p>Description of a service point and IDs which are mapped to id.</p>
+        <p>Description of a service point and IDs which are mapped to it.</p>
 
         <p>An example Service Point info for GSM emergency calls (callable
           through "911" and "112") could look like:</p>
@@ -75,12 +75,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <signal name="ServicePointsChanged" tp:name-for-bindings="Service_Points_Changed">
       <arg name="Service_Points" type="a((us)as)" tp:type="Service_Point_Info[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-         <p>The new list of service points.</p>
+          <p>The new value of
+            <tp:member-ref>KnownServicePoints</tp:member-ref>.</p>
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Indicate that the list of known service points (or their IDs) have
-        changed, presenting the new list.
+        Emitted when the list of known service points (or their IDs) has
+        changed.
       </tp:docstring>
     </signal>
 
@@ -104,7 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:enum name="Service_Point_Type" type="u">
       <tp:docstring>
-        The various types of service points the channel might connect to.
+        The various types of service points a channel might connect to.
       </tp:docstring>
 
       <tp:enumvalue value="0" suffix="None">
