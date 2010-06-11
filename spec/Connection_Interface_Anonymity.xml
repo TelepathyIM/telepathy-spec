@@ -21,9 +21,8 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Anonymity.DRAFT"
-    tp:causes-havoc="experimental">
-    <tp:added version="0.19.6">(draft version, not API-stable)</tp:added>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Anonymity">
+    <tp:added version="0.19.UNRELEASED">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support anonymity settings on a per-connection basis.
