@@ -57,7 +57,7 @@
           service level would choose both (anonymity services are opaque
           to clients of this interface).</p>
 
-          <p>Clients SHOULD NOT set both Client_Info and ShowClient_Info modes.
+          <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
           If they are set, the CM MUST respect Client_Info and ignore
           Show_Client_Info.</p>
         </tp:docstring>
@@ -76,7 +76,7 @@
 
           <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
           If they are set, the CM MUST respect Client_Info and ignore
-          ShowClientInfo. The CM MAY set both Client_Info and Show_Client_Info
+          Show_Client_Info. The CM MAY set both Client_Info and Show_Client_Info
           in <tp:member-ref>SupportedAnonymityModes</tp:member-ref> to indicate
           its support for explicitly hiding and publicising client information.
           </p>
@@ -136,7 +136,7 @@
         <p>The currently enabled anonymity modes for the connection. Setting
           has the effect of requesting new modes for the connection, and may
           raise an error if the unsupported modes are set. Successfully changing
-          the modes will result in emmision of
+          the modes will result in emission of
           <tp:member-ref>AnonymityModesChanged</tp:member-ref> signal.</p>
 
         <p>This property can also be set using a connection parameter in <tp:dbus-ref
