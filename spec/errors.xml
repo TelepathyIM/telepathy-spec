@@ -421,7 +421,7 @@
   </tp:error>
 
   <tp:error name="Would Break Anonymity">
-    <tp:added version="0.19.UNRELEASED"/>
+    <tp:added version="0.19.7"/>
     <tp:docstring>
       Raised if a request cannot be satisfied without violating an earlier
       request for anonymity, and the earlier request specified that raising

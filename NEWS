@@ -2,14 +2,35 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.7 (UNRELEASED)
+telepathy-spec 0.19.7 (2010-06-14)
 ==================================
+
+The "stay away from the blue" release.
+
+New stable API:
+
+⌖ fd.o #21200: the detailed ConnectionError signal added in 0.17.x
+  is now mirrored by ConnectionError, ConnectionErrorDetails properties
+  on the Account (smcv)
+
+⌖ fd.o #24905: the ServicePoint interfaces added in 0.19.6 are now
+  considered stable, with no substantive changes
+
+⌖ fd.o #24909: the Anonymity interfaces added in 0.19.6 are now
+  considered stable, with some minor changes:
+  ⌁ operations that would break mandatory anonymity fail with
+    a new WouldBreakAnonymity error, instead of NotAvailable (smcv)
+  ⌁ the Conn.I.Anonymity.Mandatory property is now called
+    Conn.I.Anonymity.AnonymityMandatory (smcv)
+
+⌖ fd.o #24882: chat states are state-recoverable via a new ChatStates
+  property (smcv)
 
 Tools changes:
 
-* fd.o #28111: make page titles fit better in browser tabs (wjt)
+⌖ fd.o #28111: make page titles fit better in browser tabs (wjt)
 
-* Switch to shorter HTML filenames in output, which don't change when the
+⌖ Switch to shorter HTML filenames in output, which don't change when the
   interface is undrafted (smcv)
 
 telepathy-spec 0.19.6 (2010-05-25)
