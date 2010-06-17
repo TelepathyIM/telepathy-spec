@@ -45,9 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
-          Dbus namespaced name of the plugin in the AccountManager
-          implementation providing the storage. When this is the empty string
-          the account is internally stored.
+          The name of the account storage implementation, which SHOULD start
+          with a reversed domain name in the same way as D-Bus interface names.
+          When this is the empty string the account is internally stored.
         </p>
         <p>
           This property cannot change once an Account has been created.
