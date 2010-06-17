@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<node name="/Account_Interface_Storage"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright (C) 2010 Collabora Ltd.</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Account.Interface.Storage.DRAFT"
+             tp:causes-havoc="experimental">
+    <tp:requires interface="org.freedesktop.Telepathy.Account"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>
+        This interface extends the core Account interface to specify details
+        regarding the storage of this account.
+      </p>
+
+      <tp:rationale>
+        <p>
+          Single-sign-on systems do not generally have directly user-editable
+          properties for Accounts, and require the user to visit a specific UI
+          to alter their account properties. User interfaces should know not to
+          expose these account properties as user-editable, and instead
+          redirect the user to the appropriate interface.
+        </p>
+      </tp:rationale>
+
+    </tp:docstring>
+    <tp:added version="0.19.UNRELEASED"/>
+
+    <property name="StorageProvider" tp:name-for-bindings="Storage_Provider"
+              type="s" access="read">
+      <tp:docstring>
+        Dbus namespaced name of the plugin in the AccountManager implementation
+        providing the storage. When this is the empty string the account is
+        internally stored.
+      </tp:docstring>
+    </property>
+
+    <property name="StorageIdentifier"
+              tp:name-for-bindings="Storage_Identifier" type="v" access="read">
+      <tp:docstring>
+        Unique identification of the account within the backends Storage.
+        What's stored in the variant is specific to the storage implementation.
+
+        <tp:rationale>
+          Different storage systems will have their own way of uniquely
+          identifying an account, some might use an integer others a string.
+          Given that all users of this property should have direct knowledge of
+          the backend they should know what types to expect and how to handle
+          it.
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <property name="StorageSpecificInformation"
+              tp:name-for-bindings="Storage_Specific_Information" type="a{sv}"
+              access="read">
+      <tp:docstring>
+        Map containing information specific to one Storage system. This map
+        contains extra information specific to the storage method. The possible
+        keys depend solely on the used Storage method and won't be further
+        defined by this spec.
+      </tp:docstring>
+    </property>
+
+    <property name="StorageRestrictions"
+              tp:name-for-bindings="Storage_Restrictions" type="u"
+              tp:type="Storage_Restriction_Flags"
+              access="read">
+      <tp:docstring>
+        Bitfield which defines what restrictions this Storage method has.
+      </tp:docstring>
+    </property>
+
+    <tp:flags name="Storage_Restriction_Flags" value-prefix="Storage_Flag"
+              type="u">
+      <tp:flag suffix="Immutable_Parameters" value="1">
+        <tp:docstring>
+          The account parameters can't be changed via Telepathy.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Immutable_Enabledness" value="2">
+        <tp:docstring>
+          The account can't be enabled/disabled via Telepathy.
+        </tp:docstring>
+      </tp:flag>
+      <tp:flag suffix="Immutable_Presence" value="4">
+        <tp:docstring>
+          Presence can't be changed via Telepathy.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
