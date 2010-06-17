@@ -59,19 +59,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               tp:name-for-bindings="Storage_Identifier" type="v" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
-          Unique identification of the account within the backends Storage.
-          What's stored in the variant is specific to the storage
-          implementation.
+          Unique identification of the account within the storage backend.
+          The contents of the variant are defined by the
+          <tp:member-ref>StorageProvider</tp:member-ref>.
         </p>
         <p>
           This property cannot change once an Account has been created.
         </p>
         <tp:rationale>
-          Different storage systems will have their own way of uniquely
-          identifying an account, some might use an integer others a string.
-          Given that all users of this property should have direct knowledge of
-          the backend they should know what types to expect and how to handle
-          it.
+          <p>
+            Different storage systems will have their own way of uniquely
+            identifying an account, typically an integer or a string.
+            Given that all users of this property should have direct knowledge
+            of the backend they should know what types to expect and how to
+            handle it.
+          </p>
         </tp:rationale>
       </tp:docstring>
     </property>
