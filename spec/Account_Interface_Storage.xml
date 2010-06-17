@@ -83,10 +83,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
-          Map containing information specific to one Storage system. This map
-          contains extra information specific to the storage method. The
-          possible keys depend solely on the used Storage method and won't be
-          further defined by this spec.
+          Map containing information specific to the storage backend. The keys
+          and the types of their values are defined by the
+          <tp:member-ref>StorageProvider</tp:member-ref>, and are not
+          interpreted by the AccountManager implementation.
         </p>
         <p>
           Whether values in this map can change is defined by the
@@ -94,6 +94,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           must be re-retrieved using Get or GetAll if an up to date value is
           needed.
         </p>
+
+        <tp:rationale>
+          <p>
+            This can be used to provide additional hints to user interfaces
+            aware of a specific storage provider, without requiring those user
+            interfaces to use the
+            <tp:member-ref>StorageIdentifier</tp:member-ref> to query the
+            storage provider directly.
+          </p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
