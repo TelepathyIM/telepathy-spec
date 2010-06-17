@@ -43,19 +43,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="StorageProvider" tp:name-for-bindings="Storage_Provider"
               type="s" access="read">
-      <tp:docstring>
-        Dbus namespaced name of the plugin in the AccountManager implementation
-        providing the storage. When this is the empty string the account is
-        internally stored.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>
+          Dbus namespaced name of the plugin in the AccountManager
+          implementation providing the storage. When this is the empty string
+          the account is internally stored.
+        </p>
+        <p>
+          This property cannot change once an Account has been created.
+        </p>
       </tp:docstring>
     </property>
 
     <property name="StorageIdentifier"
               tp:name-for-bindings="Storage_Identifier" type="v" access="read">
-      <tp:docstring>
-        Unique identification of the account within the backends Storage.
-        What's stored in the variant is specific to the storage implementation.
-
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>
+          Unique identification of the account within the backends Storage.
+          What's stored in the variant is specific to the storage
+          implementation.
+        </p>
+        <p>
+          This property cannot change once an Account has been created.
+        </p>
         <tp:rationale>
           Different storage systems will have their own way of uniquely
           identifying an account, some might use an integer others a string.
@@ -69,11 +79,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="StorageSpecificInformation"
               tp:name-for-bindings="Storage_Specific_Information" type="a{sv}"
               access="read">
-      <tp:docstring>
-        Map containing information specific to one Storage system. This map
-        contains extra information specific to the storage method. The possible
-        keys depend solely on the used Storage method and won't be further
-        defined by this spec.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>
+          Map containing information specific to one Storage system. This map
+          contains extra information specific to the storage method. The
+          possible keys depend solely on the used Storage method and won't be
+          further defined by this spec.
+        </p>
+        <p>
+          Whether values in this map can change is defined by the
+          StorageProvider. There is no change notification, so the property
+          must be re-retrieved using Get or GetAll if an up to date value is
+          needed.
+        </p>
       </tp:docstring>
     </property>
 
@@ -81,8 +99,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               tp:name-for-bindings="Storage_Restrictions" type="u"
               tp:type="Storage_Restriction_Flags"
               access="read">
-      <tp:docstring>
-        Bitfield which defines what restrictions this Storage method has.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>
+          Bitfield which defines what restrictions this Storage method has.
+        </p>
+        <p>
+          This property cannot change once an Account has been created.
+        </p>
       </tp:docstring>
     </property>
 
