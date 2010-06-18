@@ -456,15 +456,17 @@ USA.</p>
 
       <tp:member name="Key" type="s">
         <tp:docstring>
-          A key, which SHOULD be one of the well-known keys specified, if
-          possible.
+          A key, which SHOULD be one of the well-known keys specified by
+          <tp:type>Message_Header_Key</tp:type>,
+          <tp:type>Message_Body_Key</tp:type> or
+          <tp:type>Delivery_Report_Header_Key</tp:type> if possible.
         </tp:docstring>
       </tp:member>
 
       <tp:member name="Value" type="v">
         <tp:docstring>
-          The value corresponding to the given key, which must be of one of
-          the types indicated.
+          The value corresponding to the given key, which SHOULD be one of the
+          specified types for well-known keys.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
