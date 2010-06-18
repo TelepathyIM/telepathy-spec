@@ -360,8 +360,7 @@ USA.</p>
 'delivery-token': 'b9a991bd-8845-4d7f-a704-215186f43bb4',
 }
 # no body
-]
-</pre></dd>
+]</pre></dd>
 
             <dt>A delivery report where the failed message is echoed back to the
               sender rather than being referenced by ID, and the failure reason
@@ -385,8 +384,7 @@ USA.</p>
   ],
 
 # no body
-]
-</pre></dd>
+]</pre></dd>
 
             <dt>A maximally complex delivery report: the server reports a
               bilingual human-readable failure message because the user sent
@@ -424,8 +422,7 @@ USA.</p>
 'lang': 'de',
 'content', 'Ich habe keinen Kontakt mit diesem Namen',
 }
-]
-</pre></dd>
+]</pre></dd>
 
             <dt>A minimal delivery report indicating successful delivery
               of the sent message whose token was
@@ -439,8 +436,7 @@ USA.</p>
 'delivery-token': 'b9a991bd-8845-4d7f-a704-215186f43bb4',
 }
 # no body
-]
-</pre></dd>
+]</pre></dd>
 
           </dl>
 
@@ -658,8 +654,7 @@ USA.</p>
     'content': [0xFF, 0xD8, ... 0xFF 0xD9],
   },
   ...
-]
-              </pre>
+]</pre>
             </dd>
 
             <dt>needs-retrieval (b)</dt>
