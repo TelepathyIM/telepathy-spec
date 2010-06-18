@@ -472,8 +472,11 @@ USA.</p>
     <tp:simple-type type="s" name="Message_Header_Key">
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Well-known keys for the message as a whole, and the corresponding
-            value types, include:</p>
+        <p>Well-known keys for the first <tp:type>Message_Part</tp:type> of a
+          message, which contains metadata about the message as a whole, along
+          with the corresponding value types. Some keys make sense for both
+          incoming and outgoing messages, while others are only meaningful for
+          one or the other.</p>
 
           <dl>
             <dt>message-token (s)</dt>
@@ -572,8 +575,9 @@ USA.</p>
     <tp:simple-type type="s" name="Message_Body_Key">
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Well-known keys for the second and subsequent parts, and the
-            corresponding value types, include:</p>
+        <p>Well-known keys for the second and subsequent
+          <tp:type>Message_Part</tp:type>s of a message, which contain the
+          message content, along with the corresponding value types.</p>
 
           <dl>
             <dt>identifier (s)</dt>
@@ -710,15 +714,21 @@ USA.</p>
     <tp:simple-type type="s" name="Delivery_Report_Header_Key">
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Well-known keys for the first <tp:type>Message_Part</tp:type> of a
+          delivery report, along with the corresponding value types. Some of
+          these are special-cases of headers defined by
+          <tp:type>Message_Header_Key</tp:type>.</p>
+
           <dl>
-            <dt>message-sender (u - Contact_Handle as defined above)</dt>
+            <dt>message-sender (u - Contact_Handle, as defined by
+              <tp:type>Message_Header_Key</tp:type>)</dt>
             <dd>MUST be the intended recipient of the original message, if
               available (zero or omitted if the intended recipient is
               unavailable or is not a contact, e.g. a chatroom), even if the
               delivery report actually came from an intermediate server.</dd>
 
-            <dt>message-type (u - Channel_Text_Message_Type as defined
-              above)</dt>
+            <dt>message-type (u - Channel_Text_Message_Type, as defined by
+                <tp:type>Message_Header_Key</tp:type></dt>
             <dd>MUST be Channel_Text_Message_Type_Delivery_Report.</dd>
 
             <dt>delivery-status (u - Delivery_Status)</dt>
