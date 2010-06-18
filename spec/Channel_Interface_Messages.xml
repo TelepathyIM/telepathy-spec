@@ -710,18 +710,18 @@ USA.</p>
           <tp:type>Message_Header_Key</tp:type>.</p>
 
           <dl>
-            <dt>message-sender (u - Contact_Handle, as defined by
-              <tp:type>Message_Header_Key</tp:type>)</dt>
+            <dt>message-sender (u - <tp:type>Contact_Handle</tp:type>, as
+              defined by <tp:type>Message_Header_Key</tp:type>)</dt>
             <dd>MUST be the intended recipient of the original message, if
               available (zero or omitted if the intended recipient is
               unavailable or is not a contact, e.g. a chatroom), even if the
               delivery report actually came from an intermediate server.</dd>
 
-            <dt>message-type (u - Channel_Text_Message_Type, as defined by
-                <tp:type>Message_Header_Key</tp:type></dt>
+            <dt>message-type (u - <tp:type>Channel_Text_Message_Type</tp:type>,
+              as defined by <tp:type>Message_Header_Key</tp:type>)</dt>
             <dd>MUST be Channel_Text_Message_Type_Delivery_Report.</dd>
 
-            <dt>delivery-status (u - Delivery_Status)</dt>
+            <dt>delivery-status (u - <tp:type>Delivery_Status</tp:type>)</dt>
             <dd>The status of the message. All delivery reports MUST contain
               this key in the first Message_Part.</dd>
 
@@ -746,14 +746,16 @@ USA.</p>
               </tp:rationale>
             </dd>
 
-            <dt>delivery-error (u - Channel_Text_Send_Error)</dt>
+            <dt>delivery-error (u -
+              <tp:type>Channel_Text_Send_Error</tp:type>)</dt>
             <dd>
               The reason for the failure. MUST be omitted if this was a
               successful delivery; SHOULD be omitted if it would be
               Channel_Text_Send_Error_Unknown.
             </dd>
 
-            <dt>delivery-dbus-error (s - DBus_Error_Name)</dt>
+            <dt>delivery-dbus-error (s -
+              <tp:type>DBus_Error_Name</tp:type>)</dt>
             <dd>
               The reason for the failure, specified as a (possibly
               implementation-specific) D-Bus error. MUST be omitted if this was
@@ -768,7 +770,7 @@ USA.</p>
               omitted.
             </dd>
 
-            <dt>delivery-echo (aa{sv} - Message_Part[])</dt>
+            <dt>delivery-echo (aa{sv} - <tp:type>Message_Part[]</tp:type>)</dt>
             <dd>
               <p>The message content, as defined by the Messages interface.
                 Omitted if no content is available. Content MAY have been
