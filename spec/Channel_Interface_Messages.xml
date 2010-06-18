@@ -182,8 +182,88 @@ USA.</p>
       array-depth="2">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Part of a message's content. In practice, this mapping never
-          appears in isolation - messages are represented by a list of
-          <tp:type>Message_Part</tp:type> mappings.</p>
+          appears in isolation: incoming messages are represented by a list of
+          <tp:type>Message_Part</tp:type> mappings in the
+          <tp:member-ref>MessageReceived</tp:member-ref> signal, and outgoing
+          messages are passed to <tp:member-ref>SendMessage</tp:member-ref> as
+          a list of these mappings.</p>
+
+        <p>The first part of the message contains "headers", which refer
+          to the entire message. The second and subsequent parts contain the
+          message's content, including plain text, formatted text and/or
+          attached files. Well-known keys for the header and body parts are
+          defined by the <tp:type>Message_Header_Key</tp:type> and
+          <tp:type>Message_Body_Key</tp:type> types, respectively.  It is an
+          error for a connection manager to put keys referring to the message
+          as a whole in the second or subsequent Message_Part, or keys intended
+          for body parts in the first Message_Part; clients MUST recover from
+          this error by ignoring these mis-placed keys.</p>
+
+        <tp:rationale>
+          <p>Instead of representing messages as aa{sv} where the first
+            dictionary is special (a dictionary of headers), we could have
+            used a signature like (a{sv}aa{sv}) to separate out the headers
+            and the body parts.</p>
+
+          <p>However, this would make access to the messages more awkward.
+            In Python, the syntax for access to a header field would remain
+            <code>message[0]['message-type']</code>, but access to a body
+            field in the second body part would change from
+            <code>message[2]['content'] to message[1][1]['content']</code>. In
+            GLib, the message would change from being a
+            <code>GPtrArray(GHashTable)</code> to being a
+            <code>GValueArray(GHashTable, GPtrArray(GHashTable))</code> which
+            is rather inconvenient to dereference.</p>
+        </tp:rationale>
+
+        <p>In any group of parts with the same non-empty value for the
+          "alternative" key (which represent alternative versions of the
+          same content), more faithful versions of the intended message MUST
+          come before less faithful versions (note that this order is the
+          opposite of MIME "multipart/alternative" parts). Clients SHOULD
+          display the first alternative that they understand.</p>
+
+        <tp:rationale>
+          <p>Specifying the preference order means that if the underlying
+            protocol doesn't support alternatives, the CM can safely delete
+            everything apart from the first supported alternative when
+            sending messages.</p>
+
+          <p>The order is the reverse of MIME because MIME's rationale for
+            placing the "plainest" part first (legibility in pre-MIME UAs)
+            does not apply to us, and placing the most preferred part
+            first simplifies display (a client can iterate the message
+            in order, display the first alternative that it understands,
+            and skip displaying all subsequent parts with the same
+            "alternative" key).</p>
+        </tp:rationale>
+
+        <p>Clients SHOULD present all parts that are not redundant
+          alternatives in the order they appear in this array, possibly
+          excluding parts that are referenced by another displayed part.
+          It is implementation-specific how the parts are presented to the
+          user.</p>
+
+        <tp:rationale>
+          <p>This allows CMs to assume that all parts are actually shown to
+            the user, even if they are not explicitly referenced - we do
+            not yet recommend formatted text, and there is no way for
+            plain text to reference an attachment since it has no concept of
+            markup or references. This also forces clients to do something
+            sensible with messages that consist entirely of "attachments",
+            with no "body" at all.</p>
+
+          <p>For instance, when displaying the above example, a client that
+            understands the HTML part should display the JPEG image once,
+            between the two lines "Here is a photo of my cat:" and
+            "Isn't it cute?"; it may additionally present the image in some
+            way for a second time, after "Isn't it cute?", or may choose
+            not to.</p>
+
+          <p>A client that does not understand HTML, displaying the same
+            message, should display the plain-text part, followed by the JPEG
+            image.</p>
+        </tp:rationale>
 
         <p>An example of how a rich-text message, with an embedded image, might
           look, in a Python-like syntax:</p>
@@ -234,94 +314,7 @@ USA.</p>
   },
 ]</pre>
 
-        <div>
-          <p>The first part of the message contains "headers" which refer
-            to the entire message. Well-known keys for the header part are
-            defined by the <tp:type>Message_Header_Key</tp:type> type.</p>
-
-          <p>It is an error for a connection manager to put keys referring
-            to the message as a whole in the second or subsequent
-            Message_Part, but clients MUST recover from this error by ignoring
-            these keys in the second and subsequent parts.</p>
-
-          <tp:rationale>
-            <p>Instead of representing messages as aa{sv} where the first
-              dictionary is special (a dictionary of headers), we could have
-              used a signature like (a{sv}aa{sv}) to separate out the headers
-              and the body parts.</p>
-
-            <p>However, this would make access to the messages more awkward.
-              In Python, the syntax for access to a header field would remain
-              <code>message[0]['message-type']</code>, but access to a body
-              field in the second body part would change from
-              message[2]['content'] to message[1][1]['content']. In GLib,
-              the message would change from being a
-              GPtrArray(GHashTable) to being a
-              GValueArray(GHashTable, GPtrArray(GHashTable)) which is rather
-              inconvenient to dereference.</p>
-          </tp:rationale>
-        </div>
-
-        <div>
-          <p>The second and subsequent parts contain the message's
-            content, including plain text, formatted text and/or attached
-            files. Well-known keys for message body parts are defined by the
-            <tp:type>Message_Body_Key</tp:type> type.</p>
-
-          <p>It is an error for a connection manager to put keys referring
-            to the message body in the first Message_Part;
-            clients MUST recover from this error by ignoring
-            these keys in first part.</p>
-
-          <p>In any group of parts with the same non-empty value for the
-            "alternative" key (which represent alternative versions of the
-            same content), more faithful versions of the intended message MUST
-            come before less faithful versions (note that this order is the
-            opposite of MIME "multipart/alternative" parts). Clients SHOULD
-            display the first alternative that they understand.</p>
-
-          <tp:rationale>
-            <p>Specifying the preference order means that if the underlying
-              protocol doesn't support alternatives, the CM can safely delete
-              everything apart from the first supported alternative when
-              sending messages.</p>
-
-            <p>The order is the reverse of MIME because MIME's rationale for
-              placing the "plainest" part first (legibility in pre-MIME UAs)
-              does not apply to us, and placing the most preferred part
-              first simplifies display (a client can iterate the message
-              in order, display the first alternative that it understands,
-              and skip displaying all subsequent parts with the same
-              "alternative" key).</p>
-          </tp:rationale>
-
-          <p>Clients SHOULD present all parts that are not redundant
-            alternatives in the order they appear in this array, possibly
-            excluding parts that are referenced by another displayed part.
-            It is implementation-specific how the parts are presented to the
-            user.</p>
-
-          <tp:rationale>
-            <p>This allows CMs to assume that all parts are actually shown to
-              the user, even if they are not explicitly referenced - we do
-              not yet recommend formatted text, and there is no way for
-              plain text to reference an attachment since it has no concept of
-              markup or references. This also forces clients to do something
-              sensible with messages that consist entirely of "attachments",
-              with no "body" at all.</p>
-
-            <p>For instance, when displaying the above example, a client that
-              understands the HTML part should display the JPEG image once,
-              between the two lines "Here is a photo of my cat:" and
-              "Isn't it cute?"; it may additionally present the image in some
-              way for a second time, after "Isn't it cute?", or may choose
-              not to.</p>
-
-            <p>A client that does not understand HTML, displaying the same
-              message, should display the plain-text part, followed by the JPEG
-              image.</p>
-          </tp:rationale>
-        </div>
+        <h3>Delivery reports</h3>
 
         <div>
           <p>Delivery reports are also represented as messages, of type
