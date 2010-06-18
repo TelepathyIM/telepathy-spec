@@ -130,7 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Cannot_Set_Enabledness" value="2">
+      <tp:flag suffix="Cannot_Set_Enabled" value="2">
         <tp:docstring>
           The account can't be enabled/disabled via Telepathy.
         </tp:docstring>
