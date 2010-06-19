@@ -265,8 +265,10 @@ USA.</p>
             image.</p>
         </tp:rationale>
 
-        <p>An example of how a rich-text message, with an embedded image, might
-          look, in a Python-like syntax:</p>
+        <h4>Example messages</h4>
+
+        <p>A rich-text message, with an embedded image, might be represented
+          as:</p>
 
           <pre>
 [
@@ -295,9 +297,8 @@ USA.</p>
   },
 ]</pre>
 
-        <p>An example of how a non-text message — in particular, a vCard sent
-          via SMS as implemented by telepathy-ring on Nokia's Maemo 5 —
-          looks:</p>
+        <p>telepathy-ring, Nokia's GSM connection manager, represents vCards
+          sent via SMS as:</p>
 
         <pre>
 [
