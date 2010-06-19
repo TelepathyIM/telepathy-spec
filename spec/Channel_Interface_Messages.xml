@@ -1127,7 +1127,8 @@ USA.</p>
           should still be signalled as either Temporarily_Failed
           or Permanently_Failed). If additional detail is required (e.g.
           distinguishing between the various types of permanent failure) this
-          will be done using additional keys in the Message_Part.</p>
+          will be done using additional
+          <tp:type>Delivery_Report_Header_Key</tp:type>s.</p>
       </tp:docstring>
 
       <tp:enumvalue suffix="Unknown" value="0">
