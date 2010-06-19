@@ -971,11 +971,12 @@ USA.</p>
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Content">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The message content (see <tp:type>Message_Part</tp:type> for full
-            details). If the message that was passed to SendMessage has a
-            formatted text part that the connection manager recognises, but no
-            text/plain alternative, the CM MUST use the formatted text part to
-            generate a text/plain alternative which is also included in this
-            signal argument.</p>
+            details). If the message that was passed to
+            <tp:member-ref>SendMessage</tp:member-ref> has a formatted text
+            part that the connection manager recognises, but no
+            <tt>text/plain</tt> alternative, the CM MUST use the formatted text
+            part to generate a <tt>text/plain</tt> alternative which is also
+            included in this signal argument.</p>
 
           <p>If the connection manager can predict that the message will be
             altered during transmission, this argument SHOULD reflect what
