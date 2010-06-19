@@ -318,34 +318,35 @@ USA.</p>
         <h3>Delivery reports</h3>
 
         <div>
-          <p>Delivery reports are also represented as messages, of type
-            Channel_Text_Message_Type_Delivery_Report, with the
-            Non_Text_Content flag in the Text interface.</p>
+          <p>Delivery reports are also represented as messages with the
+            <tt>message-type</tt> header mapping to
+            <tp:type>Channel_Text_Message_Type</tp:type> Delivery_Report.
+            Delivery reports SHOULD contain the <tt>message-sender</tt> header,
+            mapping to the intended recipient of the original message, if
+            possible; other headers specific to delivery reports are defined by
+            the <tp:type>Delivery_Report_Header_Key</tp:type> type. The second
+            and subsequent parts, if present, are a human-readable report from
+            the IM service.</p>
 
-          <p>Whenever a message of type
-            Channel_Text_Message_Type_Delivery_Report is signalled for a
-            delivery error report, Channel.Type.Text.SendError SHOULD also
-            be emitted; whenever Channel.Type.Text.SendError is emitted by a
-            channel which supports this interface, a message of type
-            Channel_Text_Message_Type_Delivery_Report MUST also be emitted.</p>
+          <p>For backwards- and forwards-compatibility, whenever a delivery
+            error report is signalled—that is, with <tt>delivery-status</tt>
+            mapping to <tp:type>Delivery_Status</tp:type> Temporarily_Failed or
+            Permanently_Failed—<tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
+            SHOULD also be emitted; whenever <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
+            is emitted, a delivery report MUST also be signalled.
+            Delivery report messages on this interface MUST be represented in
+            emissions of <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
+            as messages with the Non_Text_Content
+            <tp:type>Channel_Text_Message_Flags</tp:type>.</p>
 
-          <p>The corresponding message in the Messages interface MUST contain
-            "headers" for the delivery report, as specified by
-            <tp:type>Delivery_Report_Header_Key</tp:type>, in its first
-            Message_Part.</p>
+          <p>The result of attempting to send delivery reports using
+            <tp:member-ref>SendMessage</tp:member-ref> is currently
+            undefined.</p>
 
-
-          <p>The second and subsequent Message_Part dictionaries, if present,
-            are a human-readable report from the IM service.</p>
-
-          <p>Clients MUST NOT attempt to send delivery reports using the
-            SendMessage method in the Messages API, and connection managers
-            MUST NOT allow this to be done. If support for sending delivery
-            reports is later added, it will be part of this interface.</p>
-
-          <p>Some example delivery reports in a Python-like syntax (in which
-            arrays are indicated by [a, b] and dictionaries by {k1: v1, k2: v2})
-            follow.</p>
+          <h4>Example delivery reports</h4>
 
           <dl>
             <dt>A minimal delivery report indicating permanent failure of the
