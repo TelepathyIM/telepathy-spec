@@ -217,11 +217,11 @@ USA.</p>
         </tp:rationale>
 
         <p>In any group of parts with the same non-empty value for the
-          "alternative" key (which represent alternative versions of the
+          <tt>alternative</tt> key (which represent alternative versions of the
           same content), more faithful versions of the intended message MUST
           come before less faithful versions (note that this order is the
-          opposite of MIME "multipart/alternative" parts). Clients SHOULD
-          display the first alternative that they understand.</p>
+          opposite of MIME <tt>multipart/alternative</tt> parts). Clients
+          SHOULD display the first alternative that they understand.</p>
 
         <tp:rationale>
           <p>Specifying the preference order means that if the underlying
