@@ -25,7 +25,7 @@ $(document).ready(main);
 
 function toggleRationale() {
   /* Slide the rationale body open or closed */
-  $(this).next().slideToggle();
+  $(this).next().slideToggle('fast');
 
   /* Rotate the triangle */
   $(this).children('span.ui-icon').toggleClass(
