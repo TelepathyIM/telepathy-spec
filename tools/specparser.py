@@ -212,9 +212,21 @@ class Base(object):
 
         # rewrite <tp:rationale>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'rationale'):
-            n.tagName = 'div'
-            n.namespaceURI = None
-            n.setAttribute('class', 'rationale')
+            rationale_div = xml.dom.minidom.parseString(
+                """
+                <div class='rationale'>
+                  <h5>Rationale:</h5>
+                  <div/>
+                </div>
+                """).documentElement
+            n.parentNode.replaceChild(rationale_div, n)
+
+            # It's the third child: space, h5, space, div
+            inner_div = rationale_div.childNodes[3]
+            assert inner_div.nodeName == 'div', inner_div
+
+            for rationale_body in n.childNodes:
+                inner_div.appendChild(rationale_body.cloneNode(True))
 
         # rewrite <tp:type>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'type'):

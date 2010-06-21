@@ -46,8 +46,14 @@ try:
     os.mkdir(output_path)
 except OSError:
     pass
-# copy in the CSS
-shutil.copy(os.path.join(template_path, 'style.css'), output_path)
+
+# copy in the static files
+static = [ 'style.css',
+           'jquery.min.js',
+           'magic.js',
+         ]
+for s in static:
+    shutil.copy(os.path.join(template_path, s), output_path)
 
 def load_template(filename):
     try:

@@ -218,6 +218,20 @@ div.rationale {
 	padding-left: 1ex;
 }
 
+div.rationale h5 {
+        /* This'll be un-done if we have Javascript; it's just clutter unless
+         * we have Javascript, in which case it acts as the thing for
+         * expanding/collapsing rationales.
+         */
+        display: none;
+
+        /* And all this only matters if the script has un-hidden us. */
+        margin: 0;
+        padding: 2px;
+        cursor: pointer;
+        text-decoration: underline;
+}
+
 span.permalink {
 	font-size: x-small;
 }
