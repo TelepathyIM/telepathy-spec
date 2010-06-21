@@ -50,6 +50,7 @@ except OSError:
 # copy in the static files
 static = [ 'style.css',
            'jquery.min.js',
+           'ui-icons_222222_256x240.png',
            'magic.js',
          ]
 for s in static:

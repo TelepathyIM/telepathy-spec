@@ -228,8 +228,32 @@ div.rationale h5 {
         /* And all this only matters if the script has un-hidden us. */
         margin: 0;
         padding: 2px;
+        text-height: 12px;
         cursor: pointer;
-        text-decoration: underline;
+}
+
+/* The class names used for the expander icons, and the technique of using a
+ * fixed-size background image, offset into a grid of icons, is pinched from
+ * jQuery-UI, along with the icon grid itself. But I only use a 10×10 square
+ * out of the 16×16 icons, and didn't use their CSS, because jQuery-UI was
+ * overkill here.
+ */
+span.ui-icon {
+        text-decoration: none;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 0.5em;
+        background-image: url(ui-icons_222222_256x240.png);
+        background-repeat: no-repeat;
+}
+
+span.ui-icon-triangle-1-e {
+        background-position:-35px -19px;
+}
+
+span.ui-icon-triangle-1-s {
+        background-position:-67px -19px;
 }
 
 span.permalink {
