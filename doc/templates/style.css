@@ -229,3 +229,22 @@ div.inset span.permalink {
 li.chapter span.permalink {
 	font-weight: normal;
 }
+
+/* These rules make putting <p/> into <dd/> not leave ugly whitespace at the
+ * top and bottom of the <dd>, which looks particularly stupid when some <dd>s
+ * have <p>s in them and some just have text.
+ */
+p {
+	margin: 0.5em 0 0 0;
+}
+
+dd p:first-child {
+	margin-top: 0;
+}
+
+/* And since we use <pre>s pretty much only for paragraphs of code, we should
+ * style it the same.
+ */
+pre {
+	margin: 0.5em 0 0 0;
+}
