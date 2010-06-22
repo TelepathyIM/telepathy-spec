@@ -25,15 +25,58 @@ USA.</p>
     <tp:added version="0.17.16">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface extends the Text interface to support more general
-        messages, including:</p>
+      <p>This interface extends the <tp:dbus-ref
+          namespace='org.freedesktop.Telepathy.Channel.Type'>Text</tp:dbus-ref>
+        interface to support more general messages, including:</p>
 
       <ul>
         <li>messages with attachments (like MIME multipart/mixed)</li>
         <li>groups of alternatives (like MIME multipart/alternative)</li>
-        <li>delivery reports</li>
+        <li>delivery reports (which replace <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Type">Text.SendError</tp:dbus-ref>),
+          addding support for protocols where the message content is not echoed
+          back to the sender on failure and for receiving positive
+          acknowledgements, as well as ensuring that incoming delivery reports
+          are not lost if no client is handling the channel yet;</li>
         <li>any extra types of message we need in future</li>
       </ul>
+
+      <p>Incoming messages, outgoing messages, and delivery reports are all
+        represented as lists of <tp:type>Message_Part</tp:type> structures,
+        with a format reminiscent of e-mail. Messages are sent by calling
+        <tp:member-ref>SendMessage</tp:member-ref>; outgoing messages are
+        announced to other clients which may be interested in the channel by
+        the <tp:member-ref>MessageSent</tp:member-ref> signal. Incoming
+        messages and delivery reports are signalled by
+        <tp:member-ref>MessageReceived</tp:member-ref>, and are stored in the
+        the <tp:member-ref>PendingMessages</tp:member-ref> property until
+        acknowledged by calling <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">Text.AcknowledgePendingMessages</tp:dbus-ref>.
+        Only the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>
+        for a channel should acknowledge messages; <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Client">Observer</tp:dbus-ref>s
+        (such as loggers) and <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref>s
+        for the channel may listen for incoming messages, and send messages of their own, but SHOULD NOT acknowledge messages.</p>
+
+      <tp:rationale>
+        <p>If observers were allowed to acknowledge messages, then messages
+          might have been acknowledged before the handler even got to see the
+          channel, and hence could not be shown to the user.</p>
+      </tp:rationale>
+
+      <p>If this interface is present, clients that support it SHOULD
+        listen for the <tp:member-ref>MessageSent</tp:member-ref> and
+        <tp:member-ref>MessageReceived</tp:member-ref> signals, and
+        ignore the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>,
+        <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
+        and <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
+        signals on the Text interface (which are guaranteed to duplicate
+        signals from this interface).</p>
 
       <p>Although this specification supports formatted (rich-text)
         messages with unformatted alternatives, implementations SHOULD NOT
@@ -49,27 +92,6 @@ USA.</p>
         Until we can tell UIs what controls to offer to the user, it's
         unfriendly to offer the user controls that may have no effect.
       </tp:rationale>
-
-      <p>This interface also replaces <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type">Text.SendError</tp:dbus-ref>,
-        adding support for
-        protocols where the message content is not echoed back to the sender on
-        failure, adding support for receiving positive acknowledgements,
-        and using the Messages queue for state-recovery
-        (ensuring that incoming delivery reports are not lost if there is not
-        currently a process handling them).</p>
-
-      <p>If this interface is present, clients that support it SHOULD
-        listen for the <tp:member-ref>MessageSent</tp:member-ref> and
-        <tp:member-ref>MessageReceived</tp:member-ref> signals, and
-        ignore the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>,
-        <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
-        and <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
-        signals on the Text interface (which are guaranteed to duplicate
-        signals from this interface).</p>
     </tp:docstring>
 
     <property name="SupportedContentTypes" type="as" access="read"
