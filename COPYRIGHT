@@ -4,7 +4,10 @@ Nokia Corporation, and INdT, and licensed under the LGPL v2.1 or later.
 The majority of the templates and HTML generation tools are copyright Collabora
 Ltd., and are licensed under the LGPL v2.1 or later.
 
-jQuery.min.js, from <http://jquery.com/>, is copyright John Resig and The Dojo
-Foundation; ui-icons_222222_256x240.png is taken from jquery-ui
-<http://jqueryui.com/>, and copyright is held by many individuals. Both files
-are used under the MIT license.
+jquery.js — and jquery.min.js, which is a minified version of the former — is
+taken from <http://jquery.com/>, and is copyright John Resig and The Dojo
+Foundation.
+
+ui-icons_222222_256x240.png is taken from jquery-ui <http://jqueryui.com/>, and
+copyright is held by many individuals. Both files are used under the MIT
+license.
