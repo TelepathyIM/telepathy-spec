@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Capabilities">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where it is possible to know what channel
