@@ -340,7 +340,10 @@ USA.</p>
             emissions of <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
             as messages with the Non_Text_Content
-            <tp:type>Channel_Text_Message_Flags</tp:type>.</p>
+            <tp:type>Channel_Text_Message_Flags</tp:type>; clients which
+            understand this interface SHOULD ignore the SendError signal in
+            favour of listening for delivery reports, as mentioned in the
+            introduction.</p>
 
           <p>The result of attempting to send delivery reports using
             <tp:member-ref>SendMessage</tp:member-ref> is currently
@@ -954,17 +957,17 @@ USA.</p>
         <p>Signals that a message has been submitted for sending. This
           MUST be emitted exactly once per emission of the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
-          signal on the Text interface. This SHOULD be emitted as soon as
-          the CM determines it's theoretically possible to send the message
-          (e.g. the parameters are supported and correct).</p>
+          signal on the Text interface, for backwards-compatibility; clients
+          SHOULD ignore the latter if this interface is present, as mentioned
+          in the introduction.</p>
+
+        <p>This SHOULD be emitted as soon as the CM determines it's
+          theoretically possible to send the message (e.g. the parameters are
+          supported and correct).</p>
 
         <tp:rationale>
           <p>This signal allows a process that is not the caller of
-            SendMessage to log sent messages. The double signal-emission
-            provides compatibility with older clients. Clients supporting
-            Messages should listen for Messages.MessageSent only (if the
-            channel has the Messages interface) or Text.Sent only
-            (otherwise).</p>
+            SendMessage to log sent messages.</p>
         </tp:rationale>
       </tp:docstring>
 
@@ -1100,14 +1103,9 @@ USA.</p>
         messages queue. This MUST be emitted exactly once per emission of the
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Type.Text">Received</tp:dbus-ref>
-        signal on the Text interface.
-
-        <tp:rationale>
-          The double signal-emission provides compatibility with older
-          clients. Clients supporting Messages should listen for
-          Messages.MessageReceived only (if the channel has the Messages
-          interface) or Text.Received only (otherwise).
-        </tp:rationale>
+        signal on the Text interface, for backwards-compatibility; clients
+        SHOULD ignore the latter in favour of this signal if this interface is
+        present, as mentioned in the introduction.
       </tp:docstring>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Message">
