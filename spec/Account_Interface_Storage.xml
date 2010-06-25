@@ -89,10 +89,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           interpreted by the AccountManager implementation.
         </p>
         <p>
-          Whether values in this map can change is defined by the
-          StorageProvider. There is no change notification, so the property
-          must be re-retrieved using Get or GetAll if an up to date value is
-          needed.
+          As the values in this map may change at any time (due to an external
+          application manipulating the storage provider directly), this
+          property should not be cached; it should instead be retrieved each
+          time it is needed.
         </p>
 
         <tp:rationale>
