@@ -5,7 +5,10 @@ checkouts.
 telepathy-spec 0.19.8 (UNRELEASED)
 ==================================
 
-...
+New stable API:
+
+* fd.o #28197: Account.Interface.Storage, providing extra information regarding
+  the storage backend for a particular account
 
 telepathy-spec 0.19.7 (2010-06-14)
 ==================================
