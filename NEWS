@@ -7,8 +7,35 @@ telepathy-spec 0.19.8 (UNRELEASED)
 
 New stable API:
 
-* fd.o #28197: Account.Interface.Storage, providing extra information regarding
-  the storage backend for a particular account
+✑ fd.o #28197: Account.Interface.Storage, providing extra information regarding
+  the storage backend for a particular account (eeejay)
+
+✑ fd.o #24910: Conn.I.Cellular, extra information about cellular connections
+  (compatible with draft 1, with the addition of the MessageReducedCharacterSet
+  property) (wjt)
+
+Deprecations:
+
+✑ Conn.I.Capabilities is deprecated: use Conn.I.ContactCapabilities instead.
+  CMs implementing Capabilities must now also implement ContactCapabilities.
+  (cassidy)
+
+New experimental API:
+
+✑ Protocol: new objects on a ConnectionManager, with parameter details and
+  other information (smcv)
+
+Changes to experimental API:
+
+✑ Conn.I.ContactList: update to draft 2 (smcv)
+  ✒ rename GetContactListAttributes to RequestContactList
+
+Fixes:
+
+✑ Messages: improve layout and clarity, and add more tp:simple-type types
+  (wjt)
+
+✑ ConnectionStatus, ConnectionStatusReason: add tp:type annotations (wjt)
 
 telepathy-spec 0.19.7 (2010-06-14)
 ==================================
