@@ -1090,7 +1090,14 @@ USA.</p>
           subscribe to the appropriate protocol feature when this becomes
           possible.</p>
 
-        <p>Clients MAY ignore errors raised by this method.</p>
+        <p>Clients MAY ignore any errors raised by this method; it is intended
+          to be called with the reply ignored.</p>
+
+        <tp:rationale>
+          <p>The only reason it could fail is if it's unimplemented, in which
+            case the only thing the client can usefully do is to proceed as if
+            it had succeeded.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
@@ -1121,7 +1128,15 @@ USA.</p>
           <tp:member-ref>AddClientInterest</tp:member-ref>. See that
           method's documentation for details.</p>
 
-        <p>Clients MAY ignore errors raised by this method.</p>
+        <p>Clients MAY ignore any errors raised by this method; it is intended
+          to be called with the reply ignored.</p>
+
+        <tp:rationale>
+          <p>The only reasons it could fail are if it's unimplemented, or if
+            the client's reference-counting is wrong and it has tried to
+            remove a client interest that it did not add. In both cases,
+            there's nothing the client could do about it.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
@@ -1130,15 +1145,6 @@ USA.</p>
           <p>Interfaces in which to unregister an interest.</p>
         </tp:docstring>
       </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            Raised if the client calling this method has no references to
-            release.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
     </method>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
