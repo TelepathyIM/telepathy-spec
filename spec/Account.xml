@@ -275,9 +275,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           should be used if possible:</p>
 
         <ul>
-          <li><tt>google-talk</tt></li>
-          <li><tt>ovi-chat</tt></li>
-          <li><tt>facebook</tt></li>
+          <li><tt>google-talk</tt> (for <a
+            href="http://www.google.com/talk/">Google's IM service</a>)</li>
+          <li><tt>ovi-chat</tt> (for <a href="http://www.ovi.com/">Ovi</a>'s IM
+            service)</li>
+          <li><tt>facebook</tt> (for <a
+            href="http://www.facebook.com/sitetour/chat.php">Facebook's IM
+            service</a>)</li>
+          <li><tt>lj-talk</tt> (for <a
+            href="http://www.livejournal.com/chat/">LiveJournal's IM
+            service</a>)</li>
+
         </ul>
 
         <p>The <tp:member-ref>Icon</tp:member-ref> property SHOULD be set to a
