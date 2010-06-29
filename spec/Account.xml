@@ -268,9 +268,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Some protocols, like XMPP and SIP, are used by various different
           user-recognised brands, such as <i>Google Talk</i> and <i>Ovi by
           Nokia</i>. On accounts for such services, this property SHOULD be
-          set to a string describing the service. For the <tt>jabber</tt>
-          protocol, one of the following service names should be used if
-          possible:</p>
+          set to a string describing the service, which MUST consist only of
+          ASCII letters, numbers and hyphen/minus signs, and start with a
+          letter (matching the requirements for <tp:type>Protocol</tp:type>).
+          For the <tt>jabber</tt> protocol, one of the following service names
+          should be used if possible:</p>
 
         <ul>
           <li><tt>google-talk</tt></li>
