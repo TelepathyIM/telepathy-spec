@@ -1024,17 +1024,25 @@ USA.</p>
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Register a client's interest in notifications related to one or
-          more interfaces. Interfaces that use this method MUST refer to it in
-          their documentation.</p>
+          more interfaces.</p>
 
-        <p>Depending on the interface, it might be necessary to call this
-          method before using an interface, or certain API calls might be
-          treated as equivalent to a call to this method.</p>
+        <p>Groups of notifications are identified by a token which is either
+          a D-Bus interface name, or a string that starts with a D-Bus
+          interface name. The meaning of each token is given by that D-Bus
+          interface, which MUST define it in its documentation.</p>
 
-        <p>For each interface with which this method interacts, the
+        <tp:rationale>
+          <p>Initially, all interests are in entire interface, but allowing
+            other strings allows subscription to part of an interface; for
+            instance, an interest in ...MailNotification/count could track
+            the number of messages without caring about their detailed
+            content.</p>
+        </tp:rationale>
+
+        <p>For each token with which this method interacts, the
           Connection tracks an "interest count" (like a reference count) for
           each unique bus name that has called this method. When a client
-          calls this method, for each interface, the interest count for its
+          calls this method, for each token, the interest count for its
           unique bus name is incremented; when
           <tp:member-ref>RemoveClientInterest</tp:member-ref> is called,
           all interest counts for that unique bus name are decremented.
@@ -1045,7 +1053,7 @@ USA.</p>
         <p>The Connection can then use these reference counts to
           avoid subscribing to protocol-level notifications unless at least
           one client has a non-zero interest count for the relevant
-          interface.</p>
+          token.</p>
 
         <p>For convenience or backwards compatibility, calling certain
           methods while having an interest count of 0 MAY increment the
@@ -1133,10 +1141,10 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
-        direction="in">
+      <arg name="Tokens" type="as" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Interfaces in which to unregister an interest.</p>
+          <p>Interfaces or parts of interfaces that were previously passed to
+            <tp:member-ref>AddClientInterest</tp:member-ref>.</p>
         </tp:docstring>
       </arg>
     </method>
