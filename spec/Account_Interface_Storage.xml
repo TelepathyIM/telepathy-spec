@@ -155,6 +155,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
+      <tp:flag suffix="Cannot_Set_Service" value="8">
+        <tp:docstring>
+          The account's <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Account">Service</tp:dbus-ref>
+          property cannot be changed.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
   </interface>

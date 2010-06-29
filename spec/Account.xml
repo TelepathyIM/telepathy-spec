@@ -262,7 +262,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="Service" tp:name-for-bindings="Service" type="s"
-        access="read">
+        access="readwrite">
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Some protocols, like XMPP and SIP, are used by various different
@@ -287,14 +287,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           because this is just a generic <tt>jabber</tt> or <tt>sip</tt>
           account without specific branding).</p>
 
-        <p>This property is read-only; it may only be set when calling
+        <p>This property MAY be set, if appropriate, when calling
           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.AccountManager"
-            >CreateAccount</tp:dbus-ref>.  On accounts stored externally (that
-          is, with a non-empty <tp:dbus-ref
+            >CreateAccount</tp:dbus-ref>. Updating this property will fail on
+          externally-stored accounts whose <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Account.Interface.Storage"
-            >StorageProvider</tp:dbus-ref>), this property SHOULD be filled in
-          if appropriate.</p>
+            >StorageRestrictions</tp:dbus-ref> include
+          <code>Cannot_Set_Service</code>.</p>
       </tp:docstring>
     </property>
 
