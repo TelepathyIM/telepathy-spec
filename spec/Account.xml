@@ -261,6 +261,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <property name="Service" tp:name-for-bindings="Service" type="s"
+        access="read">
+      <tp:added version="0.19.UNRELEASED"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Some protocols, like XMPP and SIP, are used by various different
+          user-recognised brands, such as <i>Google Talk</i> and <i>Ovi by
+          Nokia</i>. On accounts for such services, this property SHOULD be
+          set to a string describing the service. For the <tt>jabber</tt>
+          protocol, one of the following service names should be used if
+          possible:</p>
+
+        <ul>
+          <li><tt>google-talk</tt></li>
+          <li><tt>ovi-chat</tt></li>
+          <li><tt>facebook</tt></li>
+        </ul>
+
+        <p>The <tp:member-ref>Icon</tp:member-ref> property SHOULD be set to a
+          corresponding brand-specific icon name, if possible. In the future,
+          this property may be used as an index into additional
+          service-specific customizations. If this property is the empty string
+          (or missing), the service is determined by the protocol name (either
+          because this is a single-service protocol like <tt>msn</tt>, or
+          because this is just a generic <tt>jabber</tt> or <tt>sip</tt>
+          account without specific branding).</p>
+
+        <p>This property is read-only; it may only be set when calling
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.AccountManager"
+            >CreateAccount</tp:dbus-ref>.  On accounts stored externally (that
+          is, with a non-empty <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Account.Interface.Storage"
+            >StorageProvider</tp:dbus-ref>), this property SHOULD be filled in
+          if appropriate.</p>
+      </tp:docstring>
+    </property>
+
     <property name="Parameters" tp:name-for-bindings="Parameters"
       type="a{sv}" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
