@@ -1100,22 +1100,16 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Interfaces" type="as" tp:type="DBus_Interface[]"
-        direction="in">
+      <arg name="Tokens" type="as" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Interfaces in which to register an interest.</p>
+          <p>Interfaces or parts of interfaces in which to register an
+            interest, represented by either a
+            <tp:type>DBus_Interface</tp:type>, or a string prefixed with a
+            <tp:type>DBus_Interface</tp:type>.</p>
 
-          <p>If the Connection does not support one of these interfaces, this
-            is not considered to be an error; the unsupported interface is
+          <p>If the Connection does not support one of these tokens, this
+            is not considered to be an error; the unsupported token is
             simply ignored.</p>
-
-          <p>If this method is called for an interface that might require
-            protocol-level subscription, but the connection cannot set up
-            that subscription yet (for instance because the
-            <tp:member-ref>Status</tp:member-ref> is not Connected yet), the
-            Connection MUST remember the client's interest, and attempt to
-            subscribe to the appropriate protocol feature when this becomes
-            possible.</p>
         </tp:docstring>
       </arg>
     </method>
