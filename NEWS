@@ -14,6 +14,18 @@ New stable API:
   (compatible with draft 1, with the addition of the MessageReducedCharacterSet
   property) (wjt)
 
+✑ fd.o #28812: Account.Service, a property containing the name of a service —
+  such as "google-talk" — to provide more specific information on the nature of
+  the account than just the protocol (wjt)
+
+✑ Rationale blocks are now collapsible, if your browser supports Javascript,
+  which makes the spec easier to read if you don't care about them (wjt)
+
+✑ A new string typedef, Protocol_Content_Identifier, has been added to refer to
+  the strings used for the 'identifier' field in message body parts (wjt)
+
+✑ Arrays of Protocol_Message_Token are now specified as being possible (wjt)
+
 Deprecations:
 
 ✑ Conn.I.Capabilities is deprecated: use Conn.I.ContactCapabilities instead.
