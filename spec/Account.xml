@@ -263,7 +263,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="Service" tp:name-for-bindings="Service" type="s"
         access="readwrite">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Some protocols, like XMPP and SIP, are used by various different
           user-recognised brands, such as <i>Google Talk</i> and <i>Ovi by

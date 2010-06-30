@@ -22,7 +22,7 @@
   </tp:license>
 
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Cellular">
-    <tp:added version="0.19.UNRELEASED">(as stable API)</tp:added>
+    <tp:added version="0.19.8">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface is for various cellular things (GSM and/or CDMA) that

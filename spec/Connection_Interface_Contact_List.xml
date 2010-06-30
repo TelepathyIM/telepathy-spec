@@ -21,7 +21,7 @@
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT2"
     tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.19.UNRELEASED">(draft 2)</tp:added>
+    <tp:added version="0.19.8">(draft 2)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections that have any concept of a list of
@@ -61,7 +61,7 @@
 
     <method name="RequestContactList"
       tp:name-for-bindings="Request_Contact_List">
-      <tp:changed version="0.19.UNRELEASED">(in draft: renamed from
+      <tp:changed version="0.19.8">(in draft: renamed from
         GetContactListAttributes)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Return some contact attributes for a list of contacts somehow

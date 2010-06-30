@@ -488,7 +488,7 @@ USA.</p>
     </tp:mapping>
 
     <tp:simple-type type="s" name="Message_Header_Key">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Well-known keys for the first <tp:type>Message_Part</tp:type> of a
           message, which contains metadata about the message as a whole, along
@@ -591,7 +591,7 @@ USA.</p>
     </tp:simple-type>
 
     <tp:simple-type type="s" name="Message_Body_Key">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Well-known keys for the second and subsequent
           <tp:type>Message_Part</tp:type>s of a message, which contain the
@@ -730,7 +730,7 @@ USA.</p>
     </tp:simple-type>
 
     <tp:simple-type type="s" name="Delivery_Report_Header_Key">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Well-known keys for the first <tp:type>Message_Part</tp:type> of a
           delivery report, along with the corresponding value types. Some of

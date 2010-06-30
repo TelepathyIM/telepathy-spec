@@ -38,7 +38,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:rationale>
 
     </tp:docstring>
-    <tp:added version="0.19.UNRELEASED"/>
+    <tp:added version="0.19.8"/>
 
     <property name="StorageProvider" tp:name-for-bindings="Storage_Provider"
               type="s" access="read">
