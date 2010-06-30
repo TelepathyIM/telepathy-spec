@@ -893,7 +893,7 @@ USA.</p>
     <tp:simple-type name="Protocol_Content_Identifier" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A protocol-specific identifier for a blob of content, as used for
-          the <tt>content-id</tt> key in a <tp:type>Message_Part</tp:type>. The
+          the <tt>identifier</tt> key in a <tp:type>Message_Part</tp:type>. The
           same identifier MAY be re-used if the same content, byte-for-byte,
           appears as a part of several messages.</p>
 
