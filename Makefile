@@ -97,7 +97,7 @@ clean:
 
 maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
 maintainer-upload-release: doc/spec/index.html check
 	@install -d tmp
@@ -112,8 +112,8 @@ maintainer-upload-release: doc/spec/index.html check
 	gpg --verify telepathy-spec-$$version.tar.gz.asc; \
 	rsync -vzP telepathy-spec-$$version.tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
 	rsync -vzP telepathy-spec-$$version.tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
 dist: check
 	@install -d tmp
