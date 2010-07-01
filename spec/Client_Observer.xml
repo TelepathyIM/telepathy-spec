@@ -326,7 +326,9 @@ Recover=true
 
       <arg name="Requests_Satisfied" type="ao" direction="in">
         <tp:docstring>
-          The requests satisfied by these channels.
+          The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>s
+          satisfied by these channels.
 
           <tp:rationale>
             If the same process is an Observer and a Handler, it can be useful
