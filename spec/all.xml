@@ -127,6 +127,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:section>
  </tp:section>
 
+ <tp:section name="Authentication Objects">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>
+      A set of objects to be used for authentication purposes, such
+      as TLS certificates or handshakes for negotiating end-to-end
+      security.
+    </p>
+  </tp:docstring>
+  <xi:include href="Authentication_TLS_Certificate.xml"/>
+ </tp:section>
+
  <tp:section name="Media">
   <xi:include href="Media_Session_Handler.xml"/>
   <xi:include href="Media_Stream_Handler.xml"/>
