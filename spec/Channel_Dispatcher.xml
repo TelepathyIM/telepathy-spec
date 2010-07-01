@@ -101,6 +101,70 @@
 
     <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start a request to create a channel. This is equivalent to calling
+          <tp:member-ref>CreateChannelWithMetadata</tp:member-ref>, passing an
+          empty dictionary as the <var>Metadata</var> parameter; see that
+          method for full documentation.</p>
+      </tp:docstring>
+
+      <arg direction="in" name="Account" type="o">
+        <tp:docstring>
+          The
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+          for which the new channel is to be created.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Requested_Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary containing desirable properties.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="User_Action_Time" type="x"
+        tp:type="User_Action_Timestamp">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The time at which user action occurred, or 0 if this channel
+            request is for some reason not involving user action.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Preferred_Handler" type="s"
+        tp:type="DBus_Well_Known_Name">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Either the well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>)
+            of the preferred handler for this
+            channel, or an empty string to indicate that any handler would be
+            acceptable.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" name="Request" type="o">
+        <tp:docstring>
+          A
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
+          object.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The Preferred_Handler is syntactically invalid or does
+            not start with <code>org.freedesktop.Telepathy.Client.</code>,
+            the Account does not exist, or one of the Requested_Properties
+            is invalid
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="CreateChannelWithMetadata"
+            tp:name-for-bindings="Create_Channel_With_Metadata">
+      <tp:added version="0.19.UNRELEASED"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to create a channel. This initially just creates a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
           object, which can be used to continue the request and track its
@@ -235,6 +299,14 @@
         </tp:changed>
       </arg>
 
+      <arg direction="in" name="Metadata" type="a{sv}">
+        <tp:docstring>
+          Additional information about the channel request, which will be used
+          as the value for the resulting request's <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.ChannelRequest">RequestMetadata</tp:dbus-ref>
+          property.</tp:docstring>
+      </arg>
+
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
           A
@@ -257,6 +329,72 @@
     </method>
 
     <method name="EnsureChannel" tp:name-for-bindings="Ensure_Channel">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start a request to ensure that a channel exists, creating it if
+          necessary. This is equivalent to calling
+          <tp:member-ref>EnsureChannelWithMetadata</tp:member-ref>, passing an
+          empty dictionary as the <var>Metadata</var> parameter; see that
+          method for full documentation.</p>
+      </tp:docstring>
+
+      <arg direction="in" name="Account" type="o">
+        <tp:docstring>
+          The
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref>
+          for which the new channel is to be created.
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Requested_Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A dictionary containing desirable properties.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="User_Action_Time" type="x"
+        tp:type="User_Action_Timestamp">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The time at which user action occurred, or 0 if this channel
+            request is for some reason not involving user action.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Preferred_Handler" type="s"
+        tp:type="DBus_Well_Known_Name">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Either the well-known bus name (starting with
+            <code>org.freedesktop.Telepathy.Client.</code>)
+            of the preferred handler for this
+            channel, or an empty string to indicate that any handler would be
+            acceptable.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg direction="out" name="Request" type="o">
+        <tp:docstring>
+          A
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
+          object.
+        </tp:docstring>
+      </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The Preferred_Handler is syntactically invalid or does
+            not start with <code>org.freedesktop.Telepathy.Client.</code>,
+            the Account does not exist, or one of the Requested_Properties
+            is invalid
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+
+    </method>
+
+    <method name="EnsureChannelWithMetadata"
+            tp:name-for-bindings="Ensure_Channel_With_Metadata">
+      <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to ensure that a channel exists, creating it if
           necessary.  This initially just creates a <tp:dbus-ref
@@ -357,6 +495,14 @@
           </tp:rationale>
 
         </tp:docstring>
+      </arg>
+
+      <arg direction="in" name="Metadata" type="a{sv}">
+        <tp:docstring>
+          Additional information about the channel request, which will be used
+          as the value for the resulting request's <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.ChannelRequest">RequestMetadata</tp:dbus-ref>
+          property.</tp:docstring>
       </arg>
 
       <arg direction="out" name="Request" type="o">
