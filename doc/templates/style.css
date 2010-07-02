@@ -213,9 +213,11 @@ span.warning {
 }
 
 div.rationale {
-	border-left: 2px solid gray;
+	border: 1px solid gray;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	margin: 1ex;
-	padding-left: 1ex;
+	padding: 0 1ex;
 }
 
 div.rationale h5 {
@@ -227,7 +229,6 @@ div.rationale h5 {
 
         /* And all this only matters if the script has un-hidden us. */
         margin: 0;
-        padding: 2px;
         text-height: 12px;
         cursor: pointer;
 }
