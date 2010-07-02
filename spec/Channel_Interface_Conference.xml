@@ -166,6 +166,11 @@
         <tp:docstring>The channel that was added to
           <tp:member-ref>Channels</tp:member-ref>.</tp:docstring>
       </arg>
+
+      <arg name="Properties" type="a{sv}"
+           tp:type="Qualified_Property_Value_Map">
+        <tp:docstring><var>Channel</var>'s immutable properties.</tp:docstring>
+      </arg>
     </signal>
 
     <signal name="ChannelRemoved" tp:name-for-bindings="Channel_Removed">
