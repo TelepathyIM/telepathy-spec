@@ -42,6 +42,7 @@ GENERATED_FILES = \
 	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/spec/index.html \
+	FIXME.out \
 	$(INTROSPECT) \
 	$(CANONICAL_NAMES)
 
@@ -73,7 +74,7 @@ test/output/introspect.canon: test/output/_Test.introspect.xml
 
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
-check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
+check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES) FIXME.out
 	@e=0; \
 	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
 	exit $$e
@@ -88,6 +89,11 @@ check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
 			fi \
 			;; \
 	esac
+
+FIXME.out: $(XMLS)
+	@echo '  GEN   ' $@
+	@egrep -A 5 '[F]IXME|[T]ODO|[X]XX' $(XMLS) \
+		> FIXME.out || true
 
 clean:
 	rm -f $(GENERATED_FILES)
