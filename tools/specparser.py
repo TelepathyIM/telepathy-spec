@@ -42,6 +42,21 @@ class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
 class MissingVersion(Exception): pass
 
+class Xzibit(Exception):
+    def __init__(self, parent, child):
+        self.parent = parent
+        self.child = child
+
+    def __str__(self):
+        print """
+    Nested <%s>s are forbidden.
+    Parent:
+        %s...
+    Child:
+        %s...
+        """ % (self.parent.nodeName, self.parent.toxml()[:100],
+               self.child.toxml()[:100])
+
 def getText(dom):
     try:
         if dom.childNodes[0].nodeType == dom.TEXT_NODE:
@@ -212,6 +227,10 @@ class Base(object):
 
         # rewrite <tp:rationale>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'rationale'):
+            nested = n.getElementsByTagNameNS(XMLNS_TP, 'rationale')
+            if nested:
+                raise Xzibit(n, nested[0])
+
             rationale_div = xml.dom.minidom.parseString(
                 """
                 <div class='rationale'>
