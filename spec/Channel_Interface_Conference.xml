@@ -102,13 +102,18 @@
         the room), call:</p>
 
       <blockquote>
-        <code>CreateChannel({
+        <code><tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">EnsureChannel</tp:dbus-ref>({
             ...ChannelType: ...Text,
             ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: ...Room,
             ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: 'telepathy@conf.example.com',
             ...<tp:member-ref>InitialChannels</tp:member-ref>: [C3]
           })</code>
       </blockquote>
+
+      <p>Note the use of EnsureChannel — if a channel for
+        <tt>telepathy@conf.example.com</tt> is already open, this SHOULD be
+        equivalent to inviting <tt>chris@example.com</tt> to the existing
+        channel.</p>
 
       <p>In the above cases, the text channel <var>C3</var> SHOULD remain open
         and fully functional (until explicitly closed by a client); new
