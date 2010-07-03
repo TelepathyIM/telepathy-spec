@@ -29,7 +29,10 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for multi-user conference channels that can "continue
-        from" one or more individual channels.</p>
+        from" one or more individual channels. This could be used to invite
+        other contacts to an existing 1-1 text conversation, combine two phone
+        calls into one conference call, and so on, with roughly the same API in
+        each case.</p>
 
       <tp:rationale>
         <p>This interface addresses freedesktop.org <a
@@ -37,56 +40,113 @@
             #24906</a> (GSM-compatible conference calls) and <a
             href="http://bugs.freedesktop.org/show_bug.cgi?id=24939">bug
             #24939</a> (upgrading calls and chats to multi-user).
-          See those bugs for rationale and use cases.</p>
-
-        <p>Examples of usage:</p>
-
-        <p>Active and held GSM calls C1, C2 can be merged into a single
-          channel Cn with the Conference interface, by calling
-          <code>CreateChannel({...ChannelType: ...Call,
-            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1, C2]})</code>
-          which returns Cn.</p>
-
-        <p>An XMPP 1-1 conversation C1 can be continued in a newly created
-          multi-user chatroom Cn by calling
-          <code>CreateChannel({...ChannelType: ...Text,
-            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
-          which returns Cn.</p>
-
-        <p>An XMPP 1-1 conversation C1 can be continued in a specified
-          multi-user chatroom by calling
-          <code>CreateChannel({...ChannelType: ...Text, ...HandleType: ROOM,
-            ...TargetID: 'telepathy@conf.example.com',
-            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
-          which returns a Conference channel.</p>
-
-        <p>Either of the XMPP cases could work for Call channels, to
-          upgrade from 1-1 Jingle to multi-user Jingle. Any of the XMPP cases
-          could in principle work for link-local XMPP (XEP-0174).</p>
-
-        <p>The underlying switchboard representing an MSN 1-1 conversation C1
-          with a contact X can be moved to a representation as a nameless
-          chatroom, Cn, to which more contacts can be invited, by calling
-          <code>CreateChannel({...ChannelType: ...Text,
-            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1]})</code>
-          which returns Cn. C1 SHOULD remain open, with no underlying
-          switchboard attached. If X establishes a new switchboard with the
-          local user, C1 SHOULD pick up that switchboard rather than letting
-          it create a new channel.
-          <strong>[FIXME: should it?]</strong>
-          Similarly, if the local user sends a message in C1, then
-          a new switchboard to X should be created and associated with C1.</p>
-
-        <p>XMPP and MSN do not natively have a concept of merging two or more
-          channels C1, C2... into one channel, Cn. However, the GSM-style
-          merging API can be supported on XMPP and MSN, as an API short-cut
-          for upgrading C1 into a conference Cn (which invites the
-          TargetHandle of C1 into Cn), then immediately inviting the
-          TargetHandle of C2, the TargetHandle of C3, etc. into Cn as well.</p>
-
-        <p>With a suitable change of terminology, Skype has behaviour similar
-          to MSN.</p>
+          See those bugs for more rationale and use cases.</p>
       </tp:rationale>
+
+      <p>Existing channels are upgraded by requesting a new channel of the same
+        <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>,
+        listing the channels to be merged into the new conference in the
+        <tp:member-ref>InitialChannels</tp:member-ref> property of the request.
+        If <tp:member-ref>SupportsNonMerges</tp:member-ref> is an allowed
+        property in <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>,
+        ad-hoc conferences to a set of contacts may be created by requesting a
+        channel, specifying
+        <tp:member-ref>InitialInviteeHandles</tp:member-ref> and/or
+        <tp:member-ref>InitialInviteeIDs</tp:member-ref> to be the contacts in
+        question; these may be specified alongside
+        <tp:member-ref>InitialChannels</tp:member-ref>, to simultaneously
+        upgrade a channel to a conference and invite others to join it.</p>
+
+      <h3>Examples of usage</h3>
+
+      <p>A pair of 1-1 GSM calls <var>C1</var> and <var>C2</var> can be merged
+        into a single conference call by calling:</p>
+
+      <blockquote>
+        <code><tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: ...Call,
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1, C2]
+          })</code>
+      </blockquote>
+
+      <p>which returns a call channel <var>Cn</var> implementing the conference
+        interface. (Both 1-1 calls must first be placed on hold, as a quirk of
+        GSM.)</p>
+
+      <p>An XMPP 1-1 conversation <var>C3</var> (with
+        <tt>chris@example.com</tt>, say) can be continued in a newly created
+        multi-user chatroom by calling:</p>
+
+      <blockquote>
+        <code>CreateChannel({
+            ...ChannelType: ...Text,
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C3]
+          })</code>
+      </blockquote>
+
+      <p>Or, to invite <tt>emily@example.net</tt> to join the newly-created MUC
+        at the same time:</p>
+
+      <blockquote>
+        <code>CreateChannel({
+            ...ChannelType: ...Text,
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C3],
+            ...<tp:member-ref>InitialInviteeIDs</tp:member-ref>: ['emily@example.net']
+          })</code>
+      </blockquote>
+
+      <p>To continue <var>C3</var> in a particular multi-user
+        chatroom (rather than the implementation inventing a unique name for
+        the room), call:</p>
+
+      <blockquote>
+        <code>CreateChannel({
+            ...ChannelType: ...Text,
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: ...Room,
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: 'telepathy@conf.example.com',
+            ...<tp:member-ref>InitialChannels</tp:member-ref>: [C3]
+          })</code>
+      </blockquote>
+
+      <p>In the above cases, the text channel <var>C3</var> SHOULD remain open
+        and fully functional (until explicitly closed by a client); new
+        incoming 1-1 messages from <tt>chris@example.com</tt> SHOULD appear in
+        <var>C3</var>, and messages sent using <var>C3</var> MUST be relayed
+        only to <tt>chris@example.com</tt>.</p>
+
+      <tp:rationale>
+        <p>If there is an open 1-1 text channel with a contact, in every
+          other situation new messages will appear in that channel. Given
+          that the old channel remains open — which is the least surprising
+          behaviour, and eases us towards a beautiful world where channels
+          never close themselves — it stands to reason that it should be
+          where new messages from Chris should appear. On MSN, creating a
+          conference from <var>C3</var> should migrate the underlying
+          switchboard from <var>C3</var> to the new channel; this is an
+          implementation detail, and should not affect the representation on
+          D-Bus. With a suitable change of terminology, Skype has the same
+          behaviour.</p>
+
+        <p>If the current handler of that channel doesn't want this to happen
+          (maybe it transformed the existing tab into the group chat window,
+          and so there'd be no UI element still around to show new messages),
+          then it should just <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref> the
+          old 1-1 channel; it'll respawn if necessary.</p>
+      </tp:rationale>
+
+      <p>Either of the XMPP cases could work for Call channels, to
+        upgrade from 1-1 Jingle to multi-user Jingle. Any of the XMPP cases
+        could in principle work for link-local XMPP (XEP-0174).</p>
+
+      <p>XMPP and MSN do not natively have a concept of merging two or more
+        channels C1, C2... into one channel, Cn. However, the GSM-style
+        merging API can be supported on XMPP and MSN, as an API short-cut
+        for upgrading C1 into a conference Cn (which invites the
+        TargetHandle of C1 into Cn), then immediately inviting the
+        TargetHandle of C2, the TargetHandle of C3, etc. into Cn as well.</p>
 
       <p>The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface"
