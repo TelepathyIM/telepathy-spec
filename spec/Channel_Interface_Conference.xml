@@ -502,5 +502,56 @@
       </tp:docstring>
     </property>
 
+    <property name="OriginalChannels" tp:name-for-bindings="Original_Channels"
+              type="a{uo}" tp:type="Channel_Originator_Map"
+              access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>On GSM conference calls, it is possible to have the same phone
+          number in a conference twice; for instance, it could be the number of
+          a corporate switchboard. This is represented using channel-specific
+          handles, as defined by <tp:type>Channel_Group_Flags</tp:type>. The
+          <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Interface">Group.HandleOwners</tp:dbus-ref>
+          property specifies the mapping from opaque channel-specific handles
+          to actual numbers; this property specifies the original 1-1 channel
+          corresponding to each channel-specific handle in the conference.</p>
+
+        <p>For example, consider a conference call created by merging two
+          separate 1-1 calls to <tt>+441234567890</tt>. Suppose that phone
+          number is assigned the handle <var>h</var>, and that <var>j</var> and
+          <var>k</var> are two channel specific handles. Then the relevant
+          channel properties would be:</p>
+
+        <blockquote>
+          <code>{<br/>
+            ...<tp:dbus-ref
+              namespace="org.freedesktop.Telepathy.Channel.Interface">Group.HandleOwners</tp:dbus-ref>: { j: h, k: h },<br/>
+            ...<tp:member-ref>Channels</tp:member-ref>: ['/path/to/foo', '/path/to/bar'],<br/>
+            ...<tp:member-ref>OriginalChannels</tp:member-ref>: { j: '/path/to/bar', k: '/path/to/foo' }<br/>
+          }</code>
+        </blockquote>
+      </tp:docstring>
+    </property>
+
+    <tp:mapping name="Channel_Originator_Map">
+      <tp:member name="Channel_Specific_Handle" type="u" tp:type="Contact_Handle">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          A channel-specific handle for a participant in this conference.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="Original_Channel" type="o">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The object path of <tp:member-ref>Channels</tp:member-ref>
+          representing the original 1-1 channel with
+          <var>Channel_Specific_Handle</var>.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        A mapping from members of a conference to the original 1-1 channel with
+        that contact, if any. See
+        <tp:member-ref>OriginalChannels</tp:member-ref> for details.
+      </tp:docstring>
+    </tp:mapping>
   </interface>
 </node>
