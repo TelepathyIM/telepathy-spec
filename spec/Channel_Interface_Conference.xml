@@ -210,10 +210,18 @@
               namespace="org.freedesktop.Telepathy.Channel"
               >TargetHandleType</tp:dbus-ref> = CONTACT.</p>
 
-        <p>This property MUST NOT be requestable.
-          <strong>[FIXME: or would it be better for this one, and not IC, to be
-            requestable?]</strong>
-        </p>
+        <p>This property MUST NOT be requestable; instead, the
+          <tp:member-ref>InitialChannels</tp:member-ref> property may be
+          specified when requesting a channel.</p>
+
+        <tp:rationale>
+          <p>This is consistent with requesting
+            <tp:member-ref>InitialInviteeHandles</tp:member-ref> and
+            <tp:member-ref>InitialInviteeIDs</tp:member-ref>, rather than
+            requesting <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel.Interface">Group.Members</tp:dbus-ref>
+            and some hypothetical ID version of that property.</p>
+       </tp:rationale>
 
         <p>Change notification is via the
           <tp:member-ref>ChannelMerged</tp:member-ref> and
