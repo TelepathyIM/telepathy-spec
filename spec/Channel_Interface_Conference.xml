@@ -163,12 +163,9 @@
 
       <tp:rationale>
         <p>In the GSM case, the Conference's Group interface MAY have
-          channel-specific handles, to reflect the fact that the identities of
-          the participants might not be known - it can be possible to know that
-          there is another participant in the Conference, but not know who
-          they are.
-          <strong>[FIXME: fact check from GSM gurus needed]</strong>
-        </p>
+          channel-specific handles, to represent the fact that the same
+          phone number may be in a conference twice (for instance, it could be
+          the number of a corporate switchboard).</p>
 
         <p>In the XMPP case, the Conference's Group interface SHOULD have
           channel-specific handles, to reflect the fact that the participants
