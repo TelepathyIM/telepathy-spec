@@ -626,8 +626,9 @@ USA.</p>
             <dt>content-type (s)</dt>
             <dd>
               <p>The MIME type of this part. See the documentation
-                for ReceivedMessage for notes on the special status of
-                "text/plain" parts.</p>
+                for <tp:member-ref>MessageReceived</tp:member-ref> and
+                <tp:member-ref>MessageSent</tp:member-ref> for notes on the
+                special status of "text/plain" parts.</p>
 
               <p>Connection managers MUST NOT signal parts without a
                 'content-type' key; if a protocol provides no way to determine
@@ -1151,7 +1152,12 @@ USA.</p>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Message">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The message content, including any attachments or alternatives
+          <p>The message content, including any attachments or alternatives. If
+            the incoming message contains formatted text without a plain text
+            alternative, the connection manager MUST generate a
+            <tt>text/plain</tt> alternative from the formatted text, and
+            include it in this message (both here, and in the
+            <tp:member-ref>PendingMessages</tp:member-ref> property).</p>
         </tp:docstring>
       </arg>
     </signal>
