@@ -1230,6 +1230,20 @@ USA.</p>
           </tp:rationale>
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Read" value="5">
+        <tp:added version="0.19.UNRELEASED"/>
+        <tp:docstring>
+          The message has been read by the intended recipient.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Deleted" value="6">
+        <tp:added version="0.19.UNRELEASED"/>
+        <tp:docstring>
+          The message has been deleted by the intended recipient.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:flags name="Delivery_Reporting_Support_Flags"
