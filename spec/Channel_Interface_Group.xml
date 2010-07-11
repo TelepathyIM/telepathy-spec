@@ -727,7 +727,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <p>If a one-to-one <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-            call fails because the contact being called did not respond, the
+            call fails because the contact being called did not respond, or the
+            local user did not respond to an incoming call, the
             connection manager SHOULD indicate this by removing both the
             <tp:member-ref>SelfHandle</tp:member-ref> and the other contact's
             handle from the Group interface with reason No_Answer.</p>
