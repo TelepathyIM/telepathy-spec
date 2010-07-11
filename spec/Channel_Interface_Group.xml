@@ -852,6 +852,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel-specific handles are added, but that it is emitted
           <em>after</em> emitting a MembersChanged signal in which
           channel-specific handles are removed.</p>
+
+        <p>See <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+          for an overview of how group state changes are used to indicate the
+          progress of a call.</p>
       </tp:docstring>
     </signal>
 
@@ -979,6 +984,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel-specific handles are added, but that it is emitted
           <em>after</em> emitting a MembersChangedDetailed signal in which
           channel-specific handles are removed.</p>
+
+        <p>See <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+          for an overview of how group state changes are used to indicate the
+          progress of a call.</p>
       </tp:docstring>
       <tp:added version="0.17.16"/>
     </signal>
