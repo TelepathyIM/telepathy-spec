@@ -104,6 +104,8 @@ clean:
 maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
 	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	@echo The snapshot lives at:
+	@echo '  ' http://telepathy.freedesktop.org/spec-snapshot/
 
 maintainer-upload-release: doc/spec/index.html check
 	@install -d tmp
