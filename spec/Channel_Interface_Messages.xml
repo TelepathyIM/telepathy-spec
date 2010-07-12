@@ -943,7 +943,11 @@ USA.</p>
       <arg direction="in" name="Flags" type="u"
         tp:type="Message_Sending_Flags">
         <tp:docstring>
-          Flags affecting how the message is sent.
+          Flags affecting how the message is sent. The channel MAY ignore some
+          or all flags, depending on
+          <tp:member-ref>DeliveryReportingSupport</tp:member-ref>; the flags
+          that were handled by the CM are provided in
+          <tp:member-ref>MessageSent</tp:member-ref>.
         </tp:docstring>
       </arg>
 
@@ -972,7 +976,9 @@ USA.</p>
       type="u">
       <tp:docstring>
         Flags altering the way a message is sent. The "most usual" action
-        should always be to have these flags unset.
+        should always be to have these flags unset. Some indication of which
+        flags are supported is provided by the
+        <tp:member-ref>DeliveryReportingSupport</tp:member-ref> property.
       </tp:docstring>
 
       <tp:flag suffix="Report_Delivery" value="1">
@@ -1266,7 +1272,9 @@ USA.</p>
       value-prefix="Delivery_Reporting_Support_Flag" type="u">
       <tp:docstring>
         Flags indicating the level of support for delivery reporting on this
-        channel. Any future flags added to this set will conform to the
+        channel, as found on the
+        <tp:member-ref>DeliveryReportingSupport</tp:member-ref> property. Any
+        future flags added to this set will conform to the
         convention that the presence of an extra flag implies that
         more operations will succeed. Note that CMs may always provide more
         reports than are requested in the
