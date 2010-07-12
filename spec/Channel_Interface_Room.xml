@@ -1,0 +1,244 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Interface_Room"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+  <tp:copyright>Copyright © 2010 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright © 2010 Nokia Corporation</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public
+      License along with this library; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+      02110-1301, USA.</p>
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT"
+    tp:causes-havoc="experimental">
+    <tp:added version="0.19.UNRELEASED">(draft 1)</tp:added>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Different IM protocols use a variety of ways to name chat rooms. The
+        simplest example is perhaps IRC, where chat rooms have short,
+        persistent, human-readable string names, and are generally global
+        across the network. Skype chat rooms have persistent string names, so
+        you can leave and re-join a room, but these names are opaque unique
+        identifiers. MSN chat rooms are unnamed, and you can only join one by
+        being invited. And XMPP wins the coveted “most complicated chat rooms”
+        prize: chat rooms may be hosted by different servers with different DNS
+        names; normally they have human-readable names, except that all MUCs on
+        Google Talk's conference server have UUIDs as names, and <a
+          href="http://xmpp.org/extensions/xep-0045.html#createroom-unique"><acronym
+          title="XMPP Extension Protocol">XEP</acronym>-0045 §10.1.4
+        <q>Requesting a Unique Room Name</q></a> defines a protocol for
+        requesting a unique, opaque room name on the server.</p>
+
+      <p>This interface intends to support and differentiate these mechanisms
+        more clearly than the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+        and <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+        properties can alone. It initially contains a pair of properties used
+        to represent the human-readable parts of a
+        <tp:type>Room_Handle</tp:type>'s identifier, if any. The above examples
+        for different protocols are represented as follows:</p>
+
+      <ul>
+        <li>The IRC channel <tt>#telepathy</tt> on Freenode is represented by a
+          channel with properties
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>Room</code>,
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+          = <code>"#telepathy"</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>"#telepathy"</code>,
+          <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
+          that the room has a human-readable identifier, and is not confined to
+          a particular server on the network.
+
+          <tp:rationale>
+            Actually, IRC supports creating “local” channels specific to the
+            server they are created on. These channels have identifiers
+            starting with <tt>&amp;</tt> rather than <tt>#</tt>. These could be
+            represented by setting <tp:member-ref>Server</tp:member-ref>
+            appropriately.
+          </tp:rationale>
+        </li>
+
+        <li>A Skype group chat with opaque identifier <tt>0xdeadbeef</tt> has
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>Room</code>,
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+          = <code>"0xdeadbeef"</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
+          that the room has an identifier but no human-readable name.
+        </li>
+
+        <li>An MSN group chat has
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>None</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
+          that the room has neither an identifier (so it cannot be re-joined
+          later) nor a human-readable name.
+        </li>
+
+        <li>A standard Jabber multi-user chat
+          <tt>jdev@conference.jabber.org</tt> has
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>Room</code>,
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+          = <code>"jdev@conference.jabber.org"</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>"jdev"</code>,
+          <tp:member-ref>Server</tp:member-ref> = <code>"conference.jabber.org"</code>.
+        </li>
+
+        <li>A Google Talk private MUC <tt>private-chat-11111x1x-11xx-111x-1111-111x1xx11x11@groupchat.google.com</tt> has
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>Room</code>,
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+          = <code>"private-chat-11111x1x-11xx-111x-1111-111x1xx11x11@groupchat.google.com"</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>Server</tp:member-ref> =
+          <code>"groupchat.google.com"</code>, indicating that the room has a
+          persistent identifier (<strong>FIXME: can you rejoin PMUCs if you
+          part them? The spec isn't clear. If you can't, these should have THT
+          None.</strong>), no human-readable name, and is hosted by a
+          particular server.
+        </li>
+
+        <li>Similarly, a XEP-0045 §10.1.4 uniquely-named room
+          <tt>lrcgsnthzvwm@conference.jabber.org</tt> has
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          = <code>Room</code>,
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
+          = <code>"lrcgsnthzvwm@conference.jabber.org"</code>,
+          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>Server</tp:member-ref> =
+          <code>"conference.jabber.org"</code>, indicating that the room has a
+          persistent identifier, no human-readable name, and is hosted by a
+          particular server.
+        </li>
+      </ul>
+
+      <h4>Requestable channel classes</h4>
+
+      <p>If the connection supports joining text chat rooms by unique
+        identifier, like Skype, it should advertise a
+        <tp:type>Requestable_Channel_Class</tp:type> matching:</p>
+
+      <blockquote>
+        <pre>
+( Fixed = { ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type"
+                                        >Text</tp:dbus-ref>,
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >TargetHandleType</tp:dbus-ref>: Room,
+          },
+  Allowed = [ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+              >TargetID</tp:dbus-ref>,
+              ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+              >TargetHandle</tp:dbus-ref>,
+            ]
+)</pre></blockquote>
+
+      <p>Channel requests should specify either TargetID or TargetHandle.</p>
+
+      <p>If, like IRC, the room identifiers are also human-readable, the RCC should also include RoomName in the allowed properties:</p>
+
+      <blockquote>
+        <pre>
+( Fixed = { ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type"
+                                        >Text</tp:dbus-ref>,
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >TargetHandleType</tp:dbus-ref>: Room,
+          },
+  Allowed = [ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+              >TargetID</tp:dbus-ref>,
+              ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+              >TargetHandle</tp:dbus-ref>,
+              ...<tp:member-ref>RoomName</tp:member-ref>,
+            ]
+)</pre></blockquote>
+
+      <p>Requests may specify the RoomName in place of TargetID or
+        TargetHandle. If rooms may be on different servers, Server should also
+        be included in the allowed properties, but CMs MUST use a reasonable
+        default if Server is not explicitly specified in a channel request.
+        <strong>FIXME: how do we specify the default room? A separate channel
+        class with Server fixed?</strong></p>
+
+      <p>If the protocol supports unnamed rooms, RoomName should be fixed to
+        the empty string, and TargetHandleType should be None:</p>
+
+      <blockquote>
+        <pre>
+( Fixed = { ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type"
+                                        >Text</tp:dbus-ref>,
+            ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >TargetHandleType</tp:dbus-ref>: None,
+            ...<tp:member-ref>RoomName</tp:member-ref>: "",
+          },
+  Allowed = [ ]
+)</pre></blockquote>
+
+      <p><strong>TODO: actually the classes for properties on this interface should not
+        include THT: Room in Fixed, they should be separate. Document joining
+        ad-hoc MUCs on different XMPP servers.</strong></p>
+    </tp:docstring>
+
+    <property name="RoomName" tp:name-for-bindings="Room_Name" type="s"
+              access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The human-readable identifier of a chat room. <strong>FIXME: XMPP MUCs have
+          a "name" concept which is more like a topic, except more persistent.
+          This property is meant to be the bit before the @ in the jid.</strong></p>
+
+        <p>This property cannot change during the lifetime of the channel. It
+          should appear in the <var>Allowed_Properties</var> of a
+          <tp:type>Requestable_Channel_Class</tp:type> for the connection if
+          rooms on this connection have human-readable names, and can be joined
+          by name.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="Server" tp:name-for-bindings="Server" type="s"
+              access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>For protocols with a concept of chatrooms on multiple servers with
+          different DNS names (like XMPP), the DNS name of the server hosting
+          this channel (for example, <tt>"conference.jabber.org"</tt> or
+          <tt>"groupchat.google.com"</tt>). For other protocols, the empty
+          string.</p>
+
+        <p>This property cannot change during the lifetime of the channel. It
+          should appear in the <var>Allowed_Properties</var> of a
+          <tp:type>Requestable_Channel_Class</tp:type> for the connection if
+          and only if non-empty values are supported.</p>
+      </tp:docstring>
+    </property>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
