@@ -1268,20 +1268,23 @@ USA.</p>
         Flags indicating the level of support for delivery reporting on this
         channel. Any future flags added to this set will conform to the
         convention that the presence of an extra flag implies that
-        more operations will succeed.
+        more operations will succeed. Note that CMs may always provide more
+        reports than are requested in the
+        <tp:type>Message_Sending_Flags</tp:type> passed to
+        <tp:member-ref>SendMessage</tp:member-ref>.
+
+        <tp:rationale>
+          If senders want delivery reports, they should ask for them.  If they
+          don't want delivery reports, they can just ignore them, so there's no
+          need to have capability discovery for what will happen if a delivery
+          report isn't requested.
+        </tp:rationale>
       </tp:docstring>
 
       <tp:flag suffix="Receive_Failures" value="1">
         <tp:docstring>
           Clients MAY expect to receive negative delivery reports if
           Message_Sending_Flag_Report_Delivery is specified when sending.
-
-          <tp:rationale>
-            If senders want delivery reports, they should ask for them.
-            If they don't want delivery reports, they can just ignore them,
-            so there's no need to have capability discovery for what will
-            happen if a delivery report isn't requested.
-          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
@@ -1289,10 +1292,6 @@ USA.</p>
         <tp:docstring>
           Clients MAY expect to receive positive delivery reports if
           Message_Sending_Flag_Report_Delivery is specified when sending.
-
-          <tp:rationale>
-            Same rationale as Receive_Failures.
-          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
