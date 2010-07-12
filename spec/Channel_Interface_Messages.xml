@@ -1263,7 +1263,9 @@ USA.</p>
       <tp:enumvalue suffix="Deleted" value="6">
         <tp:added version="0.19.UNRELEASED"/>
         <tp:docstring>
-          The message has been deleted by the intended recipient.
+          The message has been deleted by the intended recipient. This MAY be
+          signalled on its own if the message is deleted without being read, or
+          after <code>Read</code> if the message was read before being deleted.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
