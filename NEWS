@@ -2,6 +2,17 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.19.9 (2010-07-12)
+==================================
+
+The “Dr Pepper is pretty rough” release.
+
+New stable API:
+
+☭ New Delivery_Statuses, Message_Sending_Flags and
+  Delivery_Reporting_Support_Flags members for indicating messages being read
+  and deleted. (Eugene Agafonov, wjt)
+
 telepathy-spec 0.19.8 (2010-06-30)
 ==================================
 

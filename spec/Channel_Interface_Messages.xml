@@ -1000,6 +1000,7 @@ USA.</p>
       </tp:flag>
 
       <tp:flag suffix="Report_Read" value="2">
+        <tp:added version="0.19.9"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Provide a delivery report when the message is read by the
             recipient, even if this is not the default for this protocol.
@@ -1008,6 +1009,7 @@ USA.</p>
       </tp:flag>
 
       <tp:flag suffix="Report_Deleted" value="4">
+        <tp:added version="0.19.9"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Provide a delivery report when the message is deleted by the
             recipient, even if this is not the default for this protocol.
@@ -1254,14 +1256,14 @@ USA.</p>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Read" value="5">
-        <tp:added version="0.19.UNRELEASED"/>
+        <tp:added version="0.19.9"/>
         <tp:docstring>
           The message has been read by the intended recipient.
         </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Deleted" value="6">
-        <tp:added version="0.19.UNRELEASED"/>
+        <tp:added version="0.19.9"/>
         <tp:docstring>
           The message has been deleted by the intended recipient. This MAY be
           signalled on its own if the message is deleted without being read, or
@@ -1306,6 +1308,7 @@ USA.</p>
       </tp:flag>
 
       <tp:flag suffix="Receive_Read" value="4">
+        <tp:added version="0.19.9"/>
         <tp:docstring>
           Clients MAY expect to receive <tp:type>Delivery_Status</tp:type>
           <code>Read</code> reports if Message_Sending_Flag_Report_Read
@@ -1314,6 +1317,7 @@ USA.</p>
       </tp:flag>
 
       <tp:flag suffix="Receive_Deleted" value="8">
+        <tp:added version="0.19.9"/>
         <tp:docstring>
           Clients MAY expect to receive <tp:type>Delivery_Status</tp:type>
           <code>Deleted</code> reports if Message_Sending_Flag_Report_Deleted
