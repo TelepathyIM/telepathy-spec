@@ -992,6 +992,22 @@ USA.</p>
             messages.</p>
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Report_Read" value="2">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Provide a delivery report when the message is read by the
+            recipient, even if this is not the default for this protocol.
+            Ignored if read reports are not possible on this protocol.</p>
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Report_Deleted" value="4">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Provide a delivery report when the message is deleted by the
+            recipient, even if this is not the default for this protocol.
+            Ignored if such reports are not possible on this protocol.</p>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <signal name="MessageSent" tp:name-for-bindings="Message_Sent">
@@ -1280,6 +1296,21 @@ USA.</p>
         </tp:docstring>
       </tp:flag>
 
+      <tp:flag suffix="Receive_Read" value="4">
+        <tp:docstring>
+          Clients MAY expect to receive <tp:type>Delivery_Status</tp:type>
+          <code>Read</code> reports if Message_Sending_Flag_Report_Read
+          is specified when sending.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Receive_Deleted" value="8">
+        <tp:docstring>
+          Clients MAY expect to receive <tp:type>Delivery_Status</tp:type>
+          <code>Deleted</code> reports if Message_Sending_Flag_Report_Deleted
+          is specified when sending.
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <property name="DeliveryReportingSupport" access="read"
