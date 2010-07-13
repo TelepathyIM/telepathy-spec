@@ -275,7 +275,8 @@ class Base(object):
             namespace = n.getAttribute('namespace')
             key = getText(n)
 
-            namespace = namespace.replace('ofdT.', 'org.freedesktop.Telepathy.')
+            if namespace.startswith('ofdT.'):
+                namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
 
             try:
                 o = spec.lookup(key, namespace=namespace)
