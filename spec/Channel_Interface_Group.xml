@@ -587,8 +587,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>RemotePendingMembers</tp:member-ref>, or to be removed
           from the group. A client may supply a reason when attempting to
           remove members from a group with
-          <tp:member-ref>RemoveMembersWithReason</tp:member-ref>, and are
-          supplied by the CM when emitting
+          <tp:member-ref>RemoveMembersWithReason</tp:member-ref>, and reasons
+          are supplied by the CM when emitting
           <tp:member-ref>MembersChanged</tp:member-ref> and
           <tp:member-ref>MembersChangedDetailed</tp:member-ref>. Some reason
           codes have different meanings depending on the <var>Actor</var> in a
