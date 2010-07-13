@@ -638,14 +638,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         may be used in place of TargetID if the contact's handle is already
         known. To make an audio-and-video call, the client should also specify
         <tp:member-ref>InitialVideo</tp:member-ref>.  The connection manager
-        SHOULD return a channel with the local user as the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">InitiatorHandle</tp:dbus-ref> and in
-        <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">Members</tp:dbus-ref>,
-        and the remote contact as <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref> and in
-        <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface">Group.RemotePendingMembers</tp:dbus-ref>.</p>
+        SHOULD return a channel whose immutable properties contain the local
+        user as the <tp:dbus-ref namespace='ofdT.Channel'>InitiatorHandle</tp:dbus-ref>,
+        the remote contact as the <tp:dbus-ref namespace='ofdT.Channel'>TargetHandle</tp:dbus-ref>,
+        <tp:dbus-ref namespace='ofdT.Channel'>Requested</tp:dbus-ref> = <code>True</code>
+        (indicating that the call is outgoing); the <tp:dbus-ref
+          namespace='ofdT.Channel.Interface'>Group</tp:dbus-ref> interface should
+        initially have the local user in <tp:dbus-ref
+          namespace='ofdT.Channel.Interface.Group'>Members</tp:dbus-ref> and the remote
+        contact in <tp:dbus-ref
+          namespace='ofdT.Channel.Interface.Group'>RemotePendingMembers</tp:dbus-ref>, to
+        indicate that we are awaiting their response.</p>
 
       <p>The contact answering the call is represented by the CM signalling
         <tp:dbus-ref
@@ -669,17 +672,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <h4>Incoming calls</h4>
 
-      <p>Incoming calls should be signalled as <tp:dbus-ref
+      <p>Incoming calls' immutable properties should contain <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
         = Contact, both <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref> and
         <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">InitiatorHandle</tp:dbus-ref>
-        set to the remote contact, with the local user in <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">LocalPendingMembers</tp:dbus-ref> and the remote contact in <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">Members</tp:dbus-ref>.
+        set to the remote contact, <tp:dbus-ref
+        namespace='ofdT.Channel'>Requested</tp:dbus-ref> = <code>False</code>
+        (indicating that this is an incoming call), and appropriate values of
         <tp:member-ref>InitialAudio</tp:member-ref> and
-        <tp:member-ref>InitialVideo</tp:member-ref> should be set appropriately.</p>
+        <tp:member-ref>InitialVideo</tp:member-ref>; the Group interface should
+        initially have the local user in <tp:dbus-ref
+        namespace="ofdT.Channel.Interface.Group">LocalPendingMembers</tp:dbus-ref>
+        and the remote contact in <tp:dbus-ref
+        namespace="ofdT.Channel.Interface.Group">Members</tp:dbus-ref>,
+        indicating that the contact is awaiting our response.</p>
 
       <p>To accept the call, use <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
