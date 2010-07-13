@@ -274,6 +274,10 @@ class Base(object):
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'dbus-ref'):
             namespace = n.getAttribute('namespace')
             key = getText(n)
+
+            if namespace.startswith('ofdT.'):
+                namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+
             try:
                 o = spec.lookup(key, namespace=namespace)
             except KeyError:
