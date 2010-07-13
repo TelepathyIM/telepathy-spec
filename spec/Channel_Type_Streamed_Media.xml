@@ -704,8 +704,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>Note that the call may end with the self handle as the
         <var>Actor</var> without the user having chosen to reject the call, as
         indicated by the nature of the <var>Reason</var>. Specifically, some
-        local component may time out call (indicating this with reason
-        <code>No_Answer</code>), or something may have gone wrong with the call
+        local component may time out the call (indicating this with reason
+        <code>No_Answer</code>; for example, the CM may have forwarded the call
+        to another number, as configured using <tp:dbus-ref
+        namespace='ofdT.Connection.Interface'>Forwarding.DRAFT</tp:dbus-ref>),
+        or something may have gone wrong with the call
         (indicated by reason <code>Error</code>). Such calls SHOULD be
         considered missed, just as if the remote contact had hung up before the
         local user answered the call.</p>
