@@ -62,6 +62,13 @@
         <tp:member-ref>InitialChannels</tp:member-ref>, to simultaneously
         upgrade a channel to a conference and invite others to join it.</p>
 
+      <p>Channels with this interface MAY also implement <tp:dbus-ref
+        namespace='ofdT.Channel.Interface'>MergeableConference.DRAFT</tp:dbus-ref>
+        to support merging more 1-1 channels into an ongoing conference.
+        Similarly, 1-1 channels MAY implement <tp:dbus-ref
+        namespace='ofdT.Channel.Interface'>Splittable.DRAFT</tp:dbus-ref> to
+        support being broken out of a Conference channel.</p>
+
       <p>The <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface"
           >Group</tp:dbus-ref> interface on Conference channels MAY use
