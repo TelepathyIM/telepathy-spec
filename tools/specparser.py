@@ -260,9 +260,10 @@ class Base(object):
             try:
                 o = spec.lookup(key, namespace=namespace)
             except KeyError:
-                print >> sys.stderr, \
-                    "WARNING: Key '%s' not known in namespace '%s'" % (
-                        key, namespace)
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:member-ref> in %s)
+                """.strip() % (key, namespace, self)
                 continue
 
             n.tagName = 'a'
@@ -281,9 +282,10 @@ class Base(object):
             try:
                 o = spec.lookup(key, namespace=namespace)
             except KeyError:
-                print >> sys.stderr, \
-                    "WARNING: Key '%s' not known in namespace '%s'" % (
-                        key, namespace)
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:dbus-ref> in %s)
+                """.strip() % (key, namespace, self)
                 continue
 
             n.tagName = 'a'
