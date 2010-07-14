@@ -493,6 +493,12 @@ USA.</p>
 
     <tp:simple-type type="s" name="Message_Header_Key">
       <tp:added version="0.19.8"/>
+      <tp:changed version="0.19.UNRELEASED">
+        Removed <tt>protocol-token</tt>—which had never been implemented—and
+        respecified <tt>message-token</tt> not to have unimplementable
+        uniqueness guarantees.
+      </tp:changed>
+
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Well-known keys for the first <tp:type>Message_Part</tp:type> of a
           message, which contains metadata about the message as a whole, along
@@ -501,39 +507,37 @@ USA.</p>
           one or the other.</p>
 
           <dl>
-            <dt>message-token (s)</dt>
+            <dt>message-token (s -
+              <tp:type>Protocol_Message_Token</tp:type>)
+            </dt>
             <dd>
-              <p>An opaque, globally-unique identifier for the entire message.
-                This MAY be treated as if it were a MIME Message-ID, e.g. for
-                the mid: and cid: URI schemes. If omitted, there is no suitable
-                token; the protocol-token key SHOULD be provided if the protocol
-                identifies messages in some less unique way.</p>
-            </dd>
+              <p>An opaque identifier for the message, as used by the
+                underlying protocol. For outgoing messages, this SHOULD be
+                globally unique; for incoming messages, this is <em>not</em>
+                guaranteed to uniquely identify a message, <em>even within the
+                scope of a single channel or contact</em>; the only guarantee
+                made is that two messages with different <tt>message-token</tt>
+                headers are different messages.</p>
 
-            <dt>protocol-token (s - <tp:type>Protocol_Message_Token</tp:type>)</dt>
-            <dd>
-              <p>An opaque token for the entire message, with whatever uniqueness
-                guarantee is provided by the underlying protocol. As described
-                for the Protocol_Message_Token type, this token is <em>not</em>
-                guaranteed to be unique between contacts, or even within the
-                scope of a Channel.</p>
+              <p>Clients wishing to determine whether a new message with the
+                <tt>scrollback</tt> header matches a previously-logged message
+                with the same <tt>message-token</tt> SHOULD compare the
+                message's sender, contents, <tt>message-sent</tt> or
+                <tt>message-received</tt> timestamp, etc. Note that, in XMPP,
+                the server only supplies a timestamp for scrollback messages,
+                not for messages received while you are in a room; thus,
+                non-scrollback messages will lack a <tt>message-sent</tt>
+                timestamp.</p>
 
               <tp:rationale>
-                <p>In practice, in most protocols there is no token with the
-                  uniqueness guarantees demanded for message-token; the
-                  definition of message-token was inappropriate, but must now
-                  be preserved for the benefit of clients that rely on it, at
-                  least until Telepathy breaks backwards compatibility.</p>
-              </tp:rationale>
+                <p>In practice, most protocols do not provide globally-unique
+                  identifiers for messages. Connection managers, being
+                  stateless, do not have the necessary information — namely, IM
+                  logs — to generate reliable unique tokens for messages.</p>
 
-              <p>The message-token and protocol-token SHOULD NOT both be present;
-                clients requiring an identifier with the semantics of the
-                protocol-token SHOULD look for the message-token first, falling
-                back to the protocol-token.</p>
-
-              <tp:rationale>
-                <p>This is for compatibility with CMs older than the
-                  protocol-token key.</p>
+                <p>For instance, some XMPP clients (including Gabble) stamp
+                  messages they send with unique identifiers, but others number
+                  outgoing messages in a conversation from 1 upwards.</p>
               </tp:rationale>
             </dd>
 
@@ -896,7 +900,7 @@ USA.</p>
           is no particular identification for a message.</p>
 
         <p>CM implementations SHOULD use an identifier expected to be unique,
-          such as a UUID, if possible.</p>
+          such as a UUID, for outgoing messages (if possible).</p>
 
         <p>Some protocols can only track a limited number of messages
           in a small message-ID space (SMS messages are identified by a single
