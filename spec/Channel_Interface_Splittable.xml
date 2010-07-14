@@ -49,10 +49,7 @@
 
         <p>This implies that the media streams within the conference are put on
           hold and the media streams within the member channel leaving the
-          conference are unheld.
-          <strong>[FIXME: or, maybe it'd be less surprising if it didn't do
-            this?]</strong>
-        </p>
+          conference are unheld.</p>
       </tp:docstring>
 
       <tp:possible-errors>

@@ -116,9 +116,11 @@
           })</code>
       </blockquote>
 
-      <p>which returns a call channel <var>Cn</var> implementing the conference
-        interface. (Both 1-1 calls must first be placed on hold, as a quirk of
-        GSM.)</p>
+      <p>which returns a new channel <var>Cn</var> implementing the conference
+        interface. (As a quirk of GSM, both 1-1 will cease to function normally
+        until they are <tp:dbus-ref
+          namespace="ofdT.Channel.Interface.Splittable.DRAFT">Split</tp:dbus-ref>
+        from the conference, or the conference ends.)</p>
 
       <p>An XMPP 1-1 conversation <var>C3</var> (with
         <tt>chris@example.com</tt>, say) can be continued in a newly created
@@ -297,19 +299,13 @@
           them in this property's value or by calling
           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Interface"
-            >MergeableConference.DRAFT.Merge</tp:dbus-ref> on them.
-          <strong>[FIXME: there's nothing in RequestableChannelClasses yet
-            to say what will happen, see #24906 comment 6]</strong></p>
+            >MergeableConference.DRAFT.Merge</tp:dbus-ref> on them.</p>
 
         <tp:rationale>
           <p>In Jingle, nothing special will happen to merged calls. UIs MAY
             automatically place calls on hold before merging them, if that is
             the desired behaviour; this SHOULD always work. Not doing
             an implicit hold/unhold seems to preserve least-astonishment.</p>
-
-          <p><strong>[FIXME: check whether ring supports faking Hold on both
-              channels, as it probably should: see #24906 comment 6]</strong>
-          </p>
 
           <p>In GSM, the calls that are merged go into a state similar to
             Hold, but they cannot be unheld, only split from the conference
