@@ -118,9 +118,7 @@
           <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
           <tp:member-ref>Server</tp:member-ref> =
           <code>"groupchat.google.com"</code>, indicating that the room has a
-          persistent identifier (<strong>FIXME: can you rejoin PMUCs if you
-          part them? The spec isn't clear. If you can't, these should have THT
-          None.</strong>), no human-readable name, and is hosted by a
+          persistent identifier, no human-readable name, and is hosted by a
           particular server.
         </li>
 
