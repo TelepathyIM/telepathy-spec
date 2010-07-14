@@ -104,7 +104,7 @@
           be misleading.</p>
       </tp:rationale>
 
-      <h3>Examples of usage</h3>
+      <h4>Examples of usage</h4>
 
       <p>A pair of 1-1 GSM calls <var>C1</var> and <var>C2</var> can be merged
         into a single conference call by calling:</p>
@@ -200,6 +200,68 @@
         TargetHandle of C1 into Cn), then immediately inviting the
         TargetHandle of C2, the TargetHandle of C3, etc. into Cn as well.</p>
 
+      <h4>Sample <tp:dbus-ref namespace='ofdT.Connection.Interface.Requests'
+                             >RequestableChannelClasses</tp:dbus-ref></h4>
+
+      <p>A GSM connection might advertise the following channel class for
+        conference calls:</p>
+
+      <blockquote>
+        <code>
+( Fixed = {<br/>
+    ...<tp:dbus-ref namespace='ofdT.Channel'>ChannelType</tp:dbus-ref>:
+      ...<tp:dbus-ref namespace='ofdT.Channel.Type'>StreamedMedia</tp:dbus-ref><br/>
+  },<br/>
+  Allowed = [ <tp:member-ref>InitialChannels</tp:member-ref>,
+              <tp:dbus-ref namespace='ofdT.Channel.Type.StreamedMedia'
+                          >InitialAudio</tp:dbus-ref>
+            ]<br/>
+)
+        </code>
+      </blockquote>
+
+      <p>This indicates support for starting audio-only conference calls by
+        merging two or more existing channels (since
+        <tp:member-ref>InitialInviteeHandles</tp:member-ref> and
+        <tp:member-ref>InitialInviteeIDs</tp:member-ref> are not allowed).</p>
+
+      <p>An XMPP connection might advertise the following classes for ad-hoc
+        multi-user text chats:</p>
+
+      <blockquote>
+        <code>
+( Fixed = {<br/>
+    ...<tp:dbus-ref namespace='ofdT.Channel'>ChannelType</tp:dbus-ref>:
+      ...<tp:dbus-ref namespace='ofdT.Channel.Type'>Text</tp:dbus-ref><br/>
+  },<br/>
+  Allowed = [ <tp:member-ref>InitialChannels</tp:member-ref>,
+              <tp:member-ref>InitialInviteeHandles</tp:member-ref>,
+              <tp:member-ref>InitialInviteeIDs</tp:member-ref>,
+              <tp:member-ref>InvitationMessage</tp:member-ref>
+            ]<br/>
+),<br/>
+( Fixed = {<br/>
+    ...<tp:dbus-ref namespace='ofdT.Channel'>ChannelType</tp:dbus-ref>:
+      ...<tp:dbus-ref namespace='ofdT.Channel.Type'>Text</tp:dbus-ref>,<br/>
+    ...<tp:dbus-ref namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>:
+      Room<br/>
+  },<br/>
+  Allowed = [ <tp:dbus-ref namespace='ofdT.Channel'>TargetHandle</tp:dbus-ref>,
+              <tp:dbus-ref namespace='ofdT.Channel'>TargetID</tp:dbus-ref>,<br/>
+              <tp:member-ref>InitialChannels</tp:member-ref>,
+              <tp:member-ref>InitialInviteeHandles</tp:member-ref>,
+              <tp:member-ref>InitialInviteeIDs</tp:member-ref>,
+              <tp:member-ref>InvitationMessage</tp:member-ref>
+            ]<br/>
+)
+        </code>
+      </blockquote>
+
+      <p>The first class indicates support for starting ad-hoc (nameless) chat
+        rooms, upgraded from existing 1-1 channels and/or inviting new
+        contacts, along with a message to be sent along with the invitations.
+        The second indicates support for upgrading to a particular named chat
+        room.</p>
     </tp:docstring>
 
     <property name="Channels" tp:name-for-bindings="Channels"
