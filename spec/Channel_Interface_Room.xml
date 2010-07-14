@@ -212,9 +212,12 @@
     <property name="RoomID" tp:name-for-bindings="Room_ID" type="s"
               access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The human-readable identifier of a chat room. <strong>FIXME: XMPP MUCs have
-          a "name" concept which is more like a topic, except more persistent.
-          This property is meant to be the bit before the @ in the jid.</strong></p>
+        <p>The human-readable identifier of a chat room. Note that this property
+          (and perhaps also <tp:member-ref>Server</tp:member-ref>) should be
+          sufficient in a channel request to join the room. XMPP MUCs have a room
+          name concept which is more like a topic, except more persistent. This
+          D-Bus property is <strong>not</strong> this XMPP room name, but the
+          bit before the @ in the room jid.</p>
 
         <p>This property cannot change during the lifetime of the channel. It
           should appear in the <var>Allowed_Properties</var> of a
