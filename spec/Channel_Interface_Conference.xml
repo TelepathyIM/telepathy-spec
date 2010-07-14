@@ -268,8 +268,9 @@
             namespace="org.freedesktop.Telepathy.Channel.Interface"
             >Splittable.DRAFT.Split</tp:dbus-ref> method.</p>
 
-        <p><strong>[FIXME: relative ordering of this vs. Closed? Do we
-            care?]</strong></p>
+        <p>If a channel is removed because it was closed, <tp:dbus-ref
+          namespace='ofdT.Channel'>Closed</tp:dbus-ref> should be emitted
+          before this signal.</p>
       </tp:docstring>
 
       <arg name="Channel" type="o">
