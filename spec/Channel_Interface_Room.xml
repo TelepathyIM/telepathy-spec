@@ -60,7 +60,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
           = <code>"#telepathy"</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>"#telepathy"</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>"#telepathy"</code>,
           <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
           that the room has a human-readable identifier, and is not confined to
           a particular server on the network.
@@ -81,7 +81,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
           = <code>"0xdeadbeef"</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>""</code>,
           <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
           that the room has an identifier but no human-readable name.
         </li>
@@ -90,7 +90,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
           = <code>None</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>""</code>,
           <tp:member-ref>Server</tp:member-ref> = <code>""</code>, indicating
           that the room has neither an identifier (so it cannot be re-joined
           later) nor a human-readable name.
@@ -104,7 +104,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
           = <code>"jdev@conference.jabber.org"</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>"jdev"</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>"jdev"</code>,
           <tp:member-ref>Server</tp:member-ref> = <code>"conference.jabber.org"</code>.
         </li>
 
@@ -115,7 +115,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
           = <code>"private-chat-11111x1x-11xx-111x-1111-111x1xx11x11@groupchat.google.com"</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>""</code>,
           <tp:member-ref>Server</tp:member-ref> =
           <code>"groupchat.google.com"</code>, indicating that the room has a
           persistent identifier, no human-readable name, and is hosted by a
@@ -130,7 +130,7 @@
           <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>
           = <code>"lrcgsnthzvwm@conference.jabber.org"</code>,
-          <tp:member-ref>RoomName</tp:member-ref> = <code>""</code>,
+          <tp:member-ref>RoomID</tp:member-ref> = <code>""</code>,
           <tp:member-ref>Server</tp:member-ref> =
           <code>"conference.jabber.org"</code>, indicating that the room has a
           persistent identifier, no human-readable name, and is hosted by a
@@ -161,7 +161,7 @@
 
       <p>Channel requests should specify either TargetID or TargetHandle.</p>
 
-      <p>If, like IRC, the room identifiers are also human-readable, the RCC should also include RoomName in the allowed properties:</p>
+      <p>If, like IRC, the room identifiers are also human-readable, the RCC should also include RoomID in the allowed properties:</p>
 
       <blockquote>
         <pre>
@@ -175,11 +175,11 @@
               >TargetID</tp:dbus-ref>,
               ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
               >TargetHandle</tp:dbus-ref>,
-              ...<tp:member-ref>RoomName</tp:member-ref>,
+              ...<tp:member-ref>RoomID</tp:member-ref>,
             ]
 )</pre></blockquote>
 
-      <p>Requests may specify the RoomName in place of TargetID or
+      <p>Requests may specify the RoomID in place of TargetID or
         TargetHandle. If rooms may be on different servers, Server should also
         be included in the allowed properties, but CMs MUST use a reasonable
         default if Server is not explicitly specified in a channel request.
@@ -189,7 +189,7 @@
         fallback conference server is specified on jabber connections in
         gabble.</p>
 
-      <p>If the protocol supports unnamed rooms, RoomName should be fixed to
+      <p>If the protocol supports unnamed rooms, RoomID should be fixed to
         the empty string, and TargetHandleType should be None:</p>
 
       <blockquote>
@@ -199,7 +199,7 @@
                                         >Text</tp:dbus-ref>,
             ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
             >TargetHandleType</tp:dbus-ref>: None,
-            ...<tp:member-ref>RoomName</tp:member-ref>: "",
+            ...<tp:member-ref>RoomID</tp:member-ref>: "",
           },
   Allowed = [ ]
 )</pre></blockquote>
@@ -209,7 +209,7 @@
         ad-hoc MUCs on different XMPP servers.</strong></p>
     </tp:docstring>
 
-    <property name="RoomName" tp:name-for-bindings="Room_Name" type="s"
+    <property name="RoomID" tp:name-for-bindings="Room_ID" type="s"
               access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The human-readable identifier of a chat room. <strong>FIXME: XMPP MUCs have
