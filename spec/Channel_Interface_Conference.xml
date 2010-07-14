@@ -243,6 +243,17 @@
           <tp:member-ref>Channels</tp:member-ref>.</tp:docstring>
       </arg>
 
+      <arg name="Channel_Specific_Handle" type="u" tp:type="Contact_Handle">
+        <tp:docstring>A new channel-specific handle for the <tp:dbus-ref
+          namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> of
+          <var>Channel</var>, as will appear in
+          <tp:member-ref>OriginalChannels</tp:member-ref>, or <tt>0</tt> if a
+          global handle is used for
+          <var>Channel</var>'s TargetHandle on the <tp:dbus-ref
+            namespace="ofdT.Channel.Interface">Group</tp:dbus-ref> interface
+          of this channel.</tp:docstring>
+      </arg>
+
       <arg name="Properties" type="a{sv}"
            tp:type="Qualified_Property_Value_Map">
         <tp:docstring><var>Channel</var>'s immutable properties.</tp:docstring>
