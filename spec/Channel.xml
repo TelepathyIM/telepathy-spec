@@ -521,9 +521,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       through the <tp:dbus-ref
         namespace="ofdT.Channel.Interface">Group</tp:dbus-ref>
       interface), and <tp:dbus-ref
-        namespace='ofdT.Channel.Type'>ContactSearch.DRAFT2</tp:dbus-ref>
+        namespace='ofdT.Channel.Type'>ContactSearch</tp:dbus-ref>
       channels represent a single search attempt for a particular <tp:dbus-ref
-        namespace='ofdT.Channel.Type.ContactSearch.DRAFT2'>Server</tp:dbus-ref>.</p>
+        namespace='ofdT.Channel.Type.ContactSearch'>Server</tp:dbus-ref>.</p>
 
     <p>Specific connection manager implementations may implement channel types and
     interfaces which are not contained within this specification in order to
