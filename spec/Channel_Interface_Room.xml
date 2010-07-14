@@ -183,7 +183,7 @@
         TargetHandle. If rooms may be on different servers, Server should also
         be included in the allowed properties, but CMs MUST use a reasonable
         default if Server is not explicitly specified in a channel request.
-        <strong>FIXME: how do we specify the default room? A separate channel
+        <strong>FIXME: how do we specify the default server? A separate channel
         class with Server fixed?</strong></p>
 
       <p>If the protocol supports unnamed rooms, RoomName should be fixed to
