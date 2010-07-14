@@ -476,31 +476,60 @@
         <p>On GSM conference calls, it is possible to have the same phone
           number in a conference twice; for instance, it could be the number of
           a corporate switchboard. This is represented using channel-specific
-          handles, as defined by <tp:type>Channel_Group_Flags</tp:type>. The
-          <tp:dbus-ref
+          handles; whether or not a channel uses channel-specific handles is
+          reported in <tp:dbus-ref
+          namespace='ofdT.Channel.Interface'>Group.GroupFlags</tp:dbus-ref>.
+          The <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Interface">Group.HandleOwners</tp:dbus-ref>
           property specifies the mapping from opaque channel-specific handles
           to actual numbers; this property specifies the original 1-1 channel
           corresponding to each channel-specific handle in the conference.</p>
 
-        <p>For example, consider a conference call created by merging two
-          separate 1-1 calls to <tt>+441234567890</tt>. Suppose that phone
-          number is assigned the handle <var>h</var>, and that <var>j</var> and
-          <var>k</var> are two channel specific handles. Then the relevant
-          channel properties would be:</p>
+        <p>For example, consider this situation:</p>
+
+        <ol>
+          <li>Place a call (with path <tt>/call/to/simon</tt>) to the contact
+            <tt>+441234567890</tt> (which is assigned the handle <var>h</var>,
+            say), and ask to be put through to Simon McVittie;</li>
+          <li>Put that call on hold;</li>
+          <li>Place another call (with path <tt>/call/to/jonny</tt>) to
+            <tt>+441234567890</tt>, and ask to be put
+            through to Jonny Lamb;</li>
+          <li>Request a new channel with
+            <tp:member-ref>InitialChannels</tp:member-ref>:
+            <tt>['/call/to/simon', '/call/to/jonny']</tt>.</li>
+        </ol>
+
+        <p>The new channel will have the following properties, for some handles
+          <var>s</var> and <var>j</var>:</p>
 
         <blockquote>
           <code>{<br/>
             ...<tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Interface">Group.HandleOwners</tp:dbus-ref>: { j: h, k: h },<br/>
-            ...<tp:member-ref>Channels</tp:member-ref>: ['/path/to/foo', '/path/to/bar'],<br/>
-            ...<tp:member-ref>OriginalChannels</tp:member-ref>: { j: '/path/to/bar', k: '/path/to/foo' }<br/>
+              namespace="ofdT.Channel.Interface">Group.GroupFlags</tp:dbus-ref>:
+                Channel_Specific_Handles | (other flags),<br/>
+            ...<tp:dbus-ref
+              namespace="ofdT.Channel.Interface">Group.Members</tp:dbus-ref>:
+                [self_handle, s, j],<br/>
+            ...<tp:dbus-ref
+              namespace="ofdT.Channel.Interface">Group.HandleOwners</tp:dbus-ref>:
+                { s: h, j: h },<br/>
+            ...<tp:member-ref>InitialChannels</tp:member-ref>:
+                ['/call/to/simon', '/call/to/jonny'],<br/>
+            ...<tp:member-ref>Channels</tp:member-ref>:
+                ['/call/to/simon', '/call/to/jonny'],<br/>
+            ...<tp:member-ref>OriginalChannels</tp:member-ref>:
+                { s: '/call/to/simon', j: '/call/to/jonny' },<br/>
+            # ...standard properties like ChannelType: Group elided...<br/>
           }</code>
         </blockquote>
 
         <p>Change notification is via the
           <tp:member-ref>ChannelMerged</tp:member-ref> and
-          <tp:member-ref>ChannelRemoved</tp:member-ref> signals.</p>
+          <tp:member-ref>ChannelRemoved</tp:member-ref> signals: if
+          <var>Channel_Specific_Handle</var> in the former is non-zero, this
+          property SHOULD be updated to map that handle to the merged channel's
+          path.</p>
       </tp:docstring>
     </property>
 
