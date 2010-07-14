@@ -62,6 +62,48 @@
         <tp:member-ref>InitialChannels</tp:member-ref>, to simultaneously
         upgrade a channel to a conference and invite others to join it.</p>
 
+      <p>The <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface"
+          >Group</tp:dbus-ref> interface on Conference channels MAY use
+          channel-specific handles for participants; clients SHOULD support
+          both Conferences that have channel-specific handles, and those that
+          do not.</p>
+
+      <tp:rationale>
+        <p>In the GSM case, the Conference's Group interface MAY have
+          channel-specific handles, to represent the fact that the same
+          phone number may be in a conference twice (for instance, it could be
+          the number of a corporate switchboard).</p>
+
+        <p>In the XMPP case, the Conference's Group interface SHOULD have
+          channel-specific handles, to reflect the fact that the participants
+          have MUC-specific identities, and the user might also be able to see
+          their global identities, or not.</p>
+
+        <p>In most other cases, including MSN and link-local XMPP, the
+          Conference's Group interface SHOULD NOT have channel-specific
+          handles, since users' identities are always visible.</p>
+      </tp:rationale>
+
+      <p>Connection managers implementing channels with this interface
+        MUST NOT allow the object paths of channels that could be merged
+        into a Conference to be re-used, unless the channel re-using the
+        object path is equivalent to the channel that previously used it.</p>
+
+      <tp:rationale>
+        <p>If you upgrade some channels into a conference, and then close
+          the original channels, <tp:member-ref>InitialChannels</tp:member-ref>
+          (which is immutable) will contain paths to channels which no longer
+          exist. This implies that you should not re-use channel object paths,
+          unless future incarnations of the path are equivalent.</p>
+
+        <p>For instance, on protocols where you can only have
+          zero or one 1-1 text channels with Emily at one time, it would
+          be OK to re-use the same object path for every 1-1 text channel
+          with Emily; but on protocols where this is not true, it would
+          be misleading.</p>
+      </tp:rationale>
+
       <h3>Examples of usage</h3>
 
       <p>A pair of 1-1 GSM calls <var>C1</var> and <var>C2</var> can be merged
@@ -155,47 +197,6 @@
         for upgrading C1 into a conference Cn (which invites the
         TargetHandle of C1 into Cn), then immediately inviting the
         TargetHandle of C2, the TargetHandle of C3, etc. into Cn as well.</p>
-
-      <p>The <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface"
-          >Group</tp:dbus-ref> MAY have channel-specific handles for participants;
-        clients SHOULD support both Conferences that have channel-specific handles,
-        and those that do not.</p>
-
-      <tp:rationale>
-        <p>In the GSM case, the Conference's Group interface MAY have
-          channel-specific handles, to represent the fact that the same
-          phone number may be in a conference twice (for instance, it could be
-          the number of a corporate switchboard).</p>
-
-        <p>In the XMPP case, the Conference's Group interface SHOULD have
-          channel-specific handles, to reflect the fact that the participants
-          have MUC-specific identities, and the user might also be able to see
-          their global identities, or not.</p>
-
-        <p>In most other cases, including MSN and link-local XMPP, the
-          Conference's Group interface SHOULD NOT have channel-specific
-          handles, since users' identities are always visible.</p>
-      </tp:rationale>
-
-      <p>Connection managers implementing channels with this interface
-        MUST NOT allow the object paths of channels that could be merged
-        into a Conference to be re-used, unless the channel re-using the
-        object path is equivalent to the channel that previously used it.</p>
-
-      <tp:rationale>
-        <p>If you upgrade some channels into a conference, and then close
-          the original channels, <tp:member-ref>InitialChannels</tp:member-ref>
-          (which is immutable) will contain paths to channels which no longer
-          exist. This implies that you should not re-use channel object paths,
-          unless future incarnations of the path are equivalent.</p>
-
-        <p>For instance, on protocols where you can only have
-          zero or one 1-1 text channels with Emily at one time, it would
-          be OK to re-use the same object path for every 1-1 text channel
-          with Emily; but on protocols where this is not true, it would
-          be misleading.</p>
-      </tp:rationale>
 
     </tp:docstring>
 
