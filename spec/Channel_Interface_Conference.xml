@@ -496,6 +496,10 @@
             ...<tp:member-ref>OriginalChannels</tp:member-ref>: { j: '/path/to/bar', k: '/path/to/foo' }<br/>
           }</code>
         </blockquote>
+
+        <p>Change notification is via the
+          <tp:member-ref>ChannelMerged</tp:member-ref> and
+          <tp:member-ref>ChannelRemoved</tp:member-ref> signals.</p>
       </tp:docstring>
     </property>
 
