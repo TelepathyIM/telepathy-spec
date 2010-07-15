@@ -159,7 +159,9 @@
             ]
 )</pre></blockquote>
 
-      <p>Channel requests should specify either TargetID or TargetHandle.</p>
+      <p>Channel requests must specify either <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetID</tp:dbus-ref> or <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetHandle</tp:dbus-ref>.</p>
 
       <p>If, like IRC, the room identifiers are also human-readable, the RCC should also include RoomID in the allowed properties:</p>
 
@@ -174,17 +176,33 @@
   Allowed = [ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
               >TargetID</tp:dbus-ref>,
               ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-              >TargetHandle</tp:dbus-ref>,
-              ...<tp:member-ref>RoomID</tp:member-ref>,
+              >TargetHandle</tp:dbus-ref>
+            ]
+),
+
+( Fixed = { ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+            >ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type"
+                                        >Text</tp:dbus-ref>
+          },
+  Allowed = [ ...<tp:member-ref>RoomID</tp:member-ref>,
             ]
 )</pre></blockquote>
 
+      <p><strong>FIXME: should that second RCC have THT=None ?</strong></p>
+
       <p>Requests may specify the RoomID in place of TargetID or
-        TargetHandle. If rooms may be on different servers, Server should also
-        be included in the allowed properties, but CMs MUST use a reasonable
-        default if Server is not explicitly specified in a channel request.
-        The CMs default server MAY be configurable by a connection parameter
-        specified on a <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager"
+        TargetHandle. Note how <tp:member-ref>RoomID</tp:member-ref> appears
+        in Allowed of a different RCC because when <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetHandleType</tp:dbus-ref> is omitted (or is None), both <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetHandle</tp:dbus-ref> and <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetID</tp:dbus-ref> must also be omitted. If rooms may
+        be on different servers, <tp:member-ref>Server</tp:member-ref>
+        should also be included in the allowed properties, but
+        CMs MUST use a reasonable default
+        <tp:member-ref>Server</tp:member-ref> if not explicitly
+        specified in a channel request. The CM's default server MAY
+        be configurable by a connection parameter specified on a
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager"
         >RequestConnection</tp:dbus-ref> call, similarly to how the
         fallback conference server is specified on jabber connections in
         gabble.</p>
@@ -204,9 +222,8 @@
   Allowed = [ ]
 )</pre></blockquote>
 
-      <p><strong>TODO: actually the classes for properties on this interface should not
-        include THT: Room in Fixed, they should be separate. Document joining
-        ad-hoc MUCs on different XMPP servers.</strong></p>
+      <p><strong>TODO: document joining ad-hoc MUCs on different
+        XMPP servers.</strong></p>
     </tp:docstring>
 
     <property name="RoomID" tp:name-for-bindings="Room_ID" type="s"
