@@ -5,6 +5,29 @@ checkouts.
 telepathy-spec 0.19.10 (UNRELEASED)
 ===================================
 
+New stable API:
+
+➡ Channel.Type.ContactSearch is now considered stable. Changes since draft 2:
+  ➾ Contact_Search_Result_Map keys are string identifiers, rather than
+    handles (wjt)
+
+➡ Protocol objects are now considered stable, with no changes
+
+Clarifications:
+
+➡ Various clarifications (wjt):
+  ➾ A new introduction to Channel explains immutable properties, the Requests
+    interface, and the ChannelDispatcher
+  ➾ A new introduction to StreamedMedia explains how to request a call, how to
+    detect an incoming call, and which incoming calls should be considered
+    missed
+  ➾ UpdateParameters' Reconnect_Required return value now has examples
+
+Tools changes:
+
+➡ <tp:dbus-ref>'s namespace attribute accepts "ofdT.…" as a synonym for
+  "org.freedesktop.Telepathy.…" (wjt)
+
 telepathy-spec 0.19.9 (2010-07-12)
 ==================================
 
