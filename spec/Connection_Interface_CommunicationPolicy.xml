@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <node name="/Connection_Interface_CommunicationPolicy"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>Copyright (C) 2009 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright (C) 2010 Collabora Limited</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -26,43 +26,223 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	acceptance policy on incoming communication for an account</p>
     </tp:docstring>
 
-    <tp:enum name="Access_Policy" type="u">
+    <tp:enum name="Access_Control_Type" type="u"
+             array-name="Access_Control_Type_List">
       <tp:docstring>
-	<p>Values to define acceptance policy for a certain kind of
-	  incoming communication based on the status of the initiator
-	  contact.</p>
+        A type for communication access control.
+        For most types, the exact access control is given by an associated
+        variant.
       </tp:docstring>
-
-      <tp:enumvalue value="0" suffix="Anyone">
-	<tp:docstring>
-	  <p>Any remote contact can contact the local user.</p>
-	</tp:docstring>
+      <tp:enumvalue suffix="Open" value="0">
+        <tp:docstring>
+          Anyone can initiate communication with the contact, the
+          variant is ignored, this is the same as an empty blacklist.
+        </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Closed" value="1">
+        <tp:docstring>
+          Communication with the given channel type from any contact
+          is blocked. The variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Whitelist" value="2">
+        <tp:docstring>
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can communicate with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Blacklist" value="3">
+        <tp:docstring>
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can communicate with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Subscribe_List" value="4">
+        <tp:docstring>
+          All contacts in the user's 'subscribe' contact list can
+          communicate with us. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Publish_List" value="5">
+        <tp:docstring>
+          All contacts in the user's 'publish' contact list can
+          communicate with us. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="6">
+        <tp:docstring>
+          All contacts in the user's 'subscribe' or 'publish' contact
+          list can communicate with us. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Subscribe_Or_Pending_List" value="7">
+        <tp:docstring>
+          All contacts in the user's 'subscribe' or 'pending' contact
+          list can communicate with us. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Subscribe_Or_Pending_Or_Publish_List" value="8">
+        <tp:docstring>
+          All contacts in the user's 'subscribe' or 'pending' or
+          'publish' contact lists can communicate with us. The
+          associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Group" value="9">
+        <tp:docstring>
+          The associated variant is a handle of type Group (signature 'u',
+          Group_Handle) representing a group of contacts who can communicate
+          with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Not_Understood" value="10">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The access control rule is too complex to be represented
+            in the current Telepathy API. The associated variant is
+            meaningless. Setting this mode is never valid; the
+            connection manager MUST raise an error if this is attempted.</p>
 
-      <tp:enumvalue value="1" suffix="AuthorizedOnly">
-	<tp:docstring>
-	  <p>Only contacts in the buddy list or the authorized contacts
-	    (in Telepathy, members of the "stored" contact list) can
-	    contact the local user.</p>
-	</tp:docstring>
+          <tp:rationale>
+            XEP-0016 Privacy Lists can easily produce access control
+            mechanisms that can't be expressed in a simpler API. We
+            need to be able to at least indicate that fact.
+          </tp:rationale>
+        </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
-    <property name="CallAccessPolicy" type="u" access="readwrite"
-	      tp:type="Access_Policy"
-	      tp:name-for-bindings="Call_Access_Policy">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-	<p>Access policy for calls.</p>
+    <tp:struct name="Access_Control">
+      <tp:docstring>
+        An access control mode for providing communication policy with
+        contacts. This pairs the type of policy with the details
+        needed to implement it.
+      </tp:docstring>
+
+      <tp:member name="Type" type="u" tp:type="Access_Control_Type">
+        <tp:docstring>
+          The type of access control to apply.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="Detail" type="v">
+        <tp:docstring>
+          Any additional information required by the Type. The required
+          type and semantics are defined for each
+          <tp:type>Access_Control_Type</tp:type>.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:mapping name="Active_Policies_Map">
+      <tp:docstring>
+        A mapping of communication methods (channel types), and their
+        associated policy.
+      </tp:docstring>
+
+      <tp:member type="s" tp:type="DBus_Interface" name="Channel_Type">
+        <tp:docstring>
+          The channel interface with the policy.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="(uv)" tp:type="Access_Control"
+                 name="Active_Policy">
+        <tp:docstring>
+          The active policy for this channel type.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <tp:mapping name="Supported_Policies_Map">
+      <tp:docstring>
+        A mapping of channel types and their respective supported
+        access control types.
+      </tp:docstring>
+
+      <tp:member type="s" tp:type="DBus_Interface" name="Channel_Type">
+        <tp:docstring>
+          The supported channel interface.
+        </tp:docstring>
+      </tp:member>
+
+      <tp:member type="au" tp:type="Access_Control_Type[]"
+                 name="Supported_Policies">
+        <tp:docstring>
+          A list of supported control types by this channel.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <property name="SupportedPolicies"
+              tp:name-for-bindings="Supported_Policies"
+              access="read" type="a{sau}"
+              tp:type="Supported_Policies_Map">
+      <tp:docstring>
+        The communication methods (channel types), and the policies
+        that can be applied to them. This is server and protocol dependant.
       </tp:docstring>
     </property>
 
-    <property name="ChatAccessPolicy" type="u" access="readwrite"
-	      tp:type="Access_Policy"
-	      tp:name-for-bindings="Chat_Access_Policy">
+    <property name="ActivePolicies" tp:name-for-bindings="Active_Policies"
+              access="read" type="a{s(uv)}" tp:type="Active_Policies_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-	<p>Access policy for chat messages.</p>
+        <p>The active communication policies on this
+        connection. Communication methods that are not in this
+        mapping are considered open.</p>
+
+        <p>For example, to allow incoming calls only from contacts on
+        the 'subscribe' or 'pending' list, and to block incoming chats
+        from contacts on a blacklist, the policy would look like this:</p>
+
+        <pre>
+{
+    'org.freedesktop.Telepathy.Channel.Type.Text' :
+        (Access_Control_Type_Blacklist, [3, 7, 9]),
+    'org.freedesktop.Telepathy.Channel.Type.Call' :
+        (Access_Control_Type_Subscribe_Or_Pending_List, None)
+}
+        </pre>
       </tp:docstring>
     </property>
+
+    <method name="SetPolicy" tp:name-for-bindings="Set_Policy">
+      <tp:docstring>
+        Set a policy for a communication method (channel
+        type). Depending on the server or protocol, more than one
+        communication method could be bound to the same policy, if
+        calling this method on one channel type changes the policy on
+        another channel type, the <tp:member-ref>PolicyChanged</tp:member-ref>
+        signal that would follow would include all the channel types
+        that have an altered policy.
+      </tp:docstring>
+      <arg name="Channel_Type" direction="in" type="s"
+           tp:type="DBus_Interface">
+        <tp:docstring>
+          The channel type to set the policy for.
+        </tp:docstring>
+      </arg>
+      <arg name="Policy" direction="in" type="(uv)"
+           tp:type="Access_Control">
+        <tp:docstring>
+          The policy to set for this channel.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="PolicyChanged" tp:name-for-bindings="Policy_Changed">
+      <tp:docstring>
+        <tp:member-ref>ActivePolicies</tp:member-ref> has
+        changed. This occurs when the server unilaterally changed the
+        policy or <tp:member-ref>SetPolicy</tp:member-ref> has been
+        called.
+      </tp:docstring>
+      <arg name="Changed_Policies" type="a{s(uv)}"
+           tp:type="Active_Policies_Map">
+        <tp:docstring>
+          A subset of the active policies that have changed.
+        </tp:docstring>
+      </arg>
+    </signal>
+
 
   </interface>
 </node>
