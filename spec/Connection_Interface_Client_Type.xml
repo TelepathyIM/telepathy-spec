@@ -35,35 +35,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>The client types are represented in strings, using the values
         <a href="http://xmpp.org/registrar/disco-categories.html#client">
         documented by the XMPP registrar</a>. The well-known client types
-        at the time of writing are:
+        at the time of writing are:</p>
 
-        <ul>
-          <li>bot</li>
-          <li>console (minimal non-GUI client used on dumb terminals or
-            text-only screens, <strong>not</strong> a games console)</li>
-          <li>handheld</li>
-          <li>pc</li>
-          <li>phone</li>
-          <li>web</li>
-        </ul></p>
+      <ul>
+        <li>bot</li>
+        <li>console (minimal non-GUI client used on dumb terminals or
+          text-only screens, <strong>not</strong> a games console)</li>
+        <li>handheld</li>
+        <li>pc</li>
+        <li>phone</li>
+        <li>web</li>
+      </ul>
 
       <p>If the empty string is given as a client type, this means that
         details about the contact's client type is unknown. If there are
         multiple resources of a contact online at one point in time, the
         client type of the most available resource will be returned. For
-        example, if a contact has two resources:
+        example, if a contact has two resources:</p>
 
-        <ul>
-          <li>one his phone, with presence "available", and</li>
-          <li>one his pc, with presence "busy",</li>
-        </ul>
+      <ul>
+        <li>one his phone, with presence "available", and</li>
+        <li>one his pc, with presence "busy",</li>
+      </ul>
 
-      then the methods in this interface will return the "phone" client type
-      as that is the more available resource. If some time later his phone's
-      presence moves to "away", then the
-      <tp:member-ref>ClientTypeUpdated</tp:member-ref> signal will notify
-      that his client type has changed from "phone" to "pc", because "busy"
-      is a more available presence than "away".</p>
+      <p>then the methods in this interface will return the "phone" client type
+        as that is the more available resource. If some time later his phone's
+        presence moves to "away", then the
+        <tp:member-ref>ClientTypeUpdated</tp:member-ref> signal will notify
+        that his client type has changed from "phone" to "pc", because "busy"
+        is a more available presence than "away".</p>
 
     </tp:docstring>
 
