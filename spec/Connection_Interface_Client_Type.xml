@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface on connections to support protocols which allows users to
-        subscribe to the client type of their contacts.</p>
+        subscribe to the client types of their contacts.</p>
 
       <p>One can connect to instant messaging networks on a huge variety of
         devices, from PCs, to phones to consoles. It can be useful for users
@@ -35,7 +35,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>The client types are represented in strings, using the values
         <a href="http://xmpp.org/registrar/disco-categories.html#client">
         documented by the XMPP registrar</a> with some additional types
-        added for other protocols. The client types to be used are:</p>
+        added for other protocols. A contact can set one or more client types
+        so this interface returns a list of strings to denote client types
+        for a contact. The well-known client types to be used are:</p>
 
       <ul>
         <li>bot</li>
@@ -49,11 +51,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           but all messages sent to this contact will be delivered as SMSs)</li>
       </ul>
 
-      <p>If the empty string is given as a client type, this means that
+      <p>If the empty list is given as the client types, this means that
         details about the contact's client type is unknown. If there are
         multiple resources of a contact online at one point in time, the
-        client type of the most available resource will be returned. In
-        other words, the client type is the type of the client whose
+        client types of the most available resource will be returned. In
+        other words, the client types are the types of the client whose
         SimplePresence we see. For example, if a contact has two
         resources:</p>
 
@@ -65,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>then the methods in this interface will return the "phone" client type
         as that is the more available resource. If some time later his phone's
         presence moves to "away", then the
-        <tp:member-ref>ClientTypeUpdated</tp:member-ref> signal will notify
+        <tp:member-ref>ClientTypesUpdated</tp:member-ref> signal will notify
         that his client type has changed from "phone" to "pc", because "busy"
         is a more available presence than "away".</p>
 
@@ -73,18 +75,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:mapping name="Contact_Client_Types">
       <tp:docstring>
-        A mapping from contact handle to client type.
+        A mapping from contact handle to client types.
       </tp:docstring>
       <tp:member type="u" tp:type="Contact_Handle" name="Contact">
         <tp:docstring>
           A contact.
         </tp:docstring>
       </tp:member>
-      <tp:member type="s" name="Client_Type">
+      <tp:member type="as" name="Client_Type">
         <tp:docstring>
-          The contact's client type as
-          <a href="http://xmpp.org/registrar/disco-categories.html#client">
-          documented by the XMPP registrar</a>.
+          The contact's client types as documented earlier in this interface.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
@@ -95,29 +95,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         already known. If any of the given contacts' client types are not known,
         request their current client types, but return immediately without waiting
         for a reply; if a reply with a non-empty client type is later received
-        for those contacts, the <tp:member-ref>ClientTypeUpdated</tp:member-ref>
+        for those contacts, the <tp:member-ref>ClientTypesUpdated</tp:member-ref>
         signal will be emitted for them.
 
         <tp:rationale>
           This method is appropriate for "lazy" client type finding, for instance
-          displaying the client type (if available) of everyone in your contact
+          displaying the client types (if available) of everyone in your contact
           list.
         </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          The contacts whose client type should be returned or signalled.
+          The contacts whose client types should be returned or signalled.
         </tp:docstring>
       </arg>
 
-      <arg direction="out" name="Client_Types" type="a{us}"
+      <arg direction="out" name="Client_Types" type="a{uas}"
         tp:type="Contact_Client_Types">
         <tp:docstring>
           The contacts' client types, if already known. Contacts whose client
-          types are not already known are omitted from the mapping; contacts known
+          typess are not already known are omitted from the mapping; contacts known
           to have no client type information appear in the mapping with an empty
-          string.
+          list.
         </tp:docstring>
       </arg>
 
@@ -129,7 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="RequestClientType" tp:name-for-bindings="Request_Client_Type">
       <tp:docstring>
-        Return the current client type of the given contact. If necessary, make
+        Return the current client types of the given contact. If necessary, make
         a request to the server for up-to-date information, and wait for a
         reply.
 
@@ -143,13 +143,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <arg direction="in" name="Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring>
-          The contact whose client type should be returned.
+          The contact whose client types should be returned.
         </tp:docstring>
       </arg>
 
-      <arg direction="out" name="Client_Type" type="s">
+      <arg direction="out" name="Client_Type" type="as">
         <tp:docstring>
-          The contact's client type. It MAY be empty, indicating that no client
+          The contact's client types. It MAY be empty, indicating that no client
           type information was found.
         </tp:docstring>
       </arg>
@@ -167,9 +167,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <signal name="ClientTypeUpdated" tp:name-for-bindings="Client_Type_Updated">
+    <signal name="ClientTypesUpdated" tp:name-for-bindings="Client_Types_Updated">
       <tp:docstring>
-        Emitted when a contact's client type changes or becomes known.
+        Emitted when a contact's client types change or become known.
       </tp:docstring>
 
       <arg name="Contact" type="u" tp:type="Contact_Handle">
@@ -177,15 +177,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The contact.
         </tp:docstring>
       </arg>
-      <arg name="Client_Type" type="s">
+      <arg name="Client_Types" type="as">
         <tp:docstring>
-          The contact's client type, or empty to indicate that nothing is known
-          about the contact's client type.
+          The contact's client types, or an empty list to indicate that nothing
+          is known about the contact's client types.
         </tp:docstring>
       </arg>
     </signal>
 
-    <tp:contact-attribute name="client-type" type="s">
+    <tp:contact-attribute name="client-type" type="as">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same mapping that would be returned by
           <tp:member-ref>GetClientTypes</tp:member-ref> for this contact.
