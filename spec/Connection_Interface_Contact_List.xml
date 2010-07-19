@@ -59,6 +59,48 @@
       </tp:rationale>
     </tp:docstring>
 
+    <tp:enum name="Contact_List_State" type="u">
+      <tp:docstring>
+        The progress made in retrieving the contact list.
+      </tp:docstring>
+
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring>The connection has not started to retrieve the contact
+          list. If <tp:member-ref>RequestContactList</tp:member-ref> is called
+          in this state, it should be expected to take time to complete; it
+          will return successfully when the state changes to Success,
+          or raise an error when the state changes to Failure.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Waiting" value="1">
+        <tp:docstring>The connection has started to retrieve the contact
+          list, but has not yet succeeded or failed.
+          If <tp:member-ref>RequestContactList</tp:member-ref> is called
+          in this state, it behaves as described for state None.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Success" value="2">
+        <tp:docstring>The connection has successfully retrieved the contact
+          list. If <tp:member-ref>RequestContactList</tp:member-ref> is called
+          in this state, it will immediately return success.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Failure" value="3">
+        <tp:docstring>The connection has failed to retrieve the contact
+          list. If <tp:member-ref>RequestContactList</tp:member-ref> is called
+          in this state, it will immediately raise an error indicating the
+          reason for failure.</tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <property name="ContactListState" tp:name-for-bindings="Contact_List_State"
+      type="u" tp:type="Contact_List_State" access="read">
+      <tp:added version="0.19.UNRELEASED">(in draft 3)</tp:added>
+      <tp:docstring>
+        The progress made in retrieving the contact list.
+      </tp:docstring>
+    </property>
+
     <method name="RequestContactList"
       tp:name-for-bindings="Request_Contact_List">
       <tp:changed version="0.19.8">(in draft: renamed from
