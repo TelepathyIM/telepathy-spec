@@ -232,6 +232,19 @@
   Allowed = [ ]
 )</pre></blockquote>
 
+      <p>When explicitly joining a room, the CM cannot know whether the room
+        ID is unique or not. As a result, if this is the case, adding an
+        empty string <tp:member-ref>RoomID</tp:member-ref> into the channel
+        request will ensure the CM knows. For example:</p>
+
+      <blockquote>
+        <pre>
+{ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>,
+  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: Room,
+  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: "lkajdskjakjsadhkjsh@conference.jabber.org",
+  ...<tp:member-ref>RoomID</tp:member-ref>: ""
+}</pre></blockquote>
+
       <p><strong>TODO: document joining ad-hoc MUCs on different
         XMPP servers.</strong></p>
     </tp:docstring>
