@@ -260,6 +260,37 @@
       </tp:docstring>
     </property>
 
+    <tp:struct name="Subject">
+      <tp:docstring>
+        A struct representing the subject of a room channel.
+      </tp:docstring>
+      <tp:member type="s" name="Subject">
+        <tp:docstring>
+           A human-readable description of the current subject of
+           conversation in the channel, similar to /topic in IRC.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Contact_Handle" name="Status">
+        <tp:docstring>
+           A contact handle representing who last modified the subject, or 0
+           if it isn't known.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="x" tp:type="Unix_Timestamp64" name="Timestamp">
+        <tp:docstring>
+           A unix timestamp indicating when the subject was last modified.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <property name="Subject" tp:name-for-bindings="Subject"
+              type="(sux)" tp:type="Subject" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The subject on the room such as the topic in an IRC channel,
+          or the room name in XMPP MUCs.</p>
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
