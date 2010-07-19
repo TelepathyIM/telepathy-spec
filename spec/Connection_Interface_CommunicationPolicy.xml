@@ -210,6 +210,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         (Access_Control_Type_Subscribe_Or_Pending_List, None)
 }
         </pre>
+
+        <p>Changes to this property are signalled by
+          <tp:member-ref>PolicyChanged</tp:member-ref>.</p>
       </tp:docstring>
     </property>
 
