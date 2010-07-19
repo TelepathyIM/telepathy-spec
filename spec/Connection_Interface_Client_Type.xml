@@ -50,8 +50,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>If the empty string is given as a client type, this means that
         details about the contact's client type is unknown. If there are
         multiple resources of a contact online at one point in time, the
-        client type of the most available resource will be returned. For
-        example, if a contact has two resources:</p>
+        client type of the most available resource will be returned. In
+        other words, the client type is the type of the client whose
+        SimplePresence we see. For example, if a contact has two
+        resources:</p>
 
       <ul>
         <li>one his phone, with presence "available", and</li>
