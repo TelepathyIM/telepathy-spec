@@ -246,7 +246,7 @@
         <pre>
 { ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>,
   ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: Room,
-  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: "lkajdskjakjsadhkjsh@conference.jabber.org",
+  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: "qwerasdfzxcv@conference.jabber.org",
   ...<tp:member-ref>RoomID</tp:member-ref>: ""
 }</pre></blockquote>
 
