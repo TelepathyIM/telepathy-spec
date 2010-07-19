@@ -291,7 +291,7 @@
            conversation in the channel, similar to /topic in IRC.
         </tp:docstring>
       </tp:member>
-      <tp:member type="u" tp:type="Contact_Handle" name="Status">
+      <tp:member type="u" tp:type="Contact_Handle" name="Actor">
         <tp:docstring>
            A contact handle representing who last modified the subject, or 0
            if it isn't known.
