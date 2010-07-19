@@ -291,10 +291,10 @@
            conversation in the channel, similar to /topic in IRC.
         </tp:docstring>
       </tp:member>
-      <tp:member type="u" tp:type="Contact_Handle" name="Actor">
+      <tp:member type="s" name="Actor">
         <tp:docstring>
-           A contact handle representing who last modified the subject, or 0
-           if it isn't known.
+           A normalized contact ID representing who last modified the
+           subject, or the empty string if it is not known.
         </tp:docstring>
       </tp:member>
       <tp:member type="x" tp:type="Unix_Timestamp64" name="Timestamp">
@@ -305,7 +305,7 @@
     </tp:struct>
 
     <property name="Subject" tp:name-for-bindings="Subject"
-              type="(sux)" tp:type="Subject" access="read">
+              type="(ssx)" tp:type="Subject" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The subject on the room such as the topic in an IRC channel,
           or the room name in XMPP MUCs.</p>
