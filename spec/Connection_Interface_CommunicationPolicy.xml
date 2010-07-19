@@ -42,28 +42,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         For most types, the exact access control is given by an associated
         variant.
       </tp:docstring>
-      <tp:enumvalue suffix="Open" value="0">
+      <tp:enumvalue suffix="Whitelist" value="0">
+        <tp:docstring>
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can communicate with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Publish_List" value="1">
+        <tp:docstring>
+          All contacts in the user's 'publish' contact list can
+          communicate with us. The associated variant is ignored.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Group" value="2">
+        <tp:docstring>
+          The associated variant is a handle of type Group (signature 'u',
+          Group_Handle) representing a group of contacts who can communicate
+          with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
           Anyone can initiate communication with the contact, the
           variant is ignored, this is the same as an empty blacklist.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Closed" value="1">
-        <tp:docstring>
-          Communication with the given channel type from any contact
-          is blocked. The variant is ignored.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Whitelist" value="2">
-        <tp:docstring>
-          The associated variant is a list of contacts (signature 'au',
-          Contact_Handle[]) who can communicate with us.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Blacklist" value="3">
-        <tp:docstring>
-          The associated variant is a list of contacts (signature 'au',
-          Contact_Handle[]) who can communicate with us.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Subscribe_List" value="4">
@@ -72,36 +73,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           communicate with us. The associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Publish_List" value="5">
-        <tp:docstring>
-          All contacts in the user's 'publish' contact list can
-          communicate with us. The associated variant is ignored.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="6">
+      <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="5">
         <tp:docstring>
           All contacts in the user's 'subscribe' or 'publish' contact
           list can communicate with us. The associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Pending_List" value="7">
+      <tp:enumvalue suffix="Subscribe_Or_Pending_List" value="6">
         <tp:docstring>
           All contacts in the user's 'subscribe' or 'pending' contact
           list can communicate with us. The associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Pending_Or_Publish_List" value="8">
+      <tp:enumvalue suffix="Subscribe_Or_Pending_Or_Publish_List" value="7">
         <tp:docstring>
           All contacts in the user's 'subscribe' or 'pending' or
           'publish' contact lists can communicate with us. The
           associated variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Group" value="9">
+      <tp:enumvalue suffix="Blacklist" value="8">
         <tp:docstring>
-          The associated variant is a handle of type Group (signature 'u',
-          Group_Handle) representing a group of contacts who can communicate
-          with us.
+          The associated variant is a list of contacts (signature 'au',
+          Contact_Handle[]) who can communicate with us.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Closed" value="9">
+        <tp:docstring>
+          Communication with the given channel type from any contact
+          is blocked. The variant is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Understood" value="10">
