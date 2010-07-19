@@ -288,13 +288,9 @@
             asked during the current session will ever have Ask status.</p>
         </tp:rationale>
 
-        <p>This attribute SHOULD be omitted from the
-          <tp:type>Contact_Attributes_Map</tp:type> returned by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
-            >GetContactAttributes</tp:dbus-ref> until the initial contact
-          list has been received, in protocols where this is applicable.
-          Clients MAY wait for this by calling
-          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
+        <p>This attribute's value will be Unknown until the
+          <tp:member-ref>ContactListState</tp:member-ref> has changed to
+          Success.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
@@ -329,13 +325,9 @@
             during the current session will ever have Ask status.</p>
         </tp:rationale>
 
-        <p>This attribute SHOULD be omitted from the
-          <tp:type>Contact_Attributes_Map</tp:type> returned by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
-            >GetContactAttributes</tp:dbus-ref> until the initial contact
-          list has been received, in protocols where this is applicable.
-          Clients MAY wait for this by calling
-          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
+        <p>This attribute's value will be Unknown until the
+          <tp:member-ref>ContactListState</tp:member-ref> has changed to
+          Success.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
@@ -353,12 +345,9 @@
 
         <p>Otherwise, this SHOULD be omitted.</p>
 
-        <p>This attribute SHOULD be omitted from the
-          <tp:type>Contact_Attributes_Map</tp:type> returned by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
-            >GetContactAttributes</tp:dbus-ref> until the initial contact
-          list has been received. Clients MAY wait for this by calling
-          <tp:member-ref>RequestContactList</tp:member-ref>.</p>
+        <p>This attribute will also be omitted until the
+          <tp:member-ref>ContactListState</tp:member-ref> has changed to
+          Success.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
