@@ -34,8 +34,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>The client types are represented in strings, using the values
         <a href="http://xmpp.org/registrar/disco-categories.html#client">
-        documented by the XMPP registrar</a>. The well-known client types
-        at the time of writing are:</p>
+        documented by the XMPP registrar</a> with some additional types
+        added for other protocols. The client types to be used are:</p>
 
       <ul>
         <li>bot</li>
@@ -45,6 +45,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <li>pc</li>
         <li>phone</li>
         <li>web</li>
+        <li>sms (the client is not actually an instant messaging client
+          but all messages sent to this contact will be delivered as SMSs)</li>
       </ul>
 
       <p>If the empty string is given as a client type, this means that
