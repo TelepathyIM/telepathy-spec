@@ -22,8 +22,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
      name="org.freedesktop.Telepathy.Connection.Interface.CommunicationPolicy.DRAFT"
      tp:causes-havoc="experimental">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface defines properties used to control
-	acceptance policy on incoming communication for an account</p>
+      <p>
+        This interface supports controlling which contacts is allowed
+        to initiate text chats, incoming calls, etc., as supported by
+        the underlying protocol. The policies supported for different
+        communication methods on this connection are listed in the
+        <tp:member-ref>SupportedPolicies</tp:member-ref> property. The
+        current configuration is held in
+        <tp:member-ref>ActivePolicies</tp:member-ref>; it can be
+        modified using <tp:member-ref>SetPolicy</tp:member-ref>, and changes
+        are signalled by <tp:member-ref>PolicyChanged</tp:member-ref>.
+      </p>
     </tp:docstring>
 
     <tp:enum name="Access_Control_Type" type="u"
