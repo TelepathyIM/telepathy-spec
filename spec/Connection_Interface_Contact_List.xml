@@ -682,6 +682,12 @@
 
         <p>If the subscription request is cancelled by the local user, the
           contact's subscribe attribute will change from Ask to No.</p>
+
+        <p>This method SHOULD NOT be called until the
+          <tp:member-ref>ContactListState</tp:member-ref> changes to Success.
+          If the <tp:member-ref>ContactListState</tp:member-ref> changes to
+          Failure, this method SHOULD raise the same error as
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -716,6 +722,12 @@
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+          <tp:docstring>
+            The <tp:member-ref>ContactListState</tp:member-ref> is None
+            or Waiting.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action, because
@@ -787,6 +799,12 @@
           <p>This makes it easy for user interfaces to see what practical
             effect this method had.</p>
         </tp:rationale>
+
+        <p>This method SHOULD NOT be called until the
+          <tp:member-ref>ContactListState</tp:member-ref> changes to Success.
+          If the <tp:member-ref>ContactListState</tp:member-ref> changes to
+          Failure, this method SHOULD raise the same error as
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -804,6 +822,12 @@
           <tp:docstring>
             It was not possible to perform the requested action, because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+          <tp:docstring>
+            The <tp:member-ref>ContactListState</tp:member-ref> is None
+            or Waiting.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -837,6 +861,12 @@
             contact list's state), then consult its local cache of the
             contact list's state to see whether the contact is still there.</p>
         </tp:rationale>
+
+        <p>This method SHOULD NOT be called until the
+          <tp:member-ref>ContactListState</tp:member-ref> changes to Success.
+          If the <tp:member-ref>ContactListState</tp:member-ref> changes to
+          Failure, this method SHOULD raise the same error as
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -854,6 +884,12 @@
           <tp:docstring>
             It was not possible to perform the requested action because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+          <tp:docstring>
+            The <tp:member-ref>ContactListState</tp:member-ref> is None
+            or Waiting.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -874,6 +910,12 @@
           entirely or for all contacts; however, all signals that
           immediately result from this method call MUST be emitted before it
           returns.</p>
+
+        <p>This method SHOULD NOT be called until the
+          <tp:member-ref>ContactListState</tp:member-ref> changes to Success.
+          If the <tp:member-ref>ContactListState</tp:member-ref> changes to
+          Failure, this method SHOULD raise the same error as
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -911,6 +953,12 @@
           entirely or for all contacts; however, all signals that
           immediately result from this method call MUST be emitted before it
           returns.</p>
+
+        <p>This method SHOULD NOT be called until the
+          <tp:member-ref>ContactListState</tp:member-ref> changes to Success.
+          If the <tp:member-ref>ContactListState</tp:member-ref> changes to
+          Failure, this method SHOULD raise the same error as
+          <tp:member-ref>GetContactListAttributes</tp:member-ref>.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
@@ -928,6 +976,12 @@
           <tp:docstring>
             It was not possible to perform the requested action because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+          <tp:docstring>
+            The <tp:member-ref>ContactListState</tp:member-ref> is None
+            or Waiting.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
