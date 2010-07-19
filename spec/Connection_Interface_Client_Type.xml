@@ -39,7 +39,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <ul>
           <li>bot</li>
-          <li>console</li>
+          <li>console (minimal non-GUI client used on dumb terminals or
+            text-only screens, <strong>not</strong> a games console)</li>
           <li>handheld</li>
           <li>pc</li>
           <li>phone</li>
