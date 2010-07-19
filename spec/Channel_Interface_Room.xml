@@ -165,7 +165,7 @@
         >TargetHandle</tp:dbus-ref>.</p>
 
       <p>If, like IRC, the room identifiers are also human-readable, the
-        RCC should also include RoomID in <var>Allowed_Properties</var>:</p>
+        RCCs should also include RoomID in <var>Allowed_Properties</var>:</p>
 
       <blockquote>
         <pre>
@@ -178,7 +178,8 @@
   Allowed = [ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
               >TargetID</tp:dbus-ref>,
               ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-              >TargetHandle</tp:dbus-ref>
+              >TargetHandle</tp:dbus-ref>,
+              ...<tp:member-ref>RoomID</tp:member-ref>
             ]
 ),
 
@@ -200,7 +201,13 @@
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
         >TargetHandle</tp:dbus-ref> and
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-        >TargetID</tp:dbus-ref> must also be omitted.</p>
+        >TargetID</tp:dbus-ref> must also be omitted.
+        <tp:member-ref>RoomID</tp:member-ref> is allowed in conjuction
+        with
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref> or
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+        in some situations, as explained below.
+      </p>
 
       <p>If rooms may be on different servers, <tp:member-ref>Server</tp:member-ref>
         should also be included in the allowed properties, but
