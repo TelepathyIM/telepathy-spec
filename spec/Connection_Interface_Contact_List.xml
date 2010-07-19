@@ -275,7 +275,7 @@
             the local user's buddy list" in ICQ, for example.</p>
         </tp:rationale>
 
-        <p>If this attribute is No or Ask, the local user cannot generally
+        <p>If this attribute is not Yes, the local user cannot generally
           expect to receive presence from this contact. Their presence status
           as returned by <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.SimplePresence">GetPresences</tp:dbus-ref>
@@ -296,6 +296,13 @@
             indefinitely. On other protocols, only contacts who have been
             asked during the current session will ever have Ask status.</p>
         </tp:rationale>
+
+        <p>If this attribute is Rejected, this indicates that the local user
+          has asked to receive the contact's presence at some time, but the
+          remote contact has rejected that request. It is
+          implementation-dependent whether contacts' subscribe attributes
+          can remain set to Rejected, or are reset to No, when the connection
+          disconnects.</p>
 
         <p>This attribute's value will be Unknown until the
           <tp:member-ref>ContactListState</tp:member-ref> has changed to
@@ -318,7 +325,7 @@
             the contact's buddy list" in ICQ, for example.</p>
         </tp:rationale>
 
-        <p>If this attribute is No or Ask, the
+        <p>If this attribute is not Yes, the
           local user's presence is not published to that contact; however,
           if it is Ask, the contact has requested that the local user's
           presence is made available to them.</p>
@@ -333,6 +340,8 @@
             indefinitely. On other protocols, only contacts who have asked
             during the current session will ever have Ask status.</p>
         </tp:rationale>
+
+        <p><em>FIXME: do we want to allow Rejected here too?</em></p>
 
         <p>This attribute's value will be Unknown until the
           <tp:member-ref>ContactListState</tp:member-ref> has changed to
@@ -450,11 +459,12 @@
             <p>Contact aliases and groups on MSN have this behaviour.</p>
           </tp:rationale>
 
-          <p>If this type of metadata is set on a contact with subscribe=No,
-            the Connection MUST cache it until disconnected, and return it
-            if requested. If subscription to the contact's presence is
-            subsequently requested, making it possible to store this metadata,
-            the Connection MUST store the cached value at that time.</p>
+          <p>If this type of metadata is set on a contact with subscribe=No
+            or subscribe=Rejected, the Connection MUST cache it until
+            disconnected, and return it if requested. If subscription to the
+            contact's presence is subsequently requested, making it possible
+            to store this metadata, the Connection MUST store the cached
+            value at that time.</p>
 
           <tp:rationale>
             <p>This supports the recommended calling pattern for adding a
@@ -648,10 +658,10 @@
           request, with the given message, if allowed by the underlying
           protocol.</p>
 
-        <p>For contacts with subscribe=No, this method SHOULD request that
-          the contact allows the local user to subscribe to their presence;
-          in general, this will change their publish attribute from No
-          to Ask (although it could change directly from No to Yes in some
+        <p>For contacts with subscribe=No or subscribe=Rejected, this method
+          SHOULD request that the contact allows the local user to subscribe
+          to their presence; in general, this will change their publish
+          attribute to Ask (although it could change directly to Yes in some
           situations).</p>
 
         <p>Any state changes that immediately result from this request MUST
@@ -664,9 +674,14 @@
         </tp:rationale>
 
         <p>If the remote contact accepts the request, their subscribe
-          attribute will later change from Ask to Yes; if they explicitly
-          reject the request (in protocols that allow this), their subscribe
-          attribute will later change from Ask to No.</p>
+          attribute will later change from Ask to Yes.</p>
+
+        <p>If the remote contact explicitly rejects the request (in protocols
+          that allow this), their subscribe attribute will later change from
+          Ask to Rejected.</p>
+
+        <p>If the subscription request is cancelled by the local user, the
+          contact's subscribe attribute will change from Ask to No.</p>
       </tp:docstring>
 
       <arg name="Contacts" direction="in"
