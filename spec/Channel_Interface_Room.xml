@@ -164,7 +164,8 @@
         >TargetID</tp:dbus-ref> or <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
         >TargetHandle</tp:dbus-ref>.</p>
 
-      <p>If, like IRC, the room identifiers are also human-readable, the RCC should also include RoomID in the allowed properties:</p>
+      <p>If, like IRC, the room identifiers are also human-readable, the
+        RCC should also include RoomID in <var>Allowed_Properties</var>:</p>
 
       <blockquote>
         <pre>
@@ -193,11 +194,15 @@
 
       <p>Requests may specify the RoomID in place of TargetID or
         TargetHandle. Note how <tp:member-ref>RoomID</tp:member-ref> appears
-        in Allowed of a different RCC because when <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-        >TargetHandleType</tp:dbus-ref> is omitted (or is None), both <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-        >TargetHandle</tp:dbus-ref> and <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-        >TargetID</tp:dbus-ref> must also be omitted. If rooms may
-        be on different servers, <tp:member-ref>Server</tp:member-ref>
+        in <var>Allowed_Properties</var> of a different RCC because
+        when <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetHandleType</tp:dbus-ref> is omitted (or is None), both
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetHandle</tp:dbus-ref> and
+        <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
+        >TargetID</tp:dbus-ref> must also be omitted.</p>
+
+      <p>If rooms may be on different servers, <tp:member-ref>Server</tp:member-ref>
         should also be included in the allowed properties, but
         CMs MUST use a reasonable default
         <tp:member-ref>Server</tp:member-ref> if not explicitly
@@ -289,6 +294,9 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The subject on the room such as the topic in an IRC channel,
           or the room name in XMPP MUCs.</p>
+
+        <p>This property may change during the lifetime of the channel and
+          MUST not be included in a channel request.</p>
       </tp:docstring>
     </property>
 
