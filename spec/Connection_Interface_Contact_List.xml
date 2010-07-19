@@ -345,8 +345,9 @@
       </tp:docstring>
     </tp:contact-attribute>
 
-    <property name="SubscriptionsPersist"
-      tp:name-for-bindings="Subscriptions_Persist" type="b" access="read">
+    <property name="ContactListPersists"
+      tp:name-for-bindings="Contact_List_Persists" type="b" access="read">
+      <tp:changed version="0.19.UNRELEASED">(renamed in draft 3)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, presence subscriptions (in both directions) on this
           connection are stored by the server or other infrastructure.</p>
@@ -365,17 +366,17 @@
             presence from everyone else) so nothing is ever stored.</p>
         </tp:rationale>
 
-        <p>If <tp:member-ref>CanChangeSubscriptions</tp:member-ref>
+        <p>If <tp:member-ref>CanChangeContactList</tp:member-ref>
           is true, Telepathy clients (e.g. user interfaces or address books)
           MAY keep a record of permission to publish and requests to subscribe
           locally, and attempt to restore it for each Connection. If
-          SubscriptionsPersist is false, clients MAY do this for all contacts;
-          if SubscriptionsPersist is true, clients SHOULD NOT change the state
+          ContactListPersists is false, clients MAY do this for all contacts;
+          if ContactListPersists is true, clients SHOULD NOT change the state
           of contacts that were not changed locally.</p>
 
         <tp:rationale>
-          <p>In SIMPLE (SIP), SubscriptionsPersist is false, but
-            CanChangeSubscriptions is true. Presence will not be received
+          <p>In SIMPLE (SIP), ContactListPersists is false, but
+            CanChangeContactList is true. Presence will not be received
             unless clients renew any subscriptions they have for each
             connection, in the way described. There is no server-side storage,
             so clients have no alternative but to maintain independent contact
@@ -571,8 +572,8 @@
       </arg>
     </signal>
 
-    <property name="CanChangeSubscriptions" type="b" access="read"
-      tp:name-for-bindings="Can_Change_Subscriptions">
+    <property name="CanChangeContactList" type="b" access="read"
+      tp:name-for-bindings="Can_Change_Contact_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, presence subscription and publication can be changed
           using the
@@ -688,7 +689,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action, because
-            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+            <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -772,7 +773,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action, because
-            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+            <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -822,7 +823,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
-            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+            <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -859,7 +860,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
-            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+            <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -896,7 +897,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
-            <tp:member-ref>CanChangeSubscriptions</tp:member-ref> is false.
+            <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
