@@ -262,8 +262,36 @@
         and <tp:member-ref>RoomID</tp:member-ref> properties
         will fail with InvalidArgument.</p>
 
-      <p><strong>TODO: document joining ad-hoc MUCs on different
-        XMPP servers.</strong></p>
+      <p>To create a XEP-0045 §10.1.4 uniquely-named room channel
+        on the conference.jabber.org server, then the following channel
+        request should be made:</p>
+
+      <blockquote>
+        <pre>
+{ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>,
+  ...<tp:member-ref>RoomID</tp:member-ref>: ""
+  ...<tp:member-ref>Server</tp:member-ref>: "conference.jabber.org"
+}</pre>
+      </blockquote>
+
+      <p>If everything is successful, then when the channel request is
+        satisfied, a new channel will appear with the following properties:</p>
+
+      <blockquote>
+        <pre>
+{ ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Type">Text</tp:dbus-ref>,
+  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: Room,
+  ...<tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: "kajsdhkajshdfjkshdfjkhs@conference.jabber.org",
+  ...<tp:member-ref>RoomID</tp:member-ref>: ""
+  ...<tp:member-ref>Server</tp:member-ref>: "conference.jabber.org"
+}</pre>
+      </blockquote>
+
+      <p>The CM will have received the unique room name (kajsdhkajshdfjkshdfjkhs)
+        and then created a room with such a name on the said server. The empty
+        <tp:member-ref>RoomID</tp:member-ref> property shows that the room name
+        is not human-readable.</p>
+
     </tp:docstring>
 
     <property name="RoomID" tp:name-for-bindings="Room_ID" type="s"
