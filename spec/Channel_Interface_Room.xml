@@ -206,7 +206,8 @@
         with
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref> or
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
-        in some situations, as explained below.
+        in some situations, as explained below in the <em>Requesting room
+        channels</em> section.
       </p>
 
       <p>If rooms may be on different servers, <tp:member-ref>Server</tp:member-ref>
@@ -236,6 +237,8 @@
           },
   Allowed = [ ]
 )</pre></blockquote>
+
+      <h4>Requesting room channels</h4>
 
       <p>When explicitly joining a room, the CM cannot know whether the room
         ID is unique or not. As a result, if this is the case, adding an
