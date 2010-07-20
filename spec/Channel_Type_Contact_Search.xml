@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Channel.Type.ContactSearch">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:added version="0.17.UNRELEASED">
+    <tp:added version="0.19.10">
       as stable API. Changes from draft 2:
       <tp:type>Contact_Search_Result_Map</tp:type> keys are now identifiers
       rather than handles; consequently, the values need not include

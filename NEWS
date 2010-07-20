@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.10 (UNRELEASED)
+telepathy-spec 0.19.10 (2010-07-20)
 ===================================
+
+The “approved by bunny” release.
 
 New stable API:
 
@@ -12,6 +14,8 @@ New stable API:
     handles (wjt)
 
 ➡ Protocol objects are now considered stable, with no changes
+
+➡ fd.o #25636: Messages may have a 'supersedes' header
 
 Clarifications:
 
