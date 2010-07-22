@@ -77,17 +77,17 @@
           in this state, it will raise NotYet.</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Success" value="2">
-        <tp:docstring>The connection has successfully retrieved the contact
-          list. If <tp:member-ref>GetContactListAttributes</tp:member-ref>
-          is called in this state, it will return successfully.</tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Failure" value="3">
+      <tp:enumvalue suffix="Failure" value="2">
         <tp:docstring>The connection has failed to retrieve the contact
           list. If <tp:member-ref>GetContactListAttributes</tp:member-ref>
           is called in this state, it will immediately raise an error
           indicating the reason for failure.</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Success" value="3">
+        <tp:docstring>The connection has successfully retrieved the contact
+          list. If <tp:member-ref>GetContactListAttributes</tp:member-ref>
+          is called in this state, it will return successfully.</tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
