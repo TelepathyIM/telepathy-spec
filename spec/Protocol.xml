@@ -184,17 +184,23 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           <code>.manager</code> files.</p>
 
         <p>For instance, this <code>.manager</code> file could represent
-          a simple Text-only connection manager:</p>
+          a connection manager that supports 1-1 Text messages and
+          StreamedMedia audio calls:</p>
 
 <pre>[Protocol jabber]
 param-account=s required
 param-password=s required
-RequestableChannelClasses=text;
+RequestableChannelClasses=rcc0;rcc1;
 
-[text]
+[rcc0]
 org.freedesktop.Telepathy.Channel.ChannelType s=org.freedesktop.Telepathy.Channel.Type.Text
 org.freedesktop.Telepathy.Channel.TargetHandleType u=1
 allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy.Channel.TargetID;
+
+[rcc1]
+org.freedesktop.Telepathy.Channel.ChannelType s=org.freedesktop.Telepathy.Channel.Type.StreamedMedia
+org.freedesktop.Telepathy.Channel.TargetHandleType u=1
+allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy.Channel.TargetID;org.freedesktop.Telepathy.Channel.Type.StreamedMedia.InitialAudio;
 </pre>
       </tp:docstring>
     </property>
