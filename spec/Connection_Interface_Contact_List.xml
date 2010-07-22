@@ -78,10 +78,17 @@
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Failure" value="2">
-        <tp:docstring>The connection has failed to retrieve the contact
-          list. If <tp:member-ref>GetContactListAttributes</tp:member-ref>
-          is called in this state, it will immediately raise an error
-          indicating the reason for failure.</tp:docstring>
+        <tp:docstring>
+          <p>The connection has tried and failed to retrieve the contact
+            list. If <tp:member-ref>GetContactListAttributes</tp:member-ref>
+            is called in this state, it will immediately raise an error
+            indicating the reason for failure.</p>
+
+          <p>The connection manager SHOULD try again to obtain the contact
+            list, if appropriate for the protocol. If it succeeds later,
+            the <tp:member-ref>ContactListState</tp:member-ref> MUST advance
+            to Success.</p>
+        </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Success" value="3">
