@@ -214,12 +214,6 @@
             Equivalent to the corresponding argument to <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>.</p>
-
-          <p><em>FIXME: if we do distributed refcounting, we should probably
-              rename this to 'Reference' and implement handle-refcounting
-              semantics first? On the other hand, if we make handles persist
-              for the lifetime of the connection, we can just remove this
-              parameter.</em></p>
         </tp:docstring>
       </arg>
 
