@@ -61,7 +61,7 @@ Interfaces=
 ConnectionInterfaces=org.freedesktop.Telepathy.Connection.Interface.Requests;
 param-account=s required
 param-password=s required secret
-RequestableChannelClasses=text
+RequestableChannelClasses=text;
 VCardField=x-example
 EnglishName=Example
 Icon=im-example
@@ -183,7 +183,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
 <pre>[Protocol jabber]
 param-account=s required
 param-password=s required
-RequestableChannelClasses=text
+RequestableChannelClasses=text;
 
 [text]
 org.freedesktop.Telepathy.Channel.ChannelType s=org.freedesktop.Telepathy.Channel.Type.Text
