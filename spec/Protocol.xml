@@ -162,6 +162,12 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           of those strings is the name of a group in the <code>.manager</code>
           file which represents a channel class.</p>
 
+        <p>The names of the groups representing channel classes are not
+          significant, and MUST NOT be interpreted. When writing
+          <tt>.manager</tt> files, authors MAY choose mnemonic group names,
+          generate group names mechanically (e.g. with an incrementing
+          integer), or use some combination of these.</p>
+
         <p>Each group representing a channel class has a key
           <code>allowed</code> which is a list of D-Bus property names
           representing allowed parameters. Any other keys that do not contain
