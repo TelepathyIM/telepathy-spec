@@ -140,6 +140,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	      tp:name-for-bindings="Certificate_Type">
       <tp:docstring>
 	The type of this TLS certificate (e.g. 'x509' or 'pgp').
+	<p>This property is immutable</p>
       </tp:docstring>
     </property>
 
@@ -147,6 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	      tp:type="Certificate_Data[]" tp:name-for-bindings="Certificate_Chain_Data">
       <tp:docstring>
 	The RAW PEM-encoded trust chain of this TLS certificate.
+	<p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
