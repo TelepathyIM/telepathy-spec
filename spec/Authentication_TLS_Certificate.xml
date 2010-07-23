@@ -93,25 +93,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Hostname_Mismatch" value="5">
+      <tp:enumvalue suffix="Fingerprint_Mismatch" value="5">
+	<tp:docstring>
+	  The certificate provided does not have the expected
+	  fingerprint.
+	</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Hostname_Mismatch" value="6">
 	<tp:docstring>
 	  The hostname certified does not match the provided one.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Self_Signed" value="6">
+      <tp:enumvalue suffix="Self_Signed" value="7">
 	<tp:docstring>
 	  The certificate is self-signed.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Revoked" value="7">
+      <tp:enumvalue suffix="Revoked" value="8">
 	<tp:docstring>
 	  The certificate has been revoked.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Insecure_Algorithm" value="8">
+      <tp:enumvalue suffix="Insecure_Algorithm" value="9">
 	<tp:docstring>
 	  The certificate uses an insecure cipher algorithm.
 	</tp:docstring>
