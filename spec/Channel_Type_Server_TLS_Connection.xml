@@ -24,10 +24,9 @@
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>
-      A channel type that carries a TLS certificate between a server
-      and a client connecting to it.<br/>
-      Channels of this kind are never requested, are anonymous, and SHOULD be
+      <p>A channel type that carries a TLS certificate between a server
+      and a client connecting to it.</p>
+      <p>Channels of this kind are never requested, are anonymous, and SHOULD be
       dispatched while the
       <tp:dbus-ref
       namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
@@ -42,10 +41,11 @@
     <property name="ServerCertificate" type="o" access="read"
 	      tp:name-for-bindings="ServerCertificate">
       <tp:docstring>
-	A <tp:dbus-ref
+	<p>A <tp:dbus-ref
 	namespace="org.freedesktop.Telepathy.Authentication">TLSCertificate.DRAFT</tp:dbus-ref>
 	containing the certificate chain as sent by the server,
-	and other relevant information.
+	and other relevant information.</p>
+	<p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
