@@ -131,7 +131,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
 	The current state of this certificate.
 	State change notifications happen by means of the
-	<tp:member-ref>StateChanged</tp:member-ref> signal.
+	<tp:member-ref>CertificateVerified</tp:member-ref> and
+	<tp:member-ref>CertificateRejected</tp:member-ref> signals.
       </tp:docstring>
     </property>
 
@@ -159,19 +160,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <signal name="StateChanged"
-	    tp:name-for-bindings="State_Changed">
+    <signal name="CertificateVerified"
+	    tp:name-for-bindings="Certificate_Verified">
       <tp:docstring>
-	The state of this TLS certificate has changed.
+	The state of this certificate has changed to Verified.
       </tp:docstring>
-      <arg name="State" type="u" tp:type="TLS_Certificate_State">
-	<tp:docstring>
-	  The new state of the TLS certificate.
-	</tp:docstring>
-      </arg>
+    </signal>
+
+    <signal name="CertificateRejected"
+	    tp:name-for-bindings="Certificate_Rejected">
+      <tp:docstring>
+	The state of this certificate has changed to Rejected.
+      </tp:docstring>
       <arg name="Reason" type="u" tp:type="TLS_Certificate_Reject_Reason">
 	<tp:docstring>
-	  The reason why the state of the TLS certificate changed.
+	  A value of the <tp:type>TLS_Certificate_Reject_Reason</tp:type>
+	  enum explaining the reason why the certificate has been rejected.
+	</tp:docstring>
+      </arg>
+      <arg name="Error" type="s" tp:type="DBus_Error_Name">
+	<tp:docstring>
+	  The name of a D-Bus error describing the error that
+	  occurred, which may correspond to a 
+	  <tp:type>TLS_Certificate_Reject_Reason</tp:type>.
+	</tp:docstring>
+      </arg>
+      <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
+	<tp:docstring>
+	  A dictionary containing the additional information about the
+	  error that has been given to the <tp:member-ref>Reject</tp:member-ref>
+	  method.
 	</tp:docstring>
       </arg>
     </signal>
@@ -196,7 +214,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	   tp:type="DBus_Error_Name">
 	<tp:docstring>
 	  The name of a D-Bus error describing the error that
-	  occurred, which may correspond to a 
+	  occurred, which may correspond to a
 	  <tp:type>TLS_Certificate_Reject_Reason</tp:type>.
 	</tp:docstring>
       </arg>
