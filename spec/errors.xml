@@ -236,7 +236,7 @@
       Raised if the server provided an SSL/TLS certificate that is self-signed
       and untrusted.
       <tp:rationale>
-        This corresponds to Cert_Hostname_Mismatch in the
+        This corresponds to Cert_Self_Signed in the
         <tp:type>Connection_Status_Reason</tp:type> enum.
       </tp:rationale>
     </tp:docstring>

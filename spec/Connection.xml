@@ -896,7 +896,7 @@ USA.</p>
           <p>The server's SSL certificate is self-signed.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.HostnameMismatch</code>.
+            <code>org.freedesktop.Telepathy.Error.Cert.SelfSigned</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
