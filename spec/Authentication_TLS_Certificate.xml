@@ -192,6 +192,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	  The reason why this certificate is being rejected.
 	</tp:docstring>
       </arg>
+      <arg direction="in" type="s" name="Error"
+	   tp:type="DBus_Error_Name">
+	<tp:docstring>
+	  The name of a D-Bus error describing the error that
+	  occurred, which may correspond to a 
+	  <tp:type>TLS_Certificate_Reject_Reason</tp:type>.
+	</tp:docstring>
+      </arg>
+      <arg direction="in" type="a{sv}" name="Details"
+	   tp:type="String_Variant_Map">
+	<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	  <p> Additional information about the error, which MAY also include
+	  one or more of the following well-known keys:</p>
+
+	  <dl>
+	    <dt>user-requested (b)</dt>
+	    <dd>Whether the error was due to an user-requested rejectal of
+	    the certificate, opposed to an unrecoverable error in the verification
+	    process.</dd>
+	    <dt>expected-hostname (s)</dt>
+	    <dd>In case the certificate was rejected for an hostname mismatch,
+	    this might contain the hostname expected to be certified.</dd>
+	  </dl>
+
+	</tp:docstring>
+      </arg>
     </method>
 
   </interface>
