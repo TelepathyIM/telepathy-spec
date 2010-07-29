@@ -44,7 +44,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Verified" value="1">
+      <tp:enumvalue suffix="Accepted" value="1">
 	<tp:docstring>
 	  The certificate has been verified.
 	</tp:docstring>
@@ -131,7 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
 	The current state of this certificate.
 	State change notifications happen by means of the
-	<tp:member-ref>Verified</tp:member-ref> and
+	<tp:member-ref>Accepted</tp:member-ref> and
 	<tp:member-ref>Rejected</tp:member-ref> signals.
       </tp:docstring>
     </property>
@@ -160,10 +160,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <signal name="Verified"
-	    tp:name-for-bindings="Verified">
+    <signal name="Accepted"
+	    tp:name-for-bindings="Accepted">
       <tp:docstring>
-	The state of this certificate has changed to Verified.
+	The <tp:member-ref>State</tp:member-ref> of this certificate has changed to Accepted.
       </tp:docstring>
     </signal>
 
