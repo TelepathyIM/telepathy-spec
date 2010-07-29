@@ -153,6 +153,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	<p>If the <tp:member-ref>State</tp:member-ref> is not Rejected,
 	this property is not meaningful and SHOULD be set to an empty
 	map.</p>
+	<p>The additional information MAY also include
+	one or more of the following well-known keys:</p>
+	<dl>
+	  <dt>user-requested (b)</dt>
+	  <dd>Whether the error was due to an user-requested rejectal of
+	  the certificate, opposed to an unrecoverable error in the verification
+	  process.</dd>
+	  <dt>expected-hostname (s)</dt>
+	  <dd>In case the certificate was rejected for an hostname mismatch,
+	  this might contain the hostname expected to be certified.</dd>
+          <dt>debug-message (s)</dt>
+          <dd>Debugging information on the error, corresponding to the
+          message part of a D-Bus error message, which SHOULD NOT be
+          displayed to users under normal circumstances</dd>
+	</dl>
       </tp:docstring>
     </property>
 
@@ -230,33 +245,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <arg direction="in" type="u" name="Reason"
 	   tp:type="TLS_Certificate_Reject_Reason">
 	<tp:docstring>
-	  The reason why this certificate is being rejected.
+	  The new value of <tp:member-ref>RejectReason</tp:member-ref>.
 	</tp:docstring>
       </arg>
       <arg direction="in" type="s" name="Error"
 	   tp:type="DBus_Error_Name">
 	<tp:docstring>
-	  The name of a D-Bus error describing the error that
-	  occurred, which may correspond to a
-	  <tp:type>TLS_Certificate_Reject_Reason</tp:type>.
+	  The new value of <tp:member-ref>RejectError</tp:member-ref>.
 	</tp:docstring>
       </arg>
       <arg direction="in" type="a{sv}" name="Details"
 	   tp:type="String_Variant_Map">
-	<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-	  <p> Additional information about the error, which MAY also include
-	  one or more of the following well-known keys:</p>
-
-	  <dl>
-	    <dt>user-requested (b)</dt>
-	    <dd>Whether the error was due to an user-requested rejectal of
-	    the certificate, opposed to an unrecoverable error in the verification
-	    process.</dd>
-	    <dt>expected-hostname (s)</dt>
-	    <dd>In case the certificate was rejected for an hostname mismatch,
-	    this might contain the hostname expected to be certified.</dd>
-	  </dl>
-
+	<tp:docstring>
+	  The new value of <tp:member-ref>RejectDetails</tp:member-ref>.
 	</tp:docstring>
       </arg>
     </method>
