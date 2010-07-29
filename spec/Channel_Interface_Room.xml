@@ -359,6 +359,10 @@
           or the room name in XMPP MUCs. In protocols which do not support
           subjects (like MSN), this property should be ("", "", 0).</p>
 
+        <tp:rationale>This property replaces the subject, subject-contact, and
+          subject-timestamp Telepathy properties of Text channels, as Telepathy
+          properties are soon to be deprecated completely.</tp:rationale>
+
         <p>This property may change during the lifetime of the channel and
           MUST not be included in a channel request.</p>
       </tp:docstring>
