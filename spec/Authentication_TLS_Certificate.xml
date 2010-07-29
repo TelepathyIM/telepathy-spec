@@ -131,8 +131,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
 	The current state of this certificate.
 	State change notifications happen by means of the
-	<tp:member-ref>CertificateVerified</tp:member-ref> and
-	<tp:member-ref>CertificateRejected</tp:member-ref> signals.
+	<tp:member-ref>Verified</tp:member-ref> and
+	<tp:member-ref>Rejected</tp:member-ref> signals.
       </tp:docstring>
     </property>
 
@@ -160,15 +160,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <signal name="CertificateVerified"
-	    tp:name-for-bindings="Certificate_Verified">
+    <signal name="Verified"
+	    tp:name-for-bindings="Verified">
       <tp:docstring>
 	The state of this certificate has changed to Verified.
       </tp:docstring>
     </signal>
 
-    <signal name="CertificateRejected"
-	    tp:name-for-bindings="Certificate_Rejected">
+    <signal name="Rejected"
+	    tp:name-for-bindings="Rejected">
       <tp:docstring>
 	The state of this certificate has changed to Rejected.
       </tp:docstring>
