@@ -94,6 +94,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <dt>invite-only (b)</dt>
           <dd>True if you cannot join the room, but must be invited</dd>
+
+          <dt>room-id (s)</dt>
+          <dd>The human-readable identifier of a chat room (as would be
+          returned by getting the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT"
+          >RoomID</tp:dbus-ref> property)</dd>
         </dl>
       </tp:docstring>
     </signal>
