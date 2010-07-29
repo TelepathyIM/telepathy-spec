@@ -329,7 +329,7 @@
       </tp:docstring>
     </property>
 
-    <tp:struct name="Subject">
+    <tp:struct name="Room_Subject">
       <tp:docstring>
         A struct representing the subject of a room channel.
       </tp:docstring>
@@ -353,7 +353,7 @@
     </tp:struct>
 
     <property name="Subject" tp:name-for-bindings="Subject"
-              type="(ssx)" tp:type="Subject" access="read">
+              type="(ssx)" tp:type="Room_Subject" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The subject on the room such as the topic in an IRC channel,
           or the room name in XMPP MUCs.</p>
