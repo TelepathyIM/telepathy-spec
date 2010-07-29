@@ -38,9 +38,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	object.
       </tp:docstring>
 
-      <tp:enumvalue suffix="None" value="0">
+      <tp:enumvalue suffix="Pending" value="0">
 	<tp:docstring>
-	  The certificate has no state associated with it.
+	  The certificate is currently waiting to be accepted or rejected.
 	</tp:docstring>
       </tp:enumvalue>
 
