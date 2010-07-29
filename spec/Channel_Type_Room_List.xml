@@ -100,6 +100,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           returned by getting the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT"
           >RoomID</tp:dbus-ref> property)</dd>
+
+          <dt>server (s)</dt>
+          <dd>The DNS name of the server hosting these channels (as would be
+          returned by getting the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT"
+          >Server</tp:dbus-ref> property)</dd>
         </dl>
       </tp:docstring>
     </signal>
