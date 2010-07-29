@@ -130,11 +130,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <property name="RejectError" type="s" access="read"
+	      tp:type="DBus_Error_Name"
+	      tp:name-for-bindings="Reject_Error">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	<p>If the <tp:member-ref>State</tp:member-ref> is Rejected,
+	the reason why the certificate was rejected; this MAY correspond to
+	the <tp:member-ref>RejectReason</tp:member-ref>, or MAY be a more
+	specific D-Bus error name, perhaps implementation-specific.</p>
+	<p>If the <tp:member-ref>State</tp:member-ref> is not Rejected,
+	this property is not meaningful, ans SHOULD be set to an empty
+	string.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="RejectDetails" type="a{sv}" access="read"
+	      tp:type="String_Variant_Map"
+	      tp:name-for-bindings="Reject_Details">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	<p>If the <tp:member-ref>State</tp:member-ref> is Rejected,
+	additional information about why the certificate was rejected.</p>
+	<p>If the <tp:member-ref>State</tp:member-ref> is not Rejected,
+	this property is not meaningful and SHOULD be set to an empty
+	map.</p>
+      </tp:docstring>
+    </property>
+
     <property name="RejectReason" type="u" access="read"
 	      tp:type="TLS_Certificate_Reject_Reason"
 	      tp:name-for-bindings="Reject_Reason">
       <tp:docstring>
-	The reason why this certificate has been rejected.
+	If the <tp:member-ref>State</tp:member-ref> is Rejected, the
+	reason why the certificate was rejected.
+	<tp:rationale>
+	  Clients that do not understand the <tp:member-ref>RejectError</tp:member-ref>,
+	  which may be implementation-specific, can use this property to
+	  classify rejection reasons into common categories.
+	</tp:rationale>
+	Otherwise, this property is not meaningful, and SHOULD be set to
+	Unknown.
       </tp:docstring>
     </property>
 
@@ -173,16 +207,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg name="Error" type="s" tp:type="DBus_Error_Name">
 	<tp:docstring>
-	  The name of a D-Bus error describing the error that
-	  occurred, which may correspond to a 
-	  <tp:type>TLS_Certificate_Reject_Reason</tp:type>.
+	  The new value of <tp:member-ref>RejectError</tp:member-ref>.
 	</tp:docstring>
       </arg>
       <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
 	<tp:docstring>
-	  A dictionary containing the additional information about the
-	  error that has been given to the <tp:member-ref>Reject</tp:member-ref>
-	  method.
+	  The new value of <tp:member-ref>RejectDetails</tp:member-ref>
 	</tp:docstring>
       </arg>
     </signal>
