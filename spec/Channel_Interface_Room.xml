@@ -356,7 +356,8 @@
               type="(ssx)" tp:type="Room_Subject" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The subject on the room such as the topic in an IRC channel,
-          or the room name in XMPP MUCs.</p>
+          or the room name in XMPP MUCs. In protocols which do not support
+          subjects (like MSN), this property should be ("", "", 0).</p>
 
         <p>This property may change during the lifetime of the channel and
           MUST not be included in a channel request.</p>
