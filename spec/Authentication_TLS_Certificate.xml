@@ -157,12 +157,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	one or more of the following well-known keys:</p>
 	<dl>
 	  <dt>user-requested (b)</dt>
-	  <dd>Whether the error was due to an user-requested rejectal of
-	  the certificate, opposed to an unrecoverable error in the verification
-	  process.</dd>
+	  <dd>True if the error was due to an user-requested rejection of
+	  the certificate; False if there was an unrecoverable error in the
+	  verification process.</dd>
 	  <dt>expected-hostname (s)</dt>
-	  <dd>In case the certificate was rejected for an hostname mismatch,
-	  this might contain the hostname expected to be certified.</dd>
+	  <dd>If the rejection reason is Hostname_Mismatch, the hostname that
+	  the server certificate was expected to have.</dd>
+	  <dt>certificate-hostname (s)</dt>
+	  <dd>If the rejection reason is Hostname_Mismatch, the hostname of
+	  the certificate that was presented.
+	  <tp:rationale>
+	    <p>For instance, if you try to connect to gmail.com but are presented
+	    with a TLS certificate issued to evil.example.org, the error details
+	    for Hostname_Mismatch MAY include:</p>
+	    <pre>
+	      { 'expected-hostname': 'gmail.com' }
+	      { 'certificate-hostname': 'evil.example.org' }
+	    </pre>
+	  </tp:rationale>
+	  </dd>
           <dt>debug-message (s)</dt>
           <dd>Debugging information on the error, corresponding to the
           message part of a D-Bus error message, which SHOULD NOT be
