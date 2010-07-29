@@ -62,63 +62,57 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	Possible reasons to reject a TLS certificate.
       </tp:docstring>
 
-      <tp:enumvalue suffix="None" value="0">
-	<tp:docstring>
-	  No reason specified.
-	</tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Other" value="1">
+      <tp:enumvalue suffix="Unknown" value="0">
 	<tp:docstring>
 	  The certificate has been rejected for another reason
 	  not listed in this enumeration.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Untrusted" value="2">
+      <tp:enumvalue suffix="Untrusted" value="1">
 	<tp:docstring>
 	  The certificate is not trusted.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Expired" value="3">
+      <tp:enumvalue suffix="Expired" value="2">
 	<tp:docstring>
 	  The certificate is expired.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Not_Activated" value="4">
+      <tp:enumvalue suffix="Not_Activated" value="3">
 	<tp:docstring>
 	  The certificate is not active yet.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Fingerprint_Mismatch" value="5">
+      <tp:enumvalue suffix="Fingerprint_Mismatch" value="4">
 	<tp:docstring>
 	  The certificate provided does not have the expected
 	  fingerprint.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Hostname_Mismatch" value="6">
+      <tp:enumvalue suffix="Hostname_Mismatch" value="5">
 	<tp:docstring>
 	  The hostname certified does not match the provided one.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Self_Signed" value="7">
+      <tp:enumvalue suffix="Self_Signed" value="6">
 	<tp:docstring>
 	  The certificate is self-signed.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Revoked" value="8">
+      <tp:enumvalue suffix="Revoked" value="7">
 	<tp:docstring>
 	  The certificate has been revoked.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Insecure_Algorithm" value="9">
+      <tp:enumvalue suffix="Insecure_Algorithm" value="8">
 	<tp:docstring>
 	  The certificate uses an insecure cipher algorithm.
 	</tp:docstring>
