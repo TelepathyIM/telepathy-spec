@@ -170,12 +170,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="Rejected"
 	    tp:name-for-bindings="Rejected">
       <tp:docstring>
-	The state of this certificate has changed to Rejected.
+	The <tp:member-ref>State</tp:member-ref> of this certificate has changed to Rejected.
       </tp:docstring>
       <arg name="Reason" type="u" tp:type="TLS_Certificate_Reject_Reason">
 	<tp:docstring>
-	  A value of the <tp:type>TLS_Certificate_Reject_Reason</tp:type>
-	  enum explaining the reason why the certificate has been rejected.
+	  The new value of <tp:member-ref>RejectReason</tp:member-ref>.
 	</tp:docstring>
       </arg>
       <arg name="Error" type="s" tp:type="DBus_Error_Name">
