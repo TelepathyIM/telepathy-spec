@@ -984,6 +984,14 @@ USA.</p>
               if indicating DNS lookup failure, we could define a key
               that indicates the hostname that could not be found.</p>
           </tp:rationale>
+
+	  <dl>
+	    <dt>expected-hostname (s), certificate-hostname (s)</dt>
+	    <dd>The same details defined in <tp:dbus-ref
+	    namespace="org.freedesktop.Telepathy.Authentication">TLSCertificate.DRAFT.RejectDetails</tp:dbus-ref>
+	    </dd>
+	  </dl>
+
         </tp:docstring>
       </arg>
 
