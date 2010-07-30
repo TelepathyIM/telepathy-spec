@@ -901,7 +901,18 @@ USA.</p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Cert_Revoked" value="13">
+      <tp:enumvalue suffix="Cert_Other_Error" value="13">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>There was some other error validating the server's SSL
+            certificate.</p>
+
+          <p>When disconnected for this reason, the equivalent D-Bus error is
+            <code>org.freedesktop.Telepathy.Error.Cert.Invalid</code>.
+          </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Cert_Revoked" value="14">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The server's SSL certificate has been revoked.</p>
 
@@ -911,7 +922,7 @@ USA.</p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Cert_Insecure" value="14">
+      <tp:enumvalue suffix="Cert_Insecure" value="15">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The server's SSL certificate uses an insecure algorithm,
 	  or is cryptographically weak.</p>
@@ -922,7 +933,7 @@ USA.</p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Cert_Limit_Exceeded" value="15">
+      <tp:enumvalue suffix="Cert_Limit_Exceeded" value="16">
 	<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
 	  <p>The length in bytes of the server certificate, or the depth of the
 	  sever certificate chain exceed the limits imposed by the crypto
@@ -932,17 +943,6 @@ USA.</p>
 	    <code>org.freedesktop.Telepathy.Error.Cert.LimitExceeded</code>
 	  </p>
 	</tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Cert_Other_Error" value="16">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>There was some other error validating the server's SSL
-            certificate.</p>
-
-          <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Invalid</code>.
-          </p>
-        </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
 
