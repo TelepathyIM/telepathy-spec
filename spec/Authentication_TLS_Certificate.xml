@@ -180,8 +180,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	    with a TLS certificate issued to evil.example.org, the error details
 	    for Hostname_Mismatch MAY include:</p>
 	    <pre>
-	      { 'expected-hostname': 'gmail.com' }
-	      { 'certificate-hostname': 'evil.example.org' }
+	      {
+	        'expected-hostname': 'gmail.com',
+	        'certificate-hostname': 'evil.example.org',
+	      }
 	    </pre>
 	  </tp:rationale>
 	  </dd>
