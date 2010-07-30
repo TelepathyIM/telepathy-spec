@@ -268,8 +268,8 @@
       Raised if the server provided an SSL/TLS certificate that uses an
       insecure cipher algorithm or is cryptographically weak.
       <tp:rationale>
-        This corresponds to Cert_Insecure in the 
-	<tp:type>Connection_Status_Reason</tp:type> enum and to Insecure_Algorithm
+        This corresponds to Cert_Insecure in the
+	<tp:type>Connection_Status_Reason</tp:type> enum and to Insecure
 	in the <tp:type>TLS_Certificate_Reject_Reason</tp:type> enum.
       </tp:rationale>
     </tp:docstring>
