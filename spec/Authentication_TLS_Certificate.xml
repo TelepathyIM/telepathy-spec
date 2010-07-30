@@ -26,8 +26,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:simple-type name="Certificate_Data" array-name="Certificate_Data_List"
 		    type="ay">
-      <tp:docstring>
-	The raw data contained in a TLS certificate.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	<p>The raw data contained in a TLS certificate.</p>
+
+	<p>For X.509 certificates (<tp:member-ref>CertificateType</tp:member-ref>
+	= "x509"), this MUST be in DER format, as defined by the
+	<a href="http://www.itu.int/ITU-T/studygroups/com17/languages/X.690-0207.pdf">X.690</a>
+	ITU standard.</p>
+
+	<p>For PGP certificates (<tp:member-ref>CertificateType</tp:member-ref>
+	= "pgp"), this MUST be a binary OpenPGP key as defined by section 11.1
+	of <a href="http://www.rfc-editor.org/rfc/4880.txt">RFC 4880</a>.</p>
       </tp:docstring>
     </tp:simple-type>
 
@@ -211,8 +220,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="CertificateChainData" type="aay" access="read"
 	      tp:type="Certificate_Data[]" tp:name-for-bindings="Certificate_Chain_Data">
       <tp:docstring>
-	The RAW PEM-encoded trust chain of this TLS certificate.
-	<p>This property is immutable.</p>
+	One or more TLS certificates forming a trust chain, each encoded as
+	specified by <tp:type>Certificate_Data</tp:type>.
       </tp:docstring>
     </property>
 
