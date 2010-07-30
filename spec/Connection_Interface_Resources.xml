@@ -75,12 +75,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <arg direction="out" name="Resources" type="a{ua{sa{sv}}}"
         tp:type="Resources_Attributes_Map">
-        <tp:docstring>
-          The contacts' resources and the contact attributes specific
-          to each resource. If contact attributes are not immediately
-          known, the behaviour is defined by the interface; the
-          attribute should either be omitted from the result or
-          replaced with a default value.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The contacts' resources and the contact attributes specific
+            to each resource. If contact attributes are not immediately
+            known, the behaviour is defined by the interface; the
+            attribute should either be omitted from the result or
+            replaced with a default value.</p>
+
+          <p>For every contact handle passed into this method, it is
+            guaranteed that there will be a key in the returned map
+            that corresponds to said handle. If there is no information
+            regarding the contact the resource information map will be
+            empty.</p>
         </tp:docstring>
       </arg>
 
