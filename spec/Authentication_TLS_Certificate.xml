@@ -148,7 +148,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	the <tp:member-ref>RejectReason</tp:member-ref>, or MAY be a more
 	specific D-Bus error name, perhaps implementation-specific.</p>
 	<p>If the <tp:member-ref>State</tp:member-ref> is not Rejected,
-	this property is not meaningful, ans SHOULD be set to an empty
+	this property is not meaningful, and SHOULD be set to an empty
 	string.</p>
       </tp:docstring>
     </property>
