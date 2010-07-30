@@ -287,6 +287,19 @@
     </tp:docstring>
   </tp:error>
 
+  <tp:error name="Cert.LimitExceeded">
+    <tp:docstring>
+      Raised if the length in bytes of the server certificate, or the depth of the
+      sever certificate chain exceed the limits imposed by the crypto
+      library.
+      <tp:rationale>
+        This corresponds to Cert_Limit_Exceeded in the
+        <tp:type>Connection_Status_Reason</tp:type> enum and to Limit_Exceeded
+	in the <tp:type>TLS_Certificate_Reject_Reason</tp:type> enum.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
   <tp:error name="Not Capable">
     <tp:docstring>
     Raised when requested functionality is unavailable due to contact

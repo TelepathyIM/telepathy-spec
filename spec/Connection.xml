@@ -922,7 +922,19 @@ USA.</p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Cert_Other_Error" value="15">
+      <tp:enumvalue suffix="Cert_Limit_Exceeded" value="15">
+	<tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	  <p>The length in bytes of the server certificate, or the depth of the
+	  sever certificate chain exceed the limits imposed by the crypto
+	  library.</p>
+
+	  <p>When disconnected for this reason, the equivalent D-Bus error is
+	    <code>org.freedesktop.Telepathy.Error.Cert.LimitExceeded</code>
+	  </p>
+	</tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Cert_Other_Error" value="16">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>There was some other error validating the server's SSL
             certificate.</p>

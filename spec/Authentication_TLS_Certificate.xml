@@ -127,6 +127,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	  cryptographically weak.
 	</tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Limit_Exceeded" value="9">
+	<tp:docstring>
+	  The length in bytes of the certificate, or the depth of the
+	  certificate chain exceed the limits imposed by the crypto
+	  library.
+	</tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <property name="State" type="u" access="read"
