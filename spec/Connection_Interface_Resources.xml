@@ -90,6 +90,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
+    <tp:enum name="Resources_Human_Readability" type="u">
+      <tp:enumvalue suffix="Never" value="0">
+        <tp:docstring>
+          The resource string is never human-readable.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Maybe" value="1">
+        <tp:docstring>
+          The resource string might be human-readable.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <property name="ResourcesHumanReadable" type="u" access="read"
+      tp:type="Resources_Human_Readability"
+      tp:name-for-bindings="Resources_Human_Readable">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Whether the resources returned from <tp:member-ref>GetResources</tp:member-ref>
+          are human readable or not.</p>
+
+        <p>If the connection manager knows that all resource names are
+          automatically generated, then the resource strings mean
+          nothing to the user. Showing these strings in the UI would
+          be confusing, so by setting this to
+          Resources_Human_Readability_Never, the UI is advised not to
+          show resources.</p>
+
+        <p>If on the other hand, all resources are set to nice names
+          (such as "office" or "home") then it might be wise to expose
+          these strings in the UI, so this property would be set to
+          Resources_Human_Readability_Maybe. This is the case in XMPP --
+          most resources are set in a way that the user can deduce some
+          information from them, such as <em>this guy is in the
+          office</em> or <em>this guy is chilling at home</em>. The
+          absense of an Always enum value is because in the case of
+          XMPP, the resource string could still be useless, like in the
+          case of using gtalk where your resource is forced.</p>
+
+      </tp:docstring>
+    </property>
+
     <signal name="ResourcesUpdated" tp:name-for-bindings="Resources_Updated">
       <tp:docstring>
         Emitted when a contact has a resource added or removed, or any
