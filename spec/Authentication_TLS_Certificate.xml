@@ -121,9 +121,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 	</tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Insecure_Algorithm" value="8">
+      <tp:enumvalue suffix="Insecure" value="8">
 	<tp:docstring>
-	  The certificate uses an insecure cipher algorithm.
+	  The certificate uses an insecure cipher algorithm, or is
+	  cryptographically weak.
 	</tp:docstring>
       </tp:enumvalue>
     </tp:enum>

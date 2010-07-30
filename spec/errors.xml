@@ -225,9 +225,12 @@
   </tp:error>
 
   <tp:error name="Cert.Hostname Mismatch">
-    <tp:docstring>
-      Raised if the server provided an SSL/TLS certificate that did not match
-      its hostname.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Raised if the server provided an SSL/TLS certificate that did not match
+      its hostname.</p>
+      <p>You MAY be able to get more details about the expected and certified
+      hostnames by looking up the 'expected-hostname' and 'certificate-hostname'
+      keys in the details map that came together with this error.</p>
       <tp:rationale>
         This corresponds to Cert_Hostname_Mismatch in the
         <tp:type>Connection_Status_Reason</tp:type> enum and to Hostname_Mismatch
@@ -253,18 +256,20 @@
       Raised if the server provided an SSL/TLS certificate that has been
       revoked.
       <tp:rationale>
-        This corresponds to Revoked
+        This corresponds to Cert_Revoked in the
+	<tp:type>Connection_Status_Reason</tp:type> enum and to Revoked
 	in the <tp:type>TLS_Certificate_Reject_Reason</tp:type> enum.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
 
-  <tp:error name="Cert.Insecure Algorithm">
+  <tp:error name="Cert.Insecure">
     <tp:docstring>
       Raised if the server provided an SSL/TLS certificate that uses an
-      insecure cipher algorithm.
+      insecure cipher algorithm or is cryptographically weak.
       <tp:rationale>
-        This corresponds to Insecure_Algorithm
+        This corresponds to Cert_Insecure in the 
+	<tp:type>Connection_Status_Reason</tp:type> enum and to Insecure_Algorithm
 	in the <tp:type>TLS_Certificate_Reject_Reason</tp:type> enum.
       </tp:rationale>
     </tp:docstring>
@@ -276,7 +281,7 @@
       unacceptable in some way that does not have a more specific error.
       <tp:rationale>
         This corresponds to Cert_Other_Error in the
-        <tp:type>Connection_Status_Reason</tp:type> enum and to Other
+        <tp:type>Connection_Status_Reason</tp:type> enum and to Unknown
 	in the <tp:type>TLS_Certificate_Reject_Reason</tp:type> enum.
       </tp:rationale>
     </tp:docstring>

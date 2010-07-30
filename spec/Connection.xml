@@ -901,7 +901,28 @@ USA.</p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Cert_Other_Error" value="13">
+      <tp:enumvalue suffix="Cert_Revoked" value="13">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The server's SSL certificate has been revoked.</p>
+
+          <p>When disconnected for this reason, the equivalent D-Bus error is
+            <code>org.freedesktop.Telepathy.Error.Cert.Revoked</code>.
+          </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Cert_Insecure" value="14">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The server's SSL certificate uses an insecure algorithm,
+	  or is cryptographically weak.</p>
+
+          <p>When disconnected for this reason, the equivalent D-Bus error is
+            <code>org.freedesktop.Telepathy.Error.Cert.Insecure</code>.
+          </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Cert_Other_Error" value="15">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>There was some other error validating the server's SSL
             certificate.</p>
