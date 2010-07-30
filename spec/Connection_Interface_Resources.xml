@@ -59,7 +59,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     </tp:docstring>
 
-    <method name="GetResources" tp:name-for-bindings="GetResources">
+    <method name="GetResources" tp:name-for-bindings="Get_Resources">
       <tp:docstring>
         Return the resource information of the given contacts. If any
         of the contact attributes for specific resources of the given
