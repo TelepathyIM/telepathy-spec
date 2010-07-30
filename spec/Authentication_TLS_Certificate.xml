@@ -222,9 +222,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="CertificateChainData" type="aay" access="read"
 	      tp:type="Certificate_Data[]" tp:name-for-bindings="Certificate_Chain_Data">
-      <tp:docstring>
-	One or more TLS certificates forming a trust chain, each encoded as
-	specified by <tp:type>Certificate_Data</tp:type>.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+	<p>One or more TLS certificates forming a trust chain, each encoded as
+	specified by <tp:type>Certificate_Data</tp:type>.</p>
+	<p>The first certificate in the chain MUST be the server certificate,
+	followed by the issuer's certificate, followed by the issuer's issuer
+	and so on.</p>
       </tp:docstring>
     </property>
 
