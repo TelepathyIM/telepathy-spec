@@ -36,7 +36,8 @@
       <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>
       owning them is in the CONNECTING state.</p>
       <p>In this case, handlers SHOULD accept or reject the certificate, using
-      the relevant methods on the provided object, or MAY just close the channel before doing so, to fall
+      the relevant methods on the provided object, or MAY just <tp:dbus-ref
+      namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref> the channel before doing so, to fall
       back to a non-interactive verification process done inside the CM.</p>
       <p>For example, channels of this kind can pop up while a client is
       connecting to an XMPP server.</p>
