@@ -977,20 +977,11 @@ USA.</p>
             <dd>Debugging information on the change, corresponding to the
               message part of a D-Bus error message, which SHOULD NOT be
               displayed to users under normal circumstances</dd>
-          </dl>
-
-          <tp:rationale>
-            <p>This argument allows for future extensions. For instance,
-              if indicating DNS lookup failure, we could define a key
-              that indicates the hostname that could not be found.</p>
-          </tp:rationale>
-
-	  <dl>
 	    <dt>expected-hostname (s), certificate-hostname (s)</dt>
 	    <dd>The same details defined in <tp:dbus-ref
 	    namespace="org.freedesktop.Telepathy.Authentication">TLSCertificate.DRAFT.RejectDetails</tp:dbus-ref>
 	    </dd>
-	  </dl>
+          </dl>
 
         </tp:docstring>
       </arg>
