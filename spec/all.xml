@@ -96,6 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_DBus_Tube.xml"/>
    <xi:include href="Channel_Type_File_Transfer.xml"/>
    <xi:include href="Channel_Type_Room_List.xml"/>
+   <xi:include href="Channel_Type_Server_TLS_Connection.xml"/>
    <xi:include href="Channel_Type_Stream_Tube.xml"/>
    <xi:include href="Channel_Type_Streamed_Media.xml"/>
    <xi:include href="Channel_Type_Text.xml"/>
@@ -127,6 +128,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Interface_Splittable.xml"/>
    <xi:include href="Channel_Interface_Tube.xml"/>
   </tp:section>
+ </tp:section>
+
+ <tp:section name="Authentication Objects">
+  <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+    <p>
+      A set of objects to be used for authentication purposes, such
+      as TLS certificates or handshakes for negotiating end-to-end
+      security.
+    </p>
+  </tp:docstring>
+  <xi:include href="Authentication_TLS_Certificate.xml"/>
  </tp:section>
 
  <tp:section name="Media">
