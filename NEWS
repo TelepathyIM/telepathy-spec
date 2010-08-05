@@ -5,7 +5,29 @@ checkouts.
 telepathy-spec 0.19.11 (UNRELEASED)
 ===================================
 
-…
+New API:
+
+⁜ CallState has a new Conference_Host flag (wjt)
+
+New experimental API:
+
+⁜ TLSCertificate objects and Chan.T.ServerTLSConnection (draft 1), to check
+  servers' TLS certificates interactively (cosimoc)
+
+⁜ Chan.I.Room (draft 1), to clarify chatroom identity (jonny)
+
+⁜ Conn.I.ClientTypes (draft 1), to identify other users' client types: phone,
+  handheld, PC, games console etc. (jonny)
+
+⁜ Content and Stream have gained the usual Interfaces property (wjt)
+
+Fixes:
+
+⁜ Fix a cut-and-paste typo in describing the Cert.SelfSigned error and the
+  corresponding Connection_Status_Change_Reason (cosimoc)
+
+⁜ Define a serialization for all of Protocol's properties, identical to the
+  one implemented in telepathy-glib (smcv)
 
 telepathy-spec 0.19.10 (2010-07-20)
 ===================================
