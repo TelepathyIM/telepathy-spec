@@ -128,7 +128,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
 
       <tp:flag suffix="Conference_Host" value="32">
-        <tp:added version='0.19.UNRELEASED'/>
+        <tp:added version='0.19.11'/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           This contact has merged this call into a conference. Note that GSM
           provides a notification when the remote party merges a call into a

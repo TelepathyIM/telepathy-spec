@@ -264,6 +264,7 @@
   </tp:error>
 
   <tp:error name="Cert.Insecure">
+    <tp:added version="0.19.11"/>
     <tp:docstring>
       Raised if the server provided an SSL/TLS certificate that uses an
       insecure cipher algorithm or is cryptographically weak.
@@ -276,6 +277,7 @@
   </tp:error>
 
   <tp:error name="Cert.Invalid">
+    <tp:added version="0.19.11"/>
     <tp:docstring>
       Raised if the server provided an SSL/TLS certificate that is
       unacceptable in some way that does not have a more specific error.
@@ -288,6 +290,7 @@
   </tp:error>
 
   <tp:error name="Cert.LimitExceeded">
+    <tp:added version="0.19.11"/>
     <tp:docstring>
       Raised if the length in bytes of the server certificate, or the depth of the
       sever certificate chain exceed the limits imposed by the crypto

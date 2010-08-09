@@ -2,12 +2,17 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.11 (UNRELEASED)
+telepathy-spec 0.19.11 (2010-08-09)
 ===================================
+
+The “that's what the shovel is for, sandcastles” release.
 
 New API:
 
 ⁜ CallState has a new Conference_Host flag (wjt)
+
+⁜ fd.o #23931: new D-Bus errors CertInsecure, CertRevoked, CertLimitExceeded,
+  with corresponding Connection_Status_Reason codes (cosimoc)
 
 New experimental API:
 

@@ -19,6 +19,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
   <interface name="org.freedesktop.Telepathy.Authentication.TLSCertificate.DRAFT"
              tp:causes-havoc="experimental">
+    <tp:added version="0.19.11">(draft 1)</tp:added>
 
     <tp:docstring>
       This object represents a TLS certificate.

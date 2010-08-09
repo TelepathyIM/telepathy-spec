@@ -49,7 +49,7 @@
 
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
       type="as" tp:type="DBus_Interface[]" access="read">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.11"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this content, such as <tp:dbus-ref
             namespace="ofdT.Call">Content.Interface.Media.DRAFT</tp:dbus-ref> or
