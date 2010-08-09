@@ -289,7 +289,7 @@
     </tp:docstring>
   </tp:error>
 
-  <tp:error name="Cert.LimitExceeded">
+  <tp:error name="Cert.Limit Exceeded">
     <tp:added version="0.19.11"/>
     <tp:docstring>
       Raised if the length in bytes of the server certificate, or the depth of the
