@@ -293,7 +293,7 @@
     <tp:added version="0.19.11"/>
     <tp:docstring>
       Raised if the length in bytes of the server certificate, or the depth of the
-      sever certificate chain exceed the limits imposed by the crypto
+      server certificate chain exceeds the limits imposed by the crypto
       library.
       <tp:rationale>
         This corresponds to Cert_Limit_Exceeded in the
