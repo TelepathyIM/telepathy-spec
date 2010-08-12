@@ -30,21 +30,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
          properties on Text channels.</p>
     </tp:docstring>
 
-    <property name="ServiceCentre" tp:name-for-bindings="Service_Centre"
-      type="s" access="readwrite" >
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>ISDN Address for default Short Message Service Centre.</p>
-      </tp:docstring>
-    </property>
-
-    <property name="ValidityPeriod" tp:name-for-bindings="Validity_Period"
-      type="u" access="readwrite" >
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Default duration while keep trying to deliver an SMS.</p>
-        <p>0 means defaul value used by Short Message Service Centre.</p>
-      </tp:docstring>
-    </property>
-
     <property name="Flash" tp:name-for-bindings="Flash"
       type="b" access="read" >
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -52,13 +37,5 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         class 0 SMS.</p>
       </tp:docstring>
     </property>
-
-    <property name="TargetMatch" tp:name-for-bindings="TargetMatch"
-      type="s" access="read" >
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Used to fuzzily match new channel with existing channels.</p>
-      </tp:docstring>
-    </property>
-
   </interface>
 </node>
