@@ -180,20 +180,6 @@
             so the overhead of returning information about too many contacts
             is small.</p>
         </tp:rationale>
-
-        <p>This method SHOULD NOT return before the contact list has been
-          retrieved, on protocols where this is possible. As a result,
-          clients SHOULD use a longer-than-default timeout for this method
-          call, since retrieving the contact list can take a significant
-          time on some servers.</p>
-
-        <tp:rationale>
-          <p>This makes it possible for clients to wait for the contact list.
-            For instance, on XMPP this method shouldn't return until the
-            roster has been retrieved, which is an asynchronous process.
-            However, on link-local XMPP you can't know when you have the
-            complete list, so this method would have to return immediately.</p>
-        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Interfaces" type="as"
