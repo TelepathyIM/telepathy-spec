@@ -128,57 +128,37 @@
       <tp:changed version="0.19.UNRELEASED">(semantics changed in draft
         3)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Return some contact attributes for a list of contacts somehow
-          associated with the user.</p>
-
-        <p>This definition is deliberately vague: in practice, most user
-          interfaces should display some subset of this list, by filtering it
-          by some contact attributes (for instance, displaying all contacts
-          whose "subscribe" attribute is Yes is expected to be a common case).
-          This list MAY contain any contacts whatsoever, but MUST contain
-          at least the following:</p>
+        <p>Return some contact attributes for a list of contacts
+          associated with the user. This list MUST include at least:</p>
 
         <ul>
           <li>all contacts whose <tp:token-ref>subscribe</tp:token-ref>
             attribute is not No</li>
           <li>all contacts whose <tp:token-ref>publish</tp:token-ref>
             attribute is not No</li>
-          <li>all contacts with a persistently-stored stored alias, if
-            supported</li>
-          <li>all contacts in user-defined contact groups, if supported</li>
         </ul>
+
+        <p>but MAY contain other contacts.</p>
+
+        <tp:rationale>
+          <p>For instance, on XMPP, all contacts on the roster would appear
+            here even if they have subscription="none", unless there's
+            reason to believe the user does not want to see them (such as
+            having been blocked).</p>
+        </tp:rationale>
 
         <p>This list does not need to contain every visible contact: for
           instance, contacts seen in XMPP or IRC chatrooms SHOULD NOT appear
-          here. Blocked contacts SHOULD NOT appear here either, unless they
-          are still stored in a persistent roster/contact list as well as
-          being blocked.</p>
+          here. Blocked contacts SHOULD NOT appear here, unless they still
+          have a non-<tt>No</tt> <tp:token-ref>subscribe</tp:token-ref> or
+          <tp:token-ref>publish</tp:token-ref> attribute
+          for some reason.</p>
 
         <tp:rationale>
-          <p>This is basically the union of the historical <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Type"
-              >ContactList</tp:dbus-ref> subscribe, publish and stored
-            channels.</p>
-
-          <p>For example, XMPP, it's the roster; on link-local XMPP, it's the
-            set of visible users on the local network; on MSN, it's the union
-            of the forward and reverse buddy lists.</p>
-
-          <p>An easy way for an application to display a contact list is to
-            call this method with at least this interface in the Interfaces
-            argument, then check which subset of contacts should be displayed
-            (perhaps based on their subscribe attribute, for instance) and display
-            them. Any additional information required to display the contact
-            list, like aliases or presence, can be retrieved at the same
-            time.</p>
-
-          <p>In practice, most user interfaces for the contact list will
-            usually display a large proportion of this list
-            (for instance, most contacts on the contact list will usually
-            have subscribe=Yes in practice, so contact lists that display
-            subscribe=Yes contacts need to display almost the entire list),
-            so the overhead of returning information about too many contacts
-            is small.</p>
+          <p>It's reasonable to assume that blocked contacts should not be
+            visible to the user unless they specifically go looking for them,
+            at least in protocols like XMPP where blocking a contact
+            suppresses presence.</p>
         </tp:rationale>
       </tp:docstring>
 
@@ -368,6 +348,13 @@
           Removed_Remotely to No, by calling either
           <tp:member-ref>Unpublish</tp:member-ref> or
           <tp:member-ref>RemoveContacts</tp:member-ref>.</p>
+
+        <p>If multiple factors affect whether a contact can receive the local
+          user's presence, this attribute SHOULD reflect the overall
+          result. For instance, an XMPP contact with subscription="to" or
+          subscription="both", but who has been blocked via
+          <a href="http://xmpp.org/extensions/xep-0016.html">XEP-0016 Privacy
+            Lists</a>, SHOULD have publish=No.</p>
 
         <p>This attribute's value will be Unknown or omitted until the
           <tp:member-ref>ContactListState</tp:member-ref> has changed to
