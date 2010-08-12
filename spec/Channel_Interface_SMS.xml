@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Interface_SMS"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright © 2008–2010 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright © 2010 Collabora Ltd.</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  </tp:license>
+
+  <interface
+    name="org.freedesktop.Telepathy.Channel.Interface.SMS"
+    tp:causes-havoc="literally incredible">
+    <tp:added version='0.19.UNRELEASED'>Imported from
+      rtcom-telepathy-glib.</tp:added>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>This interface provides access to the short-message-related
+         properties on Text channels.</p>
+    </tp:docstring>
+
+    <property name="ServiceCentre" tp:name-for-bindings="Service_Centre"
+      type="s" access="readwrite" >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>ISDN Address for default Short Message Service Centre.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="ValidityPeriod" tp:name-for-bindings="Validity_Period"
+      type="u" access="readwrite" >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Default duration while keep trying to deliver an SMS.</p>
+        <p>0 means defaul value used by Short Message Service Centre.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="Flash" tp:name-for-bindings="Flash"
+      type="b" access="read" >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, then this channel is specifically created for receiving
+        class 0 SMS.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="TargetMatch" tp:name-for-bindings="TargetMatch"
+      type="s" access="read" >
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Used to fuzzily match new channel with existing channels.</p>
+      </tp:docstring>
+    </property>
+
+  </interface>
+</node>
