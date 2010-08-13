@@ -60,6 +60,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             avoiding the normal Text channel handler having to decide for each
             message whether it should be displayed to the user immediately or
             handled normally.</p>
+
+          <p>Currently, no mechanism is defined for <em>sending</em> class 0
+            SMSes. It seems reasonable to support specifying the class of an
+            outgoing SMS in its header <tp:type>Message_Part</tp:type>, rather
+            than requiring the UI to request a special channel for such SMSes;
+            hence, we define here that channels with Flash set to
+            <code>True</code> are read-only.</p>
         </tp:rationale>
       </tp:docstring>
     </property>
