@@ -24,7 +24,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     tp:causes-havoc="literally incredible">
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Text"/>
     <tp:added version='0.19.UNRELEASED'>Imported from
-      rtcom-telepathy-glib.</tp:added>
+      rtcom-telepathy-glib, with the unused properties removed and the
+      documentation tidied up.</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface contains SMS-specific properties for text channels.
