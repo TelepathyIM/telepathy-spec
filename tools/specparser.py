@@ -223,7 +223,7 @@ class Base(object):
 
     def _convert_to_html(self, node):
         spec = self.get_spec()
-        namespace = self.get_root_namespace()
+        root_namespace = self.get_root_namespace()
 
         # rewrite <tp:rationale>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'rationale'):
@@ -258,12 +258,12 @@ class Base(object):
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'member-ref'):
             key = getText(n)
             try:
-                o = spec.lookup(key, namespace=namespace)
+                o = spec.lookup(key, namespace=root_namespace)
             except KeyError:
                 print >> sys.stderr, """
 WARNING: Key '%s' not known in namespace '%s'
          (<tp:member-ref> in %s)
-                """.strip() % (key, namespace, self)
+                """.strip() % (key, root_namespace, self)
                 continue
 
             n.tagName = 'a'
@@ -281,6 +281,39 @@ WARNING: Key '%s' not known in namespace '%s'
 
             try:
                 o = spec.lookup(key, namespace=namespace)
+            except KeyError:
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:dbus-ref> in %s)
+                """.strip() % (key, namespace, self)
+                continue
+
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', o.get_url())
+            n.setAttribute('title', o.get_title())
+
+        # rewrite <tp:token-ref>
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'token-ref'):
+            key = getText(n)
+            namespace = n.getAttribute('namespace')
+
+            if namespace:
+                if namespace.startswith('ofdT.'):
+                    namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+            else:
+                namespace = root_namespace
+
+            try:
+                try:
+                    if '/' in key:
+                        sep = '.'
+                    else:
+                        sep = '/'
+
+                    o = spec.lookup(namespace + sep + key, None)
+                except KeyError:
+                    o = spec.lookup(key, None)
             except KeyError:
                 print >> sys.stderr, """
 WARNING: Key '%s' not known in namespace '%s'
