@@ -5,7 +5,24 @@ checkouts.
 telepathy-spec 0.19.12 (UNRELEASED)
 ===================================
 
-…
+The “That was the most ridiculous thing I've ever done.” “You invaded
+Afghanistan.” “That wasn't just me!” release.
+
+New API:
+
+☎ Connection.Interface.Cellular has grown a new OverrideMessageServiceCentre
+  property. This is technically an API break — MessageServiceCentre is now
+  ignored unless OverrideMessageServiceCentre is set to True — but it is
+  trivial to update the few components in question appropriately. (fd.o#29555,
+  wjt)
+
+☎ The sole useful property from rtcom-telepathy-glib's Channel.Interface.SMS
+  (namely Flash, to signal class 0 SMSes) has been imported to a new,
+  immediately-undrafted Channel.Interface.SMS. (fd.o#24907, wjt)
+
+Fixes:
+
+☎ The handler filter examples for StreamedMedia were subtly wrong. (wjt)
 
 telepathy-spec 0.19.11 (2010-08-09)
 ===================================
