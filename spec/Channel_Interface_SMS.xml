@@ -31,6 +31,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>This interface contains SMS-specific properties for text channels.
         This currently only includes whether the SMSes received on the channel
         should be displayed immediately to the user, without prompting.</p>
+
+      <h4>Handler filters</h4>
+
+      <p>A handler for class 0 SMSes should advertise the following filter:</p>
+
+      <blockquote><code>
+{ ...<tp:dbus-ref namespace='ofdT.Channel'>ChannelType</tp:dbus-ref>:
+      ...<tp:dbus-ref namespace='ofdT.Channel.Type'>Text</tp:dbus-ref>,<br/>
+  ...<tp:dbus-ref namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>:
+      <tp:type>Handle_Type</tp:type>_Contact,<br/>
+  ...<tp:dbus-ref namespace='ofdT.Channel.Interface'>SMS.Flash</tp:dbus-ref>:
+      True,<br/>
+}</code></blockquote>
+
+      <p>It should also set its <tp:dbus-ref
+        namespace='ofdT.Client.Handler'>BypassApproval</tp:dbus-ref> property
+        to <code>True</code>, so that it is invoked immediately for new
+        channels.</p>
     </tp:docstring>
 
     <property name="Flash" tp:name-for-bindings="Flash"
@@ -50,16 +68,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:rationale>
           <p>Class 0 SMSes should be displayed immediately to the user, and
             need not be saved to the device memory unless the user explicitly
-            chooses to do so. (This is unlike “normal”, class 1 SMSes, which
+            chooses to do so. This is unlike “normal”, class 1 SMSes, which
             must be stored, but need not be shown immediately in their entirity
-            to the user.) Separating class 0 SMSes into their own channel
-            allows them to be dispatched to a different <tp:dbus-ref
-            namespace='ofdT.Client'>Handler</tp:dbus-ref> (which would include
-            this property in its <tp:dbus-ref
-            namespace='ofdT.Client.Handler'>HandlerChannelFilter</tp:dbus-ref>)
-            avoiding the normal Text channel handler having to decide for each
-            message whether it should be displayed to the user immediately or
-            handled normally.</p>
+            to the user.</p>
+
+          <p>Separating class 0 SMSes into their own channel with this
+            immutable property allows them to be dispatched to a different
+            <tp:dbus-ref namespace='ofdT.Client'>Handler</tp:dbus-ref>—which
+            would include this property in its <tp:dbus-ref
+            namespace='ofdT.Client.Handler'
+            >HandlerChannelFilter</tp:dbus-ref>—avoiding the normal Text
+            channel handler having to decide for each message whether it should
+            be displayed to the user immediately or handled normally.</p>
 
           <p>Currently, no mechanism is defined for <em>sending</em> class 0
             SMSes. It seems reasonable to support specifying the class of an
