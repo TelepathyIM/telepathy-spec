@@ -23,14 +23,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
      tp:causes-havoc="experimental">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>
-        This interface supports controlling which contacts is allowed
-        to initiate text chats, incoming calls, etc., as supported by
-        the underlying protocol. The policies supported for different
-        communication methods on this connection are listed in the
+        This interface supports controlling which contacts are allowed
+        to initiate text chats, incoming calls, and other forms of
+        communication as supported by the underlying protocol. The
+        policies supported for different communication methods on this
+        connection are listed in the
         <tp:member-ref>SupportedPolicies</tp:member-ref> property. The
         current configuration is held in
-        <tp:member-ref>ActivePolicies</tp:member-ref>; it can be
-        modified using <tp:member-ref>SetPolicy</tp:member-ref>, and changes
+        <tp:member-ref>ActivePolicies</tp:member-ref>; it can be modified
+        using <tp:member-ref>SetPolicy</tp:member-ref>, and changes
         are signalled by <tp:member-ref>PolicyChanged</tp:member-ref>.
       </p>
     </tp:docstring>
@@ -38,70 +39,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:enum name="Access_Control_Type" type="u"
              array-name="Access_Control_Type_List">
       <tp:docstring>
-        A type for communication access control.
-        For most types, the exact access control is given by an associated
-        variant.
+        A type for communication access control. These control
+        policies are used in <tp:member-ref>SupportedPolicies</tp:member-ref>
+        and <tp:member-ref>ActivePolicies</tp:member-ref> as well as most rich
+        presence interfaces.
       </tp:docstring>
       <tp:enumvalue suffix="Whitelist" value="0">
-        <tp:docstring>
-          The associated variant is a list of contacts (signature 'au',
-          Contact_Handle[]) who can communicate with us.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Only allow contacts that are in a certain whitelist.</p>
+          <p>This policy is relevant for presence interfaces, and
+            should be associated with a list of contact
+            handles that represent the whitelist of permited contacts.</p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Publish_List" value="1">
         <tp:docstring>
           All contacts in the user's 'publish' contact list can
-          communicate with us. The associated variant is ignored.
+          communicate with us.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Group" value="2">
-        <tp:docstring>
-          The associated variant is a handle of type Group (signature 'u',
-          Group_Handle) representing a group of contacts who can communicate
-          with us.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Only allow contacts that are in a certain group.</p>
+          <p>This policy is relevant for presence interfaces, and
+            should be associated with a group handle.</p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
-          Anyone can initiate communication with the contact, the
-          variant is ignored, this is the same as an empty blacklist.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_List" value="4">
-        <tp:docstring>
-          All contacts in the user's 'subscribe' contact list can
-          communicate with us. The associated variant is ignored.
+          Anyone can initiate communication with the contact.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="5">
         <tp:docstring>
           All contacts in the user's 'subscribe' or 'publish' contact
-          list can communicate with us. The associated variant is ignored.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Pending_List" value="6">
-        <tp:docstring>
-          All contacts in the user's 'subscribe' or 'pending' contact
-          list can communicate with us. The associated variant is ignored.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Pending_Or_Publish_List" value="7">
-        <tp:docstring>
-          All contacts in the user's 'subscribe' or 'pending' or
-          'publish' contact lists can communicate with us. The
-          associated variant is ignored.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Blacklist" value="8">
-        <tp:docstring>
-          The associated variant is a list of contacts (signature 'au',
-          Contact_Handle[]) who can communicate with us.
+          list can communicate with us.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Closed" value="9">
         <tp:docstring>
           Communication with the given channel type from any contact
-          is blocked. The variant is ignored.
+          is blocked.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Understood" value="10">
@@ -120,27 +98,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:struct name="Access_Control">
-      <tp:docstring>
-        An access control mode for providing communication policy with
-        contacts. This pairs the type of policy with the details
-        needed to implement it.
-      </tp:docstring>
-
-      <tp:member name="Type" type="u" tp:type="Access_Control_Type">
-        <tp:docstring>
-          The type of access control to apply.
-        </tp:docstring>
-      </tp:member>
-      <tp:member name="Detail" type="v">
-        <tp:docstring>
-          Any additional information required by the Type. The required
-          type and semantics are defined for each
-          <tp:type>Access_Control_Type</tp:type>.
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
-
     <tp:mapping name="Active_Policies_Map">
       <tp:docstring>
         A mapping of communication methods (channel types), and their
@@ -153,61 +110,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:member>
 
-      <tp:member type="(uv)" tp:type="Access_Control"
-                 name="Active_Policy">
+      <tp:member type="u" tp:type="Access_Control_Type" name="Active_Policy">
         <tp:docstring>
           The active policy for this channel type.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
 
-    <tp:mapping name="Supported_Policies_Map">
-      <tp:docstring>
-        A mapping of channel types and their respective supported
-        access control types.
-      </tp:docstring>
-
-      <tp:member type="s" tp:type="DBus_Interface" name="Channel_Type">
-        <tp:docstring>
-          The supported channel interface.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="au" tp:type="Access_Control_Type[]"
-                 name="Supported_Policies">
-        <tp:docstring>
-          A list of supported control types by this channel.
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
-
     <property name="SupportedPolicies"
-              tp:name-for-bindings="Supported_Policies"
-              access="read" type="a{sau}"
-              tp:type="Supported_Policies_Map">
+              tp:name-for-bindings="Supported_Policies" access="read"
+              type="a(asau)" tp:type="Supported_Policy[]">
       <tp:docstring>
-        The communication methods (channel types), and the policies
-        that can be applied to them. This is server and protocol dependant.
+        The communication policies supported by this connection.
       </tp:docstring>
     </property>
 
     <property name="ActivePolicies" tp:name-for-bindings="Active_Policies"
-              access="read" type="a{s(uv)}" tp:type="Active_Policies_Map">
+              access="read" type="a{su}" tp:type="Active_Policies_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The active communication policies on this
         connection. Communication methods that are not in this
         mapping are considered open.</p>
 
-        <p>For example, to allow incoming calls only from contacts on
-        the 'subscribe' or 'pending' list, and to block incoming chats
-        from contacts on a blacklist, the policy would look like this:</p>
+        <p>For example, to allow incoming calls only from contacts
+          buddy list, and to allow text messages from anyone,
+          the policy would look like this:</p>
 
         <pre>
 {
-    'org.freedesktop.Telepathy.Channel.Type.Text' :
-        (Access_Control_Type_Blacklist, [3, 7, 9]),
-    'org.freedesktop.Telepathy.Channel.Type.Call' :
-        (Access_Control_Type_Subscribe_Or_Pending_List, None)
+    'org.freedesktop.Telepathy.Channel.Type.Text' : Access_Control_Type_Open,
+    'org.freedesktop.Telepathy.Channel.Type.Call' : Access_Control_Type_Publish_List
 }
         </pre>
 
@@ -232,8 +164,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The channel type to set the policy for.
         </tp:docstring>
       </arg>
-      <arg name="Policy" direction="in" type="(uv)"
-           tp:type="Access_Control">
+      <arg name="Policy" direction="in" type="u"
+           tp:type="Access_Control_Type">
         <tp:docstring>
           The policy to set for this channel.
         </tp:docstring>
@@ -247,7 +179,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         policy or <tp:member-ref>SetPolicy</tp:member-ref> has been
         called.
       </tp:docstring>
-      <arg name="Changed_Policies" type="a{s(uv)}"
+      <arg name="Changed_Policies" type="a{su}"
            tp:type="Active_Policies_Map">
         <tp:docstring>
           A subset of the active policies that have changed.
@@ -255,6 +187,36 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
     </signal>
 
+    <tp:struct name="Supported_Policy" array-name="Supported_Policy_List">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The communication methods (channel types), and the policies
+        that can be applied to them. This is server and protocol
+        dependant.</p>
+
+        <p>Grouped channel types will always have the same policy applied
+        to them.</p>
+
+        <tp:rationale>
+          Different protocols have different limitations to the
+          granularity of communication policies. One protocol might be
+          able to set a different policy for VoIP calls and text chat,
+          while another protocol might only be able to set one policy
+          to both VoIP and text chat.
+        </tp:rationale>
+      </tp:docstring>
+      <tp:member type="as" tp:type="DBus_Interface[]"
+        name="Chanel_Types">
+        <tp:docstring>
+          A list of channel interfaces that support these policies.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="au" tp:type="Access_Control_Type[]"
+        name="Supported Policies">
+        <tp:docstring>
+          A list of supported policies.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
 
   </interface>
 </node>
