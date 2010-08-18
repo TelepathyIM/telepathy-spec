@@ -17,14 +17,16 @@
 
   <div class="main">
   <h3 class="version">Version $spec.version</h3>
-  <p class="copyrights">
-   #echo '<br/>'.join($spec.copyrights)
-  </p>
-
-  <div class="license">
-    #for $para in $spec.license
-    <p>$para</p>
+  <div class="legal">
+   <ul class="copyrights">
+    #for c in $spec.copyrights
+    <li>$c</li>
     #end for
+   </ul>
+
+   #for $para in $spec.license
+   <p>$para</p>
+   #end for
   </div>
 
   <a name="interfaces"></a>

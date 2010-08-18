@@ -141,10 +141,16 @@ div.access {
 	margin-left: 1ex;
 }
 
-div.summary {
+div.summary, div.legal {
 	padding: 0.5ex;
 	background-color: #eeeeec;
 	border: 1px solid #d3d7cf;
+}
+
+div.legal ul {
+	list-style: none;
+	padding-left: 0;
+	margin-left: 0;
 }
 
 table.summary {
