@@ -22,59 +22,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     name="org.freedesktop.Telepathy.Connection.Interface.PowerSave.DRAFT"
     tp:causes-havoc="experimental">
 
-    <tp:enum name="Activity_Level" type="u">
-      <tp:enumvalue suffix="Inactive" value="0">
-        <tp:docstring>
-          The device is inactive, for example the screen is locked.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Active" value="1">
-        <tp:docstring>
-          The device is active.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:docstring>
-        The activity level of the device.
-      </tp:docstring>
-    </tp:enum>
-
-    <method name="SetActivityState" tp:name-for-bindings="Set_Activity_State">
+    <method name="TogglePowerSaving" tp:name-for-bindings="Toggle_Power_Saving">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Set the <tp:member-ref>CurrentActivityState</tp:member-ref>.</p>
+        <p>Toggle power saving mode on or off.</p>
 
           <tp:rationale>
-            <p>The connection could determine through the
-              activity level if it should take measures to conserve
-              power, for example by reducing network chatter.</p>
+            <p>Depending on the device's activity level, the
+            connection can have it's powersaving mode turned on or off.</p>
           </tp:rationale>
       </tp:docstring>
 
-      <arg direction="in" name="Activity_State" type="u"
-           tp:type="Activity_Level">
+      <arg direction="in" name="Activate" type="b">
         <tp:docstring>
-          The activity level to set to.
+          True when activating power saving, false when deactivating.
         </tp:docstring>
       </arg>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The current connection has no power saving features.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
+      </tp:possible-errors>
     </method>
 
-    <property name="CurrentActivityState" type="u" tp:type="Activity_Level"
-              tp:name-for-bindings="Current_Activity_State" access="read">
+    <property name="PowerSavingActive" type="b" access="read"
+              tp:name-for-bindings="Power_Saving_Active">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The current activity level the connection is set
-        to. Change notifications is via the
-          <tp:member-ref>ActivityStateChanged</tp:member-ref> signal.</p>
+        <p>The current state of power saving. Change notifications is via the
+          <tp:member-ref>PowerSavingChanged</tp:member-ref> signal.</p>
       </tp:docstring>
     </property>
 
-    <signal name="ActivityStateChanged"
-            tp:name-for-bindings="Activity_State_Changed">
-      <arg name="Activity_State" type="u" tp:type="Activity_Level">
+    <signal name="PowerSavingChanged"
+            tp:name-for-bindings="Power_Saving_Changed">
+      <arg name="Active" type="b">
         <tp:docstring>
-          The new activity state of the connections.
+          The new state of the power saving feature.
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        The <tp:member-ref>CurrentActivityState</tp:member-ref>
+        The <tp:member-ref>PowerSavingActive</tp:member-ref>
         property changed.
       </tp:docstring>
     </signal>
