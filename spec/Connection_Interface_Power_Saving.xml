@@ -19,7 +19,7 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface
-    name="org.freedesktop.Telepathy.Connection.Interface.PowerSave.DRAFT"
+    name="org.freedesktop.Telepathy.Connection.Interface.PowerSaving.DRAFT"
     tp:causes-havoc="experimental">
 
     <method name="TogglePowerSaving" tp:name-for-bindings="Toggle_Power_Saving">
