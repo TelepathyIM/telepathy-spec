@@ -33,7 +33,7 @@
         API or ABI guarantees.</p>
     </tp:docstring>
 
-    <property name="RequestMetadata" tp:name-for-bindings="Request_Metadata"
+    <property name="Hints" tp:name-for-bindings="Hints"
       type="a{sv}" access="read">
       <tp:added version="0.19.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
