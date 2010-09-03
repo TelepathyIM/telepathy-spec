@@ -22,9 +22,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     name="org.freedesktop.Telepathy.Connection.Interface.PowerSaving.DRAFT"
     tp:causes-havoc="experimental">
 
-    <method name="TogglePowerSaving" tp:name-for-bindings="Toggle_Power_Saving">
+    <method name="SetPowerSaving" tp:name-for-bindings="Set_Power_Saving">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Toggle power saving mode on or off.</p>
+        <p>Turn power saving mode on or off.</p>
 
           <tp:rationale>
             <p>Depending on the device's activity level, the
