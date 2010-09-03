@@ -54,6 +54,14 @@
           so the call UI has to be able to deal with it not being
           there.</tp:rationale>
 
+        <p>The channel dispatcher will not interpret these hints: they are
+          solely for communication between cooperating clients.</p>
+
+        <tp:rationale>
+          <p>Any extra parameters that do affect the channel dispatcher should
+            be designed separately.</p>
+        </tp:rationale>
+
         <p>This property may be set when the channel request is created, and
           can never change. Since it is immutable, it SHOULD be included in the
           dictionary of properties passed to <tp:dbus-ref
