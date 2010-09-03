@@ -104,35 +104,6 @@
       </tp:docstring>
     </property>
 
-    <property name="RequestMetadata" tp:name-for-bindings="Request_Metadata"
-      type="a{sv}" access="read">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A dictionary of metadata provided by the channel
-          requester, which the handler and other clients MAY choose to
-          interpret.  Currently no standard keys are defined; clients MAY
-          choose to use platform-specific keys for their own purposes, but MUST
-          ignore unknown keys and MUST cope with expected keys being
-          missing.</p>
-
-        <tp:rationale>This property might be used to pass a contact ID for a
-          telephone number shared between two contacts from the address book to
-          the call UI, so that if you try to call “Mum”, the call UI knows this
-          rather than having to guess or show “Calling Mum or Dad”. The format
-          of these contact IDs would be platform-specific, so we leave the
-          definition of the dictionary entry up to the platform in question.
-          But third-party channel requesters might not include the contact ID,
-          so the call UI has to be able to deal with it not being
-          there.</tp:rationale>
-
-        <p>This property may be set when the channel request is created, and
-          can never change. Since it is immutable, it SHOULD be included in the
-          dictionary of properties passed to <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Interface.Requests">AddRequest</tp:dbus-ref>
-          by the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>.</p>
-      </tp:docstring>
-    </property>
-
     <method name="Proceed" tp:name-for-bindings="Proceed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Proceed with the channel request.</p>
@@ -236,27 +207,6 @@
         <p>The channel request has succeeded. It is no longer present,
           and further methods must not be called on it.</p>
       </tp:docstring>
-    </signal>
-
-    <signal name="SucceededWithChannel" tp:name-for-bindings="Succeeded_With_Channel">
-      <tp:added version="0.19.UNRELEASED"/>
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Variant of the <tp:member-ref>Succeeded</tp:member-ref> signal
-        allowing to get the channel which has been created.</p>
-      </tp:docstring>
-
-      <arg name="Connection" type="o">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The Connection owning the channel.</p>
-        </tp:docstring>
-      </arg>
-
-      <arg name="Channel" type="o">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The channel which has been created.</p>
-        </tp:docstring>
-      </arg>
-
     </signal>
 
   </interface>

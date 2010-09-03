@@ -308,7 +308,7 @@
         <tp:docstring>
           Additional information about the channel request, which will be used
           as the value for the resulting request's <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.ChannelRequest">RequestMetadata</tp:dbus-ref>
+          namespace="ofdT.ChannelRequest.FUTURE">RequestMetadata</tp:dbus-ref>
           property.</tp:docstring>
       </arg>
 
@@ -511,7 +511,7 @@
         <tp:docstring>
           Additional information about the channel request, which will be used
           as the value for the resulting request's <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.ChannelRequest">RequestMetadata</tp:dbus-ref>
+          namespace="ofdT.ChannelRequest.FUTURE">RequestMetadata</tp:dbus-ref>
           property.</tp:docstring>
       </arg>
 
