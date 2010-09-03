@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Dispatcher"
+<node name="/Channel_Dispatcher_Future"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
 
-  <tp:copyright>Copyright © 2008-2009 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright © 2008-2010 Collabora Ltd.</tp:copyright>
   <tp:copyright>Copyright © 2008-2009 Nokia Corporation</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
     <p>This library is free software; you can redistribute it and/or
@@ -21,85 +21,29 @@
       USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.ChannelDispatcher">
+  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.FUTURE">
     <tp:added version="0.17.26">(as a stable interface)</tp:added>
 
+    <tp:requires interface="org.freedesktop.Telepathy.ChannelDispatcher"/>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>The channel dispatcher is responsible for responding to new
-        channels and launching client processes to handle them. It also
-        provides functionality for client processes to request that new
-        channels are created.</p>
-
-      <p>If a channel dispatcher is running, it is responsible for dispatching
-        new channels on all
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>s
-        created by the
-        <tp:dbus-ref namespace="org.freedesktop.Telepathy">AccountManager</tp:dbus-ref>.
-        Connections not created by the AccountManager are outside the scope
-        of the channel dispatcher.</p>
-
-      <tp:rationale>
-        <p>Connections created by standalone Telepathy clients
-          that do not intend to interact with the channel dispatcher
-          should be ignored - otherwise, the channel dispatcher would try
-          to launch handlers for channels that the standalone client
-          was already handling internally.</p>
-      </tp:rationale>
-
-      <p>The current channel dispatcher is defined to be the process that
-        owns the well-known bus name
-        <code>org.freedesktop.Telepathy.ChannelDispatcher</code> on
-        the session bus. This process MUST export an object with this
-        interface at the object path
-        <code>/org/freedesktop/Telepathy/ChannelDispatcher</code>.</p>
-
-      <p>Until a mechanism exists for making a reasonable automatic choice
-        of ChannelDispatcher implementation, implementations SHOULD NOT
-        register as an activatable service for the ChannelDispatcher's
-        well-known bus name. Instead, it is RECOMMENDED that some component
-        of the user's session will select and activate a particular
-        implementation, and that other Telepathy-enabled programs
-        can detect whether channel request/dispatch functionality is available
-        by checking whether the ChannelDispatcher's well-known name is in use
-        at runtime.</p>
-
-      <p>There are three categories of client process defined by this
-        specification:</p>
-
-      <dl>
-        <dt><tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Observer</tp:dbus-ref></dt>
-        <dd><p>Observers monitor the creation of new channels. This
-            functionality can be used for things like message logging.
-            All observers are notified simultaneously.</p></dd>
-
-        <dt><tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Approver</tp:dbus-ref></dt>
-        <dd>
-          <p>Approvers notify the user that new channels have been created,
-            and also select which channel handler will be used for the channel,
-            either by asking the user or by choosing the most appropriate
-            channel handler.</p>
-        </dd>
-
-        <dt><tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref></dt>
-        <dd>
-          <p>Each new channel or set of channels is passed to exactly one
-            handler as its final destination. A typical channel handler is a
-            user interface process handling channels of a particular type.</p>
-        </dd>
-      </dl>
+      <p>This interface contains functionality which we intend to incorporate
+        into the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>
+        interface in future. It should be considered to
+        be conceptually part of the core ChannelDispatcher interface, but without
+        API or ABI guarantees.</p>
     </tp:docstring>
 
-    <property name="Interfaces" tp:name-for-bindings="Interfaces"
-      type="as" access="read" tp:type="DBus_Interface[]">
-      <tp:docstring>
-        A list of the extra interfaces provided by this channel dispatcher.
-      </tp:docstring>
-    </property>
-
-    <method name="CreateChannel" tp:name-for-bindings="Create_Channel">
+    <method name="CreateChannelWithMetadata"
+            tp:name-for-bindings="Create_Channel_With_Metadata">
+      <tp:added version="0.19.UNRELEASED">
+        Support for this method is indicated by the
+        <tp:member-ref>SupportsRequestMetadata</tp:member-ref> property.
+        Clients MUST recover from this method being unsupported by falling back
+        to <tp:dbus-ref
+          namespace="ofdT.ChannelDispatcher">CreateChannel</tp:dbus-ref>.
+      </tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to create a channel. This initially just creates a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
@@ -235,6 +179,14 @@
         </tp:changed>
       </arg>
 
+      <arg direction="in" name="Metadata" type="a{sv}">
+        <tp:docstring>
+          Additional information about the channel request, which will be used
+          as the value for the resulting request's <tp:dbus-ref
+          namespace="ofdT.ChannelRequest.FUTURE">RequestMetadata</tp:dbus-ref>
+          property.</tp:docstring>
+      </arg>
+
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
           A
@@ -256,7 +208,15 @@
 
     </method>
 
-    <method name="EnsureChannel" tp:name-for-bindings="Ensure_Channel">
+    <method name="EnsureChannelWithMetadata"
+            tp:name-for-bindings="Ensure_Channel_With_Metadata">
+      <tp:added version="0.19.UNRELEASED">
+        Support for this method is indicated by the
+        <tp:member-ref>SupportsRequestMetadata</tp:member-ref> property.
+        Clients MUST recover from this method being unsupported by falling back
+        to <tp:dbus-ref
+          namespace="ofdT.ChannelDispatcher">EnsureChannel</tp:dbus-ref>.
+      </tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Start a request to ensure that a channel exists, creating it if
           necessary.  This initially just creates a <tp:dbus-ref
@@ -311,7 +271,8 @@
             request is for some reason not involving user action.</p>
 
           <p>This parameter is used in the same way as the corresponding
-            parameter to <tp:member-ref>CreateChannel</tp:member-ref>.</p>
+            parameter to
+            <tp:member-ref>CreateChannelWithMetadata</tp:member-ref>.</p>
         </tp:docstring>
       </arg>
 
@@ -324,8 +285,8 @@
             channel, or an empty string to indicate that any handler would be
             acceptable. The behaviour and rationale are the same as for the
             corresponding parameter to
-            <tp:member-ref>CreateChannel</tp:member-ref>, except as noted
-            here.</p>
+            <tp:member-ref>CreateChannelWithMetadata</tp:member-ref>, except
+            as noted here.</p>
 
           <p>If any new channels are created in response to this
             request, the channel dispatcher SHOULD dispatch as many as
@@ -359,6 +320,14 @@
         </tp:docstring>
       </arg>
 
+      <arg direction="in" name="Metadata" type="a{sv}">
+        <tp:docstring>
+          Additional information about the channel request, which will be used
+          as the value for the resulting request's <tp:dbus-ref
+          namespace="ofdT.ChannelRequest.FUTURE">RequestMetadata</tp:dbus-ref>
+          property.</tp:docstring>
+      </arg>
+
       <arg direction="out" name="Request" type="o">
         <tp:docstring>
           A
@@ -379,6 +348,23 @@
       </tp:possible-errors>
 
     </method>
+
+    <property name="SupportsRequestMetadata"
+              tp:name-for-bindings="Supports_Request_Metadata"
+              type="b" access="read">
+      <tp:added version="0.19.UNRELEASED"/>
+      <tp:docstring>
+        If <code>True</code>, the channel dispatcher is new enough to support
+        <tp:member-ref>CreateChannelWithMetadata</tp:member-ref> and
+        <tp:member-ref>EnsureChannelWithMetadata</tp:member-ref>, in addition
+        to the older <tp:dbus-ref
+          namespace="ofdT.ChannelDispatcher">CreateChannel</tp:dbus-ref>
+        and <tp:dbus-ref
+          namespace="ofdT.ChannelDispatcher">EnsureChannel</tp:dbus-ref>.
+        methods. If <code>False</code> or missing, only the metadata-less
+        variants are supported.
+      </tp:docstring>
+    </property>
 
   </interface>
 </node>
