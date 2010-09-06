@@ -22,6 +22,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     name="org.freedesktop.Telepathy.Connection.Interface.PowerSaving.DRAFT"
     tp:causes-havoc="experimental">
 
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An interface for telling the connection when to enter and
+      leave power saving mode.</p>
+
+      <p>Power saving mode should be used when the user is not
+        directly interacting with the interface. For example, when
+        the screen saver is active, or when device screen is
+        locked.</p>
+
+      <p>Connection managers should implement this feature in a way
+        that is not noticeable by end users. For example, a protocol
+        might allow server-side blocking presence updates from
+        contacts to reduce network chatter. This would not affect the
+        user, since they are not interacting with their device when it
+        is in power saving mode.</p>
+    </tp:docstring>
+
     <method name="SetPowerSaving" tp:name-for-bindings="Set_Power_Saving">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Turn power saving mode on or off.</p>
@@ -68,11 +85,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         property changed.
       </tp:docstring>
     </signal>
-
-    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>An interface for telling the connection when to enter and
-      leave power saving mode.</p>
-    </tp:docstring>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
