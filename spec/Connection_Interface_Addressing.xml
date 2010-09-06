@@ -22,8 +22,14 @@
     <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Contacts"/>
     <tp:added version="0.19.12">(as draft)</tp:added>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface deals with different forms of addresses that
-      conform to contacts.</p>
+      <p>This interface deals with the multiple address types that can
+      refer to the same contact, such as vCard fields and URIs.</p>
+
+      <p>It can be used to retrieve contacts with a specific addresses
+        through <tp:member-ref>GetContactsByVCardField</tp:member-ref> and
+        <tp:member-ref>GetContactsByURI</tp:member-ref>, as well as
+        defining the various addressing methods for a given contact
+        through this interface's contact attributes.</p>
     </tp:docstring>
 
     <method name="GetContactsByVCardField"

@@ -26,7 +26,7 @@
     <tp:added version="0.19.12">(as draft)</tp:added>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for protocols that support multiple forms of
-      addressing contacts, for example through vCard addresses and URIs.</p>
+        addressing contacts, for example through vCard addresses and URIs.</p>
 
       <p>If the ConnectionManager has a <tt>.manager</tt> file, and it
         supports this interface, the interface's immutable properties
@@ -34,7 +34,7 @@
         part of the documentation for each property.</p>
 
       <p>For instance, a SIP connection manager might have the
-      following lines in it's <tt>.manager</tt> file.</p>
+        following lines in it's <tt>.manager</tt> file.</p>
 
 <pre>
 [Protocol sip]
