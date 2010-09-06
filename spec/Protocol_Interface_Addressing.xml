@@ -76,6 +76,37 @@ AddressableURISchemes=tel;sip;
           is a list of strings, each followed with a semicolon and in the
           syntax of the "localestring" type from the Desktop Entry
           Specification.</p>
+
+        <p>Well-known vCard fields:</p>
+
+        <dl>
+          <dt><code>tel</code></dt>
+          <dd>The TEL vCard field. Used for phone numbers.</dd>
+          <dt><code>x-sip</code></dt>
+          <dd>The X-SIP vCard field. Used for SIP addresses.</dd>
+          <dt><code>x-aim</code></dt>
+          <dd>The X-AIM vCard field. Used for AIM user IDs.</dd>
+          <dt><code>x-icq</code></dt>
+          <dd>The X-ICQ vCard field. Used for ICQ UINs.</dd>
+          <dt><code>x-icq</code></dt>
+          <dd>The X-ICQ vCard field. Used for ICQ UINs.</dd>
+          <dt><code>x-skype</code></dt>
+          <dd>The X-SKYPE vCard field. Used for Skype user names or
+          telephone numbers.</dd>
+          <dt><code>x-skype-username</code></dt>
+          <dd>The X-SKYPE-USERNAME vCard field. Used for Skype user names.</dd>
+          <dt><code>x-groupwise</code></dt>
+          <dd>The X-GROUPWISE vCard field. Used for Groupwise contacts.</dd>
+          <dt><code>x-gadugadu</code></dt>
+          <dd>The X-GADUGADU vCard field. Used for Gadu-Gadu contacts.</dd>
+          <dt><code>x-jabber</code></dt>
+          <dd>The X-JABBER vCard field. Used for XMPP JIDs.</dd>
+          <dt><code>x-msn</code></dt>
+          <dd>The X-MSN vCard field. Used for MSN contacts.</dd>
+          <dt><code>x-yahoo</code></dt>
+          <dd>The X-YAHOO vCard field. Used for Yahoo! IDs.</dd>
+        </dl>
+
       </tp:docstring>
     </property>
 
@@ -101,6 +132,43 @@ AddressableURISchemes=tel;sip;
           is a list of strings, each followed with a semicolon and in the
           syntax of the "localestring" type from the Desktop Entry
           Specification.</p>
+
+        <p>Well-known URI schemes:</p>
+
+        <dl>
+          <dt><code>sip</code></dt>
+          <dd>SIP protocol.
+            For example: <code>sip:julien@example.com</code>.</dd>
+          <dt><code>sips</code></dt>
+          <dd>Secure (encrypted) SIP protocol.
+            For example: <code>sips:julien@example.com</code>.</dd>
+          <dt><code>tel</code></dt>
+          <dd>Used for telephone numbers.
+            For example: <code>tel:+12065551234</code>.</dd>
+          <dt><code>xmpp</code></dt>
+          <dd>XMPP protocol.
+            For example: <code>xmpp:julien@example.com</code>.</dd>
+          <dt><code>msnm</code></dt>
+          <dd>The authority part of this URI is ignored. Instead, the
+            <code>contact</code> query key is used.
+            For example: <code>msnim:chat?contact=julien</code>.</dd>
+          <dt><code>aim</code></dt>
+          <dd>The authority part of this URI is ignored. Instead, the
+            <code>username</code> query key is used.
+            For example: <code>aim:goim?screenname=julien</code>.</dd>
+          <dt><code>skype</code></dt>
+          <dd>Skype protocol.
+            For example: <code>skype:julien</code>.</dd>
+          <dt><code>ymsgr</code></dt>
+          <dd>The authority part of this URI should take a Yahoo! ID
+            as a query, for example <code>ymsgr:sendim?yahooid</code>. The
+            actual authority name is ignored, and only the query part with
+            the Yahoo! ID is used.
+            For example: <code>ymsgr:sendIM?julien</code>.</dd>
+          <dt><code>gg</code></dt>
+          <dd>Gadu-Gadu protocol.
+            For example: <code>gg:julien</code>.</dd>
+        </dl>
       </tp:docstring>
     </property>
 
