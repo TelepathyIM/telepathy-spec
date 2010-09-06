@@ -86,7 +86,7 @@
             the attribute should either be omitted from the result or
             replaced with a default value.</p>
 
-          <p>Requested addresses that cannot me satisfied MUST be ommitted
+          <p>Requested addresses that cannot be satisfied MUST be ommitted
             from the mapping.</p>
 
           <p>Each contact's attributes will always include at least the
@@ -153,7 +153,7 @@
             the attribute should either be omitted from the result or
             replaced with a default value.</p>
 
-          <p>Requested URIs that cannot me satisfied MUST be ommitted
+          <p>Requested URIs that cannot be satisfied MUST be ommitted
             from the mapping.</p>
 
           <p>Each contact's attributes will always include at least the
