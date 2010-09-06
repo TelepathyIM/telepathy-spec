@@ -23,8 +23,7 @@
   <interface
      name="org.freedesktop.Telepathy.Protocol.Interface.Addressing.DRAFT"
      tp:causes-havoc="experimental">
-    <tp:added version="0.19.10">(as stable API)</tp:added>
-
+    <tp:added version="0.19.12">(as draft)</tp:added>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for protocols that support multiple forms of
       addressing contacts, for example through vCard addresses and URIs.</p>
