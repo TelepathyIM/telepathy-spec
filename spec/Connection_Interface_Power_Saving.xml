@@ -43,10 +43,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Turn power saving mode on or off.</p>
 
-          <tp:rationale>
-            <p>Depending on the device's activity level, the
-            connection can have it's powersaving mode turned on or off.</p>
-          </tp:rationale>
+        <tp:rationale>
+          <p>Depending on the device's activity level, the
+            connection can have it's power saving mode turned on or off.</p>
+        </tp:rationale>
+
+        <p>Errors raised by this method indicate that power saving could not be
+          enabled, which SHOULD NOT generally be treated as fatal.</p>
+
+        <tp:rationale>
+          If the CM cannot switch modes, either because of the
+          protocol (<code>NotImplemented</code>), or because of the service
+          (<code>NotAvailable</code>), Mission Control (or whoever manages this)
+          should be made aware. The error could be ignored or, in the extreme,
+          be fascist and disconnect the account.
+        </tp:rationale>
       </tp:docstring>
 
       <arg direction="in" name="Activate" type="b">
