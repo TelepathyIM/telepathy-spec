@@ -21,6 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   <interface
      name="org.freedesktop.Telepathy.Connection.Interface.CommunicationPolicy.DRAFT"
      tp:causes-havoc="experimental">
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.SimplePresence"/>
+
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>
         This interface supports controlling which contacts are allowed
@@ -35,68 +37,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         are signalled by <tp:member-ref>PolicyChanged</tp:member-ref>.
       </p>
     </tp:docstring>
-
-    <tp:enum name="Access_Control_Type" type="u"
-             array-name="Access_Control_Type_List">
-      <tp:docstring>
-        A type for communication access control. These control
-        policies are used in <tp:member-ref>SupportedPolicies</tp:member-ref>
-        and <tp:member-ref>ActivePolicies</tp:member-ref> as well as most rich
-        presence interfaces.
-      </tp:docstring>
-      <tp:enumvalue suffix="Whitelist" value="0">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Only allow contacts that are in a certain whitelist.</p>
-          <p>This policy is relevant for presence interfaces, and
-            should be associated with a list of contact
-            handles that represent the whitelist of permited contacts.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Publish_List" value="1">
-        <tp:docstring>
-          All contacts in the user's 'publish' contact list can
-          communicate with us.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Group" value="2">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Only allow contacts that are in a certain group.</p>
-          <p>This policy is relevant for presence interfaces, and
-            should be associated with a group handle.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Open" value="3">
-        <tp:docstring>
-          Anyone can initiate communication with the contact.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="5">
-        <tp:docstring>
-          All contacts in the user's 'subscribe' or 'publish' contact
-          list can communicate with us.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Closed" value="9">
-        <tp:docstring>
-          Communication with the given channel type from any contact
-          is blocked.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Not_Understood" value="10">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The access control rule is too complex to be represented
-            in the current Telepathy API. The associated variant is
-            meaningless. Setting this mode is never valid; the
-            connection manager MUST raise an error if this is attempted.</p>
-
-          <tp:rationale>
-            XEP-0016 Privacy Lists can easily produce access control
-            mechanisms that can't be expressed in a simpler API. We
-            need to be able to at least indicate that fact.
-          </tp:rationale>
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
 
     <tp:mapping name="Active_Policies_Map">
       <tp:docstring>
