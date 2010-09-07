@@ -364,40 +364,44 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Only allow contacts that are in a certain whitelist.</p>
 
-          <p>Setting this policy only makes sense in the context of an
-            Access_Control structure, in which the variant must contain
-            a list of <tp:type>Contact_Handle</tp:type> representing
+          <p>The associated variant
+            in <tp:type>Access_Control</tp:type> is a list of
+            <tp:type>Contact_Handle</tp:type> representing
             the whitelist, with signature <code>au</code>.</p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Publish_List" value="1">
         <tp:docstring>
-          Allow contacts in the user's 'publish' list.
+          Allow contacts in the user's 'publish' list. The associated
+          variant in <tp:type>Access_Control</tp:type> is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Group" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Only allow contacts that are in a certain group.</p>
 
-          <p>Setting this policy only makes sense in the context of an
-            Access_Control structure, in which the variant must contain
-            a <tp:type>Group_Handle</tp:type> representing the
-            permitted group.</p>
+          <p>The associated variant in <tp:type>Access_Control</tp:type> is a
+            <tp:type>Group_Handle</tp:type> representing the permitted
+            group.</p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
-          Allow all contacts.
+          Allow all contacts.  The associated
+          variant in <tp:type>Access_Control</tp:type> is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="4">
         <tp:docstring>
-          Allow all contacts in the user's 'subscribe' or 'publish' list.
+          Allow all contacts in the user's 'subscribe' or 'publish'
+          list. The associated variant in <tp:type>Access_Control</tp:type> is
+          ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Closed" value="5">
         <tp:docstring>
-          Forbid all contacts.
+          Forbid all contacts. The associated variant in
+          <tp:type>Access_Control</tp:type> is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Understood" value="6">
@@ -412,6 +416,9 @@
             mechanisms that can't be expressed in a simpler API. We
             need to be able to at least indicate that fact.
           </tp:rationale>
+
+          <p>The associated variant in <tp:type>Access_Control</tp:type> is
+            ignored.</p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
