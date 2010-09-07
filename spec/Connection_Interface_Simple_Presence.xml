@@ -372,8 +372,7 @@
       </tp:enumvalue>
       <tp:enumvalue suffix="Publish_List" value="1">
         <tp:docstring>
-          All contacts in the user's 'publish' contact list can
-          communicate with us.
+          Allow contacts in the user's 'publish' list.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Group" value="2">
@@ -388,19 +387,17 @@
       </tp:enumvalue>
       <tp:enumvalue suffix="Open" value="3">
         <tp:docstring>
-          Anyone can initiate communication with the contact.
+          Allow all contacts.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="4">
         <tp:docstring>
-          All contacts in the user's 'subscribe' or 'publish' contact
-          list can communicate with us.
+          Allow all contacts in the user's 'subscribe' or 'publish' list.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Closed" value="5">
         <tp:docstring>
-          Communication with the given channel type from any contact
-          is blocked.
+          Forbid all contacts.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Understood" value="6">
