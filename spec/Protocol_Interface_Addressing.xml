@@ -90,9 +90,8 @@ AddressableURISchemes=tel;sip;
           <dd>The X-ICQ vCard field. Used for ICQ UINs.</dd>
           <dt><code>x-skype</code></dt>
           <dd>The X-SKYPE vCard field. Used for Skype user names or
-          telephone numbers.</dd>
-          <dt><code>x-skype-username</code></dt>
-          <dd>The X-SKYPE-USERNAME vCard field. Used for Skype user names.</dd>
+          telephone numbers. There is also a X-SKYPE-USERNAME field,
+          but for Telepathy purposes, <code>x-skype</code> is preferred</dd>
           <dt><code>x-groupwise</code></dt>
           <dd>The X-GROUPWISE vCard field. Used for Groupwise contacts.</dd>
           <dt><code>x-gadugadu</code></dt>
