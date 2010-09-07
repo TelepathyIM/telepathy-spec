@@ -34,7 +34,7 @@
         part of the documentation for each property.</p>
 
       <p>For instance, a SIP connection manager might have the
-        following lines in it's <tt>.manager</tt> file.</p>
+        following lines in the <tt>.manager</tt> file.</p>
 
 <pre>
 [Protocol sip]
