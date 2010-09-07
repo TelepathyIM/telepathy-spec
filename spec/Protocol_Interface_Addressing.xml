@@ -88,8 +88,6 @@ AddressableURISchemes=tel;sip;
           <dd>The X-AIM vCard field. Used for AIM user IDs.</dd>
           <dt><code>x-icq</code></dt>
           <dd>The X-ICQ vCard field. Used for ICQ UINs.</dd>
-          <dt><code>x-icq</code></dt>
-          <dd>The X-ICQ vCard field. Used for ICQ UINs.</dd>
           <dt><code>x-skype</code></dt>
           <dd>The X-SKYPE vCard field. Used for Skype user names or
           telephone numbers.</dd>
