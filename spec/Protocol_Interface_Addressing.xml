@@ -145,23 +145,38 @@ AddressableURISchemes=tel;sip;
           <dt><code>xmpp</code></dt>
           <dd>XMPP protocol.
             For example: <code>xmpp:julien@example.com</code>.</dd>
-          <dt><code>msnm</code></dt>
-          <dd>The authority part of this URI is ignored. Instead, the
-            <code>contact</code> query key is used.
-            For example: <code>msnim:chat?contact=julien</code>.</dd>
+          <dt><code>msnim</code></dt>
+          <dd>For the purposes of
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Protocol.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            and
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            the verb part is ignored, and SHOULD be <code>add</code>; the
+            <code>contact</code> field in the query string is used to
+            identify the contact.
+            For example: <code>msnim:add?contact=julien</code>.</dd>
           <dt><code>aim</code></dt>
-          <dd>The authority part of this URI is ignored. Instead, the
-            <code>username</code> query key is used.
-            For example: <code>aim:goim?screenname=julien</code>.</dd>
+          <dd>For the purposes of
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Protocol.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            and
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            the verb part is ignored, and SHOULD be <code>addbuddy</code>; the
+            <code>username</code> field in the query string is used to
+            identify the contact.
+            For example: <code>aim:addbuddy?screenname=julien</code>.</dd>
           <dt><code>skype</code></dt>
           <dd>Skype protocol.
             For example: <code>skype:julien</code>.</dd>
           <dt><code>ymsgr</code></dt>
-          <dd>The authority part of this URI should take a Yahoo! ID
-            as a query, for example <code>ymsgr:sendim?yahooid</code>. The
-            actual authority name is ignored, and only the query part with
-            the Yahoo! ID is used.
-            For example: <code>ymsgr:sendIM?julien</code>.</dd>
+          <dd>For the purposes of
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Protocol.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Connection.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            and
+            <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Interface.Addressing.DRAFT</tp:dbus-ref>,
+            the verb part is ignored, and SHOULD be <code>addfriend</code>; the
+            query string is used to identify the contact.
+            For example: <code>ymsgr:addfriend?julien</code>.</dd>
           <dt><code>gg</code></dt>
           <dd>Gadu-Gadu protocol.
             For example: <code>gg:julien</code>.</dd>
