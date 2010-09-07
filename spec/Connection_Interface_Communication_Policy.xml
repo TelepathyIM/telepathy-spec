@@ -50,7 +50,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:member>
 
-      <tp:member type="u" tp:type="Access_Control_Type" name="Active_Policy">
+      <tp:member type="(uv)" tp:type="Access_Control" name="Active_Policy">
         <tp:docstring>
           The active policy for this channel type.
         </tp:docstring>
@@ -66,7 +66,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="ActivePolicies" tp:name-for-bindings="Active_Policies"
-              access="read" type="a{su}" tp:type="Active_Policies_Map">
+              access="read" type="a{s(uv)}" tp:type="Active_Policies_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The active communication policies on this
         connection. Communication methods that are not in this
@@ -104,8 +104,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The channel type to set the policy for.
         </tp:docstring>
       </arg>
-      <arg name="Policy" direction="in" type="u"
-           tp:type="Access_Control_Type">
+      <arg name="Policy" direction="in" type="(uv)"
+           tp:type="Access_Control">
         <tp:docstring>
           The policy to set for this channel.
         </tp:docstring>
@@ -119,7 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         policy or <tp:member-ref>SetPolicy</tp:member-ref> has been
         called.
       </tp:docstring>
-      <arg name="Changed_Policies" type="a{su}"
+      <arg name="Changed_Policies" type="a{s(uv)}"
            tp:type="Active_Policies_Map">
         <tp:docstring>
           A subset of the active policies that have changed.
