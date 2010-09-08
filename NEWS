@@ -20,9 +20,46 @@ New API:
   (namely Flash, to signal class 0 SMSes) has been imported to a new,
   immediately-undrafted Channel.Interface.SMS. (fd.o#24907, wjt)
 
+☎ New error code NotYet for future use in ContactList (smcv)
+
+☎ New type Object_Immutable_Properties_Map (ptlo)
+
+☎ channel requests' immutable properties should be passed to observers and
+  handlers (ptlo)
+
+New experimental API:
+
+☎ Account.I.MinimumPresence draft 2 - a way to request a minimal presence on an
+  account, for instance to keep an address-book sync or Tubes active when
+  the user would otherwise be offline (ptlo)
+
+☎ fd.o #26866: Protocol.I.Addressing, Conn.I.Addressing and Chan.I.Addressing,
+  each draft 1 - interfaces to request contact handles based on URIs and/or
+  vCard fields (eeejay)
+
+☎ fd.o #29914: Conn.I.PowerSaving draft 1 - ability to tell connections that
+  a mobile device is idle (eeejay)
+
+☎ fd.o #25018: prototype versions of CreateChannelWithHints,
+  EnsureChannelWithHints and SucceededWithChannel (wjt, cassidy, smcv)
+
+Changes to experimental API:
+
+☎ Conn.I.ContactList: update to draft 3 (smcv)
+  ☎ rename RequestContactList back to GetContactListAttributes, and switch to
+    fast-return semantics
+  ☎ add Unknown and RemovedRemotely subscription states
+  ☎ add ContactListState
+  ☎ rename boolean flags to CanChangeContactList and ContactListPersists
+  ☎ adjust semantics to make it less likely that blocked contacts appear on
+    the contact list
+
 Fixes:
 
 ☎ The handler filter examples for StreamedMedia were subtly wrong. (wjt)
+
+☎ fd.o #27393: add <tp:token-ref>, to cross-reference contact attributes and
+  handler capability tokens (smcv)
 
 telepathy-spec 0.19.11 (2010-08-09)
 ===================================
