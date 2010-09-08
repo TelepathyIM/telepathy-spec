@@ -162,7 +162,7 @@ AddressableURISchemes=tel;sip;
             and
             <tp:dbus-ref namespace="org.freedesktop.Telepathy">Channel.Interface.Addressing.DRAFT</tp:dbus-ref>,
             the verb part is ignored, and SHOULD be <code>addbuddy</code>; the
-            <code>username</code> field in the query string is used to
+            <code>screenname</code> field in the query string is used to
             identify the contact.
             For example: <code>aim:addbuddy?screenname=julien</code>.</dd>
           <dt><code>skype</code></dt>
