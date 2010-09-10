@@ -27,10 +27,10 @@ New API:
 
 ☎ New error code NotYet for future use in ContactList (smcv)
 
-☎ New type Object_Immutable_Properties_Map (ptlo)
+☎ New type Object_Immutable_Properties_Map (cassidy)
 
 ☎ channel requests' immutable properties should be passed to observers and
-  handlers (ptlo)
+  handlers (cassidy)
 
 New experimental API:
 
