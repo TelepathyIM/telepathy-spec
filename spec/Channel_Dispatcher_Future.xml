@@ -21,8 +21,8 @@
       USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.FUTURE">
-    <tp:added version="0.17.26">(as a stable interface)</tp:added>
+  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.FUTURE"
+    tp:causes-havoc="a staging area for future functionality">
 
     <tp:requires interface="org.freedesktop.Telepathy.ChannelDispatcher"/>
 
