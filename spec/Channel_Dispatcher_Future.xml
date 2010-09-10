@@ -37,7 +37,7 @@
 
     <method name="CreateChannelWithHints"
             tp:name-for-bindings="Create_Channel_With_Hints">
-      <tp:added version="0.19.UNRELEASED">
+      <tp:added version="0.19.12">
         Support for this method is indicated by the
         <tp:member-ref>SupportsRequestHints</tp:member-ref> property.
         Clients MUST recover from this method being unsupported by falling back
@@ -216,7 +216,7 @@
 
     <method name="EnsureChannelWithHints"
             tp:name-for-bindings="Ensure_Channel_With_Hints">
-      <tp:added version="0.19.UNRELEASED">
+      <tp:added version="0.19.12">
         Support for this method is indicated by the
         <tp:member-ref>SupportsRequestHints</tp:member-ref> property.
         Clients MUST recover from this method being unsupported by falling back
@@ -358,7 +358,7 @@
     <property name="SupportsRequestHints"
               tp:name-for-bindings="Supports_Request_Hints"
               type="b" access="read">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.12"/>
       <tp:docstring>
         If <code>True</code>, the channel dispatcher is new enough to support
         <tp:member-ref>CreateChannelWithHints</tp:member-ref> and

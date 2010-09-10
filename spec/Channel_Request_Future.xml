@@ -35,7 +35,7 @@
 
     <property name="Hints" tp:name-for-bindings="Hints"
       type="a{sv}" access="read">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.12">(as draft)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A dictionary of metadata provided by the channel
           requester, which the handler and other clients MAY choose to
@@ -72,7 +72,7 @@
     </property>
 
     <signal name="SucceededWithChannel" tp:name-for-bindings="Succeeded_With_Channel">
-      <tp:added version="0.19.UNRELEASED"/>
+      <tp:added version="0.19.12">(as draft)</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Variant of the <tp:dbus-ref
             namespace="ofdT.ChannelRequest">Succeeded</tp:dbus-ref> signal

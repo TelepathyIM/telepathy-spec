@@ -66,7 +66,7 @@
     <property name="OverrideMessageServiceCentre"
         tp:name-for-bindings="Override_Message_Service_Centre"
         type="b" access="readwrite">
-      <tp:added version='0.19.UNRELEASED'>Previously, as an undocumented
+      <tp:added version='0.19.12'>Previously, as an undocumented
         feature, setting <tp:member-ref>MessageServiceCentre</tp:member-ref>
         to the empty string caused the SIM's default SMSC to be used.</tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -107,7 +107,7 @@
 
     <property name="MessageServiceCentre" tp:name-for-bindings="Message_Service_Centre"
       type="s" access="readwrite">
-      <tp:changed version='0.19.UNRELEASED'>This property's value is now
+      <tp:changed version='0.19.12'>This property's value is now
         ignored unless
         <tp:member-ref>OverrideMessageServiceCentre</tp:member-ref> is
         <code>True</code>.</tp:changed>

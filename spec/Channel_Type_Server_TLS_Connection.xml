@@ -57,6 +57,7 @@
 
     <property name="Hostname" type="s" access="read"
               tp:name-for-bindings="Hostname">
+      <tp:added version="0.19.12"/>
       <tp:docstring>
         The hostname of the server we expect <tp:member-ref>ServerCertificate</tp:member-ref>
         to certify; clients SHOULD verify <tp:member-ref>ServerCertificate</tp:member-ref> against

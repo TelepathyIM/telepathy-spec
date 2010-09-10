@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface
     name="org.freedesktop.Telepathy.Connection.Interface.PowerSaving.DRAFT"
     tp:causes-havoc="experimental">
-    <tp:added version="0.19.UNRELEASED"/>
+    <tp:added version="0.19.12"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for telling the connection when to enter and
       leave power saving mode.</p>

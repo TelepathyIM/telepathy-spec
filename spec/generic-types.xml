@@ -197,6 +197,7 @@
 
   <tp:mapping name="Object_Immutable_Properties_Map"
     array-name="Object_Immutable_Properties_Map_List">
+    <tp:added version="0.19.12"/>
     <tp:docstring>A mapping from object path to the immutable properties of
         the object.</tp:docstring>
     <tp:member type="o" name="Path">
