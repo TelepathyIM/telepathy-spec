@@ -2,10 +2,25 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.13 (UNRELEASED)
+telepathy-spec 0.19.13 (2010-09-13)
 ===================================
 
 The "breadless torment" release.
+
+New API:
+
+• Chan.I.Conference is now considered stable, with changes since draft 1. (wjt)
+  › ChannelMerged has gained Channel_Specific_Handle and Properties arguments
+  › ChannelRemoved has gained a Details map similar to the one in
+    MembersChangedDetailed
+  › The confusing SupportsNonMerges property has been removed
+  › The OriginalChannels property has been added
+
+• Chan.T.ServerTLSConnection and its helper object
+  Authentication.TLSCertificate are now considered stable, with changes since
+  draft 1. (cosimoc)
+  › There can now be more than one rejection reason on a TLSCertificate: the
+    first is assumed to be most important
 
 telepathy-spec 0.19.12 (2010-09-10)
 ===================================
