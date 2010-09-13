@@ -346,6 +346,15 @@
         <tp:docstring>The channel that was removed from
           <tp:member-ref>Channels</tp:member-ref>.</tp:docstring>
       </arg>
+
+      <arg name="Details" type="a{sv}" tp:type="String_Variant_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Additional information about the removal, which may include
+          the same well-known keys as the Details argument of
+          <tp:dbus-ref namespace="ofdT.Channel.Interface.Group"
+            >MembersChangedDetailed</tp:dbus-ref>, with the same semantics.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="InitialChannels" tp:name-for-bindings="Initial_Channels"
