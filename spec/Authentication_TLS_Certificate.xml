@@ -291,6 +291,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>This MUST NOT be an empty array.</p>
         </tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            Raised when the method is called on an object whose <tp:member-ref>State</tp:member-ref>
+            is not <code>Pending</code>, or when the provided rejection list is empty.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
   </interface>
