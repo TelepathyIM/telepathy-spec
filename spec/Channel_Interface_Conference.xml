@@ -563,6 +563,9 @@
           to actual numbers; this property specifies the original 1-1 channel
           corresponding to each channel-specific handle in the conference.</p>
 
+        <p>In protocols where this situation cannot arise, such as XMPP,
+          this property MAY remain empty.</p>
+
         <p>For example, consider this situation:</p>
 
         <ol>
