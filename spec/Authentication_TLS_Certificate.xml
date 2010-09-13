@@ -42,8 +42,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:simple-type>
 
     <tp:struct name="TLS_Certificate_Rejection" array-name="TLS_Certificate_Rejection_List">
-      <tp:docstring>
-        The reason why a TLS certificate was rejected.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Struct representing one reason why a TLS certificate was rejected.</p>
+        <p>Since there can be multiple things wrong with a TLS certificate,
+        arrays of this type are used to represent lists of reasons for
+        rejection. In that case, the most important reason SHOULD be placed
+        first in the list.</p>
       </tp:docstring>
 
       <tp:member name="Reason" type="u"
