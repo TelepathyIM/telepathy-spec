@@ -286,8 +286,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg direction="in" type="a(usa{sv})" name="Rejections"
            tp:type="TLS_Certificate_Rejection[]">
-        <tp:docstring>
-          The new value of the <tp:member-ref>Rejections</tp:member-ref> property.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The new value of the <tp:member-ref>Rejections</tp:member-ref> property.</p>
+          <p>This MUST NOT be an empty array.</p>
         </tp:docstring>
       </arg>
     </method>
