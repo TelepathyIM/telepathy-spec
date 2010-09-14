@@ -67,7 +67,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <arg direction="in" name="Activate" type="b">
         <tp:docstring>
-          True when activating power saving, false when deactivating.
+          <code>True</code> if protocol-level power saving features should be
+          activated; <code>False</code> if they should be de-activated.
         </tp:docstring>
       </arg>
 
@@ -84,7 +85,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property name="PowerSavingActive" type="b" access="read"
               tp:name-for-bindings="Power_Saving_Active">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The current state of power saving. Change notifications is via the
+        <p><code>True</code> if protocol-level power saving features are
+          currently activated. This property can be changed using the
+          <tp:member-ref>SetPowerSaving</tp:member-ref> method; change
+          notifications is via the
           <tp:member-ref>PowerSavingChanged</tp:member-ref> signal.</p>
       </tp:docstring>
     </property>
