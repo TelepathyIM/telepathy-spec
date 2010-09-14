@@ -45,7 +45,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           <p>Depending on the device's activity level, the
-            connection can have it's power saving mode turned on or off.</p>
+            connection can have its power saving mode turned on or off.</p>
         </tp:rationale>
 
         <p>Errors raised by this method indicate that power saving could not be
