@@ -2,10 +2,73 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.14 (UNRELEASED)
-===================================
+telepathy-spec 0.20.0 (UNRELEASED)
+==================================
 
-…
+This is a new stable version of telepathy-spec, intended to serve as a
+reference point for future work. There were no API changes since development
+release 0.19.13; changes from the year of development since 0.18.0 are
+summarized below.
+
+The versions of libraries, connection managers and Mission Control recommended
+for use with GNOME 2.32 (the upcoming telepathy-glib 0.12, telepathy-gabble 0.10
+and Mission Control 5.6 stable branches) can be expected to support most of
+the API from this spec release.
+
+Semantic changes
+----------------
+
+• The timestamps used for "user action time", intended for focus-stealing
+  prevention, are no longer interpreted as seconds since 1970. Instead, they
+  should be interpreted as X-server time on X GUI platforms,
+  with two special values (0 and the maximum 64-bit signed integer) having
+  their own semantics.
+
+Enhancements to core API
+------------------------
+
+• Connection now has Status, Interfaces properties
+• ConnectionManager now has Protocol objects with more information about
+  protocols (at the time of release, this is supported in telepathy-gabble
+  0.9.x but not in most other connection managers)
+• Account.ChangingPresence indicates when changes are being attempted
+• Account.Service indicates a specific service such as "google-talk"
+• Account has extensible details of the last connection error
+• Observers can have a Recover flag, which provides best-effort crash recovery
+• ChannelDispatchOperation.HandleWithTime can pass through a timestamp for
+  focus-stealing prevention
+• various new error codes
+
+New optional interfaces
+-----------------------
+
+• Account.I.Storage indicates which backend an account is stored in
+• Conn.I.Anonymity, Chan.I.Anonymity — controlling caller-ID and similar
+  features
+• Conn.I.Balance — machine-readable account balance, e.g. SkypeOut credit
+• Conn.I.Cellular — extra information about cellular connections
+• Conn.I.ContactInfo — information that contacts provide about themselves,
+  in a vCard-like format
+• Conn.I.ServicePoint, Chan.I.ServicePoint — emergency contact points
+• Chan.T.ServerTLSConnection — interactive approval of any problematic
+  TLS/SSL certificates
+• Chan.T.ContactSearch — searching for contacts by name, address etc.
+• Chan.I.Conference — multi-user text or media conferences
+  which can be made by merging or upgrading 1-1 channels
+• Chan.I.SMS — SMS-specific extensions to Text channels (currently only
+  one property, indicating class 0 "flash" SMSs)
+
+Enhancements to optional interfaces
+-----------------------------------
+
+• chat states are state-recoverable
+• a new flag indicates whether Location can be set
+
+Changes since 0.19.13
+---------------------
+
+• improve wording of experimental Conn.I.ClientTypes and Conn.I.PowerSaving
+  interfaces (danni, wjt)
 
 telepathy-spec 0.19.13 (2010-09-13)
 ===================================
