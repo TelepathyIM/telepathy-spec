@@ -2,7 +2,7 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.20.0 (UNRELEASED)
+telepathy-spec 0.20.0 (2010-09-14)
 ==================================
 
 This is a new stable version of telepathy-spec, intended to serve as a
