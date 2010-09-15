@@ -2,6 +2,11 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.21.0 (UNRELEASED)
+==================================
+
+…
+
 telepathy-spec 0.20.1 (2010-09-15)
 ==================================
 
@@ -11,7 +16,7 @@ Fixes:
 
 • Correct the tp:name-for-bindings on ServerCertificate to be
   Server_Certificate, leading to the intended names (server_certificate
-  rather than servercertificate, etc.) in generated bindings.
+  rather than servercertificate, etc.) in generated bindings. (smcv)
 
 telepathy-spec 0.20.0 (2010-09-14)
 ==================================
