@@ -99,7 +99,6 @@
 
     <property name="ContactListState" tp:name-for-bindings="Contact_List_State"
       type="u" tp:type="Contact_List_State" access="read">
-      <tp:added version="0.19.12">(in draft 3)</tp:added>
       <tp:docstring>
         The progress made in retrieving the contact list.
         Change notification is via
@@ -109,7 +108,6 @@
 
     <signal name="ContactListStateChanged"
       tp:name-for-bindings="Contact_List_State_Changed">
-      <tp:added version="0.19.12">(in draft 3)</tp:added>
       <tp:docstring>
         Emitted when <tp:member-ref>ContactListState</tp:member-ref>
         changes.
@@ -124,8 +122,6 @@
 
     <method name="GetContactListAttributes"
       tp:name-for-bindings="Get_Contact_List_Attributes">
-      <tp:changed version="0.19.12">(semantics changed in draft
-        3)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Return some contact attributes for a list of contacts
           associated with the user. This list MUST include at least:</p>
@@ -383,7 +379,6 @@
 
     <property name="ContactListPersists"
       tp:name-for-bindings="Contact_List_Persists" type="b" access="read">
-      <tp:changed version="0.19.12">(renamed in draft 3)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, presence subscriptions (in both directions) on this
           connection are stored by the server or other infrastructure.</p>
