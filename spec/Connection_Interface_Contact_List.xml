@@ -18,10 +18,9 @@
       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
       USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT3"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.19.12">(draft 3)</tp:added>
+    <tp:added version="0.21.UNRELEASED">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections that have any concept of a list of

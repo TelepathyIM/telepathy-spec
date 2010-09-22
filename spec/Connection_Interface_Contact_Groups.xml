@@ -18,11 +18,10 @@
       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
       USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactGroups.DRAFT"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactGroups">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactList.DRAFT3"/>
-    <tp:added version="0.19.6">(draft 1)</tp:added>
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactList"/>
+    <tp:added version="0.21.UNRELEASED">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections in which contacts can be placed in
@@ -34,7 +33,7 @@
         <tp:token-ref>groups</tp:token-ref> contact attribute (this should
         usually be done by connecting to the GroupsChanged signal, then
         calling <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          namespace="ofdT.Connection.Interface.ContactList"
           >GetContactListAttributes</tp:dbus-ref> with this interface
         included in the Interfaces argument). Simple user interfaces can
         limit themselves to displaying that information, and ignore the rest
@@ -149,7 +148,7 @@
           receiving <tp:member-ref>GroupRenamed</tp:member-ref>.</p>
 
         <p>This property's value is not meaningful until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> has become Success.</p>
       </tp:docstring>
     </property>
@@ -264,11 +263,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
@@ -325,11 +324,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
@@ -375,11 +374,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
@@ -419,11 +418,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
@@ -465,11 +464,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
@@ -508,11 +507,11 @@
           this method call MUST be emitted before the method returns.</p>
 
         <p>This method SHOULD NOT be called until the
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >ContactListState</tp:dbus-ref> changes to Success.
           If the ContactListState is Failure, this method SHOULD raise the
           same error as
-          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          <tp:dbus-ref namespace="ofdT.Connection.Interface.ContactList"
             >GetContactListAttributes</tp:dbus-ref>.</p>
       </tp:docstring>
 
