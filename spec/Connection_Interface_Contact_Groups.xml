@@ -65,6 +65,26 @@
       </tp:docstring>
     </tp:contact-attribute>
 
+    <signal name="GroupsChanged" tp:name-for-bindings="Groups_Changed">
+      <tp:docstring>
+        Emitted when contacts' groups change.
+      </tp:docstring>
+
+      <arg name="Contact" type="au" tp:type="Contact_Handle">
+        <tp:docstring>The relevant contacts.</tp:docstring>
+      </arg>
+
+      <arg name="Added" type="as">
+        <tp:docstring>The names of groups to which the contacts were
+          added.</tp:docstring>
+      </arg>
+
+      <arg name="Removed" type="as">
+        <tp:docstring>The names of groups from which the contacts were
+          removed.</tp:docstring>
+      </arg>
+    </signal>
+
     <property name="Groups" type="as" access="read"
       tp:name-for-bindings="Groups">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -163,26 +183,6 @@
 
       <arg name="Names" type="as">
         <tp:docstring>The names of the groups.</tp:docstring>
-      </arg>
-    </signal>
-
-    <signal name="GroupsChanged" tp:name-for-bindings="Groups_Changed">
-      <tp:docstring>
-        Emitted when contacts' groups change.
-      </tp:docstring>
-
-      <arg name="Contact" type="au" tp:type="Contact_Handle">
-        <tp:docstring>The relevant contacts.</tp:docstring>
-      </arg>
-
-      <arg name="Added" type="as">
-        <tp:docstring>The names of groups to which the contacts were
-          added.</tp:docstring>
-      </arg>
-
-      <arg name="Removed" type="as">
-        <tp:docstring>The names of groups from which the contacts were
-          removed.</tp:docstring>
       </arg>
     </signal>
 
