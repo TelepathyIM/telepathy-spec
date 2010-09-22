@@ -27,6 +27,55 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections in which contacts can be placed in
         user-defined groups.</p>
+
+      <p>The most basic functionality of this interface is to list and monitor
+        a contact's set of groups. To do this, use the
+        <tp:member-ref>GroupsChanged</tp:member-ref> signal, and the
+        <tp:token-ref>groups</tp:token-ref> contact attribute (this should
+        usually be done by connecting to the GroupsChanged signal, then
+        calling <tp:dbus-ref
+          namespace="ofdT.Connection.Interface.ContactList.DRAFT3"
+          >GetContactListAttributes</tp:dbus-ref> with this interface
+        included in the Interfaces argument). Simple user interfaces can
+        limit themselves to displaying that information, and ignore the rest
+        of this interface: to ensure that this works,
+        <tp:member-ref>GroupsChanged</tp:member-ref> is emitted for every
+        change, even if that change could be inferred from another signal
+        such as <tp:member-ref>GroupsRemoved</tp:member-ref>.</p>
+
+      <p>Looking at contacts' lists of groups is sufficient to present a
+        user interface resembling XMPP's data model, in which groups behave
+        like tags applied to contacts, and so an empty group cannot exist
+        or is not interesting. However, some protocols model groups as
+        objects in their own right. User interfaces may either track
+        the set of groups via the <tp:member-ref>Groups</tp:member-ref>
+        property and the <tp:member-ref>GroupsCreated</tp:member-ref> and
+        <tp:member-ref>GroupsRemoved</tp:member-ref> signals, or ignore
+        this extra information.</p>
+
+      <p>Similarly, in some protocols it is possible to rename a group as
+        a single atomic operation. Simpler user interfaces will
+        see the new name being created, the old name being removed, and the
+        members moving to the new name, via the signals described above.
+        More advanced user interfaces can optionally distinguish between an
+        atomic rename and a create/remove pair, and display renamed groups
+        differently, by monitoring the
+        <tp:member-ref>GroupRenamed</tp:member-ref> signal.</p>
+
+      <p>This interface also provides various methods to manipulate
+        user-defined groups, which can be expected to work if
+        <tp:member-ref>GroupStorage</tp:member-ref> is not None.</p>
+
+      <p>Depending on the protocol, some methods might be implemented by
+        more than one protocol operation; for instance, in a
+        "contact-centric" protocol like XMPP,
+        <tp:member-ref>SetContactGroups</tp:member-ref> is a single
+        protocol operation and <tp:member-ref>SetGroupMembers</tp:member-ref>
+        requires a protocol operation per contact, whereas in a more
+        "group-centric" protocol it might be the other way round. User
+        interfaces SHOULD call whichever method most closely resembles the
+        way in which the user's action was represented in the UI, and
+        let the connection manager deal with the details.</p>
     </tp:docstring>
 
     <property name="DisjointGroups" tp:name-for-bindings="Disjoint_Groups"
