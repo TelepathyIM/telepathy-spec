@@ -130,7 +130,7 @@
         <tp:rationale>
           <p>Emitting these extra signals, in this order, means that clients
             that are interested in the set of groups that exist (but treat a
-            rename and a create/remove pair identically) to ignore the
+            rename and a create/remove pair identically) can ignore the
             GroupRenamed signal entirely.</p>
         </tp:rationale>
 
