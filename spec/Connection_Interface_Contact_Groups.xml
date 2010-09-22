@@ -72,7 +72,7 @@
         <tp:member-ref>SetContactGroups</tp:member-ref> is a single
         protocol operation and <tp:member-ref>SetGroupMembers</tp:member-ref>
         requires a protocol operation per contact, whereas in a more
-        "group-centric" protocol it might be the other way round. User
+        "group-centric" protocol it might be the other way around. User
         interfaces SHOULD call whichever method most closely resembles the
         way in which the user's action was represented in the UI, and
         let the connection manager deal with the details.</p>
