@@ -119,7 +119,9 @@
 
     <signal name="GroupRenamed" tp:name-for-bindings="Group_Renamed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a group is renamed.</p>
+        <p>Emitted when a group is renamed, in protocols where this can
+          be distinguished from group creation, removal and membership
+          changes.</p>
 
         <p>Immediately after this signal is emitted,
           <tp:member-ref>GroupsCreated</tp:member-ref> MUST signal the
