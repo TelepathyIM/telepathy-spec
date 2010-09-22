@@ -34,7 +34,7 @@
         <p>In some protocols (like link-local XMPP), while there might not be
           any server or roster, it's possible to list "nearby" contacts.</p>
 
-        <p>In Telepathy 0.18 and older, we represented contact lists as a
+        <p>In Telepathy 0.20 and older, we represented contact lists as a
           collection of <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel.Type"
             >ContactList</tp:dbus-ref> channels. This is remarkably difficult to
