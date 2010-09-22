@@ -20,7 +20,7 @@
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.21.UNRELEASED">(as stable API)</tp:added>
+    <tp:added version="0.21.0">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections that have any concept of a list of

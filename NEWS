@@ -2,10 +2,14 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.0 (UNRELEASED)
+telepathy-spec 0.21.0 (2010-09-22)
 ==================================
 
-…
+New stable API:
+
+• ContactList and ContactGroups are now considered stable, with some
+  clarifications to the wording, but no semantic changes since the drafts in
+  version 0.20.0. (smcv)
 
 telepathy-spec 0.20.1 (2010-09-15)
 ==================================
