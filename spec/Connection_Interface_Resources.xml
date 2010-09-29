@@ -131,8 +131,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           information from them, such as <em>this guy is in the
           office</em> or <em>this guy is chilling at home</em>. The
           absence of an Always enum value is because in the case of
-          XMPP, the resource string could still be useless, like in the
-          case of using gtalk where your resource is forced.</p>
+          XMPP, the resource string could be partially human-readable
+          (as on Google Talk, where a resource of "home" is changed by
+          the server to a unique string like "home_1234fdec") or not at
+          all human-readable.</p>
 
       </tp:docstring>
     </property>
