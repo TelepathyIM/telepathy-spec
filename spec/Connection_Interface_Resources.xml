@@ -130,7 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           most resources are set in a way that the user can deduce some
           information from them, such as <em>this guy is in the
           office</em> or <em>this guy is chilling at home</em>. The
-          absense of an Always enum value is because in the case of
+          absence of an Always enum value is because in the case of
           XMPP, the resource string could still be useless, like in the
           case of using gtalk where your resource is forced.</p>
 
