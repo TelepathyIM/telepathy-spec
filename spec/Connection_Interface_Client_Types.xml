@@ -88,7 +88,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A contact.
         </tp:docstring>
       </tp:member>
-      <tp:member type="as" name="Client_Types">
+      <tp:member type="as" name="Client_Types" tp:type="Contact_Client_Type[]">
         <tp:docstring>
           The contact's client types as documented earlier in this interface.
         </tp:docstring>
@@ -155,7 +155,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
 
-      <arg direction="out" name="Client_Types" type="as">
+      <arg direction="out" name="Client_Types" type="as"
+        tp:type="Contact_Client_Type[]">
         <tp:docstring>
           The contact's client types. It MAY be empty, indicating that no client
           type information was found.
@@ -185,7 +186,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The contact.
         </tp:docstring>
       </arg>
-      <arg name="Client_Types" type="as">
+      <arg name="Client_Types" type="as" tp:type="Contact_Client_Type[]">
         <tp:docstring>
           The contact's client types, or an empty list to indicate that nothing
           is known about the contact's client types.
@@ -193,7 +194,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <tp:contact-attribute name="client-types" type="as">
+    <tp:contact-attribute name="client-types" type="as"
+      tp:type="Contact_Client_Type[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same mapping that would be returned by
           <tp:member-ref>GetClientTypes</tp:member-ref> for this contact.
@@ -201,6 +203,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           known.</p>
       </tp:docstring>
     </tp:contact-attribute>
+
+    <tp:simple-type name="Contact_Client_Type" type="s"
+      array-name="Contact_Client_Type_List">
+      <tp:docstring>A string representing a single client type of a
+        contact.</tp:docstring>
+    </tp:simple-type>
 
   </interface>
 </node>
