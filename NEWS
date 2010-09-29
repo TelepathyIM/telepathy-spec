@@ -2,8 +2,39 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.1 (UNRELEASED)
+telepathy-spec 0.21.1 (2010-09-29)
 ==================================
+
+The "it's Wednesday, so this must be a spec release" release.
+
+Changes to stable API:
+
+• Account.RequestedPresence must not be Unset, Unknown or Error, while
+  Account.AutomaticPresence must not be any of those or Offline, matching
+  the behaviour that Mission Control has implemented in practice since
+  version 5.1.2 (smcv)
+
+• Account.CurrentPresence now allows a non-empty status or message for
+  accounts that are offline or don't support SimplePresence (smcv)
+
+New stable API:
+
+• Conn.I.ClientTypes is now considered stable, with minor clarifications
+  since draft 1, and the 'game' and 'sms' client types removed pending
+  XMPP Registrar inclusion (jonny)
+
+• The Access_Control_Type enum is a superset of
+  Rich_Presence_Access_Control_Type, which it will supersede in future
+  interfaces; similarly, Access_Control supersedes
+  Rich_Presence_Access_Control (eeejay)
+
+New experimental API:
+
+• Conn.I.CommunicationPolicy allows incoming channels from particular
+  contacts to be forbidden (eeejay)
+
+• Conn.I.Resources allows connections with multiple resources or points of
+  presence, such as on XMPP and MSN, to be represented (jonny)
 
 telepathy-spec 0.21.0 (2010-09-22)
 ==================================
