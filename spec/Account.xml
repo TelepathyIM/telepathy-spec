@@ -585,6 +585,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           This corresponds to e.g. GetPresence and GetPresenceMessage
           in NMC 4.x.
         </tp:rationale>
+
+        <p>The <tp:type>Connection_Presence_Type</tp:type> in this property
+          MUST NOT be Unset, Unknown or Error.</p>
+
+        <tp:rationale>
+          <p>Requesting those presence types doesn't make sense.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
