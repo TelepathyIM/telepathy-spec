@@ -128,13 +128,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           these strings in the UI, so this property would be set to
           Resources_Human_Readability_Maybe. This is the case in XMPP --
           most resources are set in a way that the user can deduce some
-          information from them, such as <em>this guy is in the
-          office</em> or <em>this guy is chilling at home</em>. The
-          absence of an Always enum value is because in the case of
-          XMPP, the resource string could be partially human-readable
-          (as on Google Talk, where a resource of "home" is changed by
-          the server to a unique string like "home_1234fdec") or not at
-          all human-readable.</p>
+          information from them. The absence of an Always enum value is
+          because in the case of XMPP, the resource string could be
+          partially human-readable (as on Google Talk, where a resource
+          of "home" is changed by the server to a unique string like
+          "home_1234fdec") or not at all human-readable.</p>
 
       </tp:docstring>
     </property>
