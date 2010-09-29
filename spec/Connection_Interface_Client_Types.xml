@@ -47,9 +47,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <li>pc</li>
         <li>phone</li>
         <li>web</li>
+<!-- Excluding these two because there's been no conclusion regarding my mail
+     to standards@xmpp.org about adding these two to their list:
+
         <li>sms (the client is not actually an instant messaging client
           but all messages sent to this contact will be delivered as SMSs)</li>
         <li>game (a gaming device)</li>
+-->
       </ul>
 
       <p>If the empty list is given as the client types, this means that
