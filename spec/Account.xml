@@ -407,16 +407,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The presence status that this account should have if it is brought
           online.</p>
 
-        <p>Setting this property MUST NOT actually change the account's
-          status until the next time it is (re)connected for some reason.</p>
-
-        <p>The <tp:type>Connection_Presence_Type</tp:type> in the structure
-          SHOULD NOT be Offline or Unset.</p>
-
         <tp:rationale>
           In ITOS2007 and ITOS2008 this is a global preference, not visible
           on D-Bus (the "default presence"). "Automatic presence" better
           describes when it is used.
+        </tp:rationale>
+
+        <p>Setting this property MUST NOT actually change the account's
+          status until the next time it is (re)connected for some reason.</p>
+
+        <p>The value of this property MUST be one that would be acceptable
+          for <tp:member-ref>RequestedPresence</tp:member-ref>,
+          with the additional restriction that the
+          <tp:type>Connection_Presence_Type</tp:type> MUST NOT be Offline.</p>
+
+        <tp:rationale>
+          <p>Otherwise, it would not be possible to use this presence to bring
+            the account online for a channel request.</p>
         </tp:rationale>
       </tp:docstring>
     </property>
