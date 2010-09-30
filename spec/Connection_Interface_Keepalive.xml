@@ -61,6 +61,10 @@
         <p>The time in seconds between pings sent to the server to ensure that
           the connection is still alive, or <tt>0</tt> to disable such
           pings.</p>
+
+        <p>This property (and parameter) supersedes the older
+          <tt>keepalive-interval</tt>
+          <tp:type>Connection_Parameter_Name</tp:type>).</p>
       </tp:docstring>
     </property>
 
