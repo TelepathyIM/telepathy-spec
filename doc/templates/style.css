@@ -183,7 +183,7 @@ div.annotation {
 	padding-left: 1ex;
 }
 
-div.annotation span.version, span.warning {
+div.annotation span.version, span.warning, span.note {
 	font-weight: bold;
 }
 
@@ -211,6 +211,14 @@ div.havoc {
 div.deprecated span.version,
 span.warning {
 	color: #a40000;
+}
+
+div.connection-parameter {
+	border-left-color: #0000a4;
+}
+
+div.connection-parameter .note {
+	color: #0000a4;
 }
 
 div.rationale {

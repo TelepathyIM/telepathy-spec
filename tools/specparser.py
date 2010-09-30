@@ -487,6 +487,9 @@ class Property(DBusConstruct, Typed):
         else:
             raise UnknownAccess("Unknown access '%s' on %s" % (access, self))
 
+        is_cp = dom.getAttributeNS(XMLNS_TP, 'is-connection-parameter')
+        self.is_connection_parameter = is_cp != ''
+
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
             return 'Read/Write'
