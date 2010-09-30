@@ -147,13 +147,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="DBus_Property" value="16">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          This parameter is also a D-Bus property on the resulting <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>; a
-          parameter named <code>com.example.Duck.Macaroni</code> with this flag
-          corresponds to the <code>Macaroni</code> property on the
-          <code>com.example.Duck</code> interface.  Its value can be queried
-          and possibly changed on an existing Connection using methods on the
-          <code>org.freedesktop.DBus.Properties</code> interface.
+          <p>This parameter is also a D-Bus property on the resulting
+            <tp:dbus-ref
+              namespace="ofdT">Connection</tp:dbus-ref>; a
+            parameter named <code>com.example.Duck.Macaroni</code> with this
+            flag corresponds to the <code>Macaroni</code> property on the
+            <code>com.example.Duck</code> interface.  Its value can be queried
+            and possibly changed on an existing Connection using methods on the
+            <code>org.freedesktop.DBus.Properties</code> interface.</p>
+
+          <p>When a parameter with this flag is changed with <tp:dbus-ref
+            namespace="ofdT">Account.UpdateParameters</tp:dbus-ref>, the
+            account manager will attempt to update its value on any running
+            connections. Thus, clients generally do not need to directly access
+            or update the connection property; instead, they SHOULD manipulate
+            <tp:dbus-ref namespace="ofdT">Account.Parameters</tp:dbus-ref>.</p>
+
+          <tp:rationale>
+            <p>This allows runtime-configurable options to be stored and
+              maintained by the <tp:dbus-ref
+              namespace='ofdT'>AccountManager</tp:dbus-ref>, without needing to
+              invent a separate account preference for “properties that should
+              be set on the connection as soon as it is created”. It was
+              originally invented to manage <tp:dbus-ref
+                namespace='ofdT.Connection.Interface'>Cellular</tp:dbus-ref>
+              preferences.</p>
+          </tp:rationale>
         </tp:docstring>
         <tp:added version="0.17.16"/>
       </tp:flag>
