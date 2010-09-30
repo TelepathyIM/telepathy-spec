@@ -930,6 +930,8 @@ class ErrorsSection(Section):
 
 class Spec(SectionBase):
     def __init__(self, dom, spec_namespace):
+        self.document = dom
+
         # build a dictionary of errors in this spec
         try:
             errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
