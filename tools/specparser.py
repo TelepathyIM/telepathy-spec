@@ -179,9 +179,15 @@ class Base(object):
             try:
                 node.removeAttribute('version')
 
-                span = xml.dom.minidom.parseString(
-                    ('<span class="version">%s\n</span>' % txt) %
-                            nnode.getAttribute('version')).firstChild
+                doc = self.get_spec().document
+
+                span = doc.createElement('span')
+                span.setAttribute('class', 'version')
+
+                text = doc.createTextNode(
+                    txt % nnode.getAttribute('version') + ' ')
+                span.appendChild(text)
+
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
                 raise MissingVersion(
@@ -223,6 +229,7 @@ class Base(object):
 
     def _convert_to_html(self, node):
         spec = self.get_spec()
+        doc = spec.document
         root_namespace = self.get_root_namespace()
 
         # rewrite <tp:rationale>
@@ -231,21 +238,26 @@ class Base(object):
             if nested:
                 raise Xzibit(n, nested[0])
 
-            rationale_div = xml.dom.minidom.parseString(
-                """
+            """
                 <div class='rationale'>
                   <h5>Rationale:</h5>
-                  <div/>
+                  <div/> <- inner_div
                 </div>
-                """).documentElement
-            n.parentNode.replaceChild(rationale_div, n)
+            """
+            outer_div = doc.createElement('div')
+            outer_div.setAttribute('class', 'rationale')
 
-            # It's the third child: space, h5, space, div
-            inner_div = rationale_div.childNodes[3]
-            assert inner_div.nodeName == 'div', inner_div
+            h5 = doc.createElement('h5')
+            h5.appendChild(doc.createTextNode('Rationale:'))
+            outer_div.appendChild(h5)
+
+            inner_div = doc.createElement('div')
+            outer_div.appendChild(inner_div)
 
             for rationale_body in n.childNodes:
                 inner_div.appendChild(rationale_body.cloneNode(True))
+
+            n.parentNode.replaceChild(outer_div, n)
 
         # rewrite <tp:type>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'type'):
