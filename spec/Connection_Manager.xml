@@ -425,6 +425,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             that the connection is still alive, or <tt>0</tt> to disable such
             pings.</dd>
         </dl>
+
+        <p>The following well-known parameter names correspond to D-Bus
+          properties, and thus their <tp:type>Conn_Mgr_Param_Flags</tp:type>
+          should include DBus_Property. See that flag for more details on this
+          kind of parameter.</p>
+
+        <tp:list-dbus-property-parameters/>
       </tp:docstring>
     </tp:simple-type>
 

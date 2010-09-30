@@ -339,6 +339,35 @@ WARNING: Key '%s' not known in namespace '%s'
             n.setAttribute('href', o.get_url())
             n.setAttribute('title', o.get_title())
 
+        # Fill in <tp:list-dbus-property-parameters/> with a linkified list of
+        # properties which are also connection parameters
+        for n in node.getElementsByTagNameNS(XMLNS_TP,
+                    'list-dbus-property-parameters'):
+            n.tagName = 'ul'
+            n.namespaceURI = None
+
+            props = (p for interface in spec.interfaces
+                       for p in interface.properties
+                       if p.is_connection_parameter
+                    )
+
+            for p in props:
+                link_text = doc.createTextNode(p.name)
+
+                a = doc.createElement('a')
+                a.setAttribute('href', p.get_url())
+                a.appendChild(link_text)
+
+                # FIXME: it'd be nice to include the rich type of the property
+                # here too.
+                type_text = doc.createTextNode(' (%s)' % p.dbus_type)
+
+                li = doc.createElement('li')
+                li.appendChild(a)
+                li.appendChild(type_text)
+
+                n.appendChild(li)
+
     def get_title(self):
         return '%s %s' % (self.get_type_name(), self.name)
 
