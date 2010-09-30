@@ -174,7 +174,7 @@ class Base(object):
             node = nnode.cloneNode(True)
             node.tagName = 'div'
             node.baseURI = None
-            node.setAttribute('class', htmlclass)
+            node.setAttribute('class', 'annotation %s' % htmlclass)
 
             try:
                 node.removeAttribute('version')

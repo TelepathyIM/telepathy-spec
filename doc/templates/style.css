@@ -177,39 +177,40 @@ div.docstring {
 	margin: 1ex;
 }
 
-div.added {
-	border-left: 2px solid #4e9a06;
+div.annotation {
+	border-left: 2px solid;
 	margin: 1ex;
 	padding-left: 1ex;
+}
+
+div.annotation span.version, span.warning {
+	font-weight: bold;
+}
+
+div.added {
+	border-left-color: #4e9a06;
 }
 
 div.added span.version {
 	color: #4e9a06;
-	font-weight: bold;
 }
 
 div.changed {
-	border-left: 2px solid #8f5902;
-	margin: 1ex;
-	padding-left: 1ex;
+	border-left-color: #8f5902;
 }
 
 div.changed span.version {
 	color: #8f5902;
-	font-weight: bold;
 }
 
 div.deprecated,
 div.havoc {
-	border-left: 2px solid #a40000;
-	margin: 1ex;
-	padding-left: 1ex;
+	border-left-color: #a40000;
 }
 
 div.deprecated span.version,
 span.warning {
 	color: #a40000;
-	font-weight: bold;
 }
 
 div.rationale {
