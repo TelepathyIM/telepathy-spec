@@ -273,7 +273,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A dictionary mapping parameter names to values of the appropriate
           type, as indicated by <tp:member-ref>GetParameters</tp:member-ref>
-          and the above well-known list.
+          and the well-known list of names and value types documented on the
+          <tp:type>Connection_Parameter_Name</tp:type> type.
         </tp:docstring>
       </arg>
       <arg direction="out" type="s" tp:type="DBus_Bus_Name" name="Bus_Name">
@@ -307,7 +308,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>To request values for these parameters from the user, a client must
         have prior knowledge of the meaning of the parameter names, so the
-        following well-known names and types should be used where appropriate:</p>
+        well-known names and types defined by the
+        <tp:type>Connection_Parameter_Name</tp:type> type should be used where
+        appropriate.</p>
+
+        <p>Connection manager authors SHOULD avoid introducing parameters
+          whose default values would not be serializable in a
+          <code>.manager</code> file.</p>
+
+        <tp:rationale>
+          <p>The same serialization format is used in Mission Control
+            to store accounts.</p>
+        </tp:rationale>
+
+        <p>Every successful RequestConnection call will cause the emission of a
+        <tp:member-ref>NewConnection</tp:member-ref> signal for the same newly
+        created connection. The
+        requester can use the returned object path and service name
+        independently of the emission of that signal. In that case this signal
+        emission is most useful for, e.g. other processes that are monitoring
+        the creation of new connections.</p>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The requested protocol is not supported by this manager
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The requested connection already appears to exist
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            Unrecognised connection parameters
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <tp:simple-type name="Connection_Parameter_Name" type="s">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Well-known connection parameter names, along with their expected
+          type. Where possible, connection managers should use names and types
+          from this list in the <tp:dbus-ref
+          namespace='ofdT.Protocol'>Parameters</tp:dbus-ref> that may be passed
+          to <tp:member-ref>RequestConnection</tp:member-ref>.</p>
 
         <dl>
           <dt>account (s)</dt>
@@ -358,43 +406,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             that the connection is still alive, or <tt>0</tt> to disable such
             pings.</dd>
         </dl>
-
-        <p>Connection manager authors SHOULD avoid introducing parameters
-          whose default values would not be serializable in a
-          <code>.manager</code> file.</p>
-
-        <tp:rationale>
-          <p>The same serialization format is used in Mission Control
-            to store accounts.</p>
-        </tp:rationale>
-
-        <p>Every successful RequestConnection call will cause the emission of a
-        <tp:member-ref>NewConnection</tp:member-ref> signal for the same newly
-        created connection. The
-        requester can use the returned object path and service name
-        independently of the emission of that signal. In that case this signal
-        emission is most useful for, e.g. other processes that are monitoring
-        the creation of new connections.</p>
       </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          <tp:docstring>
-            The requested protocol is not supported by this manager
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            The requested connection already appears to exist
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            Unrecognised connection parameters
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
+    </tp:simple-type>
 
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
       type="as" access="read">
