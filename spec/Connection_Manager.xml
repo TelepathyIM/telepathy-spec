@@ -421,9 +421,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             significant if the stun-server is also supplied.</dd>
 
           <dt>keepalive-interval (u)</dt>
-          <dd>The time in seconds between pings sent to the server to ensure
-            that the connection is still alive, or <tt>0</tt> to disable such
-            pings.</dd>
+          <dd>
+            <p>The time in seconds between pings sent to the server to ensure
+              that the connection is still alive, or <tt>0</tt> to disable such
+              pings.</p>
+
+            <p>This parameter is superseded by the <tp:dbus-ref
+                namespace='ofdT.Connection.Interface.Keepalive.DRAFT'>KeepaliveInterval</tp:dbus-ref>
+              property, which can be updated on an already-established
+              connection as well as being specified when requesting the
+              connection. Clients SHOULD provide that parameter instead, if
+              allowed; new connection managers SHOULD implement it in
+              preference to this one.</p>
+          </dd>
         </dl>
 
         <p>The following well-known parameter names correspond to D-Bus
