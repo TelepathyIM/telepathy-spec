@@ -276,8 +276,9 @@ WARNING: Key '%s' not known in namespace '%s'
             namespace = n.getAttribute('namespace')
             key = getText(n)
 
-            if namespace.startswith('ofdT.'):
-                namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+            if namespace.startswith('ofdT.') or namespace == 'ofdT':
+                namespace = namespace.replace('ofdT',
+                    'org.freedesktop.Telepathy')
 
             try:
                 o = spec.lookup(key, namespace=namespace)
