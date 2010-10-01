@@ -160,7 +160,7 @@
    #end if
 
    #if $interface.causes_havoc
-   <div class="havoc"><span class="warning">WARNING:</span>
+   <div class="annotation havoc"><span class="warning">WARNING:</span>
     This interface is $interface.causes_havoc and is likely to cause havoc
     to your API/ABI if bindings are generated. Do not include this interface
     in libraries that care about compatibility.
@@ -302,7 +302,9 @@
     <a name="properties"></a>
     <h1>Properties</h1>
     <div>
-     Accessed using the org.freedesktop.DBus.Properties interface.
+     Accessed using the <a
+       href="http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties">org.freedesktop.DBus.Properties</a>
+     interface.
     </div>
     #for $property in $interface.properties
     <div class="inset property">
@@ -317,6 +319,23 @@
      $property.get_added()
      $property.get_changed()
      $property.get_deprecated()
+
+      #if $property.is_connection_parameter:
+      <div class="annotation connection-parameter">
+        <p><span class='note'>Note:</span> Connections implementing this
+          property SHOULD provide a corresponding parameter named
+          <tt>$interface.name</tt> with the <a
+          href="Connection_Manager.html#Conn_Mgr_Param_Flags">DBus_Property</a>
+          flag. Clients SHOULD update this property by
+          calling <a
+            href="Account.html#org.freedesktop.Telepathy.Account.UpdateParameters">UpdateParameters</a>
+          on the relevant <a href="Account.html">Account</a> rather than
+          setting the property directly; change notification is via <a
+            href="Account.html#org.freedesktop.Telepathy.Account.AccountPropertyChanged">AccountPropertyChanged</a>.
+          </p>
+      </div>
+      #end if
+
      $property.get_docstring()
     </div>
     #end for
@@ -328,7 +347,9 @@
     <a name="tpproperties"></a>
     <h1>Telepathy Properties</h1>
     <div>
-     Accessed using the org.freedesktop.Telepathy.Properties interface.
+     Accessed using the <a
+       href="Properties_Interface.html">org.freedesktop.Telepathy.Properties</a>
+     interface.
     </div>
     #for $property in $interface.tpproperties
     <div class="inset tpproperty">

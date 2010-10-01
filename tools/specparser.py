@@ -174,14 +174,20 @@ class Base(object):
             node = nnode.cloneNode(True)
             node.tagName = 'div'
             node.baseURI = None
-            node.setAttribute('class', htmlclass)
+            node.setAttribute('class', 'annotation %s' % htmlclass)
 
             try:
                 node.removeAttribute('version')
 
-                span = xml.dom.minidom.parseString(
-                    ('<span class="version">%s\n</span>' % txt) %
-                            nnode.getAttribute('version')).firstChild
+                doc = self.get_spec().document
+
+                span = doc.createElement('span')
+                span.setAttribute('class', 'version')
+
+                text = doc.createTextNode(
+                    txt % nnode.getAttribute('version') + ' ')
+                span.appendChild(text)
+
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
                 raise MissingVersion(
@@ -223,6 +229,7 @@ class Base(object):
 
     def _convert_to_html(self, node):
         spec = self.get_spec()
+        doc = spec.document
         root_namespace = self.get_root_namespace()
 
         # rewrite <tp:rationale>
@@ -231,21 +238,26 @@ class Base(object):
             if nested:
                 raise Xzibit(n, nested[0])
 
-            rationale_div = xml.dom.minidom.parseString(
-                """
+            """
                 <div class='rationale'>
                   <h5>Rationale:</h5>
-                  <div/>
+                  <div/> <- inner_div
                 </div>
-                """).documentElement
-            n.parentNode.replaceChild(rationale_div, n)
+            """
+            outer_div = doc.createElement('div')
+            outer_div.setAttribute('class', 'rationale')
 
-            # It's the third child: space, h5, space, div
-            inner_div = rationale_div.childNodes[3]
-            assert inner_div.nodeName == 'div', inner_div
+            h5 = doc.createElement('h5')
+            h5.appendChild(doc.createTextNode('Rationale:'))
+            outer_div.appendChild(h5)
+
+            inner_div = doc.createElement('div')
+            outer_div.appendChild(inner_div)
 
             for rationale_body in n.childNodes:
                 inner_div.appendChild(rationale_body.cloneNode(True))
+
+            n.parentNode.replaceChild(outer_div, n)
 
         # rewrite <tp:type>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'type'):
@@ -276,8 +288,9 @@ WARNING: Key '%s' not known in namespace '%s'
             namespace = n.getAttribute('namespace')
             key = getText(n)
 
-            if namespace.startswith('ofdT.'):
-                namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+            if namespace.startswith('ofdT.') or namespace == 'ofdT':
+                namespace = namespace.replace('ofdT',
+                    'org.freedesktop.Telepathy')
 
             try:
                 o = spec.lookup(key, namespace=namespace)
@@ -325,6 +338,35 @@ WARNING: Key '%s' not known in namespace '%s'
             n.namespaceURI = None
             n.setAttribute('href', o.get_url())
             n.setAttribute('title', o.get_title())
+
+        # Fill in <tp:list-dbus-property-parameters/> with a linkified list of
+        # properties which are also connection parameters
+        for n in node.getElementsByTagNameNS(XMLNS_TP,
+                    'list-dbus-property-parameters'):
+            n.tagName = 'ul'
+            n.namespaceURI = None
+
+            props = (p for interface in spec.interfaces
+                       for p in interface.properties
+                       if p.is_connection_parameter
+                    )
+
+            for p in props:
+                link_text = doc.createTextNode(p.name)
+
+                a = doc.createElement('a')
+                a.setAttribute('href', p.get_url())
+                a.appendChild(link_text)
+
+                # FIXME: it'd be nice to include the rich type of the property
+                # here too.
+                type_text = doc.createTextNode(' (%s)' % p.dbus_type)
+
+                li = doc.createElement('li')
+                li.appendChild(a)
+                li.appendChild(type_text)
+
+                n.appendChild(li)
 
     def get_title(self):
         return '%s %s' % (self.get_type_name(), self.name)
@@ -486,6 +528,9 @@ class Property(DBusConstruct, Typed):
             self.access = self.ACCESS_READWRITE
         else:
             raise UnknownAccess("Unknown access '%s' on %s" % (access, self))
+
+        is_cp = dom.getAttributeNS(XMLNS_TP, 'is-connection-parameter')
+        self.is_connection_parameter = is_cp != ''
 
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
@@ -926,6 +971,8 @@ class ErrorsSection(Section):
 
 class Spec(SectionBase):
     def __init__(self, dom, spec_namespace):
+        self.document = dom
+
         # build a dictionary of errors in this spec
         try:
             errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
