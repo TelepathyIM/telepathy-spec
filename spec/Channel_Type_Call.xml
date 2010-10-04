@@ -442,6 +442,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           and <tp:member-ref>CallStateDetails</tp:member-ref> explain the
           reason for the current values for those properties.</p>
 
+        <p>Note that when in a conference call, this property is
+          purely to show your state in joining the call. The receiver
+          (or remote contact) in this context is the conference server
+          itself. The property does not change when other call members'
+          states change.</p>
+
         <p>Clients MAY consider unknown values in this property to be an
           error.</p>
       </tp:docstring>
