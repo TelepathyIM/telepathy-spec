@@ -166,16 +166,7 @@
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="WLM_8_5" value="3">
-        <tp:docstring>
-          The transport used by Windows Live Messenger 8.5 or later, which
-          resembles ICE draft 6.
-          [This corresponds to "wlm-8.5" in the old Media.StreamHandler
-          interface.]
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="WLM_2009" value="4">
+      <tp:enumvalue suffix="WLM_2009" value="3">
         <tp:docstring>
           The transport used by Windows Live Messenger 2009 or later, which
           resembles ICE draft 19.
