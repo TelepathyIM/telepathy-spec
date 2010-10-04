@@ -462,6 +462,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>Clients are expected to ignore unknown flags in this property,
           without error.</p>
+
+        <p>When an ongoing call is active and not on hold or has any
+          other problems, this property will be 0.</p>
       </tp:docstring>
     </property>
 
