@@ -723,7 +723,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       type="a{uu}" access="read" tp:type="Call_Member_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         A mapping from the remote contacts that are part of this call to flags
-        discribing their status. This mapping never has the local user's handle
+        describing their status. This mapping never has the local user's handle
         as a key.
       </tp:docstring>
     </property>
