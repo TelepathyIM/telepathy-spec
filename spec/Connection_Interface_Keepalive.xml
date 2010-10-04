@@ -64,7 +64,7 @@
 
         <p>This property (and parameter) supersedes the older
           <tt>keepalive-interval</tt>
-          <tp:type>Connection_Parameter_Name</tp:type>).</p>
+          <tp:type>Connection_Parameter_Name</tp:type>.</p>
       </tp:docstring>
     </property>
 
