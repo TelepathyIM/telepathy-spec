@@ -148,11 +148,10 @@
 
       <tp:enumvalue suffix="ICE" value="1">
         <tp:docstring>
-          Interactive Connectivity Establishment, as defined by RFC 5245.
-          [FIXME: do we want this to cover both ICE-UDP and ICE-TCP, or split
-          them?]
-          [This corresponds to "ice-udp" in the old Media.StreamHandler
-          interface.]
+          Interactive Connectivity Establishment, as defined by RFC
+          5245. Note that this value covers ICE-UDP only.
+          [This corresponds to "ice-udp" in the old
+          Media.StreamHandler interface.]
         </tp:docstring>
       </tp:enumvalue>
 
