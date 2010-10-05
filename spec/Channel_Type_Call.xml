@@ -151,10 +151,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg direction="in" name="Content_Name" type="s">
         <tp:docstring>
-          The suggested name of the content to add
+          The suggested name of the content to add. As with the
+          <tp:member-ref>InitialAudioName</tp:member-ref> and
+          <tp:member-ref>InitialVideoName</tp:member-ref> properties,
+          if there exists a content already with this suggested name,
+          a suitable suffix should be appended.
 
           <tp:rationale>
-            [FIXME: rationale]
+            The content name property should be meaningful, so should
+            be given a name which is significant to the user. The name
+            could be a localized "audio", "video" or perhaps include
+            some string identifying the source, such as a webcam
+            identifier.
           </tp:rationale>
         </tp:docstring>
       </arg>

@@ -62,8 +62,15 @@
 
     <property name="Name" tp:name-for-bindings="Name" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The name of the content.
-          [FIXME: rationale?]</p>
+        <p>The name of the content.</p>
+
+        <tp:rationale>
+          The content name property should be meaningful, so should
+          be given a name which is significant to the user. The name
+          could be a localized "audio", "video" or perhaps include
+          some string identifying the source, such as a webcam
+          identifier.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
