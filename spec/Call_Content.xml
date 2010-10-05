@@ -35,7 +35,13 @@
 
     <method name="Remove" tp:name-for-bindings="Remove">
       <tp:docstring>Remove the content from the call.</tp:docstring>
-
+      <arg direction="in" name="Reason" type="s">
+        <tp:docstring>
+          A reason for removing the content, for example "Fatal
+          streaming failure", "no codec intersection", etc. This
+          property can be left empty if no reason is to be given.
+        </tp:docstring>
+      </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError">
         </tp:error>
