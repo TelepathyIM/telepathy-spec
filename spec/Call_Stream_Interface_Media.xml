@@ -29,7 +29,7 @@
       [FIXME]
     </tp:docstring>
 
-    <tp:method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
+    <method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
       <tp:docstring>
         Used to set the username fragment and password for streams that have
         global credentials.
@@ -40,7 +40,7 @@
       </tp:docstring>
       <arg name="Username" type="s" direction="in"/>
       <arg name="Password" type="s" direction="in" />
-    </tp:method>
+    </method>
 
     <tp:mapping name="Candidate_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
