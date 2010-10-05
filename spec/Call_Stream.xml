@@ -173,6 +173,17 @@
           have been asked to do so.</p>
       </tp:docstring>
     </property>
+
+    <property name="CanRequestReceiving" tp:name-for-bindings="Can_Request_Receiving"
+        type="b" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, the user can request that a remote contact starts
+          sending on this stream.</p>
+
+        <tp:rationale>Not all protocols allow the user to ask the
+          other side to start sending media.</tp:rationale>
+      </tp:docstring>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
