@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <node name="/Call_Stream_Interface_Media"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>Copyright © 2009 Collabora Ltd.</tp:copyright>
-  <tp:copyright>Copyright © 2009 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright © 2009-2010 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright © 2009-2010 Nokia Corporation</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
     <p>This library is free software; you can redistribute it and/or
       modify it under the terms of the GNU Lesser General Public
@@ -148,12 +148,10 @@
 
       <tp:enumvalue suffix="ICE" value="1">
         <tp:docstring>
-          Interactive Connectivity Establishment, as defined by the IETF MMUSIC
-          working group.
-          [FIXME: do we want this to cover both ICE-UDP and ICE-TCP, or split
-          them?]
-          [This corresponds to "ice-udp" in the old Media.StreamHandler
-          interface.]
+          Interactive Connectivity Establishment, as defined by RFC
+          5245. Note that this value covers ICE-UDP only.
+          [This corresponds to "ice-udp" in the old
+          Media.StreamHandler interface.]
         </tp:docstring>
       </tp:enumvalue>
 
@@ -166,16 +164,7 @@
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="WLM_8_5" value="3">
-        <tp:docstring>
-          The transport used by Windows Live Messenger 8.5 or later, which
-          resembles ICE draft 6.
-          [This corresponds to "wlm-8.5" in the old Media.StreamHandler
-          interface.]
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="WLM_2009" value="4">
+      <tp:enumvalue suffix="WLM_2009" value="3">
         <tp:docstring>
           The transport used by Windows Live Messenger 2009 or later, which
           resembles ICE draft 19.

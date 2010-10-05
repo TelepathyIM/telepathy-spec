@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <node name="/Call_Content"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
-  <tp:copyright>Copyright © 2009 Collabora Ltd.</tp:copyright>
-  <tp:copyright>Copyright © 2009 Nokia Corporation</tp:copyright>
+  <tp:copyright>Copyright © 2009-2010 Collabora Ltd.</tp:copyright>
+  <tp:copyright>Copyright © 2009-2010 Nokia Corporation</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
     <p>This library is free software; you can redistribute it and/or
       modify it under the terms of the GNU Lesser General Public
@@ -62,8 +62,15 @@
 
     <property name="Name" tp:name-for-bindings="Name" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The name of the content.
-          [FIXME: rationale?]</p>
+        <p>The name of the content.</p>
+
+        <tp:rationale>
+          The content name property should be meaningful, so should
+          be given a name which is significant to the user. The name
+          could be a localized "audio", "video" or perhaps include
+          some string identifying the source, such as a webcam
+          identifier.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
@@ -105,7 +112,7 @@
               >Accept</tp:dbus-ref> is called on the channel, all streams of
             this content where the self-handle's sending state in <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-              >Senders</tp:dbus-ref> is Sending_State_Pending_Send
+              >Members</tp:dbus-ref> is Sending_State_Pending_Send
             will be moved to Sending_State_Sending as if <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
               >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
