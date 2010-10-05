@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>A channel type for making audio and video calls.</p>
 
       <p>A Call channel can have one or more <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
+        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>
         objects, which represent the actual Media that forms the Call (e.g. an
         audio content and a video content).</p>
 
@@ -47,16 +47,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Indicate that the local user has been alerted about the incoming
           call.</p>
 
-        <p>This method is only useful if the channel's
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel"
-            >Requested</tp:dbus-ref> property is false, and the
-          <tp:member-ref>CallState</tp:member-ref> is
-          Call_State_Pending_Receiver. While this is the case,
-          this method SHOULD change the
+        <p>This method is only useful if the channel's <tp:dbus-ref
+          namespace="ofdT.Channel">Requested</tp:dbus-ref> property is
+          false, and the <tp:member-ref>CallState</tp:member-ref> is
+          Call_State_Pending_Receiver. While this is the case, this
+          method SHOULD change the
           <tp:member-ref>CallFlags</tp:member-ref> to include
-          Call_Flag_Ringing, and notify the remote contact that the local
-          user has been alerted (if the protocol implements this); repeated
-          calls to this method SHOULD succeed, but have no further effect.</p>
+          Call_Flag_Ringing, and notify the remote contact that the
+          local user has been alerted (if the protocol implements this);
+          repeated calls to this method SHOULD succeed, but have no
+          further effect.</p>
 
         <p>In all other states, this method SHOULD fail with the error
           NotAvailable.</p>
@@ -65,9 +65,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The call was <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel"
-              >Requested</tp:dbus-ref>, so ringing does not make sense.
+            The call was <tp:dbus-ref namespace="ofdT.Channel"
+            >Requested</tp:dbus-ref>, so ringing does not make sense.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
@@ -95,16 +94,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           client (user interface) is handling the channel.</p>
 
         <p>When this method is called, for each <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call"
-            >Content.DRAFT</tp:dbus-ref> whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Content.DRAFT"
-            >Disposition</tp:dbus-ref> is Call_Content_Disposition_Initial,
-          any streams where the self-handle's sending state in <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-            >Members</tp:dbus-ref> is Sending_State_Pending_Send
-          will be moved to Sending_State_Sending as if <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-            >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
+          namespace="ofdT.Call" >Content.DRAFT</tp:dbus-ref> whose
+          <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT"
+          >Disposition</tp:dbus-ref> is
+          Call_Content_Disposition_Initial, any streams where the
+          self-handle's sending state in <tp:dbus-ref
+          namespace="ofdT.Call.Stream.DRAFT" >Members</tp:dbus-ref> is
+          Sending_State_Pending_Send will be moved to
+          Sending_State_Sending as if <tp:dbus-ref
+          namespace="ofdT.Call.Stream.DRAFT"
+          >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
       </tp:docstring>
 
       <tp:possible-errors>
@@ -219,15 +218,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="ContentAdded"
             tp:name-for-bindings="Content_Added">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a new <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call"
-            >Content.DRAFT</tp:dbus-ref> is added to the call.</p>
+        <p>Emitted when a new <tp:dbus-ref namespace="ofdT.Call"
+          >Content.DRAFT</tp:dbus-ref> is added to the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          Path to the newly-created <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call"
-            >Content.DRAFT</tp:dbus-ref> object.
+          Path to the newly-created <tp:dbus-ref namespace="ofdT.Call"
+          >Content.DRAFT</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
        <arg name="Content_Type" type="u" tp:type="Media_Stream_Type">
@@ -239,14 +236,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <signal name="ContentRemoved" tp:name-for-bindings="Content_Removed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call"
-            >Content.DRAFT</tp:dbus-ref> is removed from the call.</p>
+        <p>Emitted when a <tp:dbus-ref namespace="ofdT.Call"
+          >Content.DRAFT</tp:dbus-ref> is removed from the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          The <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call"
-            >Content.DRAFT</tp:dbus-ref> which was removed.
+          The <tp:dbus-ref namespace="ofdT.Call"
+          >Content.DRAFT</tp:dbus-ref> which was removed.
         </tp:docstring>
       </arg>
     </signal>
@@ -254,11 +250,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="Contents" type="ao" access="read"
               tp:name-for-bindings="Contents">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The list of
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
-          objects  that are part of this call. Change notification
-          is via the <tp:member-ref>ContentAdded</tp:member-ref> and
+        <p>The list of <tp:dbus-ref
+          namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> objects that
+          are part of this call. Change notification is via the
+          <tp:member-ref>ContentAdded</tp:member-ref> and
           <tp:member-ref>ContentRemoved</tp:member-ref> signals.
         </p>
       </tp:docstring>
@@ -354,12 +349,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:flag suffix="Locally_Held" value="4">
         <tp:docstring>
-          The call has been put on hold by the local user, e.g. using the
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel.Interface"
-            >Hold</tp:dbus-ref> interface. This flag SHOULD only be set if
-          there is at least one Content, and all Contents are locally held;
-          it makes sense on calls in state Call_State_Pending_Receiver or
-          Call_State_Accepted.
+          The call has been put on hold by the local user, e.g. using
+          the <tp:dbus-ref namespace="ofdT.Channel.Interface"
+          >Hold</tp:dbus-ref> interface. This flag SHOULD only be set
+          if there is at least one Content, and all Contents are
+          locally held; it makes sense on calls in state
+          Call_State_Pending_Receiver or Call_State_Accepted.
 
           <tp:rationale>
             Otherwise, in transient situations where some but not all contents
@@ -415,11 +410,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:flag suffix="Muted" value="64">
         <tp:docstring>
           The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Call.Content.Interface"
-            >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only be set if
-          there is at least one Content, and all Contents are locally muted;
-          it makes sense on calls in state Call_State_Pending_Receiver or
-          Call_State_Accepted.
+          <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
+          >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
+          be set if there is at least one Content, and all Contents
+          are locally muted; it makes sense on calls in state
+          Call_State_Pending_Receiver or Call_State_Accepted.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
@@ -654,16 +649,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>This property is immutable (cannot change), and therefore SHOULD
           appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
           signals.</p>
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>If this is FALSE, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
-          will have the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Content.Interface"
-            >Media.DRAFT</tp:dbus-ref> interface, to communicate the necessary
+          will have the <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
+          >Media.DRAFT</tp:dbus-ref> interface, to communicate the necessary
           information to a streaming implementation. Connection managers SHOULD
           operate like this, if possible.</p>
 
@@ -800,10 +794,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If set to true in a channel request that will create a new channel,
           the connection manager should immediately attempt to establish an
           audio stream to the remote contact, making it unnecessary for the
-          client to call
-          <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT">AddContent</tp:dbus-ref>.
-          </p>
+          client to call <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">AddContent</tp:dbus-ref>.</p>
 
         <p>If this property, or InitialVideo, is passed to EnsureChannel
           (as opposed to CreateChannel), the connection manager SHOULD ignore
@@ -818,12 +810,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If true on an unrequested (incoming) channel, this indicates that
           the remote contact initially requested an audio stream; this does
           not imply that that audio stream is still active (as indicated by
-          <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT">Contents</tp:dbus-ref>).</p>
+          <tp:dbus-ref namespace="ofdT.Channel.Type.Call.DRAFT"
+          >Contents</tp:dbus-ref>).</p>
 
         <p>This property is immutable (cannot change), and therefore SHOULD
           appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
           signals.</p>
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
@@ -832,7 +824,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:member-ref>InitialAudioName</tp:member-ref> property.</p>
 
         <p>Connection managers that support the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
+          namespace="ofdT.Connection.Interface">ContactCapabilities</tp:dbus-ref>
           interface SHOULD represent the capabilities of receiving audio
           and/or video calls by including a channel class in
           a contact's capabilities with ChannelType = Call
@@ -850,12 +842,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Clients that are willing to receive audio and/or video calls
           SHOULD include the following among their channel classes if
           calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities">UpdateCapabilities</tp:dbus-ref>
+          namespace="ofdT.Connection.Interface.ContactCapabilities">UpdateCapabilities</tp:dbus-ref>
           (clients of a <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>
+          namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>
           SHOULD instead arrange for the ChannelDispatcher to do this,
           by including the filters in their <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>
+          namespace="ofdT.Client.Handler">HandlerChannelFilter</tp:dbus-ref>
           properties):</p>
 
         <ul>
@@ -905,7 +897,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>This property is immutable (cannot change), and therefore SHOULD
           appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
           signals.</p>
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
@@ -958,7 +950,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>This property is immutable, and therefore SHOULD be announced
           in <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
+          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
           etc.</p>
       </tp:docstring>
     </property>
@@ -978,7 +970,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_GTalk_P2P.</p>
       </tp:docstring>
     </tp:hct>
@@ -986,7 +978,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="ice">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_ICE.</p>
       </tp:docstring>
     </tp:hct>
@@ -994,7 +986,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="wlm-8.5">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_WLM_8_5.</p>
       </tp:docstring>
     </tp:hct>
@@ -1002,7 +994,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="wlm-2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
           property is Stream_Transport_Type_WLM_2009.</p>
       </tp:docstring>
     </tp:hct>
@@ -1034,7 +1026,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>For example, a client could advertise support for audio and video
           calls using Speex, Theora and H264 by having five handler capability
           tokens in its <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler">Capabilities</tp:dbus-ref>
+          namespace="ofdT.Client.Handler">Capabilities</tp:dbus-ref>
           property:</p>
 
         <ul>

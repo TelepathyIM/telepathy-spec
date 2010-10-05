@@ -27,9 +27,9 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       This object represents one Content inside a Call. For example in an
       audio/video call there would be one audio and one video content. Each
-      content has one or more <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Call">Stream.DRAFT</tp:dbus-ref>
-      objects which represent the actual transport to one or more contacts.
+      content has one or more <tp:dbus-ref namespace="ofdT.Call"
+      >Stream.DRAFT</tp:dbus-ref> objects which represent the actual
+      transport to one or more contacts.
 
     </tp:docstring>
 
@@ -52,9 +52,8 @@
       <tp:added version="0.19.11"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this content, such as <tp:dbus-ref
-            namespace="ofdT.Call">Content.Interface.Media.DRAFT</tp:dbus-ref> or
-          <tp:dbus-ref
-            namespace="ofdT.Call">Content.Interface.Mute.DRAFT</tp:dbus-ref>.
+          namespace="ofdT.Call">Content.Interface.Media.DRAFT</tp:dbus-ref> or
+          <tp:dbus-ref namespace="ofdT.Call">Content.Interface.Mute.DRAFT</tp:dbus-ref>.
           This SHOULD NOT include the Content interface itself, and cannot
           change once the content has been created.</p>
       </tp:docstring>
@@ -108,14 +107,14 @@
       <tp:enumvalue suffix="Initial" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The content was initially part of the call. When <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT"
-              >Accept</tp:dbus-ref> is called on the channel, all streams of
-            this content where the self-handle's sending state in <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-              >Members</tp:dbus-ref> is Sending_State_Pending_Send
-            will be moved to Sending_State_Sending as if <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-              >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
+            namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
+            is called on the channel, all streams of this content where
+            the self-handle's sending state in <tp:dbus-ref
+            namespace="ofdT.Call.Stream.DRAFT">Members</tp:dbus-ref>
+            is Sending_State_Pending_Send will be moved to
+            Sending_State_Sending as if <tp:dbus-ref
+            namespace="ofdT.Call.Stream.DRAFT">SetSending</tp:dbus-ref>
+            (TRUE) had been called.</p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -152,10 +151,9 @@
     <property name="Streams" tp:name-for-bindings="Streams"
       type="ao" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The list of
-           <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call">Stream.DRAFT</tp:dbus-ref>
-           objects that exist in this content.</p>
+        <p>The list of <tp:dbus-ref namespace="ofdT.Call"
+          >Stream.DRAFT</tp:dbus-ref> objects that exist in this
+          content.</p>
 
         <tp:rationale>
           <p>In a conference call multiple parties can share one media content

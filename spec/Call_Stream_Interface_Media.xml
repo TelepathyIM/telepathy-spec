@@ -138,9 +138,8 @@
         <tp:docstring>
           Raw UDP, with or without STUN. All streaming clients are assumed to
           support this transport, so there is no handler capability token for
-          it in the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type"
-            >Call.DRAFT</tp:dbus-ref> interface.
+          it in the <tp:dbus-ref namespace="ofdT.Channel.Type"
+          >Call.DRAFT</tp:dbus-ref> interface.
           [This corresponds to "none" or "stun" in the old Media.StreamHandler
           interface.]
         </tp:docstring>
@@ -375,12 +374,8 @@
     <property name="Endpoints" tp:name-for-bindings="Endpoints"
       type="ao" access="read">
       <tp:docstring>
-        <p> The list of endpoints
-           <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call.Stream"
-              >Endpoint.DRAFT</tp:dbus-ref>
-           that exist for this stream.
-        </p>
+        <p>The list of endpoints <tp:dbus-ref namespace="ofdT.Call.Stream"
+          >Endpoint.DRAFT</tp:dbus-ref> that exist for this stream.</p>
 
         <p>Change notification is via the
           <tp:member-ref>EndpointsChanged</tp:member-ref> signal.</p>
