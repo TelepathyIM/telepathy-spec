@@ -29,6 +29,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         namespace="org.freedesktop.Telepathy.Call">Content.DRAFT</tp:dbus-ref>
         objects, which represent the actual Media that forms the Call (e.g. an
         audio content and a video content).</p>
+
+      <p>The <tp:dbus-ref
+        namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> and
+        <tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>
+        properties in a Call channel refer to the contact that the
+        user initially called, or which contact initially called the
+        user. Even in a conference call, where there are multiple
+        contacts in the call, these properties refer to the
+        initial contact, who might have left the conference since
+        then. As a result, handlers should not rely on these
+        properties.</p>
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
