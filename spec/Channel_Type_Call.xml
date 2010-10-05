@@ -778,6 +778,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
+        <p>The name of this new content can be decided by using the
+          <tp:member-ref>InitialAudioName</tp:member-ref> property.</p>
+
         <p>Connection managers that support the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
           interface SHOULD represent the capabilities of receiving audio
@@ -834,6 +837,49 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>This property is the correct way to discover whether connection
           managers, contacts etc. support video calls; it appears in
           capabilities structures in the same way as InitialAudio.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="InitialAudioName" tp:name-for-bindings="Initial_Audio_Name"
+      type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If <tp:member-ref>InitialAudio</tp:member-ref> is set to
+          true, then this property will name the intial audio content
+          with the value of this property.</p>
+
+        <tp:rationale>
+          <p>Content names are meant to be significant, but if no name
+            can be given to initial audio content, then its name cannot
+            be meaningful or even localized.</p>
+        </tp:rationale>
+
+        <p>This property is immutable (cannot change), and therefore SHOULD
+          appear wherever immutable properties are reported, e.g. <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          signals.</p>
+
+        <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
+
+        <p>If there is already a content with the same name as this
+          property then a useful suffix should be added. For example, if
+          this property is "audio" but a content of the same name
+          already exists, the suffix " (1)" is appended to name the new
+          content "audio (1)".</p>
+
+        <p>If this property is empty or missing from the channel
+          request and InitialAudio is true, then the CM must come up
+          with a sensible for the content, such as "audio".</p>
+      </tp:docstring>
+    </property>
+
+    <property name="InitialVideoName" tp:name-for-bindings="Initial_Video_Name"
+      type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The same as
+          <tp:member-ref>InitialAudioName</tp:member-ref>, but for a
+          video stream created by setting
+          <tp:member-ref>InitialVideo</tp:member-ref> to true. This
+          property is immutable and so cannot change.</p>
       </tp:docstring>
     </property>
 
