@@ -47,16 +47,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Indicate that the local user has been alerted about the incoming
           call.</p>
 
-        <p>This method is only useful if the channel's <tp:dbus-ref
-          namespace="ofdT.Channel">Requested</tp:dbus-ref> property is
-          false, and the <tp:member-ref>CallState</tp:member-ref> is
-          Call_State_Pending_Receiver. While this is the case, this
-          method SHOULD change the
+        <p>This method is only useful if the
+          channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
+          property is false, and
+          the <tp:member-ref>CallState</tp:member-ref> is
+          Call_State_Pending_Receiver (an incoming call waiting on the
+          local user to pick up). While this is the case, this method
+          SHOULD change the
           <tp:member-ref>CallFlags</tp:member-ref> to include
           Call_Flag_Ringing, and notify the remote contact that the
-          local user has been alerted (if the protocol implements this);
-          repeated calls to this method SHOULD succeed, but have no
-          further effect.</p>
+          local user has been alerted (if the protocol implements
+          this); repeated calls to this method SHOULD succeed, but
+          have no further effect.</p>
 
         <p>In all other states, this method SHOULD fail with the error
           NotAvailable.</p>
