@@ -138,6 +138,12 @@
           The contact is sending media.
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Pending_Stop_Sending" value="3">
+        <tp:docstring>
+          The contact has been asked to stop sending media.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:mapping name="Contact_Sending_State_Map">
