@@ -126,24 +126,24 @@
       </tp:docstring>
     </property>
 
-    <signal name="StreamAdded" tp:name-for-bindings="Stream_Added">
+    <signal name="StreamsAdded" tp:name-for-bindings="Streams_Added">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-         <p>Emitted when a stream is added to a call</p>
+         <p>Emitted when streams are added to a call.</p>
       </tp:docstring>
-      <arg name="Stream" type="o">
+      <arg name="Streams" type="ao">
          <tp:docstring>
-           The stream which was added
+           The streams which were added.
          </tp:docstring>
        </arg>
     </signal>
 
-    <signal name="StreamRemoved" tp:name-for-bindings="Stream_Removed">
+    <signal name="StreamsRemoved" tp:name-for-bindings="Streams_Removed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-         <p>Emitted when a stream is added to a call</p>
+         <p>Emitted when streams are removed from a call</p>
       </tp:docstring>
-      <arg name="Stream" type="o">
+      <arg name="Streams" type="ao">
          <tp:docstring>
-           The stream which was removed
+           The streams which were removed.
          </tp:docstring>
        </arg>
     </signal>
@@ -164,8 +164,8 @@
         </tp:rationale>
 
         <p>Change notification is via
-          <tp:member-ref>StreamAdded</tp:member-ref> and
-          <tp:member-ref>StreamRemoved</tp:member-ref>.</p>
+          <tp:member-ref>StreamsAdded</tp:member-ref> and
+          <tp:member-ref>StreamsRemoved</tp:member-ref>.</p>
       </tp:docstring>
     </property>
   </interface>
