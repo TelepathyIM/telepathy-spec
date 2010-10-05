@@ -229,11 +229,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           >Content.DRAFT</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
-       <arg name="Content_Type" type="u" tp:type="Media_Stream_Type">
-          <tp:docstring>
-            The media type of the content which was added
-          </tp:docstring>
-        </arg>
     </signal>
 
     <signal name="ContentRemoved" tp:name-for-bindings="Content_Removed">
