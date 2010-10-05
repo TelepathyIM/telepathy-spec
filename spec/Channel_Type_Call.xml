@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         audio content and a video content).</p>
     </tp:docstring>
 
-    <method name="Ringing" tp:name-for-bindings="Ringing">
+    <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Indicate that the local user has been alerted about the incoming
           call.</p>
@@ -307,7 +307,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           responded; if possible, the remote contact(s) have been informed of
           this fact. This flag only makes sense on incoming calls in
           state Call_State_Pending_Receiver. It SHOULD be set when
-          <tp:member-ref>Ringing</tp:member-ref> is called successfully, and
+          <tp:member-ref>SetRinging</tp:member-ref> is called successfully, and
           unset when the state changes.
         </tp:docstring>
       </tp:flag>
