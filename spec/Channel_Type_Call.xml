@@ -722,9 +722,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="CallMembers" tp:name-for-bindings="Call_Members"
       type="a{uu}" access="read" tp:type="Call_Member_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        A mapping from the remote contacts that are part of this call to flags
-        describing their status. This mapping never has the local user's handle
-        as a key.
+        <p>A mapping from the remote contacts that are part of this call to flags
+          describing their status. This mapping never has the local user's handle
+          as a key.</p>
+
+        <p>When the call ends, this property should be an empty list,
+          and notified with
+          <tp:member-ref>CallMembersChanged</tp:member-ref></p>
       </tp:docstring>
     </property>
 
