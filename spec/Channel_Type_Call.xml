@@ -183,12 +183,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            [FIXME: when?]
+            The content type given is invalid.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            [FIXME: when?]
+            The content type requested is not implemented by the CM.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
+          <tp:docstring>
+            The content type requested cannot be added to this
+            call. Examples of why this might be the case include
+            because a second video stream cannot be added, or a
+            content cannot be added when the content set isn't
+            mutable.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
