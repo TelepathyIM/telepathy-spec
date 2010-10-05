@@ -535,6 +535,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             of a <tp:type>Call_State_Reason</tp:type> struct.</p>
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="No_Answer" value="3">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The call rang but then timed out and the state changed to
+            Ended as the receiver never accepted the call. With an
+            incoming call this state change reason signifies a missed
+            call.</p>
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:struct name="Call_State_Reason">
