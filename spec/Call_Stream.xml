@@ -56,7 +56,12 @@
 
     <method name="RequestReceiving" tp:name-for-bindings="Request_Receiving">
       <tp:docstring>
-        Request that a remote contact stops or starts sending on this stream.
+        <p>Request that a remote contact stops or starts sending on
+          this stream.</p>
+
+        <p>The <tp:member-ref>CanRequestReceiving</tp:member-ref>
+          property defines whether the protocol allows the local user to
+          request the other side start sending on this stream.</p>
       </tp:docstring>
 
       <arg name="Contact" type="u" tp:type="Contact_Handle" direction="in">
