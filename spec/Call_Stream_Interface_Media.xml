@@ -171,6 +171,12 @@
           interface.]
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="SHM" value="4">
+        <tp:docstring>
+          Shared memory transport.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <property name="Transport" tp:name-for-bindings="Transport"
