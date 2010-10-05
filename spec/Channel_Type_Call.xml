@@ -980,14 +980,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </tp:hct>
 
-    <tp:hct name="wlm-8.5">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
-          property is Stream_Transport_Type_WLM_8_5.</p>
-      </tp:docstring>
-    </tp:hct>
-
     <tp:hct name="wlm-2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
