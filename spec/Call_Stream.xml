@@ -81,23 +81,23 @@
       </tp:possible-errors>
     </method>
 
-    <signal name="SendersChanged"
-        tp:name-for-bindings="Senders_Changed">
+    <signal name="MembersChanged"
+        tp:name-for-bindings="Members_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        Emitted when <tp:member-ref>Senders</tp:member-ref> changes.
+        Emitted when <tp:member-ref>Members</tp:member-ref> changes.
       </tp:docstring>
 
       <arg name="Updates" type="a{uu}" tp:type="Contact_Sending_State_Map">
         <tp:docstring>
           A mapping from channel-specific handles to their updated sending
-          state, whose keys include at least the senders who were added,
-          and the senders whose states changed.
+          state, whose keys include at least the members who were added,
+          and the members whose states changed.
         </tp:docstring>
       </arg>
       <arg name="Removed" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           The channel-specific handles that were removed from
-          the keys of the Senders property, as a result of the
+          the keys of the Members property, as a result of the
           contact leaving this stream
         </tp:docstring>
       </arg>
@@ -150,7 +150,7 @@
       </tp:docstring>
     </property>
 
-    <property name="Senders" tp:name-for-bindings="Senders"
+    <property name="Members" tp:name-for-bindings="Members"
         type="a{uu}" access="read" tp:type="Contact_Sending_State_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A map from contacts to their sending state.</p>
@@ -163,7 +163,7 @@
             >Connection.SelfHandle</tp:dbus-ref> otherwise) indicates
           whether the local user is sending media. Media sent on this stream
           should be assumed to be received, directly or indirectly, by every
-          other contact in the Senders mapping. Sending_State_Pending_Send
+          other contact in the Members mapping. Sending_State_Pending_Send
           indicates that another contact has asked the local user to send
           media.</p>
 

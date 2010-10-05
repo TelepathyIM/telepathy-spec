@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             >Disposition</tp:dbus-ref> is Call_Content_Disposition_Initial,
           any streams where the self-handle's sending state in <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-            >Senders</tp:dbus-ref> is Sending_State_Pending_Send
+            >Members</tp:dbus-ref> is Sending_State_Pending_Send
           will be moved to Sending_State_Sending as if <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
             >SetSending</tp:dbus-ref>(TRUE) had been called.</p>

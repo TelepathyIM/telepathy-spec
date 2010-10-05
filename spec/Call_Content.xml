@@ -105,7 +105,7 @@
               >Accept</tp:dbus-ref> is called on the channel, all streams of
             this content where the self-handle's sending state in <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
-              >Senders</tp:dbus-ref> is Sending_State_Pending_Send
+              >Members</tp:dbus-ref> is Sending_State_Pending_Send
             will be moved to Sending_State_Sending as if <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.Call.Stream.DRAFT"
               >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
