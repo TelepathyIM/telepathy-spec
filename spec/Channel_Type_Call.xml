@@ -630,6 +630,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             audio streaming for the call).</p>
         </tp:rationale>
 
+        <p>This property is immutable (cannot change), and therefore SHOULD
+          appear wherever immutable properties are reported, e.g. <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          signals.</p>
+
+        <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
+
         <p>If this is FALSE, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
           will have the <tp:dbus-ref
