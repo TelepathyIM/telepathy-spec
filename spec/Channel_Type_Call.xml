@@ -893,6 +893,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If this property is empty or missing from the channel
           request and InitialAudio is true, then the CM must come up
           with a sensible for the content, such as "audio".</p>
+
+        <p>If the protocol has no concept of stream names then this
+          property will not show up in the allowed properties list of
+          the Requestable Channel Classes for call channels.</p>
       </tp:docstring>
     </property>
 
