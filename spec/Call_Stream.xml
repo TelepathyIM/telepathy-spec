@@ -78,9 +78,17 @@
       </arg>
 
       <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The request contact is valid but is not involved in this
+            stream.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            [FIXME: when?]
+            The protocol does not allow the local user to request the
+            other side starts sending on this stream.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
