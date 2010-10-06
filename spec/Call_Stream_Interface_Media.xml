@@ -226,13 +226,13 @@
       type="(ss)" tp:type="Stream_Credentials" access="read">
       <tp:docstring>
         [FIXME]. Change notification is via
-        <tp:member-ref>LocalCredentialsSet</tp:member-ref>.
+        <tp:member-ref>LocalCredentialsChanged</tp:member-ref>.
       </tp:docstring>
 
     </property>
 
-    <signal name="LocalCredentialsSet"
-      tp:name-for-bindings="Local_Credentials_Set">
+    <signal name="LocalCredentialsChanged"
+      tp:name-for-bindings="Local_Credentials_Changed">
       <tp:docstring>
         Emitted when the value of
         <tp:member-ref>LocalCredentials</tp:member-ref> changes.
