@@ -766,6 +766,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>When the call ends, this property should be an empty list,
           and notified with
           <tp:member-ref>CallMembersChanged</tp:member-ref></p>
+
+        <p>If the Call implements
+          <tp:dbus-ref namespace="ofdT.Channel.Interface"
+          >Group</tp:dbus-ref> and the Group members are
+          channel-specific handles, then this call SHOULD also use
+          channel-specific handles.</p>
+
+        <p>Anonymous members are exposed as channel-specific handles
+          with no owner.</p>
       </tp:docstring>
     </property>
 
