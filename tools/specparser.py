@@ -663,6 +663,9 @@ class Interface(Base):
         self.requires = map(lambda n: n.getAttribute('interface'),
                              getChildrenByName(dom, XMLNS_TP, 'requires'))
 
+        # let's make sure there's nothing we don't know about here
+        self.check_for_odd_children(dom)
+
     def get_interface(self):
         return self
 
@@ -679,6 +682,40 @@ class Interface(Base):
 
     def get_url(self):
         return '%s.html' % self.name_for_bindings
+
+    def check_for_odd_children(self, dom):
+        expected = [
+            (None, 'method'),
+            (None, 'property'),
+            (None, 'signal'),
+            (XMLNS_TP, 'property'),
+            (XMLNS_TP, 'handler-capability-token'),
+            (XMLNS_TP, 'hct'),
+            (XMLNS_TP, 'contact-attribute'),
+            (XMLNS_TP, 'simple-type'),
+            (XMLNS_TP, 'enum'),
+            (XMLNS_TP, 'flags'),
+            (XMLNS_TP, 'mapping'),
+            (XMLNS_TP, 'struct'),
+            (XMLNS_TP, 'external-type'),
+            (XMLNS_TP, 'requires'),
+            (XMLNS_TP, 'added'),
+            (XMLNS_TP, 'changed'),
+            (XMLNS_TP, 'deprecated'),
+            (XMLNS_TP, 'docstring')
+            ]
+
+        unexpected = [
+            x for x in dom.childNodes
+            if isinstance(x, xml.dom.minidom.Element) and
+               (x.namespaceURI, x.localName) not in expected
+            ]
+
+        if unexpected:
+            print >> sys.stderr, """
+WARNING: Unknown element(s): %s
+         (in interface '%s')
+                """.strip() % (', '.join([x.tagName for x in unexpected]), self.name)
 
 class Error(Base):
     def get_url(self):
