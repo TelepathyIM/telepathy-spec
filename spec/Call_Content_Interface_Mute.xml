@@ -43,7 +43,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         Emitted to indicate that the mute state has changed for this call content.
         This may occur as a consequence of the client calling
-        <tp:member-ref>Muted</tp:member-ref>, or as an indication that another
+        <tp:member-ref>SetMuted</tp:member-ref>, or as an indication that another
         client has (un)muted the content.
       </tp:docstring>
 
@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <method name="Muted" tp:name-for-bindings="Muted">
+    <method name="SetMuted" tp:name-for-bindings="Set_Muted">
       <arg direction="in" name="Muted" type="b">
         <tp:docstring>
           True if the client has muted the content.
