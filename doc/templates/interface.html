@@ -331,7 +331,10 @@
        is <strong>requestable</strong> which means that it is allowed
        in the properties hash of a channel request such as in
        the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
-       method.</div>
+       method. The property should also appear in either the
+       Fixed_Properties or Allowed_Properties lists of
+       a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
+       advertised by the CM.</div>
      #end if
 
      $property.get_added()
