@@ -33,10 +33,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         signalling, codec and candidate negotiation themselves but
         instead use a helper library such as <a
         href="http://telepathy.freedesktop.org/doc/telepathy-farsight/">telepathy-farsight</a>
-        which when given a new Call channel will set up the input source,
-        transports, codecs and GStreamer pads so that they can easily
-        be added a handler UI without having to worry how exactly the
-        connection is being made.</p>
+        which when given a new Call channel will set up the
+        transports and codecs and create GStreamer pads which
+        can be added to the handler UI. This is useful as it means
+        the handler does not have to worry how exactly the
+        connection between the call participants is being made.</p>
 
       <p>The <tp:dbus-ref
         namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> and
