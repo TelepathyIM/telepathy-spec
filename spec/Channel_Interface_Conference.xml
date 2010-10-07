@@ -413,8 +413,6 @@
             we arbitrarily mandate that it SHOULD choose the first channel in
             the list as the one to continue.</p>
         </tp:rationale>
-
-        <p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
@@ -460,8 +458,6 @@
             >Group.SelfHandle</tp:dbus-ref> SHOULD appear in the value of this
           property, together with any other contacts invited at the same time
           (if that information is known).</p>
-
-        <p>This property is immutable.</p>
 
         <p>InitialInviteeHandles, InitialInviteeIDs and InitialChannels MAY be
           combined in a single request.</p>
@@ -513,8 +509,6 @@
           means that the value of InitialInviteeIDs will include the TargetID
           of each channel in InitialChannels, and the ID corresponding to each
           handle in InitialInviteeHandles.</p>
-
-        <p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
@@ -540,8 +534,6 @@
         <p>If the local user was not the initiator of this channel, the
           message with which they were invited (if any) SHOULD appear in the
           value of this property.</p>
-
-        <p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
