@@ -35,7 +35,7 @@
 
     <method name="Remove" tp:name-for-bindings="Remove">
       <tp:docstring>Remove the content from the call.</tp:docstring>
-      <arg direction="in" name="Reason" type="s">
+      <arg direction="in" name="Reason" type="s" tp:type="DBus_Error_Name">
         <tp:docstring>
           A reason for removing the content, for example "Fatal
           streaming failure", "no codec intersection", etc. This
