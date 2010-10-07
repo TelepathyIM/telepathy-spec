@@ -82,6 +82,7 @@
         #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
        </td>
        <td>$property.get_access()</td>
+       <td>$property.get_flag_summary()</td>
        <td>
         #if $property.deprecated: (deprecated)
        </td>
@@ -315,6 +316,23 @@
       #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
      </h2>
       <div class="access">$property.get_access()</div>
+
+     #if $property.immutable:
+     <div class="annotation immutable">This property is
+       <strong>immutable</strong> which means that it can never change
+       once the channel has been given its original value. Immutable
+       properties SHOULD appear in the channel detail list
+       of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
+       signals.</div>
+     #end if
+
+     #if $property.requestable:
+     <div class="annotation requestable">This property
+       is <strong>requestable</strong> which means that it is allowed
+       in the properties hash of a channel request such as in
+       the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       method.</div>
+     #end if
 
      $property.get_added()
      $property.get_changed()

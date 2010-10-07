@@ -532,6 +532,12 @@ class Property(DBusConstruct, Typed):
         is_cp = dom.getAttributeNS(XMLNS_TP, 'is-connection-parameter')
         self.is_connection_parameter = is_cp != ''
 
+        immutable = dom.getAttributeNS(XMLNS_TP, 'immutable')
+        self.immutable = immutable != ''
+
+        requestable = dom.getAttributeNS(XMLNS_TP, 'requestable')
+        self.requestable = requestable != ''
+
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
             return 'Read/Write'
@@ -539,6 +545,16 @@ class Property(DBusConstruct, Typed):
             return 'Read only'
         elif self.access & self.ACCESS_WRITE:
             return 'Write only'
+
+    def get_flag_summary(self):
+        descriptions = []
+
+        if self.immutable:
+            descriptions.append("Immutable")
+        if self.requestable:
+            descriptions.append("Requestable")
+
+        return ', '.join(descriptions)
 
 class AwkwardTelepathyProperty(Typed):
     def get_type_name(self):

@@ -221,6 +221,14 @@ div.connection-parameter .note {
 	color: #0000a4;
 }
 
+div.immutable {
+	border-left-color: #00d8ff;
+}
+
+div.requestable {
+	border-left-color: #ff9f00;
+}
+
 div.rationale {
 	border: 1px solid gray;
 	-moz-border-radius: 5px;
