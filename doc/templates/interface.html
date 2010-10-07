@@ -320,8 +320,8 @@
      #if $property.immutable:
      <div class="annotation immutable">This property is
        <strong>immutable</strong> which means that it can never change
-       once the channel has been given its original value. Immutable
-       properties SHOULD appear in the channel detail list
+       once the channel has been created. Immutable properties SHOULD
+       appear in the channel detail list
        of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
        signals.</div>
      #end if
@@ -329,10 +329,15 @@
      #if $property.requestable:
      <div class="annotation requestable">This property
        is <strong>requestable</strong> which means that it is allowed
-       in the properties hash of a channel request such as in
+       in the properties hash of a channel request such as in the
        the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
-       method. The property should also appear in either the
-       Fixed_Properties or Allowed_Properties lists of
+       and 
+       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
+       methods
+       on <a href="Connection_Interface_Requests.html">Requests</a>
+       and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
+       The property should also appear in either the Fixed_Properties
+       or Allowed_Properties lists of
        a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #end if
