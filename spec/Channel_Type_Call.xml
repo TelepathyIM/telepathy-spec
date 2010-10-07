@@ -725,8 +725,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:enumvalue suffix="No_Answer" value="3">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The call rang but then timed out and the state changed to
-            Ended as the receiver never accepted the call. With an
+          <p>The <tp:member-ref>CallState</tp:member-ref> changed from
+            <tp:type>Call_State</tp:type>_Pending_Receiver to
+            <tp:type>Call_State</tp:type>_Ended because the initiator
+            ended the call before the receiver accepted it. With an
             incoming call this state change reason signifies a missed
             call.</p>
         </tp:docstring>
