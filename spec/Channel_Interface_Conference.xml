@@ -355,7 +355,7 @@
     </signal>
 
     <property name="InitialChannels" tp:name-for-bindings="Initial_Channels"
-      access="read" type="ao">
+      access="read" type="ao" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The initial value of <tp:member-ref>Channels</tp:member-ref>.</p>
 
@@ -420,7 +420,8 @@
 
     <property name="InitialInviteeHandles"
       tp:name-for-bindings="Initial_Invitee_Handles"
-      access="read" type="au" tp:type="Contact_Handle[]">
+      access="read" type="au" tp:type="Contact_Handle[]" tp:immutable="yes"
+      tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of additional contacts invited to this conference when it
           was created.</p>
@@ -496,7 +497,7 @@
 
     <property name="InitialInviteeIDs"
       tp:name-for-bindings="Initial_Invitee_IDs"
-      access="read" type="as">
+      access="read" type="as" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of additional contacts invited to this conference when it
           was created.</p>
@@ -518,7 +519,7 @@
     </property>
 
     <property name="InvitationMessage" tp:name-for-bindings="Invitation_Message"
-      access="read" type="s">
+      access="read" type="s" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The message that was sent to the
           <tp:member-ref>InitialInviteeHandles</tp:member-ref> when they were
