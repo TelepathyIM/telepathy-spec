@@ -96,19 +96,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>After a new Call channel is requested, the
         <tp:member-ref>CallState</tp:member-ref> property will be
-        Call_State_Pending_Initiator. As the local user is the
-        initiator, the call must be accepted by calling the
+        <tp:type>Call_State</tp:type>_Pending_Initiator. As the local
+        user is the initiator, the call must be accepted by calling the
         <tp:member-ref>Accept</tp:member-ref> method. At this point,
         <tp:member-ref>CallState</tp:member-ref> changes to
-        Call_State_Pending_Receiver which signififies that the call is
-        ringing waiting for the remote contact to accept the call. All
-        changes to the CallState property are signalled using the
-        <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
+        <tp:type>Call_State</tp:type>_Pending_Receiver which signififies
+        that the call is ringing waiting for the remote contact to
+        accept the call. All changes to
+        <tp:member-ref>CallState</tp:member-ref> property are signalled
+        using the <tp:member-ref>CallStateChanged</tp:member-ref>
+        signal.</p>
 
       <p>When the call is accepted by the remote contact, the
         <tp:member-ref>CallStateChanged</tp:member-ref> signal fires
         again to show that <tp:member-ref>CallState</tp:member-ref> =
-        Call_State_Accepted.</p>
+        <tp:type>Call_State</tp:type>_Accepted.</p>
 
       <p>At this point the helper library like <a
         href="http://telepathy.freedesktop.org/doc/telepathy-farsight/">telepathy-farsight</a>
@@ -120,10 +122,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>If the remote contact does accept the call in time, then the
         call is said to have been "missed". This is shown in a Call
         channel by <tp:member-ref>CallState</tp:member-ref> changing to
-        Call_State_Ended, and the
+        <tp:type>Call_State</tp:type>_Ended, and the
         <tp:member-ref>CallStateReason</tp:member-ref> property
-        changing to (remote contact, Call_State_Change_Reason_No_Answer,
-        "").</p>
+        changing to (remote contact,
+        <tp:type>Call_State</tp:type>_Change_Reason_No_Answer, "").</p>
 
       <h5>Rejected calls</h5>
 
@@ -131,9 +133,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         talking to the local user, he or she can reject his or her
         incoming call. This will be shown in the Call channel by
         <tp:member-ref>CallState</tp:member-ref> changing to
-        Call_State_Ended and the
+        <tp:type>Call_State</tp:type>_Ended and the
         <tp:member-ref>CallStateReason</tp:member-ref> property
-        changing to (remote contact, Call_State_Change_Reason_User_Requested,
+        changing to (remote contact,
+        <tp:type>Call_State</tp:type>_Change_Reason_User_Requested,
         "").</p>
 
       <h4>Incoming calls</h4>
@@ -182,9 +185,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>To pick up the call, the handler should call
         <tp:member-ref>Accept</tp:member-ref>. The
         <tp:member-ref>CallState</tp:member-ref> property changes to
-        Call_State_Accepted and once media is being transferred,
-        telepathy-farsight will notify the handler of a new pad to be
-        shown to the local user in the UI</p>
+        <tp:type>Call_State</tp:type>_Accepted and once media is
+        being transferred, telepathy-farsight will notify the
+        handler of a new pad to be shown to the local user in the
+        UI</p>
 
       <p>To reject the call, the handler call should call the
         <tp:member-ref>Hangup</tp:member-ref> method.</p>
@@ -201,7 +205,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:member-ref>AddContent</tp:member-ref> like this:</p>
 
       <blockquote>
-        <pre><tp:member-ref>AddContent</tp:member-ref>("video", Media_Stream_Type_Video)</pre>
+        <pre><tp:member-ref>AddContent</tp:member-ref>("video",
+           <tp:type>Media_Stream_Type</tp:type>_Video)</pre>
       </blockquote>
 
       <p>Assuming no errors, the new video content will be added to
@@ -231,14 +236,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
           property is false, and
           the <tp:member-ref>CallState</tp:member-ref> is
-          Call_State_Pending_Receiver (an incoming call waiting on the
-          local user to pick up). While this is the case, this method
-          SHOULD change the
+          <tp:type>Call_State</tp:type>_Pending_Receiver (an incoming
+          call waiting on the local user to pick up). While this is
+          the case, this method SHOULD change the
           <tp:member-ref>CallFlags</tp:member-ref> to include
-          Call_Flag_Ringing, and notify the remote contact that the
-          local user has been alerted (if the protocol implements
-          this); repeated calls to this method SHOULD succeed, but
-          have no further effect.</p>
+          <tp:type>Call_Flags</tp:type>Locally_Ringing, and notify the
+          remote contact that the local user has been alerted (if the
+          protocol implements this); repeated calls to this method
+          SHOULD succeed, but have no further effect.</p>
 
         <p>In all other states, this method SHOULD fail with the error
           NotAvailable.</p>
@@ -253,7 +258,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            The call is no longer in state Call_State_Pending_Receiver.
+            The call is no longer in state
+            <tp:type>Call_State</tp:type>_Pending_Receiver.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -261,14 +267,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="Accept" tp:name-for-bindings="Accept">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>For incoming calls in state Call_State_Pending_Receiver, accept the
+        <p>For incoming calls in state
+          <tp:type>Call_State</tp:type>_Pending_Receiver, accept the
           incoming call; this changes the
-          <tp:member-ref>CallState</tp:member-ref> to Call_State_Accepted.</p>
+          <tp:member-ref>CallState</tp:member-ref> to
+          <tp:type>Call_State</tp:type>_Accepted.</p>
 
-        <p>For outgoing calls in state Call_State_Pending_Initiator, actually
+        <p>For outgoing calls in state
+          <tp:type>Call_State</tp:type>_Pending_Initiator, actually
           call the remote contact; this changes the
           <tp:member-ref>CallState</tp:member-ref> to
-          Call_State_Pending_Receiver.</p>
+          <tp:type>Call_State</tp:type>_Pending_Receiver.</p>
 
         <p>Otherwise, this method SHOULD fail with the error NotAvailable.</p>
 
@@ -279,12 +288,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           namespace="ofdT.Call" >Content.DRAFT</tp:dbus-ref> whose
           <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT"
           >Disposition</tp:dbus-ref> is
-          Call_Content_Disposition_Initial, any streams where the
-          self-handle's sending state in <tp:dbus-ref
+          <tp:type>Call_Content_Disposition</tp:type>_Initial, any
+          streams where the self-handle's sending state in <tp:dbus-ref
           namespace="ofdT.Call.Stream.DRAFT" >Members</tp:dbus-ref> is
-          Sending_State_Pending_Send will be moved to
-          Sending_State_Sending as if <tp:dbus-ref
-          namespace="ofdT.Call.Stream.DRAFT"
+          <tp:type>Sending_State</tp:type>_Pending_Send will be
+          moved to <tp:type>Sending_State</tp:type>_Sending as if
+          <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
           >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
       </tp:docstring>
 
@@ -303,7 +312,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
 
       <arg direction="in" name="Reason"
-        type="u"  tp:type="Call_State_Change_Reason">
+        type="u" tp:type="Call_State_Change_Reason">
         <tp:docstring>
           A generic hangup reason.
         </tp:docstring>
@@ -508,9 +517,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The local contact has been alerted about the call but has not
           responded; if possible, the remote contact(s) have been informed of
           this fact. This flag only makes sense on incoming calls in
-          state Call_State_Pending_Receiver. It SHOULD be set when
-          <tp:member-ref>SetRinging</tp:member-ref> is called successfully, and
-          unset when the state changes.
+          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD
+          be set when <tp:member-ref>SetRinging</tp:member-ref> is
+          called successfully, and unset when the state changes.
         </tp:docstring>
       </tp:flag>
 
@@ -519,8 +528,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The contact is temporarily unavailable, and the call has been placed
           in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
           This flag only makes sense on outgoing 1-1 calls in
-          state Call_State_Pending_Receiver. It SHOULD be set or unset
-          according to informational messages from other contacts.
+          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD be
+          set or unset according to informational messages from other
+          contacts.
         </tp:docstring>
       </tp:flag>
 
@@ -531,7 +541,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           >Hold</tp:dbus-ref> interface. This flag SHOULD only be set
           if there is at least one Content, and all Contents are
           locally held; it makes sense on calls in state
-          Call_State_Pending_Receiver or Call_State_Accepted.
+          <tp:type>Call_State</tp:type>_Pending_Receiver
+          or <tp:type>Call_State</tp:type>_Accepted.
 
           <tp:rationale>
             Otherwise, in transient situations where some but not all contents
@@ -548,8 +559,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The initiator of the call originally called a contact other than the
           current recipient of the call, but the call was then forwarded or
           diverted. This flag only makes sense on outgoing calls, in state
-          Call_State_Pending_Receiver or Call_State_Accepted. It SHOULD be
-          set or unset according to informational messages from other contacts.
+          <tp:type>Call_State</tp:type>_Pending_Receiver or
+          <tp:type>Call_State</tp:type>_Accepted. It SHOULD be set or unset
+          according to informational messages from other contacts.
         </tp:docstring>
       </tp:flag>
 
@@ -561,9 +573,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           status code 183 Session Progress, and could be used when the
           outgoing call has reached a gateway, for instance.
           This flag only makes sense on outgoing calls in state
-          Call_State_Pending_Receiver, and SHOULD be set or unset according to
-          informational messages from servers, gateways and other
-          infrastructure.
+          <tp:type>Call_State</tp:type>_Pending_Receiver, and SHOULD be set
+          or unset according to informational messages from servers, gateways
+          and other infrastructure.
         </tp:docstring>
       </tp:flag>
 
@@ -591,7 +603,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
           be set if there is at least one Content, and all Contents
           are locally muted; it makes sense on calls in state
-          Call_State_Pending_Receiver or Call_State_Accepted.
+          <tp:type>Call_State</tp:type>_Pending_Receiver or
+          <tp:type>Call_State</tp:type>_Accepted.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
@@ -611,7 +624,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <dd>An optional human-readable message sent when the call was ended,
             corresponding to the Message argument to the
             <tp:member-ref>Hangup</tp:member-ref> method. This is only
-            applicable when the call state is Call_State_Ended.
+            applicable when the call state is <tp:type>Call_State</tp:type>_Ended.
             <tp:rationale>
               XMPP Jingle can send such messages.
             </tp:rationale>
@@ -620,7 +633,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <dt>queue-message - s</dt>
           <dd>An optional human-readable message sent when the local contact
             is being held in a queue. This is only applicable when
-            Call_Flag_Queued is in the call flags.
+            <tp:type>Call_Flags</tp:type>_Queued is in the call flags.
             <tp:rationale>
               SIP 182 notifications can have human-readable messages attached.
             </tp:rationale>
@@ -630,7 +643,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <dd>A message giving further details of any error indicated by the
             <tp:member-ref>CallStateReason</tp:member-ref>. This will not
             normally be localized or suitable for display to users, and is only
-            applicable when the call state is Call_State_Ended.</dd>
+            applicable when the call state is
+            <tp:type>Call_State</tp:type>_Ended.</dd>
         </dl>
       </tp:docstring>
     </property>
@@ -1157,7 +1171,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
           namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
-          property is Stream_Transport_Type_GTalk_P2P.</p>
+          property is <tp:type>Stream_Transport_Type</tp:type>_GTalk_P2P.</p>
       </tp:docstring>
     </tp:hct>
 
@@ -1165,7 +1179,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
           namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
-          property is Stream_Transport_Type_ICE.</p>
+          property is <tp:type>Stream_Transport_Type</tp:type>_ICE.</p>
       </tp:docstring>
     </tp:hct>
 
@@ -1173,7 +1187,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
           namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
-          property is Stream_Transport_Type_WLM_2009.</p>
+          property is <tp:type>Stream_Transport_Type</tp:type>_WLM_2009.</p>
       </tp:docstring>
     </tp:hct>
 
