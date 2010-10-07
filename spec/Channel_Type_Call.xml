@@ -23,12 +23,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>A channel type for making audio and video calls.</p>
+      <p>A channel type for making audio and video calls. Call
+        channels supersede the old <tp:dbus-ref
+        namespace="ofdT.Channel.Type">StreamedMedia</tp:dbus-ref>
+        channel type. Call channels are much more flexible than its
+        predecessor and allow more than two participants.</p>
 
-      <p>A Call channel can have one or more <tp:dbus-ref
-        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>
-        objects, which represent the actual Media that forms the Call (e.g. an
-        audio content and a video content).</p>
+      <p>Handlers are advised against executing all the media
+        signalling, codec and candidate negotiation themselves but
+        instead use a helper library such as <a
+        href="http://telepathy.freedesktop.org/doc/telepathy-farsight/">telepathy-farsight</a>
+        which when given a new Call channel will set up the input source,
+        transports, codecs and GStreamer pads so that they can easily
+        be added a handler UI without having to worry how exactly the
+        connection is being made.</p>
 
       <p>The <tp:dbus-ref
         namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> and
@@ -40,6 +48,178 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         initial contact, who might have left the conference since
         then. As a result, handlers should not rely on these
         properties.</p>
+
+      <h4>Contents</h4>
+
+      <p><tp:dbus-ref
+        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> objects
+        represent the actual media that forms the Call (for example an
+        audio content and a video content). A 1-1 Call has one or more
+        Content objects associated with with it. A multi-party Call also
+        has one ore more Content objects associated as long as there
+        exist other participants in the Call besides the local user.</p>
+
+      <p><tp:dbus-ref
+        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> objects have
+        one or more stream associated with them. More information on
+        these streams and how to maniuplate them can be found on the
+        <tp:dbus-ref namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>
+        interface page.</p>
+
+      <h4>Outgoing calls</h4>
+
+      <p>To make an audio-only call to a contact <tt>foo@example.com</tt>
+        handlers should call:</p>
+
+      <blockquote>
+        <pre>
+<tp:dbus-ref namespace="ofdT.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
+  ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
+      namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref>,
+  ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
+  ...<tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
+  ...<tp:member-ref>InitialAudio</tp:member-ref>: True,
+})</pre></blockquote>
+
+      <p>As always, <tp:dbus-ref
+        namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> may be used
+        in place of TargetID if the contact's handle is already
+        known. To make an audio and video call, the handler should also
+        specify <tp:member-ref>InitialVideo</tp:member-ref> The
+        connection manager SHOULD return a channel whose immutable
+        properties contain the local user as the <tp:dbus-ref
+        namespace="ofdT.Channel">InitiatorHandle</tp:dbus-ref>, the
+        remote contact as the <tp:dbus-ref
+        namespace="ofdT.Channel">TargetHandle</tp:dbus-ref>,
+        <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref> =
+        <code>True</code> (indicating the call is outgoing).</p>
+
+      <p>After a new Call channel is requested, the
+        <tp:member-ref>CallState</tp:member-ref> property will be
+        Call_State_Pending_Initiator. As the local user is the
+        initiator, the call must be accepted by calling the
+        <tp:member-ref>Accept</tp:member-ref> method. At this point,
+        <tp:member-ref>CallState</tp:member-ref> changes to
+        Call_State_Pending_Receiver which signififies that the call is
+        ringing waiting for the remote contact to accept the call. All
+        changes to the CallState property are signalled using the
+        <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
+
+      <p>When the call is accepted by the remote contact, the
+        <tp:member-ref>CallStateChanged</tp:member-ref> signal fires
+        again to show that <tp:member-ref>CallState</tp:member-ref> =
+        Call_State_Accepted.</p>
+
+      <p>At this point the helper library like <a
+        href="http://telepathy.freedesktop.org/doc/telepathy-farsight/">telepathy-farsight</a>
+        will signal that a pad is available for the handler to show
+        in the user interface.</p>
+
+      <h5>Missed calls</h5>
+
+      <p>If the remote contact does accept the call in time, then the
+        call is said to have been "missed". This is shown in a Call
+        channel by <tp:member-ref>CallState</tp:member-ref> changing to
+        Call_State_Ended, and the
+        <tp:member-ref>CallStateReason</tp:member-ref> property
+        changing to (remote contact, Call_State_Change_Reason_No_Answer,
+        "").</p>
+
+      <h5>Rejected calls</h5>
+
+      <p>If the remote contact decides he or she does not feel like
+        talking to the local user, he or she can reject his or her
+        incoming call. This will be shown in the Call channel by
+        <tp:member-ref>CallState</tp:member-ref> changing to
+        Call_State_Ended and the
+        <tp:member-ref>CallStateReason</tp:member-ref> property
+        changing to (remote contact, Call_State_Change_Reason_User_Requested,
+        "").</p>
+
+      <h4>Incoming calls</h4>
+
+      <p>When an incoming call occurs, something like the following
+        <tp:dbus-ref
+        namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+        signal will occur:</p>
+
+      <blockquote>
+        <pre>
+<tp:dbus-ref namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>([
+  /org/freedesktop/Telepathy/Connection/foo/bar/foo_40bar_2ecom/CallChannel,
+  {
+    ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
+      namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref>,
+    ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
+    ...<tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
+    ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandle</tp:dbus-ref>: 42,
+    ...<tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>: False,
+    ...<tp:member-ref>InitialAudio</tp:member-ref>: True,
+    ...<tp:member-ref>InitialVideo</tp:member-ref>: True,
+    ...<tp:member-ref>InitialAudioName</tp:member-ref>: "audio",
+    ...<tp:member-ref>InitialVideoName</tp:member-ref>: "video",
+    ...<tp:member-ref>MutableContents</tp:member-ref>: TRUE,
+  }])</pre></blockquote>
+
+      <p>The <tp:member-ref>InitialAudio</tp:member-ref> and
+        <tp:member-ref>InitialVideo</tp:member-ref> properties show that
+        the call has been started with two contents: one for audio
+        streaming and one for video streaming. The
+        <tp:member-ref>InitialAudioName</tp:member-ref> and
+        <tp:member-ref>InitialVideoName</tp:member-ref> properties also
+        show that the aforementioned audio and video contents have names
+        "audio" and "video".</p>
+
+      <p>Once the handler has notified the local user that there is an
+        incoming call waiting for acceptance, the handler should call
+        <tp:member-ref>SetRinging</tp:member-ref> to let the CM know.
+        The new channel should also be given to telepathy-farsight to
+        work out how the two participants will connect together.
+        telepathy-farsight will call the appropriate methods on the call's
+        <tp:dbus-ref namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>s
+        to negotiate codecs and transports.</p>
+
+      <p>To pick up the call, the handler should call
+        <tp:member-ref>Accept</tp:member-ref>. The
+        <tp:member-ref>CallState</tp:member-ref> property changes to
+        Call_State_Accepted and once media is being transferred,
+        telepathy-farsight will notify the handler of a new pad to be
+        shown to the local user in the UI</p>
+
+      <p>To reject the call, the handler call should call the
+        <tp:member-ref>Hangup</tp:member-ref> method.</p>
+
+      <h4>Ongoing calls</h4>
+
+      <p>When a call is open, new contents can be added as long as the
+        CM supports it. The
+        <tp:member-ref>MutableContents</tp:member-ref> property will let
+        the handler know whether further contents can be added or
+        existing contents removed. An example of this is starting a
+        voice call between a contact and then adding a video content.
+        To do this, the should call
+        <tp:member-ref>AddContent</tp:member-ref> like this:</p>
+
+      <blockquote>
+        <pre><tp:member-ref>AddContent</tp:member-ref>("video", Media_Stream_Type_Video)</pre>
+      </blockquote>
+
+      <p>Assuming no errors, the new video content will be added to
+        the call. telepathy-farsight will pick up the new content and
+        perform the transport and codec negotiation automatically.
+        telpathy-farsight will signal when the video is ready to
+        show in the handler's user interface.</p>
+
+      <p>A similar method is used for removing contents from a call,
+        except that the <tp:dbus-ref
+        namespace="ofdT.Call.Content.DRAFT">Remove</tp:dbus-ref> method
+        is on the <tp:dbus-ref
+        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> object.</p>
+
+      <h4>Multi-party calls</h4>
+
+      [TODO]
+
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
