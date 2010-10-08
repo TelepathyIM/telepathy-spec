@@ -348,6 +348,38 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tr>
       </table>
 
+      <h4>Requestable channel classes</h4>
+
+      <p>The <tp:dbus-ref
+        namespace="ofdT.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
+        for <tp:dbus-ref
+        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channels
+        should be:</p>
+
+      <blockquote>
+        <pre>
+[( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref>,
+            ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
+            ...<tp:member-ref>InitialVideo</tp:member-ref>: True
+          },
+  Allowed = [ ...<tp:member-ref>InitialVideoName</tp:member-ref>,
+              ...<tp:member-ref>InitialAudio</tp:member-ref>,
+              ...<tp:member-ref>InitialAudioName</tp:member-ref>
+            ]
+),
+( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref>,
+            ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
+            ...<tp:member-ref>InitialAudio</tp:member-ref>: True
+          },
+  Allowed = [ ...<tp:member-ref>InitialAudioName</tp:member-ref>,
+              ...<tp:member-ref>InitialVideo</tp:member-ref>,
+              ...<tp:member-ref>InitialVideoName</tp:member-ref>
+            ]
+)]</pre></blockquote>
+
+      <p>Clients aren't allowed to make outgoing calls that have neither initial
+        audio nor initial video.</p>
+
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
