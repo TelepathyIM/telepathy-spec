@@ -590,7 +590,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </signal>
 
     <property name="Contents" type="ao" access="read"
-              tp:name-for-bindings="Contents">
+      tp:name-for-bindings="Contents">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The list of <tp:dbus-ref
           namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> objects that
@@ -984,7 +984,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </signal>
 
     <property name="HardwareStreaming" tp:name-for-bindings="Hardware_Streaming"
-        type="b" access="read">
+        type="b" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If this property is True, all of the media streaming is done by some
           mechanism outside the scope of Telepathy.</p>
@@ -995,13 +995,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             telepathy-yafono, which uses GSM hardware which does the actual
             audio streaming for the call).</p>
         </tp:rationale>
-
-        <p>This property is immutable (cannot change), and therefore SHOULD
-          appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
-          signals.</p>
-
-        <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>If this is False, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
@@ -1131,7 +1124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="InitialTransport" tp:name-for-bindings="Initial_Transport"
-      type="s" access="read">
+      type="s" access="read" tp:requestable="yes" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If set on a requested channel, this indicates the transport that
           should be used for this call. Where not applicable, this property
@@ -1148,7 +1141,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="InitialAudio" tp:name-for-bindings="Initial_Audio"
-      type="b" access="read">
+      type="b" access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If set to True in a channel request that will create a new channel,
           the connection manager should immediately attempt to establish an
@@ -1171,13 +1164,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           not imply that that audio stream is still active (as indicated by
           <tp:dbus-ref namespace="ofdT.Channel.Type.Call.DRAFT"
           >Contents</tp:dbus-ref>).</p>
-
-        <p>This property is immutable (cannot change), and therefore SHOULD
-          appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
-          signals.</p>
-
-        <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>The name of this new content can be decided by using the
           <tp:member-ref>InitialAudioName</tp:member-ref> property.</p>
@@ -1226,7 +1212,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="InitialVideo" tp:name-for-bindings="Initial_Video"
-      type="b" access="read">
+      type="b" access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same as <tp:member-ref>InitialAudio</tp:member-ref>, but for
           a video stream. This property is immutable (cannot change).</p>
@@ -1242,7 +1228,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="InitialAudioName" tp:name-for-bindings="Initial_Audio_Name"
-      type="s" access="read">
+      type="s" access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <tp:member-ref>InitialAudio</tp:member-ref> is set to
           True, then this property will name the intial audio content
@@ -1253,13 +1239,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             can be given to initial audio content, then its name cannot
             be meaningful or even localized.</p>
         </tp:rationale>
-
-        <p>This property is immutable (cannot change), and therefore SHOULD
-          appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
-          signals.</p>
-
-        <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>If this property is empty or missing from the channel
           request and InitialAudio is True, then the CM must come up
@@ -1272,7 +1251,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="InitialVideoName" tp:name-for-bindings="Initial_Video_Name"
-      type="s" access="read">
+      type="s" access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same as
           <tp:member-ref>InitialAudioName</tp:member-ref>, but for a
@@ -1283,7 +1262,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="MutableContents" tp:name-for-bindings="Mutable_Contents"
-      type="b" access="read">
+      type="b" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If True, a stream of a different content type can be added
         after the Channel has been requested </p>
@@ -1306,11 +1285,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               video once the call has started for contacts without this flag.
             </p>
           </tp:rationale>
-
-        <p>This property is immutable, and therefore SHOULD be announced
-          in <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
-          etc.</p>
       </tp:docstring>
     </property>
 
