@@ -182,7 +182,7 @@
 
       <tp:enumvalue suffix="RTP" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          Real-time Transport Protocol.
+          Real-time Transport Protocol, as documented by RFC 3550.
         </tp:docstring>
       </tp:enumvalue>
 
