@@ -175,7 +175,7 @@
         <p>A map from contacts to their sending state.</p>
 
         <p>The local user's handle in this map (the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface"
+            namespace="ofdT.Channel.Interface"
             >Group.SelfHandle</tp:dbus-ref> if the channel implements
           Group, or the <tp:dbus-ref
             namespace="org.freedesktop.Telepathy"

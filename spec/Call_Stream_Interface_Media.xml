@@ -29,7 +29,7 @@
       [FIXME]
     </tp:docstring>
 
-    <tp:method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
+    <method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
       <tp:docstring>
         Used to set the username fragment and password for streams that have
         global credentials.
@@ -40,7 +40,7 @@
       </tp:docstring>
       <arg name="Username" type="s" direction="in"/>
       <arg name="Password" type="s" direction="in" />
-    </tp:method>
+    </method>
 
     <tp:mapping name="Candidate_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -138,9 +138,8 @@
         <tp:docstring>
           Raw UDP, with or without STUN. All streaming clients are assumed to
           support this transport, so there is no handler capability token for
-          it in the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type"
-            >Call.DRAFT</tp:dbus-ref> interface.
+          it in the <tp:dbus-ref namespace="ofdT.Channel.Type"
+          >Call.DRAFT</tp:dbus-ref> interface.
           [This corresponds to "none" or "stun" in the old Media.StreamHandler
           interface.]
         </tp:docstring>
@@ -170,6 +169,12 @@
           resembles ICE draft 19.
           [This corresponds to "wlm-2009" in the old Media.StreamHandler
           interface.]
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="SHM" value="4">
+        <tp:docstring>
+          Shared memory transport.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -221,13 +226,13 @@
       type="(ss)" tp:type="Stream_Credentials" access="read">
       <tp:docstring>
         [FIXME]. Change notification is via
-        <tp:member-ref>LocalCredentialsSet</tp:member-ref>.
+        <tp:member-ref>LocalCredentialsChanged</tp:member-ref>.
       </tp:docstring>
 
     </property>
 
-    <signal name="LocalCredentialsSet"
-      tp:name-for-bindings="Local_Credentials_Set">
+    <signal name="LocalCredentialsChanged"
+      tp:name-for-bindings="Local_Credentials_Changed">
       <tp:docstring>
         Emitted when the value of
         <tp:member-ref>LocalCredentials</tp:member-ref> changes.
@@ -375,12 +380,8 @@
     <property name="Endpoints" tp:name-for-bindings="Endpoints"
       type="ao" access="read">
       <tp:docstring>
-        <p> The list of endpoints
-           <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Call.Stream"
-              >Endpoint.DRAFT</tp:dbus-ref>
-           that exist for this stream.
-        </p>
+        <p>The list of endpoints <tp:dbus-ref namespace="ofdT.Call.Stream"
+          >Endpoint.DRAFT</tp:dbus-ref> that exist for this stream.</p>
 
         <p>Change notification is via the
           <tp:member-ref>EndpointsChanged</tp:member-ref> signal.</p>
