@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> objects
         represent the actual media that forms the Call (for example an
         audio content and a video content). A 1-1 Call has one or more
-        Content objects associated with with it. A multi-party Call also
+        Content objects associated with it. A multi-party Call also
         has one ore more Content objects associated as long as there
         exist other participants in the Call besides the local user.</p>
 
