@@ -84,9 +84,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>As always, <tp:dbus-ref
         namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> may be used
-        in place of TargetID if the contact's handle is already
-        known. To make an audio and video call, the handler should also
-        specify <tp:member-ref>InitialVideo</tp:member-ref> The
+        in place of
+        <tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>
+        if the contact's handle is already known. To make an audio
+        and video call, the handler should also specify
+        <tp:member-ref>InitialVideo</tp:member-ref> The
         connection manager SHOULD return a channel whose immutable
         properties contain the local user as the <tp:dbus-ref
         namespace="ofdT.Channel">InitiatorHandle</tp:dbus-ref>, the
@@ -113,7 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         again to show that <tp:member-ref>CallState</tp:member-ref> =
         <tp:type>Call_State</tp:type>_Accepted.</p>
 
-      <p>At this point the helper library like <a
+      <p>At this point <a
         href="http://telepathy.freedesktop.org/doc/telepathy-farsight/">telepathy-farsight</a>
         will signal that a pad is available for the handler to show
         in the user interface.</p>
@@ -121,11 +123,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <h5>Missed calls</h5>
 
       <p>If the remote contact does accept the call in time, then the
-        call is said to have been "missed". This is shown in a Call
-        channel by <tp:member-ref>CallState</tp:member-ref> changing to
+        call can be terminated by the server. Note that this only
+        happens in some protocols. Most XMPP clients, for example, do
+        not do this and rely on the call initiator terminating the call.
+        A missed call is shown in a Call channel by the
+        <tp:member-ref>CallState</tp:member-ref> property changing to
         <tp:type>Call_State</tp:type>_Ended, and the
-        <tp:member-ref>CallStateReason</tp:member-ref> property
-        changing to (remote contact,
+        <tp:member-ref>CallStateReason</tp:member-ref> property changing
+        to (remote contact,
         <tp:type>Call_State_Change_Reason</tp:type>_No_Answer, "").</p>
 
       <h5>Rejected calls</h5>
@@ -138,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:member-ref>CallStateReason</tp:member-ref> property
         changing to (remote contact,
         <tp:type>Call_State</tp:type>_Change_Reason_User_Requested,
-        "").</p>
+        "org.freedesktop.Telepathy.Error.Rejected").</p>
 
       <h4>Incoming calls</h4>
 
@@ -191,10 +196,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         handler of a new pad to be shown to the local user in the
         UI</p>
 
-      <p>To reject the call, the handler call should call the
-        <tp:member-ref>Hangup</tp:member-ref> method.</p>
+      <p>To reject the call, the handler should call the
+        <tp:member-ref>Hangup</tp:member-ref> method. The
+        <tp:member-ref>CallState</tp:member-ref> property will change to
+        <tp:type>Call_State</tp:type>_Ended and the
+        <tp:member-ref>CallStateReason</tp:member-ref> property will
+        change to (self handle,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
+        "org.freedesktop.Telepathy.Error.Rejected").</p>
 
       <h4>Ongoing calls</h4>
+
+      <h5>Adding and removing contents</h5>
 
       <p>When a call is open, new contents can be added as long as the
         CM supports it. The
@@ -221,6 +234,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         namespace="ofdT.Call.Content.DRAFT">Remove</tp:dbus-ref> method
         is on the <tp:dbus-ref
         namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> object.</p>
+
+      <h5>Ending the call</h5>
+
+      <p>To end the call, the handler should call the
+        <tp:member-ref>Hangup</tp:member-ref> method. The
+        <tp:member-ref>CallState</tp:member-ref> property will change to
+        <tp:type>Call_State</tp:type>_Ended and
+        <tp:member-ref>CallStateReason</tp:member-ref> will change
+        to (self handle,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
+        "org.freedesktop.Telepathy.Error.HungUp").</p>
+
+      <p>If the other participant hangs up first then the
+        <tp:member-ref>CallState</tp:member-ref> property will change to
+        <tp:type>Call_State</tp:type>_Ended and
+        <tp:member-ref>CallStateReason</tp:member-ref> will change
+        to (remote contact,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
+        "org.freedesktop.Telepathy.Error.HungUp").</p>
 
       <h4>Multi-party calls</h4>
 
