@@ -98,11 +98,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>After a new Call channel is requested, the
         <tp:member-ref>CallState</tp:member-ref> property will be
         <tp:type>Call_State</tp:type>_Pending_Initiator. As the local
-        user is the initiator, the call must be accepted by calling the
-        <tp:member-ref>Accept</tp:member-ref> method. At this point,
-        <tp:member-ref>CallState</tp:member-ref> changes to
-        <tp:type>Call_State</tp:type>_Pending_Receiver which signififies
-        that the call is ringing waiting for the remote contact to
+        user is the initiator, the call must be accepted by the handler
+        by calling the <tp:member-ref>Accept</tp:member-ref> method.
+        At this point, <tp:member-ref>CallState</tp:member-ref> changes
+        to <tp:type>Call_State</tp:type>_Pending_Receiver which signifies
+        that the call is ringing, waiting for the remote contact to
         accept the call. All changes to
         <tp:member-ref>CallState</tp:member-ref> property are signalled
         using the <tp:member-ref>CallStateChanged</tp:member-ref>
