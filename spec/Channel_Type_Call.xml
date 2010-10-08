@@ -281,7 +281,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td>True</td>
           <td><tp:type>Call_State</tp:type>_Pending_Initiator</td>
           <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
           <td>""</td>
           <td>The outgoing call channel is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref>.</td>
         </tr>
@@ -289,8 +289,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tr>
           <td>True</td>
           <td><tp:type>Call_State</tp:type>_Pending_Receiver</td>
-          <td>0</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
           <td>""</td>
           <td>The outgoing call is waiting for the remote contact to pick up the call.</td>
         </tr>
