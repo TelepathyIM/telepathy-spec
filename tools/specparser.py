@@ -266,6 +266,23 @@ class Base(object):
             n.namespaceURI = None
             n.setAttribute('href', t.get_url())
 
+        # rewrite <tp:error-ref>
+        error_ns = 'org.freedesktop.Telepathy.Error.'
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'error-ref'):
+            try:
+                e = spec.errors[error_ns + getText(n)]
+            except KeyError:
+                print >> sys.stderr, """
+WARNING: Error '%s' not known in error namespace '%s'
+         (<tp:error-ref> in %s)
+                """.strip() % (getText(n), error_ns[:-1], self)
+                continue
+
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', e.get_url())
+            n.setAttribute('title', error_ns + getText(n))
+
         # rewrite <tp:member-ref>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'member-ref'):
             key = getText(n)
