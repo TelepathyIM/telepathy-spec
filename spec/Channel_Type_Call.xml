@@ -1132,16 +1132,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="InitialTransport" tp:name-for-bindings="Initial_Transport"
       type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>
-          If set on a requested channel this indicates the transport that
-          should be used for this call.
-          <tp:rationale>
-            When implementing a voip gateway one wants the outgoing leg of the
-            gatewayed to have the same transport as the incoming leg. This
-            property allows the gateway to request a Call with the right
-            transport from the CM.
-          </tp:rationale>
-        </p>
+        <p>If set on a requested channel, this indicates the transport that
+          should be used for this call. Where not applicable, this property
+          is defined to be the empty string, in particular, on CMs with
+          hardware streaming.</p>
+
+        <tp:rationale>
+          When implementing a voip gateway one wants the outgoing leg of the
+          gatewayed to have the same transport as the incoming leg. This
+          property allows the gateway to request a Call with the right
+          transport from the CM.
+        </tp:rationale>
       </tp:docstring>
     </property>
 
