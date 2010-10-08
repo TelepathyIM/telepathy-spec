@@ -192,9 +192,11 @@
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="MSN" value="2">
+      <tp:enumvalue suffix="MSN_Webcam" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          MSN webcam.
+          MSN webcam. This is the video-only one-way type which was
+          used in earlier versions of WLM. Although no longer used,
+          modern WLM clients still support the MSN webcam protocol.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
