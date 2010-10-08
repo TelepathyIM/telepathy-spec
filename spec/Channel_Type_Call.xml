@@ -258,6 +258,96 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       [TODO]
 
+      <h4>Call states</h4>
+
+      <p>There are many combinations of the
+        <tp:member-ref>CallState</tp:member-ref> and
+        <tp:member-ref>CallStateReason</tp:member-ref> properties which
+        mean different things. Here is a table to try to make these
+        meanings clearer:</p>
+
+      <table>
+        <tr>
+          <th rowspan="2"><tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref></th>
+          <th rowspan="2"><tp:member-ref>CallState</tp:member-ref></th>
+          <th colspan="3"><tp:member-ref>CallStateReason</tp:member-ref></th>
+          <th rowspan="2">Meaning</th>
+        </tr>
+        <tr>
+          <th>Actor</th>
+          <th>Reason</th>
+          <th>DBus_Reason</th>
+        </tr>
+        <!-- Pending_Initiator -->
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Pending_Initiator</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
+          <td>""</td>
+          <td>The outgoing call channel is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref>.</td>
+        </tr>
+        <!-- Pending_Receiver -->
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Pending_Receiver</td>
+          <td>0</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
+          <td>""</td>
+          <td>The outgoing call is waiting for the remote contact to pick up the call.</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td><tp:type>Call_State</tp:type>_Pending_Receiver</td>
+          <td>0</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
+          <td>""</td>
+          <td>The incoming call is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref> on the call.</td>
+        </tr>
+        <!-- Accepted -->
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Accepted</td>
+          <td>Remote contact handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td>""</td>
+          <td>The remote contact accepted the outgoing call.</td>
+        </tr>
+        <tr>
+          <td>False</td>
+          <td><tp:type>Call_State</tp:type>_Accepted</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td>""</td>
+          <td>The local user accepted the incoming call.</td>
+        </tr>
+        <!-- Ended -->
+        <tr>
+          <td>True or False</td>
+          <td><tp:type>Call_State</tp:type>_Ended</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td><tp:error-ref>HungUp</tp:error-ref></td>
+          <td>The local user hung up the incoming or outgoing call.</td>
+        </tr>
+        <tr>
+          <td>True or False</td>
+          <td><tp:type>Call_State</tp:type>_Ended</td>
+          <td>Remote contact handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td><tp:error-ref>HungUp</tp:error-ref></td>
+          <td>The remote contact hung up the incoming or outgoing call.</td>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Ended</td>
+          <td>Remote contact handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_No_Answer</td>
+          <td>""</td>
+          <td>The outgoing call was not picked up and the call ended.</td>
+        </tr>
+      </table>
+
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
