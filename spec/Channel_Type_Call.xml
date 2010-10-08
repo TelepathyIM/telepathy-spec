@@ -120,8 +120,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <h5>Missed calls</h5>
 
-      <p>If the remote contact does accept the call in time, then the
-        call can be terminated by the server. Note that this only
+      <p>If the remote contact does not accept the call in time, then
+        the call can be terminated by the server. Note that this only
         happens in some protocols. Most XMPP clients, for example, do
         not do this and rely on the call initiator terminating the call.
         A missed call is shown in a Call channel by the
