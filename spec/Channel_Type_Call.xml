@@ -167,7 +167,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     ...<tp:member-ref>InitialVideo</tp:member-ref>: True,
     ...<tp:member-ref>InitialAudioName</tp:member-ref>: "audio",
     ...<tp:member-ref>InitialVideoName</tp:member-ref>: "video",
-    ...<tp:member-ref>MutableContents</tp:member-ref>: TRUE,
+    ...<tp:member-ref>MutableContents</tp:member-ref>: True,
   }])</pre></blockquote>
 
       <p>The <tp:member-ref>InitialAudio</tp:member-ref> and
@@ -389,7 +389,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>This method is only useful if the
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
-          property is false, and
+          property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
           <tp:type>Call_State</tp:type>_Pending_Receiver (an incoming
           call waiting on the local user to pick up). While this is
@@ -449,7 +449,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:type>Sending_State</tp:type>_Pending_Send will be
           moved to <tp:type>Sending_State</tp:type>_Sending as if
           <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
-          >SetSending</tp:dbus-ref>(TRUE) had been called.</p>
+          >SetSending</tp:dbus-ref>(True) had been called.</p>
       </tp:docstring>
 
       <tp:possible-errors>
@@ -985,7 +985,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="HardwareStreaming" tp:name-for-bindings="Hardware_Streaming"
         type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If this property is TRUE, all of the media streaming is done by some
+        <p>If this property is True, all of the media streaming is done by some
           mechanism outside the scope of Telepathy.</p>
 
         <tp:rationale>
@@ -1002,7 +1002,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
-        <p>If this is FALSE, the handler is responsible for doing the actual
+        <p>If this is False, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
           will have the <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
           >Media.DRAFT</tp:dbus-ref> interface, to communicate the necessary
@@ -1149,7 +1149,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="InitialAudio" tp:name-for-bindings="Initial_Audio"
       type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If set to true in a channel request that will create a new channel,
+        <p>If set to True in a channel request that will create a new channel,
           the connection manager should immediately attempt to establish an
           audio stream to the remote contact, making it unnecessary for the
           client to call <tp:dbus-ref
@@ -1161,11 +1161,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel as suitable; these properties only become significant when
           the connection manager has decided to create a new channel.</p>
 
-        <p>If true on a requested channel, this indicates that the audio
+        <p>If True on a requested channel, this indicates that the audio
           stream has already been requested and the client does not need to
           call RequestStreams, although it MAY still do so.</p>
 
-        <p>If true on an unrequested (incoming) channel, this indicates that
+        <p>If True on an unrequested (incoming) channel, this indicates that
           the remote contact initially requested an audio stream; this does
           not imply that that audio stream is still active (as indicated by
           <tp:dbus-ref namespace="ofdT.Channel.Type.Call.DRAFT"
@@ -1210,9 +1210,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <ul>
           <li>{ ChannelType = Call }</li>
-          <li>{ ChannelType = Call, InitialAudio = true }
+          <li>{ ChannelType = Call, InitialAudio = True }
             if receiving calls with audio is supported</li>
-          <li>{ ChannelType = Call, InitialVideo = true }
+          <li>{ ChannelType = Call, InitialVideo = True }
             if receiving calls with video is supported</li>
         </ul>
 
@@ -1230,7 +1230,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The same as <tp:member-ref>InitialAudio</tp:member-ref>, but for
           a video stream. This property is immutable (cannot change).</p>
 
-        <p>In particular, note that if this property is false, this does not
+        <p>In particular, note that if this property is False, this does not
           imply that an active video stream has not been added, only that no
           video stream was active at the time the channel appeared.</p>
 
@@ -1244,7 +1244,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <tp:member-ref>InitialAudio</tp:member-ref> is set to
-          true, then this property will name the intial audio content
+          True, then this property will name the intial audio content
           with the value of this property.</p>
 
         <tp:rationale>
@@ -1261,7 +1261,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>If this property is empty or missing from the channel
-          request and InitialAudio is true, then the CM must come up
+          request and InitialAudio is True, then the CM must come up
           with a sensible for the content, such as "audio".</p>
 
         <p>If the protocol has no concept of stream names then this
@@ -1276,7 +1276,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The same as
           <tp:member-ref>InitialAudioName</tp:member-ref>, but for a
           video stream created by setting
-          <tp:member-ref>InitialVideo</tp:member-ref> to true. This
+          <tp:member-ref>InitialVideo</tp:member-ref> to True. This
           property is immutable and so cannot change.</p>
       </tp:docstring>
     </property>
@@ -1284,10 +1284,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="MutableContents" tp:name-for-bindings="Mutable_Contents"
       type="b" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If <tt>True</tt>, a stream of a different content type can be added
+        <p>If True, a stream of a different content type can be added
         after the Channel has been requested </p>
 
-        <p>If this property is missing, clients SHOULD assume that it is false,
+        <p>If this property is missing, clients SHOULD assume that it is False,
           and thus that the channel's streams cannot be changed once the call
           has started.</p>
 
