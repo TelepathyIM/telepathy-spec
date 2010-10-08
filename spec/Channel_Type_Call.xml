@@ -352,7 +352,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         namespace="ofdT.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
         for <tp:dbus-ref
         namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channels
-        should be:</p>
+        can be:</p>
 
       <blockquote>
         <pre>
@@ -375,8 +375,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             ]
 )]</pre></blockquote>
 
-      <p>Clients aren't allowed to make outgoing calls that have neither initial
-        audio nor initial video.</p>
+      <p>Clients aren't allowed to make outgoing calls that have
+        neither initial audio nor initial video. Clearly, for clients
+        without video capabilities should leave out the first class and
+        omit <tp:member-ref>InitialVideo</tp:member-ref> from the second
+        class, and vice versa for clients without audio capabilities.</p>
 
     </tp:docstring>
 
