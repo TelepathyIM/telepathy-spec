@@ -376,10 +376,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 )]</pre></blockquote>
 
       <p>Clients aren't allowed to make outgoing calls that have
-        neither initial audio nor initial video. Clearly, for clients
-        without video capabilities should leave out the first class and
+        neither initial audio nor initial video. Clearly, CMs
+        which don't support video should leave out the first class and
         omit <tp:member-ref>InitialVideo</tp:member-ref> from the second
-        class, and vice versa for clients without audio capabilities.</p>
+        class, and vice versa for CMs without audio support.</p>
 
     </tp:docstring>
 
