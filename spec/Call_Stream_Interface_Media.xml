@@ -174,7 +174,8 @@
 
       <tp:enumvalue suffix="SHM" value="4">
         <tp:docstring>
-          Shared memory transport.
+          Shared memory transport, as implemented by the GStreamer
+          shmmsrc and shmsink plugins.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
