@@ -396,7 +396,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           call waiting on the local user to pick up). While this is
           the case, this method SHOULD change the
           <tp:member-ref>CallFlags</tp:member-ref> to include
-          <tp:type>Call_Flags</tp:type>Locally_Ringing, and notify the
+          <tp:type>Call_Flags</tp:type>_Locally_Ringing, and notify the
           remote contact that the local user has been alerted (if the
           protocol implements this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
