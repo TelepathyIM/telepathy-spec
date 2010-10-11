@@ -381,6 +381,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         omit <tp:member-ref>InitialVideo</tp:member-ref> from the second
         class, and vice versa for CMs without audio support.</p>
 
+      <p>Closing a <tp:dbus-ref
+        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channel
+        implies a call to
+        <tp:member-ref>Hangup</tp:member-ref>(<tp:type>Call_State_Change_Reason</tp:type>User_Requested,
+        "", "") before actually closing the channel.</p>
+
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
