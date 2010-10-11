@@ -267,7 +267,7 @@ class Base(object):
             n.setAttribute('href', t.get_url())
 
         # rewrite <tp:error-ref>
-        error_ns = 'org.freedesktop.Telepathy.Error.'
+        error_ns = spec.spec_namespace + '.Error.'
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'error-ref'):
             try:
                 e = spec.errors[error_ns + getText(n)]
@@ -1042,6 +1042,7 @@ class ErrorsSection(Section):
 class Spec(SectionBase):
     def __init__(self, dom, spec_namespace):
         self.document = dom
+        self.spec_namespace = spec_namespace
 
         # build a dictionary of errors in this spec
         try:
