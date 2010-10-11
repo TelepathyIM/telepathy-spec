@@ -519,12 +519,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           <p>The suggested name of the content to add.</p>
 
-          <p>If there is already a content with the same name as this
-            property then a useful suffix should be added. For example, if
-            this property is "audio" but a content of the same name
-            already exists, the suffix " (1)" is appended to name the new
-            content "audio (1)".</p>
-
           <tp:rationale>
             The content name property should be meaningful, so should
             be given a name which is significant to the user. The name
@@ -532,6 +526,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             some string identifying the source, such as a webcam
             identifier.
           </tp:rationale>
+
+          <p>If there is already a content with the same name as this
+            property then a useful suffix should be added. For example, if
+            this property is "audio" but a content of the same name
+            already exists, the suffix " (1)" is appended to name the new
+            content "audio (1)".</p>
+
         </tp:docstring>
       </arg>
       <arg direction="in" name="Content_Type" type="u"
