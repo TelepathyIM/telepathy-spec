@@ -116,6 +116,20 @@
       </arg>
     </signal>
 
+    <signal name="LocalSendingStateChanged"
+        tp:name-for-bindings="Local_Sending_State_Changed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Emitted when <tp:member-ref>LocalSendingState</tp:member-ref> changes.
+      </tp:docstring>
+
+      <arg name="State" type="u" tp:type="Sending_State">
+        <tp:docstring>
+          The new value of
+          <tp:member-ref>LocalSendingState</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+    </signal>
+
     <tp:enum name="Sending_State" type="u">
       <tp:docstring>
         Enum indicating whether a contact is sending media.
@@ -193,7 +207,10 @@
         <p>The local user's sending state. Media sent on this stream
           should be assumed to be received, directly or indirectly, by
           every other contact in the
-          <tp:member-ref>RemoteMembers</tp:member-ref> mapping.</p>
+          <tp:member-ref>RemoteMembers</tp:member-ref> mapping. Change
+          notification is given via the
+          <tp:member-ref>LocalSendingStateChanged</tp:member-ref>
+          signal.</p>
 
         <tp:rationale>
           Implementations of the first Call draft had the self handle
