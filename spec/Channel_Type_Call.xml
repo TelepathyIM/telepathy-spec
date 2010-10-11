@@ -513,7 +513,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="AddContent" tp:name-for-bindings="Add_Content">
       <tp:docstring>
-        [FIXME]
+        Request that a new <tp:dbus-ref
+        namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref> of type
+        Content_Type is added to the Call. Handlers should check the
+        value of the <tp:member-ref>MutableContents</tp:member-ref>
+        property before trying to add another content as it might not
+        be allowed.
       </tp:docstring>
       <arg direction="in" name="Content_Name" type="s">
         <tp:docstring>
@@ -528,17 +533,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           </tp:rationale>
 
           <p>If there is already a content with the same name as this
-            property then a useful suffix should be added. For example, if
-            this property is "audio" but a content of the same name
-            already exists, the suffix " (1)" is appended to name the new
-            content "audio (1)".</p>
+            property then a sensible suffix should be added. For example,
+            if this argument is "audio" but a content of the same name
+            already exists, a sensible suffix such as " (1)" is appended
+            to name the new content "audio (1)". A further content with the
+            name "audio" would then be named "audio (2)".</p>
 
         </tp:docstring>
       </arg>
       <arg direction="in" name="Content_Type" type="u"
           tp:type="Media_Stream_Type">
         <tp:docstring>
-          The media type of the content to add
+          The media stream type of the content to be added to the
+          call.
         </tp:docstring>
       </arg>
       <arg direction="out" name="Content" type="o">
@@ -552,12 +559,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The content type given is invalid.
+            The media stream type given is invalid.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
-            The content type requested is not implemented by the CM.
+            The media stream type requested is not implemented by the
+            CM.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
