@@ -1342,6 +1342,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </tp:hct>
 
+    <tp:hct name="shm">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The client can implement streaming for streams whose <tp:dbus-ref
+          namespace="ofdT.Call.Stream.Interface.Media.DRAFT">Transport</tp:dbus-ref>
+          property is <tp:type>Stream_Transport_Type</tp:type>_SHM.</p>
+      </tp:docstring>
+    </tp:hct>
+
     <tp:hct name="video/h264" is-family="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client supports media streaming with H264 (etc.).</p>
