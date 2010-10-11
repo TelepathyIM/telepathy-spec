@@ -118,7 +118,7 @@
 
     <tp:enum name="Sending_State" type="u">
       <tp:docstring>
-        Tristate indicating whether a contact is sending media.
+        Enum indicating whether a contact is sending media.
       </tp:docstring>
 
       <tp:enumvalue suffix="None" value="0">
