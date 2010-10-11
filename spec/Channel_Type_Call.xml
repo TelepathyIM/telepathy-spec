@@ -381,11 +381,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         omit <tp:member-ref>InitialVideo</tp:member-ref> from the second
         class, and vice versa for CMs without audio support.</p>
 
-      <p>Closing a <tp:dbus-ref
-        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channel
-        implies a call to
-        <tp:member-ref>Hangup</tp:member-ref>(<tp:type>Call_State_Change_Reason</tp:type>User_Requested,
-        "", "") before actually closing the channel.</p>
+      <p>Handlers should not close <tp:dbus-ref
+        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channels
+        without first calling <tp:member-ref>Hangup</tp:member-ref> on
+        the channel. If a Call handler crashes, the <tp:dbus-ref
+        namespace="ofdT">ChannelDispatcher</tp:dbus-ref> will call
+        <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref> on the
+        channel which SHOULD also imply a call to
+        <tp:member-ref>Hangup</tp:member-ref>(<tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
+        "org.freedesktop.Telepathy.Error.Terminated", "") before
+        actually closing the channel.</p>
 
     </tp:docstring>
 
