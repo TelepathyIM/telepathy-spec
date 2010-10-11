@@ -470,7 +470,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="Hangup" tp:name-for-bindings="Hangup">
       <tp:docstring>
-        Request that the call is ended.
+        Request that the call is ended. All contents will be removed
+        from the Call so that the
+        <tp:member-ref>Contents</tp:member-ref> property will be the
+        empty list.
       </tp:docstring>
 
       <arg direction="in" name="Reason"
