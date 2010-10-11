@@ -418,6 +418,12 @@ class PossibleError(Base):
         try:
             return spec.errors[self.name]
         except KeyError:
+            if not spec.allow_externals:
+                print >> sys.stderr, """
+WARNING: Error not known: '%s'
+         (<tp:possible-error> in %s)
+                """.strip() % (self.name, self.parent)
+
             return External(self.name)
 
     def get_url(self):
@@ -709,6 +715,12 @@ class Interface(Base):
             try:
                 return spec.lookup(r)
             except KeyError:
+                if not spec.allow_externals:
+                    print >> sys.stderr, """
+WARNING: Interface not known: '%s'
+         (<tp:requires> in %s)
+                """.strip() % (r, self)
+
                 return External(r)
 
         return map(lookup, self.requires)
@@ -1040,9 +1052,10 @@ class ErrorsSection(Section):
         pass
 
 class Spec(SectionBase):
-    def __init__(self, dom, spec_namespace):
+    def __init__(self, dom, spec_namespace, allow_externals=False):
         self.document = dom
         self.spec_namespace = spec_namespace
+        self.allow_externals = allow_externals
 
         # build a dictionary of errors in this spec
         try:
@@ -1187,11 +1200,11 @@ def parse_types(parent, dom, namespace = None):
 
     return types
 
-def parse(filename, spec_namespace):
+def parse(filename, spec_namespace, allow_externals=False):
     dom = xml.dom.minidom.parse(filename)
     xincludator.xincludate(dom, filename)
 
-    spec = Spec(dom, spec_namespace)
+    spec = Spec(dom, spec_namespace, allow_externals=allow_externals)
 
     return spec
 
