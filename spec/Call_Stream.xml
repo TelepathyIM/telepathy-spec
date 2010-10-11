@@ -94,10 +94,10 @@
       </tp:possible-errors>
     </method>
 
-    <signal name="MembersChanged"
-        tp:name-for-bindings="Members_Changed">
+    <signal name="RemoteMembersChanged"
+        tp:name-for-bindings="Remote_Members_Changed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        Emitted when <tp:member-ref>Members</tp:member-ref> changes.
+        Emitted when <tp:member-ref>RemoteMembers</tp:member-ref> changes.
       </tp:docstring>
 
       <arg name="Updates" type="a{uu}" tp:type="Contact_Sending_State_Map">
@@ -109,9 +109,9 @@
       </arg>
       <arg name="Removed" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          The channel-specific handles that were removed from
-          the keys of the Members property, as a result of the
-          contact leaving this stream
+          The channel-specific handles that were removed from the keys
+          of the <tp:member-ref>RemoteMembers</tp:member-ref>
+          property, as a result of the contact leaving this stream
         </tp:docstring>
       </arg>
     </signal>
@@ -169,27 +169,39 @@
       </tp:docstring>
     </property>
 
-    <property name="Members" tp:name-for-bindings="Members"
+    <property name="RemoteMembers" tp:name-for-bindings="Remote_Members"
         type="a{uu}" access="read" tp:type="Contact_Sending_State_Map">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A map from contacts to their sending state.</p>
+        <p>A map from remote contacts to their sending state. The
+          local user's sending state is shown in
+          <tp:member-ref>LocalSendingState</tp:member-ref>.</p>
 
-        <p>The local user's handle in this map (the <tp:dbus-ref
-            namespace="ofdT.Channel.Interface"
-            >Group.SelfHandle</tp:dbus-ref> if the channel implements
-          Group, or the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy"
-            >Connection.SelfHandle</tp:dbus-ref> otherwise) indicates
-          whether the local user is sending media. Media sent on this stream
-          should be assumed to be received, directly or indirectly, by every
-          other contact in the Members mapping. Sending_State_Pending_Send
-          indicates that another contact has asked the local user to send
+        <p><tp:type>Sending_State</tp:type>_Pending_Send indicates
+          that another contact has asked the local user to send
           media.</p>
 
         <p>Other contacts' handles in this map indicate whether they are
           sending media to the contacts in this stream.
           Sending_State_Pending_Send indicates contacts who are not sending but
           have been asked to do so.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="LocalSendingState" tp:name-for-bindings="Local_Sending_State"
+        type="u" access="read" tp:type="Sending_State">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The local user's sending state. Media sent on this stream
+          should be assumed to be received, directly or indirectly, by
+          every other contact in the
+          <tp:member-ref>RemoteMembers</tp:member-ref> mapping.</p>
+
+        <tp:rationale>
+          Implementations of the first Call draft had the self handle
+          in the <tp:member-ref>RemoteMembers</tp:member-ref> (then
+          called Members) map and this showed that it's annoying
+          having to keep track of the self handle so that it can be
+          special-cased.
+        </tp:rationale>
       </tp:docstring>
     </property>
 

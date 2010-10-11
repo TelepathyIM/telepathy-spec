@@ -456,9 +456,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT"
           >Disposition</tp:dbus-ref> is
           <tp:type>Call_Content_Disposition</tp:type>_Initial, any
-          streams where the self-handle's sending state in <tp:dbus-ref
-          namespace="ofdT.Call.Stream.DRAFT" >Members</tp:dbus-ref> is
-          <tp:type>Sending_State</tp:type>_Pending_Send will be
+          streams where the <tp:dbus-ref
+          namespace="ofdT.Call.Stream.DRAFT">LocalSendingState</tp:dbus-ref>
+          is <tp:type>Sending_State</tp:type>_Pending_Send will be
           moved to <tp:type>Sending_State</tp:type>_Sending as if
           <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
           >SetSending</tp:dbus-ref>(True) had been called.</p>
