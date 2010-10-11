@@ -141,13 +141,6 @@
       </tp:docstring>
     </property>
 
-    <property name="Creator" tp:name-for-bindings="Creator"
-        type="u" tp:type="Contact_Handle" access="read">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The creator of this content</p>
-      </tp:docstring>
-    </property>
-
     <tp:enum name="Call_Content_Disposition" type="u">
       <tp:docstring>
         [FIXME]
