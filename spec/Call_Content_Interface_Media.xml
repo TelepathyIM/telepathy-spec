@@ -136,9 +136,9 @@
       </arg>
     </signal>
 
-    <method name="SetCodecs" tp:name-for-bindings="Set_Codecs">
+    <method name="UpdateCodecs" tp:name-for-bindings="Update_Codecs">
       <tp:docstring>
-        Set or update the local codec mapping.
+        Update the local codec mapping.
       </tp:docstring>
 
       <arg name="Codecs" direction="in"
