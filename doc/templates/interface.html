@@ -319,11 +319,16 @@
 
      #if $property.immutable:
      <div class="annotation immutable">This property is
-       <strong>immutable</strong> which means that it can never change
-       once the channel has been created. Immutable properties SHOULD
+       <strong>immutable</strong> which means that it can never
+       #if $interface.is_channel_related:
+       change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
        of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
-       signals.</div>
+       signals
+       #else
+       change.
+       #end if
+     </div>
      #end if
 
      #if $property.requestable:

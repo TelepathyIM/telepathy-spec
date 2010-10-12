@@ -705,6 +705,8 @@ class Interface(Base):
         # let's make sure there's nothing we don't know about here
         self.check_for_odd_children(dom)
 
+        self.is_channel_related = self.name.startswith(spec_namespace + '.Channel')
+
     def get_interface(self):
         return self
 
