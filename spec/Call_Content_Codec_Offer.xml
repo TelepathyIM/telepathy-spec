@@ -59,9 +59,10 @@
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
       type="as" tp:type="DBus_Interface[]" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Extra interfaces provided by this codec offer.  This SHOULD
-          NOT include the CodecOffer interface itself, and cannot change
-          once the content has been created.</p>
+        <p>Extra interfaces provided by this codec offer, such as <tp:dbus-ref
+          namespace="ofdT.Call.Content">CodecOffer.Interface.RTCPFeedback.DRAFT</tp:dbus-ref>.
+          This SHOULD NOT include the CodecOffer interface itself, and cannot
+          change once the content has been created.</p>
       </tp:docstring>
     </property>
 
