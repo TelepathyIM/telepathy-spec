@@ -243,14 +243,34 @@
       <arg name="Password" type="s" />
     </signal>
 
+    <signal name="RelayInfoChanged"
+      tp:name-for-bindings="Relay_Info_Changed">
+      <tp:docstring>
+        Emitted when the value of
+        <tp:member-ref>RelayInfo</tp:member-ref> changes.
+      </tp:docstring>
+
+      <arg name="Relay_Info" type="aa{sv}" tp:type="String_Variant_Map[]" />
+    </signal>
+
+    <signal name="STUNServersChanged"
+      tp:name-for-bindings="STUN_Servers_Changed">
+      <tp:docstring>
+        Emitted when the value of
+        <tp:member-ref>STUNServers</tp:member-ref> changes.
+      </tp:docstring>
+
+      <arg name="Servers" type="a(sq)" tp:type="Socket_Address_IP[]" />
+    </signal>
+
     <property name="STUNServers" tp:name-for-bindings="STUN_Servers"
       type="a(sq)" tp:type="Socket_Address_IP[]" access="read">
       <tp:docstring>
         The IP addresses of possible STUN servers to use for NAT traversal, as
         dotted-quad IPv4 address literals or RFC2373 IPv6 address literals.
-        This property cannot change once the stream has been created, so there
-        is no change notification. The IP addresses MUST NOT be given as DNS
-        hostnames.
+        Change notification is via the
+        <tp:member-ref>STUNServersChanged</tp:member-ref> signal. The IP
+        addresses MUST NOT be given as DNS hostnames.
 
         <tp:rationale>
           High-quality connection managers already need an asynchronous
@@ -330,6 +350,9 @@
           otherwise, the meaning of RelayInfo is undefined.</p>
 
         <p>If relaying is not possible for this stream, the list is empty.</p>
+
+        <p>Change notification is given via the
+          <tp:member-ref>RelayInfoChanged</tp:member-ref> signal.</p>
       </tp:docstring>
     </property>
 
@@ -338,16 +361,16 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Signals that the initial information about STUN and Relay servers
           has been retrieved, i.e. the
-          <tp:member-ref>RetrievedServerInfo</tp:member-ref> property is now
-          true.</p>
+          <tp:member-ref>AllServerInfoRetrieved</tp:member-ref> property is
+          now true.</p>
       </tp:docstring>
     </signal>
 
-    <property name="RetrievedServerInfo" type="b"
-        tp:name-for-bindings="Retrieved_Server_Info" access="read">
+    <property name="AllServerInfoRetrieved" type="b"
+        tp:name-for-bindings="All_Server_Info_Retrieved" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>True if the initial information about STUN servers and Relay servers
-          has been retrieved. Change notification is via the
+        <p>True if all the initial information about STUN servers and Relay
+          servers has been retrieved. Change notification is via the
           <tp:member-ref>ServerInfoRetrieved</tp:member-ref> signal.</p>
 
         <tp:rationale>
