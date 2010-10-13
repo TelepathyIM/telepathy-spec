@@ -43,6 +43,7 @@ class TypeMismatch(Exception): pass
 class MissingVersion(Exception): pass
 class DuplicateEnumValueValue(Exception): pass
 class BadFlagValue(Exception): pass
+class BadFlagsType(Exception): pass
 
 class Xzibit(Exception):
     def __init__(self, parent, child):
@@ -993,7 +994,7 @@ class Flags(EnumLike):
         super(Flags, self).__init__(parent, namespace, dom)
 
         if dom.getAttribute('type') != 'u':
-            raise UnsupportedArray('Flags %s doesn\'t make sense to be of '
+            raise BadFlagsType('Flags %s doesn\'t make sense to be of '
                    'type "%s"' % (self.name, dom.getAttribute('type')))
 
         if dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'):
