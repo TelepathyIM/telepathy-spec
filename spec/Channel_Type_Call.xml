@@ -930,7 +930,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="u" tp:type="Call_State_Change_Reason" name="Reason">
         <tp:docstring>
           The reason, chosen from a limited set of possibilities defined by
-          the Telepathy specification.
+          the Telepathy specification. If
+          <tp:type>Call_State_Change_Reason</tp:type>_User_Requested then
+          the Actor member will dictate whether it was the local user or
+          a remote contact responsible.
         </tp:docstring>
       </tp:member>
 
