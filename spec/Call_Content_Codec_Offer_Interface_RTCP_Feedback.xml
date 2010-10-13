@@ -28,8 +28,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:docstring>
 
     <method name="SetLocalFeedbackCodecs" tp:name-for-bindings="Set_Local_Feedback_Codecs">
-      <arg name="Ack_Codecs" direction="in" type="a(uu)" tp:type="RTCP_Feedback_Codec[]" />
-      <arg name="Nack_Codecs" direction="in" type="a(uu)" tp:type="RTCP_Feedback_Codec[]" />
+      <arg name="Ack_Codecs" direction="in" type="a{uu}" tp:type="RTCP_Feedback_Codec" />
+      <arg name="Nack_Codecs" direction="in" type="a{uu}" tp:type="RTCP_Feedback_Codec" />
       <tp:docstring>
         FIXME
       </tp:docstring>
@@ -39,20 +39,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring>
         FIXME
       </tp:docstring>
-      <tp:member type="a(uu)" name="Ack_Feedback_Feedbacks">
+      <tp:member type="a{uu}" name="Ack_Feedback_Feedbacks">
         <tp:docstring>
           Codec FIXME
         </tp:docstring>
       </tp:member>
-      <tp:member type="a(uu)" name="Nack_Feedback_Feedbacks">
+      <tp:member type="a{uu}" name="Nack_Feedback_Feedbacks">
         <tp:docstring>
           Codec FIXME
         </tp:docstring>
       </tp:member>
     </tp:struct>
 
-    <tp:struct name="RTCP_Feedback_Codec"
-      array-name="RTCP_Feedback_Codec_List">
+    <tp:mapping name="RTCP_Feedback_Codec">
       <tp:docstring>
         FIXME
       </tp:docstring>
@@ -66,9 +65,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           FIXME
         </tp:docstring>
       </tp:member>
-    </tp:struct>
+    </tp:mapping>
 
-    <property name="LocalFeedbackCodecs" type="(a(uu)a(uu))"
+    <property name="LocalFeedbackCodecs" type="(a{uu}a{uu})"
       tp:type="RTCP_Feedback_Codec_Parameters"
       access="read" tp:name-for-bindings="Local_Feedback_Codecs">
       <tp:docstring>
@@ -76,7 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="RemoteFeedbackCodecs" type="(a(uu)a(uu))"
+    <property name="RemoteFeedbackCodecs" type="(a{uu}a{uu})"
       tp:type="RTCP_Feedback_Codec_Parameters"
       access="read" tp:name-for-bindings="Remote_Feedback_Codecs">
       <tp:docstring>
