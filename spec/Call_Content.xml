@@ -152,13 +152,7 @@
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Early_Media" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          [FIXME: what does this mean?]
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Initial" value="2">
+      <tp:enumvalue suffix="Initial" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The content was initially part of the call. When <tp:dbus-ref
             namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
