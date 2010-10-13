@@ -27,8 +27,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>rfc4585</p>
     </tp:docstring>
 
-    <method name="UpdateLocalFeedbackCodecs" tp:name-for-bindings="Update_Local_Feedback_Codecs">
-      <arg name="Codecs" direction="in" type="a(uu)" tp:type="RTCP_Feedback_Codec[]" />
+    <method name="SetLocalFeedbackCodecs" tp:name-for-bindings="Set_Local_Feedback_Codecs">
+      <arg name="Ack_Codecs" direction="in" type="a(uu)" tp:type="RTCP_Feedback_Codec[]" />
+      <arg name="Nack_Codecs" direction="in" type="a(uu)" tp:type="RTCP_Feedback_Codec[]" />
       <tp:docstring>
         FIXME
       </tp:docstring>
