@@ -344,6 +344,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td>""</td>
           <td>The outgoing call was not picked up and the call ended.</td>
         </tr>
+        <tr>
+          <td>False</td>
+          <td><tp:type>Call_State</tp:type>_Ended</td>
+          <td>Remote contact handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td><tp:error-ref>PickedUpElsewhere</tp:error-ref></td>
+          <td>The incoming call was ended because it was picked up elsewhere.</td>
+        </tr>
       </table>
 
       <h4>Requestable channel classes</h4>
