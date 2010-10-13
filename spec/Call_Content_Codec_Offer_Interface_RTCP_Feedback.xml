@@ -87,11 +87,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <tp:flags name="RTCP_Parameters" type="u">
-      <tp:flag suffix="None" value="0">
-        <tp:docstring>
-          No parameters set.
-        </tp:docstring>
-      </tp:flag>
       <tp:flag suffix="PLI" value="1">
         <tp:docstring>
           Picture Loss Indication (only available on "ack" feedback type).
