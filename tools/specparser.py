@@ -995,7 +995,8 @@ class Flags(EnumLike):
 
         if dom.getAttribute('type') != 'u':
             raise BadFlagsType('Flags %s doesn\'t make sense to be of '
-                   'type "%s"' % (self.name, dom.getAttribute('type')))
+                   'type "%s" (only type "u" makes sense")' % (
+                    self.name, dom.getAttribute('type')))
 
         if dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'):
             raise MismatchedFlagsAndEnum('%s is a tp:flags, so it should not '
