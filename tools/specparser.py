@@ -42,6 +42,7 @@ class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
 class MissingVersion(Exception): pass
 class DuplicateEnumValueValue(Exception): pass
+class BadFlagValue(Exception): pass
 
 class Xzibit(Exception):
     def __init__(self, parent, child):
@@ -1004,6 +1005,20 @@ class Flags(EnumLike):
         self.flags = self.values # in case you're looking for it
 
         self.check_for_duplicates()
+
+        # make sure all these values are sane
+        for flag in self.values:
+            v = int(flag.value)
+            found = False
+
+            for i in range(0, 20): # I think this is reasonable for now
+                if v == 2**i:
+                    found = True
+                    break
+
+            if not found:
+                raise BadFlagValue('Flags %s has bad value (not a power of '
+                       'two): %s=%s' % (self.name, flag.short_name, v))
 
 class TokenBase(Base):
 
