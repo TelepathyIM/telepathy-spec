@@ -219,6 +219,21 @@
           having to keep track of the self handle so that it can be
           special-cased.
         </tp:rationale>
+
+        <p>A value of <tp:type>Sending_State</tp:type>_Pending_Send for
+          this property indicates that the other side requested the
+          local user start sending media, which can be done by calling
+          <tp:member-ref>SetSending</tp:member-ref>. When a call is
+          accepted, all initial contents with streams that have a
+          local sending state of
+          <tp:type>Sending_State</tp:type>_Pending_Send are
+          automatically set to sending. For example, on an incoming
+          call it means you need to <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
+          to start the actual call, on an outgoing call it might mean
+          you need to call <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
+          before actually starting the call.</p>
       </tp:docstring>
     </property>
 
