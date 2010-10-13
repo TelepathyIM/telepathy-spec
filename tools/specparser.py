@@ -1011,14 +1011,9 @@ class Flags(EnumLike):
         # make sure all these values are sane
         for flag in self.values:
             v = int(flag.value)
-            found = False
 
-            for i in range(0, 20): # I think this is reasonable for now
-                if v == 2**i:
-                    found = True
-                    break
-
-            if not found:
+            # positive x is a power of two if (x & (x - 1)) = 0.
+            if v == 0 or (v & (v - 1)) != 0:
                 raise BadFlagValue('Flags %s has bad value (not a power of '
                        'two): %s=%s' % (self.name, flag.short_name, v))
 
