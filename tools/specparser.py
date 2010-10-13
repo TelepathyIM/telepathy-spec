@@ -41,6 +41,7 @@ class WrongNumberOfChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
 class MissingVersion(Exception): pass
+class DuplicateEnumValueValue(Exception): pass
 
 class Xzibit(Exception):
     def __init__(self, parent, child):
@@ -955,6 +956,17 @@ class EnumLike(DBusType):
 
         return str
 
+    def check_for_duplicates(self):
+        # make sure no two values have the same value
+        for u in self.values:
+            for v in [x for x in self.values if x is not u]:
+                if u.value == v.value:
+                    raise DuplicateEnumValueValue('%s %s has two values '
+                            'with the same value: %s=%s and %s=%s' % \
+                            (self.__class__.__name__, self.name, \
+                             u.short_name, u.value, v.short_name, v.value))
+
+
 class Enum(EnumLike):
 
     devhelp_name = "enum"
@@ -973,6 +985,8 @@ class Enum(EnumLike):
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'))
 
+        self.check_for_duplicates()
+
 class Flags(EnumLike):
     def __init__(self, parent, namespace, dom):
         super(Flags, self).__init__(parent, namespace, dom)
@@ -984,6 +998,8 @@ class Flags(EnumLike):
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'flag'))
         self.flags = self.values # in case you're looking for it
+
+        self.check_for_duplicates()
 
 class TokenBase(Base):
 
