@@ -991,6 +991,10 @@ class Flags(EnumLike):
     def __init__(self, parent, namespace, dom):
         super(Flags, self).__init__(parent, namespace, dom)
 
+        if dom.getAttribute('type') != 'u':
+            raise UnsupportedArray('Flags %s doesn\'t make sense to be of '
+                   'type "%s"' % (self.name, dom.getAttribute('type')))
+
         if dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'):
             raise MismatchedFlagsAndEnum('%s is a tp:flags, so it should not '
                     'contain tp:enumvalue' % self.name)
