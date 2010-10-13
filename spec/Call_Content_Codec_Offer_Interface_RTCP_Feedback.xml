@@ -84,33 +84,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <tp:enum name="RTCP_Parameters" type="u">
-      <tp:enumvalue suffix="None" value="0">
+    <tp:flags name="RTCP_Parameters" type="u">
+      <tp:flag suffix="None" value="0">
         <tp:docstring>
           No parameters set.
         </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="PLI" value="1">
+      </tp:flag>
+      <tp:flag suffix="PLI" value="1">
         <tp:docstring>
-          Picture Loss Indication.
+          Picture Loss Indication (only available on "ack" feedback type).
         </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="SLI" value="2">
+      </tp:flag>
+      <tp:flag suffix="SLI" value="2">
         <tp:docstring>
-          Slice Loss Indication
+          Slice Loss Indication (only available on "ack" feedback type).
         </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="RPSI" value="2">
+      </tp:flag>
+      <tp:flag suffix="RPSI" value="4">
         <tp:docstring>
           Reference Picture Selection Indication feedback.
         </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="App" value="2">
+      </tp:flag>
+      <tp:flag suffix="App" value="8">
         <tp:docstring>
           Application layer feedback.
         </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
+      </tp:flag>
+    </tp:flags>
 
   </interface>
 </node>
