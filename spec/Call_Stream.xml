@@ -25,32 +25,32 @@
     <tp:added version="0.19.0">(draft 1)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      One stream inside a content
-      FIXME, direction should be a mapping of contact -> (bool)sending ?
+      One stream inside a <tp:dbus-ref
+      namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>.
     </tp:docstring>
 
     <method name="SetSending" tp:name-for-bindings="Set_Sending">
       <tp:docstring>
         Set the stream to start or stop sending media from the local
-          user to other contacts.
+        user to other contacts.
       </tp:docstring>
 
       <arg name="Send" type="b" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>If true, the local user's sending state should change
-            to Sending, if it isn't already.</p>
+          <p>If True, the
+            <tp:member-ref>LocalSendingState</tp:member-ref> should
+            change to <tp:type>Sending_State</tp:type>_Sending, if it isn't
+            already.</p>
 
-          <p>If false, the local user's sending state should change to None,
-            if it isn't already.</p>
+          <p>If False, the
+            <tp:member-ref>LocalSendingState</tp:member-ref> should
+            change to <tp:type>Sending_State</tp:type>_None, if it isn't
+            already.</p>
         </tp:docstring>
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
-          <tp:docstring>
-            [FIXME: when?]
-          </tp:docstring>
-        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented" />
       </tp:possible-errors>
     </method>
 
@@ -137,7 +137,8 @@
 
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
-          The contact is not sending media and has not been asked to do so.
+          The contact is not sending media and has not been asked to
+          do so.
         </tp:docstring>
       </tp:enumvalue>
 
@@ -162,18 +163,22 @@
 
     <tp:mapping name="Contact_Sending_State_Map">
       <tp:docstring>
-        A map from contacts to their sending state.
+        A map from a contact to his or her sending state.
       </tp:docstring>
       <tp:member name="Contact" type="u" tp:type="Contact_Handle">
+        <tp:docstring>
+          The contact handle.
+        </tp:docstring>
       </tp:member>
       <tp:member name="Sending" type="u" tp:type="Sending_State">
          <tp:docstring>
+           The sending state of the contact.
          </tp:docstring>
       </tp:member>
     </tp:mapping>
 
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
-      type="as" tp:type="DBus_Interface[]" access="read">
+      type="as" tp:type="DBus_Interface[]" access="read" tp:immutable="yes">
       <tp:added version="0.19.11"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this stream, such as <tp:dbus-ref
@@ -238,7 +243,7 @@
     </property>
 
     <property name="CanRequestReceiving" tp:name-for-bindings="Can_Request_Receiving"
-        type="b" access="read">
+        type="b" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, the user can request that a remote contact starts
           sending on this stream.</p>
