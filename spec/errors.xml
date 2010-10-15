@@ -500,14 +500,6 @@
     </tp:docstring>
   </tp:error>
 
-  <tp:error name="Hung Up">
-    <tp:added version="0.21.2"/>
-    <tp:docstring>
-      Raised when a call was terminated as a result of one of the
-      participants hanging up.
-    </tp:docstring>
-  </tp:error>
-
   <tp:copyright>Copyright © 2005-2010 Collabora Limited</tp:copyright>
   <tp:copyright>Copyright © 2005-2009 Nokia Corporation</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">

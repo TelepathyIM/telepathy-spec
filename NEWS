@@ -9,7 +9,7 @@ The "Ponderer of Witty Job Titles" release.
 
 New stable API:
 
-• HungUp and Rejected errors for use with Call (jonny)
+• Rejected error code for use with Call (jonny)
 
 • StreamHandler now has StartNamedTelephonyEvent and StartSoundTelephonyEvent
   signals (ocrete)

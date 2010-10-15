@@ -242,7 +242,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:member-ref>CallStateReason</tp:member-ref> will change
         to (self handle,
         <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
-        "org.freedesktop.Telepathy.Error.HungUp").</p>
+        "org.freedesktop.Telepathy.Error.Cancelled").</p>
 
       <p>If the other participant hangs up first then the
         <tp:member-ref>CallState</tp:member-ref> property will change to
@@ -250,7 +250,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:member-ref>CallStateReason</tp:member-ref> will change
         to (remote contact,
         <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
-        "org.freedesktop.Telepathy.Error.HungUp").</p>
+        "org.freedesktop.Telepathy.Error.Terminated").</p>
 
       <h4>Multi-party calls</h4>
 
@@ -325,7 +325,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td><tp:type>Call_State</tp:type>_Ended</td>
           <td>Self handle</td>
           <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>HungUp</tp:error-ref></td>
+          <td><tp:error-ref>Cancelled</tp:error-ref></td>
           <td>The local user hung up the incoming or outgoing call.</td>
         </tr>
         <tr>
@@ -333,7 +333,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td><tp:type>Call_State</tp:type>_Ended</td>
           <td>Remote contact handle</td>
           <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>HungUp</tp:error-ref></td>
+          <td><tp:error-ref>Terminated</tp:error-ref></td>
           <td>The remote contact hung up the incoming or outgoing call.</td>
         </tr>
         <tr>
