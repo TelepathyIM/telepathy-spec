@@ -2,10 +2,46 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.2 (UNRELEASED)
+telepathy-spec 0.21.2 (2010-10-15)
 ==================================
 
-…
+The "Ponderer of Witty Job Titles" release.
+
+New stable API:
+
+• HungUp and Rejected errors for use with Call (jonny)
+
+• StreamHandler now has StartNamedTelephonyEvent and StartSoundTelephonyEvent
+  signals (ocrete)
+
+Clarifications:
+
+• Chan.I.Messages' three capability-discovery properties
+  (DeliveryReportingSupport, MessagePartSupportFlags and SupportedContentTypes)
+  are now stated to be immutable (smcv)
+
+New experimental API:
+
+• fd.o #30512: Conn.I.Keepalive, an interface to vary keepalive intervals at
+  runtime (wjt)
+
+• fd.o #30043: Handler.FUTURE.BypassObservers indicates that channels handled
+  by the given handler shouldn't cause observers to be invoked (ptlo)
+
+Changes to experimental API:
+
+• Numerous changes to Call and its related interfaces (jonny)
+
+Tools changes:
+
+• fd.o #30511: add markup for immutable properties, requestable channel
+  properties, and connection properties that are also parameters (jonny, wjt)
+
+• Reject <tp:flag> values that are not a power of two, <tp:flags> that are
+  not uint32, and duplicate flag and enum values (jonny)
+
+• Warn on unexpected XML elements and dangling cross-references to errors,
+  and optionally also on dangling cross-references to D-Bus interfaces (jonny)
 
 telepathy-spec 0.21.1 (2010-09-29)
 ==================================
