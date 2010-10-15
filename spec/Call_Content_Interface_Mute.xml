@@ -31,22 +31,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>Although it's client's responsibility to actually mute the microphone
         or turn off the camera, using this interface the client can also
         inform the CM and other clients of that fact.</p>
-        <tp:rationale>
-          <p>For some protocols, the fact that the content is muted needs to be
-          transmitted to the peer; for others, the notification to the peer is
-          only informational (eg. XMPP), and some protocols may have no notion
-          of muting at all.</p>
-        </tp:rationale>
+
+      <tp:rationale>
+        For some protocols, the fact that the content is muted needs
+        to be transmitted to the peer; for others, the notification
+        to the peer is only informational (eg. XMPP), and some
+        protocols may have no notion of muting at all.
+      </tp:rationale>
     </tp:docstring>
 
-   <signal name="MuteStateChanged" tp:name-for-bindings="Mute_State_Changed">
+    <signal name="MuteStateChanged" tp:name-for-bindings="Mute_State_Changed">
       <tp:docstring>
         Emitted to indicate that the mute state has changed for this call content.
         This may occur as a consequence of the client calling
         <tp:member-ref>SetMuted</tp:member-ref>, or as an indication that another
         client has (un)muted the content.
       </tp:docstring>
-
       <arg name="MuteState" type="b">
         <tp:docstring>
           True if the content is now muted.
@@ -67,7 +67,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           True if the client has muted the content.
         </tp:docstring>
       </arg>
-
       <tp:docstring>
         <p>Inform the CM that the call content has been muted or unmuted by
           the client.</p>
