@@ -344,22 +344,22 @@
       </tp:docstring>
     </property>
 
-    <signal name="RetrievedServerInfo"
-      tp:name-for-bindings="Retrieved_Server_Info">
+    <signal name="ServerInfoRetrieved"
+      tp:name-for-bindings="Server_Info_Retrieved">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Signals that the initial information about STUN and Relay servers
           has been retrieved, i.e. the
-          <tp:member-ref>AllServerInfoRetrieved</tp:member-ref> property is
+          <tp:member-ref>HasServerInfo</tp:member-ref> property is
           now true.</p>
       </tp:docstring>
     </signal>
 
-    <property name="AllServerInfoRetrieved" type="b"
-        tp:name-for-bindings="All_Server_Info_Retrieved" access="read">
+    <property name="HasServerInfo" type="b"
+        tp:name-for-bindings="Has_Server_Info" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if all the initial information about STUN servers and Relay
           servers has been retrieved. Change notification is via the
-          <tp:member-ref>RetrievedServerInfo</tp:member-ref> signal.</p>
+          <tp:member-ref>ServerInfoRetrieved</tp:member-ref> signal.</p>
 
         <tp:rationale>
           Streaming implementations that can't cope with STUN and
