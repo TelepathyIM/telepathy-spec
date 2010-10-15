@@ -241,7 +241,7 @@
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="raw" value="1">
+      <tp:enumvalue suffix="Raw" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Raw media.
         </tp:docstring>
