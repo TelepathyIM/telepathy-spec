@@ -78,6 +78,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         and should refer to the codecs used as the argument to said
         function.
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
     </method>
 
     <tp:struct name="RTCP_Feedback_Codec_Parameters">
