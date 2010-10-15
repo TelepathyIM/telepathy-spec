@@ -33,6 +33,7 @@
     </tp:docstring>
 
     <tp:enum name="Content_Removal_Reason" type="u">
+      <tp:added version="0.21.2"/>
       <tp:docstring>
         A simple representation of the reason for a content to be
         removed, which may be used by simple clients, or used as a
@@ -69,6 +70,8 @@
     </tp:enum>
 
     <method name="Remove" tp:name-for-bindings="Remove">
+      <tp:changed version="0.21.2">previously there were no
+        arguments</tp:changed>
       <tp:docstring>
         Remove the content from the call.
       </tp:docstring>
@@ -188,6 +191,8 @@
     </property>
 
     <signal name="StreamsAdded" tp:name-for-bindings="Streams_Added">
+      <tp:changed version="0.21.2">plural version, renamed from
+        StreamAdded</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
          <p>Emitted when streams are added to a call.</p>
       </tp:docstring>
@@ -199,6 +204,8 @@
     </signal>
 
     <signal name="StreamsRemoved" tp:name-for-bindings="Streams_Removed">
+      <tp:changed version="0.21.2">plural version, renamed from
+        StreamRemoved</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
          <p>Emitted when streams are removed from a call</p>
       </tp:docstring>
@@ -231,6 +238,7 @@
     </property>
 
     <tp:enum name="Call_Content_Packetization_Type" type="u">
+      <tp:added version="0.21.2"/>
       <tp:docstring>
         A packetization method that can be used for a content.
       </tp:docstring>
@@ -258,6 +266,7 @@
 
     <property name="Packetization" tp:name-for-bindings="Packetization"
       type="u" tp:type="Call_Content_Packetization_Type" access="read">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The packetization method in use for this content. This
           property is immutable.</p>

@@ -130,6 +130,7 @@
     </method>
 
     <tp:enum type="u" name="Stream_Transport_Type">
+      <tp:changed version="0.21.2">WLM_8_5 was removed</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         A transport that can be used for streaming.
       </tp:docstring>
@@ -173,6 +174,7 @@
       </tp:enumvalue>
 
       <tp:enumvalue suffix="SHM" value="4">
+        <tp:added version="0.21.2"/>
         <tp:docstring>
           Shared memory transport, as implemented by the GStreamer
           shmmsrc and shmsink plugins.
@@ -234,6 +236,7 @@
 
     <signal name="LocalCredentialsChanged"
       tp:name-for-bindings="Local_Credentials_Changed">
+      <tp:changed version="0.21.2">renamed from LocalCredentailsSet</tp:changed>
       <tp:docstring>
         Emitted when the value of
         <tp:member-ref>LocalCredentials</tp:member-ref> changes.

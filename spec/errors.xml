@@ -492,7 +492,7 @@
   </tp:error>
 
   <tp:error name="Rejected">
-    <tp:added version="0.21.UNRELEASED"/>
+    <tp:added version="0.21.2"/>
     <tp:docstring>
       Raised when an incoming or outgoing <tp:dbus-ref
       namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> is
@@ -501,7 +501,7 @@
   </tp:error>
 
   <tp:error name="Hung Up">
-    <tp:added version="0.21.UNRELEASED"/>
+    <tp:added version="0.21.2"/>
     <tp:docstring>
       Raised when a call was terminated as a result of one of the
       participants hanging up.

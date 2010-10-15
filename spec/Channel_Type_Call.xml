@@ -395,6 +395,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:docstring>
 
     <method name="SetRinging" tp:name-for-bindings="Set_Ringing">
+      <tp:changed version="0.21.2">renamed from Ringing</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Indicate that the local user has been alerted about the incoming
           call.</p>
@@ -902,6 +903,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
 
       <tp:enumvalue suffix="No_Answer" value="3">
+        <tp:added version="0.21.2"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed from
             <tp:type>Call_State</tp:type>_Pending_Receiver to
@@ -1252,6 +1254,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="InitialAudioName" tp:name-for-bindings="Initial_Audio_Name"
       type="s" access="read" tp:immutable="yes" tp:requestable="yes">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <tp:member-ref>InitialAudio</tp:member-ref> is set to
           True, then this property will name the intial audio content
@@ -1275,6 +1278,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="InitialVideoName" tp:name-for-bindings="Initial_Video_Name"
       type="s" access="read" tp:immutable="yes" tp:requestable="yes">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The same as
           <tp:member-ref>InitialAudioName</tp:member-ref>, but for a

@@ -525,6 +525,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <signal name="StartNamedTelephonyEvent"
       tp:name-for-bindings="Start_Named_Telephony_Event">
+      <tp:added version="0.21.2"/>
       <arg name="Event" type="y" tp:type="DTMF_Event">
         <tp:docstring>
           A telephony event code as defined by RFC 4733.
@@ -547,6 +548,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
     <signal name="StartSoundTelephonyEvent"
       tp:name-for-bindings="Start_Sound_Telephony_Event">
+      <tp:added version="0.21.2"/>
       <arg name="Event" type="y" tp:type="DTMF_Event">
         <tp:docstring>
           A telephony event code as defined by RFC 4733.

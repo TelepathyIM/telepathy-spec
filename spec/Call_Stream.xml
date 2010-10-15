@@ -96,6 +96,7 @@
 
     <signal name="MembersChanged"
         tp:name-for-bindings="Members_Changed">
+      <tp:changed version="0.21.2">renamed from SendersChanged</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         Emitted when <tp:member-ref>Members</tp:member-ref> changes.
       </tp:docstring>
@@ -171,6 +172,7 @@
 
     <property name="Members" tp:name-for-bindings="Members"
         type="a{uu}" access="read" tp:type="Contact_Sending_State_Map">
+      <tp:changed version="0.21.2">renamed from Senders</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A map from contacts to their sending state.</p>
 
@@ -195,6 +197,7 @@
 
     <property name="CanRequestReceiving" tp:name-for-bindings="Can_Request_Receiving"
         type="b" access="read">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, the user can request that a remote contact starts
           sending on this stream.</p>

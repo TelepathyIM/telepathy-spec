@@ -62,6 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <method name="Mute" tp:name-for-bindings="Mute">
+      <tp:changed version="0.21.2">renamed from Muted</tp:changed>
       <arg direction="in" name="Muted" type="b">
         <tp:docstring>
           True if the client has muted the content.

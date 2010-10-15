@@ -35,6 +35,7 @@
 
     <property name="BypassObservers" tp:name-for-bindings="Bypass_Observers"
       type="b" access="read">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, channels destined for this handler are not passed to
           observers for observing.</p>

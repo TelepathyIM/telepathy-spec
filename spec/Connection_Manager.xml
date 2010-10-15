@@ -369,6 +369,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <tp:simple-type name="Connection_Parameter_Name" type="s">
+      <tp:added version="0.21.2"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Well-known connection parameter names, along with their expected
           type. Where possible, connection managers should use names and types
