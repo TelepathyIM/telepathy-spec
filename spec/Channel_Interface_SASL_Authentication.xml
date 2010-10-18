@@ -21,7 +21,35 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Server.Authentication.DRAFT"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      A channel interface for SASL authentication.
+      <p>A channel interface for SASL authentication,
+        as defined by
+        <a href="http://tools.ietf.org/html/rfc4422">RFC 4422</a>.</p>
+
+      <p>In some protocols, such as XMPP, authentication with the server
+        is carried out using SASL. In these protocols, a channel with this
+        interface can provide a simple 1:1 mapping of the SASL negotiations
+        taking place in the protocol.</p>
+
+      <p>In other protocols, the connection manager can require that a
+        user interface authenticate with it via SASL as a way to get the
+        user's credentials interactively. In particular, this can be used to
+        connect to protocols that may require a password, without
+        requiring that the password is saved in the <tp:dbus-ref
+          namespace="ofdT">Account.Parameters</tp:dbus-ref>.</p>
+
+      <tp:rationale>
+        <p>By providing SASL directly when the protocol supports it, we can
+          use mechanisms like Kerberos or Google's <code>X-GOOGLE-TOKEN</code>
+          without specific support in the connection manager.</p>
+
+        <p>Protocols where SASL is not used typically have a simple
+          username/password-based authentication mechanism. In these
+          protocols, we can use the same authentication client to query
+          the user's password (either interactively, or from a storage
+          mechanism like <code>gnome-keyring</code>), by having the
+          connection manager implement the server side of a simple
+          SASL mechanism like <code>PLAIN</code>.</p>
+      </tp:rationale>
     </tp:docstring>
 
 
