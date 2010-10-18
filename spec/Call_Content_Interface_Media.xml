@@ -34,15 +34,18 @@
         handlers should wait for <tp:dbus-ref
         namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
         objects to appear (one will either already be present, or will
-        appear at some point in the channel's lifetime). If the
-        Call is incoming, then the codec offer's <tp:dbus-ref
+        appear at some point in the channel's lifetime).</p>
+
+      <p>If the Call is incoming, then the codec offer's <tp:dbus-ref
         namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
-        will already be filled with the codec information of the remote
-        contacts. If the Call is outgoing, then the codecs will not
-        have been negotiated yet so the <tp:dbus-ref
+        will already be filled with the codec information of the
+        remote contacts. Depending on the protocol, an outgoing call's
+        <tp:dbus-ref
         namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
-        will be empty. Once a compatible list olf codecs has been
-        decided, <tp:dbus-ref
+        will either be filled with remote contact codec information, or
+        it will be empty. If empty, then this SHOULD be interpreted to
+        mean that all codecs are supported. Once a compatible list of
+        codecs has been decided, <tp:dbus-ref
         namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>
         should be called with the details of these codecs.</p>
 
