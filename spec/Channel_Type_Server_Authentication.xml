@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       The type for a channel representing an authentication step with the
       server. The actual authentication functionality is implemented by
       additional interfaces, such as <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Channel.Interface.SaslAuthentication.DRAFT</tp:dbus-ref>,
+        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>,
       depending on the value of <tp:member-ref>AuthenticationMethod</tp:member-ref>.
     </tp:docstring>
 
@@ -43,14 +43,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         This property defines the method used for the current
         authentication step. The functionality for each method is on a separate
         interface on the same channel; for example, channels with this property
-        set to <tp:type>Authentication_Type</tp:type> Sasl MUST implement
+        set to <tp:type>Authentication_Type</tp:type> SASL MUST implement
         <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Channel.Interface.SaslAuthentication.DRAFT</tp:dbus-ref>.
+        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>.
       </tp:docstring>
     </property>
 
     <tp:enum name="Authentication_Type" type="u">
-      <tp:enumvalue suffix="Sasl" value="0">
+      <tp:enumvalue suffix="SASL" value="0">
         <tp:docstring>
           SASL authentication.
         </tp:docstring>

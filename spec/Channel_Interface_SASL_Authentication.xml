@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Interface_Sasl_Authentication"
+<node name="/Channel_Interface_SASL_Authentication"
       xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright> Copyright © 2010 Collabora Limited </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
@@ -17,7 +17,7 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Interface.SaslAuthentication.DRAFT" tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.SASLAuthentication.DRAFT" tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.Server.Authentication.DRAFT"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="CurrentState" tp:name-for-bindings="Current_State"
-              type="(uss)" tp:type="Sasl_State" access="read">
+              type="(uss)" tp:type="SASL_State" access="read">
       <tp:docstring>
         The current state of the authentication.
         Change notification is via the
@@ -122,7 +122,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         Notifies of <tp:member-ref>CurrentState</tp:member-ref> changing
       </tp:docstring>
-      <arg type="u" tp:type="Sasl_Status" name="Status">
+      <arg type="u" tp:type="SASL_Status" name="Status">
         <tp:docstring>
           The status of the state.
         </tp:docstring>
@@ -163,7 +163,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="Sasl_Status" type="u">
+    <tp:enum name="SASL_Status" type="u">
       <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>
           Need to call <tp:member-ref>StartMechanism</tp:member-ref> to start.
@@ -219,8 +219,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:struct name="Sasl_State">
-      <tp:member type="u" tp:type="Sasl_Status" name="Status">
+    <tp:struct name="SASL_State">
+      <tp:member type="u" tp:type="SASL_Status" name="Status">
         <tp:docstring>
           The status of the state.
         </tp:docstring>
