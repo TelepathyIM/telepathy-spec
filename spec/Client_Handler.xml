@@ -106,6 +106,14 @@
             matches closely related Text channels by their Bundle property.
             (This is use-case dis5)</p>
         </tp:rationale>
+
+        <p>For service-activatable handlers, this property should be specified
+          in the handler's <tt>.client</tt> file as follows:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.Handler]
+BypassApproval=true
+</pre>
       </tp:docstring>
     </property>
 
@@ -264,16 +272,28 @@ org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264=true
           is to be handled for some reason not involving user action.
           Handlers SHOULD use this for focus-stealing prevention,
           if applicable.
+          This property has the same semantic as <tp:type>User_Action_Timestamp</tp:type>
+          but is unsigned for historical reasons.
         </tp:docstring>
       </arg>
 
       <arg name="Handler_Info" type="a{sv}" direction="in">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Additional information about these channels. No keys are
-            currently defined.</p>
+          <p>Additional information about these channels. Currently defined
+            keys are:</p>
 
-          <p>If keys are defined for this dictionary, all will be optional;
-            handlers MAY safely ignore any entry in this dictionary.</p>
+          <dl>
+            <dt><code>request-properties</code> - a{oa{sv}}</dt>
+            <dd>A map from <tp:dbus-ref
+              namespace="org.freedesktop.Telepathy">ChannelRequest</tp:dbus-ref>
+              paths listed in <var>Requests_Satisfied</var> to
+              <tp:type>Qualified_Property_Value_Map</tp:type>s containing
+              namespaced immutable properties of each request.</dd>
+          </dl>
+
+          <p>When more keys are defined for this dictionary, all will be
+            optional; handlers MAY safely ignore any entry in this
+            dictionary.</p>
         </tp:docstring>
       </arg>
 

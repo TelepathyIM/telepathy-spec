@@ -3,7 +3,7 @@
 #
 # Reads in a spec document and generates pretty data structures from it.
 #
-# Copyright (C) 2009 Collabora Ltd.
+# Copyright (C) 2009-2010 Collabora Ltd.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published by
@@ -41,6 +41,24 @@ class WrongNumberOfChildren(Exception): pass
 class MismatchedFlagsAndEnum(Exception): pass
 class TypeMismatch(Exception): pass
 class MissingVersion(Exception): pass
+class DuplicateEnumValueValue(Exception): pass
+class BadFlagValue(Exception): pass
+class BadFlagsType(Exception): pass
+
+class Xzibit(Exception):
+    def __init__(self, parent, child):
+        self.parent = parent
+        self.child = child
+
+    def __str__(self):
+        print """
+    Nested <%s>s are forbidden.
+    Parent:
+        %s...
+    Child:
+        %s...
+        """ % (self.parent.nodeName, self.parent.toxml()[:100],
+               self.child.toxml()[:100])
 
 def getText(dom):
     try:
@@ -159,14 +177,20 @@ class Base(object):
             node = nnode.cloneNode(True)
             node.tagName = 'div'
             node.baseURI = None
-            node.setAttribute('class', htmlclass)
+            node.setAttribute('class', 'annotation %s' % htmlclass)
 
             try:
                 node.removeAttribute('version')
 
-                span = xml.dom.minidom.parseString(
-                    ('<span class="version">%s\n</span>' % txt) %
-                            nnode.getAttribute('version')).firstChild
+                doc = self.get_spec().document
+
+                span = doc.createElement('span')
+                span.setAttribute('class', 'version')
+
+                text = doc.createTextNode(
+                    txt % nnode.getAttribute('version') + ' ')
+                span.appendChild(text)
+
                 node.insertBefore(span, node.firstChild)
             except xml.dom.NotFoundErr:
                 raise MissingVersion(
@@ -208,13 +232,35 @@ class Base(object):
 
     def _convert_to_html(self, node):
         spec = self.get_spec()
-        namespace = self.get_root_namespace()
+        doc = spec.document
+        root_namespace = self.get_root_namespace()
 
         # rewrite <tp:rationale>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'rationale'):
-            n.tagName = 'div'
-            n.namespaceURI = None
-            n.setAttribute('class', 'rationale')
+            nested = n.getElementsByTagNameNS(XMLNS_TP, 'rationale')
+            if nested:
+                raise Xzibit(n, nested[0])
+
+            """
+                <div class='rationale'>
+                  <h5>Rationale:</h5>
+                  <div/> <- inner_div
+                </div>
+            """
+            outer_div = doc.createElement('div')
+            outer_div.setAttribute('class', 'rationale')
+
+            h5 = doc.createElement('h5')
+            h5.appendChild(doc.createTextNode('Rationale:'))
+            outer_div.appendChild(h5)
+
+            inner_div = doc.createElement('div')
+            outer_div.appendChild(inner_div)
+
+            for rationale_body in n.childNodes:
+                inner_div.appendChild(rationale_body.cloneNode(True))
+
+            n.parentNode.replaceChild(outer_div, n)
 
         # rewrite <tp:type>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'type'):
@@ -223,15 +269,33 @@ class Base(object):
             n.namespaceURI = None
             n.setAttribute('href', t.get_url())
 
+        # rewrite <tp:error-ref>
+        error_ns = spec.spec_namespace + '.Error.'
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'error-ref'):
+            try:
+                e = spec.errors[error_ns + getText(n)]
+            except KeyError:
+                print >> sys.stderr, """
+WARNING: Error '%s' not known in error namespace '%s'
+         (<tp:error-ref> in %s)
+                """.strip() % (getText(n), error_ns[:-1], self)
+                continue
+
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', e.get_url())
+            n.setAttribute('title', error_ns + getText(n))
+
         # rewrite <tp:member-ref>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'member-ref'):
             key = getText(n)
             try:
-                o = spec.lookup(key, namespace=namespace)
+                o = spec.lookup(key, namespace=root_namespace)
             except KeyError:
-                print >> sys.stderr, \
-                    "WARNING: Key '%s' not known in namespace '%s'" % (
-                        key, namespace)
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:member-ref> in %s)
+                """.strip() % (key, root_namespace, self)
                 continue
 
             n.tagName = 'a'
@@ -243,18 +307,86 @@ class Base(object):
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'dbus-ref'):
             namespace = n.getAttribute('namespace')
             key = getText(n)
+
+            if namespace.startswith('ofdT.') or namespace == 'ofdT':
+                namespace = namespace.replace('ofdT',
+                    'org.freedesktop.Telepathy')
+
             try:
                 o = spec.lookup(key, namespace=namespace)
             except KeyError:
-                print >> sys.stderr, \
-                    "WARNING: Key '%s' not known in namespace '%s'" % (
-                        key, namespace)
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:dbus-ref> in %s)
+                """.strip() % (key, namespace, self)
                 continue
 
             n.tagName = 'a'
             n.namespaceURI = None
             n.setAttribute('href', o.get_url())
             n.setAttribute('title', o.get_title())
+
+        # rewrite <tp:token-ref>
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'token-ref'):
+            key = getText(n)
+            namespace = n.getAttribute('namespace')
+
+            if namespace:
+                if namespace.startswith('ofdT.'):
+                    namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+            else:
+                namespace = root_namespace
+
+            try:
+                try:
+                    if '/' in key:
+                        sep = '.'
+                    else:
+                        sep = '/'
+
+                    o = spec.lookup(namespace + sep + key, None)
+                except KeyError:
+                    o = spec.lookup(key, None)
+            except KeyError:
+                print >> sys.stderr, """
+WARNING: Key '%s' not known in namespace '%s'
+         (<tp:dbus-ref> in %s)
+                """.strip() % (key, namespace, self)
+                continue
+
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', o.get_url())
+            n.setAttribute('title', o.get_title())
+
+        # Fill in <tp:list-dbus-property-parameters/> with a linkified list of
+        # properties which are also connection parameters
+        for n in node.getElementsByTagNameNS(XMLNS_TP,
+                    'list-dbus-property-parameters'):
+            n.tagName = 'ul'
+            n.namespaceURI = None
+
+            props = (p for interface in spec.interfaces
+                       for p in interface.properties
+                       if p.is_connection_parameter
+                    )
+
+            for p in props:
+                link_text = doc.createTextNode(p.name)
+
+                a = doc.createElement('a')
+                a.setAttribute('href', p.get_url())
+                a.appendChild(link_text)
+
+                # FIXME: it'd be nice to include the rich type of the property
+                # here too.
+                type_text = doc.createTextNode(' (%s)' % p.dbus_type)
+
+                li = doc.createElement('li')
+                li.appendChild(a)
+                li.appendChild(type_text)
+
+                n.appendChild(li)
 
     def get_title(self):
         return '%s %s' % (self.get_type_name(), self.name)
@@ -289,6 +421,12 @@ class PossibleError(Base):
         try:
             return spec.errors[self.name]
         except KeyError:
+            if not spec.allow_externals:
+                print >> sys.stderr, """
+WARNING: Error not known: '%s'
+         (<tp:possible-error> in %s)
+                """.strip() % (self.name, self.parent)
+
             return External(self.name)
 
     def get_url(self):
@@ -417,6 +555,15 @@ class Property(DBusConstruct, Typed):
         else:
             raise UnknownAccess("Unknown access '%s' on %s" % (access, self))
 
+        is_cp = dom.getAttributeNS(XMLNS_TP, 'is-connection-parameter')
+        self.is_connection_parameter = is_cp != ''
+
+        immutable = dom.getAttributeNS(XMLNS_TP, 'immutable')
+        self.immutable = immutable != ''
+
+        requestable = dom.getAttributeNS(XMLNS_TP, 'requestable')
+        self.requestable = requestable != ''
+
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
             return 'Read/Write'
@@ -424,6 +571,16 @@ class Property(DBusConstruct, Typed):
             return 'Read only'
         elif self.access & self.ACCESS_WRITE:
             return 'Write only'
+
+    def get_flag_summary(self):
+        descriptions = []
+
+        if self.immutable:
+            descriptions.append("Immutable")
+        if self.requestable:
+            descriptions.append("Requestable")
+
+        return ', '.join(descriptions)
 
 class AwkwardTelepathyProperty(Typed):
     def get_type_name(self):
@@ -487,12 +644,35 @@ class Interface(Base):
     def __init__(self, parent, namespace, dom, spec_namespace):
         super(Interface, self).__init__(parent, namespace, dom)
 
+        # For code generation, the <node> provides a name to be used in
+        # C function names, etc.
+        parent = dom.parentNode
+        if parent.localName != 'node':
+            raise BadNameForBindings("%s's parent is not a <node>" % self)
+
+        node_name = parent.getAttribute('name')
+
+        if node_name[0] != '/' or not node_name[1:]:
+            raise BadNameForBindings("%s's parent <node> has bad name %s"
+                    % (self, node_name))
+
+        self.name_for_bindings = node_name[1:]
+
         # If you're writing a spec with more than one top-level namespace, you
         # probably want to replace spec_namespace with a list.
         if self.name.startswith(spec_namespace + "."):
             self.short_name = self.name[len(spec_namespace) + 1:]
         else:
             self.short_name = self.name
+
+        # Bit of a hack, but... I want useful information about the current
+        # page to fit in a tab in Chromium. I'm prepared to be disagreed with.
+        self.really_short_name = (
+            ('.'+self.short_name).replace('.Interface.', '.I.')
+                           .replace('.Channel.', '.Chan.')
+                           .replace('.Connection.', '.Conn.')
+                           .replace('.Type.', '.T.')[1:]
+            )
 
         # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
@@ -525,6 +705,11 @@ class Interface(Base):
         self.requires = map(lambda n: n.getAttribute('interface'),
                              getChildrenByName(dom, XMLNS_TP, 'requires'))
 
+        # let's make sure there's nothing we don't know about here
+        self.check_for_odd_children(dom)
+
+        self.is_channel_related = self.name.startswith(spec_namespace + '.Channel')
+
     def get_interface(self):
         return self
 
@@ -535,12 +720,52 @@ class Interface(Base):
             try:
                 return spec.lookup(r)
             except KeyError:
+                if not spec.allow_externals:
+                    print >> sys.stderr, """
+WARNING: Interface not known: '%s'
+         (<tp:requires> in %s)
+                """.strip() % (r, self)
+
                 return External(r)
 
         return map(lookup, self.requires)
 
     def get_url(self):
-        return '%s.html' % self.name
+        return '%s.html' % self.name_for_bindings
+
+    def check_for_odd_children(self, dom):
+        expected = [
+            (None, 'method'),
+            (None, 'property'),
+            (None, 'signal'),
+            (XMLNS_TP, 'property'),
+            (XMLNS_TP, 'handler-capability-token'),
+            (XMLNS_TP, 'hct'),
+            (XMLNS_TP, 'contact-attribute'),
+            (XMLNS_TP, 'simple-type'),
+            (XMLNS_TP, 'enum'),
+            (XMLNS_TP, 'flags'),
+            (XMLNS_TP, 'mapping'),
+            (XMLNS_TP, 'struct'),
+            (XMLNS_TP, 'external-type'),
+            (XMLNS_TP, 'requires'),
+            (XMLNS_TP, 'added'),
+            (XMLNS_TP, 'changed'),
+            (XMLNS_TP, 'deprecated'),
+            (XMLNS_TP, 'docstring')
+            ]
+
+        unexpected = [
+            x for x in dom.childNodes
+            if isinstance(x, xml.dom.minidom.Element) and
+               (x.namespaceURI, x.localName) not in expected
+            ]
+
+        if unexpected:
+            print >> sys.stderr, """
+WARNING: Unknown element(s): %s
+         (in interface '%s')
+                """.strip() % (', '.join([x.tagName for x in unexpected]), self.name)
 
 class Error(Base):
     def get_url(self):
@@ -733,6 +958,17 @@ class EnumLike(DBusType):
 
         return str
 
+    def check_for_duplicates(self):
+        # make sure no two values have the same value
+        for u in self.values:
+            for v in [x for x in self.values if x is not u]:
+                if u.value == v.value:
+                    raise DuplicateEnumValueValue('%s %s has two values '
+                            'with the same value: %s=%s and %s=%s' % \
+                            (self.__class__.__name__, self.name, \
+                             u.short_name, u.value, v.short_name, v.value))
+
+
 class Enum(EnumLike):
 
     devhelp_name = "enum"
@@ -751,9 +987,16 @@ class Enum(EnumLike):
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'))
 
+        self.check_for_duplicates()
+
 class Flags(EnumLike):
     def __init__(self, parent, namespace, dom):
         super(Flags, self).__init__(parent, namespace, dom)
+
+        if dom.getAttribute('type') != 'u':
+            raise BadFlagsType('Flags %s doesn\'t make sense to be of '
+                   'type "%s" (only type "u" makes sense")' % (
+                    self.name, dom.getAttribute('type')))
 
         if dom.getElementsByTagNameNS(XMLNS_TP, 'enumvalue'):
             raise MismatchedFlagsAndEnum('%s is a tp:flags, so it should not '
@@ -762,6 +1005,17 @@ class Flags(EnumLike):
         self.values = build_list(self, EnumLike.EnumValue, self.name,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'flag'))
         self.flags = self.values # in case you're looking for it
+
+        self.check_for_duplicates()
+
+        # make sure all these values are sane
+        for flag in self.values:
+            v = int(flag.value)
+
+            # positive x is a power of two if (x & (x - 1)) = 0.
+            if v == 0 or (v & (v - 1)) != 0:
+                raise BadFlagValue('Flags %s has bad value (not a power of '
+                       'two): %s=%s' % (self.name, flag.short_name, v))
 
 class TokenBase(Base):
 
@@ -832,7 +1086,11 @@ class ErrorsSection(Section):
         pass
 
 class Spec(SectionBase):
-    def __init__(self, dom, spec_namespace):
+    def __init__(self, dom, spec_namespace, allow_externals=False):
+        self.document = dom
+        self.spec_namespace = spec_namespace
+        self.allow_externals = allow_externals
+
         # build a dictionary of errors in this spec
         try:
             errorsnode = dom.getElementsByTagNameNS(XMLNS_TP, 'errors')[0]
@@ -976,11 +1234,11 @@ def parse_types(parent, dom, namespace = None):
 
     return types
 
-def parse(filename, spec_namespace):
+def parse(filename, spec_namespace, allow_externals=False):
     dom = xml.dom.minidom.parse(filename)
     xincludator.xincludate(dom, filename)
 
-    spec = Spec(dom, spec_namespace)
+    spec = Spec(dom, spec_namespace, allow_externals=allow_externals)
 
     return spec
 

@@ -177,45 +177,101 @@ div.docstring {
 	margin: 1ex;
 }
 
-div.added {
-	border-left: 2px solid #4e9a06;
+div.annotation {
+	border-left: 2px solid;
 	margin: 1ex;
 	padding-left: 1ex;
+}
+
+div.annotation span.version, span.warning, span.note {
+	font-weight: bold;
+}
+
+div.added {
+	border-left-color: #4e9a06;
 }
 
 div.added span.version {
 	color: #4e9a06;
-	font-weight: bold;
 }
 
 div.changed {
-	border-left: 2px solid #8f5902;
-	margin: 1ex;
-	padding-left: 1ex;
+	border-left-color: #8f5902;
 }
 
 div.changed span.version {
 	color: #8f5902;
-	font-weight: bold;
 }
 
 div.deprecated,
 div.havoc {
-	border-left: 2px solid #a40000;
-	margin: 1ex;
-	padding-left: 1ex;
+	border-left-color: #a40000;
 }
 
 div.deprecated span.version,
 span.warning {
 	color: #a40000;
-	font-weight: bold;
+}
+
+div.connection-parameter {
+	border-left-color: #0000a4;
+}
+
+div.connection-parameter .note {
+	color: #0000a4;
+}
+
+div.immutable {
+	border-left-color: #02598f;
+}
+
+div.requestable {
+	border-left-color: #598f02;
 }
 
 div.rationale {
-	border-left: 2px solid gray;
+	border: 1px solid gray;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
 	margin: 1ex;
-	padding-left: 1ex;
+	padding: 0 1ex;
+}
+
+div.rationale h5 {
+        /* This'll be un-done if we have Javascript; it's just clutter unless
+         * we have Javascript, in which case it acts as the thing for
+         * expanding/collapsing rationales.
+         */
+        display: none;
+
+        /* And all this only matters if the script has un-hidden us. */
+        margin: 0;
+        text-height: 12px;
+        cursor: pointer;
+}
+
+/* The class names used for the expander icons, and the technique of using a
+ * fixed-size background image, offset into a grid of icons, is pinched from
+ * jQuery-UI, along with the icon grid itself. But I only use a 10×10 square
+ * out of the 16×16 icons, and didn't use their CSS, because jQuery-UI was
+ * overkill here.
+ */
+span.ui-icon {
+        text-decoration: none;
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 0.5em;
+        background-image: url(ui-icons_222222_256x240.png);
+        background-repeat: no-repeat;
+}
+
+span.ui-icon-triangle-1-e {
+        background-position:-35px -19px;
+}
+
+span.ui-icon-triangle-1-s {
+        background-position:-67px -19px;
 }
 
 span.permalink {
@@ -228,4 +284,23 @@ div.inset span.permalink {
 
 li.chapter span.permalink {
 	font-weight: normal;
+}
+
+/* These rules make putting <p/> into <dd/> not leave ugly whitespace at the
+ * top and bottom of the <dd>, which looks particularly stupid when some <dd>s
+ * have <p>s in them and some just have text.
+ */
+p {
+	margin: 0.5em 0 0 0;
+}
+
+p:first-child {
+	margin-top: 0;
+}
+
+/* And since we use <pre>s pretty much only for paragraphs of code, we should
+ * style it the same.
+ */
+pre {
+	margin: 0.5em 0 0 0;
 }

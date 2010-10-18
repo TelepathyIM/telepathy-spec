@@ -21,33 +21,68 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Cellular.DRAFT"
-    tp:causes-havoc="experimental">
-    <tp:added version="0.19.UNRELEASED">(draft version, not API-stable)</tp:added>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Cellular">
+    <tp:added version="0.19.8">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface is for various cellular things (GSM and/or CDMA) things that
+      <p>This interface is for various cellular things (GSM and/or CDMA) that
         aren't really applicable to other protocols.</p>
     </tp:docstring>
 
     <property name="MessageValidityPeriod" tp:name-for-bindings="Message_Validity_Period"
-      type="u" access="readwrite">
+      type="u" access="readwrite"
+      tp:is-connection-parameter='yup'>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Define how long should the service centre try message delivery before
-        giving up, failing delivery and deleting the message. A value of 0 means
-        to use the service centre's default period.</p>
+          giving up, failing delivery and deleting the message. A value of 0
+          means to use the service centre's default period.</p>
+
         <p>The value specified is in seconds. Note that various protocols or
-        implementations may round the value up (eg. to a minute or hour
-        precision). The maximum validity period may vary depending on
-        protocol or provider.</p>
+          implementations may round the value up (eg. to a minute or hour
+          precision). The maximum validity period may vary depending on
+          protocol or provider.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="OverrideMessageServiceCentre"
+        tp:name-for-bindings="Override_Message_Service_Centre"
+        type="b" access="readwrite"
+        tp:is-connection-parameter='can i get a hell yeah?'>
+      <tp:added version='0.19.12'>Previously, as an undocumented
+        feature, setting <tp:member-ref>MessageServiceCentre</tp:member-ref>
+        to the empty string caused the SIM's default SMSC to be used.</tp:added>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If <code>True</code>, SMSes will be sent via the service centre
+          specified by <tp:member-ref>MessageServiceCentre</tp:member-ref>. If
+          <code>False</code>, the SIM's default SMSC will be used, ignoring the
+          value of MessageServiceCentre.</p>
+
+        <tp:rationale>
+          <p>It could be desirable for a configuration interface to remember
+            the user's previous choice of custom SMSC, even if it's not in use.
+            This boolean allows that choice to be saved as an account parameter
+            by Mission Control, rather than the UI needing to save it elsewhere
+            to be restored if the user wants to reactivate it.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
     <property name="MessageServiceCentre" tp:name-for-bindings="Message_Service_Centre"
-      type="s" access="readwrite">
+      type="s" access="readwrite"
+      tp:is-connection-parameter='HELL YEAH!!!'>
+      <tp:changed version='0.19.12'>This property's value is now
+        ignored unless
+        <tp:member-ref>OverrideMessageServiceCentre</tp:member-ref> is
+        <code>True</code>.</tp:changed>
+
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        Address for the messaging service centre. Typically (as is the case
-        for GSM's SMSC), it's the ISDN / telephony address (ie. a phone number).
+
+        <p>Address for the messaging service centre. Typically (as is the case
+          for GSM's SMSC), it's the ISDN / telephony address (ie. a phone
+          number). If
+          <tp:member-ref>OverrideMessageServiceCentre</tp:member-ref> is
+          <code>False</code>, this property's value should be ignored by the CM
+          in favour of the SIM's default SMSC.</p>
       </tp:docstring>
     </property>
 
@@ -77,6 +112,20 @@
       </arg>
     </signal>
 
+    <property name="MessageReducedCharacterSet"
+      tp:name-for-bindings="Message_Reduced_Character_Set"
+      type="b" access="readwrite"
+      tp:is-connection-parameter='no... just kidding! yes!'>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Determines whether SMSes containing characters that do not fit into
+          a 7‐bit GSM character set should be sent as UCS‐2, or lossily
+          recoded. If <code>False</code> (which SHOULD be the default),
+          messages will be sent with no loss of fidelity (at the potential
+          financial cost of using twice as many SMSes); if <code>True</code>,
+          the message will be recoded in an implementation‐specific way to fit
+          into a country‐specific GSM reduced character set.</p>
+      </tp:docstring>
+    </property>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

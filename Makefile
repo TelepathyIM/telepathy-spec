@@ -42,16 +42,12 @@ GENERATED_FILES = \
 	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/spec/index.html \
-	doc/telepathy-spec.devhelp2 \
+	FIXME.out \
 	$(INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: doc/templates/oldspec.html
 	cp $< $@
-doc/telepathy-spec.devhelp2: $(XMLS) tools/devhelp.xsl
-	@install -d tmp/doc
-	$(XSLTPROC) tools/devhelp.xsl spec/all.xml > tmp/$@
-	mv tmp/$@ $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	@install -d doc
@@ -78,7 +74,7 @@ test/output/introspect.canon: test/output/_Test.introspect.xml
 
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
-check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
+check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES) FIXME.out
 	@e=0; \
 	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
 	exit $$e
@@ -94,6 +90,11 @@ check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES)
 			;; \
 	esac
 
+FIXME.out: $(XMLS)
+	@echo '  GEN   ' $@
+	@egrep -A 5 '[F]IXME|[T]ODO|[X]XX' $(XMLS) \
+		> FIXME.out || true
+
 clean:
 	rm -f $(GENERATED_FILES)
 	rm -fr introspect
@@ -102,7 +103,9 @@ clean:
 
 maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	@echo The snapshot lives at:
+	@echo '  ' http://telepathy.freedesktop.org/spec-snapshot/
 
 maintainer-upload-release: doc/spec/index.html check
 	@install -d tmp
@@ -117,8 +120,8 @@ maintainer-upload-release: doc/spec/index.html check
 	gpg --verify telepathy-spec-$$version.tar.gz.asc; \
 	rsync -vzP telepathy-spec-$$version.tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
 	rsync -vzP telepathy-spec-$$version.tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/ ; \
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
-	rsync -rvzP doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/ ; \
+	rsync -rvzPp --chmod=Dg+s,ug+rwX,o=rX doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
 
 dist: check
 	@install -d tmp

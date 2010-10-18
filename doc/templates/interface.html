@@ -2,12 +2,14 @@
 <!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
-  <title>$interface.name</title>
+  <title>$interface.really_short_name &mdash; $spec.title</title>
   <link rel="stylesheet" href="style.css" type="text/css"/>
+  <script src="jquery.min.js"></script>
+  <script src="magic.js"></script>
  </head>
  <body>
   <div class="header">
-  <h1>Interface $interface.name</h1>
+  <h1>Interface <abbr title='$interface.name'>$interface.short_name</abbr></h1>
    <a href="index.html">Interface Index</a>
    (<a href="interfaces.html">Compact</a>)
    | <a href="#summary">Summary</a>
@@ -45,7 +47,7 @@
       #end for
      </table>
      #end if
-    
+
      #if $interface.signals
      <h3>Signals</h3>
      <table class="summary">
@@ -80,6 +82,7 @@
         #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
        </td>
        <td>$property.get_access()</td>
+       <td>$property.get_flag_summary()</td>
        <td>
         #if $property.deprecated: (deprecated)
        </td>
@@ -158,7 +161,7 @@
    #end if
 
    #if $interface.causes_havoc
-   <div class="havoc"><span class="warning">WARNING:</span>
+   <div class="annotation havoc"><span class="warning">WARNING:</span>
     This interface is $interface.causes_havoc and is likely to cause havoc
     to your API/ABI if bindings are generated. Do not include this interface
     in libraries that care about compatibility.
@@ -216,7 +219,7 @@
       </ul>
      </div>
      #end if
-     
+
      #if $method.out_args
      <div class="indent">
       <h3>Returns</h3>
@@ -234,9 +237,9 @@
       </ul>
      </div>
      #end if
-     
+
      $method.get_docstring()
-     
+
      #if $method.possible_errors
      <hr/>
      <div class="indent">
@@ -256,7 +259,7 @@
     #end for
    </div>
    #end if
-   
+
    #if $interface.signals
    <div class="outset signals signal">
     <a name="signals"></a>
@@ -300,7 +303,9 @@
     <a name="properties"></a>
     <h1>Properties</h1>
     <div>
-     Accessed using the org.freedesktop.DBus.Properties interface.
+     Accessed using the <a
+       href="http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties">org.freedesktop.DBus.Properties</a>
+     interface.
     </div>
     #for $property in $interface.properties
     <div class="inset property">
@@ -312,9 +317,56 @@
      </h2>
       <div class="access">$property.get_access()</div>
 
+     #if $property.immutable:
+     <div class="annotation immutable">This property is
+       <strong>immutable</strong> which means that it can never
+       #if $interface.is_channel_related:
+       change once the channel has been created. Immutable properties SHOULD
+       appear in the channel detail list
+       of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
+       signals
+       #else
+       change.
+       #end if
+     </div>
+     #end if
+
+     #if $property.requestable:
+     <div class="annotation requestable">This property
+       is <strong>requestable</strong> which means that it is allowed
+       in the properties hash of a channel request such as in the
+       the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       and 
+       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
+       methods
+       on <a href="Connection_Interface_Requests.html">Requests</a>
+       and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
+       The property should also appear in either the Fixed_Properties
+       or Allowed_Properties lists of
+       a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
+       advertised by the CM.</div>
+     #end if
+
      $property.get_added()
      $property.get_changed()
      $property.get_deprecated()
+
+      #if $property.is_connection_parameter:
+      <div class="annotation connection-parameter">
+        <p><span class='note'>Note:</span> Connections implementing this
+          property SHOULD provide a corresponding parameter named
+          <tt>$interface.name</tt> with the <a
+          href="Connection_Manager.html#Conn_Mgr_Param_Flags">DBus_Property</a>
+          flag. Clients SHOULD update this property by
+          calling <a
+            href="Account.html#org.freedesktop.Telepathy.Account.UpdateParameters">UpdateParameters</a>
+          on the relevant <a href="Account.html">Account</a> rather than
+          setting the property directly; change notification is via <a
+            href="Account.html#org.freedesktop.Telepathy.Account.AccountPropertyChanged">AccountPropertyChanged</a>.
+          </p>
+      </div>
+      #end if
+
      $property.get_docstring()
     </div>
     #end for
@@ -326,7 +378,9 @@
     <a name="tpproperties"></a>
     <h1>Telepathy Properties</h1>
     <div>
-     Accessed using the org.freedesktop.Telepathy.Properties interface.
+     Accessed using the <a
+       href="Properties_Interface.html">org.freedesktop.Telepathy.Properties</a>
+     interface.
     </div>
     #for $property in $interface.tpproperties
     <div class="inset tpproperty">
@@ -417,7 +471,7 @@
     #end for
    </div>
    #end if
-   
+
    </div>
 
  </body>

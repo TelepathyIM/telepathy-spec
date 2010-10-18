@@ -2,341 +2,172 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.19.6 (UNRELEASED)
+telepathy-spec 0.21.3 (UNRELEASED)
 ==================================
 
-...
+…
 
-telepathy-spec 0.19.5 (2010-04-15)
+telepathy-spec 0.21.2 (2010-10-15)
 ==================================
 
-The "error-driven development" release.
-
-Corrections and clarifications:
-
-* fd.o #13350: make Contact_Info_Flags a <tp:flags> as intended, not a
-  <tp:enum>
-
-Tools changes:
-
-* specparser: reject <tp:enum>s that look as though they should have been flags
-
-telepathy-spec 0.19.4 (2010-04-15)
-==================================
-
-The "tastes of ACTUAL strawberry" release.
+The "Ponderer of Witty Job Titles" release.
 
 New stable API:
 
-* fd.o #13350: ContactInfo is now considered stable. Changes since the draft
-  seen in 0.18:
+• Rejected error code for use with Call (jonny)
 
-  - the summary explains how to use ContactInfo without causing lots of
-    network traffic
-  - GetContactInfo no longer re-fetches from the server, so clients can
-    call it as often as they need to
-  - a new RefreshContactInfo method can be used occasionally to refresh
-    cached contact info
-  - the Contact_Info_Flag type is now called Contact_Info_Flags
-  - the examples have been extended
-  - Parameters_Mandatory is now called Parameters_Exact
-
-  (andrunko/wjt/smcv)
-
-* fd.o #24768: Observers can have a Recover flag, which causes the
-  channel dispatcher to restart them if they crash, and provides a best-effort
-  way to catch up on existing channels (ptlo)
-
-Corrections and clarifications:
-
-* fd.o #27200: MailNotification.UnreadMails may have fewer than
-  UnreadMailCount messages (for instance, Google Talk limits to 30 threads)
-  (stormer)
-
-telepathy-spec 0.19.3 (2010-03-31)
-==================================
-
-The "day's a write-off" release.
-
-Corrections and clarifications:
-
-* Fix the released-version annotations for 0.19.2 (smcv)
-
-Tools changes:
-
-* Don't allow the same mistake in future releases (smcv)
-
-telepathy-spec 0.19.2 (2010-03-31)
-==================================
-
-Changes to stable API:
-
-* fd.o #26837: rename Sent_Message_Token to Protocol_Message_Token (smcv)
-
-* fd.o #27325: specify GetContactAttributes to be more tolerant (wjt)
-
-New stable API:
-
-* fd.o #26842: add Connection.Status, Connection.Interfaces properties (smcv)
-
-* fd.o #26837: add a protocol-token key to Messages headers, which doesn't
-  have the impractical uniqueness requirements of message-token, but is
-  still a useful way to distinguish between similar messages (smcv)
-
-* fd.o #27262: add an optional 'thumbnail' key to Messages body parts (wjt)
-
-Corrections and clarifications:
-
-* fd.o #27022: document .client file format correctly (smcv)
-
-* fd.o #24252: clarify GetContactCapabilities to be consistent with
-  the /capabilities contact-attribute (smcv)
-
-* fd.o #26591: clarify InitiatorHandle's meaning on chatrooms (smcv)
-
-* Document how to represent vCards sent via SMS on the Messages
-  interface (wjt)
-
-* fd.o #27391 (partial): document what a typical StreamedMedia Handler should
-  look like (wjt)
-
-* fd.o #27282: specify when MessageSent should be emitted (maiku/sjoerd)
-
-Changes to experimental API:
-
-* explicitly allow Conference.InitialChannels, InitialInviteeIDs and
-  InitialInviteeHandles to be combined (smcv)
-
-* fd.o #27335: use handler capability tokens, not InitialAudio/InitialVideo,
-  to advertise support for audio/video Call channels (wjt)
-
-New experimental API:
-
-* add a Call.Content.Remove method (Maiku)
-
-Tools changes:
-
-* fd.o #26136: provide anchors for chapter headings (wjt)
-
-* Allow <tp:hct> as an abbreviation for <tp:handler-capability-token> (wjt)
-
-telepathy-spec 0.19.1 (2010-02-24)
-==================================
-
-The "BLINGY BLINGY envelope icon" release.
-
-New experimental API:
-
-* fd.o #13349: Connection.Interface.MailNotification (stormer/smcv/wjt,
-  based on earlier work from oggis)
-
-New stable API:
-
-* added 'mxit' and 'yahoojp' to the list of well-known protocol names, and
-  explicitly included SIMPLE (as seen in libpurple's prpl-simple) in the
-  scope of 'sip' (smcv)
-
-Fixes:
-
-* fixed incorrect documentation of Call.Ringing's interaction with CallState
-  (dilinger)
-
-* fixed some incorrect formatting, resulting in more spec text
-  appearing in the HTML version (smcv)
-
-Tools changes:
-
-* specparser now checks for text and HTML appearing outside a <tp:docstring>,
-  which would prevent them from being output correctly
-
-telepathy-spec 0.19.0 (2009-12-01)
-==================================
-
-The "horses are interesting, if brittle, animals" release.
-
-New stable API:
-
-* fd.o #24903: Connection.Interface.Balance, an API for machine-readable
-  account balance (e.g. SkypeOut credit) (mikhailz, Naveen)
-
-* fd.o #24938: added 'skype' (Skype) and 'tel' (telephony) to the list of
-  well-known protocol names (smcv)
-
-New experimental API:
-
-* fd.o #24906, fd.o #24939: Conference (draft 1), an interface for multi-user
-  text or media conferences that can be made by merging or upgrading 1-1
-  channels (smcv)
-
-* fd.o #24906: MergeableConference (draft 1), an extra interface for Conference
-  channels that can have additional 1-1 channels merged into them
-
-* fd.o #24906: Splittable (draft 1), an interface for 1-1 channels that can be
-  removed from a Conference
-
-* fd.o #24936: Call (draft 1), a channel type for calls (and a collection of
-  subsidiary objects in the org.freedesktop.Telepathy.Call namespace),
-  which will eventually replace StreamedMedia (and MediaSignalling where
-  applicable) (sjoerd, smcv)
-
-* fd.o #24661: EnsureSidecar, a method to request extra one-per-connection
-  objects (conceptually the same as Connection interfaces, but implementable
-  as plugins) (wjt)
-
-Experimental API removed:
-
-* Channel.Interface.CallMerging has been superseded by Conference and removed
+• StreamHandler now has StartNamedTelephonyEvent and StartSoundTelephonyEvent
+  signals (ocrete)
 
 Clarifications:
 
-* fd.o #24004: specified that PreferredHandler applies even if that handler's
-  filter doesn't match the channel, which has been implemented since
-  telepathy-mission-control 5.3.2 (wjt)
+• Chan.I.Messages' three capability-discovery properties
+  (DeliveryReportingSupport, MessagePartSupportFlags and SupportedContentTypes)
+  are now stated to be immutable (smcv)
 
-* fd.o #24851: declared that ChatState makes no sense without Text, validating
-  the decision to put ChatState API on Tp::TextChannel in telepathy-qt4 (smcv)
+New experimental API:
 
-* fd.o #25316: specified that TargetHandleType should be a fixed property
-  in all ContactCapabilities, and defined a meaning for non-CONTACT entries
-  in ContactCapabilities (smcv)
+• fd.o #30512: Conn.I.Keepalive, an interface to vary keepalive intervals at
+  runtime (wjt)
 
-* fixed some confusing typos (sjoerd, smcv)
+• fd.o #30043: Handler.FUTURE.BypassObservers indicates that channels handled
+  by the given handler shouldn't cause observers to be invoked (ptlo)
+
+Changes to experimental API:
+
+• Numerous changes to Call and its related interfaces (jonny)
 
 Tools changes:
 
-* The old single-page HTML spec has been replaced by a simple redirect to the
-  multi-page version
+• fd.o #30511: add markup for immutable properties, requestable channel
+  properties, and connection properties that are also parameters (jonny, wjt)
 
-* The spec parser correctly verifies that every method, signal and property
-  has tp:name-for-bindings, which is necessary for good code generation
+• Reject <tp:flag> values that are not a power of two, <tp:flags> that are
+  not uint32, and duplicate flag and enum values (jonny)
 
-telepathy-spec 0.18.0 (2009-09-24)
+• Warn on unexpected XML elements and dangling cross-references to errors,
+  and optionally also on dangling cross-references to D-Bus interfaces (jonny)
+
+telepathy-spec 0.21.1 (2010-09-29)
+==================================
+
+The "it's Wednesday, so this must be a spec release" release.
+
+Changes to stable API:
+
+• Account.RequestedPresence must not be Unset, Unknown or Error, while
+  Account.AutomaticPresence must not be any of those or Offline, matching
+  the behaviour that Mission Control has implemented in practice since
+  version 5.1.2 (smcv)
+
+• Account.CurrentPresence now allows a non-empty status or message for
+  accounts that are offline or don't support SimplePresence (smcv)
+
+New stable API:
+
+• Conn.I.ClientTypes is now considered stable, with minor clarifications
+  since draft 1, and the 'game' and 'sms' client types removed pending
+  XMPP Registrar inclusion (jonny)
+
+• The Access_Control_Type enum is a superset of
+  Rich_Presence_Access_Control_Type, which it will supersede in future
+  interfaces; similarly, Access_Control supersedes
+  Rich_Presence_Access_Control (eeejay)
+
+New experimental API:
+
+• Conn.I.CommunicationPolicy allows incoming channels from particular
+  contacts to be forbidden (eeejay)
+
+• Conn.I.Resources allows connections with multiple resources or points of
+  presence, such as on XMPP and MSN, to be represented (jonny)
+
+telepathy-spec 0.21.0 (2010-09-22)
+==================================
+
+The "canteen DoS" release.
+
+New stable API:
+
+• ContactList and ContactGroups are now considered stable, with some
+  clarifications to the wording, but no semantic changes since the drafts in
+  version 0.20.0. (smcv)
+
+telepathy-spec 0.20.1 (2010-09-15)
+==================================
+
+The "I can't build there!" release.
+
+Fixes:
+
+• Correct the tp:name-for-bindings on ServerCertificate to be
+  Server_Certificate, leading to the intended names (server_certificate
+  rather than servercertificate, etc.) in generated bindings. (smcv)
+
+telepathy-spec 0.20.0 (2010-09-14)
 ==================================
 
 This is a new stable version of telepathy-spec, intended to serve as a
-reference point for future work. The D-Bus API is identical to 0.17.28
-(the only changes were some improvements to the documentation tools, by wjt).
+reference point for future work. There were no API changes since development
+release 0.19.13; changes from the year of development since 0.18.0 are
+summarized below.
 
-This spec version is supported by the upcoming 0.8.x stable branch of
-telepathy-glib.
+The versions of libraries, connection managers and Mission Control recommended
+for use with GNOME 2.32 (the upcoming telepathy-glib 0.12, telepathy-gabble 0.10
+and Mission Control 5.6 stable branches) can be expected to support most of
+the API from this spec release.
 
-The versions of connection managers recommended for use with GNOME 2.28 and
-Maemo 5 can be expected to support most of 0.18.0, with the notable exception
-of ContactCapabilities (which was finished slightly too late). Connection
-managers that support "most of" 0.18.0, except for ContactCapabilities, include:
+Semantic changes
+----------------
 
-* telepathy-gabble >= 0.8.0 (stable branch)
-* telepathy-salut >= 0.3.10
-* telepathy-sofiasip >= 0.5.18
-* telepathy-haze >= 0.3.2
-* telepathy-idle >= 0.1.5
-* telepathy-butterfly >= 0.5.0
+• The timestamps used for "user action time", intended for focus-stealing
+  prevention, are no longer interpreted as seconds since 1970. Instead, they
+  should be interpreted as X-server time on X GUI platforms,
+  with two special values (0 and the maximum 64-bit signed integer) having
+  their own semantics.
 
-There have been many changes since the 0.16.0 stable release (almost two years
-ago!), here's a summary:
+Enhancements to core API
+------------------------
 
-Connection managers
--------------------
+• Connection now has Status, Interfaces properties
+• ConnectionManager now has Protocol objects with more information about
+  protocols (at the time of release, this is supported in telepathy-gabble
+  0.9.x but not in most other connection managers)
+• Account.ChangingPresence indicates when changes are being attempted
+• Account.Service indicates a specific service such as "google-talk"
+• Account has extensible details of the last connection error
+• Observers can have a Recover flag, which provides best-effort crash recovery
+• ChannelDispatchOperation.HandleWithTime can pass through a timestamp for
+  focus-stealing prevention
+• various new error codes
 
-Significant API changes include:
+New optional interfaces
+-----------------------
 
-* Several new calling conventions were introduced for StreamedMedia channels,
-  while continuing to support everything that already worked. Details at:
-  <http://telepathy.freedesktop.org/wiki/Requesting%20StreamedMedia%20channels>
-* Channels are not guaranteed to be unique per (channel type, handle type,
-  handle) triple, even if the handle type is nonzero
-* Channel.Interface.Hold has changed considerably
-* Text.SendError has different semantics (which match what was actually
-  implemented in practice)
-* GetKnownAvatarTokens' special behaviour for the self-handle has different
-  semantics (which, again, match what was actually implemented)
-* The allowed characters in connection manager and protocol names are
-  explicitly specified to be a subset of what D-Bus would allow
+• Account.I.Storage indicates which backend an account is stored in
+• Conn.I.Anonymity, Chan.I.Anonymity — controlling caller-ID and similar
+  features
+• Conn.I.Balance — machine-readable account balance, e.g. SkypeOut credit
+• Conn.I.Cellular — extra information about cellular connections
+• Conn.I.ContactInfo — information that contacts provide about themselves,
+  in a vCard-like format
+• Conn.I.ServicePoint, Chan.I.ServicePoint — emergency contact points
+• Chan.T.ServerTLSConnection — interactive approval of any problematic
+  TLS/SSL certificates
+• Chan.T.ContactSearch — searching for contacts by name, address etc.
+• Chan.I.Conference — multi-user text or media conferences
+  which can be made by merging or upgrading 1-1 channels
+• Chan.I.SMS — SMS-specific extensions to Text channels (currently only
+  one property, indicating class 0 "flash" SMSs)
 
-New stable API includes, in no particular order:
+Enhancements to optional interfaces
+-----------------------------------
 
-* mandatory InitiatorHandle, InitiatorID and TargetID properties on all
-  channels
-* the mandatory Contacts interface on Connection, for round-trip reduction
-  when inspecting batches of contacts
-* the mandatory Requests interface on Connection, an extensible version of
-  the old RequestChannel/ListChannels/NewChannel functionality with better
-  sematics
-* the SimplePresence interface on Connection, replacing Presence
-* the ContactCapabilities interface on Connection, intended to replace
-  Capabilities (not yet implemented in all connection managers, though)
-* the Location interface on Connection, for geolocation
-* StreamTube and DBusTube channels (one channel per tube), deprecating the
-  Tubes channel type
-* the FileTransfer channel type
-* change notification for the self-handle (mainly for IRC)
-* the Messages interface on Text channels, which supports extensible metadata,
-  MIME-style attachments and alternatives, and extensible delivery-reports,
-  and lays the foundations for future support for formatted messages
-* the "rescued" and "scrollback" message flags
-* removing the SelfHandle from a Group, a newly documented way to depart
-  gracefully
-* an optional CallState interface on StreamedMedia channels
-* Hold support in MediaSignalling (and its related objects)
-* the Busy presence type
-* more well-known protocol names
-* a Secret flag for CM parameters that represent a password, private key etc.
-* CM parameters that are also D-Bus properties, and so can be changed by the
-  account manager while remaining online
-* the .manager file syntax (previously undocumented)
-* D-Bus core Properties on several interfaces (most notably Group and Channel),
-  for round-trip reduction
-* Text channels that "respawn" when closed with unacknowledged messages, to
-  avoid data loss on race conditions by behaving as if Close() had won the race
-* the Destroyable interface, to circumvent the "respawn" mechanism and forcibly
-  close a channel with possible data loss, intended for use by the
-  ChannelDispatcher when no Handler can deal with a channel
-* many new D-Bus error names
-* the "stored" ContactList
+• chat states are state-recoverable
+• a new flag indicates whether Location can be set
 
-Deprecations include:
+Changes since 0.19.13
+---------------------
 
-* the Tubes channel type (use StreamTube and DBusTube instead)
-* the Presence interface (use SimplePresence instead)
-* RequestChannel, ListChannels and NewChannel (use Requests instead)
-* handle = 0 in the Capabilities interface, which we never actually implemented
-* passing clear=TRUE to Text.ListPendingMessages, which was never really safe
-
-Account Manager
----------------
-
-The new AccountManager service, and its AccountManager and Account objects,
-replace part of the functionality of Mission Control 4's D-Bus and C API.
-
-Mission Control 5.x provides a reference implementation of this service.
-
-Channel Dispatcher
-------------------
-
-The new ChannelDispatcher service, and its ChannelDispatcher,
-ChannelDispatchOperation and ChannelRequest objects, replace the rest of the
-functionality of Mission Control 4's D-Bus and C API.
-
-Again, Mission Control 5.x provides a reference implementation of this service.
-
-Clients that handle channels are now expected to implement the Handler
-interface, which replaces the ChannelHandler interface used by MC 4.
-
-The concepts of Observers, Approvers and Handlers have been introduced,
-together with common functionality in the Client interface. These describe
-Telepathy clients which interact with channels, and can interact with the
-ChannelDispatcher to provide user interfaces, logging and other functionality.
-
-Tools and code generation
--------------------------
-
-The canonical form of the HTML documentation generated from the XML spec is now
-a multi-page document; the old single-page version is still generated, for now,
-but expect it to be removed early in 0.19.
-
-Unstable and experimental interfaces are explicitly marked as such. Various
-existing interfaces that were never actually implemented have been marked as
-experimental.
-
-The spec is much more informative, with syntax for too much new stuff to
-describe here.
+• improve wording of experimental Conn.I.ClientTypes and Conn.I.PowerSaving
+  interfaces (danni, wjt)

@@ -37,6 +37,12 @@ except ImportError, e:
 
 import specparser
 
+# one day, OptionParser
+allow_externals = False
+if '--allow-externals' in sys.argv:
+    allow_externals = True
+    sys.argv.remove('--allow-externals')
+
 program, spec_file, output_path, project, namespace = sys.argv
 
 template_path = os.path.join(os.path.dirname(program), '../doc/templates')
@@ -46,8 +52,15 @@ try:
     os.mkdir(output_path)
 except OSError:
     pass
-# copy in the CSS
-shutil.copy(os.path.join(template_path, 'style.css'), output_path)
+
+# copy in the static files
+static = [ 'style.css',
+           'jquery.min.js',
+           'ui-icons_222222_256x240.png',
+           'magic.js',
+         ]
+for s in static:
+    shutil.copy(os.path.join(template_path, s), output_path)
 
 def load_template(filename):
     try:
@@ -61,19 +74,20 @@ def load_template(filename):
 
     return template_def
 
-spec = specparser.parse(spec_file, namespace)
+spec = specparser.parse(spec_file, namespace, allow_externals=allow_externals)
 
 # write out HTML files for each of the interfaces
 
 # Not using render_template here to avoid recompiling it n times.
-namespace = {}
+namespace = { 'spec': spec }
 template_def = load_template('interface.html')
 t = Template(template_def, namespaces = [namespace])
 for interface in spec.interfaces:
     namespace['interface'] = interface
 
     # open the output file
-    out = open(os.path.join(output_path, '%s.html' % interface.name), 'w')
+    out = open(os.path.join(output_path, '%s.html'
+        % interface.name_for_bindings), 'w')
     print >> out, unicode(t).encode('utf-8')
     out.close()
 

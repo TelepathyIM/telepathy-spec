@@ -21,9 +21,8 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Anonymity.DRAFT"
-    tp:causes-havoc="experimental">
-    <tp:added version="0.19.UNRELEASED">(draft version, not API-stable)</tp:added>
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.Anonymity">
+    <tp:added version="0.19.7">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface to support anonymity settings on a per-connection basis.
@@ -57,7 +56,7 @@
           service level would choose both (anonymity services are opaque
           to clients of this interface).</p>
 
-          <p>Clients SHOULD NOT set both Client_Info and ShowClient_Info modes.
+          <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
           If they are set, the CM MUST respect Client_Info and ignore
           Show_Client_Info.</p>
         </tp:docstring>
@@ -68,14 +67,15 @@
           <p>Explicitly request showing of client information. In connection
           context, this can be used to override service default. In channel
           context, this overrides connection anonymity modes.</p>
+
           <tp:rationale>
-            In GSM, it's possible to have CLIR enabled by default, and
-            explicitly suppress CLIR for a single phone call.
+            <p>In GSM, it's possible to have CLIR enabled by default, and
+              explicitly suppress CLIR for a single phone call.</p>
           </tp:rationale>
 
           <p>Clients SHOULD NOT set both Client_Info and Show_Client_Info modes.
           If they are set, the CM MUST respect Client_Info and ignore
-          ShowClientInfo. The CM MAY set both Client_Info and Show_Client_Info
+          Show_Client_Info. The CM MAY set both Client_Info and Show_Client_Info
           in <tp:member-ref>SupportedAnonymityModes</tp:member-ref> to indicate
           its support for explicitly hiding and publicising client information.
           </p>
@@ -110,47 +110,41 @@
       </tp:docstring>
     </property>
 
-    <property name="Mandatory" type="b" access="readwrite"
-      tp:name-for-bindings="Mandatory">
+    <property name="AnonymityMandatory" type="b" access="readwrite"
+      tp:name-for-bindings="Anonymity_Mandatory"
+      tp:is-connection-parameter='yeah'>
       <tp:docstring>
-        This specifies whether or not the anonymity settings MUST be respected
-        by the CM and any intermediaries between the local and remote contacts.
-        If this is set to true but anonymity settings cannot be followed, then
-        the session MUST be denied with a
-        <code>org.freedesktop.Telepathy.Errors.NotAvailable</code> error.
-        Any client that makes a call to
-        <tp:member-ref>SetAnonymityModes</tp:member-ref> SHOULD also set this
-        property first (rather than accepting the CM's default value).
+        <p>This specifies whether or not the anonymity settings MUST be respected
+          by the CM and any intermediaries between the local and remote contacts.
+          If this is set to true but anonymity settings cannot be followed, then
+          the session MUST be denied with a
+          <code>org.freedesktop.Telepathy.Error.<tp:error-ref>WouldBreakAnonymity</tp:error-ref></code>
+          error.
+          Any client that sets <tp:member-ref>AnonymityModes</tp:member-ref>
+          SHOULD also set this property first (rather than accepting the CM's
+          default value).</p>
       </tp:docstring>
     </property>
 
-    <method name="SetAnonymityModes" tp:name-for-bindings="Set_Anonymity_Modes">
-      <arg direction="in" name="Modes" type="u" tp:type="Anonymity_Mode_Flags">
-        <tp:docstring>
-          The desired anonymity modes.
-        </tp:docstring>
-      </arg>
+    <property name="AnonymityModes" type="u" tp:type="Anonymity_Mode_Flags"
+      access="readwrite" tp:name-for-bindings="Anonymity_Modes"
+      tp:is-connection-parameter='yeah'>
       <tp:docstring>
-        Request that the anonymity modes be changed to the given values.
-        Success is indicated by the method returning and the
-        AnonymityModeChanged signal being emitted.
+        <p>The currently enabled anonymity modes for the connection. Setting
+          has the effect of requesting new modes for the connection, and may
+          raise an error if the unsupported modes are set. Successfully changing
+          the modes will result in emission of
+          <tp:member-ref>AnonymityModesChanged</tp:member-ref> signal.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            An unsupported mode was supplied.  Supported modes are specified
+            An unsupported mode was supplied. Supported modes are specified
             in the SupportedAnonymityModes property, and this should be
-            checked prior to calling SetAnonymityModes.
+            checked prior to setting AnonymityModes.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
-    </method>
-
-    <property name="AnonymityModes" type="u" tp:type="Anonymity_Mode_Flags"
-      access="read" tp:name-for-bindings="Anonymity_Modes">
-      <tp:docstring>
-        The currently enabled anonymity modes for the connection.
-      </tp:docstring>
     </property>
 
     <signal name="AnonymityModesChanged"
