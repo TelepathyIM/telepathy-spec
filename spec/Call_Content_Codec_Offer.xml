@@ -56,6 +56,15 @@
       </tp:docstring>
     </method>
 
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      type="as" tp:type="DBus_Interface[]" access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Extra interfaces provided by this codec offer.  This SHOULD
+          NOT include the CodecOffer interface itself, and cannot change
+          once the content has been created.</p>
+      </tp:docstring>
+    </property>
+
     <property name="RemoteContactCodecMap"
       tp:name-for-bindings="Remote_Contact_Codec_Map"
       type="a{ua(usuua{ss})}" tp:type="Contact_Codec_Map" access="read"
