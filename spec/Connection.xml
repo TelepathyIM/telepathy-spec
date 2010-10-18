@@ -1055,16 +1055,6 @@ USA.</p>
           one client has a non-zero interest count for the relevant
           token.</p>
 
-        <p>For convenience or backwards compatibility, calling certain
-          methods while having an interest count of 0 MAY increment the
-          interest count. Where appropriate, this is noted in the methods'
-          documentation.</p>
-
-        <p>Because it is non-obvious whether such method calls have
-          incremented the interest count or not, any client that will ever
-          call RemoveClientInterest SHOULD always pair it with a call to
-          AddClientInterest.</p>
-
         <tp:rationale>
           <p>This method exists to reduce memory and network overhead when
             there is no active subscription.</p>
