@@ -48,11 +48,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <a href="http://geoclue.freedesktop.org/">Geoclue</a> API where
         possible.</p>
 
-      <p>Clients of this interface MAY register an interest in it by calling
+      <p>Clients of this interface SHOULD register an interest in it by calling
         <tp:dbus-ref namespace="org.freedesktop.Telepathy"
           >Connection.AddClientInterest</tp:dbus-ref> with an argument
-        containing the name of this interface. If they do, they SHOULD do so
-        before calling any Location method, and they MAY call
+        containing the name of this interface,
+        before calling any Location method. If they do so, they SHOULD also call
         <tp:dbus-ref namespace="org.freedesktop.Telepathy"
           >Connection.RemoveClientInterest</tp:dbus-ref> after use to allow
         the CM to release resources associated with this interface.</p>
