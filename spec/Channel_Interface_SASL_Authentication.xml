@@ -52,10 +52,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
     </tp:docstring>
 
+    <tp:simple-type name="SASL_Mechanism" type="s"
+      array-name="SASL_Mechanism_List">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A SASL mechanism, as defined by
+          <a href="http://tools.ietf.org/html/rfc4422">RFC 4422</a>
+          and registered in
+          <a href="http://www.iana.org/assignments/sasl-mechanisms">the
+            IANA registry of SASL mechanisms</a>, or an unregistered
+          SASL mechanism such as <code>X-GOOGLE-TOKEN</code> used in the
+          same contexts.</p>
+      </tp:docstring>
+    </tp:simple-type>
 
     <property name="AvailableMechanisms"
               tp:name-for-bindings="Available_Mechanisms"
-              type="as" access="read">
+              type="as" tp:type="SASL_Mechanism[]" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The SASL mechanisms as offered by the server, such as <code>[ "PLAIN",
         "DIGEST-MD5", "SCRAM-SHA-1" ]</code>.
@@ -92,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <method name="StartMechanism" tp:name-for-bindings="Start_Mechanism">
-      <arg direction="in" name="Mechanism" type="s">
+      <arg direction="in" name="Mechanism" type="s" tp:type="SASL_Mechanism">
         <tp:docstring>
           The chosen mechanism.
         </tp:docstring>
