@@ -464,7 +464,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="Subscribe"
         tp:name-for-bindings="Subscribe">
-      <tp:deprecated version="0.19.UNRELEASED">Call AddClientInterest
+      <tp:deprecated version="0.21.UNRELEASED">Call AddClientInterest
         instead.</tp:deprecated>
       <tp:docstring>
         <p>Equivalent to calling <tp:dbus-ref
@@ -479,7 +479,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="Unsubscribe"
         tp:name-for-bindings="Unsubscribe">
-      <tp:deprecated version="0.19.UNRELEASED">Call RemoveClientInterest
+      <tp:deprecated version="0.21.UNRELEASED">Call RemoveClientInterest
         instead.</tp:deprecated>
       <tp:docstring>
         <p>Equivalent to calling <tp:dbus-ref
