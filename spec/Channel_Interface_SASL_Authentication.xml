@@ -126,9 +126,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="Secure"
              tp:name-for-bindings="Secure" type="b" access="read">
-      <tp:docstring>
-        Is this exchange secure (ie. TLS)? Good to know if you need to take
-        a calculated risk with plaintext.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>True if this authentication process occurs over a secure
+          connection, e.g. one where TLS was previously negotiated.
+          Clients MAY use this property to decide whether the
+          <code>PLAIN</code> mechanism is acceptable, for instance.</p>
       </tp:docstring>
     </property>
 
