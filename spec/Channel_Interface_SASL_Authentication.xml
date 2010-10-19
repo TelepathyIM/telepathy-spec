@@ -144,6 +144,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="HasInitialData" tp:name-for-bindings="Has_Initial_Data"
+      type="b" access="read" tp:immutable="yes">
+      <tp:docstring>
+        If true, <tp:member-ref>StartMechanismWithData</tp:member-ref>
+        can be expected to work (this is the case in most, but not all,
+        protocols). If false, <tp:member-ref>StartMechanism</tp:member-ref>
+        must be used instead.
+      </tp:docstring>
+    </property>
+
     <property name="Secure"
       tp:name-for-bindings="Secure" type="b"
       access="read" tp:immutable="yes">
@@ -193,6 +203,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             server, such as <code>DIGEST-MD5</code>.</p>
         </tp:rationale>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The channel is not in a state where starting authentication makes
+            sense (i.e. SASL_Status_Not_Started, SASL_Status_Server_Failed or
+            SASL_Status_Client_Failed). You should call
+            <tp:member-ref>Abort</tp:member-ref> and wait for
+            SASL_Status_Client_Failed before starting another attempt.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The server or connection manager doesn't implement the given
+            SASL mechanism. Choose another.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="StartMechanismWithData"
@@ -214,6 +243,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <a href="http://tools.ietf.org/html/rfc4422#section-3.3">RFC 4422
             §3.3</a>.</p>
 
+        <p>If the underlying protocol does not make it possible to send
+          initial data, this method will fail.</p>
+
         <tp:rationale>
           <p>This method is appropriate for mechanisms where the client may
             send data first, such as <code>PLAIN</code>.</p>
@@ -225,6 +257,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             empty).</p>
         </tp:rationale>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The channel is not in a state where starting authentication makes
+            sense (i.e. SASL_Status_Not_Started, SASL_Status_Server_Failed or
+            SASL_Status_Client_Failed). You should call
+            <tp:member-ref>Abort</tp:member-ref> and wait for
+            SASL_Status_Client_Failed before starting another attempt.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The server or connection manager doesn't implement the given
+            SASL mechanism (choose another), or does not allow initial
+            data to be sent.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <method name="Respond" tp:name-for-bindings="Respond">
