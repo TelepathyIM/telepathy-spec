@@ -50,6 +50,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           connection manager implement the server side of a simple
           pseudo-SASL mechanism like <code>X-TELEPATHY-PLAIN</code>.</p>
       </tp:rationale>
+
+      <p>For channels managed by a
+        <tp:dbus-ref namespace="ofdT">ChannelDispatcher</tp:dbus-ref>,
+        only the channel's <tp:dbus-ref
+          namespace="ofdT.Client">Handler</tp:dbus-ref> may call the
+        methods on this interface. Other clients MAY observe the
+        authentication process by watching its signals and properties.</p>
+
+      <tp:rationale>
+        <p>There can only be one Handler, which is a good fit for SASL's
+          1-1 conversation between a client and a server.</p>
+      </tp:rationale>
     </tp:docstring>
 
     <tp:simple-type name="SASL_Mechanism" type="s"
