@@ -264,12 +264,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <signal name="NewChallenge" tp:name-for-bindings="New_Challenge">
-      <tp:docstring>
-        Recieved a new challenge from the server.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a new challenge is received from the server, or when
+          a message indicating successful authentication and containing
+          additional data is received from the server.</p>
       </tp:docstring>
       <arg name="Challenge_Data" type="ay">
         <tp:docstring>
-          The challenge data from the server.
+          The challenge data or additional data from the server.
         </tp:docstring>
       </arg>
     </signal>
