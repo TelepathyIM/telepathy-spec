@@ -470,9 +470,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
 
       <tp:member type="s" tp:type="DBus_Error_Name" name="Reason">
-        <tp:docstring>
-          The reason for the state, or an empty string if the state is neither
-          Server_Failed nor Client_Failed.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The reason for the state, or an empty string if the state is
+            neither Server_Failed nor Client_Failed.</p>
+
+          <p>In particular, an ordinary authentication failure (as would
+            be produced for an incorrect password) SHOULD be represented by
+            <tp:error-ref>AuthenticationFailed</tp:error-ref>,
+            cancellation by the user's request SHOULD be represented
+            by <tp:error-ref>Cancelled</tp:error-ref>, and
+            cancellation by a local process due to inconsistent or invalid
+            challenges from the server SHOULD be represented by
+            <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
         </tp:docstring>
       </tp:member>
 
