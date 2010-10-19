@@ -165,18 +165,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="CurrentChallenge" tp:name-for-bindings="Current_Challenge"
-              type="ay" access="read">
-      <tp:docstring>
-        The current challenge from the server. change notification via
-        <tp:member-ref>NewChallenge</tp:member-ref>. The handler either needs
-        to respond by calling <tp:member-ref>Respond</tp:member-ref>
-        (if it needs to send reply data), <tp:member-ref>Accept</tp:member-ref>
-        (If the challenge contained final data) or
-        <tp:member-ref>Abort</tp:member-ref> (in case of errors).
-      </tp:docstring>
-    </property>
-
     <property name="CurrentState" tp:name-for-bindings="Current_State"
               type="(uss)" tp:type="SASL_State" access="read">
       <tp:docstring>
@@ -285,9 +273,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The response data.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Send our response to the the
-        <tp:member-ref>CurrentChallenge</tp:member-ref>, if required.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Send a response to the the last challenge received via
+          <tp:member-ref>NewChallenge</tp:member-ref>.</p>
       </tp:docstring>
     </method>
 
