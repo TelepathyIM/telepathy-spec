@@ -68,14 +68,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <tp:enum name="Authentication_Type" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The type of authentication offered by a ServerAuthentication channel.
+          At the moment only Authentication_Type_SASL is supported, but
+          Authentication_Type_Captcha is likely to be added in future.</p>
+      </tp:docstring>
+
       <tp:enumvalue suffix="SASL" value="0">
         <tp:docstring>
-          SASL authentication.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Captcha" value="1">
-        <tp:docstring>
-          Captcha authentication.
+          SASL authentication. The channel MUST implement <tp:dbus-ref
+            namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
