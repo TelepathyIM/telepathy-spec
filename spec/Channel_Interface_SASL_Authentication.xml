@@ -227,7 +227,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="Abort" tp:name-for-bindings="Abort">
-      <arg direction="in" name="Reason" type="u" tp:type="Abort_Reason">
+      <arg direction="in" name="Reason" type="u" tp:type="SASL_Abort_Reason">
         <tp:docstring>
           Reason for abort.
         </tp:docstring>
@@ -276,15 +276,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <tp:enum name="Abort_Reason" type="u">
+    <tp:enum name="SASL_Abort_Reason" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A reason why SASL authentication was aborted by the client.</p>
+      </tp:docstring>
+
       <tp:enumvalue suffix="Invalid_Challenge" value="0">
         <tp:docstring>
-          Server sent an invalid challenge or data.
+          The server sent an invalid challenge or data.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="User_Abort" value="1">
         <tp:docstring>
-          User aborted the authentication.
+          The user aborted the authentication.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
