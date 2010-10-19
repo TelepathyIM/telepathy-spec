@@ -109,16 +109,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The chosen mechanism.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="Initial_Data" type="ay">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start an authentication try using <var>Mechanism</var>, without
+          sending initial data (an "initial response" as defined in RFC
+          4422).</p>
+
+        <tp:rationale>
+          <p>This method is appropriate for mechanisms where the client
+            cannot send anything until it receives a challenge from the
+            server, such as <code>DIGEST-MD5</code>.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </method>
+
+    <method name="StartMechanismWithData"
+      tp:name-for-bindings="Start_Mechanism_With_Data">
+      <arg direction="in" name="Mechanism" type="s" tp:type="SASL_Mechanism">
         <tp:docstring>
-          Initial data to send with the mechanism.
+          The chosen mechanism.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Start an authentication try using <var>Mechanism</var>. If the choosen
-        SASL mechanism is client-first then the first data must be passed in
-        <var>Initial_Data</var>, otherwise <var>Initial_Data</var> must be an
-        empty array.
+      <arg direction="in" name="Initial_Data" type="ay">
+        <tp:docstring>
+          Initial data (an "initial response" in RFC 4422's terminology) to send
+          with the mechanism.
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Start an authentication try using <var>Mechanism</var>, and send
+          <var>Initial_Data</var> as the "initial response" defined in
+          <a href="http://tools.ietf.org/html/rfc4422#section-3.3">RFC 4422
+            §3.3</a>.</p>
+
+        <tp:rationale>
+          <p>This method is appropriate for mechanisms where the client may
+            send data first, such as <code>PLAIN</code>.</p>
+
+          <p>Having two methods allows any mechanism where it makes a difference
+            to distinguish between the absence of an initial response
+            (<tp:member-ref>StartMechanism</tp:member-ref>) and a zero-byte
+            initial response (StartMechanismWithData, with Initial_Data
+            empty).</p>
+        </tp:rationale>
       </tp:docstring>
     </method>
 
