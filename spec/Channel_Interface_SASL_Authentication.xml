@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           the user's password (either interactively, or from a storage
           mechanism like <code>gnome-keyring</code>), by having the
           connection manager implement the server side of a simple
-          pseudo-SASL mechanism like <code>X-TELEPATHY-PLAIN</code>.</p>
+          pseudo-SASL mechanism like <code>X-TELEPATHY-PASSWORD</code>.</p>
       </tp:rationale>
 
       <p>For channels managed by a
@@ -106,32 +106,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Use of these mechanisms indicates that the user's credentials
           are to be passed to the connection manager, which will then use
           them for non-SASL authentication with the service. The only such
-          mechanism currently defined is <code>X-TELEPATHY-PLAIN</code>.</p>
+          mechanism currently defined is <code>X-TELEPATHY-PASSWORD</code>.</p>
 
-        <p>The <code>X-TELEPATHY-PLAIN</code> mechanism works much like
-          <a href="http://tools.ietf.org/html/rfc4616">the
-            <code>PLAIN</code> mechanism defined in RFC 4616</a>:</p>
+        <p>The <code>X-TELEPATHY-PASSWORD</code> mechanism is extremely
+          simple:</p>
 
         <ul>
           <li>The client MUST call
             <tp:member-ref>StartMechanismWithData</tp:member-ref>, with
-            Initial_Data set to the following sequence of bytes:
-            0x00, followed by the <code>username</code> from
-            <tp:dbus-ref
-              namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT.AuthenticationInformation</tp:dbus-ref>
-            encoded in UTF-8,
-            followed by 0x00, followed by the password encoded in UTF-8.
+            Initial_Data set to the password encoded in UTF-8.
             For simplicity, calling <tp:member-ref>StartMechanism</tp:member-ref>
             followed by calling <tp:member-ref>Respond</tp:member-ref> is not
             allowed in this mechanism.</li>
 
-          <li>The connection manager extracts the username and
-            password from the Initial_Data. If the Initial_Data does not have
-            the given form, it MUST abort authentication with an error.
-            If the username does not match the one from the
-            AuthenticationInformation, it MAY abort authentication with an
-            error. Otherwise, it uses them to authenticate itself to the
-            server.</li>
+          <li>The connection manager uses the password, together with
+            authentication details from the Connection parameters, to
+            authenticate itself to the server.</li>
 
           <li>When the connection manager finishes its attempt to authenticate
             to the server, the channel's state changes to
