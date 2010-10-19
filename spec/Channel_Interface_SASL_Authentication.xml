@@ -116,8 +116,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:simple-type>
 
     <property name="AvailableMechanisms"
-              tp:name-for-bindings="Available_Mechanisms"
-              type="as" tp:type="SASL_Mechanism[]" access="read">
+      tp:name-for-bindings="Available_Mechanisms"
+      type="as" tp:type="SASL_Mechanism[]"
+      access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The SASL mechanisms as offered by the server, such as <code>[ "PLAIN",
         "DIGEST-MD5", "SCRAM-SHA-1" ]</code>.
@@ -125,7 +126,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <property name="Secure"
-             tp:name-for-bindings="Secure" type="b" access="read">
+      tp:name-for-bindings="Secure" type="b"
+      access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this authentication process occurs over a secure
           connection, e.g. one where TLS was previously negotiated.
