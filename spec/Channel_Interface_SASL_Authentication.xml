@@ -277,14 +277,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Send a response to the the last challenge received via
           <tp:member-ref>NewChallenge</tp:member-ref>.</p>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Either the state is not In_Progress, or no challenge has been
+            received yet, or you have already responded to the last challenge.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
 
     <method name="Accept" tp:name-for-bindings="Accept">
-      <tp:docstring>
-        Handler accepts the authentication as finished. Can be called
-        whenever the Handler considered the authentication process to
-        be (successfully) finished from its point of view.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If the channel's status is SASL_Status_Server_Succeeded,
+          this method confirms successful authentication and advances
+          the status of the channel to SASL_Status_Succeeded.</p>
+
+        <p>If the channel's status is SASL_Status_In_Progress, calling this
+          method indicates that the last
+          <tp:member-ref>NewChallenge</tp:member-ref> signal was in fact
+          additional data sent after a successful SASL negotiation, and
+          declares that from the client's point of view, authentication
+          was successful. This advances the state of the channel to
+          SASL_Status_Client_Accepted.</p>
+
+        <p>In mechanisms where the server authenticates itself to the client,
+          calling this method indicates that the client considers this to have
+          been successful.</p>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Either the state is neither In_Progress nor Server_Succeeded, or no
+            challenge has been received yet, or you have already responded to
+            the last challenge.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
 
     <method name="Abort" tp:name-for-bindings="Abort">
@@ -329,6 +362,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Emitted when a new challenge is received from the server, or when
           a message indicating successful authentication and containing
           additional data is received from the server.</p>
+
+        <p>When the channel's handler is ready to proceed, it should respond
+          to the challenge by calling <tp:member-ref>Respond</tp:member-ref>,
+          or respond to the additional data by calling
+          <tp:member-ref>Accept</tp:member-ref>. Alternatively, it may call
+          <tp:member-ref>Abort</tp:member-ref> to abort authentication.</p>
       </tp:docstring>
       <arg name="Challenge_Data" type="ay">
         <tp:docstring>
@@ -357,53 +396,66 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:enum name="SASL_Status" type="u">
       <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>
-          Need to call <tp:member-ref>StartMechanism</tp:member-ref> to start.
+          The initial state. The Handler SHOULD either
+          call <tp:member-ref>Abort</tp:member-ref>, or connect to the
+          <tp:member-ref>NewChallenge</tp:member-ref> signal then call
+          <tp:member-ref>StartMechanism</tp:member-ref> or
+          <tp:member-ref>StartMechanismWithData</tp:member-ref>.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="In_Progress" value="1">
         <tp:docstring>
-          Challenge/Response cycle in progress
+          The challenge/response exchange is in progress. The Handler SHOULD
+          call either <tp:member-ref>Respond</tp:member-ref> or
+          <tp:member-ref>Accept</tp:member-ref> exactly once per emission
+          of <tp:member-ref>NewChallenge</tp:member-ref>, or call
+          <tp:member-ref>Abort</tp:member-ref> at any time.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Succeeded" value="2">
         <tp:docstring>
-          Server indicated successful authentication, handler needs to call
-          <tp:member-ref>Accept</tp:member-ref> or
-          <tp:member-ref>Abort</tp:member-ref> to complete the authentication
-          process.
+          The server has indicated successful authentication, and the
+          connection manager is waiting for confirmation from the Handler.
+          The Handler must call either <tp:member-ref>Accept</tp:member-ref> or
+          <tp:member-ref>Abort</tp:member-ref> to indicate whether it
+          considers authentication to have been successful.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Client_Accepted" value="3">
         <tp:docstring>
-          Handler indicates that from its perspective the
-          authentication has successfully finished.
+          The Handler has indicated successful authentication, and the
+          connection manager is waiting for confirmation from the server.
+          The state will progress to either Succeeded or Server_Failed when
+          confirmation is received.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Succeeded" value="4">
         <tp:docstring>
           Everyone is happy (the server sent success, and the client has called
-          <tp:member-ref>Accept</tp:member-ref>); it is up to the handler to
+          <tp:member-ref>Accept</tp:member-ref>). The Handler MUST call
           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-          the channel when it wishes.
+          to close the channel.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Failed" value="5">
         <tp:docstring>
-          Server indicated an authentication failure,
+          The server has indicated an authentication failure.
           Authentication can be restarted by calling
-          <tp:member-ref>StartMechanism</tp:member-ref> again or completely
-          aborted by calling <tp:dbus-ref
+          <tp:member-ref>StartMechanism</tp:member-ref> or
+          <tp:member-ref>StartMechanismWithData</tp:member-ref> again, or
+          completely aborted by calling <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           on the channel.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Client_Failed" value="6">
         <tp:docstring>
-          Client indicated an authentication failure,
+          The client has indicated an authentication failure,
           Authentication can be restarted by calling
-          <tp:member-ref>StartMechanism</tp:member-ref> again or completely
-          aborted by calling <tp:dbus-ref
+          <tp:member-ref>StartMechanism</tp:member-ref> or
+          <tp:member-ref>StartMechanismWithData</tp:member-ref> or
+          completely aborted by calling <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           on the channel.
         </tp:docstring>
@@ -419,7 +471,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:member type="s" tp:type="DBus_Error_Name" name="Reason">
         <tp:docstring>
-          The reason for the state.
+          The reason for the state, or an empty string if the state is neither
+          Server_Failed nor Client_Failed.
         </tp:docstring>
       </tp:member>
 
