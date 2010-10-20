@@ -204,7 +204,14 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            Raised when not used during an existing call to update the codec mapping.
+            Raised when a <tp:dbus-ref
+            namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
+            object exists and is referred to in the
+            <tp:member-ref>CodecOffer</tp:member-ref> property which
+            should be used instead of calling this method, or before
+            the content's initial <tp:dbus-ref
+            namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
+            object has appeared.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
