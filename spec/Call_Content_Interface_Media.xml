@@ -29,25 +29,69 @@
       <p>Interface to use by a software implementation of media
         streaming.</p>
 
-      <p>On new <tp:dbus-ref
-        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channels,
-        handlers should wait for <tp:dbus-ref
-        namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
-        objects to appear (one will either already be present, or will
-        appear at some point in the channel's lifetime).</p>
+      <h4>Codec negotiation</h4>
 
-      <p>If the Call is incoming, then the codec offer's <tp:dbus-ref
+      <p>When a new <tp:dbus-ref
+        namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channel
+        appears, whether it was requested or not, a <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
+        will either be waiting in the
+        <tp:member-ref>CodecOffer</tp:member-ref> property, or will
+        appear at some point via the
+        <tp:member-ref>NewCodecOffer</tp:member-ref> signal.</p>
+
+      <p>The <tp:dbus-ref
         namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
-        will already be filled with the codec information of the
-        remote contacts. Depending on the protocol, an outgoing call's
+        property on the codec offer will determine the codecs that
+        should be proposed by the local user's streaming
+        implementation. An empty list means all codecs are available.</p>
+
+      <p>For incoming calls on protocols where codecs are proposed when
+        starting the call (for example, Jingle), the <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
+        will contain information on the codecs that have already been
+        proposed by the remote contact, otherwise the codec map will
+        be the empty list.</p>
+
+      <p>The streaming implementation should look at the remote codec
+        map and the codecs known by the local user and call
         <tp:dbus-ref
-        namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
-        will either be filled with remote contact codec information, or
-        it will be empty. If empty, then this SHOULD be interpreted to
-        mean that all codecs are supported. Once a compatible list of
-        codecs has been decided, <tp:dbus-ref
         namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>
-        should be called with the details of these codecs.</p>
+        on the intersection of these two codec lists.</p>
+
+      <p>This means that in practice, outgoing calls will have a codec
+        offer pop up with no information in the <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>,
+        so the local user will call <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">Accept</tp:dbus-ref>
+        with the list of all codecs supported. If this codec offer is
+        accepted, then <tp:member-ref>CodecsChanged</tp:member-ref>
+        will fire with the details of the codecs passed into
+        <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">Accept</tp:dbus-ref>. If
+        the call is incoming, then the <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>
+        will contain details of the remote contact's codecs and the
+        local user will call <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">Accept</tp:dbus-ref>
+        with the codecs that both sides understand. After the codec
+        set is accepted, <tp:member-ref>CodecsChanged</tp:member-ref>
+        will fire to signal this change.</p>
+
+      <h4>Changing codecs mid-call</h4>
+
+      <p>To update the codec list used mid-call, the
+        <tp:member-ref>UpdateCodecs</tp:member-ref> method should be
+        called with details of the new codec list. If this is
+        accepted, then <tp:member-ref>CodecsChanged</tp:member-ref>
+        will be emitted with the new codec set.</p>
+
+      <p>If the other side decides to update his or her codec list
+        during a call, a new <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
+        object will appear through
+        <tp:member-ref>NewCodecOffer</tp:member-ref> which should be
+        acted on as documented above.</p>
 
     </tp:docstring>
 
