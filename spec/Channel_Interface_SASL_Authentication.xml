@@ -29,30 +29,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         it could also be used to authenticate with secondary services,
         or even to authenticate end-to-end connections with contacts.</p>
 
-      <p>In some protocols, such as XMPP, authentication with the server
-        is carried out using SASL. In these protocols, a channel with this
-        interface can provide a simple 1:1 mapping of the SASL negotiations
-        taking place in the protocol.</p>
-
-      <p>In other protocols, the connection manager can require that a
-        user interface carries out a SASL-like handshake with it as a way to get
-        the user's credentials interactively. In particular, this can be used to
-        connect to protocols that may require a password, without
-        requiring that the password is saved in the <tp:dbus-ref
+      <p>In any protocol that requires a password, the connection manager can
+        use this channel to let a user interface carry out a simple SASL-like
+        handshake with it, as a way to get the user's credentials
+        interactively. This can be used to connect to protocols that may
+        require a password, without requiring that the password is saved in
+        the <tp:dbus-ref
           namespace="ofdT">Account.Parameters</tp:dbus-ref>.</p>
+
+      <p>In some protocols, such as XMPP, authentication with the server
+        is also carried out using SASL. In these protocols, a channel with this
+        interface can provide a simple 1:1 mapping of the SASL negotiations
+        taking place in the protocol, allowing more advanced clients to
+        perform authentication via SASL mechanisms not known to the
+        connection manager.</p>
 
       <tp:rationale>
         <p>By providing SASL directly when the protocol supports it, we can
           use mechanisms like Kerberos or Google's <code>X-GOOGLE-TOKEN</code>
           without specific support in the connection manager.</p>
-
-        <p>Protocols where SASL is not used typically have a simple
-          username/password-based authentication mechanism. In these
-          protocols, we can use the same authentication client to query
-          the user's password (either interactively, or from a storage
-          mechanism like <code>gnome-keyring</code>), by having the
-          connection manager implement the server side of a simple
-          pseudo-SASL mechanism like <code>X-TELEPATHY-PASSWORD</code>.</p>
       </tp:rationale>
 
       <p>For channels managed by a
@@ -101,12 +96,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           SASL mechanism such as <code>X-GOOGLE-TOKEN</code> used in the
           same contexts.</p>
 
-        <p>As a special case, mechanisms starting with
+        <p>As a special case, pseudo-mechanisms starting with
           <code>X-TELEPATHY-</code> are defined by this specification.
-          Use of these mechanisms indicates that the user's credentials
+          Use of these pseudo-mechanisms indicates that the user's credentials
           are to be passed to the connection manager, which will then use
-          them for non-SASL authentication with the service. The only such
-          mechanism currently defined is <code>X-TELEPATHY-PASSWORD</code>.</p>
+          them for authentication with the service, either by implementing
+          the client side of some SASL mechanisms itself or by using a
+          non-SASL protocol. The only such pseudo-mechanism currently
+          defined is <code>X-TELEPATHY-PASSWORD</code>.</p>
 
         <p>The <code>X-TELEPATHY-PASSWORD</code> mechanism is extremely
           simple:</p>
@@ -136,8 +133,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       type="as" tp:type="SASL_Mechanism[]"
       access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        The SASL mechanisms as offered by the server, such as <code>[ "PLAIN",
-        "DIGEST-MD5", "SCRAM-SHA-1" ]</code>.
+        <p>The SASL mechanisms as offered by the server, plus any
+          pseudo-SASL mechanisms supported by the connection manager for
+          credentials transfer. For instance, in a protocol that
+          natively uses SASL (like XMPP), this might be
+          <code>[ "X-TELEPATHY-PASSWORD", "PLAIN", "DIGEST-MD5",
+            "SCRAM-SHA-1" ]</code>.</p>
+
+        <p>To make it possible to implement a very simple password-querying
+          user interface without knowledge of any particular SASL mechanism,
+          implementations of this interface MUST implement the
+          pseudo-mechanism <code>X-TELEPATHY-PASSWORD</code>.</p>
       </tp:docstring>
     </property>
 
