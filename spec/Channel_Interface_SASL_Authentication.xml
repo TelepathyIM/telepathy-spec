@@ -462,8 +462,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Debug message for abort.
         </tp:docstring>
       </arg>
-      <tp:docstring>
-        Abort the current authentication try.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Abort the current authentication try.</p>
+
+        <p>If the current status is SASL_Status_Server_Failed or
+          SASL_Status_Client_Failed, this method returns successfully, but has
+          no further effect. Otherwise, it changes the channel's state to
+          SASL_Status_Client_Failed, with an appropriate error name and
+          reason code.</p>
       </tp:docstring>
     </method>
 
