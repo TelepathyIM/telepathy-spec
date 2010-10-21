@@ -91,82 +91,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <dl>
           <dt><code>username</code> (string)</dt>
           <dd>
-            <p>The identity for which the client would like to be authorized,
-              typically the 'account' from the <tp:dbus-ref
-                namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>
-              parameters, normalized and formatted according to the
-              conventions used for SASL in this protocol.</p>
-
-            <tp:rationale>
-              <p>The normalization used for SASL might not be the same
-                normalization used elsewhere: for instance, in a protocol
-                with email-like identifiers such as XMPP or SIP, the user
-                "juliet@example.com" might have to authenticate to the
-                example.com server via SASL PLAIN as "juliet".</p>
-            </tp:rationale>
-
-            <p>This is usually achieved by using the authorization identity for
-              authentication, but an advanced Handler could offer the option
-              to authenticate under a different identity.</p>
-
-            <p>The terminology used here is that the authorization identity
-              is who you want to act as, and the authentication identity is
-              used to prove that you may do so. For instance, if Juliet is
-              authorized to access a role account, "sysadmin@example.com",
-              and act on its behalf, it might be possible to authenticate
-              as "juliet@example.com" with her own password, but request to
-              be authorized as "sysadmin@example.com" instead of her own
-              account. See
-              <a href="http://tools.ietf.org/html/rfc4422#section-3.4.1">RFC
-                4422 §3.4.1</a> for more details.</p>
-
-            <tp:rationale>
-              <p>In SASL the authorization identity is normally guessed from
-                the authentication identity, but the information available
-                to the connection manager is the identity for which
-                authorization is required, such as the desired JID in XMPP,
-                so that's what we signal to UIs; it's up to the UI to
-                choose whether to authenticate as the authorization identity
-                or some other identity.</p>
-
-              <p>As a concrete example, the "sysadmin" XMPP account mentioned
-                above would have <code>{ 'account': 'sysadmin@example.com' }</code>
-                in its Parameters, and
-                <code>{ 'authorization-identity': 'sysadmin@example.com' }</code>
-                in its AuthenticationInformation. A simple Handler would
-                merely prompt for sysadmin@example.com's password, but a
-                more advanced Handler might also ask for an authentication
-                identity, defaulting to 'sysadmin@example.com'; if Juliet
-                provided authentication identity 'juliet@example.com' and
-                password 'romeo', the Handler might perform SASL PLAIN
-                authentication using the initial response
-                'sysadmin@example.com\000juliet@example.com\000romeo'.</p>
-            </tp:rationale>
+            The <tp:dbus-ref namespace="ofdT.Channel.Interface"
+              >SASLAuthentication.DRAFT.AuthorizationIdentity</tp:dbus-ref>
+            property.
           </dd>
 
           <dt><tt>realm</tt> (string)</dt>
+            The <tp:dbus-ref namespace="ofdT.Channel.Interface"
+              >SASLAuthentication.DRAFT.DefaultRealm</tp:dbus-ref>
+            property.
           <dd>
-            <p>The default realm (as defined in
-              <a href="http://tools.ietf.org/html/rfc2831#section-2.1.1">RFC
-                2831</a>) to use for authentication, if the server does not
-              supply one.</p>
-
-            <tp:rationale>
-              <p>The server is not required to provide a realm; if it doesn't,
-                the client is expected to ask the user or provide a sensible
-                default, typically the requested DNS name of the server.
-                In some implementations of <code>DIGEST-MD5</code>, the
-                server does not specify a realm, but expects that the client
-                will choose a particular default, and authentication will
-                fail if the client's default is different. Connection
-                managers for protocols where this occurs are more easily able
-                to work around these implementations than a generic client
-                would be.</p>
-            </tp:rationale>
-          </dd>
+         </dd>
           <dt><tt>session-id</tt> (string)</dt>
           <dd>
-            XMPP session id, as needed for the legacy jabber digest method.
+            The <code>jabber-stream-id</code> from the
+            <tp:dbus-ref namespace="ofdT.Channel.Interface"
+              >SASLAuthentication.DRAFT.ExtraContext</tp:dbus-ref>
+            property.
           </dd>
         </dl>
       </tp:docstring>
