@@ -146,7 +146,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
           <dt><tt>realm</tt> (string)</dt>
           <dd>
-            Realm to use for authentication, if needed
+            <p>The default realm (as defined in
+              <a href="http://tools.ietf.org/html/rfc2831#section-2.1.1">RFC
+                2831</a>) to use for authentication, if the server does not
+              supply one.</p>
+
+            <tp:rationale>
+              <p>The server is not required to provide a realm; if it doesn't,
+                the client is expected to ask the user or provide a sensible
+                default, typically the requested DNS name of the server.
+                In some implementations of <code>DIGEST-MD5</code>, the
+                server does not specify a realm, but expects that the client
+                will choose a particular default, and authentication will
+                fail if the client's default is different. Connection
+                managers for protocols where this occurs are more easily able
+                to work around these implementations than a generic client
+                would be.</p>
+            </tp:rationale>
           </dd>
           <dt><tt>session-id</tt> (string)</dt>
           <dd>
