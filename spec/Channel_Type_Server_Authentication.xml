@@ -89,7 +89,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           corresponding value:</p>
 
         <dl>
-          <dt><code>authorization-identity</code> (string)</dt>
+          <dt><code>username</code> (string)</dt>
           <dd>
             <p>The identity for which the client would like to be authorized,
               typically the 'account' from the <tp:dbus-ref
