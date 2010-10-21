@@ -217,8 +217,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             above would have <code>{ 'account': 'sysadmin@example.com' }</code>
             in its Parameters, and this property would also be
             'sysadmin@example.com'. A simple Handler would
-            merely prompt for sysadmin@example.com's password, but a
-            more advanced Handler might also ask for an authentication
+            merely prompt for sysadmin@example.com's password,
+            and use that JID as both the authorization and authentication
+            identity, which might result in SASL PLAIN authentication with the
+            initial response
+            '\000sysadmin@example.com\000root'.</p>
+
+          <p>A more advanced Handler might also ask for an authentication
             identity, defaulting to 'sysadmin@example.com'; if Juliet
             provided authentication identity 'juliet@example.com' and
             password 'romeo', the Handler might perform SASL PLAIN
