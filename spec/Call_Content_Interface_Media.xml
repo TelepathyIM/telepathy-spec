@@ -78,6 +78,16 @@
         set is accepted, <tp:member-ref>CodecsChanged</tp:member-ref>
         will fire to signal this change.</p>
 
+      <h4>Protocols without codec negotiation</h4>
+
+      <p>For protocols where the codecs are not negotiable, instead of
+        popping up the initial content's <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT</tp:dbus-ref>
+        object with an empty <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">RemoteContactCodecMap</tp:dbus-ref>,
+        the CM should set the supported codec values to known codec
+        values in the said object's codec map.</p>
+
       <h4>Changing codecs mid-call</h4>
 
       <p>To update the codec list used mid-call, the
