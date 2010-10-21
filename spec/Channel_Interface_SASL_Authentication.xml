@@ -301,8 +301,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:docstring>
             The server or connection manager doesn't implement the given
             SASL mechanism. Choose a SASL mechanism from
-            <tp:member-ref>Mechanisms</tp:member-ref>, or abort authentication
-            if none of them are suitable.
+            <tp:member-ref>AvailableMechanisms</tp:member-ref>, or abort
+            authentication if none of them are suitable.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -357,10 +357,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:docstring>
             The server or connection manager doesn't implement the given
             SASL mechanism (choose one from
-            <tp:member-ref>Mechanisms</tp:member-ref>, or abort authentication
-            if none of them are suitable), or doesn't allow initial data
-            to be sent (call <tp:member-ref>StartMechanism</tp:member-ref>
-            instead).
+            <tp:member-ref>AvailableMechanisms</tp:member-ref>, or abort
+            authentication if none of them are suitable), or doesn't allow
+            initial data to be sent (as indicated by
+            <tp:member-ref>HasInitialData</tp:member-ref>; call
+            <tp:member-ref>StartMechanism</tp:member-ref> instead).
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
