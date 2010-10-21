@@ -184,12 +184,59 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="CurrentState" tp:name-for-bindings="Current_State"
-              type="(uss)" tp:type="SASL_State" access="read">
-      <tp:docstring>
-        The current state of the authentication.
+    <property type="u" tp:type="SASL_Status" access="read"
+      name="SASLStatus" tp:name-for-bindings="SASL_Status">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        The current status of this channel.
         Change notification is via the
-        <tp:member-ref>StateChanged</tp:member-ref> signal.
+        <tp:member-ref>StatusChanged</tp:member-ref> signal.
+      </tp:docstring>
+    </property>
+
+    <property type="s" tp:type="DBus_Error_Name" access="read"
+      name="SASLError" tp:name-for-bindings="SASL_Error">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The reason for the <tp:member-ref>SASLStatus</tp:member-ref>, or
+          an empty string if the state is neither
+          Server_Failed nor Client_Failed.</p>
+
+        <p>In particular, an ordinary authentication failure (as would
+          be produced for an incorrect password) SHOULD be represented by
+          <tp:error-ref>AuthenticationFailed</tp:error-ref>,
+          cancellation by the user's request SHOULD be represented
+          by <tp:error-ref>Cancelled</tp:error-ref>, and
+          cancellation by a local process due to inconsistent or invalid
+          challenges from the server SHOULD be represented by
+          <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
+
+        <p>If this interface appears on a <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT</tp:dbus-ref>
+          channel, and connection to the server fails with an authentication
+          failure, this error code SHOULD be copied into the
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>
+          signal.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="SASLErrorDetails"
+      tp:name-for-bindings="SASL_Error_Details"
+      access="read" type="a{sv}" tp:type="String_Variant_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If <tp:member-ref>SASLError</tp:member-ref> is non-empty,
+          any additional information about the last
+          disconnection; otherwise, the empty map. The keys and values are
+          the same as for the second argument of
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>.</p>
+
+        <p>If this interface appears on a <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT</tp:dbus-ref>
+          channel, and connection to the server fails with an authentication
+          failure, these details SHOULD be copied into the
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>
+          signal.</p>
       </tp:docstring>
     </property>
 
@@ -473,23 +520,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <signal name="StateChanged" tp:name-for-bindings="State_Changed">
+    <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
       <tp:docstring>
-        Notifies of <tp:member-ref>CurrentState</tp:member-ref> changing
+        Emitted when the status of the channel changes.
       </tp:docstring>
       <arg type="u" tp:type="SASL_Status" name="Status">
         <tp:docstring>
-          The status of the state.
+          The new value of <tp:member-ref>SASLStatus</tp:member-ref>.
         </tp:docstring>
       </arg>
       <arg type="s" tp:type="DBus_Error_Name" name="Reason">
         <tp:docstring>
-          The reason for the state.
+          The new value of <tp:member-ref>SASLError</tp:member-ref>.
         </tp:docstring>
       </arg>
-      <arg type="s" name="Debug_Message">
+      <arg type="a{sv}" tp:type="String_Variant_Map" name="Details">
         <tp:docstring>
-          A non-localized debug message.
+          The new value of <tp:member-ref>SASLErrorDetails</tp:member-ref>.
         </tp:docstring>
       </arg>
     </signal>
@@ -599,35 +646,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:struct name="SASL_State">
-      <tp:member type="u" tp:type="SASL_Status" name="Status">
-        <tp:docstring>
-          The status of the state.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="s" tp:type="DBus_Error_Name" name="Reason">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The reason for the state, or an empty string if the state is
-            neither Server_Failed nor Client_Failed.</p>
-
-          <p>In particular, an ordinary authentication failure (as would
-            be produced for an incorrect password) SHOULD be represented by
-            <tp:error-ref>AuthenticationFailed</tp:error-ref>,
-            cancellation by the user's request SHOULD be represented
-            by <tp:error-ref>Cancelled</tp:error-ref>, and
-            cancellation by a local process due to inconsistent or invalid
-            challenges from the server SHOULD be represented by
-            <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="s" name="Debug_Message">
-        <tp:docstring>
-          A non-localized debug message.
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
