@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>The type for a channel representing an authentication step with the
         server. The actual authentication functionality is implemented by
         additional interfaces, such as <tp:dbus-ref
-          namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>,
+          namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>,
         depending on the value of
         <tp:member-ref>AuthenticationMethod</tp:member-ref>.</p>
 
@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         interface on the same channel; for example, channels with this property
         set to <tp:type>Authentication_Type</tp:type> SASL MUST implement
         <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>.
+        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
       </tp:docstring>
     </property>
 
@@ -77,7 +77,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="SASL" value="0">
         <tp:docstring>
           SASL authentication. The channel MUST implement <tp:dbus-ref
-            namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT</tp:dbus-ref>.
+            namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -92,13 +92,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dt><code>username</code> (string)</dt>
           <dd>
             The <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT.AuthorizationIdentity</tp:dbus-ref>
+              >SASLAuthentication.DRAFT2.AuthorizationIdentity</tp:dbus-ref>
             property.
           </dd>
 
           <dt><tt>realm</tt> (string)</dt>
             The <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT.DefaultRealm</tp:dbus-ref>
+              >SASLAuthentication.DRAFT2.DefaultRealm</tp:dbus-ref>
             property.
           <dd>
          </dd>
@@ -106,7 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>
             The <code>jabber-stream-id</code> from the
             <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT.ExtraContext</tp:dbus-ref>
+              >SASLAuthentication.DRAFT2.ExtraContext</tp:dbus-ref>
             property.
           </dd>
         </dl>
