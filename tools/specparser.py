@@ -705,6 +705,13 @@ class Interface(Base):
         self.requires = map(lambda n: n.getAttribute('interface'),
                              getChildrenByName(dom, XMLNS_TP, 'requires'))
 
+        def map_xor(element):
+            return map(lambda n: n.getAttribute('interface'),
+                       getChildrenByName(element, XMLNS_TP, 'requires'))
+
+        self.xor_requires = map(map_xor,
+                                getChildrenByName(dom, XMLNS_TP, 'xor-requires'))
+
         # let's make sure there's nothing we don't know about here
         self.check_for_odd_children(dom)
 
@@ -713,22 +720,28 @@ class Interface(Base):
     def get_interface(self):
         return self
 
-    def get_requires(self):
+    def lookup_requires(self, r):
         spec = self.get_spec()
 
-        def lookup(r):
-            try:
-                return spec.lookup(r)
-            except KeyError:
-                if not spec.allow_externals:
-                    print >> sys.stderr, """
+        try:
+            return spec.lookup(r)
+        except KeyError:
+            if not spec.allow_externals:
+                print >> sys.stderr, """
 WARNING: Interface not known: '%s'
          (<tp:requires> in %s)
                 """.strip() % (r, self)
 
-                return External(r)
+            return External(r)
 
-        return map(lookup, self.requires)
+    def get_requires(self):
+        return map(self.lookup_requires, self.requires)
+
+    def get_xor_requires(self):
+        def xor_lookup(r):
+            return map(self.lookup_requires, r)
+
+        return map(xor_lookup, self.xor_requires)
 
     def get_url(self):
         return '%s.html' % self.name_for_bindings
@@ -749,6 +762,7 @@ WARNING: Interface not known: '%s'
             (XMLNS_TP, 'struct'),
             (XMLNS_TP, 'external-type'),
             (XMLNS_TP, 'requires'),
+            (XMLNS_TP, 'xor-requires'),
             (XMLNS_TP, 'added'),
             (XMLNS_TP, 'changed'),
             (XMLNS_TP, 'deprecated'),

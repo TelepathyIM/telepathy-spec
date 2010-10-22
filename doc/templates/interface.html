@@ -171,10 +171,16 @@
    $interface.get_changed()
    $interface.get_deprecated()
 
-   #if $interface.requires
+   #if $interface.requires or $interface.xor_requires
    <div class="requires">
     Objects implementing this interface must also implement:
     <ul>
+    #for $req in $interface.get_xor_requires()
+     <li>
+      #echo " <strong>or</strong> ".join(['<a href="' + x.get_url() + '''"
+             title="''' + x.get_title() + '">' + x.name + '</a>' for x in req])
+     </li>
+    #end for
     #for $req in $interface.get_requires()
      <li><a href="$req.get_url()" title="$req.get_title()">$req.name</a></li>
     #end for
