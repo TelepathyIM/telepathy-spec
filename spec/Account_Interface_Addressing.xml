@@ -39,9 +39,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               tp:name-for-bindings="URI_Schemes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of fields indicating the type of URI addressing scheme
-          the the account can be used for (eg 'tel') indicating the
-          account is suitable for use by apps offering a telephony UI,
-          or 'sip' or 'xmpp' for those protocols</p>
+          the the account should be used for (eg 'tel') indicating the
+          account is intended for use by applications offering a telephony
+          UI, or 'sip' or 'xmpp' for those protocols</p>
+        <p>Note that these fields signify intent, not ability: It is
+          entirely possible that an account which can be used for a
+          given URI scheme is not wanted for it by the user, and
+          therefore not flagged as such in this field.</p>
       </tp:docstring>
     </property>
 
@@ -60,7 +64,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <arg name="Association" direction="in" type="b">
         <tp:docstring>
-          <p>Whether to associate or disassociate with/from the URI scheme</p>
+          <p>True to associate this account with a given addressing scheme</p>
+          <p>False if the account should not be associated with said scheme</p>
         </tp:docstring>
       </arg>
 
