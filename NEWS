@@ -18,6 +18,9 @@ New stable API:
   · remove the Subscribe and Unsubscribe methods: you should call
     AddClientInterest and RemoveClientInterest instead
 
+• fd.o #30088: Protocol.I.Presence is now considered stable, with no
+  changes since draft 1
+
 Changes to experimental API:
 
 • more changes to Call and its related interfaces (jonny)
