@@ -19,10 +19,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
   <interface
-    name="org.freedesktop.Telepathy.Connection.Interface.MailNotification.DRAFT"
-    tp:causes-havoc="experimental">
+    name="org.freedesktop.Telepathy.Connection.Interface.MailNotification.DRAFT">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:added version="0.19.1">(as draft 1)</tp:added>
+    <tp:added version="0.21.UNRELEASED">(as stable API)</tp:added>
 
     <tp:flags name="Mail_Notification_Flags" value-prefix="Mail_Notification_Flag" type="u" >
       <tp:flag suffix="Supports_Unread_Mail_Count" value="1">
@@ -470,42 +469,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </signal>
 
-    <method name="Subscribe"
-        tp:name-for-bindings="Subscribe">
-      <tp:deprecated version="0.21.UNRELEASED">Call AddClientInterest
-        instead.</tp:deprecated>
-      <tp:docstring>
-        <p>Equivalent to calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy"
-            >Connection.AddClientInterest</tp:dbus-ref> with a list containing
-          the name of this interface as its argument.</p>
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
-      </tp:possible-errors>
-    </method>
-
-    <method name="Unsubscribe"
-        tp:name-for-bindings="Unsubscribe">
-      <tp:deprecated version="0.21.UNRELEASED">Call RemoveClientInterest
-        instead.</tp:deprecated>
-      <tp:docstring>
-        <p>Equivalent to calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy"
-            >Connection.RemoveClientInterest</tp:dbus-ref> with a list
-          containing the name of this interface as its argument.</p>
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            Raised if the client calling this method has no references to
-            release.
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
-      </tp:possible-errors>
-    </method>
-
     <method name="RequestInboxURL"
       tp:name-for-bindings="Request_Inbox_URL">
       <arg direction="out" name="URL" type="(sua(ss))" tp:type="Mail_URL" >
@@ -593,11 +556,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:dbus-ref namespace="org.freedesktop.Telepathy"
           >Connection.RemoveClientInterest</tp:dbus-ref> to allow the CM to
         release resources.</p>
-
-      <p>(The <tp:member-ref>Subscribe</tp:member-ref> and
-        <tp:member-ref>Unsubscribe</tp:member-ref> methods are equivalent to
-        those Connection methods, but are deprecated, and will be removed
-        before this interface is declared to be stable.)</p>
 
       <p>Protocols have various different levels of Mail Notification support.
         To describe the level of support, the interface provides a property

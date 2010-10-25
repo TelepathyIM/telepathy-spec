@@ -13,10 +13,12 @@ New stable API:
 • fd.o #30703: Chan.I.DTMF.TonesDelayed and support for 'p', 'x', ',' and 'w'
   in dialstrings (smcv)
 
-Changes to experimental API:
+• fd.o #13349: Conn.I.MailNotification is now considered stable. Changes
+  since draft 1:
+  · remove the Subscribe and Unsubscribe methods: you should call
+    AddClientInterest and RemoveClientInterest instead
 
-• Conn.I.MailNotification's Subscribe and Unsubscribe methods are deprecated,
-  and will be removed when the interface becomes stable (smcv)
+Changes to experimental API:
 
 • more changes to Call and its related interfaces (jonny)
   · fd.o #28720: remove Early_Media disposition
