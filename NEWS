@@ -5,7 +5,32 @@ checkouts.
 telepathy-spec 0.21.3 (UNRELEASED)
 ==================================
 
-…
+New stable API:
+
+• fd.o #27835: Conn.AddClientInterest, Conn.RemoveClientInterest allow
+  clients to subscribe to specialized interfaces in a generic way (smcv)
+
+• fd.o #30703: Chan.I.DTMF.TonesDelayed and support for 'p', 'x', ',' and 'w'
+  in dialstrings (smcv)
+
+Changes to experimental API:
+
+• Conn.I.MailNotification's Subscribe and Unsubscribe methods are deprecated,
+  and will be removed when the interface becomes stable (smcv)
+
+• more changes to Call and its related interfaces (jonny)
+  · fd.o #28720: remove Early_Media disposition
+  · fd.o #28719: document Call.Stream.Endpoint
+  · fd.o #28735: document local state of Pending_Send
+  · fd.o #28704: add signals for relay info and STUN servers
+  · fd.o #29595: add Call.Stream.LocalSendingStateChanged
+  · fd.o #29596: split Call.Stream.Members into RemoteMembers and
+    LocalSendingState
+
+Tools changes:
+
+• <tp:xor-requires> allows interfaces to be shared between Call and StreamedMedia
+  (jonny)
 
 telepathy-spec 0.21.2 (2010-10-15)
 ==================================
