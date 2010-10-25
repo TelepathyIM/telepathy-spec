@@ -131,7 +131,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>A string representation of one or more DTMF
             events. Implementations of this method MUST support all of the
             following characters in this string:</p>
-          
+
           <ul>
             <li>the digits 0-9, letters A-D and a-d, and symbols '*' and '#'
               correspond to the members of <tp:type>DTMF_Event</tp:type></li>
