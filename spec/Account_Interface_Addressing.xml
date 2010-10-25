@@ -20,8 +20,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Account"/>
     <tp:added version="0.21.UNRELEASED">(draft 1)</tp:added>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>The Compat interface holds properties necessary for maintaining the
-        libmissioncontrol compatible layer.</p>
+      <p>Some accounts can be used for multiple protocols; for instance, SIP
+        and Skype accounts can often be used to contact the PSTN, MSN and
+        Yahoo accounts can contact each other, and XMPP accounts can
+        potentially contact many protocols via a transport.</p>
+      <p>However, if the user does not intend to make use of this functionality,
+        user interfaces can improve clarity by not displaying it: for instance,
+        if a user prefers to call phone numbers via a particular SIP account,
+        when an address book displays a contact with a phone number, it is
+        desirable to display a "call with SIP" button for that account, but
+        avoid displaying similar buttons for any other configured SIP or
+        Skype accounts.</p>
+      <p>The purpose of this interface is to allow this "for use with" information
+        to be recorded and retrieved.</p>
     </tp:docstring>
 
     <property name="URISchemes" type="as" access="read"
