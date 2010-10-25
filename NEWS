@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.3 (UNRELEASED)
+telepathy-spec 0.21.3 (2010-10-25)
 ==================================
+
+The "I used a goto today, gleefully and intentionally" release.
 
 New stable API:
 
@@ -20,6 +22,8 @@ New stable API:
 
 • fd.o #30088: Protocol.I.Presence is now considered stable, with no
   changes since draft 1
+
+• a new error code, PickedUpElsewhere, used by Call (jonny)
 
 Changes to experimental API:
 
