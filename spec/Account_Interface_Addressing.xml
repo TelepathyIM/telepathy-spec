@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Account.Interface.Addressing.DRAFT">
     <tp:requires interface="org.freedesktop.Telepathy.Account"/>
-    <tp:added version="0.21.3">(draft 1)</tp:added>
+    <tp:added version="0.21.UNRELEASED">(draft 1)</tp:added>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>The Compat interface holds properties necessary for maintaining the
         libmissioncontrol compatible layer.</p>
