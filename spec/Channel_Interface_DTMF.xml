@@ -150,14 +150,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         <p>Send multiple DTMF events to all eligible streams in the channel.
         Each tone will be played for an implementation-defined number of
-        milliseconds (typically 200ms), followed by a gap before the next tone
+        milliseconds (typically 250ms), followed by a gap before the next tone
         is played (typically 100ms). The
         duration and gap are defined by the protocol or connection manager.</p>
 
         <tp:rationale>
-          In cases where the client knows in advance the tone sequence it wants
-          to send, it's easier to use this method than manually start and stop
-          each tone in the sequence.
+          <p>In cases where the client knows in advance the tone sequence it
+            wants to send, it's easier to use this method than manually start
+            and stop each tone in the sequence.</p>
+
+          <p>The tone and gap lengths may need to vary for interoperability,
+            according to the protocol and other implementations' ability to
+            recognise tones. At the time of writing, GStreamer uses a
+            minimum of 250ms tones and 100ms gaps when playing in-band DTMF
+            in the normal audio stream, or 70ms tones and 50ms gaps when
+            encoding DTMF as <code>audio/telephone-event</code>.</p>
         </tp:rationale>
 
         <p>Tone overlaping or queueing is not supported, so this method can only
