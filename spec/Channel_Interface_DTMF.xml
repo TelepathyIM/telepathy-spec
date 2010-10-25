@@ -126,6 +126,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="MultipleTones" tp:name-for-bindings="Multiple_Tones">
       <tp:added version="0.19.6" />
+      <tp:changed version="0.21.UNRELEASED">The characters [pPxXwW,] must
+        also be supported.</tp:changed>
       <arg direction="in" name="Tones" type="s">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A string representation of one or more DTMF
