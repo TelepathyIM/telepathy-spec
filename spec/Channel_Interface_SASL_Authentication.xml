@@ -625,23 +625,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Server_Failed" value="5">
         <tp:docstring>
           The server has indicated an authentication failure.
-          Authentication can be restarted by calling
+          If <tp:member-ref>CanTryAgain</tp:member-ref> is true,
+          the client may try to authenticate again, by calling
           <tp:member-ref>StartMechanism</tp:member-ref> or
-          <tp:member-ref>StartMechanismWithData</tp:member-ref> again, or
-          completely aborted by calling <tp:dbus-ref
+          <tp:member-ref>StartMechanismWithData</tp:member-ref> again.
+          Otherwise, it should give up completely, by calling <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           on the channel.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Client_Failed" value="6">
         <tp:docstring>
-          The client has indicated an authentication failure,
-          Authentication can be restarted by calling
-          <tp:member-ref>StartMechanism</tp:member-ref> or
-          <tp:member-ref>StartMechanismWithData</tp:member-ref> or
-          completely aborted by calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-          on the channel.
+          The client has indicated an authentication failure. The
+          possible actions are the same as for Server_Failed.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
