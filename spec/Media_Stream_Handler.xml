@@ -357,18 +357,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             body need to contain address of selected native RTP transport
             as stipulated by RFC 5245). However, the candidate ID might
             not be enough to determine these info if the transport was
-            found after <tp:member-ref>NativeCandidatesPrepared
-            </tp:member-ref> has been called (e.g. peer reflexive ICE
-            candidate). </p>
+            found after <tp:member-ref>NativeCandidatesPrepared</tp:member-ref>
+            has been called (e.g. peer reflexive ICE candidate). </p>
         </tp:rationale>
 
-        <p>This method must be called before <tp:member-ref>
-          NewActiveCandidatePair</tp:member-ref>.</p>
+        <p>This method must be called before
+          <tp:member-ref>NewActiveCandidatePair</tp:member-ref>.</p>
 
         <tp:rationale>
           <p>This way, connection managers supporting this method can
-            safely ignore subsequent <tp:member-ref>NewActiveCandidatePair
-            </tp:member-ref> call.</p>
+            safely ignore subsequent
+            <tp:member-ref>NewActiveCandidatePair</tp:member-ref> call.</p>
         </tp:rationale>
 
         <p>Connection managers SHOULD NOT implement this method unless
