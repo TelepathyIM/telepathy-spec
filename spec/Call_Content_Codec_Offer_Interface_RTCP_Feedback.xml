@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="SetLocalFeedbackCodecs"
       tp:name-for-bindings="Set_Local_Feedback_Codecs">
-      <arg name="Codecs" direction="in" type="a{ua(sa{ss})}"
+      <arg name="Codecs" direction="in" type="a{ua(ssa{ss})}"
         tp:type="RTCP_Feedback_Codec_Map" />
       <tp:docstring>
         Sets the <tp:member-ref>LocalFeedbackCodecs</tp:member-ref>
@@ -80,9 +80,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         A struct representing the properties of an RTCP feedback
         codec.
       </tp:docstring>
+      <tp:member type="s" name="Category">
+        <tp:docstring>
+          Feedback category, for example "ack", "nack", or "ccm".
+        </tp:docstring>
+      </tp:member>
       <tp:member type="s" name="Type">
         <tp:docstring>
-          Feedback type, for example "ack", "nack", or "ccm".
+          Feedback type.
         </tp:docstring>
       </tp:member>
       <tp:member type="a{ss}" name="Parameters" tp:type="String_String_Map">
@@ -102,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
            PT in the SDP or content description.
         </tp:docstring>
       </tp:member>
-      <tp:member type="a(sa{ss})" tp:type="RTCP_Feedback_Codec_Properties[]"
+      <tp:member type="a(ssa{ss})" tp:type="RTCP_Feedback_Codec_Properties[]"
         name="Properties">
         <tp:docstring>
           The RTCP feedback properties for this codec.
@@ -110,7 +115,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="LocalFeedbackCodecs" type="a{ua(sa{ss})}"
+    <property name="LocalFeedbackCodecs" type="a{ua(ssa{ss})}"
       tp:type="RTCP_Feedback_Codec_Map"
       access="read" tp:name-for-bindings="Local_Feedback_Codecs">
       <tp:docstring>
@@ -119,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="RemoteFeedbackCodecs" type="a{ua(sa{ss})}"
+    <property name="RemoteFeedbackCodecs" type="a{ua(ssa{ss})}"
       tp:type="RTCP_Feedback_Codec_Map"
       access="read" tp:name-for-bindings="Remote_Feedback_Codecs">
       <tp:docstring>
