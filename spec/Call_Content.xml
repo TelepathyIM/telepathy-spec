@@ -119,7 +119,7 @@
     <signal name="Removed" tp:name-for-bindings="Removed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the content is removed from the call. This
-          signal is similar to the <tp:dbus-ref
+          is the same as the <tp:dbus-ref
           namespace="ofdT.Channel.Type">Call.DRAFT.ContentRemoved</tp:dbus-ref>
           signal.</p>
       </tp:docstring>
