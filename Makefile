@@ -10,7 +10,6 @@ XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 
 RST = \
-    doc/cmcaps.txt \
     doc/open-issues.txt \
     doc/request.txt \
     doc/dispatch.txt
