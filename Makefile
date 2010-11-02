@@ -9,13 +9,9 @@ XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 
 GENERATED_FILES = \
-	doc/spec.html \
 	doc/spec/index.html \
 	FIXME.out \
 	$(NULL)
-
-doc/spec.html: doc/templates/oldspec.html
-	cp $< $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	@install -d doc
@@ -97,7 +93,7 @@ UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
-	rsync -rzvP doc/spec.html doc/spec \
+	rsync -rzvP doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
