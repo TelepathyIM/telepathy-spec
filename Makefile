@@ -3,22 +3,12 @@ all:
 GIT = git
 GZIP = gzip
 TAR = tar
-RST2HTML = rst2html
 PYTHON = python
 
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 
-RST = \
-    doc/open-issues.txt \
-    doc/request.txt \
-    doc/dispatch.txt
-
-$(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
-	$(RST2HTML) < $< > $@
-
 GENERATED_FILES = \
-	$(patsubst %.txt,%.html,$(RST)) \
 	doc/spec.html \
 	doc/spec/index.html \
 	FIXME.out \
@@ -107,7 +97,7 @@ UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
-	rsync -rzvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) doc/spec \
+	rsync -rzvP doc/spec.html doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
