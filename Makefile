@@ -3,7 +3,6 @@ all:
 GIT = git
 GZIP = gzip
 TAR = tar
-XSLTPROC = xsltproc --xinclude --nonet
 RST2HTML = rst2html
 PYTHON = python
 
