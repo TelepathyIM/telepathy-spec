@@ -4,8 +4,6 @@ GIT = git
 GZIP = gzip
 TAR = tar
 XSLTPROC = xsltproc --xinclude --nonet
-CANONXML = xmllint --nsclean --noblanks --c14n --nonet
-XML_LINEBREAKS = perl -pe 's/>/>\n/g'
 DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
 RST2HTML = rst2html
 PYTHON = python
@@ -13,7 +11,6 @@ PYTHON = python
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
-INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
 CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
 
 $(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
@@ -25,8 +22,6 @@ $(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
 
 TEST_XMLS = $(wildcard test/input/*.xml)
 TEST_INTERFACE_XMLS = test/input/_Test.xml
-TEST_INTROSPECT = test/output/_Test.introspect.xml
-TEST_GENERATED_FILES = $(TEST_INTROSPECT)
 
 RST = \
     doc/cmcaps.txt \
@@ -43,7 +38,6 @@ GENERATED_FILES = \
 	doc/spec.html \
 	doc/spec/index.html \
 	FIXME.out \
-	$(INTROSPECT) \
 	$(CANONICAL_NAMES)
 
 doc/spec.html: doc/templates/oldspec.html
@@ -54,30 +48,15 @@ doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLA
 	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/ telepathy-spec \
 		org.freedesktop.Telepathy
 
-$(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
-	@install -d introspect
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
-$(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
-	@install -d test/output
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
-
 all: $(GENERATED_FILES)
 	@echo "Your spec HTML starts at:"
 	@echo
 	@echo file://$(CURDIR)/doc/spec/index.html
 	@echo
 
-TEST_CANONICALIZED_FILES = test/output/introspect.canon
-
-test/output/introspect.canon: test/output/_Test.introspect.xml
-	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
-
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
-check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES) FIXME.out
-	@e=0; \
-	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
-	exit $$e
+check: all $(TEST_GENERATED_FILES) FIXME.out
 	@version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	case "$$version" in \
 		*.*.*.*) ;; \
@@ -97,7 +76,6 @@ FIXME.out: $(XMLS)
 
 clean:
 	rm -f $(GENERATED_FILES)
-	rm -fr introspect
 	rm -rf test/output
 	rm -rf tmp
 
