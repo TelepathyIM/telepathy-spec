@@ -8,10 +8,6 @@ PYTHON = python
 
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
-INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
-
-TEST_XMLS = $(wildcard test/input/*.xml)
-TEST_INTERFACE_XMLS = test/input/_Test.xml
 
 RST = \
     doc/cmcaps.txt \
@@ -46,7 +42,7 @@ all: $(GENERATED_FILES)
 
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
-check: all $(TEST_GENERATED_FILES) FIXME.out
+check: all FIXME.out
 	@version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	case "$$version" in \
 		*.*.*.*) ;; \
