@@ -11,14 +11,6 @@ PYTHON = python
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
 INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
-CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
-
-$(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
-	@install -d tmp
-	python tools/extract-nodename.py $< > $@
-	tr a-z A-Z < $@ > $@.upper
-	tr A-Z a-z < $@ > $@.lower
-	tr -d _ < $@ > $@.camel
 
 TEST_XMLS = $(wildcard test/input/*.xml)
 TEST_INTERFACE_XMLS = test/input/_Test.xml
@@ -38,7 +30,7 @@ GENERATED_FILES = \
 	doc/spec.html \
 	doc/spec/index.html \
 	FIXME.out \
-	$(CANONICAL_NAMES)
+	$(NULL)
 
 doc/spec.html: doc/templates/oldspec.html
 	cp $< $@
