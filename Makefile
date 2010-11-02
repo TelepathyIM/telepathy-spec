@@ -149,3 +149,22 @@ upload-branch: all
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
+
+# automake requires these rules for anything that's in DIST_SUBDIRS
+distclean: clean
+maintainer-clean: clean
+distdir:
+	@echo distdir not implemented yet; exit 1
+
+.PHONY: \
+    all \
+    check \
+    clean \
+    dist \
+    distclean \
+    distdir \
+    maintainer-clean \
+    maintainer-upload-release \
+    maintainer-upload-snapshot \
+    upload-branch \
+    $(NULL)
