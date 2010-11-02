@@ -4,7 +4,6 @@ GIT = git
 GZIP = gzip
 TAR = tar
 XSLTPROC = xsltproc --xinclude --nonet
-DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
 RST2HTML = rst2html
 PYTHON = python
 
