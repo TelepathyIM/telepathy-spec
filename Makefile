@@ -27,6 +27,7 @@ all: $(GENERATED_FILES)
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
 check: all FIXME.out
+	$(PYTHON) test/test-specparser.py
 	@version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	case "$$version" in \
 		*.*.*.*) ;; \
