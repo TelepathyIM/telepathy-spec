@@ -43,6 +43,10 @@
         <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is
         emitted and the streaming implementation should then call
         <tp:member-ref>SetCredentials</tp:member-ref> again.</p>
+
+      <p>For more information on ICE restarts see
+        <a href="http://tools.ietf.org/html/rfc5245#section-9.1.1.1">RFC 5245
+        section 9.1.1.1</a></p>
     </tp:docstring>
 
     <method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
