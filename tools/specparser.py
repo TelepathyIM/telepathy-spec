@@ -563,6 +563,7 @@ class Property(DBusConstruct, Typed):
 
         requestable = dom.getAttributeNS(XMLNS_TP, 'requestable')
         self.requestable = requestable != ''
+        self.sometimes_requestable = requestable == 'sometimes'
 
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
@@ -577,7 +578,10 @@ class Property(DBusConstruct, Typed):
 
         if self.immutable:
             descriptions.append("Immutable")
-        if self.requestable:
+
+        if self.sometimes_requestable:
+            descriptions.append("Sometimes requestable")
+        elif self.requestable:
             descriptions.append("Requestable")
 
         return ', '.join(descriptions)
