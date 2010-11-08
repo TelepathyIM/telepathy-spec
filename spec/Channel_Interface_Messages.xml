@@ -990,6 +990,16 @@ USA.</p>
         <p>If this method fails, message submission to the server has failed
           and no signal on this interface (or the Text interface) is
           emitted.</p>
+
+        <p>If this method succeeds, message submission to the server has
+          succeeded, but the message has not necessarily reached its intended
+          recipient. If a delivery failure is detected later, this is
+          signalled by receiving a message whose <code>message-type</code>
+          header maps to
+          <tp:type>Channel_Text_Message_Type</tp:type>_Delivery_Report.
+          Similarly, if delivery is detected to have been successful
+          (which is not possible in all protocols), a successful delivery
+          report will be signalled.</p>
       </tp:docstring>
 
       <arg direction="in" type="aa{sv}" tp:type="Message_Part[]"
