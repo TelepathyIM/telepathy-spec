@@ -507,7 +507,7 @@ USA.</p>
 
     <tp:simple-type type="s" name="Message_Header_Key">
       <tp:added version="0.19.8"/>
-      <tp:changed version="0.19.UNRELEASED">
+      <tp:changed version="0.21.UNRELEASED">
         Removed <tt>protocol-token</tt>—which had never been implemented—and
         respecified <tt>message-token</tt> not to have unimplementable
         uniqueness guarantees.
@@ -871,7 +871,7 @@ USA.</p>
 
     <tp:mapping name="Message_Part_Content_Map">
       <tp:added version="0.17.17"/>
-      <tp:deprecated version="0.19.UNRELEASED">
+      <tp:deprecated version="0.21.UNRELEASED">
         This structure is only used by
         <tp:member-ref>GetPendingMessageContent</tp:member-ref>, which is
         unimplemented and deprecated.
@@ -1148,7 +1148,7 @@ USA.</p>
 
     <method name="GetPendingMessageContent"
       tp:name-for-bindings="Get_Pending_Message_Content">
-      <tp:deprecated version='0.19.UNRELEASED'
+      <tp:deprecated version='0.21.UNRELEASED'
                      xmlns="http://www.w3.org/1999/xhtml">
         This method has never been implemented, and in any case would have been
         impossible to use correctly when multiple clients (such as a logger and
