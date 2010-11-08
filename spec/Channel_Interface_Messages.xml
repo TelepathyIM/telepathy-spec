@@ -104,6 +104,8 @@ USA.</p>
           This list MUST NOT be empty, since all Messages implementations
           MUST accept messages containing a single "text/plain" part.</p>
 
+        <p>Items in this list MUST be normalized to lower-case.</p>
+
         <p>Some examples of how this property interacts with the
           <tp:member-ref>MessagePartSupportFlags</tp:member-ref>:</p>
 
@@ -652,6 +654,12 @@ USA.</p>
 
               <p>Clients MUST ignore parts without a 'content-type' key, which
                 are reserved for future expansion.</p>
+
+              <p>When sending messages, clients SHOULD normalize the
+                content-type to lower case, but connection managers SHOULD NOT
+                rely on this. When signalling sent or received messages,
+                connection managers MUST normalize the content-type to lower
+                case.</p>
             </dd>
 
             <dt>lang (s)</dt>
