@@ -621,7 +621,8 @@ USA.</p>
               does not make sense on outgoing messages, and SHOULD NOT
               appear there.</dd>
           </dl>
-          </tp:docstring>
+
+      </tp:docstring>
     </tp:simple-type>
 
     <tp:simple-type type="s" name="Message_Body_Key">
