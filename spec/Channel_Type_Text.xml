@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires
     interface="org.freedesktop.Telepathy.Channel.Interface.Messages"/>
+    <tp:changed version="0.21.UNRELEASED">The Messages interface is now
+      mandatory</tp:changed>
 
     <tp:simple-type name="Message_ID" type="u" array-name="Message_ID_List">
       <tp:docstring>
@@ -33,6 +35,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:simple-type>
 
     <tp:struct name="Pending_Text_Message" array-name="Pending_Text_Message_List">
+      <tp:deprecated version="0.21.UNRELEASED">New APIs should use
+        an array of <tp:type>Message_Part</tp:type> instead.</tp:deprecated>
       <tp:docstring>A struct (message ID, timestamp in seconds since
         1970-01-01 00:00 UTC, sender's handle, message type, flags, text)
         representing a pending text message, as returned by
@@ -69,6 +73,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <method name="GetMessageTypes" tp:name-for-bindings="Get_Message_Types">
+      <tp:deprecated version="0.21.UNRELEASED">Consulting
+        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+          >MessageTypes</tp:dbus-ref> is preferred.
+      </tp:deprecated>
       <arg direction="out" type="au" tp:type="Channel_Text_Message_Type[]"
         name="Available_Types">
         <tp:docstring>
@@ -83,6 +91,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="ListPendingMessages"
       tp:name-for-bindings="List_Pending_Messages">
+      <tp:deprecated version="0.21.UNRELEASED">Consulting
+        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+          >PendingMessages</tp:dbus-ref> is preferred.
+      </tp:deprecated>
       <arg direction="in" name="Clear" type="b">
         <tp:docstring>
           If true, behave as if
@@ -116,6 +128,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <signal name="LostMessage" tp:name-for-bindings="Lost_Message">
+      <tp:deprecated version="0.21.UNRELEASED">In practice, this signal
+        was not emitted, and does not have useful semantics.</tp:deprecated>
       <tp:docstring>
         This signal is emitted to indicate that an incoming message was
         not able to be stored and forwarded by the connection manager
@@ -124,6 +138,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <signal name="Received" tp:name-for-bindings="Received">
+      <tp:deprecated version="0.21.UNRELEASED">The
+        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+          >MessageReceived</tp:dbus-ref> signal is more informative.
+      </tp:deprecated>
       <arg name="ID" type="u">
         <tp:docstring>
           A numeric identifier for acknowledging the message
@@ -164,6 +182,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="Send" tp:name-for-bindings="Send">
+      <tp:deprecated version="0.21.UNRELEASED">The
+        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+          >SendMessage</tp:dbus-ref> method is more flexible.
+      </tp:deprecated>
       <arg direction="in" name="Type" type="u" tp:type="Channel_Text_Message_Type">
         <tp:docstring>
           An integer indicating the type of the message
@@ -233,6 +255,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
     <signal name="SendError" tp:name-for-bindings="Send_Error">
+      <tp:deprecated version="0.21.UNRELEASED">Delivery reporting is now
+        provided by the <tp:dbus-ref namespace="ofdT.Channel.Interface"
+          >Messages</tp:dbus-ref> interface.
+      </tp:deprecated>
       <arg name="Error" type="u" tp:type="Channel_Text_Send_Error">
         <tp:docstring>
           The error that occurred
@@ -268,6 +294,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <signal name="Sent" tp:name-for-bindings="Sent">
+      <tp:deprecated version="0.21.UNRELEASED">The
+        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+          >MessageSent</tp:dbus-ref> signal is more informative.
+      </tp:deprecated>
       <arg name="Timestamp" type="u" tp:type="Unix_Timestamp">
         <tp:docstring>
           Unix timestamp indicating when the message was sent
@@ -337,6 +367,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </tp:enum>
 
     <tp:flags name="Channel_Text_Message_Flags" value-prefix="Channel_Text_Message_Flag" type="u">
+      <tp:deprecated version="0.21.UNRELEASED">The
+        <tp:dbus-ref namespace="ofdT.Channel.Interface"
+          >Messages</tp:dbus-ref> interface has an extensible data structure
+        including separate booleans for most of these flags.
+      </tp:deprecated>
       <tp:flag suffix="Truncated" value="1">
         <tp:docstring>
         The incoming message was truncated to a shorter length by the
