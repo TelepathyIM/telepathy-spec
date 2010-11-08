@@ -305,6 +305,17 @@ USA.</p>
             image.</p>
         </tp:rationale>
 
+        <p>Connection managers, clients and extensions to this specification
+          SHOULD NOT include <tp:type>Handle</tp:type>s as values in a
+          Message_Part, except for <code>message-sender</code> in the
+          header.</p>
+
+        <tp:rationale>
+          <p>Reference-counting handles in clients becomes problematic if
+            the channel proxy cannot know whether particular map values
+            are handles or not.</p>
+        </tp:rationale>
+
         <h4>Example messages</h4>
 
         <p>A rich-text message, with an embedded image, might be represented
