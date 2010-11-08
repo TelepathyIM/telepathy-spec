@@ -339,30 +339,30 @@
 
      #if $property.sometimes_requestable:
      <div class="annotation requestable">Depending on the protocol, this
-       property <strong>requestable</strong> which means that it may be allowed
-       in the properties hash of a channel request such as in the
-       the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       property may be <strong>requestable</strong>, which means that it may be
+       allowed in the properties hash of a channel request such as in the
+       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and
        <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
        on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        If supported on this protocol, the property should appear in either the
-       Fixed_Properties or Allowed_Properties lists of
+       Fixed_Properties or Allowed_Properties of
        a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #elif $property.requestable:
      <div class="annotation requestable">This property
-       is <strong>requestable</strong> which means that it is allowed
+       is <strong>requestable</strong>, which means that it is allowed
        in the properties hash of a channel request such as in the
-       the <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and 
        <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
        on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        The property should also appear in either the Fixed_Properties
-       or Allowed_Properties lists of
+       or Allowed_Properties of
        a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #end if
