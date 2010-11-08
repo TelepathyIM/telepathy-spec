@@ -871,6 +871,11 @@ USA.</p>
 
     <tp:simple-type type="u" name="Message_Part_Index"
       array-name="Message_Part_Index_List">
+      <tp:deprecated version="0.21.UNRELEASED">
+        This type is only used by
+        <tp:member-ref>GetPendingMessageContent</tp:member-ref>, which is
+        unimplemented and deprecated.
+      </tp:deprecated>
       <tp:added version="0.17.17"/>
       <tp:docstring>
         The index of a message part within a message.
