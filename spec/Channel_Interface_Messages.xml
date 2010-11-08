@@ -144,6 +144,20 @@ USA.</p>
       </tp:docstring>
     </property>
 
+    <property name="MessageTypes" type="au"
+      tp:type="Channel_Text_Message_Type[]" access="read"
+      tp:name-for-bindings="Message_Types"
+      tp:immutable="yes">
+      <tp:added version="0.21.UNRELEASED">
+        This supersedes <tp:dbus-ref namespace="ofdT.Channel.Type.Text"
+          >GetMessageTypes</tp:dbus-ref>; fall back to that method for
+        compatibility with older connection managers.
+      </tp:added>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of message types which may be sent on this channel.</p>
+      </tp:docstring>
+    </property>
+
     <property name="MessagePartSupportFlags" type="u"
       tp:type="Message_Part_Support_Flags" access="read"
       tp:name-for-bindings="Message_Part_Support_Flags"
