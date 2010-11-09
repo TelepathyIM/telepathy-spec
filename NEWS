@@ -5,7 +5,60 @@ checkouts.
 telepathy-spec 0.21.5 (UNRELEASED)
 ==================================
 
-…
+Changes to stable API:
+
+• fd.o #29376: Chan.T.Text now requires Chan.I.Messages (cassidy, smcv)
+
+• fd.o #23155: message-token has been redefined from "globally unique"
+  to "whatever's in the underlying protocol", replacing the unimplemented
+  protocol-token. This makes it feasible to implement message-token again.
+  Note that connection managers implementing message-token should not be
+  backported to Maemo 5, since its event logger assumes that message-token
+  is guaranteed to be unique, which is usually unimplementable. (wjt)
+
+Deprecations:
+
+• Most of Chan.T.Text has been superseded by Chan.I.Messages and so is now
+  deprecated (smcv)
+
+• GetPendingMessageContent is deprecated (wjt)
+
+New stable API:
+
+• message-sender-id key in Messages headers, complementing
+  message-sender (smcv)
+
+• Messages.MessageTypes property, superseding GetMessageTypes (smcv)
+
+• Contact_Info_Field_Flag_Overwritten_By_Nickname, indicating that this
+  field will be overwritten when we set the nickname (jonner)
+
+Fixes and clarifications:
+
+• MIME types produced by CMs must be lower-case; MIME types provided by
+  clients should be normalized to lower-case before comparison (mikhailz)
+
+• Improve wording of requestability templates and add markup for
+  sometimes-requestable properties (wjt)
+
+• fd.o #29560: clarify how Messages signals errors (smcv)
+
+• fd.o #29474: adjust TargetHandleType and Chan.T.Text documentation to
+  reflect the Conference-based approach to MSN used since 0.20 (smcv)
+
+• Delete unused code-generation tools and their tests, and various outdated
+  documents (smcv)
+
+• Update test-specparser.py so it actually passes, and run it in
+  "make check" (smcv)
+
+Changes to experimental API:
+
+• More Call changes (jonny, sjoerd)
+  · make CodecOffer and Codec_Offering specific to one contact
+  · fd.o #28725: add InitialTransport
+  · add Stream_Transport_Type_Unknown
+  · fd.o #28690: add PleaseRestartICE and document ICE restarts
 
 telepathy-spec 0.21.4 (2010-10-29)
 ==================================
