@@ -658,9 +658,9 @@
           user interfaces SHOULD obtain, from the user, an alias to
           identify the contact in future, and store it using <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
-            >SetAliases</tp:dbus-ref>.
+            >SetAliases</tp:dbus-ref>.</p>
 
-          The user MAY be
+        <p>The user MAY be
           prompted using the contact's current self-assigned nickname, or
           something derived from the contact's (presumably self-assigned)
           identifier, as a default, but these names chosen by the contact
