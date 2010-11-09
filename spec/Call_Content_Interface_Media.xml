@@ -278,6 +278,12 @@
           codec offer.
         </tp:docstring>
       </arg>
+      <arg name="Properties" type="a{sv}"
+           tp:type="Qualified_Property_Value_Map">
+        <tp:docstring>
+          The immutable properties of the codec offer.
+        </tp:docstring>
+      </arg>
       <arg name="Codecs" type="a(usuua{ss})" tp:type="Codec[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:dbus-ref namespace="ofdT.Call.Content"
