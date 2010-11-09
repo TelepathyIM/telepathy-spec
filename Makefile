@@ -3,63 +3,20 @@ all:
 GIT = git
 GZIP = gzip
 TAR = tar
-XSLTPROC = xsltproc --xinclude --nonet
-CANONXML = xmllint --nsclean --noblanks --c14n --nonet
-XML_LINEBREAKS = perl -pe 's/>/>\n/g'
-DROP_NAMESPACE = perl -pe '$$hash = chr(35); s{xmlns:tp="http://telepathy\.freedesktop\.org/wiki/DbusSpec$${hash}extensions-v0"}{}g'
-RST2HTML = rst2html
 PYTHON = python
 
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
-INTERFACE_XMLS = $(filter spec/[[:upper:]]%.xml,$(XMLS))
-INTROSPECT = $(INTERFACE_XMLS:spec/%.xml=introspect/%.xml)
-CANONICAL_NAMES = $(INTERFACE_XMLS:spec/%.xml=tmp/%.name)
-
-$(CANONICAL_NAMES): tmp/%.name: spec/%.xml tools/extract-nodename.py
-	@install -d tmp
-	python tools/extract-nodename.py $< > $@
-	tr a-z A-Z < $@ > $@.upper
-	tr A-Z a-z < $@ > $@.lower
-	tr -d _ < $@ > $@.camel
-
-TEST_XMLS = $(wildcard test/input/*.xml)
-TEST_INTERFACE_XMLS = test/input/_Test.xml
-TEST_INTROSPECT = test/output/_Test.introspect.xml
-TEST_GENERATED_FILES = $(TEST_INTROSPECT)
-
-RST = \
-    doc/cmcaps.txt \
-    doc/clientcaps.txt \
-    doc/open-issues.txt \
-    doc/request.txt \
-    doc/dispatch.txt
-
-$(patsubst %.txt,%.html,$(RST)): %.html: %.txt Makefile
-	$(RST2HTML) < $< > $@
 
 GENERATED_FILES = \
-	$(patsubst %.txt,%.html,$(RST)) \
-	doc/spec.html \
 	doc/spec/index.html \
 	FIXME.out \
-	$(INTROSPECT) \
-	$(CANONICAL_NAMES)
-
-doc/spec.html: doc/templates/oldspec.html
-	cp $< $@
+	$(NULL)
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	@install -d doc
 	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/ telepathy-spec \
 		org.freedesktop.Telepathy
-
-$(INTROSPECT): introspect/%.xml: spec/%.xml tools/spec-to-introspect.xsl
-	@install -d introspect
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
-$(TEST_INTROSPECT): $(TEST_INTERFACE_XMLS) tools/spec-to-introspect.xsl
-	@install -d test/output
-	$(XSLTPROC) tools/spec-to-introspect.xsl $< | $(DROP_NAMESPACE) > $@
 
 all: $(GENERATED_FILES)
 	@echo "Your spec HTML starts at:"
@@ -67,17 +24,10 @@ all: $(GENERATED_FILES)
 	@echo file://$(CURDIR)/doc/spec/index.html
 	@echo
 
-TEST_CANONICALIZED_FILES = test/output/introspect.canon
-
-test/output/introspect.canon: test/output/_Test.introspect.xml
-	$(CANONXML) $< | $(XML_LINEBREAKS) > $@
-
 CHECK_FOR_UNRELEASED = NEWS $(filter-out spec/template.xml,$(XMLS))
 
-check: all $(TEST_GENERATED_FILES) $(TEST_CANONICALIZED_FILES) FIXME.out
-	@e=0; \
-	diff -u test/expected/introspect.canon test/output/introspect.canon || e=1; \
-	exit $$e
+check: all FIXME.out
+	$(PYTHON) test/test-specparser.py
 	@version="`sed -ne s'!<tp:version>\(.*\)</tp:version>!\1!p' spec/all.xml`";\
 	case "$$version" in \
 		*.*.*.*) ;; \
@@ -97,7 +47,6 @@ FIXME.out: $(XMLS)
 
 clean:
 	rm -f $(GENERATED_FILES)
-	rm -fr introspect
 	rm -rf test/output
 	rm -rf tmp
 
@@ -145,7 +94,26 @@ UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
-	rsync -rzvP doc/spec.html $(patsubst %.txt,%.html,$(RST)) doc/spec \
+	rsync -rzvP doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
+
+# automake requires these rules for anything that's in DIST_SUBDIRS
+distclean: clean
+maintainer-clean: clean
+distdir:
+	@echo distdir not implemented yet; exit 1
+
+.PHONY: \
+    all \
+    check \
+    clean \
+    dist \
+    distclean \
+    distdir \
+    maintainer-clean \
+    maintainer-upload-release \
+    maintainer-upload-snapshot \
+    upload-branch \
+    $(NULL)

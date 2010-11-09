@@ -19,6 +19,11 @@ USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.SpecAutoGenTest">
 
+    <tp:struct name="UV" array-name="UV_List">
+      <tp:member name="Uint" type="u"/>
+      <tp:member name="Variant" type="v"/>
+    </tp:struct>
+
     <method name="DoStuff" tp:name-for-bindings="Do_Stuff">
       <arg direction="in" name="badger" type="b">
         <tp:docstring>A badger, which MAY be breezy.</tp:docstring>
@@ -29,7 +34,7 @@ USA.</p>
       <arg direction="in" name="snake" type="s">
         <tp:docstring>A snake, it's a snake.</tp:docstring>
       </arg>
-      <arg direction="out" type="a(uv)">
+      <arg direction="out" name="misc" type="a(uv)" tp:type="UV[]">
         <tp:docstring>Array of structs containing whatever seems appropriate.</tp:docstring>
       </arg>
       <tp:possible-errors>
