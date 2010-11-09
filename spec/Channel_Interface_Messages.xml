@@ -584,8 +584,8 @@ USA.</p>
             <dd>The identifier of the contact who sent the message,
               i.e. the result of calling <tp:dbus-ref
                 namespace="ofdT.Connection">InspectHandles</tp:dbus-ref>
-              on <code>message-sender</code>. If omitted, the contact
-              who sent the message could not be determined.</dd>
+              on <code>message-sender</code>. If omitted, clients MUST
+              fall back to looking at <code>message-sender</code>.</dd>
 
             <dt>sender-nickname (s)</dt>
             <dd>The nickname chosen by the sender of the message, which can be
