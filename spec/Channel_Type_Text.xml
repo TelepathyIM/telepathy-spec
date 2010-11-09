@@ -530,10 +530,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>When a message is received, an identifier is assigned and a
         <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
-          >MessageReceived</tp:member-ref> signal emitted, and the message
+          >MessageReceived</tp:dbus-ref> signal emitted, and the message
         is placed in a pending queue represented by the
         <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
-          >PendingMessages</tp:member-ref> property.
+          >PendingMessages</tp:dbus-ref> property.
         When the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>
         for a channel has handled the message by showing it to the user
@@ -545,7 +545,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Sending messages can be requested using the
         <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
-          >SendMessage</tp:member-ref> method, which will return
+          >SendMessage</tp:dbus-ref> method, which will return
         successfully when the message has been submitted for sending, or
         return an error with no signal emission if there is an immediate
         failure. If a message is submitted for sending but delivery of the
