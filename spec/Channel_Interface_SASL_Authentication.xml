@@ -191,7 +191,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The current status of this channel.
         Change notification is via the
-        <tp:member-ref>StatusChanged</tp:member-ref> signal.
+        <tp:member-ref>SASLStatusChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
@@ -522,7 +522,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
+    <signal name="SASLStatusChanged" tp:name-for-bindings="SASL_Status_Changed">
       <tp:docstring>
         Emitted when the status of the channel changes.
       </tp:docstring>
