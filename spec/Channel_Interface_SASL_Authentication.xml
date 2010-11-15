@@ -469,7 +469,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="Accept" tp:name-for-bindings="Accept">
+    <method name="AcceptSASL" tp:name-for-bindings="Accept_SASL">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If the channel's status is SASL_Status_Server_Succeeded,
           this method confirms successful authentication and advances
@@ -552,7 +552,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>When the channel's handler is ready to proceed, it should respond
           to the challenge by calling <tp:member-ref>Respond</tp:member-ref>,
           or respond to the additional data by calling
-          <tp:member-ref>Accept</tp:member-ref>. Alternatively, it may call
+          <tp:member-ref>AcceptSASL</tp:member-ref>. Alternatively, it may call
           <tp:member-ref>Abort</tp:member-ref> to abort authentication.</p>
       </tp:docstring>
       <arg name="Challenge_Data" type="ay">
@@ -593,7 +593,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The challenge/response exchange is in progress. The Handler SHOULD
           call either <tp:member-ref>Respond</tp:member-ref> or
-          <tp:member-ref>Accept</tp:member-ref> exactly once per emission
+          <tp:member-ref>AcceptSASL</tp:member-ref> exactly once per emission
           of <tp:member-ref>NewChallenge</tp:member-ref>, or call
           <tp:member-ref>Abort</tp:member-ref> at any time.
         </tp:docstring>
@@ -602,7 +602,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The server has indicated successful authentication, and the
           connection manager is waiting for confirmation from the Handler.
-          The Handler must call either <tp:member-ref>Accept</tp:member-ref> or
+          The Handler must call either <tp:member-ref>AcceptSASL</tp:member-ref> or
           <tp:member-ref>Abort</tp:member-ref> to indicate whether it
           considers authentication to have been successful.
         </tp:docstring>
@@ -618,7 +618,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Succeeded" value="4">
         <tp:docstring>
           Everyone is happy (the server sent success, and the client has called
-          <tp:member-ref>Accept</tp:member-ref>). The Handler MUST call
+          <tp:member-ref>AcceptSASL</tp:member-ref>). The Handler MUST call
           <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           to close the channel.
