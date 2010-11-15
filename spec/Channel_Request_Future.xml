@@ -42,7 +42,9 @@
           interpret.  Currently no standard keys are defined; clients MAY
           choose to use platform-specific keys for their own purposes, but MUST
           ignore unknown keys and MUST cope with expected keys being
-          missing.</p>
+          missing. Clients SHOULD namespace hint names by having them
+          start with a reversed domain name, in the same way as D-Bus
+          interface names.</p>
 
         <tp:rationale>This property might be used to pass a contact ID for a
           telephone number shared between two contacts from the address book to
@@ -54,13 +56,13 @@
           so the call UI has to be able to deal with it not being
           there.</tp:rationale>
 
-        <p>The channel dispatcher will not interpret these hints: they are
-          solely for communication between cooperating clients.</p>
-
-        <tp:rationale>
-          <p>Any extra parameters that do affect the channel dispatcher should
-            be designed separately.</p>
-        </tp:rationale>
+        <p>The channel dispatcher does not currently interpret any of these
+          hints: they are solely for communication between cooperating
+          clients. If hints that do affect the channel dispatcher are added in
+          future, their names will start with an appropriate reversed domain
+          name (e.g. <code>org.freedesktop.Telepathy</code> for hints defined
+          by this specification, or an appropriate vendor name for third-party
+          plugins).</p>
 
         <p>This property may be set when the channel request is created, and
           can never change. Since it is immutable, it SHOULD be included in the

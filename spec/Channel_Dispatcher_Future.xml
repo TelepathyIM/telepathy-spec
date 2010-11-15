@@ -184,8 +184,7 @@
           <p>Additional information about the channel request, which will be
             used as the value for the resulting request's <tp:dbus-ref
               namespace="ofdT.ChannelRequest.FUTURE">Hints</tp:dbus-ref>
-            property, but will not otherwise be interpreted by the Channel
-            Dispatcher.</p>
+            property.</p>
 
           <tp:rationale>
             <p>See the Hints property's documentation for rationale.</p>
