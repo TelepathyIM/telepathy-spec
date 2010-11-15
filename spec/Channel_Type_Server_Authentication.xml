@@ -24,9 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>The type for a channel representing an authentication step with the
         server. The actual authentication functionality is implemented by
-        additional interfaces, such as <tp:dbus-ref
-          namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>,
-        depending on the value of
+        the additional interface named in
+        <tp:member-ref>AuthenticationMethod</tp:member-ref>,
+        such as <tp:dbus-ref namespace="ofdT"
+          >Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.</p>
+
+      <p>Future authentication steps also supported by this channel type might
+        include solving a captcha and/or agreeing to an EULA or terms-of-use
+        document; each of these would be represented by a channel with this
+        type, but a different
         <tp:member-ref>AuthenticationMethod</tp:member-ref>.</p>
 
       <p>Channels of this type SHOULD be signalled and dispatched while the
@@ -49,31 +55,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="AuthenticationMethod"
               tp:name-for-bindings="Authentication_Method"
-              type="u" tp:type="Authentication_Type" access="read">
-      <tp:docstring>
-        This property defines the method used for the current
-        authentication step. The functionality for each method is on a separate
-        interface on the same channel; for example, channels with this property
-        set to <tp:type>Authentication_Type</tp:type> SASL MUST implement
-        <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
+              type="s" tp:type="DBus_Interface" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>This property defines the method used for the authentication step
+          represented by this channel, which MUST be one of this channel's
+          <tp:dbus-ref namespace="ofdT.Channel">Interfaces</tp:dbus-ref>.</p>
+
+        <p>The initially-defined interface that can be used here is
+          <tp:dbus-ref namespace="ofdT"
+            >Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.</p>
       </tp:docstring>
     </property>
-
-    <tp:enum name="Authentication_Type" type="u">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The type of authentication offered by a ServerAuthentication channel.
-          At the moment only Authentication_Type_SASL is supported, but
-          Authentication_Type_Captcha is likely to be added in future.</p>
-      </tp:docstring>
-
-      <tp:enumvalue suffix="SASL" value="0">
-        <tp:docstring>
-          SASL authentication. The channel MUST implement <tp:dbus-ref
-            namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
 
   </interface>
 </node>
