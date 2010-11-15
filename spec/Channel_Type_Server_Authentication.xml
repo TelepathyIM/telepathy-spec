@@ -108,7 +108,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <dd>
             The <code>jabber-stream-id</code> from the
             <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT2.ExtraContext</tp:dbus-ref>
+              >SASLAuthentication.DRAFT2.SASLContext</tp:dbus-ref>
             property.
           </dd>
         </dl>

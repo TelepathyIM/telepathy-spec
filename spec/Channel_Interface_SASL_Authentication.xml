@@ -327,7 +327,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="ExtraContext" tp:name-for-bindings="Extra_Context"
+    <property name="SASLContext" tp:name-for-bindings="SASL_Context"
       type="a{sv}" tp:type="String_Variant_Map" access="read"
       tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
