@@ -102,6 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_DBus_Tube.xml"/>
    <xi:include href="Channel_Type_File_Transfer.xml"/>
    <xi:include href="Channel_Type_Room_List.xml"/>
+   <xi:include href="Channel_Type_Server_Authentication.xml"/>
    <xi:include href="Channel_Type_Server_TLS_Connection.xml"/>
    <xi:include href="Channel_Type_Stream_Tube.xml"/>
    <xi:include href="Channel_Type_Streamed_Media.xml"/>
@@ -131,6 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Interface_Messages.xml"/>
    <xi:include href="Channel_Interface_Password.xml"/>
    <xi:include href="Channel_Interface_Room.xml"/>
+   <xi:include href="Channel_Interface_SASL_Authentication.xml"/>
    <xi:include href="Channel_Interface_SMS.xml"/>
    <xi:include href="Channel_Interface_Service_Point.xml"/>
    <xi:include href="Channel_Interface_Splittable.xml"/>
