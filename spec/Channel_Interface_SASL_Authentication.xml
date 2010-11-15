@@ -17,14 +17,16 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Interface.SASLAuthentication.DRAFT2" tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.SASLAuthentication.DRAFT2"
+      tp:causes-havoc="experimental">
+    <tp:added version="0.21.UNRELEASED">(draft 2)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel interface for SASL authentication,
         as defined by
         <a href="http://tools.ietf.org/html/rfc4422">RFC 4422</a>.
         When this interface appears on a <tp:dbus-ref
-          namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT</tp:dbus-ref>
+          namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
         channel, it represents authentication with the server. In future,
         it could also be used to authenticate with secondary services,
         or even to authenticate end-to-end connections with contacts.</p>
@@ -210,7 +212,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
 
         <p>If this interface appears on a <tp:dbus-ref
-            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT</tp:dbus-ref>
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
           channel, and connection to the server fails with an authentication
           failure, this error code SHOULD be copied into the
           <tp:dbus-ref
@@ -231,7 +233,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>.</p>
 
         <p>If this interface appears on a <tp:dbus-ref
-            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT</tp:dbus-ref>
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
           channel, and connection to the server fails with an authentication
           failure, these details SHOULD be copied into the
           <tp:dbus-ref
