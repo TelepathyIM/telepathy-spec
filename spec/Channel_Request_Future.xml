@@ -74,7 +74,8 @@
     </property>
 
     <signal name="SucceededWithChannel" tp:name-for-bindings="Succeeded_With_Channel">
-      <tp:added version="0.19.12">(as draft)</tp:added>
+      <tp:changed version="0.21.UNRELEASED">(Properties arguments
+        added)</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Variant of the <tp:dbus-ref
             namespace="ofdT.ChannelRequest">Succeeded</tp:dbus-ref> signal
@@ -87,9 +88,26 @@
         </tp:docstring>
       </arg>
 
+      <arg name="Connection_Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A subset of the Connection's properties, currently unused.
+            This parameter may be used in future.</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Channel" type="o">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The channel which has been created.</p>
+        </tp:docstring>
+      </arg>
+
+      <arg name="Channel_Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The same immutable properties of the Channel that would appear
+            in a <tp:dbus-ref namespace="ofdT.Connection.Interface.Requests"
+              >NewChannels</tp:dbus-ref> signal.</p>
         </tp:docstring>
       </arg>
 
