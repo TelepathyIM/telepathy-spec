@@ -370,7 +370,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>CanTryAgain</tp:member-ref> is true)
             SASL_Status_Server_Failed or
             SASL_Status_Client_Failed). You should call
-            <tp:member-ref>Abort</tp:member-ref> and wait for
+            <tp:member-ref>AbortSASL</tp:member-ref> and wait for
             SASL_Status_Client_Failed before starting another attempt.
           </tp:docstring>
         </tp:error>
@@ -428,7 +428,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>CanTryAgain</tp:member-ref> is true)
             SASL_Status_Server_Failed or
             SASL_Status_Client_Failed). You should call
-            <tp:member-ref>Abort</tp:member-ref> and wait for
+            <tp:member-ref>AbortSASL</tp:member-ref> and wait for
             SASL_Status_Client_Failed before starting another attempt.
           </tp:docstring>
         </tp:error>
@@ -500,7 +500,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="Abort" tp:name-for-bindings="Abort">
+    <method name="AbortSASL" tp:name-for-bindings="Abort_SASL">
       <arg direction="in" name="Reason" type="u" tp:type="SASL_Abort_Reason">
         <tp:docstring>
           Reason for abort.
@@ -553,7 +553,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           to the challenge by calling <tp:member-ref>Respond</tp:member-ref>,
           or respond to the additional data by calling
           <tp:member-ref>AcceptSASL</tp:member-ref>. Alternatively, it may call
-          <tp:member-ref>Abort</tp:member-ref> to abort authentication.</p>
+          <tp:member-ref>AbortSASL</tp:member-ref> to abort authentication.</p>
       </tp:docstring>
       <arg name="Challenge_Data" type="ay">
         <tp:docstring>
@@ -583,7 +583,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>
           The initial state. The Handler SHOULD either
-          call <tp:member-ref>Abort</tp:member-ref>, or connect to the
+          call <tp:member-ref>AbortSASL</tp:member-ref>, or connect to the
           <tp:member-ref>NewChallenge</tp:member-ref> signal then call
           <tp:member-ref>StartMechanism</tp:member-ref> or
           <tp:member-ref>StartMechanismWithData</tp:member-ref>.
@@ -595,7 +595,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           call either <tp:member-ref>Respond</tp:member-ref> or
           <tp:member-ref>AcceptSASL</tp:member-ref> exactly once per emission
           of <tp:member-ref>NewChallenge</tp:member-ref>, or call
-          <tp:member-ref>Abort</tp:member-ref> at any time.
+          <tp:member-ref>AbortSASL</tp:member-ref> at any time.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Succeeded" value="2">
@@ -603,7 +603,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The server has indicated successful authentication, and the
           connection manager is waiting for confirmation from the Handler.
           The Handler must call either <tp:member-ref>AcceptSASL</tp:member-ref> or
-          <tp:member-ref>Abort</tp:member-ref> to indicate whether it
+          <tp:member-ref>AbortSASL</tp:member-ref> to indicate whether it
           considers authentication to have been successful.
         </tp:docstring>
       </tp:enumvalue>
