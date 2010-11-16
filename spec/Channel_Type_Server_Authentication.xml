@@ -51,6 +51,28 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
         = 0.</p>
+
+      <p>If a channel of this type is closed with the <tp:dbus-ref
+            namespace="ofdT.Channel">Close</tp:dbus-ref> method before
+        authentication has succeeded, this indicates that the Handler has
+        given up its attempts to authenticate or that no Handler is
+        available.</p>
+
+      <p>If this occurs, the connection manager MAY attempt to continue
+        connection (for instance, performing SASL authentication by using any
+        credentials passed to <tp:dbus-ref
+          namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>,
+        for instance from the <tp:dbus-ref
+          namespace="ofdT">Account.Parameters</tp:dbus-ref>). If this fails
+        or has already been tried, the <tp:dbus-ref
+          namespace="ofdT">Connection</tp:dbus-ref> will
+        disconnect.</p>
+
+      <tp:rationale>
+        <p>In particular, the <tp:dbus-ref
+            namespace="ofdT">ChannelDispatcher</tp:dbus-ref> will close the
+          channel if it cannot find a handler.</p>
+      </tp:rationale>
     </tp:docstring>
 
     <property name="AuthenticationMethod"
