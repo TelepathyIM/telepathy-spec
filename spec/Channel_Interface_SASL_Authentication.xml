@@ -63,28 +63,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>There can only be one Handler, which is a good fit for SASL's
           1-1 conversation between a client and a server.</p>
       </tp:rationale>
-
-      <p>If a channel with this interface is closed with the <tp:dbus-ref
-            namespace="ofdT.Channel">Close</tp:dbus-ref> method before
-        authentication has succeeded, this indicates that the Handler has
-        given up its attempts to authenticate or that no Handler is
-        available.</p>
-
-      <p>If a ServerAuthentication channel with this interface is closed,
-        the connection manager MAY attempt to authenticate by using any
-        credentials passed to <tp:dbus-ref
-          namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>,
-        for instance from the <tp:dbus-ref
-          namespace="ofdT">Account.Parameters</tp:dbus-ref>. If this fails
-        or has already been tried, the <tp:dbus-ref
-          namespace="ofdT">Connection</tp:dbus-ref> will
-        disconnect.</p>
-
-      <tp:rationale>
-        <p>In particular, the <tp:dbus-ref
-            namespace="ofdT">ChannelDispatcher</tp:dbus-ref> will close this
-          channel if it cannot find a handler.</p>
-      </tp:rationale>
     </tp:docstring>
 
     <tp:simple-type name="SASL_Mechanism" type="s"
@@ -175,14 +153,43 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Secure"
-      tp:name-for-bindings="Secure" type="b"
+    <property name="Encrypted"
+      tp:name-for-bindings="Encrypted" type="b"
       access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>True if this authentication process occurs over a secure
-          connection, e.g. one where TLS was previously negotiated.
-          Clients MAY use this property to decide whether the
+        <p>True if this authentication process occurs over an encrypted
+          connection. This <strong>does not</strong> imply that steps have
+          been taken to avoid man-in-the-middle attacks.</p>
+
+        <tp:rationale>
+          <p>For future support for <a
+              href="http://tools.ietf.org/html/rfc5056">RFC 5056 Channel
+              Binding</a> it is desirable to be able to use some SASL
+            mechanisms over an encrypted connection to an unverified peer,
+            which can prove that it is the desired destination during
+            the SASL negotiation.</p>
+        </tp:rationale>
+
+        <p>Clients MAY use the combination of this property and
+          <tp:member-ref>Verified</tp:member-ref> to decide whether the
           <code>PLAIN</code> mechanism is acceptable, for instance.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="Verified"
+      tp:name-for-bindings="Verified" type="b"
+      access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>True if this authentication process occurs over a connection
+          that is protected against tampering, and has been verified to
+          be with the desired destination: for instance, one where TLS
+          was previously negotiated, and the TLS certificate has been
+          verified against a configured certificate authority or
+          accepted by the user.</p>
+
+        <p>Clients MAY use the combination of this property and
+          <tp:member-ref>Encrypted</tp:member-ref> to decide whether the
+        <code>PLAIN</code> mechanism is acceptable, for instance.</p>
       </tp:docstring>
     </property>
 
@@ -191,7 +198,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The current status of this channel.
         Change notification is via the
-        <tp:member-ref>StatusChanged</tp:member-ref> signal.
+        <tp:member-ref>SASLStatusChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
@@ -327,7 +334,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="ExtraContext" tp:name-for-bindings="Extra_Context"
+    <property name="SASLContext" tp:name-for-bindings="SASL_Context"
       type="a{sv}" tp:type="String_Variant_Map" access="read"
       tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -370,7 +377,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>CanTryAgain</tp:member-ref> is true)
             SASL_Status_Server_Failed or
             SASL_Status_Client_Failed). You should call
-            <tp:member-ref>Abort</tp:member-ref> and wait for
+            <tp:member-ref>AbortSASL</tp:member-ref> and wait for
             SASL_Status_Client_Failed before starting another attempt.
           </tp:docstring>
         </tp:error>
@@ -428,7 +435,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <tp:member-ref>CanTryAgain</tp:member-ref> is true)
             SASL_Status_Server_Failed or
             SASL_Status_Client_Failed). You should call
-            <tp:member-ref>Abort</tp:member-ref> and wait for
+            <tp:member-ref>AbortSASL</tp:member-ref> and wait for
             SASL_Status_Client_Failed before starting another attempt.
           </tp:docstring>
         </tp:error>
@@ -469,7 +476,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="Accept" tp:name-for-bindings="Accept">
+    <method name="AcceptSASL" tp:name-for-bindings="Accept_SASL">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If the channel's status is SASL_Status_Server_Succeeded,
           this method confirms successful authentication and advances
@@ -485,7 +492,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>In mechanisms where the server authenticates itself to the client,
           calling this method indicates that the client considers this to have
-          been successful.</p>
+          been successful. In the case of <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
+          channels, this means that the connection manager MAY continue to
+          connect, and MAY advance the <tp:dbus-ref
+            namespace="ofdT">Connection.Status</tp:dbus-ref> to Connected.</p>
       </tp:docstring>
 
       <tp:possible-errors>
@@ -500,7 +511,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="Abort" tp:name-for-bindings="Abort">
+    <method name="AbortSASL" tp:name-for-bindings="Abort_SASL">
       <arg direction="in" name="Reason" type="u" tp:type="SASL_Abort_Reason">
         <tp:docstring>
           Reason for abort.
@@ -522,7 +533,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </method>
 
-    <signal name="StatusChanged" tp:name-for-bindings="Status_Changed">
+    <signal name="SASLStatusChanged" tp:name-for-bindings="SASL_Status_Changed">
       <tp:docstring>
         Emitted when the status of the channel changes.
       </tp:docstring>
@@ -552,8 +563,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>When the channel's handler is ready to proceed, it should respond
           to the challenge by calling <tp:member-ref>Respond</tp:member-ref>,
           or respond to the additional data by calling
-          <tp:member-ref>Accept</tp:member-ref>. Alternatively, it may call
-          <tp:member-ref>Abort</tp:member-ref> to abort authentication.</p>
+          <tp:member-ref>AcceptSASL</tp:member-ref>. Alternatively, it may call
+          <tp:member-ref>AbortSASL</tp:member-ref> to abort authentication.</p>
       </tp:docstring>
       <arg name="Challenge_Data" type="ay">
         <tp:docstring>
@@ -583,7 +594,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>
           The initial state. The Handler SHOULD either
-          call <tp:member-ref>Abort</tp:member-ref>, or connect to the
+          call <tp:member-ref>AbortSASL</tp:member-ref>, or connect to the
           <tp:member-ref>NewChallenge</tp:member-ref> signal then call
           <tp:member-ref>StartMechanism</tp:member-ref> or
           <tp:member-ref>StartMechanismWithData</tp:member-ref>.
@@ -593,17 +604,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The challenge/response exchange is in progress. The Handler SHOULD
           call either <tp:member-ref>Respond</tp:member-ref> or
-          <tp:member-ref>Accept</tp:member-ref> exactly once per emission
+          <tp:member-ref>AcceptSASL</tp:member-ref> exactly once per emission
           of <tp:member-ref>NewChallenge</tp:member-ref>, or call
-          <tp:member-ref>Abort</tp:member-ref> at any time.
+          <tp:member-ref>AbortSASL</tp:member-ref> at any time.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Server_Succeeded" value="2">
         <tp:docstring>
           The server has indicated successful authentication, and the
           connection manager is waiting for confirmation from the Handler.
-          The Handler must call either <tp:member-ref>Accept</tp:member-ref> or
-          <tp:member-ref>Abort</tp:member-ref> to indicate whether it
+          The Handler must call either <tp:member-ref>AcceptSASL</tp:member-ref> or
+          <tp:member-ref>AbortSASL</tp:member-ref> to indicate whether it
           considers authentication to have been successful.
         </tp:docstring>
       </tp:enumvalue>
@@ -618,8 +629,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Succeeded" value="4">
         <tp:docstring>
           Everyone is happy (the server sent success, and the client has called
-          <tp:member-ref>Accept</tp:member-ref>). The Handler MUST call
-          <tp:dbus-ref
+          <tp:member-ref>AcceptSASL</tp:member-ref>). Connection to the server
+          will proceed as soon as this state is reached. The Handler SHOULD
+          call <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           to close the channel.
         </tp:docstring>

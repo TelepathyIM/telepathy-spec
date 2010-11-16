@@ -24,9 +24,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>The type for a channel representing an authentication step with the
         server. The actual authentication functionality is implemented by
-        additional interfaces, such as <tp:dbus-ref
-          namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>,
-        depending on the value of
+        the additional interface named in
+        <tp:member-ref>AuthenticationMethod</tp:member-ref>,
+        such as <tp:dbus-ref namespace="ofdT"
+          >Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.</p>
+
+      <p>Future authentication steps also supported by this channel type might
+        include solving a captcha and/or agreeing to an EULA or terms-of-use
+        document; each of these would be represented by a channel with this
+        type, but a different
         <tp:member-ref>AuthenticationMethod</tp:member-ref>.</p>
 
       <p>Channels of this type SHOULD be signalled and dispatched while the
@@ -45,87 +51,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
         = 0.</p>
-    </tp:docstring>
 
-    <property name="AuthenticationInformation"
-              tp:name-for-bindings="Authentication_Information"
-              type="a{sv}" tp:type="Auth_Details" access="read">
-      <tp:docstring>
-          Dictionary of information given by the CM which can be used by the
-          handler for authentication.
-      </tp:docstring>
-    </property>
+      <p>The Connection MUST NOT proceed with connection, or signal
+        <tp:dbus-ref namespace="ofdT.Connection">StatusChanged</tp:dbus-ref>
+        to the CONNECTED state, until each channel of this type has either
+        been accepted as having a positive result (for instance, on SASL
+        channels this is done with the <tp:dbus-ref
+          namespace="ofdT.Channel.Interface.SASLAuthentication.DRAFT2"
+          >AcceptSASL</tp:dbus-ref> method), or closed with the <tp:dbus-ref
+          namespace="ofdT.Channel">Close</tp:dbus-ref> method.</p>
+
+      <tp:rationale>
+        <p>ServerAuthentication channels normally represent the client
+          authenticating itself to the server, but can also be used for the
+          server to authenticate itself to the client (i.e. prove that it is
+          in fact the desired server and not an imposter). Until the
+          authentication handler has confirmed this, connection should not
+          continue.</p>
+      </tp:rationale>
+
+      <p>If a channel of this type is closed with the <tp:dbus-ref
+            namespace="ofdT.Channel">Close</tp:dbus-ref> method before
+        authentication has succeeded, this indicates that the Handler has
+        given up its attempts to authenticate or that no Handler is
+        available.</p>
+
+      <p>If this occurs, the connection manager MAY attempt to continue
+        connection (for instance, performing SASL authentication by using any
+        credentials passed to <tp:dbus-ref
+          namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>,
+        for instance from the <tp:dbus-ref
+          namespace="ofdT">Account.Parameters</tp:dbus-ref>). If this fails
+        or has already been tried, the <tp:dbus-ref
+          namespace="ofdT">Connection</tp:dbus-ref> will
+        disconnect.</p>
+
+      <tp:rationale>
+        <p>In particular, the <tp:dbus-ref
+            namespace="ofdT">ChannelDispatcher</tp:dbus-ref> will close the
+          channel if it cannot find a handler.</p>
+      </tp:rationale>
+    </tp:docstring>
 
     <property name="AuthenticationMethod"
               tp:name-for-bindings="Authentication_Method"
-              type="u" tp:type="Authentication_Type" access="read">
-      <tp:docstring>
-        This property defines the method used for the current
-        authentication step. The functionality for each method is on a separate
-        interface on the same channel; for example, channels with this property
-        set to <tp:type>Authentication_Type</tp:type> SASL MUST implement
-        <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
+              type="s" tp:type="DBus_Interface" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>This property defines the method used for the authentication step
+          represented by this channel, which MUST be one of this channel's
+          <tp:dbus-ref namespace="ofdT.Channel">Interfaces</tp:dbus-ref>.</p>
+
+        <p>The initially-defined interface that can be used here is
+          <tp:dbus-ref namespace="ofdT"
+            >Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.</p>
       </tp:docstring>
     </property>
-
-    <tp:enum name="Authentication_Type" type="u">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The type of authentication offered by a ServerAuthentication channel.
-          At the moment only Authentication_Type_SASL is supported, but
-          Authentication_Type_Captcha is likely to be added in future.</p>
-      </tp:docstring>
-
-      <tp:enumvalue suffix="SASL" value="0">
-        <tp:docstring>
-          SASL authentication. The channel MUST implement <tp:dbus-ref
-            namespace="ofdT">Channel.Interface.SASLAuthentication.DRAFT2</tp:dbus-ref>.
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
-
-    <tp:mapping name="Auth_Details" array-name="Auth_Details_List">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>An extensible map representing details provided by the server for
-          authentication. Well-known keys, along with the type expected in the
-          corresponding value:</p>
-
-        <dl>
-          <dt><code>username</code> (string)</dt>
-          <dd>
-            The <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT2.AuthorizationIdentity</tp:dbus-ref>
-            property.
-          </dd>
-
-          <dt><tt>realm</tt> (string)</dt>
-            The <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT2.DefaultRealm</tp:dbus-ref>
-            property.
-          <dd>
-         </dd>
-          <dt><tt>session-id</tt> (string)</dt>
-          <dd>
-            The <code>jabber-stream-id</code> from the
-            <tp:dbus-ref namespace="ofdT.Channel.Interface"
-              >SASLAuthentication.DRAFT2.ExtraContext</tp:dbus-ref>
-            property.
-          </dd>
-        </dl>
-      </tp:docstring>
-
-      <tp:member type="s" name="Key">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          A key for a detail, which SHOULD be one of the well-known keys, if possible.
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member name="Value" type="v">
-        <tp:docstring>
-          The detail's value.
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
 
   </interface>
 </node>
