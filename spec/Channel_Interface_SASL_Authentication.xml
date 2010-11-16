@@ -492,7 +492,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>In mechanisms where the server authenticates itself to the client,
           calling this method indicates that the client considers this to have
-          been successful.</p>
+          been successful. In the case of <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
+          channels, this means that the connection manager MAY continue to
+          connect, and MAY advance the <tp:dbus-ref
+            namespace="ofdT">Connection.Status</tp:dbus-ref> to Connected.</p>
       </tp:docstring>
 
       <tp:possible-errors>
@@ -625,8 +629,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:enumvalue suffix="Succeeded" value="4">
         <tp:docstring>
           Everyone is happy (the server sent success, and the client has called
-          <tp:member-ref>AcceptSASL</tp:member-ref>). The Handler MUST call
-          <tp:dbus-ref
+          <tp:member-ref>AcceptSASL</tp:member-ref>). Connection to the server
+          will proceed as soon as this state is reached. The Handler SHOULD
+          call <tp:dbus-ref
             namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
           to close the channel.
         </tp:docstring>

@@ -52,6 +52,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
         = 0.</p>
 
+      <p>The Connection MUST NOT proceed with connection, or signal
+        <tp:dbus-ref namespace="ofdT.Connection">StatusChanged</tp:dbus-ref>
+        to the CONNECTED state, until each channel of this type has either
+        been accepted as having a positive result (for instance, on SASL
+        channels this is done with the <tp:dbus-ref
+          namespace="ofdT.Channel.Interface.SASLAuthentication.DRAFT2"
+          >AcceptSASL</tp:dbus-ref> method), or closed with the <tp:dbus-ref
+          namespace="ofdT.Channel">Close</tp:dbus-ref> method.</p>
+
+      <tp:rationale>
+        <p>ServerAuthentication channels normally represent the client
+          authenticating itself to the server, but can also be used for the
+          server to authenticate itself to the client (i.e. prove that it is
+          in fact the desired server and not an imposter). Until the
+          authentication handler has confirmed this, connection should not
+          continue.</p>
+      </tp:rationale>
+
       <p>If a channel of this type is closed with the <tp:dbus-ref
             namespace="ofdT.Channel">Close</tp:dbus-ref> method before
         authentication has succeeded, this indicates that the Handler has
