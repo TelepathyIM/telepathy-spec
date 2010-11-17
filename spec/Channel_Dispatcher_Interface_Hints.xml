@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Dispatcher_Future"
+<node name="/Channel_Dispatcher_Interface_Hints"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
 
   <tp:copyright>Copyright © 2008-2010 Collabora Ltd.</tp:copyright>
@@ -21,7 +21,7 @@
       USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.FUTURE"
+  <interface name="org.freedesktop.Telepathy.ChannelDispatcher.Interface.Hints.DRAFT"
     tp:causes-havoc="a staging area for future functionality">
 
     <tp:requires interface="org.freedesktop.Telepathy.ChannelDispatcher"/>
@@ -183,7 +183,7 @@
         <tp:docstring>
           <p>Additional information about the channel request, which will be
             used as the value for the resulting request's <tp:dbus-ref
-              namespace="ofdT.ChannelRequest.FUTURE">Hints</tp:dbus-ref>
+              namespace="ofdT.ChannelRequest.Interface.Hints.DRAFT">Hints</tp:dbus-ref>
             property.</p>
 
           <tp:rationale>
@@ -329,7 +329,7 @@
         <tp:docstring>
           Additional information about the channel request, which will be used
           as the value for the resulting request's <tp:dbus-ref
-          namespace="ofdT.ChannelRequest.FUTURE">Hints</tp:dbus-ref>
+          namespace="ofdT.ChannelRequest.Interface.Hints.DRAFT">Hints</tp:dbus-ref>
           property.</tp:docstring>
       </arg>
 
