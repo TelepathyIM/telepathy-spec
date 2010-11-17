@@ -125,7 +125,7 @@
             and <tp:dbus-ref
               namespace="org.freedesktop.Telepathy.ChannelRequest">Account</tp:dbus-ref>
             MUST be included, and <tp:dbus-ref
-              namespace="ofdT.ChannelRequest.FUTURE">Hints</tp:dbus-ref>
+              namespace="ofdT.ChannelRequest.Interface.Hints.DRAFT">Hints</tp:dbus-ref>
             SHOULD be included if implemented.</p>
         </tp:docstring>
       </arg>
