@@ -82,8 +82,9 @@ def getOnlyChildByName(dom, namespace, name):
         return None
 
     if len(kids) > 1:
-        raise WrongNumberOfChildren('%s node should have at most one child of type '
-                '{%s}%s' % (dom.tagName, namespace, name))
+        raise WrongNumberOfChildren(
+            '<%s> node should have at most one <%s xmlns="%s"/> child' %
+            (dom.tagName, name, namespace))
 
     return kids[0]
 
