@@ -473,10 +473,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>If the current status is SASL_Status_Server_Failed or
           SASL_Status_Client_Failed, this method returns successfully, but has
-          no further effect. Otherwise, it changes the channel's state to
+          no further effect. If the current status is SASL_Status_Succeeded
+          or SASL_Status_Client_Accepted then NotAvailable is raised.
+          Otherwise, it changes the channel's state to
           SASL_Status_Client_Failed, with an appropriate error name and
           reason code.</p>
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The current state is either Succeeded or Client_Accepted.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <signal name="SASLStatusChanged" tp:name-for-bindings="SASL_Status_Changed">
