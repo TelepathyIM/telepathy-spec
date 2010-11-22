@@ -297,23 +297,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="SASLContext" tp:name-for-bindings="SASL_Context"
-      type="a{sv}" tp:type="String_Variant_Map" access="read"
-      tp:immutable="yes">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Additional protocol- or mechanism-specific context for the
-          authentication. Only one well-known key is currently defined:</p>
-
-        <dl>
-          <dt>jabber-stream-id (string)</dt>
-          <dd>The <code>id</code> attribute of the XMPP <code>stream</code>
-            element, as used in <a
-              href="http://xmpp.org/extensions/xep-0078.html">the digest
-              mechanism historically used in Jabber</a>.</dd>
-        </dl>
-      </tp:docstring>
-    </property>
-
     <method name="StartMechanism" tp:name-for-bindings="Start_Mechanism">
       <arg direction="in" name="Mechanism" type="s" tp:type="SASL_Mechanism">
         <tp:docstring>
