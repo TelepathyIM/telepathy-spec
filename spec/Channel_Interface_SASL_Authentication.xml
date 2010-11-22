@@ -553,7 +553,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:enum name="SASL_Status" type="u">
+    <tp:enum name="SASL_Status" type="u" plural="Statuses">
       <tp:enumvalue suffix="Not_Started" value="0">
         <tp:docstring>
           The initial state. The Handler SHOULD either
