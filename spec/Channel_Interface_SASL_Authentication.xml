@@ -29,7 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
         channel, it represents authentication with the server. In future,
         it could also be used to authenticate with secondary services,
-        or even to authenticate end-to-end connections with contacts.</p>
+        or even to authenticate end-to-end connections with contacts. As a result,
+        this interface does not REQUIRE <tp:dbus-ref namespace="ofdT.Channel.Type"
+        >ServerAuthentication.DRAFT2</tp:dbus-ref> to allow for a potential future
+        Channel.Type.PeerAuthentication interface.</p>
 
       <p>In any protocol that requires a password, the connection manager can
         use this channel to let a user interface carry out a simple SASL-like
