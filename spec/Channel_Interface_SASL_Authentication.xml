@@ -156,46 +156,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="Encrypted"
-      tp:name-for-bindings="Encrypted" type="b"
-      access="read" tp:immutable="yes">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>True if this authentication process occurs over an encrypted
-          connection. This <strong>does not</strong> imply that steps have
-          been taken to avoid man-in-the-middle attacks.</p>
-
-        <tp:rationale>
-          <p>For future support for <a
-              href="http://tools.ietf.org/html/rfc5056">RFC 5056 Channel
-              Binding</a> it is desirable to be able to use some SASL
-            mechanisms over an encrypted connection to an unverified peer,
-            which can prove that it is the desired destination during
-            the SASL negotiation.</p>
-        </tp:rationale>
-
-        <p>Clients MAY use the combination of this property and
-          <tp:member-ref>Verified</tp:member-ref> to decide whether the
-          <code>PLAIN</code> mechanism is acceptable, for instance.</p>
-      </tp:docstring>
-    </property>
-
-    <property name="Verified"
-      tp:name-for-bindings="Verified" type="b"
-      access="read" tp:immutable="yes">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>True if this authentication process occurs over a connection
-          that is protected against tampering, and has been verified to
-          be with the desired destination: for instance, one where TLS
-          was previously negotiated, and the TLS certificate has been
-          verified against a configured certificate authority or
-          accepted by the user.</p>
-
-        <p>Clients MAY use the combination of this property and
-          <tp:member-ref>Encrypted</tp:member-ref> to decide whether the
-        <code>PLAIN</code> mechanism is acceptable, for instance.</p>
-      </tp:docstring>
-    </property>
-
     <property type="u" tp:type="SASL_Status" access="read"
       name="SASLStatus" tp:name-for-bindings="SASL_Status">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
