@@ -155,7 +155,8 @@
       </tp:docstring>
       <tp:enumvalue suffix="Unknown" value="0">
         <tp:docstring>
-          The stream transport type is unknown or not applicable.
+          The stream transport type is unknown or not applicable
+          (for streams that do not have a configurable transport).
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Raw_UDP" value="1">
@@ -197,6 +198,12 @@
         <tp:docstring>
           Shared memory transport, as implemented by the GStreamer
           shmsrc and shmsink plugins.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Multicast" value="6">
+        <tp:added version="0.21.UNRELEASED"/>
+        <tp:docstring>
+          Multicast transport.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
