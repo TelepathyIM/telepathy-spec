@@ -331,7 +331,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           still "password", but this time he or she is trying to authorize
           to act as <tt>announcements@example.com</tt>, so the UI would
           have to perform SASL PLAIN with this string:
-          "<tt>announcements@example.com\0user\0password</tt>". where
+          "<tt>announcements@example.com\0user\0password</tt>", where
           "announcements@example.com" is the
           <tp:member-ref>AuthorizationIdentity</tp:member-ref>.</p>
       </tp:docstring>
