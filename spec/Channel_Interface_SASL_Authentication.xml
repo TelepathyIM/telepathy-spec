@@ -274,6 +274,69 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
+    <property name="DefaultUsername"
+      tp:name-for-bindings="Default_Username"
+      type="s" access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The default username for use with SASL mechanisms that deal
+          with a "simple username" (as defined in <a
+          href="http://tools.ietf.org/html/rfc4422">RFC 4422</a>). If
+          such a SASL mechanism is in use, clients SHOULD default to
+          using the DefaultUsername; also, if the client uses
+          the DefaultUsername, it SHOULD assume that the authorization
+          identity <tp:member-ref>AuthorizationIdentity</tp:member-ref>
+          will be derived from it by the server.</p>
+
+        <tp:rationale>
+          <p>In XMPP, <a href="http://trac.tools.ietf.org/wg/xmpp/trac/ticket/49">
+            servers typically expect</a> "user@example.com" to
+            authenticate with username "user"; this was a SHOULD in <a
+            href="http://tools.ietf.org/html/rfc3920">RFC 3920</a>.</p>
+
+          <p><a
+            href="http://tools.ietf.org/html/draft-ietf-xmpp-3920bis-19">3920bis</a>
+            weakens that SHOULD to "in the absence of local information
+            provided by the server, an XMPP client SHOULD assume that
+            the authentication identity for such a SASL mechanism is the
+            combination of a user name and password, where the simple
+            user name is the localpart of the user's JID".</p>
+        </tp:rationale>
+
+        <p>For example, in the simple case, if the user connects with
+        <tp:dbus-ref
+        namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>({
+        account: "<tt>user@example.com</tt>" }) and use PLAIN with
+        password "password", he or she should authenticate like so:
+        "<tt>\0user\0password</tt>" and the channel will look like
+        this:</p>
+
+<blockquote><pre>{ "...<tp:member-ref>DefaultUsername</tp:member-ref>": "user",
+  "...<tp:member-ref>AuthorizationIdentity</tp:member-ref>": "user@example.com }
+</pre></blockquote>
+
+        <p>In the complex case, if the same user is using his or her
+          sysadmin powers to log in as the "announcements" role address,
+          he or she would connect with <tp:dbus-ref
+            namespace="ofdT.ConnectionManager">RequestConnection</tp:dbus-ref>({
+          account: "<tt>announcements@example.com</tt>" }) and the SASL
+          channel would look like this:</p>
+
+<blockquote><pre>{ "...<tp:member-ref>DefaultUsername</tp:member-ref>": "announcements",
+  "...<tp:member-ref>AuthorizationIdentity</tp:member-ref>": "announcements@example.com }
+</pre></blockquote>
+
+        <p>A sufficiently elaborate UI could give the opportunity
+          to override the username from "announcements" to "user".
+          The user's simple username is still "user", and the password is
+          still "password", but this time he or she is trying to authorize
+          to act as <tt>announcements@example.com</tt>, so the UI would
+          have to perform SASL PLAIN with this string:
+          "<tt>announcements@example.com\0user\0password</tt>". where
+          "announcements@example.com" is the
+          <tp:member-ref>AuthorizationIdentity</tp:member-ref>.</p>
+      </tp:docstring>
+    </property>
+
     <property name="DefaultRealm" tp:name-for-bindings="Default_Realm"
       type="s" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
