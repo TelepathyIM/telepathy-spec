@@ -29,8 +29,12 @@
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface exists to expose security information about
         <tp:dbus-ref namespace="ofdT">Channel</tp:dbus-ref>s. The two
-        properties are immutable and can be used to make decisions on
-        how cautious to be about transferring sensitive data.</p>
+        properties are sometimes immutable and can be used to make
+        decisions on how cautious to be about transferring sensitive
+        data. The special case of <tp:dbus-ref
+        namespace="ofdT.Channel.Type">ServerAuthentication.DRAFT2</tp:dbus-ref>
+        channels is one example of where the two properties are
+        immutable.</p>
 
       <p>For example, clients MAY use these properties to decide
         whether the <code>PLAIN</code> mechanism is acceptable for a
@@ -41,7 +45,7 @@
 
     <property name="Encrypted"
       tp:name-for-bindings="Encrypted" type="b"
-      access="read" tp:immutable="yes">
+      access="read" tp:immutable="sometimes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this channel occurs over an encrypted
           connection. This <strong>does not</strong> imply that steps
@@ -60,7 +64,7 @@
 
     <property name="Verified"
       tp:name-for-bindings="Verified" type="b"
-      access="read" tp:immutable="yes">
+      access="read" tp:immutable="sometimes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if this channel occurs over a connection that is
           protected against tampering, and has been verified to be with
