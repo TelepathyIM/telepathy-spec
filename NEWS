@@ -32,6 +32,10 @@ New stable API:
 
 • Chan.I.Securable indicates whether a channel is secure (smcv, jonny)
 
+• fd.o #28866: ChannelDispatcher and ChannelRequest now support
+  "request hints" (metadata passed through from the requester to the handler),
+  and the SucceededWithChannel signal (wjt, smcv)
+
 • fd.o #20775: Protocol.I.Avatars indicates the expected requirements for
   avatars (eeejay)
   · no changes since draft 1
