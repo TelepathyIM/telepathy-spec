@@ -234,11 +234,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </p>
  </tp:docstring>
  <xi:include href="Channel_Dispatcher.xml"/>
- <xi:include href="Channel_Dispatcher_Interface_Hints.xml"/>
  <xi:include href="Channel_Dispatcher_Interface_Operation_List.xml"/>
  <xi:include href="Channel_Dispatch_Operation.xml"/>
  <xi:include href="Channel_Request.xml"/>
- <xi:include href="Channel_Request_Interface_Hints.xml"/>
 </tp:section>
 
 <tp:section name="Clients">
