@@ -25,6 +25,17 @@ Deprecations:
 
 New stable API:
 
+• fd.o #14003: Chan.T.ServerAuthentication and Chan.I.SASLAuthentication
+  provide interactive querying for credentials, allowing connection without
+  saving a password if there is a handler for these channels (eeejay, smcv,
+  jonny)
+
+• Chan.I.Securable indicates whether a channel is secure (smcv, jonny)
+
+• fd.o #20775: Protocol.I.Avatars indicates the expected requirements for
+  avatars (eeejay)
+  · no changes since draft 1
+
 • message-sender-id key in Messages headers, complementing
   message-sender (smcv)
 
@@ -33,7 +44,19 @@ New stable API:
 • Contact_Info_Field_Flag_Overwritten_By_Nickname, indicating that this
   field will be overwritten when we set the nickname (jonner)
 
+• Account.I.Addressing stores user preferences for use of accounts for
+  non-primary protocols, such as using SIP for telephony (fledermaus)
+
+• fd.o #29914: Conn.I.Powersaving allows connections to be placed in a
+  lower-power-consumption state when a portable device is not in active use
+  · no changes since draft 1
+
+• new errors: Confused, ServerConfused (smcv)
+
 Fixes and clarifications:
+
+• fd.o #27183: mutual subscription is a job for servers or UIs, and should not
+  be enforced by CMs (smcv)
 
 • MIME types produced by CMs must be lower-case; MIME types provided by
   clients should be normalized to lower-case before comparison (mikhailz)
@@ -52,13 +75,18 @@ Fixes and clarifications:
 • Update test-specparser.py so it actually passes, and run it in
   "make check" (smcv)
 
+• fd.o #31661: editorial improvements (wjt)
+
 Changes to experimental API:
 
-• More Call changes (jonny, sjoerd)
+• Hints and SucceededWithChannel moved to ChannelDispatcher.I.Hints and
+  ChannelRequest.I.Hints
+
+• More Call changes (jonny, sjoerd, danni)
   · make CodecOffer and Codec_Offering specific to one contact
   · fd.o #28725: add InitialTransport
-  · add Stream_Transport_Type_Unknown
   · fd.o #28690: add PleaseRestartICE and document ICE restarts
+  · fd.o #31279: add Unknown and Multicast transport types
 
 telepathy-spec 0.21.4 (2010-10-29)
 ==================================
