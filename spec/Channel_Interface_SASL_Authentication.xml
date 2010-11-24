@@ -132,11 +132,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="HasInitialData" tp:name-for-bindings="Has_Initial_Data"
       type="b" access="read" tp:immutable="yes">
-      <tp:docstring>
-        If true, <tp:member-ref>StartMechanismWithData</tp:member-ref>
-        can be expected to work (this is the case in most, but not all,
-        protocols). If false, <tp:member-ref>StartMechanism</tp:member-ref>
-        must be used instead.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, <tp:member-ref>StartMechanismWithData</tp:member-ref>
+          can be expected to work for SASL mechanisms not starting with
+          <code>X-TELEPATHY-</code> (this is the case in most, but not all,
+          protocols). If false, <tp:member-ref>StartMechanism</tp:member-ref>
+          must be used instead.</p>
+
+        <p>This property does not affect the <code>X-TELEPATHY-</code>
+          pseudo-mechanisms such as <code>X-TELEPATHY-PASSWORD</code>,
+          which can use
+          <tp:member-ref>StartMechanismWithData</tp:member-ref> regardless
+          of the value of this property.</p>
       </tp:docstring>
     </property>
 
@@ -374,7 +381,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:rationale>
           <p>This method is appropriate for mechanisms where the client
             cannot send anything until it receives a challenge from the
-            server, such as <code>DIGEST-MD5</code>.</p>
+            server, such as
+            <code><a href="http://tools.ietf.org/html/rfc2831">DIGEST-MD5</a></code>
+            in "initial authentication" mode.</p>
         </tp:rationale>
       </tp:docstring>
 
@@ -421,18 +430,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <a href="http://tools.ietf.org/html/rfc4422#section-3.3">RFC 4422
             §3.3</a>.</p>
 
-        <p>If the underlying protocol does not make it possible to send
-          initial data, this method will fail.</p>
-
         <tp:rationale>
           <p>This method is appropriate for mechanisms where the client may
-            send data first, such as <code>PLAIN</code>.</p>
+            send data first, such as <code>PLAIN</code>, or must send data
+            first, such as
+            <code><a href="http://tools.ietf.org/html/rfc2831">DIGEST-MD5</a></code>
+            in "subsequent authentication" mode.</p>
 
           <p>Having two methods allows any mechanism where it makes a difference
             to distinguish between the absence of an initial response
             (<tp:member-ref>StartMechanism</tp:member-ref>) and a zero-byte
             initial response (StartMechanismWithData, with Initial_Data
             empty).</p>
+        </tp:rationale>
+
+        <p>If the <tp:member-ref>HasInitialData</tp:member-ref>
+          property is false, this indicates that the underlying protocol
+          does not make it possible to send initial data. In such protocols,
+          this method may only be used for the <code>X-TELEPATHY-</code>
+          pseudo-mechanisms (such as <code>X-TELEPATHY-PASSWORD</code>),
+          and will fail if used with an ordinary SASL mechanism.</p>
+
+        <tp:rationale>
+          <p>For instance, the IRC SASL extension implemented in Charybdis and
+            Atheme does not support initial data - the first message in the
+            exchange only carries the mechanism. This is significant if using
+            <code><a href="http://tools.ietf.org/html/rfc2831">DIGEST-MD5</a></code>,
+            which cannot be used in the faster "subsequent authentication"
+            mode on a protocol not supporting initial data.</p>
         </tp:rationale>
       </tp:docstring>
 
