@@ -255,6 +255,13 @@
         <p>Variant of the <tp:dbus-ref
             namespace="ofdT.ChannelRequest">Succeeded</tp:dbus-ref> signal
         allowing to get the channel which has been created.</p>
+
+        <p>This signal MUST be emitted if the
+          <tp:dbus-ref namespace="ofdT">ChannelDispatcher</tp:dbus-ref>'s
+          <tp:dbus-ref
+            namespace="ofdT.ChannelDispatcher">SupportsRequestHints</tp:dbus-ref>
+          property is true. If supported, it MUST be emitted before
+          the <tp:member-ref>Succeeded</tp:member-ref> signal.</p>
       </tp:docstring>
 
       <arg name="Connection" type="o">

@@ -580,8 +580,12 @@
         to the older <tp:dbus-ref
           namespace="ofdT.ChannelDispatcher">CreateChannel</tp:dbus-ref>
         and <tp:dbus-ref
-          namespace="ofdT.ChannelDispatcher">EnsureChannel</tp:dbus-ref>.
-        methods. If <code>False</code> or missing, only the metadata-less
+          namespace="ofdT.ChannelDispatcher">EnsureChannel</tp:dbus-ref>
+        methods, and also new enough to emit <tp:dbus-ref
+          namespace="ofdT.ChannelRequest">SucceededWithChannel</tp:dbus-ref>
+        before the older <tp:dbus-ref
+          namespace="ofdT.ChannelRequest">Succeeded</tp:dbus-ref> signal.
+        If <code>False</code> or missing, only the metadata-less
         variants are supported.
       </tp:docstring>
     </property>
