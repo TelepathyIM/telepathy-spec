@@ -35,9 +35,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         type, but a different
         <tp:member-ref>AuthenticationMethod</tp:member-ref>.</p>
 
-      <p>Channels of this type SHOULD be signalled and dispatched while the
-        <tp:dbus-ref namespace="ofdT">Connection</tp:dbus-ref> owning them is in
-        the CONNECTING state. Normally, only one channel of this type will
+      <p>Channels of this type will normally be be signalled and dispatched
+        while the <tp:dbus-ref namespace="ofdT">Connection</tp:dbus-ref>
+        owning them is in the CONNECTING state. They MAY also appear on a
+        Connection in the CONNECTED state, for instance if periodic
+        re-authentication is required.</p>
+
+      <p>Normally, only one channel of this type will
         exist on a given Connection; if there is more than one, the handler
         must complete authentication with each of them in turn.</p>
 
@@ -52,7 +56,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
         = 0.</p>
 
-      <p>The Connection MUST NOT proceed with connection, or signal
+      <p>While it is CONNECTING, the Connection MUST NOT proceed with
+        connection, or signal
         <tp:dbus-ref namespace="ofdT.Connection">StatusChanged</tp:dbus-ref>
         to the CONNECTED state, until each channel of this type has either
         been accepted as having a positive result (for instance, on SASL
