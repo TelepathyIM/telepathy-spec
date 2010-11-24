@@ -18,7 +18,8 @@
       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
       USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking.DRAFT">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking.DRAFT"
+    tp:causes-havoc="experimental">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
