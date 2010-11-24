@@ -398,7 +398,7 @@
         <tp:docstring>
           <p>Additional information about the channel request, which will be
             used as the value for the resulting request's <tp:dbus-ref
-              namespace="ofdT.ChannelRequest.Interface.Hints.DRAFT">Hints</tp:dbus-ref>
+              namespace="ofdT.ChannelRequest">Hints</tp:dbus-ref>
             property.</p>
 
           <tp:rationale>
@@ -544,7 +544,7 @@
         <tp:docstring>
           Additional information about the channel request, which will be used
           as the value for the resulting request's <tp:dbus-ref
-          namespace="ofdT.ChannelRequest.Interface.Hints.DRAFT">Hints</tp:dbus-ref>
+          namespace="ofdT.ChannelRequest">Hints</tp:dbus-ref>
           property.</tp:docstring>
       </arg>
 
