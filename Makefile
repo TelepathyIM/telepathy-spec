@@ -5,7 +5,7 @@ GZIP = gzip
 TAR = tar
 PYTHON = python
 
-DOC_RSYNC_FLAGS=-rvzPp --chmod=Dg+s,ug+rwX,o=rX
+DOC_RSYNC_FLAGS=-rvzPp --chmod=Dg+s,ug+rwX,o=rX --delete
 
 XMLS = $(wildcard spec/*.xml)
 TEMPLATES = $(wildcard doc/templates/*)
@@ -96,7 +96,7 @@ UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
-	rsync -rzvP doc/spec \
+	rsync -rzvP --delete doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
 	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
