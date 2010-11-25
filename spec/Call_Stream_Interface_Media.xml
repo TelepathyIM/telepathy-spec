@@ -201,7 +201,7 @@
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Multicast" value="6">
-        <tp:added version="0.21.UNRELEASED"/>
+        <tp:added version="0.21.5"/>
         <tp:docstring>
           Multicast transport.
         </tp:docstring>
