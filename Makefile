@@ -16,8 +16,8 @@ GENERATED_FILES = \
 	$(NULL)
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
-	@install -d doc
 	rm -rf doc/spec
+	install -d doc/spec
 	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/ telepathy-spec \
 		org.freedesktop.Telepathy
 
