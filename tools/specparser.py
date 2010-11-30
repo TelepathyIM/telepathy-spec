@@ -699,6 +699,9 @@ class Interface(Base):
         self.contact_attributes = build_list(self, ContactAttribute, self.name,
                 dom.getElementsByTagNameNS(XMLNS_TP, 'contact-attribute'))
 
+        self.client_interests = build_list(self, ClientInterest, self.name,
+                dom.getElementsByTagNameNS(XMLNS_TP, 'client-interest'))
+
         # build a list of types in this interface
         self.types = parse_types(self, dom, self.name)
 
@@ -760,6 +763,7 @@ WARNING: Interface not known: '%s'
             (XMLNS_TP, 'handler-capability-token'),
             (XMLNS_TP, 'hct'),
             (XMLNS_TP, 'contact-attribute'),
+            (XMLNS_TP, 'client-interest'),
             (XMLNS_TP, 'simple-type'),
             (XMLNS_TP, 'enum'),
             (XMLNS_TP, 'flags'),
@@ -1062,6 +1066,19 @@ class HandlerCapabilityToken(TokenBase):
         assert is_family in ('yes', 'no', '')
         self.is_family = (is_family == 'yes')
 
+class ClientInterest(Base):
+
+    def __init__(self, parent, namespace, dom):
+        super(ClientInterest, self).__init__(parent, namespace, dom)
+
+        self.short_name = self.name
+
+    def get_type_name(self):
+        return 'Client Interest'
+
+    def validate(self):
+        pass
+
 class SectionBase(object):
     """A SectionBase is an abstract base class for any type of node that can
        contain a <tp:section>, which means the top-level Spec object, or any
@@ -1153,18 +1170,12 @@ class Spec(SectionBase):
         for interface in self.interfaces:
                 self.everything[interface.name] = interface
 
-                for method in interface.methods:
-                    self.everything[method.name] = method
-                for signal in interface.signals:
-                    self.everything[signal.name] = signal
-                for property in interface.properties:
-                    self.everything[property.name] = property
-                for property in interface.tpproperties:
-                    self.everything[property.name] = property
-                for token in interface.contact_attributes:
-                    self.everything[token.name] = token
-                for token in interface.handler_capability_tokens:
-                    self.everything[token.name] = token
+                for things in [ 'methods', 'signals', 'properties',
+                                'tpproperties', 'contact_attributes',
+                                'handler_capability_tokens',
+                                'client_interests' ]:
+                    for thing in getattr(interface, things):
+                        self.everything[thing.name] = thing
 
                 for type in interface.types:
                     self.types[type.name] = type

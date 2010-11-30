@@ -120,6 +120,14 @@ div.handler-capability-token {
 	border: 1px solid #228822;
 }
 
+div.client-interests {
+	background-color: #729fcf;
+}
+
+div.client-interest {
+	border: 1px solid #204a87;
+}
+
 div.types {
 	background-color: #e9b96e;
 }

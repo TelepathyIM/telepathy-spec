@@ -13,6 +13,7 @@
    <a href="index.html">Interface Index</a>
    (<a href="interfaces.html">Compact</a>)
    | <a href="#summary">Summary</a>
+   #if $interface.client_interests: | <a href="#client-interests">Client Interests</a>
    #if $interface.docstring: | <a href="#description">Description</a>
    #if $interface.methods: | <a href="#methods">Methods</a>
    #if $interface.signals: | <a href="#signals">Signals</a>
@@ -27,6 +28,14 @@
     #if $interface.methods or $interface.signals or $interface.properties or $interface.types or $interface.tpproperties
     <div class="summary">
      <a name="summary"></a>
+     #if $interface.client_interests
+     <h3>Client Interests</h3>
+     <table class="summary">
+      #for $interest in $interface.client_interests
+      <td><a href="$interest.get_url()">$interest.name</a></td>
+      #end for
+     </table>
+     #end if
      #if $interface.methods
      <h3>Methods</h3>
      <table class="summary">
@@ -192,6 +201,27 @@
     <a name="description"></a>
     <h3>Description</h3>
     $interface.get_docstring()
+   #end if
+
+   #if $interface.client_interests
+   <div class="outset client-interests client-interest">
+    <a name="client-interests"></a>
+    <h1>Client Interests</h1>
+    <div>
+     Set using the
+     <a href="Connection.html#org.freedesktop.Telepathy.Connection.AddClientInterest">AddClientInterest</a> and
+     <a href="Connection.html#org.freedesktop.Telepathy.Connection.RemoveClientInterest">RemoveClientInterest</a> methods.
+    </div>
+    #for $interest in $interface.client_interests
+    <div class="inset client-interest">
+     <a name="$interest.name"></a>
+     <span class="permalink">(<a href="$interest.get_url()">Permalink</a>)</span>
+     <h2>$interest.name</h2>
+
+     $interest.get_docstring()
+    </div>
+    #end for
+   </div>
    #end if
 
    #if $interface.methods
