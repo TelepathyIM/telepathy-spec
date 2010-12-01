@@ -566,6 +566,7 @@ class Property(DBusConstruct, Typed):
 
         immutable = dom.getAttributeNS(XMLNS_TP, 'immutable')
         self.immutable = immutable != ''
+        self.sometimes_immutable = immutable == 'sometimes'
 
         requestable = dom.getAttributeNS(XMLNS_TP, 'requestable')
         self.requestable = requestable != ''
@@ -582,7 +583,9 @@ class Property(DBusConstruct, Typed):
     def get_flag_summary(self):
         descriptions = []
 
-        if self.immutable:
+        if self.sometimes_immutable:
+            descriptions.append("Sometimes immutable")
+        elif self.immutable:
             descriptions.append("Immutable")
 
         if self.sometimes_requestable:
