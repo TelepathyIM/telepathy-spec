@@ -81,12 +81,13 @@ None
 [(u'LowBit', u'1'), (u'HighBit', u'128')]
 
 >>> sorted(spec.everything.items())
-[(u'org.freedesktop.Telepathy.SpecAutoGenTest', Interface(org.freedesktop.Telepathy.SpecAutoGenTest)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff', Method(org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.Introspective', Property(org.freedesktop.Telepathy.SpecAutoGenTest.Introspective:b)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened', Signal(org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.wobbly', AwkwardTelepathyProperty(org.freedesktop.Telepathy.SpecAutoGenTest.wobbly:b))]
+[(u'org.freedesktop.Telepathy.SpecAutoGenTest', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff', Method(org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.Introspective', Property(org.freedesktop.Telepathy.SpecAutoGenTest.Introspective:b)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened', Signal(org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.wobbly', AwkwardTelepathyProperty(org.freedesktop.Telepathy.SpecAutoGenTest.wobbly:b)), (u'org.freedesktop.Telepathy.SpecAutoGenTest/badgers', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest/badgers))]
+
 
 >>> map (lambda o: i.added, spec.everything.values ())
-[None, None, None, None, None]
+[None, None, None, None, None, None]
 >>> map (lambda o: i.deprecated, spec.everything.values ())
-[None, None, None, None, None]
+[None, None, None, None, None, None]
     """
 
 if __name__ == '__main__':
