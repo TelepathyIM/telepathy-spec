@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
     <tp:added version="0.21.3">(as stable API)</tp:added>
 
-    <tp:client-interest name="">
+    <tp:client-interest>
       <tp:docstring>
         A client MUST notify interest in this feature before it will be
         enabled.

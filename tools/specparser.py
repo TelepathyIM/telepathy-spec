@@ -1047,7 +1047,13 @@ class TokenBase(Base):
 
     def __init__(self, parent, namespace, dom):
         super(TokenBase, self).__init__(parent, namespace, dom)
-        self.name = namespace + '/' + self.short_name
+
+        items = [ namespace ]
+
+        if self.short_name != '':
+            items.append (self.short_name)
+
+        self.name = self.separator.join (items)
 
 class ContactAttribute(TokenBase, Typed):
 
@@ -1066,7 +1072,7 @@ class HandlerCapabilityToken(TokenBase):
         assert is_family in ('yes', 'no', '')
         self.is_family = (is_family == 'yes')
 
-class ClientInterest(Base):
+class ClientInterest(TokenBase):
 
     def __init__(self, parent, namespace, dom):
         super(ClientInterest, self).__init__(parent, namespace, dom)
