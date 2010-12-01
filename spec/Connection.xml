@@ -440,11 +440,6 @@ USA.</p>
             One of the given handles is not valid
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
-          <tp:docstring>
-            One of the given handles is not held by this client
-          </tp:docstring>
-        </tp:error>
       </tp:possible-errors>
     </method>
 
