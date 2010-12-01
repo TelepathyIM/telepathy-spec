@@ -167,8 +167,13 @@ class Base(object):
     def get_interface(self):
         return self.parent.get_interface()
 
+    def get_anchor(self):
+        return "%s:%s" % (
+            self.get_type_name().replace(' ', '-'),
+            self.short_name)
+
     def get_url(self):
-        return "%s#%s" % (self.get_interface().get_url(), self.name)
+        return "%s#%s" % (self.get_interface().get_url(), self.get_anchor())
 
     def _get_generic_with_ver(self, nnode, htmlclass, txt):
         if nnode is None:
@@ -792,7 +797,7 @@ WARNING: Unknown element(s): %s
 
 class Error(Base):
     def get_url(self):
-        return 'errors.html#%s' % self.name
+        return 'errors.html#%s' % self.get_anchor()
 
     def get_root_namespace(self):
         return self.namespace
@@ -869,7 +874,7 @@ class DBusType(Base):
         else:
             html = 'generic-types.html'
 
-        return '%s#%s' % (html, self.name)
+        return '%s#%s' % (html, self.get_anchor())
 
 class SimpleType(DBusType):
     def get_type_name(self):

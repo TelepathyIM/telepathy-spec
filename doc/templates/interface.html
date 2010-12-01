@@ -214,7 +214,7 @@
     </div>
     #for $interest in $interface.client_interests
     <div class="inset client-interest">
-     <a name="$interest.name"></a>
+     <a name="$interest.get_anchor()"></a>
      <span class="permalink">(<a href="$interest.get_url()">Permalink</a>)</span>
      <h2>$interest.name</h2>
 
@@ -230,7 +230,7 @@
     <h1>Methods</h1>
     #for $method in $interface.methods
     <div class="inset method">
-     <a name="$method.name"></a>
+     <a name="$method.get_anchor()"></a>
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
 
@@ -302,7 +302,7 @@
     <h1>Signals</h1>
     #for $signal in $interface.signals
     <div class="inset signal">
-     <a name="$signal.name"></a>
+     <a name="$signal.get_anchor()"></a>
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
 
@@ -345,7 +345,7 @@
     </div>
     #for $property in $interface.properties
     <div class="inset property">
-     <a name="$property.name"></a>
+     <a name="$property.get_anchor()"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
@@ -434,7 +434,7 @@
     </div>
     #for $property in $interface.tpproperties
     <div class="inset tpproperty">
-     <a name="$property.name"></a>
+     <a name="$property.get_anchor()"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
@@ -459,7 +459,7 @@
     </div>
     #for $token in $interface.contact_attributes
     <div class="inset contact-attribute">
-     <a name="$token.name"></a>
+     <a name="$token.get_anchor()"></a>
      <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
      <h2>
       $token.name &mdash; $token.dbus_type
@@ -483,7 +483,7 @@
     </div>
     #for $token in $interface.handler_capability_tokens
     <div class="inset handler-capability-token">
-     <a name="$token.name"></a>
+     <a name="$token.get_anchor()"></a>
      <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
      <h2>
       $token.name
@@ -506,7 +506,7 @@
     <h1>Types</h1>
     #for $type in $interface.types
      <div class="inset type">
-      <a name="$type.name"></a>
+      <a name="$type.get_anchor()"></a>
       <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
        $type.short_name &mdash; $type.dbus_type

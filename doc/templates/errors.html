@@ -42,7 +42,7 @@
     <h1>Errors</h1>
     #for $error in $spec.sorted_errors
      <div class="inset error">
-      <a name="$error.name"></a>
+      <a name="$error.get_anchor()"></a>
       <span class="permalink">(<a href="$error.get_url()">Permalink</a>)</span>
       <h2>
        $error.short_name
