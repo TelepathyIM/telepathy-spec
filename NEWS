@@ -2,10 +2,23 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.6 (UNRELEASED)
+telepathy-spec 0.21.6 (2010-12-01)
 ==================================
 
-…
+The "recent change in the nature of fish" release.
+
+Changes to stable API:
+
+• Handles are no longer expected to be reference-counted - instead, they
+  persist as long as the Connection does. A new property HasImmortalHandles
+  indicates whether this is the case. telepathy-glib 0.13.8 will implement
+  these semantics automatically for most connection managers. (smcv)
+
+Tools changes:
+
+• add support for tp:immutable="sometimes" (smcv)
+
+• add support for <tp:client-interest/> (danni)
 
 telepathy-spec 0.21.5 (2010-11-25)
 ==================================

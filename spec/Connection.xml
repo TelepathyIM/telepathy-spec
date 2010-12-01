@@ -222,7 +222,7 @@ USA.</p>
     </method>
 
     <method name="HoldHandles" tp:name-for-bindings="Hold_Handles">
-      <tp:changed version="0.21.UNRELEASED">If
+      <tp:changed version="0.21.6">If
         <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
         this method no longer does anything.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
@@ -399,7 +399,7 @@ USA.</p>
     </signal>
 
     <method name="ReleaseHandles" tp:name-for-bindings="Release_Handles">
-      <tp:changed version="0.21.UNRELEASED">If
+      <tp:changed version="0.21.6">If
         <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
         this method no longer does anything.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
@@ -636,7 +636,7 @@ USA.</p>
     </tp:simple-type>
 
     <method name="RequestHandles" tp:name-for-bindings="Request_Handles">
-      <tp:changed version="0.21.UNRELEASED">If
+      <tp:changed version="0.21.6">If
         <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
         this method no longer has its reference-counting effect.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
@@ -1195,7 +1195,7 @@ USA.</p>
     <property name="HasImmortalHandles"
       tp:name-for-bindings="Has_Immortal_Handles"
       access="read" type="b">
-      <tp:added version="0.21.UNRELEASED"/>
+      <tp:added version="0.21.6"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>True if handles last for the whole lifetime of the Connection.
           This SHOULD be the case in all connection managers, but clients
