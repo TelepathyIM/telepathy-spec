@@ -222,7 +222,8 @@ USA.</p>
     </method>
 
     <method name="HoldHandles" tp:name-for-bindings="Hold_Handles">
-      <tp:changed version="0.21.UNRELEASED">If HasImmortalHandles is true,
+      <tp:changed version="0.21.UNRELEASED">If
+        <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
         this method no longer does anything.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
@@ -237,8 +238,10 @@ USA.</p>
       </arg>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>If Connection.HasImmortalHandles is true, which SHOULD always
-          be the case, this method does nothing and returns successfully.</p>
+        <p>If <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
+          which SHOULD always be the case in this version of telepathy-spec,
+          this method does nothing and returns successfully, unless
+          the given handle type or any of the given handles is invalid.</p>
 
         <p>In older connection managers, this method
         notifies the connection manger that your client is holding a copy
@@ -396,8 +399,9 @@ USA.</p>
     </signal>
 
     <method name="ReleaseHandles" tp:name-for-bindings="Release_Handles">
-      <tp:changed version="0.21.UNRELEASED">If HasImmortalHandles is true,
-        this method no longer has any effect.</tp:changed>
+      <tp:changed version="0.21.UNRELEASED">If
+        <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
+        this method no longer does anything.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
           An integer handle type (as defined in RequestHandle)
@@ -411,8 +415,10 @@ USA.</p>
       </arg>
 
       <tp:docstring>
-        <p>If Connection.HasImmortalHandles is true, which SHOULD always
-          be the case, this method does nothing and returns successfully.</p>
+        <p>If <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
+          which SHOULD always be the case in this version of telepathy-spec,
+          this method does nothing and returns successfully, unless
+          the given handle type or any of the given handles is invalid.</p>
 
         <p>In older connection managers, this method
         explicitly notifies the connection manager that your client is no
@@ -635,7 +641,8 @@ USA.</p>
     </tp:simple-type>
 
     <method name="RequestHandles" tp:name-for-bindings="Request_Handles">
-      <tp:changed version="0.21.UNRELEASED">If HasImmortalHandles is true,
+      <tp:changed version="0.21.UNRELEASED">If
+        <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
         this method no longer has its reference-counting effect.</tp:changed>
       <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
         <tp:docstring>
@@ -660,9 +667,9 @@ USA.</p>
         <p>Request several handles from the connection manager which represent a
           number of contacts, rooms or server-stored lists on the service.</p>
 
-        <p>If Connection.HasImmortalHandles is true, which SHOULD always
-          be the case, the handles remain valid until the connection
-          disconnects.</p>
+        <p>If <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
+          which SHOULD always be the case in this version of telepathy-spec,
+          the handles remain valid until the connection disconnects.</p>
 
         <p>The implementation of this method in older connection managers
         must record that these handles are in use by the
