@@ -27,9 +27,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       documentation tidied up.</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interface contains SMS-specific properties for text channels.
-        This currently only includes whether the SMSes received on the channel
-        should be displayed immediately to the user, without prompting.</p>
+      <p>This interface contains SMS-specific properties for text
+        channels.</p>
+
+      <p>The presence of this interface on a channel does not imply that
+        messages will be delivered via SMS.</p>
+
+      <p>This interface MAY appear in the
+        <tp:dbus-ref namespace="ofdT.Channel">Interfaces</tp:dbus-ref> property
+        of channels where <tp:member-ref>SMSChannel</tp:member-ref> would be
+        immutable and false. It SHOULD appear on channels where
+        <tp:member-ref>SMSChannel</tp:member-ref> is immutable and true, and
+        also on channels where <tp:member-ref>SMSChannel</tp:member-ref> is
+        mutable (i.e. channels that might fall back to sending SMS at any
+        time, such as on MSN).</p>
 
       <h4>Handler filters</h4>
 
@@ -51,7 +62,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </tp:docstring>
 
     <property name="Flash" tp:name-for-bindings="Flash"
-      type="b" access="read" >
+      type="b" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <code>True</code>, then this channel is exclusively for
           receiving class 0 SMSes (and no SMSes can be sent using <tp:dbus-ref
@@ -93,7 +104,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="SMSChannel"
               tp:name-for-bindings="SMS_Channel"
               type="b"
-              access="read" tp:requestable="yes">
+              access="read" tp:requestable="yes" tp:immutable="sometimes">
       <tp:added version="UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If TRUE, messages sent and received on this channel are transmitted
@@ -103,7 +114,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           Connection Manager MUST return an appropriate channel (i.e. if TRUE
           the channel must be for SMSes, if FALSE it must not), or else fail
           to provide the requested channel with the
-          <tp:dbus-ref namespace="ofdT.Error">NotCapable</tp:dbus-ref>
+          <tp:error-ref>NotCapable</tp:error-ref>
           error.</p>
 
         <p>For example, to explicitly request an SMS channel to a contact.
