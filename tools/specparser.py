@@ -400,6 +400,15 @@ WARNING: Key '%s' not known in namespace '%s'
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
+    def get_index_entries(self):
+        context = self.parent.get_index_context()
+        return set([
+            '%s (%s in %s)' % (self.short_name, self.get_type_name(), context),
+            '%s %s' % (self.get_type_name(), self.name)])
+
+    def get_index_context(self):
+        return self.short_name
+
 class DBusConstruct(Base):
     """Base class for signals, methods and properties."""
 
@@ -1102,7 +1111,7 @@ class SectionBase(object):
     """
 
     def __init__(self, dom, spec_namespace):
-
+        self.spec_namespace = spec_namespace
         self.items = []
 
         def recurse(nodes):
@@ -1123,6 +1132,9 @@ class SectionBase(object):
 
         recurse(dom.childNodes)
 
+    def get_index_context(self):
+        return self.spec_namespace
+
 class Section(Base, SectionBase):
     def __init__(self, parent, namespace, dom, spec_namespace):
         Base.__init__(self, parent, namespace, dom)
@@ -1139,6 +1151,7 @@ class Spec(SectionBase):
     def __init__(self, dom, spec_namespace, allow_externals=False):
         self.document = dom
         self.spec_namespace = spec_namespace
+        self.short_name = spec_namespace
         self.allow_externals = allow_externals
 
         # build a dictionary of errors in this spec
