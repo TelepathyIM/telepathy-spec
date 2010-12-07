@@ -429,6 +429,53 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
       </tp:possible-errors>
     </method>
 
+    <property name="AuthenticationTypes"
+      tp:name-for-bindings="Authentication_Types" access="read" type="as"
+      tp:type="DBus_Interface[]">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of D-Bus interfaces which provide information as to
+          what kind of authentication channels can possibly appear
+          before the connection reaches the CONNECTED state.</p>
+
+        <p>The channel type of the authentication channel should be
+          the interface added to this list, but if it doesn't make sense
+          to do so, a specific interface can be used instead. For example,
+          <tp:dbus-ref namespace="ofdT.Channel.Type">ServerTLSConnection</tp:dbus-ref>
+          channels are obviously about TLS certificates so the channel
+          type would appear in this list. However, a
+          <tp:dbus-ref namespace="ofdT.Channel.Type">ServerAuthentication</tp:dbus-ref>
+          channel type alone does not explain enough about the authentication type
+          in use as it is merely a base for the channel interfaces that appear in
+          said channels. In this case, CMs should use the value of the
+          <tp:dbus-ref namespace="ofdT.Channel.Type">ServerAuthentication.AuthenticationMethod</tp:dbus-ref>
+          property in this list.</p>
+
+        <p>For example, a protocol's
+          <tp:member-ref>AuthenticationTypes</tp:member-ref> contains
+          two values:</p>
+
+        <blockquote>
+          <pre>
+[ ...<tp:dbus-ref namespace="ofdT">Channel.Type.ServerTLSConnection</tp:dbus-ref>,
+  ...<tp:dbus-ref namespace="ofdT">Channel.Interface.SASLAuthentication</tp:dbus-ref> ]</pre></blockquote>
+
+        <p>This tells a client that before the connection status
+          reached CONNECTED, a <tp:dbus-ref
+          namespace="ofdT.Channel.Type">ServerTLSConnection</tp:dbus-ref>
+          could appear carrying a TLS certificate. It also tells the
+          client that before the connection status reaches CONNECTED, a
+          <tp:dbus-ref
+          namespace="ofdT.Channel.Type">ServerAuthentication</tp:dbus-ref>
+          channel could also appear, where <tp:dbus-ref
+          namespace="ofdT.Channel.Type">ServerAuthentication.AuthenticationMethod</tp:dbus-ref>=<tp:dbus-ref
+          namespace="ofdT.Channel.Interface">SASLAuthentication</tp:dbus-ref>. A
+          hypothetical future Channel.Interface.Captcha interface would
+          also appear in this list if the CM might require the user
+          solve a captcha before connecting.</p>
+
+      </tp:docstring>
+    </property>
+
  </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
