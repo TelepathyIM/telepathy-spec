@@ -438,9 +438,9 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           what kind of authentication channels can possibly appear
           before the connection reaches the CONNECTED state.</p>
 
-        <p>The channel type of the authentication channel should be
-          the interface added to this list, but if it doesn't make sense
-          to do so, a specific interface can be used instead. For example,
+        <p>These can either be channel types, or where the channel
+          type isn't enough information to be useful, interfaces
+          indicating a specific use of a channel type. For example,
           <tp:dbus-ref namespace="ofdT.Channel.Type">ServerTLSConnection</tp:dbus-ref>
           channels are obviously about TLS certificates so the channel
           type would appear in this list. However, a
@@ -451,7 +451,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           <tp:dbus-ref namespace="ofdT.Channel.Type">ServerAuthentication.AuthenticationMethod</tp:dbus-ref>
           property in this list.</p>
 
-        <p>For example, a protocol's
+        <p>For example, if a protocol's
           <tp:member-ref>AuthenticationTypes</tp:member-ref> contains
           two values:</p>
 
