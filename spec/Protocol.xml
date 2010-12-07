@@ -65,6 +65,7 @@ RequestableChannelClasses=text;
 VCardField=x-example
 EnglishName=Example
 Icon=im-example
+AuthenticationTypes=org.freedesktop.Telepathy.Channel.Type.ServerTLSConnection;org.freedesktop.Telepathy.Channel.Interface.SASLAuthentication;
 
 [text]
 org.freedesktop.Telepathy.Channel.ChannelType s=org.freedesktop.Telepathy.Channel.Type.Text
