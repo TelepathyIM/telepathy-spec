@@ -75,11 +75,12 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     </tp:docstring>
 
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
-      access="read" type="as" tp:type="DBus_Interface[]">
+      access="read" type="as" tp:type="DBus_Interface[]"
+      tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of interfaces supported by this Protocol object.</p>
 
-        <p>This property is immutable, and should not be confused with
+        <p>This property should not be confused with
           <tp:member-ref>ConnectionInterfaces</tp:member-ref>,
           which refers to the interfaces of <em>connections</em> to this
           protocol.</p>
@@ -95,12 +96,13 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     </property>
 
     <property name="Parameters" tp:name-for-bindings="Parameters"
-      access="read" type="a(susv)" tp:type="Param_Spec[]">
+      access="read" type="a(susv)" tp:type="Param_Spec[]"
+      tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The parameters which must or may be provided to the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager"
             >RequestConnection</tp:dbus-ref> method when connecting to the
-          given protocol. This property is immutable.</p>
+          given protocol.</p>
 
         <p>Connection managers with a <code>.manager</code> file
           (as described as part of the
@@ -116,7 +118,8 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
 
     <property name="ConnectionInterfaces"
       tp:name-for-bindings="Connection_Interfaces"
-      access="read" type="as" tp:type="DBus_Interface[]">
+      access="read" type="as" tp:type="DBus_Interface[]"
+      tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of interface names which might be in the
           <tp:dbus-ref namespace="org.freedesktop.Telepathy.Connection"
@@ -126,7 +129,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           will have all, some or none of these interfaces depends on server
           capabilities.</p>
 
-        <p>This property is immutable, and should not be confused with
+        <p>This property should not be confused with
           <tp:member-ref>Interfaces</tp:member-ref>.</p>
 
         <p>Connection managers with a <code>.manager</code> file
@@ -139,7 +142,8 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
 
     <property name="RequestableChannelClasses"
       tp:name-for-bindings="Requestable_Channel_Classes"
-      access="read" type="a(a{sv}as)" tp:type="Requestable_Channel_Class[]">
+      access="read" type="a(a{sv}as)" tp:type="Requestable_Channel_Class[]"
+      tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of channel classes which might be requestable from a
           <tp:dbus-ref namespace="org.freedesktop.Telepathy"
@@ -152,8 +156,6 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
           requestable channel classes depends on server capabilities;
           similarly, individual contacts are not guaranteed to support
           all of these channel classes.</p>
-
-        <p>This property is immutable.</p>
 
         <p>Connection managers with a <code>.manager</code> file
           MUST cache this property in the protocol's section of the
@@ -207,7 +209,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     </property>
 
     <property name="VCardField" tp:name-for-bindings="VCard_Field"
-      access="read" type="s">
+      access="read" type="s" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the most common vCard field used for this protocol's
           contact identifiers, normalized to lower case, or the empty string
@@ -252,7 +254,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     </property>
 
     <property name="EnglishName" tp:name-for-bindings="English_Name"
-      access="read" type="s">
+      access="read" type="s" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of the protocol in a form suitable for display to users,
           such as "AIM" or "Yahoo!", or the empty string if none is
@@ -286,7 +288,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     </property>
 
     <property name="Icon" tp:name-for-bindings="Icon"
-      access="read" type="s">
+      access="read" type="s" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The name of an icon in the system's icon theme, such as "im-msn", or
           the empty string.</p>
@@ -432,7 +434,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
 
     <property name="AuthenticationTypes"
       tp:name-for-bindings="Authentication_Types" access="read" type="as"
-      tp:type="DBus_Interface[]">
+      tp:type="DBus_Interface[]" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of D-Bus interfaces which provide information as to
           what kind of authentication channels can possibly appear
