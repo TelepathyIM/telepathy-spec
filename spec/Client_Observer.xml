@@ -400,6 +400,15 @@ Recover=true
             round-trips to set itself up, then the approval of the
             channel is delayed. As a result, it is recommended for this
             property to remain false unless absolutely necessary.</p>
+
+          <p>For service-activatable clients, this property should be
+            specified in the observer's <tt>.client</tt> file as
+            follows:</p>
+
+<pre>
+[org.freedesktop.Telepathy.Client.Observer]
+DelayApprovers=true
+</pre>
         </tp:docstring>
     </property>
 
