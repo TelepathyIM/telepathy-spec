@@ -1120,6 +1120,14 @@ USA.</p>
             part to generate a <tt>text/plain</tt> alternative which is also
             included in this signal argument.</p>
 
+          <p>The connection manager SHOULD include the
+            <code>message-sender</code>, <code>message-sender-id</code> and
+            <code>message-sent</code> headers in the representation of the
+            message that is signalled here. If the channel has
+            channel-specific handles, the <code>message-sender</code> and
+            <code>message-sender-id</code> SHOULD reflect the sender that
+            other contacts will see.</p>
+
           <p>If the connection manager can predict that the message will be
             altered during transmission, this argument SHOULD reflect what
             other contacts will receive, rather than being a copy of the
