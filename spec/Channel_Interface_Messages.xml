@@ -1005,7 +1005,12 @@ USA.</p>
       <arg direction="in" type="aa{sv}" tp:type="Message_Part[]"
         name="Message">
         <tp:docstring>
-          The message content, including any attachments or alternatives
+          The message content, including any attachments or alternatives.
+          This MUST NOT include the following headers, or any others that
+          do not make sense for a client to specify:
+          <code>message-sender</code>, <code>message-sender-id</code>,
+          <code>message-sent</code>, <code>message-received</code>,
+          <code>pending-message-id</code>.
         </tp:docstring>
       </arg>
       <arg direction="in" name="Flags" type="u"
