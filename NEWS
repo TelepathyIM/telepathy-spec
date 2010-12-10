@@ -7,6 +7,16 @@ telepathy-spec 0.21.7 (UNRELEASED)
 
 …
 
+Changes to stable API:
+
+• Add ability to explicitly request an SMS channel to a contact. (danni)
+
+• Add AuthenticationTypes Protocol property. (jonny)
+
+Tools changes:
+
+• Produce two devhelp index entries for each symbol. (smcv)
+
 telepathy-spec 0.21.6 (2010-12-01)
 ==================================
 
