@@ -105,7 +105,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               tp:name-for-bindings="SMS_Channel"
               type="b"
               access="read" tp:requestable="yes" tp:immutable="sometimes">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.21.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If TRUE, messages sent and received on this channel are transmitted
           via SMS.</p>
@@ -164,7 +164,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <signal name="SMSChannelChanged"
             tp:name-for-bindings="SMS_Channel_Changed">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.21.7"/>
       <arg name="SMSChannel" type="b">
         <tp:docstring>
           The new value for <tp:member-ref>SMSChannel</tp:member-ref>.

@@ -435,6 +435,7 @@ allowed=org.freedesktop.Telepathy.Channel.TargetHandle;org.freedesktop.Telepathy
     <property name="AuthenticationTypes"
       tp:name-for-bindings="Authentication_Types" access="read" type="as"
       tp:type="DBus_Interface[]" tp:immutable="yes">
+      <tp:added version="0.21.7"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of D-Bus interfaces which provide information as to
           what kind of authentication channels can possibly appear

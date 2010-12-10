@@ -2,16 +2,23 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.7 (UNRELEASED)
+telepathy-spec 0.21.7 (2010-12-10)
 ==================================
 
-…
+The "health, safety and Grolsch at work" release.
 
-Changes to stable API:
+New stable API:
 
 • Add ability to explicitly request an SMS channel to a contact. (danni)
 
 • Add AuthenticationTypes Protocol property. (jonny)
+
+• The MessageSent signal should include message-sender etc. (smcv)
+
+Clarifications:
+
+• Explicitly forbid message-sender etc. when calling SendMessage, matching
+  how telepathy-glib behaves (smcv)
 
 Tools changes:
 
