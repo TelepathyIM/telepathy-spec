@@ -130,7 +130,7 @@
       <tp:added version="0.19.11"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this content, such as <tp:dbus-ref
-          namespace="ofdT.Call">Content.Interface.Media.DRAFT</tp:dbus-ref> or
+          namespace="ofdT.Call">Content.Interface.Media.DRAFT2</tp:dbus-ref> or
           <tp:dbus-ref namespace="ofdT.Call">Content.Interface.Mute.DRAFT</tp:dbus-ref>.
           This SHOULD NOT include the Content interface itself, and cannot
           change once the content has been created.</p>
