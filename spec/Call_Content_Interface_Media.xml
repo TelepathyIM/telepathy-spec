@@ -196,7 +196,7 @@
       </tp:member>
       <tp:member name="Remote_Contact" type="u" tp:type="Contact_Handle">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The contact handle that this description applies.
+          The contact handle that this description applies to.
         </tp:docstring>
       </tp:member>
       <tp:member name="Properties" type="a{sv}"
