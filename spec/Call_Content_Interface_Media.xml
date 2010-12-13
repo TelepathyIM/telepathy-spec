@@ -188,7 +188,7 @@
       <tp:docstring>
         The remote description offer and its information
       </tp:docstring>
-      <tp:member name="Codec_Offer" type="o">
+      <tp:member name="Description" type="o">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The object path to the <tp:dbus-ref namespace="ofdT.Call.Content"
           >Description.DRAFT</tp:dbus-ref>
