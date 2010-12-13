@@ -170,21 +170,21 @@
       </tp:member>
     </tp:mapping>
 
-    <tp:mapping name="ContactDescriptionPropertiesMap">
-      <tp:member name="RemoteContact" type="u" tp:type="Handle">
+    <tp:mapping name="Contact_Description_Properties_Map">
+      <tp:member name="Remote_Contact" type="u" tp:type="Handle">
         <tp:docstring>
           The remote contact this description refers to
         </tp:docstring>
       </tp:member>
-      <tp:member name="DescriptionProperties" type="a{sv}"
-          tp:type="DescriptionProperties">
+      <tp:member name="Description_Properties" type="a{sv}"
+          tp:type="Description_Properties">
         <tp:docstring>
           The properties of the description
         </tp:docstring>
       </tp:member>
     </tp:mapping>
 
-    <tp:struct name="DescriptionOffer">
+    <tp:struct name="Description_Offer">
       <tp:docstring>
         The remote description offer and its information
       </tp:docstring>
@@ -200,7 +200,7 @@
         </tp:docstring>
       </tp:member>
       <tp:member name="Properties" type="a{sv}"
-           tp:type="DescriptionProperties">
+           tp:type="Description_Properties">
         <tp:docstring>
           The immutable properties of all interfaces of the codec description.
 
@@ -228,8 +228,9 @@
     </method>
 
     <property name="RemoteDescriptions"
-      tp:name-for-bindings="Remote_Descriptions"
-      type="a{ua{sv}}" tp:type="ContactDescriptionPropertiesMap" access="read">
+        tp:name-for-bindings="Remote_Descriptions"
+        type="a{ua{sv}}"
+        tp:type="Contact_Description_Properties_Map" access="read">
       <tp:docstring>
         <p>A map from contact handles to descriptions give supported by that
            contact.</p>
@@ -237,8 +238,9 @@
     </property>
 
     <property name="LocalDescriptions"
-      tp:name-for-bindings="Local_Descriptions"
-      type="a{ua{sv}}" tp:type="ContactDescriptionPropertiesMap" access="read">
+        tp:name-for-bindings="Local_Descriptions"
+        type="a{ua{sv}}"
+        tp:type="Contact_Description_Properties_Map" access="read">
       <tp:docstring>
         <p>A map from contact handles to the descriptions as response.</p>
       </tp:docstring>
@@ -297,13 +299,13 @@
         </p>
       </tp:docstring>
 
-      <arg name="UpdatedDescriptions" type="a{ua{sv}}"
-        tp:type="ContactDescriptionPropertiesMap">
+      <arg name="Updated_Descriptions" type="a{ua{sv}}"
+        tp:type="Contact_Description_Properties_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local content descriptions that were updated</p>
         </tp:docstring>
       </arg>
-      <arg name="RemovedDescriptions" type="au">
+      <arg name="Removed_Descriptions" type="au">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local content descriptions that are no longer part
              of this content</p>
@@ -321,13 +323,13 @@
         </p>
       </tp:docstring>
 
-      <arg name="UpdatedDescriptions" type="a{ua{sv}}"
-        tp:type="ContactDescriptionPropertiesMap">
+      <arg name="Updated_Descriptions" type="a{ua{sv}}"
+          tp:type="Contact_Description_Properties_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The remote content descriptions that were updated</p>
         </tp:docstring>
       </arg>
-      <arg name="RemovedDescriptions" type="au">
+      <arg name="Removed_Descriptions" type="au">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The remote content descriptions that are no longer part
              of this content</p>
@@ -337,7 +339,7 @@
 
     <property name="DescriptionOffer"
         tp:name-for-bindings="Description_Offer"
-      type="(oua{sv})" tp:type="DescriptionOffer" access="read">
+      type="(oua{sv})" tp:type="Description_Offer" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The object path to the current
           <tp:dbus-ref namespace="ofdT.Call.Content"

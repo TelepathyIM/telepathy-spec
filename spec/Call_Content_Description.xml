@@ -30,8 +30,8 @@
     </tp:docstring>
 
     <method name="Accept" tp:name-for-bindings="Accept">
-      <arg name="LocalDescription" direction="in"
-        type="a{sv}" tp:type="DescriptionProperties">
+      <arg name="Local_Description" direction="in"
+        type="a{sv}" tp:type="Description_Properties">
         <tp:docstring>
           The local description to send to the remote contacts and
           to use in the <tp:dbus-ref
@@ -102,7 +102,7 @@
       </tp:docstring>
     </property>
 
-    <tp:mapping name="DescriptionProperties">
+    <tp:mapping name="Description_Properties">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
           A mapping containing all properties that define the information from a
@@ -126,13 +126,13 @@
         </p>
       </tp:docstring>
 
-      <tp:member name="DescriptionProperty"
+      <tp:member name="Description_Property"
         type="s" tp:type="DBus_Qualified_Member">
         <tp:docstring>
           A D-Bus interface name, followed by a dot and a D-Bus property name.
         </tp:docstring>
       </tp:member>
-      <tp:member name="DescriptionPropertyValue" type="v">
+      <tp:member name="Description_Property_Value" type="v">
         <tp:docstring>
           The value of the property
         </tp:docstring>
