@@ -237,6 +237,7 @@
      $method.get_added()
      $method.get_changed()
      $method.get_deprecated()
+     $method.get_no_reply()
 
      #if $method.in_args
      <div class="indent">
@@ -412,6 +413,7 @@
      $property.get_added()
      $property.get_changed()
      $property.get_deprecated()
+     $property.get_emits_changed()
 
       #if $property.is_connection_parameter:
       <div class="annotation connection-parameter">

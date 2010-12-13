@@ -75,6 +75,13 @@ def getChildrenByName(dom, namespace, name):
                             n.localName == name,
                   dom.childNodes)
 
+def getChildrenByNameAndAttribute(dom, namespace, name, attribute, value):
+    return filter(lambda n: n.nodeType == n.ELEMENT_NODE and \
+                            n.namespaceURI == namespace and \
+                            n.localName == name and \
+                            n.getAttribute(attribute) == value,
+                  dom.childNodes)
+
 def getOnlyChildByName(dom, namespace, name):
     kids = getChildrenByName(dom, namespace, name)
 
@@ -87,6 +94,19 @@ def getOnlyChildByName(dom, namespace, name):
             (dom.tagName, name, namespace))
 
     return kids[0]
+
+def getAnnotationByName(dom, name):
+    kids = getChildrenByNameAndAttribute(dom, None, 'annotation', 'name', name)
+
+    if len(kids) == 0:
+        return None
+
+    if len(kids) > 1:
+        raise WrongNumberOfChildren(
+            '<%s> node should have at most one %s annotation' %
+            (dom.tagName, name))
+
+    return kids[0].getAttribute('value')
 
 def getNamespace(n):
     if n.namespaceURI is not None:
@@ -142,6 +162,9 @@ class Base(object):
         self.docstring = getOnlyChildByName(dom, XMLNS_TP, 'docstring')
         self.added = getOnlyChildByName(dom, XMLNS_TP, 'added')
         self.deprecated = getOnlyChildByName(dom, XMLNS_TP, 'deprecated')
+        self.is_deprecated = True
+        if self.deprecated == None:
+            self.is_deprecated = getAnnotationByName(dom, 'org.freedesktop.DBus.Deprecated') == 'true'
 
         self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
 
@@ -211,8 +234,14 @@ class Base(object):
                                           "Added in %s.")
 
     def get_deprecated(self):
-        return self._get_generic_with_ver(self.deprecated, 'deprecated',
-                                          "Deprecated since %s.")
+        if self.deprecated is None:
+            if self.is_deprecated:
+                return '<div class="annotation deprecated no-version">Deprecated.</div>'
+            else:
+                return ''
+        else:
+            return self._get_generic_with_ver(self.deprecated, 'deprecated',
+                                              "Deprecated since %s.")
 
     def get_changed(self):
         return '\n'.join(map(lambda n:
@@ -480,6 +509,8 @@ class Method(DBusConstruct):
         self.possible_errors = build_list(self, PossibleError, None,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'error'))
 
+        self.no_reply = getAnnotationByName(dom, 'org.freedesktop.DBus.Method.NoReply') == 'true'
+
     def get_in_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.in_args))
 
@@ -488,6 +519,13 @@ class Method(DBusConstruct):
             return ', '.join(map(lambda a: a.spec_name(), self.out_args))
         else:
             return 'nothing'
+
+    def get_no_reply(self):
+        if self.no_reply:
+            return '<div class="annotation no-reply">' \
+                   'The caller should not expect a reply when calling this method.</div>'
+        else:
+            return ''
 
     def check_consistency(self):
         for x in self.in_args:
@@ -557,6 +595,11 @@ class Property(DBusConstruct, Typed):
 
     ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
 
+    EMITS_CHANGED_UNKNOWN     = 0
+    EMITS_CHANGED_NONE        = 1
+    EMITS_CHANGED_UPDATES     = 2
+    EMITS_CHANGED_INVALIDATES = 3
+
     def __init__(self, parent, namespace, dom):
         super(Property, self).__init__(parent, namespace, dom)
 
@@ -581,6 +624,21 @@ class Property(DBusConstruct, Typed):
         self.requestable = requestable != ''
         self.sometimes_requestable = requestable == 'sometimes'
 
+        # According to the D-Bus specification, EmitsChangedSignal defaults
+        # to true, but - realistically - this cannot be assumed for old specs.
+        # As a result, we treat the absence of the annotation as "unknown".
+        emits_changed = getAnnotationByName(dom, 'org.freedesktop.DBus.Property.EmitsChangedSignal')
+        if emits_changed is None:
+            emits_changed = getAnnotationByName(dom.parentNode, 'org.freedesktop.DBus.Property.EmitsChangedSignal')
+        if emits_changed == 'true':
+            self.emits_changed = self.EMITS_CHANGED_UPDATES;
+        elif emits_changed == 'invalidates':
+            self.emits_changed = self.EMITS_CHANGED_INVALIDATES;
+        elif emits_changed == 'false':
+            self.emits_changed = self.EMITS_CHANGED_NONE;
+        else:
+            self.emits_changed = self.EMITS_CHANGED_UNKNOWN;
+
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
             return 'Read/Write'
@@ -603,6 +661,25 @@ class Property(DBusConstruct, Typed):
             descriptions.append("Requestable")
 
         return ', '.join(descriptions)
+
+    def get_emits_changed(self):
+        if self.emits_changed == self.EMITS_CHANGED_UPDATES:
+            return '<div class="annotation emits-changed emits-changed-updates">' \
+                   'When this property changes, the ' \
+                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   'signal is emitted with the new value.</div>';
+        elif self.emits_changed == self.EMITS_CHANGED_INVALIDATES:
+            return '<div class="annotation emits-changed emits-changed-invalidates">' \
+                   'When this property changes, the ' \
+                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   'signal is emitted, but the new value is not sent.</div>';
+        elif self.emits_changed == self.EMITS_CHANGED_NONE:
+            return '<div class="annotation emits-changed emits-changed-none">' \
+                   'The ' \
+                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   'signal is <strong>not</strong> emitted when this property changes.</div>';
+	else:
+            return '';
 
 class AwkwardTelepathyProperty(Typed):
     def get_type_name(self):
