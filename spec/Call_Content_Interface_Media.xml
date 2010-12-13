@@ -232,7 +232,7 @@
         type="a{ua{sv}}"
         tp:type="Contact_Description_Properties_Map" access="read">
       <tp:docstring>
-        <p>A map from contact handles to descriptions give supported by that
+        <p>A map from contact handles to descriptions supported by that
            contact.</p>
       </tp:docstring>
     </property>
@@ -265,8 +265,8 @@
       </tp:docstring>
       <arg name="Description" type="o">
         <tp:docstring>
-          The object path of the new description. This replaces any previous
-          description.
+          The object path of the new description or "/" in case of no new
+          description. This replaces any previous description.
         </tp:docstring>
       </arg>
       <arg name="Contact" type="u">
@@ -346,7 +346,7 @@
            >Description.DRAFT</tp:dbus-ref> object, its
             <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
             >RemoteContact</tp:dbus-ref> and
-            a of the Descriptions properties.
+            a mapping of the Descriptions properties.
             If the object path is "/" then there isn't an outstanding
             content description, and the mapping MUST be empty.</p>
 
