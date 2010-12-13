@@ -773,6 +773,7 @@ WARNING: Interface not known: '%s'
 
     def check_for_odd_children(self, dom):
         expected = [
+            (None, 'annotation'),
             (None, 'method'),
             (None, 'property'),
             (None, 'signal'),
