@@ -163,8 +163,8 @@ class Base(object):
         self.added = getOnlyChildByName(dom, XMLNS_TP, 'added')
         self.deprecated = getOnlyChildByName(dom, XMLNS_TP, 'deprecated')
         self.is_deprecated = True
-        if self.deprecated == None:
-            self.is_deprecated = getAnnotationByName(dom, 'org.freedesktop.DBus.Deprecated') == 'true'
+        if self.deprecated is None:
+            self.is_deprecated = (getAnnotationByName(dom, 'org.freedesktop.DBus.Deprecated') == 'true')
 
         self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
 
@@ -509,7 +509,7 @@ class Method(DBusConstruct):
         self.possible_errors = build_list(self, PossibleError, None,
                         dom.getElementsByTagNameNS(XMLNS_TP, 'error'))
 
-        self.no_reply = getAnnotationByName(dom, 'org.freedesktop.DBus.Method.NoReply') == 'true'
+        self.no_reply = (getAnnotationByName(dom, 'org.freedesktop.DBus.Method.NoReply') == 'true')
 
     def get_in_args(self):
         return ', '.join(map(lambda a: a.spec_name(), self.in_args))
@@ -666,17 +666,17 @@ class Property(DBusConstruct, Typed):
         if self.emits_changed == self.EMITS_CHANGED_UPDATES:
             return '<div class="annotation emits-changed emits-changed-updates">' \
                    'When this property changes, the ' \
-                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
                    'signal is emitted with the new value.</div>';
         elif self.emits_changed == self.EMITS_CHANGED_INVALIDATES:
             return '<div class="annotation emits-changed emits-changed-invalidates">' \
                    'When this property changes, the ' \
-                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
                    'signal is emitted, but the new value is not sent.</div>';
         elif self.emits_changed == self.EMITS_CHANGED_NONE:
             return '<div class="annotation emits-changed emits-changed-none">' \
                    'The ' \
-                   '<literal>org.freedesktop.DBus.Properties.PropertiesChanged</literal> ' \
+                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
                    'signal is <strong>not</strong> emitted when this property changes.</div>';
 	else:
             return '';
