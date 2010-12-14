@@ -520,13 +520,6 @@ class Method(DBusConstruct):
         else:
             return 'nothing'
 
-    def get_no_reply(self):
-        if self.no_reply:
-            return '<div class="annotation no-reply">' \
-                   'The caller should not expect a reply when calling this method.</div>'
-        else:
-            return ''
-
     def check_consistency(self):
         for x in self.in_args:
             x.check_consistency()
@@ -661,25 +654,6 @@ class Property(DBusConstruct, Typed):
             descriptions.append("Requestable")
 
         return ', '.join(descriptions)
-
-    def get_emits_changed(self):
-        if self.emits_changed == self.EMITS_CHANGED_UPDATES:
-            return '<div class="annotation emits-changed emits-changed-updates">' \
-                   'When this property changes, the ' \
-                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
-                   'signal is emitted with the new value.</div>';
-        elif self.emits_changed == self.EMITS_CHANGED_INVALIDATES:
-            return '<div class="annotation emits-changed emits-changed-invalidates">' \
-                   'When this property changes, the ' \
-                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
-                   'signal is emitted, but the new value is not sent.</div>';
-        elif self.emits_changed == self.EMITS_CHANGED_NONE:
-            return '<div class="annotation emits-changed emits-changed-none">' \
-                   'The ' \
-                   '<code>org.freedesktop.DBus.Properties.PropertiesChanged</code> ' \
-                   'signal is <strong>not</strong> emitted when this property changes.</div>';
-	else:
-            return '';
 
 class AwkwardTelepathyProperty(Typed):
     def get_type_name(self):
