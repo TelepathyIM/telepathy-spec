@@ -67,8 +67,8 @@
       </tp:docstring>
     </property>
 
-    <property name="EmptyDescription"
-      tp:name-for-bindings="Empty_Description" type="b"
+    <property name="NoRemoteInformation"
+      tp:name-for-bindings="No_Remote_Information" type="b"
       access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml" >
         <p> True if this offer contains no information from the remote side:
@@ -79,8 +79,10 @@
             DescriptionOffer on an outgoing call.
         </p>
 
-        <p> This property will not be part of the DescriptionProperties used to
-          describe this object.
+        <p> This property will never be part of the DescriptionProperties used
+            to describe this object. If this property is true then the
+            DescriptionProperties describing this object will be empthy (as
+            there is no remote information to put in it)
         </p>
       </tp:docstring>
     </property>
@@ -113,7 +115,7 @@
 
         <p>
           If <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
-            >EmptyDescription</tp:dbus-ref> is True then this mapping will be
+            >NoRemoteInformation</tp:dbus-ref> is True then this mapping will be
           empty  otherwise it willl always contains at least
           <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
             >RemoteCodecs</tp:dbus-ref>
@@ -121,7 +123,7 @@
 
         <p>
           The <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
-            >EmptyDescription</tp:dbus-ref> property is never part of this
+            >NoRemoteInformation</tp:dbus-ref> property is never part of this
             mapping.
         </p>
       </tp:docstring>
