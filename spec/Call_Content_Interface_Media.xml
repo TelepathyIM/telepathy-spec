@@ -250,13 +250,12 @@
         tp:name-for-bindings="New_Description_Offer">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a new <tp:dbus-ref namespace="ofdT.Call.Content"
-          >Description.DRAFT</tp:dbus-ref> appears or a previous one 
-          disappears. The streaming implementation MUST respond by calling the
+          >Description.DRAFT</tp:dbus-ref> appears. The streaming
+          >implementation MUST respond by calling the
           <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
           >Accept</tp:dbus-ref> or <tp:dbus-ref
           namespace="ofdT.Call.Content.Description.DRAFT"
-          >Reject</tp:dbus-ref> method on the description object if it has
-          >appeared.</p>
+          >Reject</tp:dbus-ref> method on the description object appeared.</p>
 
         <p>Emission of this signal indicates that the
           <tp:member-ref>DescriptionOffer</tp:member-ref> property has
@@ -265,8 +264,8 @@
       </tp:docstring>
       <arg name="Description" type="o">
         <tp:docstring>
-          The object path of the new description or "/" in case of no new
-          description. This replaces any previous description.
+          The object path of the new description. This replaces any
+          previous description.
         </tp:docstring>
       </arg>
       <arg name="Contact" type="u">
@@ -286,6 +285,18 @@
           </tp:rationale>
         </tp:docstring>
       </arg>
+    </signal>
+
+    <signal name="DescriptionOfferDone"
+        tp:name-for-bindings="Description_Offer_Done">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Emitted when a <tp:dbus-ref namespace="ofdT.Call.Content"
+          >Description.DRAFT</tp:dbus-ref> has been handled. </p>
+        <p>Emission of this signal indicates that the
+          <tp:member-ref>DescriptionOffer</tp:member-ref> property has
+          changed to
+            <code>("/", 0, {})</code>.</p>
+      </tp:docstring>
     </signal>
 
 
@@ -359,9 +370,8 @@
         </tp:rationale>
 
         <p>Change notification is via the
-          <tp:member-ref>NewDescriptionOffer</tp:member-ref>
-          (which replaces the value of this property with a new content
-          description if any)
+          <tp:member-ref>NewDescriptionOffer</tp:member-ref> and
+          <tp:member-ref>DescriptionOfferDone</tp:member-ref> signal.
          </p>
       </tp:docstring>
     </property>
