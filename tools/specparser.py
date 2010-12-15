@@ -162,9 +162,10 @@ class Base(object):
         self.docstring = getOnlyChildByName(dom, XMLNS_TP, 'docstring')
         self.added = getOnlyChildByName(dom, XMLNS_TP, 'added')
         self.deprecated = getOnlyChildByName(dom, XMLNS_TP, 'deprecated')
-        self.is_deprecated = True
         if self.deprecated is None:
             self.is_deprecated = (getAnnotationByName(dom, 'org.freedesktop.DBus.Deprecated') == 'true')
+        else:
+            self.is_deprecated = True
 
         self.changed = getChildrenByName(dom, XMLNS_TP, 'changed')
 
@@ -583,14 +584,14 @@ class Typed(Base):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
 class Property(DBusConstruct, Typed):
-    ACCESS_READ     = 1
-    ACCESS_WRITE    = 2
+    ACCESS_READ = 1
+    ACCESS_WRITE = 2
 
     ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
 
-    EMITS_CHANGED_UNKNOWN     = 0
-    EMITS_CHANGED_NONE        = 1
-    EMITS_CHANGED_UPDATES     = 2
+    EMITS_CHANGED_UNKNOWN = 0
+    EMITS_CHANGED_NONE = 1
+    EMITS_CHANGED_UPDATES = 2
     EMITS_CHANGED_INVALIDATES = 3
 
     def __init__(self, parent, namespace, dom):
