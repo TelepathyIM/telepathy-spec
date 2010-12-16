@@ -4,8 +4,12 @@
 #for $interface in $spec.interfaces
   <sub name="$interface.name" link="$interface.get_url()"/>
 #end for
+#if len($spec.generic_types) > 0
   <sub name="Generic Types" link="generic-types.html"/>
+#end if
+#if len($spec.errors) > 0
   <sub name="Errors" link="errors.html"/>
+#end if
   <sub name="Full Index" link="fullindex.html"/>
  </chapters>
  <functions>
