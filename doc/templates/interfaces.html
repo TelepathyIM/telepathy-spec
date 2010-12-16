@@ -23,7 +23,7 @@
   #for $interface in $spec.interfaces
    #if $interface.causes_havoc
     <li class="causes-havoc">
-   #elif $interface.deprecated
+   #elif $interface.is_deprecated
     <li class="deprecated">
    #else
     <li>
@@ -31,7 +31,7 @@
     <a href="$interface.get_url()">$interface.name</a>
     #if $interface.causes_havoc
      (unstable)
-    #elif $interface.deprecated
+    #elif $interface.is_deprecated
      (deprecated)
     #end if
    </li>

@@ -40,7 +40,7 @@
      <h3>Methods</h3>
      <table class="summary">
       #for $method in $interface.methods
-       #if $method.deprecated
+       #if $method.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -50,7 +50,7 @@
        <td>&#8594;</td>
        <td>$method.get_out_args()</td>
        <td>
-        #if $method.deprecated: (deprecated)
+        #if $method.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -61,7 +61,7 @@
      <h3>Signals</h3>
      <table class="summary">
       #for $signal in $interface.signals
-       #if $signal.deprecated
+       #if $signal.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -69,7 +69,7 @@
        <td><a href="$signal.get_url()">$signal.short_name</a></td>
        <td>($signal.get_args())</td>
        <td>
-        #if $signal.deprecated: (deprecated)
+        #if $signal.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -80,7 +80,7 @@
      <h3>Properties</h3>
      <table class="summary">
       #for $property in $interface.properties
-       #if $property.deprecated
+       #if $property.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -93,7 +93,7 @@
        <td>$property.get_access()</td>
        <td>$property.get_flag_summary()</td>
        <td>
-        #if $property.deprecated: (deprecated)
+        #if $property.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -151,7 +151,7 @@
      <h3>Types</h3>
      <table class="summary">
       #for $type in $interface.types
-       #if type.deprecated
+       #if type.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -160,7 +160,7 @@
        <td>$type.get_type_name()</td>
        <td>$type.dbus_type</td>
        <td>
-        #if $type.deprecated: (deprecated)
+        #if $type.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for

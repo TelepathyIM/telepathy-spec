@@ -19,14 +19,14 @@
     <h3>Errors</h3>
     <table class="summary">
      #for $error in $spec.sorted_errors
-      #if $error.deprecated
+      #if $error.is_deprecated
        <tr class="deprecated">
       #else
        <tr>
       #end if
        <td><a href="$error.get_url()">$error.short_name</a></td>
        <td>
-        #if $error.deprecated: (deprecated)
+        #if $error.is_deprecated: (deprecated)
        </td>
       </tr>
      #end for
