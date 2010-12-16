@@ -12,7 +12,7 @@
 #for $obj in $spec.everything.values() + $spec.types.values() + $spec.errors.values()
 #for $entry in $obj.get_index_entries()
   <keyword type="$obj.devhelp_name" name="$entry" link="$obj.get_url()" #slurp
-#if $obj.deprecated: deprecated="true" #slurp
+#if $obj.is_deprecated: deprecated="true" #slurp
 />
 #end for
 #end for

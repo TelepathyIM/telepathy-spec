@@ -48,7 +48,7 @@
     #else
      #if $item.causes_havoc
       <li class="causes-havoc">
-     #elif $item.deprecated
+     #elif $item.is_deprecated
       <li class="deprecated">
      #else
       <li>
@@ -56,7 +56,7 @@
       <a href="$item.get_url()">$item.name</a>
       #if $item.causes_havoc
        (unstable)
-      #elif $item.deprecated
+      #elif $item.is_deprecated
        (deprecated)
       #end if
      </li>

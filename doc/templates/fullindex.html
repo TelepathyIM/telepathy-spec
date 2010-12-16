@@ -37,14 +37,14 @@
    #for l, g in $groups
     <tr><th colspan="3"><a name="$l"></a>$l</th></tr>
     #for $n in $g
-     #if $n[1].deprecated
+     #if $n[1].is_deprecated
       <tr class="deprecated">
      #else
       <tr>
      #end if
       <td>
        <a href="$n[1].get_url()" title="$n[1].get_title()">$n[0]</a>
-       #if $n[1].deprecated: (deprecated)
+       #if $n[1].is_deprecated: (deprecated)
       </td>
       <td>$n[1].get_type_name()</td>
       <td>
