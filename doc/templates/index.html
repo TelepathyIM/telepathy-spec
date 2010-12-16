@@ -10,8 +10,12 @@
    <h1>$spec.title</h1>
    <a href="#interfaces">Interfaces</a>
    (<a href="interfaces.html">Compact</a>)
+#if len($spec.generic_types) > 0
    | <a href="generic-types.html">Generic Types</a>
+#end if
+#if len($spec.errors) > 0
    | <a href="errors.html">Errors</a>
+#end if
    | <a href="fullindex.html">Full Index</a>
   </div>
 
@@ -66,12 +70,18 @@
   $output($spec.items)
   </ul>
 
+#if len($spec.generic_types) > 0 or len($spec.errors) > 0
   <a name="other"></a>
   <h3>Other</h3>
   <ul>
+  #if len($spec.generic_types) > 0
    <li><a href="generic-types.html">Generic Types</a></li>
+  #end if
+  #if len($spec.errors) > 0
    <li><a href="errors.html">Errors</a></li>
+  #end if
   </ul>
+#end if
 
   </div>
  </body>
