@@ -100,7 +100,9 @@
       type="u" tp:type="Contact_Handle" access="read" tp:immutable="yes">
       <tp:docstring>
         The contact handle that this codec offer applies to or 0 for a
-        description that will apply globally.
+        description that will apply to all remote contacts in the call.
+
+        [FIXME] the usage of 0 needs further clarifications
       </tp:docstring>
     </property>
 
