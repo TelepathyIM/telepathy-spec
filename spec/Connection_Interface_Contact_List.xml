@@ -633,6 +633,12 @@
 
     <signal name="ContactsChanged"
       tp:name-for-bindings="Contacts_Changed">
+      <tp:deprecated version="0.21.UNRELEASED">Connection managers MUST still
+        emit this signal, but clients SHOULD listen for the
+        <tp:member-ref>ContactsChangedWithID</tp:member-ref> signal in
+        addition, and ignore this signal after ContactsChangedWithID has been
+        emitted at least once.
+      </tp:deprecated>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted immediately after
           <tp:member-ref>ContactsChangedWithID</tp:member-ref>, under the same
