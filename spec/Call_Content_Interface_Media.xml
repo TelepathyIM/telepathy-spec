@@ -262,6 +262,15 @@
           <tp:member-ref>DescriptionOffer</tp:member-ref> property has
           changed to
             <code>(Description, Contact, DescriptionProperties)</code>.</p>
+
+        <p>When the DescriptionOffer has been dealt with then
+          <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+            >DescriptionOfferDone</tp:dbus-ref> must be emitted
+          before <tp:dbus-ref
+            namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+              >NewDescriptionOffer</tp:dbus-ref> is emitted again.
+        </p>
+
       </tp:docstring>
       <arg name="Description" type="o">
         <tp:docstring>
