@@ -615,18 +615,18 @@
       </arg>
 
       <arg name="Identifiers" type="a{us}" tp:type="Handle_Identifier_Map">
-        <tp:docstring>
-          The identifiers of the contacts in the Changes map.
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The identifiers of the contacts in the <var>Changes</var> map.
         </tp:docstring>
       </arg>
 
       <arg name="Removals" type="a{us}" tp:type="Handle_Identifier_Map">
-        <tp:docstring>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The contacts that have been removed from the list that would be
           returned by
           <tp:member-ref>GetContactListAttributes</tp:member-ref>.
           This also implies that they have subscribe = No and publish = No;
-          contacts MUST NOT be listed both here and in Changes.
+          contacts MUST NOT be listed both here and in <var>Changes</var>.
         </tp:docstring>
       </arg>
     </signal>
