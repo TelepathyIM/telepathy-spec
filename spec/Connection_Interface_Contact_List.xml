@@ -651,14 +651,16 @@
 
       <arg type="a{u(uus)}" name="Changes" tp:type="Contact_Subscription_Map">
         <tp:docstring>
-          The same as the corresponding argument to ContactsChanged.
+          The same as the corresponding argument to
+          <tp:member-ref>ContactsChangedWithID</tp:member-ref>.
         </tp:docstring>
       </arg>
 
       <arg name="Removals" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
-          The same as the corresponding argument to ContactsChanged,
-          except that it only includes handles and not identifiers.
+          The same as the corresponding argument to
+          <tp:member-ref>ContactsChangedWithID</tp:member-ref>, except that it
+          only includes handles and not identifiers.
         </tp:docstring>
       </arg>
     </signal>
