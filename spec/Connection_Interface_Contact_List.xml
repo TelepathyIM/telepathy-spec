@@ -578,7 +578,7 @@
 
     <signal name="ContactsChangedWithID"
       tp:name-for-bindings="Contacts_Changed_With_ID">
-      <tp:added version="0.21.UNRELEASED"/>
+      <tp:added version="0.21.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the contact list becomes available, when contacts'
           basic stored properties change, when new contacts are added to the
@@ -633,7 +633,7 @@
 
     <signal name="ContactsChanged"
       tp:name-for-bindings="Contacts_Changed">
-      <tp:deprecated version="0.21.UNRELEASED">Connection managers MUST still
+      <tp:deprecated version="0.21.8">Connection managers MUST still
         emit this signal, but clients SHOULD listen for the
         <tp:member-ref>ContactsChangedWithID</tp:member-ref> signal in
         addition, and ignore this signal after ContactsChangedWithID has been
