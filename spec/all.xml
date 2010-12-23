@@ -179,13 +179,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <xi:include href="Channel_Interface_SMS.xml"/>
    </tp:section>
 
-   <tp:section name="Streamed Media-related interfaces">
+   <tp:section name="Streamed Media/Call-related interfaces">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
      <p>These interfaces are only applicable to channels of type <tp:dbus-ref
        namespace='ofdT.Channel.Type'>StreamedMedia</tp:dbus-ref>, with the
        exception of the <tp:dbus-ref
-       namespace='ofdT.Channel.Interface'>Hold</tp:dbus-ref> interface, which
-       may also appear on <tp:dbus-ref
+       namespace='ofdT.Channel.Interface'>Hold</tp:dbus-ref> and
+       <tp:dbus-ref namespace="ofdT.Channel.Interface">DTMF</tp:dbus-ref>
+       interfaces, which may also appear on <tp:dbus-ref
        namespace='ofdT.Channel.Type'>Call.DRAFT</tp:dbus-ref> channels.</p>
     </tp:docstring>
 
