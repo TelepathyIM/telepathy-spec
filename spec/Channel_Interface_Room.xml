@@ -309,7 +309,7 @@
           change notification.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
       </tp:possible-errors>
     </method>
