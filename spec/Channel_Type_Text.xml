@@ -462,7 +462,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>.
       This is equivalent to the
       <tp:dbus-ref namespace="ofdT.Channel.Interface.Room.DRAFT"
-      >RoomID</tp:dbus-ref> property in the Room interface which will replace
+      >RoomName</tp:dbus-ref> property in the Room interface which will replace
       this Telepathy property.
       </tp:docstring>
     </tp:property>
