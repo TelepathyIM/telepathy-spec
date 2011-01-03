@@ -368,6 +368,32 @@
       </tp:docstring>
     </property>
 
+    <tp:flags name="Room_Subject_Flags"
+      value-prefix="Room_Subject_Flag" type="u">
+      <tp:docstring>
+        Flags indicating capabilities regarding the room subject.
+      </tp:docstring>
+
+      <tp:flag suffix="Present" value="1">
+        <tp:docstring>
+          A subject exists on this channel. Protocols which do not
+          have the concept of room subjects MUST NOT have this flag
+          set as an indication to clients that no notice should be
+          taken of the <tp:member-ref>Subject</tp:member-ref>
+          property.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Can_Set" value="2">
+        <tp:docstring>
+          The <tp:member-ref>Subject</tp:member-ref> property can be
+          set by the user by calling
+          <tp:member-ref>SetSubject</tp:member-ref>. If this flag is
+          set, then Present MUST also be set.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
