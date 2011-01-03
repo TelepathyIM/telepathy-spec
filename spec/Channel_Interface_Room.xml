@@ -302,6 +302,11 @@
         <p>Set the room's subject. Clients SHOULD look at the subject
           flags before calling this method as the user might not have
           permission to set the subject.</p>
+
+        <p>Clients SHOULD NOT assume success if no errors are raised
+          by calling this method, but instead should listen to the
+          <tp:member-ref>SubjectChanged</tp:member-ref> signal for
+          change notification.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
@@ -383,6 +388,9 @@
         <tp:rationale>This property replaces the subject, subject-contact, and
           subject-timestamp Telepathy properties of Text channels, as Telepathy
           properties are soon to be deprecated completely.</tp:rationale>
+
+        <p>Change notification for this property is provided by the
+          <tp:member-ref>SubjectChanged</tp:member-ref> signal.</p>
 
         <p>This property may change during the lifetime of the channel and
           MUST not be included in a channel request.</p>
