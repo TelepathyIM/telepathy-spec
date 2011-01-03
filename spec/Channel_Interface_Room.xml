@@ -439,7 +439,10 @@
           have the concept of room subjects MUST NOT have this flag
           set as an indication to clients that no notice should be
           taken of the <tp:member-ref>Subject</tp:member-ref>
-          property.
+          property. Note that this flag only allows clients to
+          distinguish between protocols which support room subjects
+          and protocols which do not. The presence of this flag
+          MUST NOT change.
         </tp:docstring>
       </tp:flag>
 
