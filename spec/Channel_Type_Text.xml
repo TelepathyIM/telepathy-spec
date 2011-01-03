@@ -684,6 +684,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           eventually need a distinction between Close and Destroy.</p>
       </tp:rationale>
 
+      <p>Opaquely-named rejoinable chatrooms (such as Skype rooms) are
+        represented using the properties in the <tp:dbus-ref
+        namespace="ofdT.Channel.Interface">Room.DRAFT</tp:dbus-ref>
+        interface. Instructions and examples of how to request
+        such channels are given in said interface's description.</p>
+
     </tp:docstring>
   </interface>
 </node>
