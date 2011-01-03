@@ -169,6 +169,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Interface_Credentials_Storage.xml"/>
    <xi:include href="Channel_Interface_Securable.xml"/>
    <xi:include href="Channel_Interface_Service_Point.xml"/>
+   <xi:include href="Channel_Interface_Subject.xml"/>
    <xi:include href="Channel_Interface_Tube.xml"/>
 
    <tp:section name="Text-specific interfaces">
