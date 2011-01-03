@@ -389,6 +389,36 @@
       </tp:docstring>
     </property>
 
+    <signal name="SubjectChanged" tp:name-for-bindings="Subject_Changed">
+      <arg name="Subject" type="s">
+        <tp:docstring>
+          The new subject string.
+        </tp:docstring>
+      </arg>
+      <arg name="Actor" type="s">
+        <tp:docstring>
+          A normalized contact ID representing who last modified the
+          subject, or the empty string if it is not known.
+        </tp:docstring>
+      </arg>
+      <arg name="Timestamp" type="x" tp:type="Unix_Timestamp64">
+        <tp:docstring>
+          A unix timestamp indicating when the subject was last
+          modified.
+        </tp:docstring>
+      </arg>
+      <arg name="Flags" type="u" tp:type="Room_Subject_Flags">
+        <tp:docstring>
+          A bitwise OR of the flags applicable to this channel's
+          subject.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Emitted when the <tp:member-ref>Subject</tp:member-ref>
+        property is changed.
+      </tp:docstring>
+    </signal>
+
     <tp:flags name="Room_Subject_Flags"
       value-prefix="Room_Subject_Flag" type="u">
       <tp:docstring>
