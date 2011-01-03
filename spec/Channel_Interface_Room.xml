@@ -294,6 +294,21 @@
 
     </tp:docstring>
 
+    <method name="SetSubject" tp:name-for-bindings="Set_Subject">
+      <arg direction="in" type="s" name="Subject">
+        <tp:docstring>The new subject.</tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Set the room's subject. Clients SHOULD look at the subject
+          flags before calling this method as the user might not have
+          permission to set the subject.</p>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
+      </tp:possible-errors>
+    </method>
+
     <property name="RoomID" tp:name-for-bindings="Room_ID" type="s"
               access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
