@@ -350,14 +350,20 @@
            A unix timestamp indicating when the subject was last modified.
         </tp:docstring>
       </tp:member>
+      <tp:member type="u" tp:type="Room_Subject_Flags" name="Flags">
+        <tp:docstring>
+           A bitwise OR of the flags applicable to this channel's
+           subject.
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <property name="Subject" tp:name-for-bindings="Subject"
-              type="(ssx)" tp:type="Room_Subject" access="read">
+              type="(ssxu)" tp:type="Room_Subject" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The subject on the room such as the topic in an IRC channel,
           or the room name in XMPP MUCs. In protocols which do not support
-          subjects (like MSN), this property should be ("", "", 0).</p>
+          subjects (like MSN), this property should be ("", "", 0, 0).</p>
 
         <tp:rationale>This property replaces the subject, subject-contact, and
           subject-timestamp Telepathy properties of Text channels, as Telepathy
