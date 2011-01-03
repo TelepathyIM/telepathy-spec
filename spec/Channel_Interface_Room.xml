@@ -310,7 +310,7 @@
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
 
