@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="SetLocalFeedbackMessages"
       tp:name-for-bindings="Set_Local_Feedback_Messages">
-      <arg name="Messages" direction="in" type="a{ua(ssa{ss})}"
+      <arg name="Messages" direction="in" type="a{ua(sss)}"
         tp:type="RTCP_Feedback_Message_Map" />
       <tp:docstring>
         Sets the <tp:member-ref>LocalFeedbackMessages</tp:member-ref>
@@ -80,19 +80,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         A struct representing the properties of an RTCP feedback
         codec.
       </tp:docstring>
-      <tp:member type="s" name="Category">
-        <tp:docstring>
-          Feedback category, for example "ack", "nack", or "ccm".
-        </tp:docstring>
-      </tp:member>
       <tp:member type="s" name="Type">
         <tp:docstring>
-          Feedback type.
+          Feedback type, for example "ack", "nack", or "ccm".
         </tp:docstring>
       </tp:member>
-      <tp:member type="a{ss}" name="Parameters" tp:type="String_String_Map">
+      <tp:member type="s" name="Subtype">
         <tp:docstring>
-          Feedback parameters.
+          Feedback subtype, according to the Type, can be an empty string (""),
+	  if there is no subtype.
+	  For example, generic nack is Type="nack" Subtype="".
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Parameters">
+        <tp:docstring>
+          Feedback parameters as a string. Format is defined in the relevant RFC
         </tp:docstring>
       </tp:member>
     </tp:struct>
@@ -107,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
            PT in the SDP or content description.
         </tp:docstring>
       </tp:member>
-      <tp:member type="a(ssa{ss})" tp:type="RTCP_Feedback_Message_Properties[]"
+      <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message_Properties[]"
         name="Properties">
         <tp:docstring>
           The RTCP feedback properties for this codec.
@@ -115,7 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="LocalFeedbackMessages" type="a{ua(ssa{ss})}"
+    <property name="LocalFeedbackMessages" type="a{ua(sss)}"
       tp:type="RTCP_Feedback_Message_Map"
       access="read" tp:name-for-bindings="Local_Feedback_Messages">
       <tp:docstring>
@@ -124,7 +126,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="RemoteFeedbackMessages" type="a{ua(ssa{ss})}"
+    <property name="RemoteFeedbackMessages" type="a{ua(sss)}"
       tp:type="RTCP_Feedback_Message_Map"
       access="read" tp:name-for-bindings="Remote_Feedback_Messages">
       <tp:docstring>
