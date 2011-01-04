@@ -30,11 +30,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         Feedback (RTP/AVPF)</em> (RFC 4585).</p>
 
       <p>Handlers should call
-        <tp:member-ref>SetLocalFeedbackCodecs</tp:member-ref> just
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> just
         before calling <tp:dbus-ref
         namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>.
         The codec identifiers used in
-        <tp:member-ref>SetLocalFeedbackCodecs</tp:member-ref> should
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> should
         refer to the codecs used as <tp:dbus-ref
         namespace="ofdT.Call.Content.CodecOffer.DRAFT">Accept</tp:dbus-ref>'s
         arguments.
@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         property) and the codec offer has the <tp:dbus-ref
         namespace="ofdT.Call.Content.CodecOffer.Interface">RTCPFeedback.DRAFT</tp:dbus-ref>
         interface, then the
-        <tp:member-ref>RemoteFeedbackCodecs</tp:member-ref> property
+        <tp:member-ref>RemoteFeedbackMessages</tp:member-ref> property
         may contain useful details about what feedback parameters the
         remote contact supports.</p>
 
@@ -56,12 +56,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:docstring>
 
-    <method name="SetLocalFeedbackCodecs"
-      tp:name-for-bindings="Set_Local_Feedback_Codecs">
-      <arg name="Codecs" direction="in" type="a{ua(ssa{ss})}"
-        tp:type="RTCP_Feedback_Codec_Map" />
+    <method name="SetLocalFeedbackMessages"
+      tp:name-for-bindings="Set_Local_Feedback_Messages">
+      <arg name="Messages" direction="in" type="a{ua(ssa{ss})}"
+        tp:type="RTCP_Feedback_Message_Map" />
       <tp:docstring>
-        Sets the <tp:member-ref>LocalFeedbackCodecs</tp:member-ref>
+        Sets the <tp:member-ref>LocalFeedbackMessages</tp:member-ref>
         property. This method should be called just before calling
         <tp:dbus-ref
         namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>
@@ -74,8 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <tp:struct name="RTCP_Feedback_Codec_Properties"
-      array-name="RTCP_Feedback_Codec_Properties_List">
+    <tp:struct name="RTCP_Feedback_Message_Properties"
+      array-name="RTCP_Feedback_Message_Properties_List">
       <tp:docstring>
         A struct representing the properties of an RTCP feedback
         codec.
@@ -97,7 +97,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:struct>
 
-    <tp:mapping name="RTCP_Feedback_Codec_Map">
+    <tp:mapping name="RTCP_Feedback_Message_Map">
       <tp:docstring>
         A map of codec and its feedback properties.
       </tp:docstring>
@@ -107,7 +107,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
            PT in the SDP or content description.
         </tp:docstring>
       </tp:member>
-      <tp:member type="a(ssa{ss})" tp:type="RTCP_Feedback_Codec_Properties[]"
+      <tp:member type="a(ssa{ss})" tp:type="RTCP_Feedback_Message_Properties[]"
         name="Properties">
         <tp:docstring>
           The RTCP feedback properties for this codec.
@@ -115,18 +115,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="LocalFeedbackCodecs" type="a{ua(ssa{ss})}"
-      tp:type="RTCP_Feedback_Codec_Map"
-      access="read" tp:name-for-bindings="Local_Feedback_Codecs">
+    <property name="LocalFeedbackMessages" type="a{ua(ssa{ss})}"
+      tp:type="RTCP_Feedback_Message_Map"
+      access="read" tp:name-for-bindings="Local_Feedback_Messages">
       <tp:docstring>
         A map of local codec properties which have been set using the
-        <tp:member-ref>SetLocalFeedbackCodecs</tp:member-ref> method.
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> method.
       </tp:docstring>
     </property>
 
-    <property name="RemoteFeedbackCodecs" type="a{ua(ssa{ss})}"
-      tp:type="RTCP_Feedback_Codec_Map"
-      access="read" tp:name-for-bindings="Remote_Feedback_Codecs">
+    <property name="RemoteFeedbackMessages" type="a{ua(ssa{ss})}"
+      tp:type="RTCP_Feedback_Message_Map"
+      access="read" tp:name-for-bindings="Remote_Feedback_Messages">
       <tp:docstring>
         A map of remote feedback codec properties which have been set
         by the CM.
