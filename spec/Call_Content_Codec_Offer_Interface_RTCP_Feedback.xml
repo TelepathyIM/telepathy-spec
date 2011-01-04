@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="SetLocalFeedbackMessages"
       tp:name-for-bindings="Set_Local_Feedback_Messages">
-      <arg name="Messages" direction="in" type="a{ua(sss)}"
+      <arg name="Messages" direction="in" type="a{uua(sss)}"
         tp:type="RTCP_Feedback_Message_Map" />
       <tp:docstring>
         Sets the <tp:member-ref>LocalFeedbackMessages</tp:member-ref>
@@ -74,11 +74,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
-    <tp:struct name="RTCP_Feedback_Message_Properties"
-      array-name="RTCP_Feedback_Message_Properties_List">
+    <tp:struct name="RTCP_Feedback_Message_Properties">
+      <tp:member type="u" name="RTCPMinimumInterval">
+	<tp:docstring>
+	  The minimum interval between two regular RTCP packets in
+	  milliseconds for this content. The default value is zero if AVPF is
+	  True, 5 seconds otherwise.
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
+        name="Messages">
+        <tp:docstring>
+          The RTCP feedback messages for this codec.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="RTCP_Feedback_Message"
+      array-name="RTCP_Feedback_Message_List">
       <tp:docstring>
-        A struct representing the properties of an RTCP feedback
-        codec.
+        A struct defining an RTCP feedback message.
       </tp:docstring>
       <tp:member type="s" name="Type">
         <tp:docstring>
@@ -109,7 +124,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
            PT in the SDP or content description.
         </tp:docstring>
       </tp:member>
-      <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message_Properties[]"
+      <tp:member type="ua(sss)" tp:type="RTCP_Feedback_Message_Properties"
         name="Properties">
         <tp:docstring>
           The RTCP feedback properties for this codec.
@@ -117,7 +132,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="LocalFeedbackMessages" type="a{ua(sss)}"
+    <property name="LocalFeedbackMessages" type="a{uua(sss)}"
       tp:type="RTCP_Feedback_Message_Map"
       access="read" tp:name-for-bindings="Local_Feedback_Messages">
       <tp:docstring>
@@ -126,20 +141,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="RemoteFeedbackMessages" type="a{ua(sss)}"
+    <property name="RemoteFeedbackMessages" type="a{uua(sss)}"
       tp:type="RTCP_Feedback_Message_Map"
       access="read" tp:name-for-bindings="Remote_Feedback_Messages">
       <tp:docstring>
         A map of remote feedback codec properties which have been set
         by the CM.
-      </tp:docstring>
-    </property>
-
-    <property name="RTCPMinimumInterval" type="u"
-      access="read" tp:name-for-bindings="RTCP_Minimum_Interval">
-      <tp:docstring>
-        The minimum interval between two regular RTCP packets in
-        milliseconds for this content. The default value is zero.
       </tp:docstring>
     </property>
 
