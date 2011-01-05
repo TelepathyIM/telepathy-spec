@@ -326,12 +326,6 @@
           <p>The local content descriptions that were updated</p>
         </tp:docstring>
       </arg>
-      <arg name="Removed_Descriptions" type="au">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The local content descriptions that are no longer part
-             of this content</p>
-        </tp:docstring>
-      </arg>
     </signal>
 
     <signal name="RemoteDescriptionsChanged"
@@ -350,9 +344,24 @@
           <p>The remote content descriptions that were updated</p>
         </tp:docstring>
       </arg>
+    </signal>
+
+    <signal name="DescriptionsRemoved"
+      tp:name-for-bindings="Descriptions_Removed">
+
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Removal notification for
+            <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+              >RemoteDescriptions</tp:dbus-ref>
+            and
+            <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+              >LocalDescriptions</tp:dbus-ref>
+        </p>
+      </tp:docstring>
+
       <arg name="Removed_Descriptions" type="au">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The remote content descriptions that are no longer part
+          <p>The local and remote content descriptions that are no longer part
              of this content</p>
         </tp:docstring>
       </arg>
