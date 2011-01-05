@@ -42,17 +42,19 @@
       <p>When a new <tp:dbus-ref
         namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channel
         appears, whether it was requested or not, a <tp:dbus-ref
-        namespace="ofdT.Call.Content">Description.DRAFT</tp:dbus-ref> object
-        will either be waiting in the
-        <tp:member-ref>DescriptionOffer</tp:member-ref> property, or will
+        namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
+        object will either be waiting in the
+        <tp:member-ref>MediaDescriptionOffer</tp:member-ref> property, or will
         appear at some point via the
-        <tp:member-ref>NewDescriptionOffer</tp:member-ref> signal.</p>
+        <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> signal.</p>
 
       <p> If the remote codecs and other content information is available
-        then the  <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
-          >NoRemoteInformation</tp:dbus-ref> property will be false
+        then the  <tp:dbus-ref
+         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+         >NoRemoteInformation</tp:dbus-ref> property will be false
         and the <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">RemoteCodecs</tp:dbus-ref>
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >RemoteCodecs</tp:dbus-ref>
         property on the description offer lists the codecs which are
         supported by the remote contact, and so will determine the
         codecs that should be proposed by the local user's streaming
@@ -62,46 +64,53 @@
         starting the call (for example, <a
         href="http://xmpp.org/extensions/xep-0166.html">Jingle</a>),
         the <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">RemoteCodecs</tp:dbus-ref>
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >RemoteCodecs</tp:dbus-ref>
         will contain information on the codecs that have already been
         proposed by the remote contact, otherwise
-        the <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+        the <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >NoRemoteInformation</tp:dbus-ref> property will be true </p>
 
       <p>The streaming implementation should look at the remote description
         and the codecs and other features known by the local user and call
         <tp:dbus-ref
-        namespace="ofdT.Call.Content">Description.DRAFT.Accept</tp:dbus-ref>
+          namespace="ofdT.Call.Content"
+          >MediaDescription.DRAFT.Accept</tp:dbus-ref>
         with the locally supported description.</p>
 
       <p>This means that in practice, outgoing calls will have a content
         description pop up with <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">NoRemoteInformation</tp:dbus-ref>,
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >NoRemoteInformation</tp:dbus-ref>,
         property true so the local user will call <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">Accept</tp:dbus-ref>
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+        >Accept</tp:dbus-ref>
         with a description of all supported codecs and other features. If this
         description is accepted, then
-        <tp:member-ref>LocalDescriptionsChanged</tp:member-ref> will fire with
-        the details of description passed into <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">Accept</tp:dbus-ref>.
+        <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref> will fire
+        with the details of description passed into <tp:dbus-ref
+          namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >Accept</tp:dbus-ref>.
         If the call is incoming, then the <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">RemoteCodecs</tp:dbus-ref>
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >RemoteCodecs</tp:dbus-ref>
         will contain details of the remote contact's codecs and the
         local user will call <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT">Accept</tp:dbus-ref>
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >Accept</tp:dbus-ref>
         with the codecs that both sides understand. After the codec
         set is accepted, both
-         <tp:member-ref>LocalDescriptionsChanged </tp:member-ref> and
-         <tp:member-ref>RemoteDescriptionsChanged </tp:member-ref>
+         <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref> and
+         <tp:member-ref>RemoteMediaDescriptionsChanged</tp:member-ref>
         will fire to signal their respective changes. </p>
 
       <h4>Protocols without negotiation</h4>
 
       <p>For protocols where the codecs are not negotiable, instead of
         popping up the initial content's <tp:dbus-ref
-        namespace="ofdT.Call.Content">Description.DRAFT</tp:dbus-ref>
+        namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
         object with <tp:dbus-ref
-        namespace="ofdT.Call.Content.Description.DRAFT"
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >NoRemoteInformation</tp:dbus-ref>,
         set to true and no codecs/features being defined, the CM should set the
         supported codec values to known codec values in said object's codec
@@ -112,14 +121,15 @@
       <p>To update the local codecs in all local descriptions mid-call, the
         <tp:member-ref>UpdateCodecs</tp:member-ref> method should be
         called with details of the new codec list. If this is
-        accepted, then <tp:member-ref>LocalDescriptionsChanged </tp:member-ref>
+        accepted, then 
+        <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref>
         will be emitted with the new codec set. </p>
 
       <p>If the other side decides to update his or her codec list
         during a call, a new <tp:dbus-ref
-        namespace="ofdT.Call.Content">Description.DRAFT</tp:dbus-ref>
+        namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
         object will appear through
-        <tp:member-ref>NewDescriptionOffer</tp:member-ref> which should be
+        <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> which should be
         acted on as documented above.</p>
     </tp:docstring>
 
@@ -171,28 +181,28 @@
       </tp:member>
     </tp:mapping>
 
-    <tp:mapping name="Contact_Description_Properties_Map">
+    <tp:mapping name="Contact_Media_Description_Properties_Map">
       <tp:member name="Remote_Contact" type="u" tp:type="Handle">
         <tp:docstring>
           The remote contact this description refers to
         </tp:docstring>
       </tp:member>
-      <tp:member name="Description_Properties" type="a{sv}"
-          tp:type="Description_Properties">
+      <tp:member name="Media_Description_Properties" type="a{sv}"
+          tp:type="Media_Description_Properties">
         <tp:docstring>
           The properties of the description
         </tp:docstring>
       </tp:member>
     </tp:mapping>
 
-    <tp:struct name="Description_Offer">
+    <tp:struct name="Media_Description_Offer">
       <tp:docstring>
         The remote description offer and its information
       </tp:docstring>
-      <tp:member name="Description" type="o">
+      <tp:member name="Media_Description" type="o">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The object path to the <tp:dbus-ref namespace="ofdT.Call.Content"
-          >Description.DRAFT</tp:dbus-ref>
+          >MediaDescription.DRAFT</tp:dbus-ref>
         </tp:docstring>
       </tp:member>
       <tp:member name="Remote_Contact" type="u" tp:type="Contact_Handle">
@@ -201,14 +211,14 @@
         </tp:docstring>
       </tp:member>
       <tp:member name="Properties" type="a{sv}"
-           tp:type="Description_Properties">
+           tp:type="Media_Description_Properties">
         <tp:docstring>
           The immutable properties of all interfaces of the codec description.
 
           <tp:rationale>
           Having all the codec description properties here saves a D-Bus
           round-trip - it shouldn't be necessary to get the properties from the
-          Description object, in practice.
+          MediaDescription object, in practice.
           </tp:rationale>
         </tp:docstring>
       </tp:member>
@@ -228,138 +238,138 @@
       </arg>
     </method>
 
-    <property name="RemoteDescriptions"
-        tp:name-for-bindings="Remote_Descriptions"
+    <property name="RemoteMediaDescriptions"
+        tp:name-for-bindings="Remote_Media_Descriptions"
         type="a{ua{sv}}"
-        tp:type="Contact_Description_Properties_Map" access="read">
+        tp:type="Contact_Media_Description_Properties_Map" access="read">
       <tp:docstring>
         <p>A map from contact handles to descriptions supported by that
            contact.</p>
       </tp:docstring>
     </property>
 
-    <property name="LocalDescriptions"
-        tp:name-for-bindings="Local_Descriptions"
+    <property name="LocalMediaDescriptions"
+        tp:name-for-bindings="Local_Media_Descriptions"
         type="a{ua{sv}}"
-        tp:type="Contact_Description_Properties_Map" access="read">
+        tp:type="Contact_Media_Description_Properties_Map" access="read">
       <tp:docstring>
         <p>A map from contact handles to the descriptions as response.</p>
       </tp:docstring>
     </property>
 
-    <signal name="NewDescriptionOffer"
-        tp:name-for-bindings="New_Description_Offer">
+    <signal name="NewMediaDescriptionOffer"
+        tp:name-for-bindings="New_Media_Description_Offer">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a new <tp:dbus-ref namespace="ofdT.Call.Content"
-          >Description.DRAFT</tp:dbus-ref> appears. The streaming
+          >MediaDescription.DRAFT</tp:dbus-ref> appears. The streaming
           >implementation MUST respond by calling the
-          <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+          <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >Accept</tp:dbus-ref> or <tp:dbus-ref
-          namespace="ofdT.Call.Content.Description.DRAFT"
+          namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >Reject</tp:dbus-ref> method on the description object appeared.</p>
 
         <p>Emission of this signal indicates that the
-          <tp:member-ref>DescriptionOffer</tp:member-ref> property has
+          <tp:member-ref>MediaDescriptionOffer</tp:member-ref> property has
           changed to
-            <code>(Description, Contact, DescriptionProperties)</code>.</p>
+            <code>(Description, Contact, MediaDescriptionProperties)</code>.</p>
 
-        <p>When the DescriptionOffer has been dealt with then
+        <p>When the MediaDescriptionOffer has been dealt with then
           <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-            >DescriptionOfferDone</tp:dbus-ref> must be emitted
+            >MediaDescriptionOfferDone</tp:dbus-ref> must be emitted
           before <tp:dbus-ref
             namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >NewDescriptionOffer</tp:dbus-ref> is emitted again.
+              >NewMediaDescriptionOffer</tp:dbus-ref> is emitted again.
         </p>
 
       </tp:docstring>
-      <arg name="Description" type="o">
+      <arg name="MediaDescription" type="o">
         <tp:docstring>
-          The object path of the new description. This replaces any
-          previous description.
+          The object path of the new media description. This replaces any
+          previous media description.
         </tp:docstring>
       </arg>
       <arg name="Contact" type="u">
         <tp:docstring>
-          The remote contact the description belongs to.
+          The remote contact the media description belongs to.
         </tp:docstring>
       </arg>
       <arg name="Properties" type="a{sv}"
            tp:type="Qualified_Property_Value_Map">
         <tp:docstring>
-          The immutable properties of the remote description.
+          The immutable properties of the remote media description.
 
           <tp:rationale>
-          Having all the Description properties here saves a D-Bus round-trip -
-          it shouldn't be necessary to get the properties from the Description
-          object, in practice.
+          Having all the MediaDescription properties here saves a D-Bus
+          round-trip - it shouldn't be necessary to get the properties from the
+          MediaDescription object, in practice.
           </tp:rationale>
         </tp:docstring>
       </arg>
     </signal>
 
-    <signal name="DescriptionOfferDone"
-        tp:name-for-bindings="Description_Offer_Done">
+    <signal name="MediaDescriptionOfferDone"
+        tp:name-for-bindings="Media_Description_Offer_Done">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when a <tp:dbus-ref namespace="ofdT.Call.Content"
-          >Description.DRAFT</tp:dbus-ref> has been handled. </p>
+          >MediaDescription.DRAFT</tp:dbus-ref> has been handled. </p>
         <p>Emission of this signal indicates that the
-          <tp:member-ref>DescriptionOffer</tp:member-ref> property has
+          <tp:member-ref>MediaDescriptionOffer</tp:member-ref> property has
           changed to
             <code>("/", 0, {})</code>.</p>
       </tp:docstring>
     </signal>
 
 
-    <signal name="LocalDescriptionsChanged"
-      tp:name-for-bindings="Local_Descriptions_Changed">
+    <signal name="LocalMediaDescriptionsChanged"
+      tp:name-for-bindings="Local_Media_Descriptions_Changed">
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Change notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >LocalDescriptions</tp:dbus-ref>
+              >LocalMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
-      <arg name="Updated_Descriptions" type="a{ua{sv}}"
-        tp:type="Contact_Description_Properties_Map">
+      <arg name="Updated_Media_Descriptions" type="a{ua{sv}}"
+        tp:type="Contact_Media_Description_Properties_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local content descriptions that were updated</p>
         </tp:docstring>
       </arg>
     </signal>
 
-    <signal name="RemoteDescriptionsChanged"
-      tp:name-for-bindings="Remote_Descriptions_Changed">
+    <signal name="RemoteMediaDescriptionsChanged"
+      tp:name-for-bindings="Remote_Media_Descriptions_Changed">
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Change notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >RemoteDescriptions</tp:dbus-ref>
+              >RemoteMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
-      <arg name="Updated_Descriptions" type="a{ua{sv}}"
-          tp:type="Contact_Description_Properties_Map">
+      <arg name="Updated_Media_Descriptions" type="a{ua{sv}}"
+          tp:type="Contact_Media_Description_Properties_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The remote content descriptions that were updated</p>
         </tp:docstring>
       </arg>
     </signal>
 
-    <signal name="DescriptionsRemoved"
-      tp:name-for-bindings="Descriptions_Removed">
+    <signal name="MediaDescriptionsRemoved"
+      tp:name-for-bindings="Media_Descriptions_Removed">
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Removal notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >RemoteDescriptions</tp:dbus-ref>
+              >RemoteMediaDescriptions</tp:dbus-ref>
             and
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >LocalDescriptions</tp:dbus-ref>
+              >LocalMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
-      <arg name="Removed_Descriptions" type="au">
+      <arg name="Removed_Media_Descriptions" type="au">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local and remote content descriptions that are no longer part
              of this content</p>
@@ -367,30 +377,30 @@
       </arg>
     </signal>
 
-    <property name="DescriptionOffer"
-        tp:name-for-bindings="Description_Offer"
-      type="(oua{sv})" tp:type="Description_Offer" access="read">
+    <property name="MediaDescriptionOffer"
+        tp:name-for-bindings="Media_Description_Offer"
+      type="(oua{sv})" tp:type="Media_Description_Offer" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The object path to the current
           <tp:dbus-ref namespace="ofdT.Call.Content"
-           >Description.DRAFT</tp:dbus-ref> object, its
-            <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+           >MediaDescription.DRAFT</tp:dbus-ref> object, its
+            <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >RemoteContact</tp:dbus-ref> and
-            a mapping of the Descriptions properties.
+            a mapping of the MediaDescriptions properties.
             If the object path is "/" then there isn't an outstanding
             content description, and the mapping MUST be empty.</p>
 
         <tp:rationale>
           Having all <tp:dbus-ref
-          namespace="ofdT.Call.Content">Description.DRAFT</tp:dbus-ref>
+          namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
           properties here saves a D-Bus round-trip - it shouldn't be
-          necessary to get these properties from the Content Description
+          necessary to get these properties from the Content MediaDescription
           object, in practice.
         </tp:rationale>
 
         <p>Change notification is via the
-          <tp:member-ref>NewDescriptionOffer</tp:member-ref> and
-          <tp:member-ref>DescriptionOfferDone</tp:member-ref> signal.
+          <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> and
+          <tp:member-ref>MediaDescriptionOfferDone</tp:member-ref> signal.
          </p>
       </tp:docstring>
     </property>

@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Call_Content_Description"
+<node name="/Call_Content_Media_Description"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright © 2009-2010 Collabora Ltd.</tp:copyright>
   <tp:copyright>Copyright © 2009-2010 Nokia Corporation</tp:copyright>
@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Content.Description.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Call.Content.MediaDescription.DRAFT"
       tp:causes-havoc="experimental">
     <tp:added version="UNRELEASED">(draft 1)</tp:added>
 
@@ -30,8 +30,8 @@
     </tp:docstring>
 
     <method name="Accept" tp:name-for-bindings="Accept">
-      <arg name="Local_Description" direction="in"
-        type="a{sv}" tp:type="Description_Properties">
+      <arg name="Local_Media_Description" direction="in"
+        type="a{sv}" tp:type="Media_Description_Properties">
         <tp:docstring>
           The local description to send to the remote contacts and
           to use in the <tp:dbus-ref
@@ -106,37 +106,37 @@
       </tp:docstring>
     </property>
 
-    <tp:mapping name="Description_Properties">
+    <tp:mapping name="Media_Description_Properties">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
           A mapping containing all properties that define the information from a
           <tp:dbus-ref
-            namespace="ofdT.Call.Content">Description.DRAFT</tp:dbus-ref> and
-            its interfaces.
+            namespace="ofdT.Call.Content"
+            >MediaDescription.DRAFT</tp:dbus-ref> and its interfaces.
         </p>
 
         <p>
-          If <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+          If <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >NoRemoteInformation</tp:dbus-ref> is True then this mapping will be
           empty  otherwise it willl always contains at least
-          <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+          <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >RemoteCodecs</tp:dbus-ref>
         </p>
 
         <p>
-          The <tp:dbus-ref namespace="ofdT.Call.Content.Description.DRAFT"
+          The <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >NoRemoteInformation</tp:dbus-ref> property is never part of this
             mapping.
         </p>
       </tp:docstring>
 
-      <tp:member name="Description_Property"
+      <tp:member name="Media_Description_Property"
         type="s" tp:type="DBus_Qualified_Member">
         <tp:docstring>
           A D-Bus interface name, followed by a dot and a D-Bus property name.
         </tp:docstring>
       </tp:member>
-      <tp:member name="Description_Property_Value" type="v">
+      <tp:member name="Media_Description_Property_Value" type="v">
         <tp:docstring>
           The value of the property
         </tp:docstring>
