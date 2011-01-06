@@ -87,7 +87,7 @@
         >Accept</tp:dbus-ref>
         with a description of all supported codecs and other features. If this
         description is accepted, then
-        <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref> will fire
+        <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref> will fire
         with the details of description passed into <tp:dbus-ref
           namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >Accept</tp:dbus-ref>.
@@ -100,7 +100,7 @@
           >Accept</tp:dbus-ref>
         with the codecs that both sides understand. After the codec
         set is accepted, both
-         <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref> and
+         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref> and
          <tp:member-ref>RemoteMediaDescriptionsChanged</tp:member-ref>
         will fire to signal their respective changes. </p>
 
@@ -118,11 +118,11 @@
 
       <h4>Changing codecs mid-call</h4>
 
-      <p>To update the local codecs in all local descriptions mid-call, the
+      <p>To update the local codecs in the local description mid-call, the
         <tp:member-ref>UpdateCodecs</tp:member-ref> method should be
         called with details of the new codec list. If this is
-        accepted, then
-        <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref>
+        accepted, then 
+        <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref>
         will be emitted with the new codec set. </p>
 
       <p>If the other side decides to update his or her codec list
@@ -260,13 +260,13 @@
       </tp:docstring>
     </property>
 
-    <property name="LocalMediaDescriptions"
-        tp:name-for-bindings="Local_Media_Descriptions"
-        type="a{ua{sv}}"
-        tp:type="Contact_Media_Description_Properties_Map" access="read">
+    <property name="LocalMediaDescription"
+        tp:name-for-bindings="Local_Media_Description"
+        type="a{sv}"
+        tp:type="Media_Description_Properties" access="read">
       <tp:docstring>
-        <p>A map from contact handles to the descriptions the local side
-           responsed with.</p> </tp:docstring>
+        <p>A map containing the local media description in use.</p>
+      </tp:docstring>
     </property>
 
     <signal name="NewMediaDescriptionOffer"
@@ -332,20 +332,20 @@
     </signal>
 
 
-    <signal name="LocalMediaDescriptionsChanged"
-      tp:name-for-bindings="Local_Media_Descriptions_Changed">
+    <signal name="LocalMediaDescriptionChanged"
+      tp:name-for-bindings="Local_Media_Description_Changed">
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Change notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >LocalMediaDescriptions</tp:dbus-ref>
+              >LocalMediaDescription</tp:dbus-ref>
         </p>
       </tp:docstring>
 
-      <arg name="Updated_Media_Descriptions" type="a{ua{sv}}"
-        tp:type="Contact_Media_Description_Properties_Map">
+      <arg name="Updated_Media_Descriptions" type="a{sv}"
+        tp:type="Media_Description_Properties">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The local content descriptions that were updated</p>
+          <p>The local content description that was updated</p>
         </tp:docstring>
       </arg>
     </signal>
@@ -375,16 +375,13 @@
         <p>Removal notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
               >RemoteMediaDescriptions</tp:dbus-ref>
-            and
-            <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >LocalMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
       <arg name="Removed_Media_Descriptions" type="au"
           tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The local and remote content descriptions that are no longer part
+          <p>The remote content descriptions that are no longer part
              of this content</p>
         </tp:docstring>
       </arg>
