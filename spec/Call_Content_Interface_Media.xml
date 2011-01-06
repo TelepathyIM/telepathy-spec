@@ -119,11 +119,16 @@
       <h4>Changing codecs mid-call</h4>
 
       <p>To update the local codecs in the local description mid-call, the
-        <tp:member-ref>UpdateCodecs</tp:member-ref> method should be
-        called with details of the new codec list. If this is
+        <tp:member-ref>UpdateLocalMediaDescription</tp:member-ref> method
+	should be called with details of the new codec list. If this is
         accepted, then 
         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref>
-        will be emitted with the new codec set. </p>
+        will be emitted with the new codec set.
+      </p>
+      <p> If parameters requiring negotiation are changed, then the 
+        "Renegotiate" parameter should be set to TRUE, the new parameters should
+	only be used once they come in a new MediaDescriptionOffer.
+      </p>
 
       <p>If the other side decides to update his or her codec list
         during a call, a new <tp:dbus-ref
@@ -228,26 +233,38 @@
       </tp:member>
     </tp:struct>
 
-    <method name="UpdateCodecs" tp:name-for-bindings="Update_Codecs">
+    <method name="UpdateLocalMediaDescription"
+	    tp:name-for-bindings="Update_Local_Media_Description">
       <tp:docstring>
-        Update the codec mapping of the local MediaDescriptions. This
-        method should only be used during an existing call to update the local
-        media descriptions. Only parameters which strictly describe the media
-        being sent can be changed.
+        Update the local codec mapping and other interfaces of the
+	MediaDescription. This method should only be
+        used during an existing call to update the local media description.
+	This may trigger a re-negotiation which may result in new
+	new MediaDescriptionOffers if the "Renegotiate" argument is TRUE.
+	Otherwise, only parameters which strictly describe the media being sent
+	can be changed.
       </tp:docstring>
-      <arg name="Codecs" direction="in"
-        type="a(usuua{ss})" tp:type="Codec[]">
+      <arg name="MediaDescription" direction="in" type="a{sv}"
+	   tp:type="Media_Description_Properties">
         <tp:docstring>
-          The updated codecs map as will be used by the local end.
+          The updated media description that the local side wants to use.
         </tp:docstring>
+      </arg>
+      <arg name="Renegotiate" direction="in" type="b">
+	<tp:docstring>
+	  Trigger a renegotiation if this is TRUE. In this case, the CM
+	  will create a new Offer with the result of the negotiation.
+	  If it is FALSE, then only parameters which strictly describe the data
+	  being sent, and are therefore not negotiable, should be changed.
+	</tp:docstring>
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring>
             The protocol does not support changing the codecs mid-call.
           </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
+        </tp:error> 
+     </tp:possible-errors>
     </method>
 
     <property name="RemoteMediaDescriptions"
