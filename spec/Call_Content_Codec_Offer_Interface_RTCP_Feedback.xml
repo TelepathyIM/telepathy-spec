@@ -78,8 +78,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="u" name="RTCPMinimumInterval">
 	<tp:docstring>
 	  The minimum interval between two regular RTCP packets in
-	  milliseconds for this content. The default value is zero if AVPF is
-	  True, 5 seconds otherwise.
+	  milliseconds for this content. If no special value is desired, one
+	  should put MAXUINT (0xFFFFFFFF).
 	</tp:docstring>
       </tp:member>
       <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
