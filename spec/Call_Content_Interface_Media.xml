@@ -226,9 +226,10 @@
 
     <method name="UpdateCodecs" tp:name-for-bindings="Update_Codecs">
       <tp:docstring>
-        Update the local codec mapping. This method should only be
-        used during an existing call to update the codec mapping in all local
-        content descriptions.
+        Update the codec mapping of the local MediaDescriptions. This
+        method should only be used during an existing call to update the local
+        media descriptions. Only parameters which strictly describe the media
+        being sent can be changed.
       </tp:docstring>
       <arg name="Codecs" direction="in"
         type="a(usuua{ss})" tp:type="Codec[]">
@@ -236,6 +237,13 @@
           The updated codecs map as will be used by the local end.
         </tp:docstring>
       </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The protocol does not support changing the codecs mid-call.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <property name="RemoteMediaDescriptions"
