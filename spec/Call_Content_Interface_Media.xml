@@ -265,8 +265,8 @@
         type="a{ua{sv}}"
         tp:type="Contact_Media_Description_Properties_Map" access="read">
       <tp:docstring>
-        <p>A map from contact handles to the descriptions as response.</p>
-      </tp:docstring>
+        <p>A map from contact handles to the descriptions the local side
+           responsed with.</p> </tp:docstring>
     </property>
 
     <signal name="NewMediaDescriptionOffer"
