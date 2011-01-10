@@ -61,7 +61,7 @@
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
       type="as" tp:type="DBus_Interface[]" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Extra interfaces provided by this codec offer.  This SHOULD
+        <p>Extra interfaces provided by this media description. This SHOULD
           NOT include the Description interface itself, and cannot change
           once the content has been created.</p>
       </tp:docstring>
@@ -81,7 +81,7 @@
 
         <p> This property will never be part of the DescriptionProperties used
             to describe this object. If this property is true then the
-            DescriptionProperties describing this object will be empthy (as
+            DescriptionProperties describing this object will be empty (as
             there is no remote information to put in it)
         </p>
       </tp:docstring>
@@ -99,7 +99,7 @@
     <property name="RemoteContact" tp:name-for-bindings="Remote_Contact"
       type="u" tp:type="Contact_Handle" access="read" tp:immutable="yes">
       <tp:docstring>
-        The contact handle that this codec offer applies to or 0 for a
+        The contact handle that this description applies to or 0 for a
         description that will apply to all remote contacts in the call.
 
         [FIXME] the usage of 0 needs further clarifications

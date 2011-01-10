@@ -48,7 +48,7 @@
         appear at some point via the
         <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> signal.</p>
 
-      <p> If the remote codecs and other content information is available
+      <p> If the remote codecs and other content information are available
         then the  <tp:dbus-ref
          namespace="ofdT.Call.Content.MediaDescription.DRAFT"
          >NoRemoteInformation</tp:dbus-ref> property will be false
@@ -121,7 +121,7 @@
       <p>To update the local codecs in all local descriptions mid-call, the
         <tp:member-ref>UpdateCodecs</tp:member-ref> method should be
         called with details of the new codec list. If this is
-        accepted, then 
+        accepted, then
         <tp:member-ref>LocalMediaDescriptionsChanged</tp:member-ref>
         will be emitted with the new codec set. </p>
 
@@ -290,7 +290,7 @@
         </p>
 
       </tp:docstring>
-      <arg name="MediaDescription" type="o">
+      <arg name="Media_Description" type="o">
         <tp:docstring>
           The object path of the new media description. This replaces any
           previous media description.
@@ -408,7 +408,7 @@
 
         <p>Change notification is via the
           <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> and
-          <tp:member-ref>MediaDescriptionOfferDone</tp:member-ref> signal.
+          <tp:member-ref>MediaDescriptionOfferDone</tp:member-ref> signals.
          </p>
       </tp:docstring>
     </property>
