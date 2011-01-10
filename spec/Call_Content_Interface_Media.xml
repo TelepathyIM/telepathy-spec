@@ -306,7 +306,7 @@
         </tp:docstring>
       </arg>
       <arg name="Properties" type="a{sv}"
-           tp:type="Qualified_Property_Value_Map">
+           tp:type="Media_Description_Properties">
         <tp:docstring>
           The immutable properties of the remote media description.
 
@@ -381,7 +381,8 @@
         </p>
       </tp:docstring>
 
-      <arg name="Removed_Media_Descriptions" type="au">
+      <arg name="Removed_Media_Descriptions" type="au"
+          tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local and remote content descriptions that are no longer part
              of this content</p>
