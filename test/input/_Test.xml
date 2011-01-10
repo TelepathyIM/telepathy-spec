@@ -19,6 +19,9 @@ USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.SpecAutoGenTest">
 
+    <tp:client-interest/>
+    <tp:client-interest name="badgers"/>
+
     <tp:struct name="UV" array-name="UV_List">
       <tp:member name="Uint" type="u"/>
       <tp:member name="Variant" type="v"/>

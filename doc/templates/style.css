@@ -120,6 +120,14 @@ div.handler-capability-token {
 	border: 1px solid #228822;
 }
 
+div.client-interests {
+	background-color: #729fcf;
+}
+
+div.client-interest {
+	border: 1px solid #204a87;
+}
+
 div.types {
 	background-color: #e9b96e;
 }
@@ -215,6 +223,7 @@ div.havoc {
 }
 
 div.deprecated span.version,
+div.deprecated.no-version,
 span.warning {
 	color: #a40000;
 }
@@ -227,8 +236,16 @@ div.connection-parameter .note {
 	color: #0000a4;
 }
 
+div.emits-changed {
+	border-left-color: #17BBC3;
+}
+
 div.immutable {
 	border-left-color: #02598f;
+}
+
+div.no-reply {
+	border-left-color: #9C11A1;
 }
 
 div.requestable {

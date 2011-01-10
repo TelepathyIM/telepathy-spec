@@ -104,8 +104,10 @@ def render_template(name, namespaces, target=None):
 
 namespaces = { 'spec': spec }
 
-render_template('generic-types.html', namespaces)
-render_template('errors.html', namespaces)
+if len(spec.generic_types) > 0:
+    render_template('generic-types.html', namespaces)
+if len(spec.errors) > 0:
+    render_template('errors.html', namespaces)
 render_template('interfaces.html', namespaces)
 render_template('fullindex.html', namespaces)
 

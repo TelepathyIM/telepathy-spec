@@ -19,7 +19,7 @@
      <h3>Generic Types</h3>
      <table class="summary">
       #for $type in $spec.generic_types
-       #if $type.deprecated
+       #if $type.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -28,7 +28,7 @@
        <td>$type.get_type_name()</td>
        <td>$type.dbus_type</td>
        <td>
-        #if $type.deprecated: (deprecated)
+        #if $type.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -40,7 +40,7 @@
     <h1>Generic Types</h1>
     #for $type in $spec.generic_types
      <div class="inset type">
-      <a name="$type.name"></a>
+      <a name="$type.get_anchor()"></a>
       <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
        $type.short_name &mdash; $type.dbus_type

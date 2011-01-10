@@ -13,6 +13,7 @@
    <a href="index.html">Interface Index</a>
    (<a href="interfaces.html">Compact</a>)
    | <a href="#summary">Summary</a>
+   #if $interface.client_interests: | <a href="#client-interests">Client Interests</a>
    #if $interface.docstring: | <a href="#description">Description</a>
    #if $interface.methods: | <a href="#methods">Methods</a>
    #if $interface.signals: | <a href="#signals">Signals</a>
@@ -27,11 +28,19 @@
     #if $interface.methods or $interface.signals or $interface.properties or $interface.types or $interface.tpproperties
     <div class="summary">
      <a name="summary"></a>
+     #if $interface.client_interests
+     <h3>Client Interests</h3>
+     <table class="summary">
+      #for $interest in $interface.client_interests
+      <td><a href="$interest.get_url()">$interest.name</a></td>
+      #end for
+     </table>
+     #end if
      #if $interface.methods
      <h3>Methods</h3>
      <table class="summary">
       #for $method in $interface.methods
-       #if $method.deprecated
+       #if $method.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -41,7 +50,7 @@
        <td>&#8594;</td>
        <td>$method.get_out_args()</td>
        <td>
-        #if $method.deprecated: (deprecated)
+        #if $method.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -52,7 +61,7 @@
      <h3>Signals</h3>
      <table class="summary">
       #for $signal in $interface.signals
-       #if $signal.deprecated
+       #if $signal.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -60,7 +69,7 @@
        <td><a href="$signal.get_url()">$signal.short_name</a></td>
        <td>($signal.get_args())</td>
        <td>
-        #if $signal.deprecated: (deprecated)
+        #if $signal.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -71,7 +80,7 @@
      <h3>Properties</h3>
      <table class="summary">
       #for $property in $interface.properties
-       #if $property.deprecated
+       #if $property.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -84,7 +93,7 @@
        <td>$property.get_access()</td>
        <td>$property.get_flag_summary()</td>
        <td>
-        #if $property.deprecated: (deprecated)
+        #if $property.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -142,7 +151,7 @@
      <h3>Types</h3>
      <table class="summary">
       #for $type in $interface.types
-       #if type.deprecated
+       #if type.is_deprecated
         <tr class="deprecated">
        #else
         <tr>
@@ -151,7 +160,7 @@
        <td>$type.get_type_name()</td>
        <td>$type.dbus_type</td>
        <td>
-        #if $type.deprecated: (deprecated)
+        #if $type.is_deprecated: (deprecated)
        </td>
       </tr>
       #end for
@@ -194,19 +203,44 @@
     $interface.get_docstring()
    #end if
 
+   #if $interface.client_interests
+   <div class="outset client-interests client-interest">
+    <a name="client-interests"></a>
+    <h1>Client Interests</h1>
+    <div>
+     Set using the
+     <a href="Connection.html#org.freedesktop.Telepathy.Connection.AddClientInterest">AddClientInterest</a> and
+     <a href="Connection.html#org.freedesktop.Telepathy.Connection.RemoveClientInterest">RemoveClientInterest</a> methods.
+    </div>
+    #for $interest in $interface.client_interests
+    <div class="inset client-interest">
+     <a name="$interest.get_anchor()"></a>
+     <span class="permalink">(<a href="$interest.get_url()">Permalink</a>)</span>
+     <h2>$interest.name</h2>
+
+     $interest.get_docstring()
+    </div>
+    #end for
+   </div>
+   #end if
+
    #if $interface.methods
    <div class="outset methods method">
     <a name="methods"></a>
     <h1>Methods</h1>
     #for $method in $interface.methods
     <div class="inset method">
-     <a name="$method.name"></a>
+     <a name="$method.get_anchor()"></a>
      <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
      <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
 
      $method.get_added()
      $method.get_changed()
      $method.get_deprecated()
+
+     #if $method.no_reply
+     <div class="annotation no-reply">The caller should not expect a reply when calling this method.</div>
+     #end if
 
      #if $method.in_args
      <div class="indent">
@@ -272,7 +306,7 @@
     <h1>Signals</h1>
     #for $signal in $interface.signals
     <div class="inset signal">
-     <a name="$signal.name"></a>
+     <a name="$signal.get_anchor()"></a>
      <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
      <h2>$signal.short_name ($signal.get_args())</h2>
 
@@ -315,7 +349,7 @@
     </div>
     #for $property in $interface.properties
     <div class="inset property">
-     <a name="$property.name"></a>
+     <a name="$property.get_anchor()"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
@@ -323,14 +357,26 @@
      </h2>
       <div class="access">$property.get_access()</div>
 
-     #if $property.immutable:
+     #if $property.sometimes_immutable:
+     <div class="annotation immutable">Depending on the protocol, this
+       property may be <strong>immutable</strong> which means that it can never
+       #if $interface.is_channel_related:
+       change once the channel has been created. Immutable properties SHOULD
+       appear in the channel detail list
+       of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
+       signals.
+       #else
+       change.
+       #end if
+     </div>
+     #elif $property.immutable:
      <div class="annotation immutable">This property is
        <strong>immutable</strong> which means that it can never
        #if $interface.is_channel_related:
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
        of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
-       signals
+       signals.
        #else
        change.
        #end if
@@ -371,6 +417,25 @@
      $property.get_changed()
      $property.get_deprecated()
 
+     #if $property.emits_changed == $property.EMITS_CHANGED_UPDATES
+     <div class="annotation emits-changed emits-changed-updates">
+       When this property changes, the
+       <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
+       signal is emitted with the new value.
+     </div>
+     #elif $property.emits_changed == $property.EMITS_CHANGED_INVALIDATES
+     <div class="annotation emits-changed emits-changed-invalidates">
+       When this property changes, the
+       <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
+       signal is emitted, but the new value is not sent.
+     </div>
+     #elif $property.emits_changed == $property.EMITS_CHANGED_NONE
+     <div class="annotation emits-changed emits-changed-none">
+       The <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
+       signal is <strong>not</strong> emitted when this property changes.</div>
+     </div>
+     #end if
+
       #if $property.is_connection_parameter:
       <div class="annotation connection-parameter">
         <p><span class='note'>Note:</span> Connections implementing this
@@ -404,7 +469,7 @@
     </div>
     #for $property in $interface.tpproperties
     <div class="inset tpproperty">
-     <a name="$property.name"></a>
+     <a name="$property.get_anchor()"></a>
      <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
      <h2>
       $property.short_name &mdash; $property.dbus_type
@@ -429,7 +494,7 @@
     </div>
     #for $token in $interface.contact_attributes
     <div class="inset contact-attribute">
-     <a name="$token.name"></a>
+     <a name="$token.get_anchor()"></a>
      <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
      <h2>
       $token.name &mdash; $token.dbus_type
@@ -453,7 +518,7 @@
     </div>
     #for $token in $interface.handler_capability_tokens
     <div class="inset handler-capability-token">
-     <a name="$token.name"></a>
+     <a name="$token.get_anchor()"></a>
      <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
      <h2>
       $token.name
@@ -476,7 +541,7 @@
     <h1>Types</h1>
     #for $type in $interface.types
      <div class="inset type">
-      <a name="$type.name"></a>
+      <a name="$type.get_anchor()"></a>
       <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
       <h2>
        $type.short_name &mdash; $type.dbus_type
