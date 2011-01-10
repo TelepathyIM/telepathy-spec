@@ -184,7 +184,11 @@
     <tp:mapping name="Contact_Media_Description_Properties_Map">
       <tp:member name="Remote_Contact" type="u" tp:type="Handle">
         <tp:docstring>
-          The remote contact this description refers to
+          The remote contact this description refers to or 0. This matches the
+          <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+            >RemoteContact</tp:dbus-ref> property on
+          <tp:dbus-ref namespace="ofdT.Call.Content"
+                    >MediaDescription.DRAFT</tp:dbus-ref>
         </tp:docstring>
       </tp:member>
       <tp:member name="Media_Description_Properties" type="a{sv}"
