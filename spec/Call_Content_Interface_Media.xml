@@ -51,7 +51,7 @@
       <p> If the remote codecs and other content information are available
         then the  <tp:dbus-ref
          namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-         >NoRemoteInformation</tp:dbus-ref> property will be false
+         >HasRemoteInformation</tp:dbus-ref> property will be true
         and the <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >RemoteCodecs</tp:dbus-ref>
@@ -69,7 +69,7 @@
         will contain information on the codecs that have already been
         proposed by the remote contact, otherwise
         the <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-          >NoRemoteInformation</tp:dbus-ref> property will be true </p>
+          >HasRemoteInformation</tp:dbus-ref> property will be false </p>
 
       <p>The streaming implementation should look at the remote description
         and the codecs and other features known by the local user and call
@@ -81,8 +81,8 @@
       <p>This means that in practice, outgoing calls will have a content
         description pop up with <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-          >NoRemoteInformation</tp:dbus-ref>,
-        property true so the local user will call <tp:dbus-ref
+          >HasRemoteInformation</tp:dbus-ref>,
+        property false so the local user will call <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
         >Accept</tp:dbus-ref>
         with a description of all supported codecs and other features. If this
@@ -111,8 +111,8 @@
         namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
         object with <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-          >NoRemoteInformation</tp:dbus-ref>,
-        set to true and no codecs/features being defined, the CM should set the
+          >HasRemoteInformation</tp:dbus-ref>,
+        set to false and no codecs/features being defined, the CM should set the
         supported codec values to known codec values in said object's codec
         map.</p>
 

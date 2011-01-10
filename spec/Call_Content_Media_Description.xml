@@ -67,15 +67,15 @@
       </tp:docstring>
     </property>
 
-    <property name="NoRemoteInformation"
-      tp:name-for-bindings="No_Remote_Information" type="b"
+    <property name="HasRemoteInformation"
+      tp:name-for-bindings="Has_Remote_Information" type="b"
       access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml" >
-        <p> True if this offer contains no information from the remote side:
-            In other words, the Accept response solely depends on the
+        <p> True if this offer contains information from the remote side:
+            If False then the Accept response solely depends on the
             capabilities and preferences of the local side.
 
-            In most protocols this property will be True for the initial
+            In most protocols this property will be False for the initial
             DescriptionOffer on an outgoing call.
         </p>
 
@@ -117,15 +117,15 @@
 
         <p>
           If <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-            >NoRemoteInformation</tp:dbus-ref> is True then this mapping will be
-          empty  otherwise it willl always contains at least
+            >HasRemoteInformation</tp:dbus-ref> is False then this mapping
+            will be empty  otherwise it willl always contains at least
           <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >RemoteCodecs</tp:dbus-ref>
         </p>
 
         <p>
           The <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-            >NoRemoteInformation</tp:dbus-ref> property is never part of this
+            >HasRemoteInformation</tp:dbus-ref> property is never part of this
             mapping.
         </p>
       </tp:docstring>
