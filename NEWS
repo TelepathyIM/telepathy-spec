@@ -9,6 +9,11 @@ telepathy-spec 0.21.9 (UNRELEASED)
 
 “Ready as I'll ever be.”
 
+Changes to unstable API:
+
+• Move the Packetization property from Call.Content to
+  Call.Content.Interface.Media (sjoerd)
+
 telepathy-spec 0.21.8 (2010-12-20)
 ==================================
 
