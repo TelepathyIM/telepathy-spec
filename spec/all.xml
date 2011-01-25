@@ -259,6 +259,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  <xi:include href="Account_Interface_Addressing.xml"/>
  <xi:include href="Account_Interface_Avatar.xml"/>
  <xi:include href="Account_Interface_Storage.xml"/>
+ <xi:include href="Account_Interface_External_Password_Storage.xml"/>
 </tp:section>
 
 <tp:section name="The Channel Dispatcher">
