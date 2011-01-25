@@ -32,6 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </p>
  </tp:docstring>
  <xi:include href="Connection_Manager.xml"/>
+ <xi:include href="Connection_Manager_Interface_Account_Storage.xml"/>
  <xi:include href="Protocol.xml"/>
  <xi:include href="Protocol_Interface_Addressing.xml"/>
  <xi:include href="Protocol_Interface_Avatars.xml"/>
