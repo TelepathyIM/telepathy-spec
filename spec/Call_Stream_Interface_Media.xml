@@ -118,7 +118,7 @@
       <tp:member name="IP" type="s">
         <tp:docstring>The IP address to use.</tp:docstring>
       </tp:member>
-      <tp:member name="Port" type="q">
+      <tp:member name="Port" type="u">
         <tp:docstring>The port number to use.</tp:docstring>
       </tp:member>
       <tp:member name="Info" type="a{sv}" tp:type="Candidate_Info">
@@ -133,7 +133,7 @@
         signal them to the remote contact(s).
       </tp:docstring>
       <arg name="Candidates" direction="in"
-        type="a(usqa{sv})" tp:type="Candidate[]">
+        type="a(usua{sv})" tp:type="Candidate[]">
         <tp:docstring>
           The candidates to be added.
         </tp:docstring>
@@ -216,7 +216,7 @@
     </property>
 
     <property name="LocalCandidates" tp:name-for-bindings="Local_Candidates"
-      type="a(usqa{sv})" tp:type="Candidate[]" access="read">
+      type="a(usua{sv})" tp:type="Candidate[]" access="read">
       <tp:docstring>
         [FIXME]. Change notification is via the
         <tp:member-ref>LocalCandidatesAdded</tp:member-ref> signal.
@@ -229,7 +229,7 @@
         Emitted when local candidates are added to the
         <tp:member-ref>LocalCandidates</tp:member-ref> property.
       </tp:docstring>
-      <arg name="Candidates" type="a(usqa{sv})" tp:type="Candidate[]">
+      <arg name="Candidates" type="a(usua{sv})" tp:type="Candidate[]">
         <tp:docstring>
           Candidates that have been added.
         </tp:docstring>
