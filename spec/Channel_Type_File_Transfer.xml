@@ -279,7 +279,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         inform observers where the incoming file will be saved.
         Setting this property once <tp:member-ref>AcceptFile</tp:member-ref>
         has been called MUST fail. Once this property has been set
-        <tp:member-ref>FileURIDefined</tp:member-ref> is fired.</p>
+        <tp:member-ref>FileURIDefined</tp:member-ref> is emitted.</p>
       </tp:docstring>
     </property>
 
