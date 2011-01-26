@@ -553,9 +553,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.21.UNRELEASED"/>
       <tp:docstring>
         Emitted when the value of the <tp:member-ref>FileURI</tp:member-ref>
-        property has been set. This signal MAY only be fired on incoming file
-        transfers if the handler had set a value to
-        <tp:member-ref>FileURI</tp:member-ref> before accepting the file.
+        property has been set. This signal MUST only be emitted on
+        incoming file transfers, and only if the handler sets the
+        <tp:member-ref>FileURI</tp:member-ref> property before
+        accepting the file.
       </tp:docstring>
       <arg name="File_URI" type="s">
         <tp:docstring>
