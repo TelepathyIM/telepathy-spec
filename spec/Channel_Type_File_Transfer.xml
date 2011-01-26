@@ -271,6 +271,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         streams the file into the CM through the socket negotiated using
         <tp:member-ref>ProvideFile</tp:member-ref>.</p>
 
+        <p>For outgoing file transfers, most of the time this URI will be a
+        file but it MAY be something else; if we're streaming
+        a web page to a contact for example.</p>
+
         <p>On outgoing file transfers, this property MUST NOT change after the channel
         is requested.</p>
 
@@ -280,6 +284,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Setting this property once <tp:member-ref>AcceptFile</tp:member-ref>
         has been called MUST fail. Once this property has been set
         <tp:member-ref>URIDefined</tp:member-ref> is emitted.</p>
+
+        <p>For incoming file transfers, this URI MUST be a file.</p>
+
       </tp:docstring>
     </property>
 
