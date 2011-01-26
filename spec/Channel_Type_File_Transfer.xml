@@ -260,8 +260,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
     </property>
 
-    <property name="FileURI" type="s" access="readwrite"
-      tp:name-for-bindings="File_URI" tp:immutable="sometimes" tp:requestable="yes">
+    <property name="URI" type="s" access="readwrite"
+      tp:name-for-bindings="URI" tp:immutable="sometimes" tp:requestable="yes">
       <tp:added version="0.21.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For outgoing file transfers, this requestable property allows the channel
@@ -279,7 +279,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         inform observers where the incoming file will be saved.
         Setting this property once <tp:member-ref>AcceptFile</tp:member-ref>
         has been called MUST fail. Once this property has been set
-        <tp:member-ref>FileURIDefined</tp:member-ref> is emitted.</p>
+        <tp:member-ref>URIDefined</tp:member-ref> is emitted.</p>
       </tp:docstring>
     </property>
 
@@ -548,19 +548,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <signal name="FileURIDefined"
-      tp:name-for-bindings="File_URI_Defined">
+    <signal name="URIDefined"
+      tp:name-for-bindings="URI_Defined">
       <tp:added version="0.21.UNRELEASED"/>
       <tp:docstring>
-        Emitted when the value of the <tp:member-ref>FileURI</tp:member-ref>
+        Emitted when the value of the <tp:member-ref>URI</tp:member-ref>
         property has been set. This signal MUST only be emitted on
         incoming file transfers, and only if the handler sets the
-        <tp:member-ref>FileURI</tp:member-ref> property before
+        <tp:member-ref>URI</tp:member-ref> property before
         accepting the file.
       </tp:docstring>
-      <arg name="File_URI" type="s">
+      <arg name="URI" type="s">
         <tp:docstring>
-          The value of the <tp:member-ref>FileURI</tp:member-ref> property.
+          The value of the <tp:member-ref>URI</tp:member-ref> property.
         </tp:docstring>
       </arg>
     </signal>
