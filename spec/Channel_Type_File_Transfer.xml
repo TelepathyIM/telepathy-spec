@@ -271,10 +271,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         streams the file into the CM through the socket negotiated using
         <tp:member-ref>ProvideFile</tp:member-ref>.</p>
 
-        <p>For outgoing file transfers, most of the time this URI will be a
-        file but it MAY be something else; if we're streaming
-        a web page to a contact for example.</p>
-
         <p>On outgoing file transfers, this property MUST NOT change after the channel
         is requested.</p>
 
@@ -285,7 +281,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         has been called MUST fail. Once this property has been set
         <tp:member-ref>URIDefined</tp:member-ref> is emitted.</p>
 
-        <p>For incoming file transfers, this URI MUST be a file.</p>
+        <p>If set, this URI SHOULD generally point to a file on the local system, as
+        defined by <a href='http://www.apps.ietf.org/rfc/rfc1738.html#sec-3.10'>
+        RFC 1738 §3.10</a>; that is, it should be of the form
+        <tt>file:///path/to/file</tt> or <tt>file://localhost/path/to/file</tt>.
+        For outgoing files, this URI MAY use a different scheme, such as
+        <tt>http:</tt>, if a remote resource is being transferred
+        to a contact.</p>
 
       </tp:docstring>
     </property>
