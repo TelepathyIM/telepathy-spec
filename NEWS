@@ -2,12 +2,18 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.9 (UNRELEASED)
+telepathy-spec 0.21.9 (2011-01-28)
 ==================================
 
 “Are you ready for what's coming?”
 
 “Ready as I'll ever be.”
+
+New stable API:
+
+• Add a FileTransfer.URI property which can be used to tell other
+  Telepathy clients about the location of the transferred
+  file. (fdo#32434, cassidy)
 
 Changes to unstable API:
 
