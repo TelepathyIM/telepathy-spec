@@ -262,7 +262,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <property name="URI" type="s" access="readwrite"
       tp:name-for-bindings="URI" tp:immutable="sometimes" tp:requestable="yes">
-      <tp:added version="0.21.UNRELEASED"/>
+      <tp:added version="0.21.9"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For outgoing file transfers, this requestable property allows the channel
         requester to inform observers (and the handler, if it is not the requester
@@ -559,7 +559,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="URIDefined"
       tp:name-for-bindings="URI_Defined">
-      <tp:added version="0.21.UNRELEASED"/>
+      <tp:added version="0.21.9"/>
       <tp:docstring>
         Emitted when the value of the <tp:member-ref>URI</tp:member-ref>
         property has been set. This signal MUST only be emitted on
