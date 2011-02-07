@@ -92,10 +92,21 @@
       </arg>
     </signal>
 
+    <tp:struct name="Candidate_Pair" array-name="Candidate_Pair_List">
+      <tp:docstring>A Pair of candidates.</tp:docstring>
+      <tp:member name="Local" type="(usua{sv})" tp:type="Candidate">
+        <tp:docstring>The local candidate.</tp:docstring>
+      </tp:member>
+      <tp:member name="Remote" type="(usua{sv})" tp:type="Candidate">
+        <tp:docstring>The Remote candidate.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
     <signal name="CandidatePairSelected"
       tp:name-for-bindings="Candidate_Pair_Selected">
       <tp:docstring>
-        Emitted when a candidate is selected for use in the stream.
+        Emitted when a candidate is selected for use in the stream by the
+        controlling side of an ICE session.
       </tp:docstring>
       <arg name="Local_Candidate"
         type="(usua{sv})" tp:type="Candidate">
@@ -112,7 +123,7 @@
     </signal>
 
     <property name="SelectedCandidatePairs"
-      tp:name-for-bindings="Selected_Candidates"
+      tp:name-for-bindings="Selected_Candidate_Pairs"
       type="a((usua{sv})(usua{sv}))" tp:type="Candidate_Pair[]"
       access="read">
       <tp:docstring>
@@ -122,30 +133,32 @@
         Change notification is given via the
         the <tp:member-ref>CandidatePairSelected</tp:member-ref> signal.
 
-        From rfc 5245 section 9.2.2.3:
+        Note to client implementors (from rfc 5245 section 9.2.2.3):
         <blockquote>
           If at least one of the pairs is In-Progress, the agent SHOULD wait
           for those checks to complete, and as each completes, redo the
           processing in this section until there are no losing pairs.
         </blockquote>
 
-        See rfc 5245 Appendix B.6. (The remote-candidates Attribute) for more
-        details about the race condition which requires the remote candidates
-        to be signalled.
+        See rfc 5245 Appendix B.6. for more details about why this is.
       </tp:docstring>
     </property>
 
     <method name="SetSelectedCandidatePair"
       tp:name-for-bindings="Set_Selected_Candidate_Pair">
       <tp:docstring>
-        Update or accept the entry in 
+        Update the entry in
         <tp:member-ref>SelectedCandidatePairs</tp:member-ref>
         for a particular component, and signal it to the remote side.
+
+        This method should only be called by the controlling side of an
+        ICE session. The controlled side should call SetStreamState(Connected)
+        to respond to the offer.
         <tp:rationale>
           In the SDP offer/answer model, this signalling will take place as
-          either accepting an existing offer or generating an updated offer.
+          generating an updated offer.
           Note that updates may be queued up until information about all
-          components is gathered.
+          components for all streams is gathered.
         </tp:rationale>
       </tp:docstring>
       <arg name="Local_Candidate"
