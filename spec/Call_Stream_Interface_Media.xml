@@ -136,6 +136,16 @@
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:struct name="Candidate_Pair" array-name="Candidate_Pair_List">
+      <tp:docstring>A Pair of candidates.</tp:docstring>
+      <tp:member name="Local" type="(usua{sv})" tp:type="Candidate">
+        <tp:docstring>The local candidate.</tp:docstring>
+      </tp:member>
+      <tp:member name="Remote" type="(usua{sv})" tp:type="Candidate">
+        <tp:docstring>The Remote candidate.</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
     <tp:struct name="Candidate" array-name="Candidate_List">
       <tp:docstring>A Stream Candidate.</tp:docstring>
       <tp:member name="Component" type="u" tp:type="Stream_Component">
