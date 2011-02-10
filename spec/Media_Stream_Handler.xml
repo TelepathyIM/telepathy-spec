@@ -721,6 +721,63 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.3"/>
     </method>
 
+    <tp:struct name="RTCP_Feedback_Message_Properties">
+      <tp:member type="u" name="RTCPMinimumInterval">
+	<tp:docstring>
+	  The minimum interval between two regular RTCP packets in
+	  milliseconds for this content. If no special value is desired, one
+	  should put MAXUINT (0xFFFFFFFF).
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
+		 name="Messages">
+	<tp:docstring>
+	  The RTCP feedback messages for this codec.
+	</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="RTCP_Feedback_Message"
+	       array-name="RTCP_Feedback_Message_List">
+      <tp:docstring>
+	A struct defining an RTCP feedback message.
+      </tp:docstring>
+      <tp:member type="s" name="Type">
+	<tp:docstring>
+	  Feedback type, for example "ack", "nack", or "ccm".
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Subtype">
+	<tp:docstring>
+	  Feedback subtype, according to the Type, can be an empty string (""),
+	  if there is no subtype.
+	  For example, generic nack is Type="nack" Subtype="".
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Parameters">
+	<tp:docstring>
+	  Feedback parameters as a string. Format is defined in the relevant RFC
+	</tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:mapping name="RTCP_Feedback_Message_Map">
+      <tp:docstring>
+	A map of codec and its feedback properties.
+      </tp:docstring>
+      <tp:member type="u" name="Codec_Identifier">
+	<tp:docstring>
+	  Numeric identifier for the codec. This will be used as the
+	  PT in the SDP or content description.
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="(ua(sss))" tp:type="RTCP_Feedback_Message_Properties"
+		 name="Properties">
+	<tp:docstring>
+	  The RTCP feedback properties for this codec.
+	</tp:docstring>
+      </tp:member>
+    </tp:mapping>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
