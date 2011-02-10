@@ -845,6 +845,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:struct>
 
+    <signal name="SetRemoteHeaderExtensions"
+	    tp:name-for-bindings="Set_Remote_Header_Extensions">
+      <arg name="HeaderExtensions" type="a(uuss)"
+	   tp:type="RTP_Header_Extension[]">
+        <tp:docstring>
+	  Header extensions desired by the remote side
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Signal emitted when the connection manager wishes to inform the
+        client of the RTP header extensions supported by the remote end.
+	This signal is emitted before
+	<tp:member-ref>SetRemoteCodecs</tp:member-ref>. If the client
+	supports any of these messages, it must call
+	<tp:member-ref>SupportedHeaderExtensions</tp:member-ref> before calling
+	<tp:member-ref>SupportedCodecs</tp:member-ref>.
+      </tp:docstring>
+    </signal>
+
+    <method name="SupportedHeaderExtensions"
+	    tp:name-for-bindings="Supported_Header_Extensions">
+      <arg name="HeaderExtensions" direction="in" type="a(uuss)"
+	   tp:type="RTP_Header_Extension[]">
+        <tp:docstring>
+          Locally supported RTP header extensions.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Inform the connection manager of the supported RTP header extensions
+	for this session.
+        This is called before calling
+	<tp:member-ref>SupportedCodecs</tp:member-ref>,
+	<tp:member-ref>Ready</tp:member-ref> or
+	<tp:member-ref>CodecsUpdated</tp:member-ref> to indicate the local
+	or negotiated RTP header extensions.
+      </tp:docstring>
+    </method>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
