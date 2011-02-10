@@ -779,6 +779,45 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
+    <signal name="SetRemoteFeedbackMessages"
+	    tp:name-for-bindings="Set_Remote_Feedback_Messages">
+      <arg name="Messages" type="a{u(ua(sss))}"
+	   tp:type="RTCP_Feedback_Message_Map">
+        <tp:docstring>
+          Remote Feedback messages desired by the remote side
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Signal emitted when the connection manager wishes to inform the
+        client of the feedback messages supported by the remote end.
+	This signal is emitted before
+	<tp:member-ref>SetRemoteCodecs</tp:member-ref>. If the client
+	supports any of these messages, it must call
+	<tp:member-ref>SupportedFeedbackMessages</tp:member-ref> before calling
+	<tp:member-ref>SupportedCodecs</tp:member-ref>.
+      </tp:docstring>
+    </signal>
+
+    <method name="SupportedFeedbackMessages"
+	    tp:name-for-bindings="Supported_Feedback_Messages">
+      <arg name="Messages" direction="in" type="a{u(ua(sss))}"
+	   tp:type="RTCP_Feedback_Message_Map">
+        <tp:docstring>
+          Locally supported feedback messages.
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Inform the connection manager of the supported feedback messages
+	for this session.
+        This is called a before calling
+	<tp:member-ref>SupportedCodecs</tp:member-ref>,
+	<tp:member-ref>Ready</tp:member-ref> or
+	<tp:member-ref>CodecsUpdated</tp:member-ref> to indicate the local,
+	or negotiated feedback messages.
+      </tp:docstring>
+    </method>
+ 
+
     <tp:struct name="RTP_Header_Extension"
       array-name="RTP_Header_Extensions_List">
       <tp:docstring>
