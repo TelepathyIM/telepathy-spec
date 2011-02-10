@@ -778,6 +778,34 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 	</tp:docstring>
       </tp:member>
     </tp:mapping>
+
+    <tp:struct name="RTP_Header_Extension"
+      array-name="RTP_Header_Extensions_List">
+      <tp:docstring>
+        A struct defining a RTP Header extension
+      </tp:docstring>
+      <tp:member type="u" name="ID">
+	<tp:docstring>
+	  Identifier to be negotiated
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Media_Stream_Direction"  name="Direction">
+        <tp:docstring>
+          Direction in which the Header Extension is negotiated.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="URI">
+        <tp:docstring>
+	  URI defining the extension
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Parameters">
+        <tp:docstring>
+          Feedback parameters as a string. Format is defined in the relevant RFC
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
