@@ -20,6 +20,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Media.StreamHandler">
 
+    <tp:docstring>
+    Handles signalling the information pertaining to a specific media stream.
+    A client should provide information to this handler as and when it is
+    available.
+    </tp:docstring>
+
     <tp:struct name="Media_Stream_Handler_Candidate"
       array-name="Media_Stream_Handler_Candidate_List">
       <tp:member type="s" name="Name"/>
@@ -715,11 +721,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.3"/>
     </method>
 
-    <tp:docstring>
-    Handles signalling the information pertaining to a specific media stream.
-    A client should provide information to this handler as and when it is
-    available.
-    </tp:docstring>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
