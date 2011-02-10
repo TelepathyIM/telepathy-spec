@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<node name="/Call_Content_Codec_Offer_Interface_RTP_Header_Extensions" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright> Copyright © 2005-2010 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright © 2005-2010 Collabora Ltd </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.Call.Content.CodecOffer.Interface.RTPHeaderExtensions.DRAFT"
+    tp:causes-havoc="experimental">
+    <tp:added version="0.21.UNRELEASED">(draft version, not API-stable)</tp:added>
+    <tp:requires interface="org.freedesktop.Telepathy.Call.Content.CodecOffer.DRAFT"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>This codec offer interface provides a method of signalling
+        support for RTP Header Extensions, documented by
+	<em>A General Mechanism for RTP Header Extensions (RFC 5285)</em>.</p>
+
+      <p>Handlers should call
+        <tp:member-ref>SetLocalHeaderExtensions</tp:member-ref> just
+        before calling <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>.
+      </p>
+
+      <p>If the remote contact codecs are already known (by examining
+        the <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.RemoteContactCodecs</tp:dbus-ref>
+        property) and the codec offer has the <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.Interface">RTPHeaderExtensions.DRAFT</tp:dbus-ref>
+        interface, then the
+        <tp:member-ref>RemoteHeaderExtensions</tp:member-ref> property
+        may contain useful details about what RTP Header Extensions the
+        remote contact supports.</p>
+
+      <p>For more details on the General Mechanism for RTP Header Extensions
+         and how to use then, one should refer to
+        <a href="http://www.faqs.org/rfcs/rfc5285.html">RFC 5285</a>.</p>
+
+    </tp:docstring>
+
+    <tp:struct name="RTP_Header_Extension"
+      array-name="RTP_Header_Extensions_List">
+      <tp:docstring>
+        A struct defining a RTP Header extension
+      </tp:docstring>
+      <tp:member type="u" name="ID">
+	<tp:docstring>
+	  Identifier to be negotiated
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="u" tp:type="Media_Stream_Direction"  name="Direction">
+        <tp:docstring>
+          Direction in which the Header Extension is negotiated.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="URI">
+        <tp:docstring>
+	  URI defining the extension
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Parameters">
+        <tp:docstring>
+          Feedback parameters as a string. Format is defined in the relevant RFC
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <method name="SetLocalHeaderExtensions"
+      tp:name-for-bindings="Set_Local_Header_Extensions">
+      <arg name="HeaderExtensions" direction="in" type="a(uuss)"
+        tp:type="RTP_Header_Extension[]" />
+      <tp:docstring>
+        Sets the <tp:member-ref>LocalHeaderExtensions</tp:member-ref>
+        property. This method should be called just before calling
+        <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>.
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
+    </method>
+
+    <property name="LocalHeaderExtensions" type="a(uuss)"
+      tp:type="RTP_Header_Extension[]"
+      access="read" tp:name-for-bindings="Local_Header_Extensions">
+      <tp:docstring>
+        A lost of local header extensions which have been set using the
+        <tp:member-ref>SetLocalHeaderExtensions</tp:member-ref> method.
+      </tp:docstring>
+    </property>
+
+    <property name="RemoteHeaderExtensions" type="a(uuss)"
+      tp:type="RTP_Header_Extension[]"
+      access="read" tp:name-for-bindings="Remote_Header_Extensions">
+      <tp:docstring>
+        A lost of remote header extensions which have been set
+        by the CM.
+      </tp:docstring>
+    </property>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
