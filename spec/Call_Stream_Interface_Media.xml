@@ -26,7 +26,17 @@
     <tp:requires interface="org.freedesktop.Telepathy.Call.Stream.DRAFT"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      [FIXME]
+      <p>This interfaces deals with how a to connect a stream to an
+      endpoint.  It contains all that is required to describe the
+      local endpoint, to succesfully establish a connection. While a
+      call is established, one may try to connect to multiple remote
+      endpoints at the same time. This is called forking in the SIP
+      jargon.  Informations related to the connections are on the
+      <tp:dbus-ref
+      namespace="ofdT.Call.Stream">Endpoint.DRAFT</tp:dbus-ref>
+      objects. Once the call is established, there MUST be a single
+      endpoint left.</p>
+      
 
       <h4>ICE restarts</h4>
 
