@@ -46,10 +46,10 @@
         whilst setting up the call for initial use, and the
         credentials have changed, then there has been an ICE
         restart. In such a case, the CM SHOULD also empty the remote
-        candidate list in the <tp:dbus-ref
-        namespace="ofdT.Call.Stream">Endpoint.DRAFT</tp:dbus-ref>.</p>
+        candidate list in all <tp:dbus-ref
+        namespace="ofdT.Call.Stream">Endpoint.DRAFT</tp:dbus-ref> objects.</p>
 
-      <p>If the CM does an ICE restart, then the
+      <p>If the CM wants to do an ICE restart, then the
         <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is
         emitted and the streaming implementation should then call
         <tp:member-ref>SetCredentials</tp:member-ref> again.</p>
