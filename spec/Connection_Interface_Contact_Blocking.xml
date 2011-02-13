@@ -33,7 +33,7 @@
     </tp:docstring>
 
     <method name="BlockContacts" tp:name-for-bindings="Block_Contacts">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Direct the server to block some contacts. The precise effect is
           protocol-dependent, but SHOULD include ignoring all current and
           subsequent communications from the given contacts, avoiding sending
@@ -45,7 +45,7 @@
             persist, or where we can't edit the block lists?</em></p>
       </tp:docstring>
 
-      <arg name="Contact" type="au" direction="in" tp:type="Contact_Handle[]">
+      <arg name="Contacts" type="au" direction="in" tp:type="Contact_Handle[]">
         <tp:docstring>Some contacts to block.</tp:docstring>
       </arg>
 
@@ -57,12 +57,12 @@
     </method>
 
     <method name="UnblockContacts" tp:name-for-bindings="Unblock_Contacts">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Reverse the effects of a previous call to
           <tp:member-ref>BlockContacts</tp:member-ref>.</p>
       </tp:docstring>
 
-      <arg name="Contact" type="au" direction="in" tp:type="Contact_Handle[]">
+      <arg name="Contacts" type="au" direction="in" tp:type="Contact_Handle[]">
         <tp:docstring>Some contacts to unblock.</tp:docstring>
       </arg>
 
@@ -75,7 +75,7 @@
 
     <method name="RequestBlockedContacts"
       tp:name-for-bindings="Request_Blocked_Contacts">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>List the contacts that are blocked.</p>
 
         <p>Clients SHOULD allow a relatively long timeout for calls to this
@@ -96,7 +96,7 @@
 
     <signal name="BlockedContactsChanged"
       tp:name-for-bindings="Blocked_Contacts_Changed">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the list of blocked contacts is first retrieved
           (before returning from any pending calls to
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>), and
