@@ -87,12 +87,14 @@
       </tp:docstring>
     </property>
 
-    <property name="RemoteCodecs"
-      tp:name-for-bindings="Remote_Codecs"
+    <property name="Codecs"
+      tp:name-for-bindings="Codecs"
       type="a(usuua{ss})" tp:type="Codec[]" access="read"
       tp:immutable="yes">
       <tp:docstring>
-        A list of codecs the remote contact supports.
+        A list of codecs the remote contact supports. When used with
+	<tp:member-ref>Accept</tp:member-ref>, it means the locally supported
+	codecs.
       </tp:docstring>
     </property>
 
@@ -120,7 +122,7 @@
             >HasRemoteInformation</tp:dbus-ref> is False then this mapping
             will be empty  otherwise it willl always contains at least
           <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-            >RemoteCodecs</tp:dbus-ref>
+            >Codecs</tp:dbus-ref>
         </p>
 
         <p>
