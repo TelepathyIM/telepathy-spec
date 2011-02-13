@@ -1,0 +1,162 @@
+<?xml version="1.0" ?>
+<node name="/Call_Content_Codec_Offer_Interface_RTCP_Feedback" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright> Copyright © 2005-2010 Nokia Corporation </tp:copyright>
+  <tp:copyright> Copyright © 2005-2010 Collabora Ltd </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.Call.Content.CodecOffer.Interface.RTCPFeedback.DRAFT"
+    tp:causes-havoc="experimental">
+    <tp:added version="0.21.UNRELEASED">(draft version, not API-stable)</tp:added>
+    <tp:requires interface="org.freedesktop.Telepathy.Call.Content.CodecOffer.DRAFT"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>This codec offer interface provides a method of signalling
+        support for RTCP feedback, documented by <em>Extended RTP
+        Profile for Real-time Transport Control Protocol (RTCP)-Based
+        Feedback (RTP/AVPF)</em> (RFC 4585).</p>
+
+      <p>Handlers should call
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> just
+        before calling <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>.
+        The codec identifiers used in
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> should
+        refer to the codecs used as <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.DRAFT">Accept</tp:dbus-ref>'s
+        arguments.
+      </p>
+
+      <p>If the remote contact codecs are already known (by examining
+        the <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.RemoteContactCodecMap</tp:dbus-ref>
+        property) and the codec offer has the <tp:dbus-ref
+        namespace="ofdT.Call.Content.CodecOffer.Interface">RTCPFeedback.DRAFT</tp:dbus-ref>
+        interface, then the
+        <tp:member-ref>RemoteFeedbackMessages</tp:member-ref> property
+        may contain useful details about what feedback parameters the
+        remote contact supports.</p>
+
+      <p>For more details on what RTCP Feedback can do and how to use
+        it, one should refer to
+        <a href="http://www.faqs.org/rfcs/rfc4585.html">RFC 4585</a>.</p>
+
+    </tp:docstring>
+
+    <method name="SetLocalFeedbackMessages"
+      tp:name-for-bindings="Set_Local_Feedback_Messages">
+      <arg name="Messages" direction="in" type="a{uua(sss)}"
+        tp:type="RTCP_Feedback_Message_Map" />
+      <tp:docstring>
+        Sets the <tp:member-ref>LocalFeedbackMessages</tp:member-ref>
+        property. This method should be called just before calling
+        <tp:dbus-ref
+        namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>
+        and should refer to the codecs used as the argument to said
+        function.
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
+    </method>
+
+    <tp:struct name="RTCP_Feedback_Message_Properties">
+      <tp:member type="u" name="RTCPMinimumInterval">
+	<tp:docstring>
+	  The minimum interval between two regular RTCP packets in
+	  milliseconds for this content. If no special value is desired, one
+	  should put MAXUINT (0xFFFFFFFF).
+	</tp:docstring>
+      </tp:member>
+      <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
+        name="Messages">
+        <tp:docstring>
+          The RTCP feedback messages for this codec.
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:struct name="RTCP_Feedback_Message"
+      array-name="RTCP_Feedback_Message_List">
+      <tp:docstring>
+        A struct defining an RTCP feedback message.
+      </tp:docstring>
+      <tp:member type="s" name="Type">
+        <tp:docstring>
+          Feedback type, for example "ack", "nack", or "ccm".
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Subtype">
+        <tp:docstring>
+          Feedback subtype, according to the Type, can be an empty string (""),
+	  if there is no subtype.
+	  For example, generic nack is Type="nack" Subtype="".
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Parameters">
+        <tp:docstring>
+          Feedback parameters as a string. Format is defined in the relevant RFC
+        </tp:docstring>
+      </tp:member>
+    </tp:struct>
+
+    <tp:mapping name="RTCP_Feedback_Message_Map">
+      <tp:docstring>
+        A map of codec and its feedback properties.
+      </tp:docstring>
+      <tp:member type="u" name="Codec_Identifier">
+        <tp:docstring>
+           Numeric identifier for the codec. This will be used as the
+           PT in the SDP or content description.
+        </tp:docstring>
+      </tp:member>
+      <tp:member type="ua(sss)" tp:type="RTCP_Feedback_Message_Properties"
+        name="Properties">
+        <tp:docstring>
+          The RTCP feedback properties for this codec.
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
+
+    <property name="LocalFeedbackMessages" type="a{uua(sss)}"
+      tp:type="RTCP_Feedback_Message_Map"
+      access="read" tp:name-for-bindings="Local_Feedback_Messages">
+      <tp:docstring>
+        A map of local codec properties which have been set using the
+        <tp:member-ref>SetLocalFeedbackMessages</tp:member-ref> method.
+      </tp:docstring>
+    </property>
+
+    <property name="RemoteFeedbackMessages" type="a{uua(sss)}"
+      tp:type="RTCP_Feedback_Message_Map"
+      access="read" tp:name-for-bindings="Remote_Feedback_Messages">
+      <tp:docstring>
+        A map of remote feedback codec properties which have been set
+        by the CM.
+      </tp:docstring>
+    </property>
+
+    <property name="DoesAVPF" type="b"
+      access="read" tp:name-for-bindings="Does_AVPF">
+      <tp:docstring>
+        True if the remote contact supports Audio-Visual Profile
+        Feedback (AVPF), otherwise False.
+      </tp:docstring>
+    </property>
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
