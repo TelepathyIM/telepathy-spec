@@ -49,10 +49,30 @@
         <tp:docstring>Some contacts to block.</tp:docstring>
       </arg>
 
+      <arg name="Report_Abusive" type="b" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>In addition to blocking, report these contacts as abusive to the
+            server administrators.</p>
+
+          <p>Clients can determine whether this capability is available by
+            checking the
+            <tp:member-ref>ContactBlockingCapabilities</tp:member-ref>
+            property. If the capability is not present and this argument is
+            true, the error <tp:error-ref>NotCapable</tp:error-ref> SHOULD
+            be raised.</p>
+
+          <tp:rationale>
+            Some protocol libraries, in their conformance requirements,
+            require the ability to report blocked contacts as abusive.
+          </tp:rationale>
+        </tp:docstring>
+      </arg>
+
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
       </tp:possible-errors>
     </method>
 
@@ -122,6 +142,30 @@
           unknown whether the contact is blocked.</p>
       </tp:docstring>
     </tp:contact-attribute>
+
+    <property name="ContactBlockingCapabilities"
+              tp:name-for-bindings="Contact_Blocking_Capabilities"
+              tp:type="Contact_Blocking_Capabilities" type="u" access="read"
+              tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Additional capabilities for contact blocking (i.e. whether we can
+          report abusive contacts).</p>
+
+        <p><b>Note:</b> there is no capability for supporting blocking itself,
+          the presence of this interface indicates that contact blocking is
+          supported.</p>
+      </tp:docstring>
+    </property>
+
+    <tp:flags name="Contact_Blocking_Capabilities" type="u"
+              value-prefix="Contact_Blocking_Capability">
+      <tp:flag suffix="Can_Report_Abusive" value="1">
+        <tp:docstring>
+          This protocol is capable of reporting abusive contacts to the server
+          administrators.
+        </tp:docstring>
+      </tp:flag>
+    </tp:flags>
 
   </interface>
 </node>
