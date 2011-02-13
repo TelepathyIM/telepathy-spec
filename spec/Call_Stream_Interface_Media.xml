@@ -287,8 +287,11 @@
     <property name="LocalCredentials" tp:name-for-bindings="Local_Credentials"
       type="(ss)" tp:type="Stream_Credentials" access="read">
       <tp:docstring>
-        [FIXME]. Change notification is via the
-        <tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
+	The local credentials are sent to the remote site over the
+	signalling protocol. They are used in ICE to make sure that
+	the connectivity checks come from the right peer. Change
+	notification is via the
+	<tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
