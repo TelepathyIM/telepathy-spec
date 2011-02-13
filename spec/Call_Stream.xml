@@ -26,7 +26,10 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       One stream inside a <tp:dbus-ref
-      namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>.
+      namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>.  A stream is
+      a single flow of packets to and from a single remote endpoint.
+      If your call connects to multiple people, you could have
+      multiple streams.
     </tp:docstring>
 
     <method name="SetSending" tp:name-for-bindings="Set_Sending">
