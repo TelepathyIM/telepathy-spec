@@ -300,7 +300,9 @@
       <tp:changed version="0.21.2">renamed from LocalCredentailsSet</tp:changed>
       <tp:docstring>
         Emitted when the value of
-        <tp:member-ref>LocalCredentials</tp:member-ref> changes.
+        <tp:member-ref>LocalCredentials</tp:member-ref> changes. This only
+	happens when the streaming implementation calls
+	<tp:member-ref>SetCredentials</tp:member-ref>.
       </tp:docstring>
       <arg name="Username" type="s" />
       <arg name="Password" type="s" />
