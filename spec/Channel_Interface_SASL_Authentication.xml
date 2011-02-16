@@ -373,11 +373,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Whether or not the client can save the authentication response and
           re-use it to automate future authentication challenges.</p>
 
-        <p>If this property is false, the client should not attempt to cache the
-          authentication response in its own keyring.</p>
+        <p>If this property is <code>False</code>, the client SHOULD NOT attempt
+          to cache the authentication response in its own keyring.</p>
 
         <p>If this property is not specified, it should be treated as if it were
-          true.</p>
+          <code>True</code>.</p>
+
+        <tp:rationale>Some protocols or services may have terms and conditions
+          that prohibit caching a user's credentials.</tp:rationale>
 
       </tp:docstring>
     </property>

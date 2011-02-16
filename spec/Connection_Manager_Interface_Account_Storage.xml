@@ -22,13 +22,19 @@
 
   <interface name="org.freedesktop.Telepathy.ConnectionManager.Interface.AccountStorage.DRAFT"
     tp:causes-havoc="experimental">
-    <tp:added version="UNRELEASED">(draft 1)</tp:added>
+    <tp:added version="0.21.UNRELEASED">(draft 1)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.ConnectionManager"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connection managers that store account details
         internally.  At the moment this consists only of storing an account's
         credentials, but other functionality may be added in the future.</p>
+      <p><tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Account</tp:dbus-ref> objects
+        representing accounts on a connection manager that implements this
+        interface should implement the <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy.Account.Interface">ExternalPasswordStorage.DRAFT</tp:dbus-ref>
+        interface.</p>
 
     </tp:docstring>
 
@@ -56,22 +62,22 @@
       tp:name-for-bindings="Accounts"
       type="a{su}" tp:type="Account_Flags_Map" access="read">
       <tp:docstring>
-        <p>A list of the Accounts stored in this connection manager, and flags
-          indicating their status.</p>
+        The set of Accounts stored in this connection manager, and flags
+        indicating their status.
       </tp:docstring>
     </property>
 
     <method name="ForgetCredentials" tp:name-for-bindings="Forget_Credentials">
       <tp:docstring>
-        <p>Clears any saved credentials associated with the specified
-          Account_Id.</p>
+        Clears any saved credentials associated with the specified Account_Id.
+        Any other saved data related to the account will be unaffected.
       </tp:docstring>
 
-      <arg direction="in" name="Account_id"
+      <arg direction="in" name="Account_Id"
         type="s">
         <tp:docstring>
-          <p>An account id as returned from <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy">Protocol.IdentifyAccount</tp:dbus-ref>.</p>
+          An account id as returned from <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Protocol.IdentifyAccount</tp:dbus-ref>.
         </tp:docstring>
       </arg>
 
@@ -86,15 +92,15 @@
 
     <method name="RemoveAccount" tp:name-for-bindings="Remove_Account">
       <tp:docstring>
-        <p>Removes an account from the connection manager's internal
-          storage.</p>
+        Completely removes all data associated with an account from the
+        connection manager's internal storage.
       </tp:docstring>
 
-      <arg direction="in" name="Account_id"
+      <arg direction="in" name="Account_Id"
         type="s">
         <tp:docstring>
-          <p>An account id as returned from <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy">Protocol.IdentifyAccount</tp:dbus-ref>.</p>
+          An account id as returned from <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy">Protocol.IdentifyAccount</tp:dbus-ref>.
         </tp:docstring>
       </arg>
 
