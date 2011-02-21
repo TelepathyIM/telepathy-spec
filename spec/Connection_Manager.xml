@@ -45,9 +45,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           a library on which they are based.</p>
 
         <tp:rationale>
-          <p>We often abbreviate, for instance, telepathy-haze as "Haze",
-            but abbreviating telepathy-sofiasip to "Sofia-SIP" would cause
-            confusion between the connection manager and the library it
+          <p>We often abbreviate, for instance, <i>telepathy-haze</i> as
+            “Haze”, but abbreviating <i>telepathy-sofiasip</i>—since renamed to
+            <i>telepathy-rakia</i> for exactly this reason—to “Sofia-SIP”
+            caused confusion between the connection manager and the library it
             uses. Please don't repeat that mistake.</p>
         </tp:rationale>
       </tp:docstring>
