@@ -316,14 +316,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Change the value of the <tp:member-ref>Parameters</tp:member-ref>
           property.</p>
 
-        <p>If any of the changed parameters'
+        <p>If any of the <var>Set</var> parameters’
           <tp:type>Conn_Mgr_Param_Flags</tp:type> include
           <code>DBus_Property</code>, the change will be applied immediately to
-          the
-          corresponding D-Bus Property on the active
-          <tp:member-ref>Connection</tp:member-ref>, if there is one. Changes to
-          other parameters will not take effect until the next time the account
-          is disconnected and reconnected.</p>
+          the corresponding D-Bus Property on the active
+          <tp:member-ref>Connection</tp:member-ref>, if there is one. If any of
+          the <var>Unset</var> parameters’
+          <tp:type>Conn_Mgr_Param_Flags</tp:type> include both
+          <code>DBus_Property</code> and <code>Has_Default</code>, the
+          corresponding D-Bus Property on the connection will be set to the
+          default value.  Changes to other parameters will not take effect
+          until the next time the account is disconnected and reconnected. (If
+          parameters are explicitly set to their default value, or are unset
+          when previously set to their default value, the account manager MAY
+          decide that no reconnection is necessary to make the change take
+          effect.)</p>
 
         <tp:rationale>
           <p>In general, reconnecting is a destructive operation that shouldn't
@@ -362,7 +369,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <arg name="Reconnect_Required" type="as" direction="out">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>If all of the parameters had the <code>DBus_Property</code> flag,
+          <p>If all of the updates could be applied to the active
+            <tp:member-ref>Connection</tp:member-ref> (if any),
             the empty list, signifying that no reconnection is required for the
             new parameters to take effect. For example, if the only parameter
             updated is <tt>...Cellular.<tp:dbus-ref
