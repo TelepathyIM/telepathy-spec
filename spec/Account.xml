@@ -305,7 +305,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           only those parameters that are stored for this account, and SHOULD
           only include those parameters that the user has explicitly set.
         </p>
-        <p>This property cannot be altered using Set() - use
+        <p>This property cannot be altered using
+          <code>org.freedesktop.DBus.Properties.Set()</code>; use
           <tp:member-ref>UpdateParameters</tp:member-ref> instead.</p>
       </tp:docstring>
     </property>
