@@ -61,9 +61,12 @@
     <property name="Accounts"
       tp:name-for-bindings="Accounts"
       type="a{su}" tp:type="Account_Flags_Map" access="read">
-      <tp:docstring>
-        The set of Accounts stored in this connection manager, and flags
-        indicating their status.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The set of Accounts stored in this Connection Manager, and flags
+          indicating their status.</p>
+
+        <p>Change notification for this property is provided by the standard
+          D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
