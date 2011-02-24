@@ -2,6 +2,41 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.21.10 (2011-02-24)
+===================================
+
+“Cold as shadows over European eyes”
+
+New stable API:
+
+• Add SASLAuthentication.MaySaveResponse property indicating whether the
+  password can be saved.
+
+New experimental API:
+
+• Account.Interface.Hidden.DRAFT1 and AccountManager.Interface.Hidden.DRAFT1:
+  new interfaces for flagging certain accounts as hidden, so that they do not
+  appear in the account manager's standard lists of accounts.
+
+• ConnectionManager.Interface.AccountStorage.DRAFT: an interface for connection
+  managers that store account details internally.
+
+• Account.Interface.ExternalPasswordStorage.DRAFT: an interface for Accounts
+  whose passwords are stored externally.
+
+• Channel.Interface.CredentialsStorage.DRAFT: a channel interface for SASL
+  authentication channels that can save the credentials in the connection manager.
+
+• Call.Content.Interface.VideoControl.DRAFT: an interface that allows the
+  connection manager to control the video stream.
+
+Clarifications:
+
+• Document how to implement non-interactive approvers.
+
+• Document how unsetting DBus_Property parameters works in Account and
+  ConnectionManager.
+
 telepathy-spec 0.21.9 (2011-01-28)
 ==================================
 
