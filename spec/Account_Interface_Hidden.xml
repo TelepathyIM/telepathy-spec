@@ -22,7 +22,7 @@
 
   <interface name="org.freedesktop.Telepathy.Account.Interface.Hidden.DRAFT1"
     tp:causes-havoc="outrageous">
-    <tp:added version="0.21.UNRELEASED">(draft 1)</tp:added>
+    <tp:added version="0.21.10">(draft 1)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for flagging certain accounts as hidden, so that they do
