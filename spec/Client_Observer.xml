@@ -405,6 +405,9 @@ Recover=true
             specified in the observer's <tt>.client</tt> file as
             follows:</p>
 
+          <p>If this property is not implemented, the channel dispatcher
+            SHOULD consider it as being false.</p>
+
 <pre>
 [org.freedesktop.Telepathy.Client.Observer]
 DelayApprovers=true
