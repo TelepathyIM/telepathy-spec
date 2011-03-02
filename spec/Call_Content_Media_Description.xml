@@ -87,8 +87,8 @@
       tp:immutable="yes">
       <tp:docstring>
         A list of codecs the remote contact supports. When used with
-	<tp:member-ref>Accept</tp:member-ref>, it means the locally supported
-	codecs.
+        <tp:member-ref>Accept</tp:member-ref>, it means the locally supported
+        codecs.
       </tp:docstring>
     </property>
 
