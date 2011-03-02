@@ -67,6 +67,26 @@
       </tp:docstring>
     </property>
 
+    <property name="FurtherNegotiationRequired"
+      tp:name-for-bindings="Further_Negotiation_Required" type="b"
+      access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml" >
+        <p> If this is set to True by the CM in a MediaDescriptionOffer, it
+          means "This is an offer under the SDP Offer/Answer model. Whatever
+          you accept this offer with is what I will send to the other side in
+          my answer."
+
+          If this is set to False by the CM then it means "This is an Answer
+          under the SDP Offer/Answer model, and if it remains False in the
+          Accept(), no further codec negotiation needs to happen."
+
+          If this is set to True by the streaming implementation (e.g. in an
+          Accept or UpdateLocalMediaDescription call) then a new SDP
+          Offer/Answer round-trip will be initiated.
+        </p>
+      </tp:docstring>
+    </property>
+
     <property name="HasRemoteInformation"
       tp:name-for-bindings="Has_Remote_Information" type="b"
       access="read" tp:immutable="yes">
