@@ -101,12 +101,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:mapping>
 
-    <property name="RemoteFeedbackMessages" type="a{uua(sss)}"
+    <property name="FeedbackMessages" type="a{uua(sss)}"
       tp:type="RTCP_Feedback_Message_Map"
-      access="read" tp:name-for-bindings="Remote_Feedback_Messages">
+      access="read" tp:name-for-bindings="Feedback_Messages">
       <tp:docstring>
-        A map of remote feedback codec properties which have been set
-        by the CM.
+        A map of remote feedback codec properties that are supported.
       </tp:docstring>
     </property>
 
