@@ -26,10 +26,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This media description interface provides a method of signalling
         support for RTP Header Extensions, documented by
-	<em>A General Mechanism for RTP Header Extensions (RFC 5285)</em>.</p>
+        <em>A General Mechanism for RTP Header Extensions (RFC 5285)</em>.</p>
 
       <p>For more details on the General Mechanism for RTP Header Extensions
-         and how to use then, one should refer to
+         and how to use them, one should refer to
         <a href="http://www.faqs.org/rfcs/rfc5285.html">RFC 5285</a>.</p>
 
     </tp:docstring>
@@ -37,12 +37,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:struct name="RTP_Header_Extension"
       array-name="RTP_Header_Extensions_List">
       <tp:docstring>
-        A struct defining a RTP Header extension
+        A struct defining a RTP Header extension.
       </tp:docstring>
       <tp:member type="u" name="ID">
-	<tp:docstring>
-	  Identifier to be negotiated
-	</tp:docstring>
+        <tp:docstring>
+          Identifier to be negotiated.
+        </tp:docstring>
       </tp:member>
       <tp:member type="u" tp:type="Media_Stream_Direction"  name="Direction">
         <tp:docstring>
@@ -51,22 +51,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
       <tp:member type="s" name="URI">
         <tp:docstring>
-	  URI defining the extension
+          URI defining the extension.
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Parameters">
         <tp:docstring>
-          Feedback parameters as a string. Format is defined in the relevant RFC
+          Feedback parameters as a string. Format is defined in the relevant RFC.
         </tp:docstring>
       </tp:member>
     </tp:struct>
 
-    <property name="RemoteHeaderExtensions" type="a(uuss)"
+    <property name="HeaderExtensions" type="a(uuss)"
       tp:type="RTP_Header_Extension[]"
       access="read" tp:name-for-bindings="Remote_Header_Extensions">
       <tp:docstring>
-        A lost of remote header extensions which have been set
-        by the CM.
+        A list of remote header extensions which are supported.
       </tp:docstring>
     </property>
   </interface>
