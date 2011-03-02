@@ -78,12 +78,6 @@
             In most protocols this property will be False for the initial
             DescriptionOffer on an outgoing call.
         </p>
-
-        <p> This property will never be part of the DescriptionProperties used
-            to describe this object. If this property is true then the
-            DescriptionProperties describing this object will be empty (as
-            there is no remote information to put in it)
-        </p>
       </tp:docstring>
     </property>
 
@@ -120,16 +114,10 @@
 
         <p>
           If <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-            >HasRemoteInformation</tp:dbus-ref> is False then this mapping
-            will be empty  otherwise it willl always contains at least
+            >HasRemoteInformation</tp:dbus-ref> is True, then this mapping
+          will always contains at least
           <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
             >Codecs</tp:dbus-ref>
-        </p>
-
-        <p>
-          The <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-            >HasRemoteInformation</tp:dbus-ref> property is never part of this
-            mapping.
         </p>
       </tp:docstring>
 
