@@ -26,7 +26,16 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       This object represents a remote Description Offer to which the local
-      streaming implementation should reply with its local Description
+      streaming implementation should reply with its local Description.
+
+      This is intended as a temporary transactional object for use with <tp:dbus-ref
+          namespace="ofdT.Call">Content.Interface.Media.DRAFT2</tp:dbus-ref>.
+      In most cases, (for simplicity) only one of these objects will exist at
+      a time, and will only disappear when you call either
+      <tp:member-ref>Accept</tp:member-ref> or <tp:member-ref>Reject</tp:member-ref>.
+      There are some cases (e.g. an endpoint being removed from the call)
+      where a MediaDescription object will disappear before you have had a
+      chance to either Accept or Reject it.
     </tp:docstring>
 
     <method name="Accept" tp:name-for-bindings="Accept">
