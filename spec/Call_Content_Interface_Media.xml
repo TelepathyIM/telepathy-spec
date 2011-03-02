@@ -56,7 +56,7 @@
         property false, and the local user's streaming implementation SHOULD
         call <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
         >Accept</tp:dbus-ref>,
-        with a description of all supported codecs and other features. 
+        with a description of all supported codecs and other features.
         The CM will then send this information to the remote side, and
         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref> will fire
         with details of the description passed into <tp:dbus-ref
@@ -86,19 +86,19 @@
         the remote side if the MediaDescription was signalled as part of an
         answer (under the SDP offer-answer model).
       </p>
-      
+
       <h4>Changing codecs mid-call</h4>
 
       <p>To update the local codecs in the local description mid-call, the
         <tp:member-ref>UpdateLocalMediaDescription</tp:member-ref> method
-	should be called with details of the new codec list. If this is
-        accepted, then 
+        should be called with details of the new codec list. If this is
+        accepted, then
         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref>
         will be emitted with the new codec set.
       </p>
       <p> If parameters requiring negotiation are changed, then the 
         "Renegotiate" parameter should be set to TRUE, the new parameters should
-	only be used once they come in a new MediaDescriptionOffer.
+        only be used once they come in a new MediaDescriptionOffer.
       </p>
 
       <p>If the other side decides to update his or her codec list
@@ -217,29 +217,29 @@
     </tp:struct>
 
     <method name="UpdateLocalMediaDescription"
-	    tp:name-for-bindings="Update_Local_Media_Description">
+            tp:name-for-bindings="Update_Local_Media_Description">
       <tp:docstring>
         Update the local codec mapping and other interfaces of the
-	MediaDescription. This method should only be
+        MediaDescription. This method should only be
         used during an existing call to update the local media description.
-	This may trigger a re-negotiation which may result in new
-	new MediaDescriptionOffers if the "Renegotiate" argument is TRUE.
-	Otherwise, only parameters which strictly describe the media being sent
-	can be changed.
+        This may trigger a re-negotiation which may result in new
+        new MediaDescriptionOffers if the "Renegotiate" argument is TRUE.
+        Otherwise, only parameters which strictly describe the media being sent
+        can be changed.
       </tp:docstring>
       <arg name="MediaDescription" direction="in" type="a{sv}"
-	   tp:type="Media_Description_Properties">
+           tp:type="Media_Description_Properties">
         <tp:docstring>
           The updated media description that the local side wants to use.
         </tp:docstring>
       </arg>
       <arg name="Renegotiate" direction="in" type="b">
-	<tp:docstring>
-	  Trigger a renegotiation if this is TRUE. In this case, the CM
-	  will create a new Offer with the result of the negotiation.
-	  If it is FALSE, then only parameters which strictly describe the data
-	  being sent, and are therefore not negotiable, should be changed.
-	</tp:docstring>
+        <tp:docstring>
+          Trigger a renegotiation if this is TRUE. In this case, the CM
+          will create a new Offer with the result of the negotiation.
+          If it is FALSE, then only parameters which strictly describe the data
+          being sent, and are therefore not negotiable, should be changed.
+        </tp:docstring>
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
