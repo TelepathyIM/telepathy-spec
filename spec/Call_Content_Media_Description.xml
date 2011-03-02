@@ -40,7 +40,10 @@
       </arg>
       <tp:docstring>
         Accepts the updated Description and update the corresponding
-        local description.
+        local description. If FurtherNegotiationRequired is True,
+        calling this method will generally cause a network round-trip
+        and a new MediaDescription to be offered (hopefully with
+        FurtherNegotiationRequired set to False).
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">

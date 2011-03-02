@@ -37,11 +37,11 @@
         in a device specific hardware way and the CM does not need
         to concern itself with codecs.</p>
 
-      <h4>Codec negotiation</h4>
+      <h4>Codec Negotiation</h4>
 
       <p>When a new <tp:dbus-ref
         namespace="ofdT.Channel.Type">Call.DRAFT</tp:dbus-ref> channel
-        appears, whether it was requested or not, a <tp:dbus-ref
+        appears (whether it was requested or not) a <tp:dbus-ref
         namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
         object will either be waiting in the
         <tp:member-ref>MediaDescriptionOffer</tp:member-ref> property, or will
@@ -49,26 +49,30 @@
         <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> signal.</p>
 
       <p>If nothing is known about the remote side's Media capabilities,
-        (e.g. outgoing SIP call, this <tp:dbus-ref namespace="ofdT.Call.Content"
-        >MediaDescription.DRAFT</tp:dbus-ref> will pop up with <tp:dbus-ref
+        (e.g. outgoing SIP/XMPP call, this <tp:dbus-ref namespace="ofdT.Call.Content"
+        >MediaDescription.DRAFT</tp:dbus-ref> will pop up with {<tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-          >HasRemoteInformation</tp:dbus-ref>,
-        property false, and the local user's streaming implementation SHOULD
-        call <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >HasRemoteInformation</tp:dbus-ref> = false, <tp:dbus-ref
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >FurtherNegotiationRequired</tp:dbus-ref> = true}, and the local
+        user's streaming implementation SHOULD call 
+        <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
         >Accept</tp:dbus-ref>,
         with a description of all supported codecs and other features.
-        The CM will then send this information to the remote side, and
+        The CM will then send this information to the remote side (and
         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref> will fire
         with details of the description passed into <tp:dbus-ref
           namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-          >Accept</tp:dbus-ref> (mostly for debugging purposes).
+          >Accept</tp:dbus-ref> for debugging purposes).
       </p>
       <p>When the remote codecs and other content information are available
         (e.g. Remote user replies to initial offer, or sends a new offer of
         their own, a new <tp:dbus-ref namespace="ofdT.Call.Content"
-         >MediaDescription.DRAFT</tp:dbus-ref> will appear, with the <tp:dbus-ref
+         >MediaDescription.DRAFT</tp:dbus-ref> will appear, with {<tp:dbus-ref
          namespace="ofdT.Call.Content.MediaDescription.DRAFT"
-         >HasRemoteInformation</tp:dbus-ref> property set to true
+         >HasRemoteInformation</tp:dbus-ref> = true, <tp:dbus-ref
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >FurtherNegotiationRequired</tp:dbus-ref> = false},
         and the <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >Codecs</tp:dbus-ref>
@@ -80,25 +84,32 @@
          <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref> and
          <tp:member-ref>RemoteMediaDescriptionsChanged</tp:member-ref>
         will fire to signal their respective changes, to aid with debugging.
-        Note that the CM should be able to rely on the fact that the
+        Note that if <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+        >Accept</tp:dbus-ref> is called, with <tp:dbus-ref
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >FurtherNegotiationRequired</tp:dbus-ref> set to false,
+        the CM should be able to rely on the fact that the
         description passed into Accept is compatible with the one in the
-        offer. The description passed into Accept will not be signalled to
-        the remote side if the MediaDescription was signalled as part of an
-        answer (under the SDP offer-answer model).
+        offer, and the description passed into Accept will not be signalled to
+        the remote side.
       </p>
 
       <h4>Changing codecs mid-call</h4>
 
-      <p>To update the local codecs in the local description mid-call, the
+      <p>To update the codecs in the local (and optionally remote) media
+        descriptions mid-call, the
         <tp:member-ref>UpdateLocalMediaDescription</tp:member-ref> method
         should be called with details of the new codec list. If this is
         accepted, then
         <tp:member-ref>LocalMediaDescriptionChanged</tp:member-ref>
         will be emitted with the new codec set.
       </p>
-      <p> If parameters requiring negotiation are changed, then the 
-        "Renegotiate" parameter should be set to TRUE, the new parameters should
-        only be used once they come in a new MediaDescriptionOffer.
+      <p> If parameters requiring negotiation are changed, then the
+        <tp:dbus-ref
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >FurtherNegotiationRequired</tp:dbus-ref> property should be set to
+        TRUE, and the new media description should
+        only be used once they come in a new MediaDescriptionOffer
       </p>
 
       <p>If the other side decides to update his or her codec list
@@ -110,15 +121,15 @@
 
       <h4>Protocols without negotiation</h4>
 
-      <p>For protocols where the codecs are not negotiable, instead of
-        popping up the initial content's <tp:dbus-ref
+      <p>For protocols where the codecs are not negotiable, the initial content's <tp:dbus-ref
         namespace="ofdT.Call.Content">MediaDescription.DRAFT</tp:dbus-ref>
-        object with <tp:dbus-ref
+        object will appear with <tp:dbus-ref
         namespace="ofdT.Call.Content.MediaDescription.DRAFT"
           >HasRemoteInformation</tp:dbus-ref>,
-        set to false and no codecs/features being defined, the CM should set the
-        supported codec values to known codec values in said object's codec
-        map.</p>
+        set to true and the known supported codec values in <tp:dbus-ref
+        namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >Codecs</tp:dbus-ref>.
+      </p>
     </tp:docstring>
 
     <tp:struct name="Codec" array-name="Codec_List">
