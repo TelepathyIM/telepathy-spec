@@ -116,6 +116,13 @@
           likely to be higher than other types of candidate.
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Multicast" value="5">
+        <tp:docstring>
+          This candidate represents a Multicast group. This value should only
+          appear if the Stream's <tp:member-ref>Transport</tp:member-ref> is
+          set to Multicast.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
 
@@ -162,6 +169,10 @@
           <dt><code>Password</code> - s</dt>
           <dd>Password of this candidate
             (only if credentials are per candidate)</dd>
+
+          <dt><code>TTL</code> - u</dt>
+          <dd>The TTL mandated for RTP/RTCP packets sent to a multicast group
+            (only valid for Multicast Streams)</dd>
         </dl>
       </tp:docstring>
       <tp:member name="Key" type="s">
