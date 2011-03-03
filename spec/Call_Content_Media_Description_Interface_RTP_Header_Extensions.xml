@@ -63,7 +63,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <property name="HeaderExtensions" type="a(uuss)"
       tp:type="RTP_Header_Extension[]"
-      access="read" tp:name-for-bindings="Remote_Header_Extensions">
+      access="read" tp:name-for-bindings="Header_Extensions">
       <tp:docstring>
         A list of remote header extensions which are supported.
       </tp:docstring>
