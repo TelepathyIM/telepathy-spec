@@ -133,18 +133,18 @@
           used:</p>
 
         <dl>
-          <dt><code>Type</code> - u</dt>
+          <dt><code>type</code> - u</dt>
           <dd>The type of candidate
             (<tp:type>Call_Stream_Candidate_Type</tp:type>)</dd>
 
-          <dt><code>Foundation</code> - s</dt>
+          <dt><code>foundation</code> - s</dt>
           <dd>The foundation of this candiate</dd>
 
-          <dt><code>Protocol</code> - u</dt>
+          <dt><code>protocol</code> - u</dt>
           <dd>Underlying protocol of the candidate
             (<tp:type>Media_Stream_Base_Proto</tp:type>) </dd>
 
-          <dt><code>Priority</code> - u</dt>
+          <dt><code>priority</code> - u</dt>
           <dd>Priority of the candidate (should be a number between 0 and
             65535). Most ICE implementations will prefer the highest priority
             candidate pair that manages to connect. For backwards
@@ -156,21 +156,21 @@
             same priority and advertised to the CM at the same time. The CM
             will decide which to advertise to the remote end.</dd>
 
-          <dt><code>BaseIP</code> - s</dt>
+          <dt><code>base-ip</code> - s</dt>
           <dd>Base IP of this candidate </dd>
 
-          <dt><code>BasePort</code> - u</dt>
+          <dt><code>base-port</code> - u</dt>
           <dd>Base port of this candidate </dd>
 
-          <dt><code>Username</code> - s</dt>
+          <dt><code>username</code> - s</dt>
           <dd>Username of this candidate
             (only if credentials are per candidate)</dd>
 
-          <dt><code>Password</code> - s</dt>
+          <dt><code>password</code> - s</dt>
           <dd>Password of this candidate
             (only if credentials are per candidate)</dd>
 
-          <dt><code>TTL</code> - u</dt>
+          <dt><code>ttl</code> - u</dt>
           <dd>The TTL mandated for RTP/RTCP packets sent to a multicast group
             (only valid for Multicast Streams)</dd>
         </dl>
