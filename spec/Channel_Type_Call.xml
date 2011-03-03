@@ -1038,7 +1038,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If this is False, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
           will have the <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
-          >Media.DRAFT</tp:dbus-ref> interface, to communicate the necessary
+          >Media.DRAFT2</tp:dbus-ref> interface, to communicate the necessary
           information to a streaming implementation. Connection managers SHOULD
           operate like this, if possible.</p>
 
