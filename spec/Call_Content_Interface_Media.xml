@@ -253,7 +253,7 @@
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The decription given is invalid in some way.
+            The description given is invalid in some way.
           </tp:docstring>
         </tp:error>
      </tp:possible-errors>

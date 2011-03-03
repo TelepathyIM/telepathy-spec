@@ -30,9 +30,10 @@
 
       This is intended as a temporary transactional object for use with <tp:dbus-ref
           namespace="ofdT.Call">Content.Interface.Media.DRAFT2</tp:dbus-ref>.
-      In most cases, (for simplicity) only one of these objects will exist at
-      a time, and will only disappear when you call either
-      <tp:member-ref>Accept</tp:member-ref> or <tp:member-ref>Reject</tp:member-ref>.
+      There will always be 0 or 1 MediaDescription object per Content.
+      In most cases, this object will stay alive until you call either
+      <tp:member-ref>Accept</tp:member-ref> or
+      <tp:member-ref>Reject</tp:member-ref>, and then disappear.
       There are some cases (e.g. an endpoint being removed from the call)
       where a MediaDescription object will disappear before you have had a
       chance to either Accept or Reject it.
@@ -57,7 +58,7 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The decription given is invalid in some way.
+            The description given is invalid in some way.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -74,8 +75,7 @@
       type="as" tp:type="DBus_Interface[]" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this media description. This SHOULD
-          NOT include the Description interface itself, and cannot change
-          once the content has been created.</p>
+          NOT include the Description interface itself.</p>
       </tp:docstring>
     </property>
 
@@ -130,8 +130,11 @@
         The contact handle that this description applies to.
 
         If this property is 0, the description will apply to all remote
-        contacts in the call (e.g. In Muji, where the media description is
-        broadcast to all users via a MUC presence stanza).
+        contacts in the call (e.g. in conference calls with a mixer, where
+        media from all participants is mixed into one stream). When calling
+        Accept or UpdateLocalMediaDescription, this should always be set to 0,
+        or omitted, because it is assumed that you send the same
+        MediaDescription to everyone.
       </tp:docstring>
     </property>
 
