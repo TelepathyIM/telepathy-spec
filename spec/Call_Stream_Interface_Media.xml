@@ -49,9 +49,12 @@
         namespace="ofdT.Call.Stream">Endpoint.DRAFT</tp:dbus-ref> objects.</p>
 
       <p>If the CM wants to do an ICE restart, then the
-        <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is
-        emitted and the streaming implementation should then call
-        <tp:member-ref>SetCredentials</tp:member-ref> again.</p>
+        <tp:member-ref>LocalCredentials</tp:member-ref> property is cleared,
+        and the <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is
+        emitted. The streaming implementation should then call
+        <tp:member-ref>SetCredentials</tp:member-ref> again. This will trigger
+        the actual ICE restart, and cause
+        <tp:member-ref>LocalCandidates</tp:member-ref> to be cleared.</p>
 
       <p>For more information on ICE restarts see
         <a href="http://tools.ietf.org/html/rfc5245#section-9.1.1.1">RFC 5245
@@ -530,6 +533,9 @@
         the connectivity checks come from the right peer. Change
         notification is via the
         <tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
+
+        This property will be a pair of empty strings if ICE has not yet been
+        started, or if an ICE restart has been requested.
       </tp:docstring>
     </property>
 
@@ -538,9 +544,13 @@
       <tp:changed version="0.21.2">renamed from LocalCredentailsSet</tp:changed>
       <tp:docstring>
         Emitted when the value of
-        <tp:member-ref>LocalCredentials</tp:member-ref> changes. This only
+        <tp:member-ref>LocalCredentials</tp:member-ref> changes to a non-empty
+        value (signalling an ICE restart, which clears
+        <tp:member-ref>LocalCandidates</tp:member-ref>). This only
         happens when the streaming implementation calls
-        <tp:member-ref>SetCredentials</tp:member-ref>.
+        <tp:member-ref>SetCredentials</tp:member-ref>. When the
+        <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is emitted,
+        LocalCredentials is cleared without emitting this signal.
       </tp:docstring>
       <arg name="Username" type="s" />
       <arg name="Password" type="s" />
@@ -732,9 +742,14 @@
     <signal name="PleaseRestartICE"
       tp:name-for-bindings="Please_Restart_ICE">
       <tp:docstring>
-        Emitted when the CM does an ICE restart to notify the
-        streaming implementation that it should call
+        Emitted when the remote side requests an ICE restart (e.g. third party
+        call control, when the remote endpoint changes). The streaming
+        implementation should call
         <tp:member-ref>SetCredentials</tp:member-ref> again.
+        Note that when this signal is emitted,
+        <tp:member-ref>LocalCredentials</tp:member-ref> is cleared immediately
+        (to aid debugging) but LocalCandidates is only cleared when
+        SetCredentials is called.
       </tp:docstring>
     </signal>
 
