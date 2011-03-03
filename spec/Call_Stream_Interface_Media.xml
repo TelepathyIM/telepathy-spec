@@ -76,6 +76,50 @@
       </arg>
     </method>
 
+    <tp:enum type="u" name="Call_Stream_Candidate_Type">
+      <tp:docstring>
+        The network topology that an IP candidate represents. This can
+        sometimes be used to infer what kind of performance characteristics
+        (latency, bandwith, etc) can be expected of connections made to this
+        candidate.
+      </tp:docstring>
+      <tp:enumvalue suffix="None" value="0">
+        <tp:docstring>
+          This is not an IP candidate. This is a reserved value, and should
+          not be seen on the bus.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Host" value="1">
+        <tp:docstring>
+          This candidate represents a direct connection to the host, as its
+          address is taken directly the host's IP stack.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Server_Reflexive" value="2">
+        <tp:docstring>
+          This candidate probably represents a connection to the host through
+          a NAT device, as its address was discovered by sending a binding
+          request to a STUN server or similar.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Peer_Reflexive" value="3">
+        <tp:docstring>
+          This candidate probably represents a good route between the host and
+          its peer, as its address was discovered by sending a STUN binding
+          request to one of the candidates advertised by the peer.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Relay" value="4">
+        <tp:docstring>
+          This candidate represents the address of a relay server (usually
+          somewhere on the public internet). This candidate is the most likely
+          to work, but all media will go via a relay server, so latency is
+          likely to be higher than other types of candidate.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+
     <tp:mapping name="Candidate_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra information about the candidate. Allowed and mandatory keys
@@ -84,19 +128,33 @@
 
         <dl>
           <dt>Type (u)</dt>
-          <dd>type of candidate (host, srflx, prflx, relay)</dd>
+          <dd>type of candidate
+            (<tp:type>Call_Stream_Candidate_Type</tp:type>)</dd>
 
           <dt>Foundation (s)</dt>
           <dd>the foundation of this candiate</dd>
 
           <dt>Protocol (u) </dt>
-          <dd>Underlying protocol of the candidate (udp, tcp) </dd>
+          <dd>Underlying protocol of the candidate
+            (<tp:type>Media_Stream_Base_Proto</tp:type>) </dd>
 
           <dt>Priority (u) </dt>
-          <dd>Priority of the candidate </dd>
+          <dd>Priority of the candidate (should be a number between 0 and
+            65535). Most ICE implementations will prefer the highest priority
+            candidate pair that manages to connect. For backwards
+            compatibility with non-ICE SIP clients, the lowest priority
+            candidate may be sent as a raw UDP fallback candidate.
+            It is recommended that a relay candidate is used as the lowest
+            priority candidate if possible. If both IPv4 and IPv6 raw udp
+            fallback candidates are available, they should be set to the
+            same priority and advertised to the CM at the same time. The CM
+            will decide which to advertise to the remote end.</dd>
 
-          <dt>BaseIP (u) </dt>
+          <dt>BaseIP (s) </dt>
           <dd>Base IP of this candidate </dd>
+
+          <dt>BasePort (u) </dt>
+          <dd>Base port of this candidate </dd>
 
           <dt>Username (s) </dt>
           <dd>Username of this candidate
@@ -105,10 +163,6 @@
           <dt>Password (s) </dt>
           <dd>Password of this candidate
             (only if credentials are per candidate)</dd>
-
-          <dt>RawUDPFallback (b) </dt>
-          <dd>Indicate whether this candidate may be used to provide a UDP
-               fallback</dd>
         </dl>
       </tp:docstring>
       <tp:member name="Key" type="s">
