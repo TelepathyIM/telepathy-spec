@@ -126,18 +126,18 @@
           used:</p>
 
         <dl>
-          <dt>Type (u)</dt>
-          <dd>type of candidate
+          <dt><code>Type</code> - u</dt>
+          <dd>The type of candidate
             (<tp:type>Call_Stream_Candidate_Type</tp:type>)</dd>
 
-          <dt>Foundation (s)</dt>
-          <dd>the foundation of this candiate</dd>
+          <dt><code>Foundation</code> - s</dt>
+          <dd>The foundation of this candiate</dd>
 
-          <dt>Protocol (u) </dt>
+          <dt><code>Protocol</code> - u</dt>
           <dd>Underlying protocol of the candidate
             (<tp:type>Media_Stream_Base_Proto</tp:type>) </dd>
 
-          <dt>Priority (u) </dt>
+          <dt><code>Priority</code> - u</dt>
           <dd>Priority of the candidate (should be a number between 0 and
             65535). Most ICE implementations will prefer the highest priority
             candidate pair that manages to connect. For backwards
@@ -149,17 +149,17 @@
             same priority and advertised to the CM at the same time. The CM
             will decide which to advertise to the remote end.</dd>
 
-          <dt>BaseIP (s) </dt>
+          <dt><code>BaseIP</code> - s</dt>
           <dd>Base IP of this candidate </dd>
 
-          <dt>BasePort (u) </dt>
+          <dt><code>BasePort</code> - u</dt>
           <dd>Base port of this candidate </dd>
 
-          <dt>Username (s) </dt>
+          <dt><code>Username</code> - s</dt>
           <dd>Username of this candidate
             (only if credentials are per candidate)</dd>
 
-          <dt>Password (s) </dt>
+          <dt><code>Password</code> - s</dt>
           <dd>Password of this candidate
             (only if credentials are per candidate)</dd>
         </dl>
