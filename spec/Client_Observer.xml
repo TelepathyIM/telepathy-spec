@@ -105,14 +105,13 @@
           will return successfully if the channels were successfully
           claimed, or failure if someone else got there first.</li>
       </ol>
-<!--
+
       <p>Non-interactive approvers implemented as observers SHOULD
         also set <tp:member-ref>DelayApprovers</tp:member-ref> to TRUE
         so that other Approvers are not called on until all observers
         return from <tp:member-ref>ObserveChannels</tp:member-ref>.
         This gives non-interactive approvers a chance to claim the
         channels before Approvers are called.</p>
--->
     </tp:docstring>
 
     <property name="ObserverChannelFilter"
