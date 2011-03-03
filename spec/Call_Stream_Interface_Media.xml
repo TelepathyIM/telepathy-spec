@@ -36,7 +36,6 @@
       namespace="ofdT.Call.Stream">Endpoint.DRAFT</tp:dbus-ref>
       objects. Once the call is established, there MUST be a single
       endpoint left.</p>
-      
 
       <h4>ICE restarts</h4>
 
@@ -341,11 +340,11 @@
     <property name="LocalCredentials" tp:name-for-bindings="Local_Credentials"
       type="(ss)" tp:type="Stream_Credentials" access="read">
       <tp:docstring>
-	The local credentials are sent to the remote site over the
-	signalling protocol. They are used in ICE to make sure that
-	the connectivity checks come from the right peer. Change
-	notification is via the
-	<tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
+        The local credentials are sent to the remote site over the
+        signalling protocol. They are used in ICE to make sure that
+        the connectivity checks come from the right peer. Change
+        notification is via the
+        <tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
@@ -355,8 +354,8 @@
       <tp:docstring>
         Emitted when the value of
         <tp:member-ref>LocalCredentials</tp:member-ref> changes. This only
-	happens when the streaming implementation calls
-	<tp:member-ref>SetCredentials</tp:member-ref>.
+        happens when the streaming implementation calls
+        <tp:member-ref>SetCredentials</tp:member-ref>.
       </tp:docstring>
       <arg name="Username" type="s" />
       <arg name="Password" type="s" />
