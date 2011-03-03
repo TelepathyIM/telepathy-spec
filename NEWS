@@ -2,6 +2,15 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.21.11 (2011-03-04)
+===================================
+
+New stable API:
+
+• Add Observer.DelayApprovers property indicating whether the channel dispatcher
+  should wait for ObserveChannels to return before calling
+  Approver.AddDispatchOperation on appropriate Approvers.
+
 telepathy-spec 0.21.10 (2011-02-24)
 ===================================
 
