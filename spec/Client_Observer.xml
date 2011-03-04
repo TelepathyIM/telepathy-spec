@@ -402,7 +402,7 @@ Recover=true
 
     <property name="DelayApprovers" type="b" access="read"
       tp:name-for-bindings="Delay_Approvers">
-      <tp:added version="0.13.UNRELEASED"/>
+      <tp:added version="0.21.11"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>If true, the channel dispatcher will wait for
             <tp:member-ref>ObserveChannels</tp:member-ref> to return
