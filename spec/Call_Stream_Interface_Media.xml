@@ -157,10 +157,12 @@
             will decide which to advertise to the remote end.</dd>
 
           <dt><code>base-ip</code> - s</dt>
-          <dd>Base IP of this candidate </dd>
+          <dd>The underlying Host address where media sent to this
+            (non-host-type) candidate will eventually arrive.</dd>
 
           <dt><code>base-port</code> - u</dt>
-          <dd>Base port of this candidate </dd>
+          <dd>The underlying Host port where media sent to this
+            (non-host-type) candidate will eventually arrive.</dd>
 
           <dt><code>username</code> - s</dt>
           <dd>Username of this candidate
