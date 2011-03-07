@@ -46,9 +46,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           The minimum interval between two regular RTCP packets in
           milliseconds for this content. If no special value is desired, one
-          should put MAXUINT (0xFFFFFFFF). In most profiles, the special value
+          should put MAXUINT (0xFFFFFFFF). In RTP/AVPF, the special value
           0 means "Do not let RTCP packets exceed 5% of the available
-          bandwidth."
+          bandwidth". Other profiles may assign other meanings to the value 0.
         </tp:docstring>
       </tp:member>
       <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
