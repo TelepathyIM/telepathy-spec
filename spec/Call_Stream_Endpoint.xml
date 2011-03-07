@@ -223,6 +223,52 @@
       </tp:docstring>
     </property>
 
+    <property name="Controlling" tp:name-for-bindings="Controlling"
+      type="b" access="read">
+      <tp:docstring>
+        The local side is taking the controlling role (as defined by ICE RFC
+        5245).
+
+        Change notification is given via the
+        the <tp:member-ref>ControllingChanged</tp:member-ref> signal.
+      </tp:docstring>
+    </property>
+
+    <method name="SetControlling"
+      tp:name-for-bindings="Set_Controlling">
+      <tp:docstring>
+        Set whether the local side is taking the Controlling role. Note that
+        if there are multiple endpoints (e.g. SIP call forking) it may be the
+        case that all endpoints need to have the same controlling/controlled
+        orientation.
+      </tp:docstring>
+      <arg name="Controlling" type="b" direction="in">
+        <tp:docstring>
+          The new value of <tp:member-ref>Controlling</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <signal name="ControllingChanged"
+      tp:name-for-bindings="Controlling_Changed">
+      <tp:docstring>
+        The value of <tp:member-ref>Controlling</tp:member-ref> has changed.
+      </tp:docstring>
+      <arg name="Controlling" type="b">
+        <tp:docstring>
+          The new value of <tp:member-ref>Controlling</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <property name="IsICELite" tp:name-for-bindings="Is_ICE_Lite"
+      type="b" access="read">
+      <tp:docstring>
+        The Remote side is an ICE Lite endpoint (The local side is assumed to
+        always be an ICE Full implementation).
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
