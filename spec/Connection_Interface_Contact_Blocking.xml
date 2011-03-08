@@ -24,7 +24,17 @@
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where contacts can be blocked from
-        communicating with this user and receiving this user's presence.</p>
+        communicating with this user and receiving this user's presence.
+        Clients may retrieve a list of currently-blocked contacts using
+        <tp:member-ref>RequestBlockedContacts</tp:member-ref>, and listen for
+        <tp:member-ref>BlockedContactsChanged</tp:member-ref> to be notified
+        when contacts are blocked and unblocked. The
+        <tp:member-ref>BlockContacts</tp:member-ref> and
+        <tp:member-ref>UnblockContacts</tp:member-ref> methods do what they say
+        on the tin; depending on the value of the
+        <tp:member-ref>ContactBlockingCapabilities</tp:member-ref> property,
+        contacts may be reported for spam or other abuse when calling
+        <tp:member-ref>BlockContacts</tp:member-ref>.</p>
 
       <p>This interface is intended for protocols where blocking contacts
         persists on the server between connections; connection managers for
