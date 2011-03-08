@@ -54,16 +54,38 @@
           <p>In addition to blocking, report these contacts as abusive to the
             server administrators.</p>
 
-          <p>Clients can determine whether this capability is available by
-            checking the
-            <tp:member-ref>ContactBlockingCapabilities</tp:member-ref>
-            property. If the capability is not present and this argument is
-            true, the error <tp:error-ref>NotCapable</tp:error-ref> SHOULD
-            be raised.</p>
-
           <tp:rationale>
             Some protocol libraries, in their conformance requirements,
             require the ability to report blocked contacts as abusive.
+          </tp:rationale>
+
+          <p>Clients can determine whether this capability is available by
+            checking the
+            <tp:member-ref>ContactBlockingCapabilities</tp:member-ref>
+            property. If this argument is set to <code>True</code> by a client
+            despite <tp:member-ref>ContactBlockingCapabilities</tp:member-ref>
+            not containing the <code>Can_Report_Abusive</code> flag, the
+            connection manager SHOULD act as if it were <code>False</code> and
+            simply block the supplied contacts.</p>
+
+          <tp:rationale>
+            <p>A correct user interface shouldn't get this far without knowing
+              that reporting abusive contacts is not supported. If it does,
+              then the user has expressed their intention to block these
+              contacts. Returning an error would leave the UI with three
+              options:</p>
+
+            <ul>
+              <li>Ignore the error, leaving the contacts not actually blocked;</li>
+              <li>Display an error to the user;</li>
+              <li>Call this method again, passing <code>False</code> for this
+              argument.</li>
+            </ul>
+
+            <p>None of these seem preferable to the CM just ignoring this flag
+              if it doesn't support it: that way, the contacts will be blocked,
+              as the user requested, and UIs have fewer ways to mess up
+              entirely.</p>
           </tp:rationale>
         </tp:docstring>
       </arg>
@@ -72,7 +94,6 @@
         <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable"/>
       </tp:possible-errors>
     </method>
 
