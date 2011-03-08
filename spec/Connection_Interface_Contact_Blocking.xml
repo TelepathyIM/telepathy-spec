@@ -105,12 +105,6 @@
           </tp:rationale>
         </tp:docstring>
       </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
     </method>
 
     <method name="UnblockContacts" tp:name-for-bindings="Unblock_Contacts">
@@ -123,12 +117,6 @@
           list are not currently blocked, the connection manager MUST act as if
           they were not specified in this list.</tp:docstring>
       </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
     </method>
 
     <method name="RequestBlockedContacts"
@@ -144,12 +132,6 @@
       <arg name="Contacts" type="au" direction="out" tp:type="Contact_Handle[]">
         <tp:docstring>The list of blocked contacts.</tp:docstring>
       </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
     </method>
 
     <signal name="BlockedContactsChanged"
