@@ -70,11 +70,6 @@
           <p>In addition to blocking, report these contacts as abusive to the
             server administrators.</p>
 
-          <tp:rationale>
-            Some protocol libraries, in their conformance requirements,
-            require the ability to report blocked contacts as abusive.
-          </tp:rationale>
-
           <p>Clients can determine whether this capability is available by
             checking the
             <tp:member-ref>ContactBlockingCapabilities</tp:member-ref>
