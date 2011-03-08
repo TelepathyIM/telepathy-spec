@@ -229,6 +229,12 @@
         The local side is taking the controlling role (as defined by ICE RFC
         5245).
 
+        <tp:rationale>In ICE, the Caller is normally in controlling mode (and
+        the Callee in controlled-mode). Except if the Caller is doing ICE-Lite,
+        in which case it's reversed. The Controlling side is responsible for
+        selecting nominated pairs, and generating updated offers upon
+        conclusion of ICE.</tp:rationale>
+
         Change notification is given via the
         the <tp:member-ref>ControllingChanged</tp:member-ref> signal.
       </tp:docstring>
