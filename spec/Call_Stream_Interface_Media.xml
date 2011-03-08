@@ -58,6 +58,188 @@
         section 9.1.1.1</a></p>
     </tp:docstring>
 
+    <tp:enum type="u" name="Stream_Flow_State">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        The type of <tp:member-ref>SendingState</tp:member-ref>
+        and <tp:member-ref>ReceivingState</tp:member-ref>.
+      </tp:docstring>
+      <tp:enumvalue suffix="Not_Flowing" value="0">
+        <tp:docstring>
+          No data is flowing (or expected to be flowing) at this time.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Pending_Send" value="1">
+        <tp:docstring>
+          The streaming implementation has been told to start or receiving,
+          but has not yet indicated that it is doing so.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Pending_Stop" value="2">
+        <tp:docstring>
+          The streaming implementation has been told to stop sending or
+          receiving data, but it has not yet indicated that it is doing so.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Flowing" value="3">
+        <tp:docstring>
+          The streaming implementation is successfully sending or receiving
+          data, and everything is going swimmingly.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:enum type="u" name="Stream_Flow_Change_Reason">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        The reason for a change in <tp:member-ref>SendingState</tp:member-ref>
+        or <tp:member-ref>ReceivingState</tp:member-ref>.
+      </tp:docstring>
+      <tp:enumvalue suffix="Success" value="0">
+        <tp:docstring>
+          The stream has started successfully.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Muted" value="1">
+        <tp:docstring>
+          Media is not flowing (or bogus media is flowing) because the stream
+          was muted.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Held" value="2">
+        <tp:docstring>
+          Media is not flowing (or media is being ignored) because the stream
+          was put on hold.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Temporarily_Failed" value="3">
+        <tp:docstring>
+          Something has gone wrong, but the streaming implementation might be
+          able to recover from it if you try again.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Failed" value="4">
+        <tp:docstring>
+          Something has gone wrong that the streaming implementation cannot
+          recover from.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <property name="SendingState" tp:name-for-bindings="Sending_State"
+        type="u" tp:type="Stream_Flow_State" access="read">
+      <tp:docstring>
+        Indicates whether the streaming implementation is/should be sending
+        media for this stream. The streaming implementation should be able to
+        rely on reading this value and listening to SendingStateChanged to
+        determine whether it should be sending media or not. It should not
+        need to listen to the Mute/Hold interfaces on the Call/Content.
+        Feedback on success should be given via the SendingStarted and
+        SendingStopped methods. Failures should be signalled via
+        SendingFailed.
+      </tp:docstring>
+    </property>
+
+    <signal name="SendingStateChanged"
+        tp:name-for-bindings="Sending_State_Changed">
+      <tp:docstring>
+        Change notification for <tp:member-ref>SendingState</tp:member-ref>.
+        Note that this information may duplicated onto the Stream interface, so
+        that UIs can ignore the Media interface, and streaming implementations
+        can ignore everything but the media interface.
+      </tp:docstring>
+      <arg name="State" type="u" tp:type="Stream_Flow_State">
+        <tp:docstring>
+          The new value of SendingState.
+        </tp:docstring>
+      </arg>
+      <arg name="Reason" type="u" tp:type="Stream_Flow_Change_Reason">
+        <tp:docstring>
+          The reason for the change.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="SendingStarted" tp:name-for-bindings="Sending_Started">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Called in response to
+      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStart) to
+      indicate that sending media has started successfully.</p>
+      </tp:docstring>
+    </method>
+
+    <method name="SendingStopped" tp:name-for-bindings="Sending_Stopped">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Called in response to
+      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped) to
+      indicate that sending media has stopped successfully.</p>
+      </tp:docstring>
+    </method>
+
+    <method name="SendingFailed" tp:name-for-bindings="Sending_Failed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Can be called at any point to indicate a failure in the outgoing
+        portion of the stream.
+      </tp:docstring>
+      <arg name="Reason" type="u" tp:type="Stream_Flow_Change_Reason"
+        direction="in"/>
+      <arg name="Error" type="s" tp:type="DBus_Error_Name" direction="in"/>
+      <arg name="Message" type="s" direction="in"/>
+    </method>
+
+    <property name="ReceivingState" tp:name-for-bindings="Receiving_State"
+        type="u" tp:type="Stream_Flow_State" access="read">
+      <tp:docstring>
+        The counterpart of <tp:member-ref>SendingState</tp:member-ref>.
+        Indicates whether the streaming implementation is/should be expecting
+        to receive media for this stream. The CM should only tell the
+        streaming implementation to stop receiving if it has been told to put
+        the stream on hold, or the stream has been removed from the call.
+      </tp:docstring>
+    </property>
+
+    <signal name="ReceivingStateChanged"
+        tp:name-for-bindings="Receiving_State_Changed">
+      <tp:docstring>
+        Change notification for <tp:member-ref>ReceivingState</tp:member-ref>.
+      </tp:docstring>
+      <arg name="State" type="u" tp:type="Stream_Flow_State">
+        <tp:docstring>
+          The new value of ReceivingState.
+        </tp:docstring>
+      </arg>
+      <arg name="Reason" type="u" tp:type="Stream_Flow_Change_Reason">
+        <tp:docstring>
+          The reason for the change.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="ReceivingStarted" tp:name-for-bindings="Receiving_Started">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Called in response to
+      <tp:member-ref>ReceivingStateChanged</tp:member-ref>(PendingStart) to
+      indicate that listening for media has started successfully.</p>
+      </tp:docstring>
+    </method>
+
+    <method name="ReceivingStopped" tp:name-for-bindings="Receiving_Stopped">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Called in response to
+      <tp:member-ref>ReceivingStateChanged</tp:member-ref>(PendingStopped) to
+      indicate that receiving/displaying media has stopped successfully.</p>
+      </tp:docstring>
+    </method>
+
+    <method name="ReceivingFailed" tp:name-for-bindings="Receiving_Failed">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        Can be called at any point to indicate a failure in receiving or
+        rendering the incoming portion of the stream.
+      </tp:docstring>
+      <arg name="Reason" type="u" tp:type="Stream_Flow_Change_Reason"
+        direction="in"/>
+      <arg name="Error" type="s" tp:type="DBus_Error_Name" direction="in"/>
+      <arg name="Message" type="s" direction="in"/>
+    </method>
+
     <method name="SetCredentials" tp:name-for-bindings="Set_Credentials">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Used to set the username fragment and password for streams that have
