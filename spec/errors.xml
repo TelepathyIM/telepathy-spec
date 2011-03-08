@@ -546,12 +546,15 @@
 
   <tp:error name="Software Upgrade Required">
     <tp:added version="0.21.UNRELEASED"/>
-    <tp:docstring>
-      Raised as a
-      <tp:dbus-ref namespace="ofdT.Connection">ConnectionError</tp:dbus-ref>
-      when a Connection cannot be established because either the Connection
-      Manager or its support library (e.g. wocky, papyon, sofiasip) requires
-      upgrading to support a newer protocol version.
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Raised as a
+        <tp:dbus-ref namespace="ofdT.Connection">ConnectionError</tp:dbus-ref>
+        when a Connection cannot be established because either the Connection
+        Manager or its support library (e.g. wocky, papyon, sofiasip) requires
+        upgrading to support a newer protocol version.</p>
+
+      <p>This error corresponds to the
+        <tp:type>Connection_Status_Reason</tp:type> of Network_Error.</p>
 
       <tp:rationale>
         Some protocols transmit a protocol or library version number to the
