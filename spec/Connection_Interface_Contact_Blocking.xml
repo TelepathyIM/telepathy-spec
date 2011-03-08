@@ -158,12 +158,12 @@
           whenever the list of blocked contacts subsequently changes.</p>
       </tp:docstring>
 
-      <arg name="BlockedContacts" type="au" tp:type="Contact_Handle[]">
+      <arg name="Blocked_Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>Contacts added to the result of
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>.</tp:docstring>
       </arg>
 
-      <arg name="UnblockedContacts" type="au" tp:type="Contact_Handle[]">
+      <arg name="Unblocked_Contacts" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>Contacts removed from the result of
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>.</tp:docstring>
       </arg>
