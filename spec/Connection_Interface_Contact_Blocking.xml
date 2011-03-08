@@ -26,6 +26,13 @@
       <p>An interface for connections where contacts can be blocked from
         communicating with this user and receiving this user's presence.</p>
 
+      <p>This interface is intended for protocols where blocking contacts
+        persists on the server between connections; connection managers for
+        protocols with no server-side support for blocking contacts MAY choose
+        to implement this interface using an on-disk file of blocked
+        contacts or some other means to store blocked contacts between
+        connections.</p>
+
       <p>When this interface becomes stable, it will replace the <tp:dbus-ref
           namespace="org.freedesktop.Telepathy.Channel.Type"
           >ContactList</tp:dbus-ref> channel with TargetHandleType
@@ -40,9 +47,6 @@
           presence to them in future, and if they were already receiving the
           local user's presence, behaving as if the local user went
           offline.</p>
-
-        <p><em>FIXME: do we need to allow this on protocols where it won't
-            persist, or where we can't edit the block lists?</em></p>
       </tp:docstring>
 
       <arg name="Contacts" type="au" direction="in" tp:type="Contact_Handle[]">
