@@ -56,8 +56,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
      On protocols that support contact lists, these interface expose the user's
-     contact lists, along with presence subscription information and contact
-     list groups (if supported).
+     contact lists, along with presence subscription information, contact
+     list groups (if supported), and the ability to block and unblock contacts
+     (if supported).
     </p>
    </tp:docstring>
 
