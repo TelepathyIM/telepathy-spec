@@ -60,7 +60,9 @@
       </tp:docstring>
 
       <arg name="Contacts" type="au" direction="in" tp:type="Contact_Handle[]">
-        <tp:docstring>Some contacts to block.</tp:docstring>
+        <tp:docstring>Some contacts to block. If some of the contacts in this
+          list are already blocked, the connection manager MUST act as if they
+          were not specified in this list.</tp:docstring>
       </arg>
 
       <arg name="Report_Abusive" type="b" direction="in">
@@ -113,12 +115,13 @@
 
     <method name="UnblockContacts" tp:name-for-bindings="Unblock_Contacts">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Reverse the effects of a previous call to
-          <tp:member-ref>BlockContacts</tp:member-ref>.</p>
+        <p>Direct the server to unblock some contacts.</p>
       </tp:docstring>
 
       <arg name="Contacts" type="au" direction="in" tp:type="Contact_Handle[]">
-        <tp:docstring>Some contacts to unblock.</tp:docstring>
+        <tp:docstring>Some contacts to unblock. If some of the contacts in this
+          list are not currently blocked, the connection manager MUST act as if
+          they were not specified in this list.</tp:docstring>
       </arg>
 
       <tp:possible-errors>
