@@ -545,7 +545,7 @@
   </tp:error>
 
   <tp:error name="Software Upgrade Required">
-    <tp:added version="0.21.UNRELEASED"/>
+    <tp:added version="0.21.12"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Raised as a
         <tp:dbus-ref namespace="ofdT.Connection">ConnectionError</tp:dbus-ref>
@@ -566,7 +566,7 @@
   </tp:error>
 
   <tp:error name="Emergency Calls Not Supported">
-    <tp:added version="0.21.UNRELEASED"/>
+    <tp:added version="0.21.12"/>
     <tp:docstring>
       Raised if a client attempts to dial a number that is recognized as an
       emergency number (e.g. '911' in the USA), but the Connection Manager or
