@@ -132,6 +132,7 @@
       tp:name-for-bindings="Message_National_Character_Set"
       type="s" access="readwrite"
       tp:is-connection-parameter='affirmative'>
+      <tp:added version="0.21.12"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Hint for the connection manager for the GSM character set that
           should be used to send SMSes. The connection manager SHOULD follow
