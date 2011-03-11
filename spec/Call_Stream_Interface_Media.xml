@@ -166,7 +166,7 @@
       </tp:docstring>
     </method>
 
-    <method name="Muted" tp:name-for-bindings="Sending_Stopped">
+    <method name="Muted" tp:name-for-bindings="Muted">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Called in response to
       <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped, Muted)
