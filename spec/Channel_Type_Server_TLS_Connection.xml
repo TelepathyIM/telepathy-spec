@@ -58,9 +58,25 @@
               tp:name-for-bindings="Hostname">
       <tp:added version="0.19.12"/>
       <tp:docstring>
-        The hostname of the server we expect <tp:member-ref>ServerCertificate</tp:member-ref>
-        to certify; clients SHOULD verify <tp:member-ref>ServerCertificate</tp:member-ref> against
-	this hostname when checking its validity.
+        <p>The hostname or domain that the user expects to connect to. Clients
+        SHOULD use the <tp:member-ref>ReferenceIdentities</tp:member-ref>
+        property to verify the identity of the certificate. Clients may display
+        this hostname to the user as the expected identity.</p>
+        <p>This property is immutable.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="ReferenceIdentities" type="as" access="read"
+              tp:name-for-bindings="ReferenceIdentities">
+      <tp:added version="0.21.10"/>
+      <tp:docstring>
+        <p>The identities of the server we expect
+        <tp:member-ref>ServerCertificate</tp:member-ref> to certify; clients
+        SHOULD verify that <tp:member-ref>ServerCertificate</tp:member-ref>
+        matches one of these identities when checking its validity. At a minimum
+        this will contain the <tp:member-ref>Hostname</tp:member-ref>
+        property.</p>
+        <p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
