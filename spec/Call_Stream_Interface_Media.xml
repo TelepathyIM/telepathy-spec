@@ -161,15 +161,24 @@
     <method name="SendingStarted" tp:name-for-bindings="Sending_Started">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Called in response to
-      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStart) to
+      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStart, .) to
       indicate that sending media has started successfully.</p>
+      </tp:docstring>
+    </method>
+
+    <method name="Muted" tp:name-for-bindings="Sending_Stopped">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Called in response to
+      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped, Muted)
+      to indicate that the streaming implementation is sending silence on this
+      stream, and the local user's privacy is protected.</p>
       </tp:docstring>
     </method>
 
     <method name="SendingStopped" tp:name-for-bindings="Sending_Stopped">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Called in response to
-      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped) to
+      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped, .) to
       indicate that sending media has stopped successfully.</p>
       </tp:docstring>
     </method>
