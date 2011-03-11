@@ -68,7 +68,7 @@
           No data is flowing (or expected to be flowing) at this time.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Pending_Send" value="1">
+      <tp:enumvalue suffix="Pending_Start" value="1">
         <tp:docstring>
           The streaming implementation has been told to start or receiving,
           but has not yet indicated that it is doing so.
