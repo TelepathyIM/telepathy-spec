@@ -18,9 +18,9 @@
       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
       USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking.DRAFT"
-    tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactList"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where contacts can be blocked from
@@ -43,10 +43,21 @@
         contacts or some other means to store blocked contacts between
         connections.</p>
 
-      <p>When this interface becomes stable, it will replace the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type"
-          >ContactList</tp:dbus-ref> channel with TargetHandleType
-        Handle_Type_List and TargetID 'deny'.</p>
+      <p>This interface is intended to replace the
+        <tp:dbus-ref namespace="ofdT.Channel.Type">ContactList</tp:dbus-ref>
+        channel with <tp:dbus-ref
+        namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>
+        <code>List</code> and <tp:dbus-ref
+        namespace='ofdT.Channel'>TargetID</tp:dbus-ref> <code>"deny"</code>
+        (along with the <tp:dbus-ref
+        namespace='ofdT.Connection.Interface'>ContactList</tp:dbus-ref> and
+        <tp:dbus-ref
+        namespace='ofdT.Connection.Interface'>ContactGroups</tp:dbus-ref>
+        interfaces replacing other channels with <tp:dbus-ref
+        namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>
+        <code>List</code> and <tp:dbus-ref
+        namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>
+        <code>Group</code>, respectively).</p>
     </tp:docstring>
 
     <method name="BlockContacts" tp:name-for-bindings="Block_Contacts">
