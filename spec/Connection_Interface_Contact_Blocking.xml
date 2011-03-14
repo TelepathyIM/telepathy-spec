@@ -169,10 +169,10 @@
 
     <tp:contact-attribute name="blocked" type="b">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>True if the contact would be in the result of
+        <p><code>True</code> if the contact would be in the result of
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>;
-          False or omitted if the contact is not blocked, or if it is
-          unknown whether the contact is blocked.</p>
+          <code>False</code> or omitted if the contact is not blocked, or if it
+          is unknown whether the contact is blocked.</p>
       </tp:docstring>
     </tp:contact-attribute>
 
