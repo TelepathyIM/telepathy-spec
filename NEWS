@@ -2,6 +2,14 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.21.13 (UNRELEASED)
+===================================
+
+New stable API:
+
+• Connection.Interface.ContactBlocking, a replacement for the 'deny'
+  list. (Simon, Danielle, Will)
+
 telepathy-spec 0.21.12 (2011-03-09)
 ===================================
 
