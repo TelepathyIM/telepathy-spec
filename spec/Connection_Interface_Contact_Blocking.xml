@@ -21,6 +21,10 @@
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
     <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactList"/>
+    <tp:added version='0.21.UNRELEASED'>Changes from the draft:
+      methods and signals now return <tp:type>Handle_Identifier_Map</tp:type>
+      (<code>a{us}</code>) rather than bare lists of contact handles
+      (<code>au</code>)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where contacts can be blocked from
@@ -135,8 +139,10 @@
           contact list, which can take a significant time to retrieve.</p>
       </tp:docstring>
 
-      <arg name="Contacts" type="au" direction="out" tp:type="Contact_Handle[]">
-        <tp:docstring>The list of blocked contacts.</tp:docstring>
+      <arg name="Contacts" type="a{us}" direction="out"
+        tp:type="Handle_Identifier_Map">
+        <tp:docstring>The blocked contacts’ handles, together with their
+          identifiers.</tp:docstring>
       </arg>
     </method>
 
@@ -149,12 +155,13 @@
           whenever the list of blocked contacts subsequently changes.</p>
       </tp:docstring>
 
-      <arg name="Blocked_Contacts" type="au" tp:type="Contact_Handle[]">
+      <arg name="Blocked_Contacts" type="a{us}" tp:type="Handle_Identifier_Map">
         <tp:docstring>Contacts added to the result of
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>.</tp:docstring>
       </arg>
 
-      <arg name="Unblocked_Contacts" type="au" tp:type="Contact_Handle[]">
+      <arg name="Unblocked_Contacts" type="a{us}"
+           tp:type="Handle_Identifier_Map">
         <tp:docstring>Contacts removed from the result of
           <tp:member-ref>RequestBlockedContacts</tp:member-ref>.</tp:docstring>
       </arg>
