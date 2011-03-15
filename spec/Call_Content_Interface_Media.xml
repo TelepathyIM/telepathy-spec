@@ -265,7 +265,13 @@
         tp:type="Contact_Media_Description_Properties_Map" access="read">
       <tp:docstring>
         <p>A map from contact handles to descriptions supported by that
-           contact.</p>
+          contact.</p>
+
+        <p>Keys of this map will appear in at most one <tp:dbus-ref
+          namespace="ofdT.Call.Stream.DRAFT">RemoteMembers</tp:dbus-ref>.
+          See <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >RemoteContact</tp:dbus-ref> for more details on how to map between
+          MediaDescriptions and Streams.</p>
       </tp:docstring>
     </property>
 
