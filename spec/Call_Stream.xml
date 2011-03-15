@@ -54,6 +54,12 @@
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented" />
+        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+          <tp:docstring>If the call has not been accepted yet, calling
+            SetSending(True) is an error. See
+            <tp:member-ref>LocalSendingState</tp:member-ref> for details.
+          </tp:docstring>
+        </tp:error>
       </tp:possible-errors>
     </method>
 
@@ -201,10 +207,6 @@
           local user's sending state is shown in
           <tp:member-ref>LocalSendingState</tp:member-ref>.</p>
 
-        <p><tp:type>Sending_State</tp:type>_Pending_Send indicates
-          that another contact has asked the local user to send
-          media.</p>
-
         <p>Other contacts' handles in this map indicate whether they are
           sending media to the contacts in this stream.
           Sending_State_Pending_Send indicates contacts who are not sending but
@@ -233,18 +235,18 @@
 
         <p>A value of <tp:type>Sending_State</tp:type>_Pending_Send for
           this property indicates that the other side requested the
-          local user start sending media, which can be done by calling
-          <tp:member-ref>SetSending</tp:member-ref>. When a call is
-          accepted, all initial contents with streams that have a
-          local sending state of
-          <tp:type>Sending_State</tp:type>_Pending_Send are
-          automatically set to sending. For example, on an incoming
-          call it means you need to <tp:dbus-ref
-          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
-          to start the actual call, on an outgoing call it might mean
-          you need to call <tp:dbus-ref
-          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>
-          before actually starting the call.</p>
+          local user start sending media (which can be done by calling either
+          <tp:member-ref>SetSending</tp:member-ref> or <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref>).</p>
+
+        <p>When <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">Accept</tp:dbus-ref> is
+          called, all streams with a local sending state of
+          <tp:type>Sending_State</tp:type>_Pending_Send and the associated
+          <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT"
+          >Disposition</tp:dbus-ref> set to
+          <tp:type>Call_Content_Disposition</tp:type>_Initial are
+          automatically set to sending.</p>
       </tp:docstring>
     </property>
 
