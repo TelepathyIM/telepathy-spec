@@ -203,14 +203,28 @@
         type="a{uu}" access="read" tp:type="Contact_Sending_State_Map">
       <tp:changed version="0.21.2">renamed from Senders</tp:changed>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A map from remote contacts to their sending state. The
-          local user's sending state is shown in
-          <tp:member-ref>LocalSendingState</tp:member-ref>.</p>
+        <p>A map from remote contacts to their sending state.</p>
 
-        <p>Other contacts' handles in this map indicate whether they are
-          sending media to the contacts in this stream.
-          Sending_State_Pending_Send indicates contacts who are not sending but
-          have been asked to do so.</p>
+        <p>Media sent to this stream will be sent to all members listed here.
+          All members listed here will also appear in <tp:dbus-ref
+          namespace="ofdT.Channel.Type.Call.DRAFT">CallMembers</tp:dbus-ref>,
+          and each CallMembers member will be listed in at most one Stream per
+          Content. Therefore, to hide things from a member of the
+          call, UIs only need to mute one Stream per Content.</p>
+
+        <p>Contacts' handles in this map indicate whether they are
+          sending media to this stream. Sending_State_Pending_Send indicates
+          contacts who are not sending but have been asked to do so. The
+          local user's sending state is shown in <tp:member-ref
+          >LocalSendingState</tp:member-ref>.</p>
+
+        <p>This mapping is also used by the streaming implementation to map
+          from <tp:dbus-ref namespace="ofdT.Call.Content"
+          >MediaDescription.DRAFT</tp:dbus-ref>s to Streams. In this use-case,
+          all of the senders in this stream will be represented in
+          <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+          >RemoteMediaDescriptions</tp:dbus-ref>. This use-case should not
+          affect anything that does not handle media streaming.</p>
       </tp:docstring>
     </property>
 
