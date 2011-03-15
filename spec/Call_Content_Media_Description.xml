@@ -138,6 +138,26 @@
       </tp:docstring>
     </property>
 
+    <property name="SSRC" tp:name-for-bindings="SSRC"
+      type="u" access="read" tp:immutable="yes">
+      <tp:docstring>
+        Synchronisation Source, as defined by RFC 3550.
+
+        Some protocols require the negotiation of SSRC identifiers for RTP
+        streams. If this is the case, then MediaDescription offers will appear
+        with this property set. The streaming implementation should then call
+        <tp:member-ref>Accept</tp:member-ref> which does not collide with this
+        one or any previously seen SSRCs. If a new MediaDescription offer
+        appears with the same SSRC as the one in <tp:dbus-ref
+        namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+        >LocalMediaDescription</tp:dbus-ref>, then the streaming
+        implementation should pick a new SSRC to resolve the collision.
+
+        If this property is omitted, then the streaming implementation can
+        assume that there is only one MediaDescription per Stream.
+      </tp:docstring>
+    </property>
+
     <tp:mapping name="Media_Description_Properties">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>
