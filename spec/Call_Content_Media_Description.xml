@@ -129,12 +129,22 @@
       <tp:docstring>
         The contact handle that this description applies to.
 
-        If this property is 0, the description will apply to all remote
-        contacts in the call (e.g. in conference calls with a mixer, where
-        media from all participants is mixed into one stream). When calling
-        Accept or UpdateLocalMediaDescription, this should always be set to 0,
-        or omitted, because it is assumed that you send the same
-        MediaDescription to everyone.
+        This property can be used as an opaque identifier, and searched for in
+        <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
+        >RemoteMembers</tp:dbus-ref> for each Stream in this Content, to
+        determine which Stream this MediaDescription applies to. If multiple
+        MediaDescriptions apply to the same Stream, the
+        <tp:member-ref>SSRC</tp:member-ref> property should be used to
+        separate media before decoding.
+
+        If this property is 0, this MediaDescription applies to all streams,
+        so the above matching method is unneccesary (e.g. in conference calls
+        with a mixer, media from all participants is mixed into one stream).
+
+        When calling Accept or UpdateLocalMediaDescription, this should always
+        be set to 0, or omitted, because it is assumed that you send the same
+        MediaDescription to everyone (Encoding a stream separately for each
+        contact in a call is inefficient, and should be avoided).
       </tp:docstring>
     </property>
 
