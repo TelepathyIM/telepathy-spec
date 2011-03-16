@@ -134,7 +134,7 @@
         >RemoteMembers</tp:dbus-ref> for each Stream in this Content, to
         determine which Stream this MediaDescription applies to. If multiple
         MediaDescriptions apply to the same Stream, the
-        <tp:member-ref>SSRC</tp:member-ref> property should be used to
+        <tp:member-ref>SSRCs</tp:member-ref> property should be used to
         separate media before decoding.
 
         If this property is 0, this MediaDescription applies to all streams,
@@ -148,20 +148,27 @@
       </tp:docstring>
     </property>
 
-    <property name="SSRC" tp:name-for-bindings="SSRC"
-      type="u" access="read" tp:immutable="yes">
+    <property name="SSRCs" tp:name-for-bindings="SSRCs"
+      type="au" access="read" tp:immutable="yes">
       <tp:docstring>
-        Synchronisation Source, as defined by RFC 3550.
+        Synchronisation Sources, as defined by RFC 3550.
 
         Some protocols require the negotiation of SSRC identifiers for RTP
         streams. If this is the case, then MediaDescription offers will appear
         with this property set. The streaming implementation should then call
-        <tp:member-ref>Accept</tp:member-ref> which does not collide with this
-        one or any previously seen SSRCs. If a new MediaDescription offer
-        appears with the same SSRC as the one in <tp:dbus-ref
+        <tp:member-ref>Accept</tp:member-ref> with a list containing a single
+        SSRC which does not collide with these,
+        or any previously seen SSRCs. If a new MediaDescription offer
+        appears with an SSRC the same as the one in <tp:dbus-ref
         namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
         >LocalMediaDescription</tp:dbus-ref>, then the streaming
         implementation should pick a new SSRC to resolve the collision.
+
+        It is expected that this list will always be at most one element long,
+        but it is kept as a list for extensibility. The concatenation of all
+        SSRCs associated with a Stream hould contain no duplicate entries. If
+        there are collisions, then it is the responsibility of the protocol
+        implementation to resolve them and generate new offers.
 
         If this property is omitted, then the streaming implementation can
         assume that there is only one MediaDescription per Stream.
