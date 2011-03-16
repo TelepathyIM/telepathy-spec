@@ -98,18 +98,18 @@
           The stream has started successfully.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Direction_Change_Requested" value="0">
+      <tp:enumvalue suffix="Direction_Change_Requested" value="1">
         <tp:docstring>
           A user has requested a change in the Stream's direction (Either
-          locally, via <tp:dbus-ref
-          namespace="ofdT.Call.Stream">SetSending<tp:dbus-ref>/<tp:dbus-ref
-          namespace="ofdT.Call.Stream">RequestReceiving<tp:dbus-ref> or via
-          the equivalent mechanism on the remote client. This is expected to
-          be a long-term change, so the streaming implementation should
-          free resources associated with this stream if appropriate.
+          locally, via <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
+          >SetSending</tp:dbus-ref>/<tp:dbus-ref
+          namespace="ofdT.Call.Stream.DRAFT">RequestReceiving</tp:dbus-ref>
+          or via the equivalent mechanism on the remote client. This is
+          expected to be a long-term change, so the streaming implementation
+          should free resources associated with this stream if appropriate.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Muted" value="1">
+      <tp:enumvalue suffix="Muted" value="2">
         <tp:docstring>
           Media is not flowing (or bogus media is flowing) because the stream
           was muted. This is expected to be a short-term change, so the
@@ -117,22 +117,21 @@
           this flow change at a moment's notice.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Held" value="2">
+      <tp:enumvalue suffix="Held" value="3">
         <tp:docstring>
           Media is not flowing (or media is being ignored) because the stream
           was put on hold. This is expected to be a short-term change, so the
           streaming implementation should keep resources allocated to reverse
           this flow change at a moment's notice.
-
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Temporarily_Failed" value="3">
+      <tp:enumvalue suffix="Temporarily_Failed" value="4">
         <tp:docstring>
           Something has gone wrong, but the streaming implementation might be
           able to recover from it if you try again.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Failed" value="4">
+      <tp:enumvalue suffix="Failed" value="5">
         <tp:docstring>
           Something has gone wrong that the streaming implementation cannot
           recover from.
