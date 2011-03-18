@@ -96,27 +96,29 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:flags name="RTCP_XR_Statistics_Flags" type="u">
       <tp:flag suffix="Loss" value="1">
         <tp:docstring>
-          Loss report flag.
+          Loss report flag, as defined in RFC3611 section 4.6.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Duplicate" value="2">
         <tp:docstring>
-          Duplicate report flag.
+          Duplicate report flag, as defined in RFC3611 section 4.6.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="Jitter" value="4">
         <tp:docstring>
-          Jitter flag.
+          Jitter flag, as defined in RFC3611 section 4.6.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="TTL" value="8">
         <tp:docstring>
-          TTL or Hop Limit flag.
+          First bit of TTL or Hop Limit flag, as defined in RFC3611 section
+          4.6.
         </tp:docstring>
       </tp:flag>
       <tp:flag suffix="HL" value="16">
         <tp:docstring>
-          TTL or Hop Limit flag.
+          Second bit of TTL or Hop Limit flag, as defined in RFC3611 section
+          4.6.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
