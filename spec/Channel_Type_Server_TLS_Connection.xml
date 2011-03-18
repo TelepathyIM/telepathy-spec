@@ -71,14 +71,21 @@
     <property name="ReferenceIdentities" type="as" access="read"
               tp:name-for-bindings="Reference_Identities"
               tp:immutable='plz'>
-      <tp:added version="0.21.10"/>
+      <tp:added version="0.21.10">
+        If this property is not present, clients SHOULD use the
+        <tp:member-ref>Hostname</tp:member-ref> property as the reference
+        identity to validate server certificates against.
+      </tp:added>
+
       <tp:docstring>
         <p>The identities of the server we expect
         <tp:member-ref>ServerCertificate</tp:member-ref> to certify; clients
         SHOULD verify that <tp:member-ref>ServerCertificate</tp:member-ref>
-        matches one of these identities when checking its validity. At a minimum
-        this SHOULD contain the <tp:member-ref>Hostname</tp:member-ref>
-        property; all identities included in this property MUST be derived from
+        matches one of these identities when checking its validity.</p>
+
+        <p>This property MUST NOT be the empty list; at a minimum, it MUST
+        contain the value of the <tp:member-ref>Hostname</tp:member-ref>
+        property. All identities included in this property MUST be derived from
         explicit user input or choices, such as <tp:dbus-ref
         namespace='ofdT.Account'>Parameters</tp:dbus-ref> passed to
         <tp:dbus-ref
@@ -100,10 +107,6 @@
             parameters, which can be set appropriately by the account creation
             UI.</p>
         </tp:rationale>
-
-        <p>If this property is not present, clients SHOULD use the
-        <tp:member-ref>Hostname</tp:member-ref> property as the reference
-        identity and validate server certificates against that.</p>
       </tp:docstring>
     </property>
 
