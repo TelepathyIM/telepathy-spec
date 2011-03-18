@@ -10,6 +10,10 @@ New stable API:
 • Connection.Interface.ContactBlocking, a replacement for the 'deny'
   list. (Simon, Danielle, Will)
 
+• Channel.Type.ServerTLSConnection.ReferenceIdentities, a property primarily
+  intended to help validate the certificate presented by Google Talk for Google
+  Apps hosted domains.
+
 telepathy-spec 0.21.12 (2011-03-09)
 ===================================
 
