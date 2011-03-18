@@ -77,8 +77,30 @@
         <tp:member-ref>ServerCertificate</tp:member-ref> to certify; clients
         SHOULD verify that <tp:member-ref>ServerCertificate</tp:member-ref>
         matches one of these identities when checking its validity. At a minimum
-        this will contain the <tp:member-ref>Hostname</tp:member-ref>
-        property.</p>
+        this SHOULD contain the <tp:member-ref>Hostname</tp:member-ref>
+        property; all identities included in this property MUST be derived from
+        explicit user input or choices, such as <tp:dbus-ref
+        namespace='ofdT.Account'>Parameters</tp:dbus-ref> passed to
+        <tp:dbus-ref
+        namespace='ofdT.ConnectionManager'>RequestConnection</tp:dbus-ref>.</p>
+
+        <tp:rationale>
+          <p>The primary use for this property is for XMPP services hosted by
+            <a href='http://www.google.com/apps/intl/en/business/gmail.html'>Google
+            Apps</a>. When connecting to Google Talk using an
+            <tt>@gmail.com</tt> JID, the server correctly presents a
+            certificate for <tt>gmail.com</tt>; however, for domains hosted via
+            Google Apps, a certificate for <tt>talk.google.com</tt> is
+            offered, due to unresolved technical limitations.</p>
+
+          <p>If the user has explicitly chosen to create a <q>Google Talk</q>
+            account, then trusting a certificate for <tt>talk.google.com</tt>
+            is reasonable. In this case, the connection manager may add the
+            value of the <tt>fallback-server</tt> and <tt>extra-identities</tt>
+            parameters, which can be set appropriately by the account creation
+            UI.</p>
+        </tp:rationale>
+
         <p>If this property is not present, clients SHOULD use the
         <tp:member-ref>Hostname</tp:member-ref> property as the reference
         identity and validate server certificates against that.</p>
