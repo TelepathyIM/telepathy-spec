@@ -18,101 +18,23 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Content.CodecOffer.Interface.RTCPExtendedReports.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Call.Content.MediaDescription.Interface.RTCPExtendedReports.DRAFT"
     tp:causes-havoc="experimental">
     <tp:added version="0.21.UNRELEASED">(draft version, not API-stable)</tp:added>
-    <tp:requires interface="org.freedesktop.Telepathy.Call.Content.CodecOffer.DRAFT"/>
+    <tp:requires
+    interface="org.freedesktop.Telepathy.Call.Content.MediaDescription.DRAFT"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This codec offer interface provides a method of signalling for
         RTCP extended reports, documented by <em>RTP Control Protocol
         Extended Reports (RTCP XR)</em> (RFC 3611).</p>
 
-      <p>Handlers should call
-        <tp:member-ref>SetLocalXRParameters</tp:member-ref> just
-        before calling <tp:dbus-ref
-        namespace="ofdT.Call.Content">CodecOffer.DRAFT.Accept</tp:dbus-ref>.</p>
-
-      <p>If the remote contact codecs are already known (by examining
-        the <tp:dbus-ref
-        namespace="ofdT.Call.Content">CodecOffer.DRAFT.RemoteContactCodecMap</tp:dbus-ref>
-        property) and the codec offer has the <tp:dbus-ref
-        namespace="ofdT.Call.Content.CodecOffer.Interface">RTCPExtendedReports.DRAFT</tp:dbus-ref>
-        interface, then the
-        <tp:member-ref>RemoteXRParameters</tp:member-ref> property
-        may contain useful details about what extended reports the
-        remote contact supports.</p>
 
       <p>For more details on what RTCP extended reports can do and how
         to use them, one should refer to
         <a href="http://www.faqs.org/rfcs/rfc3611.html">RFC 3611</a>.</p>
 
     </tp:docstring>
-
-    <method name="SetLocalXRParameters"
-      tp:name-for-bindings="Set_Local_XR_Parameters">
-      <arg direction="in" type="u" tp:type="RTCP_XR_Parameters"
-        name="Parameters">
-        <tp:docstring>
-          The extended report parameters to set.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" name="Loss_RLE_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_Loss_RLE flag
-          is set on Parameters, then this argument can be set to
-          specify the largest size the whole report block SHOULD have.
-          Use 0 to not specify a max size.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" name="Duplicate_RLE_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_Duplicate_RLE flag
-          is set on Parameters, then this argument can be set to
-          specify the largest size the whole report block SHOULD have.
-          Use 0 to not specify a max size.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" name="Packet_Receipt_Times_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_Packet_Receipt_Times flag
-          is set on Parameters, then this argument can be set to
-          specify the largest size the whole report block SHOULD have.
-          Use 0 to not specify a max size.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" name="RTT_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_RTT flag is set
-          on Parameters, then this argument can be set to specify the
-          largest size any DLRR report block sent SHOULD have. Use 0
-          to not specify a max size.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" tp:type="RCPT_XR_RTT_Mode"
-        name="RTT_Mode">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_RTT flag is set
-          on Parameters, then this argument specifies a RTT mode
-          value.
-        </tp:docstring>
-      </arg>
-      <arg direction="in" type="u" tp:type="RTCP_XR_Statistics_Flags"
-        name="Statistics_Flags">
-        <tp:docstring>
-          If the
-          <tp:type>RTCP_XR_Parameters</tp:type>_Statistics_Summary
-          flag is set on Parameters, then this argument specifies the
-          fields which SHOULD be included in the statistics summary
-          report blocks that are sent. There can be one or more flags
-          set.
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-      </tp:possible-errors>
-    </method>
 
     <tp:struct name="RTCP_XR_Parameters_And_Values">
       <tp:docstring>
@@ -177,22 +99,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:member>
     </tp:struct>
 
-    <property name="LocalXRParameters" type="(uuuuuuu)"
+    <property name="XRParameters" type="(uuuuuuu)"
       tp:type="RTCP_XR_Parameters_And_Values"
-      access="read" tp:name-for-bindings="Local_XR_Parameters">
+      access="read" tp:name-for-bindings="XR_Parameters">
       <tp:docstring>
-        A list of local extended report parameters which have been set
-        using the
-        <tp:member-ref>SetLocalXRParameters</tp:member-ref> method.
-      </tp:docstring>
-    </property>
-
-    <property name="RemoteXRParameters" type="(uuuuuuu)"
-      tp:type="RTCP_XR_Parameters_And_Values"
-      access="read" tp:name-for-bindings="Remote_XR_Parameters">
-      <tp:docstring>
-        A list of remote report parameters which have been set by the
-        CM.
+        A list of remote report parameters which are supported.
       </tp:docstring>
     </property>
 
