@@ -21,7 +21,7 @@
   <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactBlocking">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
     <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactList"/>
-    <tp:added version='0.21.UNRELEASED'>Changes from the draft:
+    <tp:added version='0.21.13'>Changes from the draft:
       methods and signals now return <tp:type>Handle_Identifier_Map</tp:type>
       (<code>a{us}</code>) rather than bare lists of contact handles
       (<code>au</code>)</tp:added>

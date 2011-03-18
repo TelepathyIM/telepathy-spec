@@ -2,8 +2,10 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.13 (UNRELEASED)
+telepathy-spec 0.21.13 (2011-03-18)
 ===================================
+
+The “totally awesome sestercentennial tortoises” release.
 
 New stable API:
 
@@ -12,7 +14,7 @@ New stable API:
 
 • Channel.Type.ServerTLSConnection.ReferenceIdentities, a property primarily
   intended to help validate the certificate presented by Google Talk for Google
-  Apps hosted domains.
+  Apps hosted domains. (Stef Walter)
 
 telepathy-spec 0.21.12 (2011-03-09)
 ===================================
