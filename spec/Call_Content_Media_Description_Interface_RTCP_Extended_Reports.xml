@@ -36,74 +36,60 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     </tp:docstring>
 
-    <tp:struct name="RTCP_XR_Parameters_And_Values">
+    <property access="read" type="u" name="LossRLEMaxSize" tp:name-for-bindings="Loss_RLE_Max_Size">
       <tp:docstring>
-        A list of RTCP extended report parameters and their values.
+        If non-zero, enable Loss Run Length Encoded Report Blocks. The value
+        of this integer represents the max-size of report blocks, as specified
+        in RFC 3611 section 5.1. MAXUINT32 is used to indicate that there is
+        no limit.
       </tp:docstring>
-      <tp:member type="u" tp:type="RTCP_XR_Parameters"
-        name="Parameters">
-        <tp:docstring>
-          The extended report parameters to set.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" name="Loss_RLE_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_Loss_RLE flag
-          is set on Parameters, then this member is used to specify
-          the largest size the whole report block SHOULD have.  0 is
-          used to not specify a max size.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" name="Duplicate_RLE_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_Duplicate_RLE
-          flag is set on Parameters, then this member is used to
-          specify the largest size the whole report block SHOULD have.
-          0 is used to not specify a max size.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" name="Packet_Receipt_Times_Max_Size">
-        <tp:docstring>
-          If the
-          <tp:type>RTCP_XR_Parameters</tp:type>_Packet_Receipt_Times
-          flag is set on Parameters, then this member is used to
-          specify the largest size the whole report block SHOULD have.
-          0 is used to not specify a max size.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" name="RTT_Max_Size">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_RTT flag is set
-          on Parameters, then this member is used to specify the
-          largest size any DLRR report block sent SHOULD have. 0 is
-          used to not specify a max size.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="RCPT_XR_RTT_Mode"
-        name="RTT_Mode">
-        <tp:docstring>
-          If the <tp:type>RTCP_XR_Parameters</tp:type>_RTT flag is set
-          on Parameters, then this member specifies a RTT mode value.
-        </tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="RTCP_XR_Statistics_Flags"
-        name="Statistics_Flags">
-        <tp:docstring>
-          If the
-          <tp:type>RTCP_XR_Parameters</tp:type>_Statistics_Summary
-          flag is set on Parameters, then this member specifies the
-          fields which SHOULD be included in the statistics summary
-          report blocks that are sent. There can be one or more flags
-          set.
-        </tp:docstring>
-      </tp:member>
-    </tp:struct>
-
-    <property name="XRParameters" type="(uuuuuuu)"
-      tp:type="RTCP_XR_Parameters_And_Values"
-      access="read" tp:name-for-bindings="XR_Parameters">
+    </property>
+    <property access="read" type="u" name="DuplicateRLEMaxSize" tp:name-for-bindings="Duplicate_RLE_Max_Size">
       <tp:docstring>
-        A list of remote report parameters which are supported.
+        If non-zero, enable Duplicate Run-Length-Encoded Report Blocks. The
+        value of this integer represents the max-size of report blocks, as
+        specified in RFC 3611 section 5.1. MAXUINT32 is used to indicate that
+        there is no limit.
+      </tp:docstring>
+    </property>
+    <property access="read" type="u" name="PacketReceiptTimesMaxSize" tp:name-for-bindings="Packet_Receipt_Times_Max_Size">
+      <tp:docstring>
+        If non-zero, enable Packet Receipt Times Report Blocks. The
+        value of this integer represents the max-size of report blocks, as
+        specified in RFC 3611 section 5.1. MAXUINT32 is used to indicate that
+        there is no limit.
+      </tp:docstring>
+    </property>
+    <property access="read" type="u" name="DLRRMaxSize" tp:name-for-bindings="DLRR_Max_Size">
+      <tp:docstring>
+        If non-zero, enable Receiver Reference Time and Delay since Last
+        Receiver Report Blocks (for estimating Round Trip Times between
+        non-senders and other parties in the call. The value of this integer
+        represents the max-size of report blocks, as specified in RFC 3611
+        section 5.1. MAXUINT32 is used to indicate that there is no limit.
+      </tp:docstring>
+    </property>
+    <property access="read" type="u" tp:type="RCPT_XR_RTT_Mode"
+      name="RTTMode" tp:name-for-bindings="RTT_Mode">
+      <tp:docstring>
+        Who is allowed to send Delay since Last Receiver Reports.
+      </tp:docstring>
+    </property>
+
+    <property access="read" type="u" tp:type="RTCP_XR_Statistics_Flags"
+      name="StatisticsFlags" tp:name-for-bindings="Statistics_Flags">
+      <tp:docstring>
+        Which fields SHOULD be included in the statistics summary
+        report blocks that are sent, and whether to send VoIP Metrics Report
+        Blocks. There can be zero or more flags
+        set.
+      </tp:docstring>
+    </property>
+
+    <property access="read" type="b" name="EnableMetrics" tp:name-for-bindings="Enable_Metrics">
+      <tp:docstring>
+        Whether to enable VoIP Metrics Report Blocks. These blocks are of a
+        fixed size.
       </tp:docstring>
     </property>
 
@@ -131,39 +117,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:flag suffix="HL" value="16">
         <tp:docstring>
           TTL or Hop Limit flag.
-        </tp:docstring>
-      </tp:flag>
-    </tp:flags>
-
-    <tp:flags name="RTCP_XR_Parameters" type="u">
-      <tp:flag suffix="Loss_RLE" value="1">
-        <tp:docstring>
-          Loss RLE Report Block.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Duplicate_RLE" value="2">
-        <tp:docstring>
-          Duplicate RLE Report Block.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Packet_Receipt_Times" value="4">
-        <tp:docstring>
-          Packet Receipt Times Report Block.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="RTT" value="8">
-        <tp:docstring>
-          Round Trip Time Report Block.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Statistics_Summary" value="16">
-        <tp:docstring>
-          Statistics Summary Report Block.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Voip_Metrics" value="32">
-        <tp:docstring>
-          VoIP Metrics Report Block.
         </tp:docstring>
       </tp:flag>
     </tp:flags>
