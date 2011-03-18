@@ -60,14 +60,16 @@
       <tp:docstring>
         <p>The hostname or domain that the user expects to connect to. Clients
         SHOULD use the <tp:member-ref>ReferenceIdentities</tp:member-ref>
-        property to verify the identity of the certificate. Clients may display
-        this hostname to the user as the expected identity.</p>
+        property to verify the identity of the certificate. Clients MAY display
+        this hostname to the user as the expected identity. Clients SHOULD use
+        this property to lookup pinned certificates or other user preferences
+        for the connection.</p>
         <p>This property is immutable.</p>
       </tp:docstring>
     </property>
 
     <property name="ReferenceIdentities" type="as" access="read"
-              tp:name-for-bindings="ReferenceIdentities">
+              tp:name-for-bindings="Reference_Identities">
       <tp:added version="0.21.10"/>
       <tp:docstring>
         <p>The identities of the server we expect
@@ -76,6 +78,9 @@
         matches one of these identities when checking its validity. At a minimum
         this will contain the <tp:member-ref>Hostname</tp:member-ref>
         property.</p>
+        <p>If this property is not present, clients SHOULD use the
+        <tp:member-ref>Hostname</tp:member-ref> property as the reference
+        identity and validate server certificates against that.</p>
         <p>This property is immutable.</p>
       </tp:docstring>
     </property>
