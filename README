@@ -90,5 +90,7 @@ The current development version of telepathy-spec is available from the
 Stable branches are available from branches with names like
 'telepathy-spec-0.16' in the same repository.
 
-Proposed patches awaiting review can usually be found in Merge Monkey:
-  <http://monkey.collabora.co.uk/>
+Proposed patches awaiting review can usually be found in the freedesktop.org
+bugzilla with the ‘patch’ keyword, which can be listed using the following
+formidible URL:
+  <https://bugs.freedesktop.org/buglist.cgi?keywords=patch&bug_status=NEW&bug_status=ASSIGNED&bug_status=REOPENED&component=tp-spec&product=Telepathy>
