@@ -196,11 +196,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Get a list of the parameters which must or may be specified in the
+        Get a list of the parameters which may be specified in the
         <tp:dbus-ref namespace='ofdT.Account'>Parameters</tp:dbus-ref> of an
         <tp:dbus-ref namespace='ofdT'>Account</tp:dbus-ref> (or, for
         specialised applications which do not use the account manager, passed
-        to <tp:member-ref>RequestConnection</tp:member-ref>).
+        to <tp:member-ref>RequestConnection</tp:member-ref>). Some parameters
+        are mandatory, and some parameters only make sense when registering new
+        accounts with the server; see the <tp:type>Param_Spec</tp:type>
+        documentation for more details.
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
