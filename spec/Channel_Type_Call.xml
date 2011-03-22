@@ -685,52 +685,85 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:enumvalue>
       <tp:enumvalue suffix="Pending_Receiver" value = "2">
         <tp:docstring>
-          The receiver (the contact being called) hasn't accepted the call yet.
+          The receiver (the contact being called) hasn't accepted the call
+          yet. More specific versions of this state are Setup_In_Progress,
+          Ringing, and Queued.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Accepted" value = "3">
+      <tp:enumvalue suffix="Setup_In_Progress" value="3">
         <tp:docstring>
-          The contact being called has accepted the call.
+          A sub-state of Pending_Receiver.
+          Progress has been made in placing the outgoing call, but the
+          contact may not have been made aware of the call yet
+          (so the Ringing state is not appropriate). This corresponds to SIP's
+          status code 183 Session Progress, and could be used when the
+          outgoing call has reached a gateway or ICE negotiation is pending, for instance.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Ended" value = "4">
+      <tp:enumvalue suffix="Ringing" value="4">
+        <tp:docstring>
+          A sub-state of Pending_Receiver.
+          The called user has been alerted about the call but has not
+          responded; if possible, the caller(s) have been informed of this
+          fact. It SHOULD be set by the CM when
+          <tp:member-ref>SetRinging</tp:member-ref> is called successfully (or
+          a SIP 180 (Ringing) packet is received) and unset when the state
+          changes.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Queued" value="5">
+        <tp:docstring>
+          A sub-state of Pending_Receiver.
+          The contact is temporarily unavailable, and the call has been placed
+          in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Accepted" value = "6">
+        <tp:docstring>
+          The contact being called has accepted the call, but the call is not
+          in the Active state (reasons may include connectivity problems, the
+          local hold/mute state, and the hold state of remote participants).
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Active" value = "7">
+        <tp:docstring>
+          The contact being called has accepted the call, and discourse between
+          at least two parties should now be possible.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Clearing" value="8">
+        <tp:docstring>
+          A sub-state of Ended.
+          The call has ended, but not all resources corresponding to the
+          call have been freed yet.
+
+          Depending on the protocol there might be some audible feedback until
+          the state is changed to Ended.
+
+          <tp:rationale>
+            In calls following the ITU-T Q.931 standard there is a period of
+            time between the call ending and the underlying channel being
+            completely free for re-use.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Ended" value = "9">
         <tp:docstring>
           The call has ended, either via normal termination or an error.
         </tp:docstring>
       </tp:enumvalue>
+
     </tp:enum>
 
     <tp:flags name="Call_Flags" value-prefix="Call_Flag" type="u">
       <tp:docstring>
-        A set of flags representing the status of the call as a whole,
-        providing more specific information than the
-        <tp:member-ref>CallState</tp:member-ref>. Many of these flags only make
-        sense in a particular state.
+        A set of flags representing additional information than is available
+        in <tp:member-ref>CallState</tp:member-ref>. Many of these flags only make
+        sense in a particular (or may explain why a call is in a specific
+        state).
       </tp:docstring>
-
-      <tp:flag suffix="Locally_Ringing" value="1">
-        <tp:docstring>
-          The local contact has been alerted about the call but has not
-          responded; if possible, the remote contact(s) have been informed of
-          this fact. This flag only makes sense on incoming calls in
-          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD
-          be set when <tp:member-ref>SetRinging</tp:member-ref> is
-          called successfully, and unset when the state changes.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Queued" value="2">
-        <tp:docstring>
-          The contact is temporarily unavailable, and the call has been placed
-          in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
-          This flag only makes sense on outgoing 1-1 calls in
-          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD be
-          set or unset according to informational messages from other
-          contacts.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Locally_Held" value="4">
+      <tp:flag suffix="Locally_Held" value="1">
         <tp:docstring>
           The call has been put on hold by the local user, e.g. using
           the <tp:dbus-ref namespace="ofdT.Channel.Interface"
@@ -750,49 +783,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Forwarded" value="8">
-        <tp:docstring>
-          The initiator of the call originally called a contact other than the
-          current recipient of the call, but the call was then forwarded or
-          diverted. This flag only makes sense on outgoing calls, in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver or
-          <tp:type>Call_State</tp:type>_Accepted. It SHOULD be set or unset
-          according to informational messages from other contacts.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="In_Progress" value="16">
-        <tp:docstring>
-          Progress has been made in placing the outgoing call, but the
-          contact may not have been made aware of the call yet
-          (so the Ringing state is not appropriate). This corresponds to SIP's
-          status code 183 Session Progress, and could be used when the
-          outgoing call has reached a gateway, for instance.
-          This flag only makes sense on outgoing calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver, and SHOULD be set
-          or unset according to informational messages from servers, gateways
-          and other infrastructure.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Clearing" value="32">
-        <tp:docstring>
-          This flag only occurs when the CallState is Ended. The call with
-          this flag set has ended, but not all resources corresponding to the
-          call have been freed yet.
-
-          Depending on the protocol there might be some audible feedback while
-          the clearing flag is set.
-
-          <tp:rationale>
-            In calls following the ITU-T Q.931 standard there is a period of
-            time between the call ending and the underlying channel being
-            completely free for re-use.
-          </tp:rationale>
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Muted" value="64">
+      <tp:flag suffix="Locally_Muted" value="2">
         <tp:docstring>
           The call has been muted by the local user, e.g. using the
           <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
@@ -803,6 +794,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:type>Call_State</tp:type>_Accepted.
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Forwarded" value="4">
+        <tp:docstring>
+          The initiator of the call originally called a contact other than the
+          current recipient of the call, but the call was then forwarded or
+          diverted. This flag only makes sense on outgoing calls, in
+          sub-states of
+          <tp:type>Call_State</tp:type>_Pending_Receiver or
+          <tp:type>Call_State</tp:type>_Accepted. It SHOULD be set or unset
+          according to informational messages from other contacts.
+        </tp:docstring>
+      </tp:flag>
+
     </tp:flags>
 
     <property name="CallStateDetails"
