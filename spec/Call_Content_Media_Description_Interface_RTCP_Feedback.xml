@@ -44,11 +44,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:struct name="RTCP_Feedback_Message_Properties">
       <tp:member type="u" name="RTCPMinimumInterval">
         <tp:docstring>
-          The minimum interval between two regular RTCP packets in
-          milliseconds for this content. If no special value is desired, one
-          should put MAXUINT (0xFFFFFFFF). In RTP/AVPF, the special value
-          0 means "Do not let RTCP packets exceed 5% of the available
-          bandwidth". Other profiles may assign other meanings to the value 0.
+          The minimum interval between two regular RTCP packets for this
+          content, in milliseconds. If no special value is desired (for
+          signalling) one should put MAXUINT (0xFFFFFFFF). In RTP/AVP, the
+          setting this property to 0 means "Do not let RTCP packets exceed 5%
+          of the available bandwidth" and MAXUINT means "use the recommended
+          interval time of 5 seconds as specified by RFC 3550 section 6.2".
+          In RTP/AVPF, both 0 and MAXUINT are used to avoid specifying an
+          additional limit on the rate of RCTP packets (other than that
+          specified by bandwidth constraints for the session). Other profiles
+          may assign different meanings to the value 0 or MAXUINT.
         </tp:docstring>
       </tp:member>
       <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
