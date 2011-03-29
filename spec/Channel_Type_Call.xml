@@ -1108,6 +1108,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the remote contact.
         </tp:docstring>
       </tp:flag>
+
+      <tp:flag suffix="Muted" value = "4">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The call member has muted their participation in this call. Note
+            that many protocols will not signal this flag, so clients should
+            not rely on it being set.</p>
+
+          <tp:rationale>
+            <p>This is a flag per member, not a flag for the call as a whole,
+              because in conference calls, any member could mute their own
+              streams.</p>
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
     </tp:flags>
 
     <tp:mapping name="Call_Member_Map" array-name="Call_Member_Map_List">
