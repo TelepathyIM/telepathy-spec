@@ -23,6 +23,8 @@
   <interface name="org.freedesktop.Telepathy.Call.Content.DRAFT"
       tp:causes-havoc="experimental">
     <tp:added version="0.19.0">(draft 1)</tp:added>
+    <tp:requires
+      interface="org.freedesktop.Telepathy.Call.Interface.Mute.DRAFT"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       This object represents one Content inside a <tp:dbus-ref
@@ -130,8 +132,9 @@
       <tp:added version="0.19.11"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Extra interfaces provided by this content, such as <tp:dbus-ref
-          namespace="ofdT.Call">Content.Interface.Media.DRAFT2</tp:dbus-ref> or
-          <tp:dbus-ref namespace="ofdT.Call">Content.Interface.Mute.DRAFT</tp:dbus-ref>.
+          namespace="ofdT.Call">Content.Interface.Media.DRAFT2</tp:dbus-ref>,
+          <tp:dbus-ref namespace="ofdT.Channel">Interface.Hold</tp:dbus-ref> or
+          <tp:dbus-ref namespace="ofdT.Call">Interface.Mute.DRAFT</tp:dbus-ref>.
           This SHOULD NOT include the Content interface itself, and cannot
           change once the content has been created.</p>
       </tp:docstring>

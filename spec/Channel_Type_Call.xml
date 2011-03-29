@@ -22,6 +22,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:added version="0.19.0">(draft 1)</tp:added>
 
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <tp:requires
+      interface="org.freedesktop.Telepathy.Call.Interface.Mute.DRAFT"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel type for making audio and video calls. Call
         channels supersede the old <tp:dbus-ref
@@ -790,7 +792,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:flag suffix="Muted" value="64">
         <tp:docstring>
           The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
+          <tp:dbus-ref namespace="ofdT.Call.Interface"
           >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
           be set if there is at least one Content, and all Contents
           are locally muted; it makes sense on calls in state

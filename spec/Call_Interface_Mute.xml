@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Call_Content_Interface_Mute" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/Call_Interface_Mute" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright> Copyright © 2005-2010 Nokia Corporation </tp:copyright>
   <tp:copyright> Copyright © 2005-2010 Collabora Ltd </tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
@@ -18,9 +18,11 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Content.Interface.Mute.DRAFT" tp:causes-havoc="experimental">
+  <interface name="org.freedesktop.Telepathy.Call.Interface.Mute.DRAFT" tp:causes-havoc="experimental">
     <tp:added version="0.19.6">(draft version, not API-stable)</tp:added>
-    <tp:requires interface="org.freedesktop.Telepathy.Call.Content.DRAFT"/>
+    <tp:xor-requires interface="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT"/>
+    <tp:xor-requires interface="org.freedesktop.Telepathy.Call.Content.DRAFT"/>
+    <tp:xor-requires interface="org.freedesktop.Telepathy.Call.Stream.DRAFT"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Interface for calls which may be muted.  This only makes sense
@@ -29,9 +31,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>Muting a call content indicates that the user does not wish to send
         outgoing audio or video.</p>
 
-      <p>Although it's client's responsibility to actually mute the microphone
-        or turn off the camera, using this interface the client can also
-        inform the CM and other clients of that fact.</p>
+      <p>It should always be possible to mute an entire call. It is sometimes
+        also possible to mute individual Contents (e.g. to prevent background
+        noise from disturbing other participants, but remain visible on
+        webcam) or to mute individual streams (e.g. to "whisper" to other call
+        participants)</p>
 
       <tp:rationale>
         For some protocols, the fact that the content is muted needs
