@@ -113,14 +113,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           The connection manager is attempting to move to state Held, but
           has not yet completed that operation. It is unspecified whether
           any, all or none of the streams making up the channel are on hold.
+          Examining the Hold state of Call Contents (if applicable) may
+          provide more useful information.
         </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue value="3" suffix="Pending_Unhold">
         <tp:docstring>
-          The connection manager is attempting to move to state Held, but
+          The connection manager is attempting to move to state Unheld, but
           has not yet completed that operation. It is unspecified whether
           any, all or none of the streams making up the channel are on hold.
+          Examining the Hold state of Call Contents (if applicable) may
+          provide more useful information.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
