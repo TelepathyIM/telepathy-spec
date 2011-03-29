@@ -45,6 +45,54 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:rationale>
     </tp:docstring>
 
+    <tp:enum name="Local_Mute_State" type="u">
+      <tp:docstring>
+        The mute state of a channel.
+      </tp:docstring>
+
+      <tp:enumvalue value="0" suffix="Unmuted">
+        <tp:docstring>
+          All streams are unmuted (the call is active). New channels SHOULD
+          have this mute state.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue value="1" suffix="Muted">
+        <tp:docstring>
+          All streams are Muted.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue value="2" suffix="Pending_Mute">
+        <tp:docstring>
+          The connection manager is attempting to move to state Muted, but
+          has not yet completed that operation. It is unspecified whether
+          any, all or none of the streams making up the channel are muted.
+          Examining the Mute state of Call Contents (if applicable) may
+          provide more useful information.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue value="3" suffix="Pending_Unmute">
+        <tp:docstring>
+          The connection manager is attempting to move to state Unmuted, but
+          has not yet completed that operation. It is unspecified whether
+          any, all or none of the streams making up the channel are muted.
+          Examining the Mute state of Call Contents or Streams may
+          provide more useful information.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue value="4" suffix="Partially_Muted">
+        <tp:docstring>
+          Some of the constituent Streams are Muted. This state only makes
+          sense on Call Channels or Contents.
+          Examining the Mute state of Call Contents or Streams should
+          provide more useful information.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
     <signal name="MuteStateChanged" tp:name-for-bindings="Mute_State_Changed">
       <tp:docstring>
         Emitted to indicate that the mute state has changed for this call content.
@@ -52,15 +100,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:member-ref>SetMuted</tp:member-ref>, or as an indication that another
         client has (un)muted the content.
       </tp:docstring>
-      <arg name="MuteState" type="b">
+      <arg name="MuteState" type="u" tp:type="Local_Mute_State">
         <tp:docstring>
           True if the content is now muted.
         </tp:docstring>
       </arg>
     </signal>
 
-    <property name="MuteState" type="b"
-      access="read" tp:name-for-bindings="Mute_State">
+    <property name="LocalMuteState" type="u" tp:type="Local_Mute_State"
+      access="read" tp:name-for-bindings="Local_Mute_State">
       <tp:docstring>
         True if the content is muted.
       </tp:docstring>
@@ -71,16 +119,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:changed version="0.21.3">renamed back from Mute to SetMuted</tp:changed>
       <arg direction="in" name="Muted" type="b">
         <tp:docstring>
-          True if the client has muted the content.
+          True if the client wishes to mute the Content or Call.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        <p>Inform the CM that the call content has been muted or unmuted by
-          the client.</p>
+        <p>Inform the CM that the Call/Content/Stream should been muted or
+          unmuted.</p>
 
-        <p>It is the client's responsibility to actually mute or unmute the
-          microphone or camera used for the content. However, the client
-          MUST call this whenever it mutes or unmutes the content.</p>
+        <p>The CM will tell the streaming implementation to Mute Streams as
+          required, and emit <tp:member-ref>MuteStateChanged</tp:member-ref>
+          when done.</p>
       </tp:docstring>
     </method>
 
