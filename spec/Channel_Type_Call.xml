@@ -789,9 +789,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:flag suffix="Muted" value="64">
         <tp:docstring>
-          The call has been muted by the local user, e.g. using
-          <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT"
-          >SetMuted</tp:dbus-ref>. This flag SHOULD only
+          The call has been muted by the local user, e.g. using the
+          <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
+          >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
           be set if there is at least one Content, and all Contents
           are locally muted; it makes sense on calls in state
           <tp:type>Call_State</tp:type>_Pending_Receiver or
