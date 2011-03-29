@@ -648,15 +648,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The allowed transitions are:</p>
 
         <ul>
-          <li>Pending_Initiator → Pending_Receiver (for outgoing calls,
+          <li>Pending_Initiator → Pending_Receiver or substates (for outgoing calls,
             when <tp:member-ref>Accept</tp:member-ref> is called)</li>
-          <li>Pending_Receiver → Accepted (for incoming calls, when
+          <li>Any state transition between two substates of Pending_Receiver
+            (to provide more information about the status of call setup)</li>
+          <li>Pending_Receiver or substates → Accepted or Active (for incoming calls, when
             <tp:member-ref>Accept</tp:member-ref> is called; for outgoing
             calls to a contact, when the remote contact accepts the call;
             for joining a conference call, when the local user successfully
             joins the conference)</li>
-          <li>Accepted → Pending_Receiver (when transferred to another
-            contact)</li>
+          <li>Active → Accepted (when the mute/hold state of the call changes,
+            or there are temporary connection problems that the CM is aware of
+            and able to recover from)</li>
+          <li>Accepted → Active (when the hold/mute state of the call changes,
+            or temporary connection problems are resolved)</li>
           <li>any state → Ended (when the call is terminated normally, or
             when an error occurs)</li>
         </ul>
