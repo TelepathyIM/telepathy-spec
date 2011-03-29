@@ -104,12 +104,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         user is the initiator, the call must be accepted by the handler
         by calling the <tp:member-ref>Accept</tp:member-ref> method.
         At this point, <tp:member-ref>CallState</tp:member-ref> changes
-        to <tp:type>Call_State</tp:type>_Pending_Receiver which signifies
-        that the call is ringing, waiting for the remote contact to
-        accept the call. All changes to
-        <tp:member-ref>CallState</tp:member-ref> property are signalled
-        using the <tp:member-ref>CallStateChanged</tp:member-ref>
-        signal.</p>
+        to <tp:type>Call_State</tp:type>_Pending_Receiver, which signifies
+        that the call is waiting for either the network or the receiver to do
+        something (If the CM has information about when the remote contact is
+        notified about the call, it may also change to
+        <tp:type>Call_State</tp:type>_Queued or
+        <tp:type>Call_State</tp:type>_Ringing, which signify additionally that
+        the call is in a call-waiting queue or the remote contact's phone is
+        ringing). All changes to <tp:member-ref>CallState</tp:member-ref>
+        property are signalled using the
+        <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
 
       <p>When the call is accepted by the remote contact, the
         <tp:member-ref>CallStateChanged</tp:member-ref> signal fires
@@ -119,7 +123,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>At this point <a
         href="http://telepathy.freedesktop.org/doc/telepathy-farstream/">telepathy-farstream</a>
         will signal that a pad is available for the handler to show
-        in the user interface.</p>
+        in the user interface. Once media is correctly flowing in both
+        directions, the state will change to
+        <tp:type>Call_State</tp:type>_Active, to inform the user that they
+        have a correctly working call there is nothing amiss.</p>
 
       <h5>Missed calls</h5>
 
@@ -195,7 +202,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:type>Call_State</tp:type>_Accepted and once media is
         being transferred, telepathy-farstream will notify the
         handler of a new pad to be shown to the local user in the
-        UI</p>
+        UI. Once media is correctly flowing in both directions, the state will
+        change to <tp:type>Call_State</tp:type>_Active, to inform the user
+        that they have a correctly working call there is nothing amiss.</p>
 
       <p>To reject the call, the handler should call the
         <tp:member-ref>Hangup</tp:member-ref> method. The
@@ -295,7 +304,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td>Self handle</td>
           <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
           <td>""</td>
-          <td>The outgoing call is waiting for the remote contact to pick up the call.</td>
+          <td>The outgoing call is waiting for the remote contact to pick up
+            the call. No guarantees are made about whether the remote contact
+            has been notified about the call yet.</td>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Setup_In_Progress</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td>""</td>
+          <td>Some processing is taking place, but the remote user may not
+            have been informed of the call's existence yet.</td>
+        </tr>
+        <tr>
+          <td>True</td>
+          <td><tp:type>Call_State</tp:type>_Ringing</td>
+          <td>Self handle</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td>""</td>
+          <td>The remote user's phone is known to be ringing, and we are
+            waiting for them to pick up.</td>
         </tr>
         <tr>
           <td>False</td>
@@ -321,6 +350,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
           <td>""</td>
           <td>The local user accepted the incoming call.</td>
+        </tr>
+        <tr>
+          <td>True or False</td>
+          <td><tp:type>Call_State</tp:type>_Active</td>
+          <td>Self handle or 0</td>
+          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
+          <td>""</td>
+          <td>The call is active, and a productive conversation can be had.
+            </td>
         </tr>
         <!-- Ended -->
         <tr>
@@ -418,8 +456,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:type>Call_State</tp:type>_Pending_Receiver (an incoming
           call waiting on the local user to pick up). While this is
           the case, this method SHOULD change the
-          <tp:member-ref>CallFlags</tp:member-ref> to include
-          <tp:type>Call_Flags</tp:type>_Locally_Ringing, and notify the
+          <tp:member-ref>CallState</tp:member-ref> to include
+          <tp:type>Call_State</tp:type>_Ringing, and notify the
           remote contact that the local user has been alerted (if the
           protocol implements this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
@@ -447,8 +485,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="Accept" tp:name-for-bindings="Accept">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For incoming calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver, accept the
-          incoming call; this changes the
+          <tp:type>Call_State</tp:type>_Pending_Receiver (or substates
+          thereof), accept the incoming call. This changes the
           <tp:member-ref>CallState</tp:member-ref> to
           <tp:type>Call_State</tp:type>_Accepted.</p>
 
