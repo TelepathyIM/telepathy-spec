@@ -184,9 +184,10 @@
     <method name="Muted" tp:name-for-bindings="Muted">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Called in response to
-      <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped, Muted)
-      to indicate that the streaming implementation is sending silence on this
-      stream, and the local user's privacy is protected.</p>
+        <tp:member-ref>SendingStateChanged</tp:member-ref>(PendingStopped,
+        Muted) to indicate that the streaming implementation is sending
+        silence (or no media at all) on this stream, and the local user's
+        privacy (or dignity) is protected.</p>
       </tp:docstring>
     </method>
 
