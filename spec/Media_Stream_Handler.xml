@@ -846,7 +846,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="SetRemoteHeaderExtensions"
             tp:name-for-bindings="Set_Remote_Header_Extensions">
-      <arg name="HeaderExtensions" type="a(uuss)"
+      <arg name="Header_Extensions" type="a(uuss)"
            tp:type="RTP_Header_Extension[]">
         <tp:docstring>
           Header extensions desired by the remote side
@@ -865,7 +865,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="SupportedHeaderExtensions"
             tp:name-for-bindings="Supported_Header_Extensions">
-      <arg name="HeaderExtensions" direction="in" type="a(uuss)"
+      <arg name="Header_Extensions" direction="in" type="a(uuss)"
            tp:type="RTP_Header_Extension[]">
         <tp:docstring>
           Locally supported RTP header extensions.
