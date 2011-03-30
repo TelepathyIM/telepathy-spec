@@ -582,7 +582,7 @@
   </tp:error>
 
   <tp:error name="Insufficient Balance">
-    <tp:added version="UNRELEASED"/>
+    <tp:added version="0.22.1"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Raised if the user has insufficient
         <tp:dbus-ref namespace="ofdT.Connection.Interface">Balance</tp:dbus-ref>
