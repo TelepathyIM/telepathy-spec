@@ -2,8 +2,25 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.23.0 (UNRELEASED)
+telepathy-spec 0.22.1 (2011-03-30)
 ==================================
+
+The “we can change the things we know” release.
+
+Unconventionally, this release in the 0.22 stable series of the
+specification contains minor API additions. This is not intended to
+become a trend; once major changes land in the specification and a
+release is made in the 0.23.x unstable series, no new API will be added
+to the stable branch.
+
+• A new error code, InsufficientBalance, has been added, along with a
+  balance-required key for the CallStateDetails dictionary. (Danni)
+
+• Media.StreamHandler has grown two new method/signal pairs, namely
+  SetRemoteFeedbackMessages/SupportedFeedbackMessages and
+  SetRemoteHeaderExtensions/SupportedHeaderExtensions, plus some related
+  types, for enabling exciting RTP header extensions and RTCP feedback
+  messages.
 
 telepathy-spec 0.22.0 (2011-03-21)
 ==================================
