@@ -622,6 +622,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           >Content.DRAFT</tp:dbus-ref> which was removed.
         </tp:docstring>
       </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          Why the content was removed.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Contents" type="ao" access="read"
