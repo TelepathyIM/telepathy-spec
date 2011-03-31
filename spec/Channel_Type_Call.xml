@@ -1180,7 +1180,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
       <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
         <tp:docstring>
-          A structured reason for stream removal.
+          A structured reason for the change.
         </tp:docstring>
       </arg>
     </signal>
