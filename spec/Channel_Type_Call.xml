@@ -1178,6 +1178,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           from <tp:member-ref>CallMembers</tp:member-ref>.
         </tp:docstring>
       </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          A structured reason for stream removal.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="CallMembers" tp:name-for-bindings="Call_Members"
