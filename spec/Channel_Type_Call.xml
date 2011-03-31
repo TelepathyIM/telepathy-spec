@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:type>Call_State</tp:type>_Ended and the
         <tp:member-ref>CallStateReason</tp:member-ref> property
         changing to (remote contact,
-        <tp:type>Call_State</tp:type>_Change_Reason_User_Requested,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
         "org.freedesktop.Telepathy.Error.Rejected").</p>
 
       <h4>Incoming calls</h4>

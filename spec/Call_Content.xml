@@ -159,12 +159,12 @@
          <p>Emitted when streams are removed from a call</p>
       </tp:docstring>
       <arg name="Streams" type="ao">
-         <tp:docstring>
-           The <tp:dbus-ref
-           namespace="ofdT.Call">Stream.DRAFT</tp:dbus-ref>s which were
-           removed.
-         </tp:docstring>
-       </arg>
+        <tp:docstring>
+          The <tp:dbus-ref
+          namespace="ofdT.Call">Stream.DRAFT</tp:dbus-ref>s which were
+          removed.
+        </tp:docstring>
+      </arg>
       <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
         <tp:docstring>
           Why the content was removed.
