@@ -108,11 +108,10 @@
         Emitted when a candidate is selected for use in the stream by the
         controlling side of an ICE session.
         The controlled side should call
-        SetEndpointState(Component, Fully_Connected)
-        to accept the offer. If the selected candidate pair has not completed
-        its connectivity checks, then the streaming implementation should wait
-        until it has and either call SetEndpointState(Component, Fully_Connected)
-        or SetEndpointState(Component, Exhausted_Candidates).
+        <tp:member-ref>AcceptSelectedCandidatePair</tp:member-ref> or
+        <tp:member-ref>RejectSelectedCandidatePair</tp:member-ref> when
+        connectivity checks have either succeeded or failed for this candidate
+        pair. See also: <tp:member-ref>SelectedCandidatePairs</tp:member-ref>.
       </tp:docstring>
       <arg name="Local_Candidate"
         type="(usua{sv})" tp:type="Candidate">
