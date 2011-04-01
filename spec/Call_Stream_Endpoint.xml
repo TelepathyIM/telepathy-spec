@@ -146,6 +146,11 @@
           processing in this section until there are no losing pairs.
         </blockquote>
 
+        Also note that some or all of the local candidates in this list may
+        represent a peer-reflexive candidate that do not appear in
+        <tp:dbus-ref namespace="ofdT.Call.Stream.Interface.Media.DRAFT"
+        >LocalCandidates</tp:dbus-ref>.
+
         See rfc 5245 Appendix B.6. for more details about why this is.
       </tp:docstring>
     </property>
