@@ -210,7 +210,8 @@
         <tp:docstring>
           This component of the stream is connected, and an updated offer has
           been sent and accepted (finalising the candidates to be used for the
-          call).
+          call). This should be set by the CM in response to
+          <tp:member-ref>AcceptSelectedCandidatePair</tp:member-ref>.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Exhausted_Candidates" value="3">
@@ -281,6 +282,54 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="AcceptSelectedCandidatePair"
+      tp:name-for-bindings="Accept_Selected_Candidate_Pair">
+      <tp:docstring>
+        Called in response to
+        <tp:member-ref>CandidatePairSelected</tp:member-ref> if/when this
+        candidate pair is known to have passed its connectivity checks.
+      </tp:docstring>
+      <arg name="Local_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The local candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <arg name="Remote_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The remote candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="RejectSelectedCandidatePair"
+      tp:name-for-bindings="Reject_Selected_Candidate_Pair">
+      <tp:docstring>
+        Called in response to
+        <tp:member-ref>CandidatePairSelected</tp:member-ref> if/when this
+        candidate pair is known to have failed its connectivity checks.
+      </tp:docstring>
+      <arg name="Local_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The local candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <arg name="Remote_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The remote candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
       </tp:possible-errors>
     </method>
 
