@@ -447,6 +447,20 @@
           <dd>The UDP or TCP port of the relay server as an ASCII unsigned
             integer</dd>
 
+          <dt><code>unique-id</code> - s</dt>
+          <dd>A string identifying the relay server. If two RelayInfo entries
+            have the same unique-id, but different <code>type</code>s, there
+            is usually little point in connecting to both. Use
+            <code>priority</code> to determine which version to prefer in this
+            case. Can also be used by the streaming implementation to avoid
+            connecting to the same relay multiple times if relaying is
+            required for both audio and video.</dd>
+
+          <dt><code>priority</code> - u</dt>
+          <dd>A number determining which version of a server to prefer (if
+            multiple are present with the same <code>unique-id</code> exist,
+            the one with the highest priority should be used)</dd>
+
           <dt><code>username</code> - s</dt>
           <dd>The username to use</dd>
 
