@@ -549,6 +549,19 @@
         <tp:member-ref>SetCredentials</tp:member-ref> again.
       </tp:docstring>
     </signal>
+
+    <method name="Error" tp:name-for-bindings="Error">
+      <tp:docstring>
+        Signal an unrecoverable error for this stream, and remove it. If all
+        streams are removed from a content, then it will also be removed.
+      </tp:docstring>
+      <arg direction="in" name="Reason" type="(uuss)"
+        tp:type="Call_State_Reason">
+        <tp:docstring>
+          A structured reason for stream removal.
+        </tp:docstring>
+      </arg>
+    </method>
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

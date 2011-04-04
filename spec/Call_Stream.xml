@@ -125,6 +125,11 @@
           property, as a result of the contact leaving this stream
         </tp:docstring>
       </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          A structured reason for the change.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <signal name="LocalSendingStateChanged"
@@ -137,6 +142,12 @@
         <tp:docstring>
           The new value of
           <tp:member-ref>LocalSendingState</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          A structured reason for the change.
         </tp:docstring>
       </arg>
     </signal>

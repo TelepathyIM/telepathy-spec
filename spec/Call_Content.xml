@@ -33,77 +33,15 @@
       represent the actual transport to one or more remote contacts.
     </tp:docstring>
 
-    <tp:enum name="Content_Removal_Reason" type="u">
-      <tp:added version="0.21.2"/>
-      <tp:docstring>
-        A representation of the reason for a content to be removed,
-        which may be used by simple clients, or used as a fallback
-        when the DBus_Reason is not understood. This enum will be
-        extended with future reasons as and when appropriate, so
-        clients SHOULD keep up to date with its values, but also be
-        happy to fallback to the Unknown value when an unknown value
-        is encountered.
-      </tp:docstring>
-
-      <tp:enumvalue suffix="Unknown" value="0">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          We just don't know. Unknown values of this enum SHOULD also be
-          treated like this.
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="User_Requested" value="1">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The local user requests that this content is removed
-            from the call.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Error" value="2">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>There is an error with the content which means that it
-            has to be removed from the call.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Unsupported" value="3">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Some aspect of the content is unsupported so has to be
-            removed from the call.</p>
-        </tp:docstring>
-      </tp:enumvalue>
-    </tp:enum>
-
     <method name="Remove" tp:name-for-bindings="Remove">
       <tp:changed version="0.21.2">previously there were no
         arguments</tp:changed>
       <tp:docstring>
-        Remove the content from the call.
+        Remove the content from the call. This will cause
+        <tp:member-ref>Removed</tp:member-ref>((self_handle,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested, "", "")) to be
+        emitted.
       </tp:docstring>
-
-      <arg direction="in" name="Reason" type="u"
-        tp:type="Content_Removal_Reason">
-        <tp:docstring>
-          A generic hangup reason.
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Detailed_Removal_Reason" type="s"
-        tp:type="DBus_Error_Name">
-        <tp:docstring>
-          A more specific reason for the content removal, if one is
-          available, or an empty string.
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Message" type="s">
-        <tp:docstring>
-          A human-readable message for the reason of removing the
-          content, such as "Fatal streaming failure" or "no codec
-          intersection". This property can be left empty if no reason
-          is to be given.
-        </tp:docstring>
-      </arg>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError" />
@@ -221,12 +159,17 @@
          <p>Emitted when streams are removed from a call</p>
       </tp:docstring>
       <arg name="Streams" type="ao">
-         <tp:docstring>
-           The <tp:dbus-ref
-           namespace="ofdT.Call">Stream.DRAFT</tp:dbus-ref>s which were
-           removed.
-         </tp:docstring>
-       </arg>
+        <tp:docstring>
+          The <tp:dbus-ref
+          namespace="ofdT.Call">Stream.DRAFT</tp:dbus-ref>s which were
+          removed.
+        </tp:docstring>
+      </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          Why the content was removed.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Streams" tp:name-for-bindings="Streams"

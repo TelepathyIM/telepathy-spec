@@ -143,7 +143,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:type>Call_State</tp:type>_Ended and the
         <tp:member-ref>CallStateReason</tp:member-ref> property
         changing to (remote contact,
-        <tp:type>Call_State</tp:type>_Change_Reason_User_Requested,
+        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested,
         "org.freedesktop.Telepathy.Error.Rejected").</p>
 
       <h4>Incoming calls</h4>
@@ -622,6 +622,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           >Content.DRAFT</tp:dbus-ref> which was removed.
         </tp:docstring>
       </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          Why the content was removed.
+        </tp:docstring>
+      </arg>
     </signal>
 
     <property name="Contents" type="ao" access="read"
@@ -924,6 +929,32 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             call.</p>
         </tp:docstring>
       </tp:enumvalue>
+
+      <tp:enumvalue suffix="Unsupported" value="4">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>Some aspect of the content is unsupported so has to be
+            removed from the call.</p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Codec_Negotiation_Failed" value="5">
+        <tp:docstring>
+          There were no common codecs between all members of this Content.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Hardware_Error" value="6">
+        <tp:docstring>
+          The hardware streaming implementation went into spasm.
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Network_Error" value="7">
+        <tp:docstring>
+          It was not possible to connect to any of the users participating in
+          this call or content.
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:struct name="Call_State_Reason">
@@ -970,10 +1001,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           </tp:rationale>
         </tp:docstring>
       </tp:member>
+
+      <tp:member type="s" name="Message">
+        <tp:docstring>
+          An optional debug message, to expediate debugging the potentially
+          many processes involved in a Call. This may be communicated across
+          the network in protocols that support doing so, but it is not
+          essential.
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <property name="CallStateReason" tp:name-for-bindings="Call_State_Reason"
-      type="(uus)" access="read"  tp:type="Call_State_Reason">
+      type="(uuss)" access="read"  tp:type="Call_State_Reason">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The reason for the last change to the
           <tp:member-ref>CallState</tp:member-ref> and/or
@@ -1007,7 +1047,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Call_State_Reason" type="(uus)" tp:type="Call_State_Reason">
+      <arg name="Call_State_Reason" type="(uuss)" tp:type="Call_State_Reason">
         <tp:docstring>
           The new value of the <tp:member-ref>CallStateReason</tp:member-ref>
           property.
@@ -1136,6 +1176,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           A list of members who have left the call, i.e. keys to be removed
           from <tp:member-ref>CallMembers</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
+        <tp:docstring>
+          A structured reason for the change.
         </tp:docstring>
       </arg>
     </signal>
