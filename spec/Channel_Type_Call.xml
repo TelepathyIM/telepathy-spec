@@ -943,13 +943,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Hardware_Fault" value="6">
+      <tp:enumvalue suffix="Hardware_Error" value="6">
         <tp:docstring>
           The hardware streaming implementation went into spasm.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Network_Fault" value="7">
+      <tp:enumvalue suffix="Network_Error" value="7">
         <tp:docstring>
           It was not possible to connect to any of the users participating in
           this call or content.
