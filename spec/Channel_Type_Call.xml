@@ -1109,7 +1109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Muted" value = "4">
+      <tp:flag suffix="Muted" value = "8">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The call member has muted their participation in this call. Note
             that many protocols will not signal this flag, so clients should
