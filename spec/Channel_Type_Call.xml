@@ -456,7 +456,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:type>Call_State</tp:type>_Pending_Receiver (an incoming
           call waiting on the local user to pick up). While this is
           the case, this method SHOULD change the
-          <tp:member-ref>CallState</tp:member-ref> to include
+          <tp:member-ref>CallState</tp:member-ref> to
           <tp:type>Call_State</tp:type>_Ringing, and notify the
           remote contact that the local user has been alerted (if the
           protocol implements this); repeated calls to this method
@@ -746,12 +746,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:enumvalue suffix="Ringing" value="4">
         <tp:docstring>
           A sub-state of Pending_Receiver.
-          The called user has been alerted about the call but has not
-          responded; if possible, the caller(s) have been informed of this
-          fact. It SHOULD be set by the CM when
-          <tp:member-ref>SetRinging</tp:member-ref> is called successfully (or
-          a SIP 180 (Ringing) packet is received) and unset when the state
-          changes.
+          In the outgoing case: at least one called user has been alerted
+          about the call (a SIP 180 (Ringing) packet or equivalent has been
+          received) but none have answered, so the call cannot go to Accepted
+          (use <tp:type>Call_Member_Flags</tp:type>_Ringing to determine which
+          members have been informed and which haven't, if you care).
+
+          In the incoming case, the local user has been informed of the call (
+          <tp:member-ref>SetRinging</tp:member-ref> has been called
+          successfully) if possible, the caller(s) have been informed of this
+          fact (using a SIP 180 (Ringing) packet or equivalent).
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Queued" value="5">
@@ -759,6 +763,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           A sub-state of Pending_Receiver.
           The contact is temporarily unavailable, and the call has been placed
           in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
+          In a multi-party call, Ringing should take precedence over Queued.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Accepted" value = "6">
