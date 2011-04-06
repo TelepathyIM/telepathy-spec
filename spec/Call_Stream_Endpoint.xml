@@ -107,6 +107,11 @@
       <tp:docstring>
         Emitted when a candidate is selected for use in the stream by the
         controlling side of an ICE session.
+        The controlled side should call
+        <tp:member-ref>AcceptSelectedCandidatePair</tp:member-ref> or
+        <tp:member-ref>RejectSelectedCandidatePair</tp:member-ref> when
+        connectivity checks have either succeeded or failed for this candidate
+        pair. See also: <tp:member-ref>SelectedCandidatePairs</tp:member-ref>.
       </tp:docstring>
       <arg name="Local_Candidate"
         type="(usua{sv})" tp:type="Candidate">
@@ -140,6 +145,11 @@
           processing in this section until there are no losing pairs.
         </blockquote>
 
+        Also note that some or all of the local candidates in this list may
+        represent a peer-reflexive candidate that do not appear in
+        <tp:dbus-ref namespace="ofdT.Call.Stream.Interface.Media.DRAFT"
+        >LocalCandidates</tp:dbus-ref>.
+
         See rfc 5245 Appendix B.6. for more details about why this is.
       </tp:docstring>
     </property>
@@ -152,13 +162,12 @@
         for a particular component, and signal it to the remote side.
 
         This method should only be called by the controlling side of an
-        ICE session. The controlled side should call SetStreamState(Connected)
-        to respond to the offer.
+        ICE session. See CandidatePairSelected for details.
         <tp:rationale>
           In the SDP offer/answer model, this signalling will take place as
           generating an updated offer.
           Note that updates may be queued up until information about all
-          components for all streams is gathered.
+          components of all streams is gathered.
         </tp:rationale>
       </tp:docstring>
       <arg name="Local_Candidate"
@@ -178,41 +187,148 @@
       </tp:possible-errors>
     </method>
 
-    <property name="StreamState" tp:name-for-bindings="Stream_State"
-      type="u" tp:type="Media_Stream_State"
+    <tp:enum name="Stream_Endpoint_State" type="u">
+      <tp:docstring>
+        Represents the state of ICE negotiation for a single component of a
+        stream to an endpoint.
+      </tp:docstring>
+      <tp:enumvalue suffix="Connecting" value="0">
+        <tp:docstring>
+          Candidate gathering and connectivity checks are in progress.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Provisionally_Connected" value="1">
+        <tp:docstring>
+          The streaming implementation has found at least one working
+          candidate pair. It is possible to send media at this point, but the
+          controlling side has yet to negotiate the final candidates for use
+          in this call.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Fully_Connected" value="2">
+        <tp:docstring>
+          This component of the stream is connected, and an updated offer has
+          been sent and accepted (finalising the candidates to be used for the
+          call). This should be set by the CM in response to
+          <tp:member-ref>AcceptSelectedCandidatePair</tp:member-ref>.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Exhausted_Candidates" value="3">
+        <tp:docstring>
+          The streaming implementation has tried connecting to all of the
+          available candidates and none of them have connected. This is
+          distinct from Failed, because the CM might be able to provide more
+          candidates later (more likely in XMPP than SIP).
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Failed" value="4">
+        <tp:docstring>
+          The CM and streaming implementation are in agreement that it is
+          impossible to connect to this endpoint. This value should only be
+          set by the CM.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:struct name="Component_State_Tuple" array-name="Component_State_List">
+      <tp:member name="Component" type="u" tp:type="Stream_Component"/>
+      <tp:member name="State" type="u" tp:type="Stream_Endpoint_State"/>
+    </tp:struct>
+
+    <property name="EndpointState" tp:name-for-bindings="Endpoint_State"
+      type="a(uu)" tp:type="Component_State_Tuple[]"
       access="read">
       <tp:docstring>
-        The stream state of the endpoint.
+        The state of ICE negotiation with this Endpoint for each component of
+        the stream.
       </tp:docstring>
     </property>
 
-    <signal name="StreamStateChanged"
-      tp:name-for-bindings="Stream_State_Changed">
+    <signal name="EndpointStateChanged"
+      tp:name-for-bindings="Endpoint_State_Changed">
       <tp:docstring>
-        Emitted when the <tp:member-ref>StreamState</tp:member-ref>
+        Emitted when the <tp:member-ref>EndpointState</tp:member-ref>
         property changes.
       </tp:docstring>
-      <arg name="state" type="u" tp:type="Media_Stream_State">
+      <arg name="Component" type="u" tp:type="Stream_Component">
         <tp:docstring>
-          The new <tp:member-ref>StreamState</tp:member-ref> value.
+          The component whose state has changed.
+        </tp:docstring>
+      </arg>
+      <arg name="State" type="u" tp:type="Stream_Endpoint_State">
+        <tp:docstring>
+          The new state of this component.
         </tp:docstring>
       </arg>
     </signal>
 
-    <method name="SetStreamState"
-      tp:name-for-bindings="Set_Stream_State">
+    <method name="SetEndpointState"
+      tp:name-for-bindings="Set_Endpoint_State">
       <tp:docstring>
-        Change the <tp:member-ref>StreamState</tp:member-ref> of the
+        Change the <tp:member-ref>EndpointState</tp:member-ref> of the
         endpoint.
       </tp:docstring>
-      <arg direction="in" name="State" type="u" tp:type="Media_Stream_State">
+      <arg direction="in" name="Component" type="u" tp:type="Stream_Component">
         <tp:docstring>
-          The requested stream state.
+          The component whose state needs updating.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="State" type="u" tp:type="Stream_Endpoint_State">
+        <tp:docstring>
+          The new state of this component.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="AcceptSelectedCandidatePair"
+      tp:name-for-bindings="Accept_Selected_Candidate_Pair">
+      <tp:docstring>
+        Called in response to
+        <tp:member-ref>CandidatePairSelected</tp:member-ref> if/when this
+        candidate pair is known to have passed its connectivity checks.
+      </tp:docstring>
+      <arg name="Local_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The local candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <arg name="Remote_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The remote candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="RejectSelectedCandidatePair"
+      tp:name-for-bindings="Reject_Selected_Candidate_Pair">
+      <tp:docstring>
+        Called in response to
+        <tp:member-ref>CandidatePairSelected</tp:member-ref> if/when this
+        candidate pair is known to have failed its connectivity checks.
+      </tp:docstring>
+      <arg name="Local_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The local candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <arg name="Remote_Candidate"
+        type="(usua{sv})" tp:type="Candidate" direction="in">
+        <tp:docstring>
+          The remote candidate that has been selected.
+        </tp:docstring>
+      </arg>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
       </tp:possible-errors>
     </method>
 
