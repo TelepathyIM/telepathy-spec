@@ -230,13 +230,13 @@
       </tp:enumvalue>
     </tp:enum>
 
-    <tp:struct name="Component_State_Tuple" array-name="Component_State_List">
+    <tp:mapping name="Component_State_Map">
       <tp:member name="Component" type="u" tp:type="Stream_Component"/>
       <tp:member name="State" type="u" tp:type="Stream_Endpoint_State"/>
-    </tp:struct>
+    </tp:mapping>
 
     <property name="EndpointState" tp:name-for-bindings="Endpoint_State"
-      type="a(uu)" tp:type="Component_State_Tuple[]"
+      type="a{uu}" tp:type="Component_State_Map"
       access="read">
       <tp:docstring>
         The state of ICE negotiation with this Endpoint for each component of
