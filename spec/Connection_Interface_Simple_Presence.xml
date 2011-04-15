@@ -563,6 +563,17 @@
             available.</td>
         </tr>
         <tr>
+          <td>pstn</td>
+          <td>Connection_Presence_Type_Available</td>
+          <td>This contact is actually a phone number, not an IM account. As
+            such, the contact is conceptually always available, but not in the
+            same way that a contact can set their IM status to “available”.
+            It does not make sense to allow the user to set this status on
+            herself; hence, on protocols where this status is supported, its
+            entry in <tp:member-ref>Statuses</tp:member-ref> SHOULD have
+            <var>May_Set_On_Self</var> set to <code>False</code>.</td>
+        </tr>
+        <tr>
           <td>away</td>
           <td>Connection_Presence_Type_Away</td>
           <td></td>
