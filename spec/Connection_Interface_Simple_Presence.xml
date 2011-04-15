@@ -557,6 +557,12 @@
           <td></td>
         </tr>
         <tr>
+          <td>chat</td>
+          <td>Connection_Presence_Type_Available</td>
+          <td>Actively interested in chatting, as opposed to merely
+            available.</td>
+        </tr>
+        <tr>
           <td>away</td>
           <td>Connection_Presence_Type_Away</td>
           <td></td>
