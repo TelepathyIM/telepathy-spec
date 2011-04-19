@@ -279,6 +279,7 @@
     <property name="MaximumStatusMessageLength"
       tp:name-for-bindings="Maximum_Status_Message_Length" access="read"
       type="u">
+      <tp:added version="0.22.UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The maximum length in characters for any individual status
           message, or 0 if there is no limit.</p>
