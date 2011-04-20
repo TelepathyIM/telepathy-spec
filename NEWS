@@ -5,7 +5,31 @@ checkouts.
 telepathy-spec 0.22.2 (UNRELEASED)
 ==================================
 
-blah blah blah
+The “every cell stayed the same” release.
+
+Once again, this release in the stable series includes some minor API
+additions.
+
+Enhancements:
+
+• Channel.Interface.SMS now includes some sample contact capabilities.
+  (Danni)
+
+• Connection.Interface.Balance now has a ManageCreditURI property.
+  (fd.o#36254, Danni)
+
+• Connection.Interface.SimplePresence now has a
+  MaximumStatusMessageLength property. (fd.o#33054, André)
+
+• SimplePresence defines two new well-known status identifiers: "pstn"
+  and "chat". (fd.o#36159, Danni vs. Will)
+
+Fixes:
+
+• Protocol.Interface.Avatars properties are documented to be immutable.
+  (Guillaume)
+
+• The tables in SimplePresence and Call's HTML documentation look nicer.
 
 telepathy-spec 0.22.1 (2011-03-30)
 ==================================
