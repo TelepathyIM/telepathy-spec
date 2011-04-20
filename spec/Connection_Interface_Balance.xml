@@ -96,7 +96,7 @@
     <property name="ManageCreditURI"
               tp:name-for-bindings="Manage_Credit_URI"
               access="read" type="s">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.22.2"/>
       <tp:docstring>
         A URI the user may visit via the web browser to manage and top-up their
         account balance. This property is not guaranteed to be well-defined
