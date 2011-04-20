@@ -227,8 +227,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         remaining size between single keystrokes.</p>
       </tp:docstring>
 
-      <arg name="Content" type="s" direction="in">
-        <!-- FIXME: should this actually be type:Message ? -->
+      <arg name="Message" type="aa{sv}" tp:type="Message_Part[]" direction="in">
         <tp:docstring>
           The message the user wishes to send.
         </tp:docstring>
