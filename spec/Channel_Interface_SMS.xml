@@ -219,7 +219,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>There are a number of different SMS encoding mechanisms, and the
             client doesn't know which mechanisms an individual CM might support.
             This method allows the client, without any knowledge of the
-            encoding mechanism to provide length details to the user.</p>
+            encoding mechanism, to provide length details to the user.</p>
         </tp:rationale>
 
         <p>Clients SHOULD limit the frequency with which this method is called
