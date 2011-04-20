@@ -99,7 +99,9 @@
       <tp:added version="UNRELEASED"/>
       <tp:docstring>
         A URI the user may visit via the web browser to manage and top-up their
-        account balance.
+        account balance. This property is not guaranteed to be well-defined
+        until the connection becomes Connected; there is no change
+        notification.
 
         <tp:rationale>
           Different protocols and even servers or gateways (e.g. SIP and XMPP
