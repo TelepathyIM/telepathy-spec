@@ -242,10 +242,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
 
-      <arg name="Remaining_Characters" type="u" direction="out">
+      <arg name="Remaining_Characters" type="i" direction="out">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The number of further characters that can be fit in the final
-            chunk.</p>
+            chunk. A negative value indicates that the message will be
+            truncated by <code>abs(Remaining_Characters)</code>. The value
+            <code>MIN_INT32</code> (<code>-2<sup>31</sup></code>)
+            indicates the message will be truncated by an unknown amount.</p>
 
           <p>For example, in the GSM standard 7-bit encoding, a 162 character
             message would return 144 remaining characters (because of the
