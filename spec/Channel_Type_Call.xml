@@ -264,134 +264,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <h4>Multi-party calls</h4>
 
-      [TODO]
-
-      <h4>Call states</h4>
-
-      <p>There are many combinations of the
-        <tp:member-ref>CallState</tp:member-ref> and
-        <tp:member-ref>CallStateReason</tp:member-ref> properties which
-        mean different things. Here is a table to try to make these
-        meanings clearer:</p>
-
-      <table>
-        <tr>
-          <th rowspan="2"><tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref></th>
-          <th rowspan="2"><tp:member-ref>CallState</tp:member-ref></th>
-          <th colspan="3"><tp:member-ref>CallStateReason</tp:member-ref></th>
-          <th rowspan="2">Meaning</th>
-        </tr>
-        <tr>
-          <th>Actor</th>
-          <th>Reason</th>
-          <th>DBus_Reason</th>
-        </tr>
-        <!-- Pending_Initiator -->
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Pending_Initiator</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The outgoing call channel is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref>.</td>
-        </tr>
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Initialising</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>Some processing is taking place, but the remote user has not
-            been informed of the call's existence yet.</td>
-        </tr>
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Ringing</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The remote user's phone is assumed or known to be ringing, and
-            we are waiting for them to pick up.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Initialising</td>
-          <td>0</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
-          <td>""</td>
-          <td>The incoming call is waiting for the UI to start ringing, and
-            call <tp:member-ref>SetRinging</tp:member-ref> on it.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Ringing</td>
-          <td>0</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
-          <td>""</td>
-          <td>The incoming call is ringing, waiting for the local user to call
-            <tp:member-ref>Accept</tp:member-ref> on it.</td>
-        </tr>
-        <!-- Accepted -->
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Accepted</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The remote contact accepted the outgoing call.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Accepted</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The local user accepted the incoming call.</td>
-        </tr>
-        <tr>
-          <td>True or False</td>
-          <td><tp:type>Call_State</tp:type>_Active</td>
-          <td>Self handle or 0</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The call is active, and a productive conversation can be had.
-            </td>
-        </tr>
-        <!-- Ended -->
-        <tr>
-          <td>True or False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>Cancelled</tp:error-ref></td>
-          <td>The local user hung up the incoming or outgoing call.</td>
-        </tr>
-        <tr>
-          <td>True or False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>Terminated</tp:error-ref></td>
-          <td>The remote contact hung up the incoming or outgoing call.</td>
-        </tr>
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_No_Answer</td>
-          <td>""</td>
-          <td>The outgoing call was not picked up and the call ended.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>PickedUpElsewhere</tp:error-ref></td>
-          <td>The incoming call was ended because it was picked up elsewhere.</td>
-        </tr>
-      </table>
-
       <h4>Requestable channel classes</h4>
 
       <p>The <tp:dbus-ref
@@ -1057,9 +929,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <tp:type>Call_State</tp:type>_Ended because the initiator
             ended the call before the receiver accepted it. With an
             incoming call this state change reason signifies a missed
-            call.</p>
+            call, or one that was picked up elsewhere before it was
+            picked up here.</p>
           <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.NoAnswer"/></p>
+            <tp:error name="org.freedesktop.Telepathy.Error.NoAnswer"/> or
+            <tp:error
+              name="org.freedesktop.Telepathy.Error.PickedUpElsewhere"/></p>
         </tp:docstring>
       </tp:enumvalue>
 
