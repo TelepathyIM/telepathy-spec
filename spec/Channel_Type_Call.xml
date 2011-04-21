@@ -104,12 +104,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         user is the initiator, the call must be accepted by the handler
         by calling the <tp:member-ref>Accept</tp:member-ref> method.
         At this point, <tp:member-ref>CallState</tp:member-ref> changes
-        to <tp:type>Call_State</tp:type>_Setup_In_Progress, which signifies
+        to <tp:type>Call_State</tp:type>_Initialising, which signifies
         that the call is waiting for the network to do
         something (When the CM has information about when the remote contact is
         notified about the call (or the network is known not to convey such
         information) it should also change to
-        <tp:type>Call_State</tp:type>_Ringing. All changes to
+        <tp:type>Call_State</tp:type>_Alerting. All changes to
         <tp:member-ref>CallState</tp:member-ref> property are signalled using
         the <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
 
@@ -297,12 +297,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tr>
         <tr>
           <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Setup_In_Progress</td>
+          <td><tp:type>Call_State</tp:type>_Initialising</td>
           <td>Self handle</td>
           <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
           <td>""</td>
-          <td>Some processing is taking place, but the remote user may not
-            have been informed of the call's existence yet.</td>
+          <td>Some processing is taking place, but the remote user has not
+            been informed of the call's existence yet.</td>
         </tr>
         <tr>
           <td>True</td>
@@ -315,7 +315,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tr>
         <tr>
           <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Setup_In_Progress</td>
+          <td><tp:type>Call_State</tp:type>_Initialising</td>
           <td>0</td>
           <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
           <td>""</td>
@@ -450,10 +450,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
           property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
-          <tp:type>Call_State</tp:type>_Setup_In_Progress (an incoming
-          call is waiting for the user to be notified). Calling this method
-          SHOULD change the <tp:member-ref>CallState</tp:member-ref> to
-          <tp:type>Call_State</tp:type>_Ringing, and notify the
+          <tp:type>Call_State</tp:type>_Alerting (an incoming
+          call is ready and waiting for the user to be notified). Calling this method
+          SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
+          <tp:type>Call_Flags</tp:type>_Ringing, and notify the
           remote contact that the local user has been alerted (if the
           protocol supports this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
@@ -472,8 +472,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The call is no longer in state
-            <tp:type>Call_State</tp:type>_Setup_In_Progress.
-            or <tp:type>Call_State</tp:type>_Ringing.
+            <tp:type>Call_State</tp:type>_Alerting.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -490,7 +489,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:type>Call_State</tp:type>_Pending_Initiator, actually
           call the remote contact; this changes the
           <tp:member-ref>CallState</tp:member-ref> to
-          <tp:type>Call_State</tp:type>_Setup_In_Progress.</p>
+          <tp:type>Call_State</tp:type>_Initialising.</p>
 
         <p>Otherwise, this method SHOULD fail with the error NotAvailable.</p>
 
@@ -682,31 +681,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The allowed transitions are:</p>
 
         <ul>
-          <li>Pending_Initiator → Setup_In_Progress (for outgoing calls,
+          <li>Pending_Initiator → Initialising (for outgoing calls,
             when <tp:member-ref>Accept</tp:member-ref> is called)</li>
-          <li>Setup_In_Progress → Ringing or Queued (for outgoing calls, when
+          <li>Initialising → Alerting (for outgoing calls, when
             the remote client indicates that the user has been notified about
             the call. If the network is known not to provide feedback about whether
             the remote side is ringing, then the call should immediately be
-            set to Ringing.</li>
-          <li>Setup_In_Progress → Ringing (for incoming calls, when the UI has
-            started ringing, and called
+            set to Alerting.</li>
+          <li>Initialising → Alerting (for incoming calls, when e.g. the
+            implementation has been initialised far enough that it is sensible
+            to notify the user about the call (to reduce the probability that
+            the user will pick up the call and have it immediately fail).
+            The UI should then alert the user about the call, and call
             <tp:member-ref>SetRinging</tp:member-ref>)</li>
-          <li>Ringing or Queued → Accepted (for outgoing calls to a contact,
+          <li>Alerting → Accepted (for outgoing calls to a contact,
             when the remote contact accepts the call; for incoming calls, when
             <tp:member-ref>Accept</tp:member-ref> is called.)</li>
           <li>Accepted → Active (when the local user successfully
             joins the call/conference, and media is known to be flowing
-            successfully; also, when the hold/mute state of the call changes,
-            or temporary connection problems are resolved (See below)). If the
-            network is known not to provide feedback about when the call is
-            properly connected, the call should immediately be set to
-            Active.</li>
-          <li>Active → Accepted (when the mute/hold state of the call changes,
-            or there are temporary connection problems that the CM is aware of
-            and able to recover from)</li>
-          <li>any state → Clearing or Ended (when the call is terminated
-            normally, or when an error occurs)</li>
+            successfully; also, when temporary connection problems are
+            resolved (See below)). If the network is known not to provide
+            feedback about when the call is properly connected, the call
+            should immediately be set to Active.</li>
+          <li>Active → Accepted (when there are temporary connection problems
+            that the CM is aware of and able to recover from)</li>
+          <li>any state → Ended (when the call is terminated
+            normally, or when an error occurs that the CM is unable to recover
+            from)</li>
         </ul>
 
         <p>Clients MAY consider unknown values from this enum to be an
@@ -731,65 +732,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           called.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Setup_In_Progress" value="2">
+      <tp:enumvalue suffix="Initialising" value="2">
         <tp:docstring>
-          Progress has been made in placing the outgoing call, but the
-          contact may not have been made aware of the call yet
-          (so the Ringing state is not appropriate). This corresponds to SIP's
-          status code 183 Session Progress, and could be used when the
-          outgoing call has reached a gateway or ICE negotiation is pending, for instance.
+          Progress has been made in placing the call, but the
+          contact has not been made aware of the call yet. This corresponds to SIP's
+          status code 183 Session Progress, and should be used for the period
+          where the CM is waiting for the streaming implementation to
+          initialise (before sending the initial INVITE or equivalent) and when the
+          outgoing call has reached a gateway or ICE negotiation is pending.
+          UIs should not produce a dialtone or start ringing if the call is in
+          this state.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Ringing" value="3">
+      <tp:enumvalue suffix="Alerting" value="3">
         <tp:docstring>
           In the outgoing case: at least one called user has been alerted
           about the call (a SIP 180 (Ringing) packet or equivalent has been
           received) but none have answered, so the call cannot go to Accepted
           (use <tp:type>Call_Member_Flags</tp:type>_Ringing to determine which
-          members have been informed and which haven't, if you care).
+          members have been informed and which haven't, if you care). UIs
+          SHOULD produce a dialtone for outgoing calls in this state.
 
-          In the incoming case, the local user has been informed of the call (
-          <tp:member-ref>SetRinging</tp:member-ref> has been called
-          successfully) if possible, the caller(s) have been informed of this
-          fact (using a SIP 180 (Ringing) packet or equivalent).
+          In the incoming case, the local user should be informed of the call
+          as soon as the call reaches this state (and
+          <tp:member-ref>SetRinging</tp:member-ref> should be called
+          to inform the CM that this has happened, so that it can relay this
+          fact to the caller using a SIP 180 (Ringing) packet or equivalent).
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Queued" value="4">
-        <tp:docstring>
-          The contact is temporarily unavailable, and the call has been placed
-          in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
-          In a multi-party call, Ringing should take precedence over Queued.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Accepted" value = "5">
+      <tp:enumvalue suffix="Accepted" value = "4">
         <tp:docstring>
           The contact being called has accepted the call, but the call is not
-          in the Active state (reasons may include connectivity problems, the
-          local hold/mute state, and the hold state of remote participants).
+          in the Active state (The most common reason for this is that the
+          streaming implementation hasn't connected yet).
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Active" value = "6">
+      <tp:enumvalue suffix="Active" value = "5">
         <tp:docstring>
           The contact being called has accepted the call, and discourse between
           at least two parties should now be possible.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Clearing" value="7">
-        <tp:docstring>
-          The call has ended, but not all resources corresponding to the
-          call have been freed yet.
-
-          Depending on the protocol there might be some audible feedback until
-          the state is changed to Ended.
-
-          <tp:rationale>
-            In calls following the ITU-T Q.931 standard there is a period of
-            time between the call ending and the underlying channel being
-            completely free for re-use.
-          </tp:rationale>
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Ended" value = "8">
+      <tp:enumvalue suffix="Ended" value = "6">
         <tp:docstring>
           The call has ended, either via normal termination or an error.
         </tp:docstring>
