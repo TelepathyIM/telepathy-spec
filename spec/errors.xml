@@ -386,6 +386,41 @@
     </tp:docstring>
   </tp:error>
 
+  <tp:error name="Media.Codecs Incompatible">
+    <tp:docstring>
+      Raised when the local streaming implementation has no codecs in common
+      with the remote side.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Streaming_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
+  <tp:error name="Media.Streaming Error">
+    <tp:docstring>
+      Raised when the call's streaming implementation could not connect to the
+      remote peer over the network.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Streaming_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
+  <tp:error name="Media.Hardware Error">
+    <tp:docstring>
+      Raised either when the device's streaming hardware or DSP has
+      encountered a non-recoverable error.
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Hardware_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
   <tp:error name="Connection Refused">
     <tp:docstring>
       Raised when a connection is refused.
