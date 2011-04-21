@@ -478,6 +478,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:possible-errors>
     </method>
 
+    <method name="SetQueued" tp:name-for-bindings="Set_Queued">
+      <tp:changed version="0.21.2">renamed from Ringing</tp:changed>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Notifies the CM that the local user is already in a call, so this
+          call has been put in a call-waiting style queue.</p>
+
+        <p>This method is only useful if the
+          channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
+          property is False, and
+          the <tp:member-ref>CallState</tp:member-ref> is
+          <tp:type>Call_State</tp:type>_Initiating or
+          <tp:type>Call_State</tp:type>_Alerting. Calling this method
+          SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
+          <tp:type>Call_Flags</tp:type>_Queued, and notify the
+          remote contact that the call is in a queue (if the
+          protocol supports this); repeated calls to this method
+          SHOULD succeed, but have no further effect.</p>
+
+        <p>Queued is a little like Held, but applies to calls that have not
+          been Accepted (the Queued flag should be unset by the CM when Accept
+          is called). It should also be set in response to the state of the
+          world, rather than in response to user action.</p>
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The call was <tp:dbus-ref namespace="ofdT.Channel"
+            >Requested</tp:dbus-ref>, so ringing does not make sense.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The call is no longer in state
+            <tp:type>Call_State</tp:type>_Initialising or _Alerting.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
     <method name="Accept" tp:name-for-bindings="Accept">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For incoming calls in state
@@ -801,6 +841,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             is on hold, which could lead to the user saying something they'll
             regret, while under the impression that the other contacts can't
             hear them!
+
+            This flag exists as a simplified proxy for <tp:dbus-ref
+            namespace="ofdT.Channel.Interface.Hold"
+              >HoldStateChanged</tp:dbus-ref>,
+            to reduce the number of signals that need to be
+            listened to by a simple UI.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
@@ -808,14 +854,42 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:flag suffix="Locally_Muted" value="2">
         <tp:docstring>
           The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
+          <tp:dbus-ref namespace="ofdT.Call.Interface"
           >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
           be set if there is at least one Content, and all Contents
           are locally muted (for the same reason as Locally_Held).
+
+          <tp:rationale>
+            This flag exists to provide a simplified verson of <tp:dbus-ref
+            namespace="ofdT.Call.Interface.Mute.DRAFT"
+              >MuteStateChanged</tp:dbus-ref>,
+            to reduce the number of signals that need to be
+            listened to by a simple UI.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Forwarded" value="4">
+      <tp:flag suffix="Locally_Ringing" value="4">
+        <tp:docstring>
+          This flag exists for observability of the
+          <tp:member-ref>SetRinging</tp:member-ref> method (e.g. so that
+          loggers can tell whether the call got as far as alerting the user,
+          or whether something went wrong before then). It should be set when
+          the SetRinging is called, and unset when the call leaves
+          <tp:type>Call_State</tp:type>_Alerting.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Locally_Queued" value="8">
+        <tp:docstring>
+          This flag exists for observability of the
+          <tp:member-ref>SetQueued</tp:member-ref> method. It should be set
+          when the SetQueued is called, and unset when the call leaves
+          <tp:type>Call_State</tp:type>_Alerting.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Forwarded" value="16">
         <tp:docstring>
           The initiator of the call originally called a contact other than the
           current recipient of the call, but the call was then forwarded or
@@ -825,8 +899,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-    </tp:flags>
+      <tp:flag suffix="Clearing" value="32">
+        <tp:docstring>
+          This flag only occurs when the CallState is Ended. The call with
+          this flag set has ended, but not all resources corresponding to the
+          call have been freed yet.
 
+          Depending on the protocol there might be some audible feedback while
+          the clearing flag is set.
+
+          <tp:rationale>
+            In calls following the ITU-T Q.931 standard there is a period of
+            time between the call ending and the underlying channel being
+            completely free for re-use.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:flag>
+
+    </tp:flags>
     <property name="CallStateDetails"
       tp:name-for-bindings="Call_State_Details" type="a{sv}" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
