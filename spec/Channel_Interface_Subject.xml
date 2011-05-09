@@ -55,7 +55,8 @@
     </method>
 
     <property name="Subject" tp:name-for-bindings="Subject"
-              type="s" access="read">
+              type="s" access="read"
+              org.freedesktop.DBus.Property.EmitsChangedSignal="updates">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The human-readable subject on the channel such as the topic
           in an IRC channel, or the room name in XMPP MUCs.</p>
@@ -64,11 +65,11 @@
           property of Text channels, as Telepathy properties are soon to
           be deprecated completely.</tp:rationale>
 
-        <p>Change notification for this property is provided by the
-          <tp:member-ref>SubjectChanged</tp:member-ref> signal.</p>
-
         <p>This property may change during the lifetime of the channel and
           MUST not be included in a channel request.</p>
+
+        <p>Change notification for this property is provided by the
+          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -81,6 +82,9 @@
         <tp:rationale>This property replaces the subject-contact
           Telepathy property of Text channels, as Telepathy properties
           are soon to be deprecated completely.</tp:rationale>
+
+        <p>Change notification for this property is provided by the
+          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -93,6 +97,9 @@
         <tp:rationale>This property replaces the subject-timestamp
           Telepathy property of Text channels, as Telepathy properties
           are soon to be deprecated completely.</tp:rationale>
+
+        <p>Change notification for this property is provided by the
+          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -102,6 +109,9 @@
         <p>TRUE if the <tp:member-ref>Subject</tp:member-ref> property
           can be set by the user by calling
           <tp:member-ref>SetSubject</tp:member-ref>, otherwise FALSE.</p>
+
+        <p>Change notification for this property is provided by the
+          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
