@@ -43,10 +43,10 @@
           flags before calling this method as the user might not have
           permission to set the subject.</p>
 
-        <p>Clients SHOULD NOT assume success if no errors are raised
-          by calling this method, but instead should listen to the
-          <tp:member-ref>SubjectChanged</tp:member-ref> signal for
-          change notification.</p>
+        <p>A successful return of this method indicates a successful
+          change in subject, but clients should still listen for changes
+          to the <tp:member-ref>Subject</tp:member-ref> property for
+          further changes by other users or the server.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
@@ -114,37 +114,6 @@
           standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
-
-    <signal name="SubjectChanged" tp:name-for-bindings="Subject_Changed">
-      <arg name="Subject" type="s">
-        <tp:docstring>
-          The new subject string.
-        </tp:docstring>
-      </arg>
-      <arg name="Actor" type="s">
-        <tp:docstring>
-          A normalized contact ID representing who last modified the
-          subject, or the empty string if it is not known.
-        </tp:docstring>
-      </arg>
-      <arg name="Timestamp" type="x" tp:type="Unix_Timestamp64">
-        <tp:docstring>
-          A unix timestamp indicating when the subject was last
-          modified.
-        </tp:docstring>
-      </arg>
-      <arg name="CanSet" type="b">
-        <tp:docstring>
-          True if the <tp:member-ref>Subject</tp:member-ref> property
-          can be set by the user by calling
-          <tp:member-ref>SetSubject</tp:member-ref>.
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Emitted when the <tp:member-ref>Subject</tp:member-ref>
-        property is changed, otherwise FALSE.
-      </tp:docstring>
-    </signal>
 
   </interface>
 </node>
