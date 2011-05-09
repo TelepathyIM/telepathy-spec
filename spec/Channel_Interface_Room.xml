@@ -295,7 +295,7 @@
     </tp:docstring>
 
     <property name="RoomName" tp:name-for-bindings="Room_Name" type="s"
-              access="read">
+              access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The human-readable identifier of a chat room. Note that if
           non-empty, this property (and perhaps also
@@ -314,7 +314,7 @@
     </property>
 
     <property name="Server" tp:name-for-bindings="Server" type="s"
-              access="read">
+              access="read" tp:immutable="yes" tp:requestable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For protocols with a concept of chatrooms on multiple servers with
           different DNS names (like XMPP), the DNS name of the server hosting
