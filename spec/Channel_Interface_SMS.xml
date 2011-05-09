@@ -208,7 +208,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <method name="GetSMSLength"
             tp:name-for-bindings="Get_SMS_Length">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.23.1"/>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Returns the number of 140 octet chunks required to send a message
