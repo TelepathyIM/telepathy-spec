@@ -168,10 +168,10 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The Preferred_Handler is syntactically invalid or does
+            The <var>Preferred_Handler</var> is syntactically invalid or does
             not start with <code>org.freedesktop.Telepathy.Client.</code>,
-            the Account does not exist, or one of the Requested_Properties
-            is invalid
+            the <var>Account</var> does not exist, or one of the
+            <var>Requested_Properties</var> is invalid
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -240,10 +240,10 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The Preferred_Handler is syntactically invalid or does
+            The <var>Preferred_Handler</var> is syntactically invalid or does
             not start with <code>org.freedesktop.Telepathy.Client.</code>,
-            the Account does not exist, or one of the Requested_Properties
-            is invalid
+            the <var>Account</var> does not exist, or one of the
+            <var>Requested_Properties</var> is invalid
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -418,10 +418,10 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The Preferred_Handler is syntactically invalid or does
+            The <var>Preferred_Handler</var> is syntactically invalid or does
             not start with <code>org.freedesktop.Telepathy.Client.</code>,
-            the Account does not exist, or one of the Requested_Properties
-            is invalid
+            the <var>Account</var> does not exist, or one of the
+            <var>Requested_Properties</var> is invalid
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -559,10 +559,10 @@
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
-            The Preferred_Handler is syntactically invalid or does
+            The <var>Preferred_Handler</var> is syntactically invalid or does
             not start with <code>org.freedesktop.Telepathy.Client.</code>,
-            the Account does not exist, or one of the Requested_Properties
-            is invalid
+            the <var>Account</var> does not exist, or one of the
+            <var>Requested_Properties</var> is invalid
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -656,10 +656,10 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Equivalent of calling
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.ChannelDispatcher">EnsureChannel</tp:dbus-ref>
-        with a Requested_Properties which would result in ensuring
-        Channel.</p>
+        with a <var>Requested_Properties</var> which would result in ensuring
+        <var>Channel</var>.</p>
 
-         <p>If Channel is handled, its handler will be asked to present it the user
+         <p>If <var>Channel</var> is handled, its handler will be asked to present it the user
          (e.g. bring it into the foreground).</p>
       </tp:docstring>
 
