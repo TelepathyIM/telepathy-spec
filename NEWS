@@ -2,10 +2,12 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.22.3 (UNRELEASED)
+telepathy-spec 0.22.3 (2011-05-09)
 ==================================
 
-hai
+Fixes:
+
+• Correct DBus_Property-parameter boilerplate. (fdo #37005, Will)
 
 telepathy-spec 0.22.2 (2011-04-20)
 ==================================
