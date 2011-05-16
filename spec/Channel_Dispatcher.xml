@@ -657,8 +657,7 @@
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring>
             The Preferred_Handler is syntactically invalid or does
-            not start with <code>org.freedesktop.Telepathy.Client.</code> or
-            the Account does not exist.
+            not start with <code>org.freedesktop.Telepathy.Client.</code>.
           </tp:docstring>
         </tp:error>
 
