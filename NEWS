@@ -2,8 +2,15 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.23.1 (UNRELEASED)
+telepathy-spec 0.23.2 (2011-05-16)
 ==================================
+
+Changes to existing API
+-----------------------
+
+• ChannelDispatcher.DelegateChannels() now calls HandleChannels once per
+  Channel. It also returns the list of Channels which have been delegated
+  and those which have not. (fdo #37109, Guillaume)
 
 telepathy-spec 0.23.1 (2011-05-09)
 ==================================

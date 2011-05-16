@@ -574,7 +574,7 @@
       <tp:added version="0.23.1">
         Implemented since telepathy-mission-control 5.7.12.
       </tp:added>
-      <tp:changed version="0.23.UNRELEASED">This method now returns
+      <tp:changed version="0.23.2">This method now returns
         <var>Delegated</var> and <var>Not_Delegated</var> instead of nothing.
         <tp:dbus-ref namespace="ofdT.Client.Handler">HandleChannels</tp:dbus-ref>
         is now called once per <var>Channel</var> in <var>Channels</var>.
