@@ -663,7 +663,9 @@
 
         <tp:error name="org.freedesktop.Telepathy.Error.NotYours">
           <tp:docstring>
-            The caller is not currently handling the channels.
+            At least one <var>Channel</var> in <var>Channels</var> is not
+            currently handled by the caller. No <var>Channel</var> has been
+            delegated.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
