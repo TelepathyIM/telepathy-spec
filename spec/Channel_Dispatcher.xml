@@ -571,7 +571,9 @@
 
     <method name="DelegateChannels"
             tp:name-for-bindings="Delegate_Channels">
-      <tp:added version="0.23.1" />
+      <tp:added version="0.23.1">
+        Implemented since telepathy-mission-control 5.7.12.
+      </tp:added>
       <tp:changed version="0.23.UNRELEASED">This method now returns
         <var>Delegated</var> and <var>Not_Delegated</var> instead of nothing.
         <tp:dbus-ref namespace="ofdT.Client.Handler">HandleChannels</tp:dbus-ref>
@@ -704,7 +706,9 @@
 
     <method name="PresentChannel"
             tp:name-for-bindings="Present_Channel">
-      <tp:added version="0.23.1" />
+      <tp:added version="0.23.1">
+        Implemented since telepathy-mission-control 5.7.12.
+      </tp:added>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Equivalent of calling
         <tp:dbus-ref namespace="org.freedesktop.Telepathy.ChannelDispatcher">EnsureChannel</tp:dbus-ref>
