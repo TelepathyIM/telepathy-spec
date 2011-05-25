@@ -643,6 +643,23 @@ USA.</p>
                 be possible to retrieve it (even on protocols with reliable
                 message-delivery guarantees).</tp:rationale></dd>
 
+            <dt>original-message-sent (x - <tp:type>Unix_Timestamp64</tp:type>)</dt>
+            <dd>The <tt>message-sent</tt> header of the message that this
+              one supersedes.
+              This key should only be present if <tt>supersedes</tt> is also
+              present. It MAY be used as a hint to help clients locate the
+              original message in its logs. If present, comparing the tuple
+              (original-message-sent, supersedes) with (message-sent,
+              message-token) SHOULD be enough to uniquely
+              identify the original message.</dd>
+
+            <dt>original-message-received (x - <tp:type>Unix_Timestamp64</tp:type>)</dt>
+            <dd>The <tt>message-received</tt> header of the message that this
+              one supersedes.
+              This key should only be present if <tt>supersedes</tt> is also
+              present. It MAY be used as a hint in a similar way to
+              <tt>original-message-sent</tt>.</dd>
+
             <dt>pending-message-id (u - <tp:type>Message_ID</tp:type>)</dt>
             <dd>The incoming message ID. This MUST NOT be present on outgoing
               messages. Clients SHOULD NOT store this key - it is only valid
