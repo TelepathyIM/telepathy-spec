@@ -276,7 +276,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>For incoming file transfers, this property MAY be set by the channel
         handler before calling <tp:member-ref>AcceptFile</tp:member-ref> to
-        inform observers where the incoming file will be saved.
+        inform observers where the incoming file will be saved. If set by an
+        approver, the handler MUST save the file to that location.
         Setting this property once <tp:member-ref>AcceptFile</tp:member-ref>
         has been called MUST fail. Once this property has been set
         <tp:member-ref>URIDefined</tp:member-ref> is emitted.</p>
