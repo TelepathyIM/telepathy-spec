@@ -91,14 +91,15 @@ dist: check
 	rm -rf tmp/"$(DISTNAME)"
 
 BRANCH = $(shell sh tools/git-which-branch.sh misc | tr -d '\n' | tr -C "[:alnum:]" _)
-UPLOAD_BRANCH_TO = people.freedesktop.org:public_html/telepathy-spec
+UPLOAD_BRANCH_HOST = people.freedesktop.org
+UPLOAD_BRANCH_TO = $(UPLOAD_BRANCH_HOST):public_html/telepathy-spec
 
 # Usage: make upload-branch BRANCH=discussion
 upload-branch: all
 	rsync -rzvP --delete doc/spec \
 		$(UPLOAD_BRANCH_TO)-$(BRANCH)/
 	@echo Your spec branch might be at:
-	@echo '  ' http://people.freedesktop.org/~$$USER/telepathy-spec-$(BRANCH)/spec/
+	@echo '  ' http://$(UPLOAD_BRANCH_HOST)/~$$USER/telepathy-spec-$(BRANCH)/spec/
 
 # automake requires these rules for anything that's in DIST_SUBDIRS
 distclean: clean
