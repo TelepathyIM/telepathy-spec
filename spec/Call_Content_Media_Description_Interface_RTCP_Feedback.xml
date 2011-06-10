@@ -45,15 +45,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="u" name="RTCPMinimumInterval">
         <tp:docstring>
           The minimum interval between two regular RTCP packets for this
-          content, in milliseconds. If no special value is desired (for
-          signalling) one should put MAXUINT (0xFFFFFFFF). In RTP/AVP, the
-          setting this property to 0 means "Do not let RTCP packets exceed 5%
-          of the available bandwidth" and MAXUINT means "use the recommended
-          interval time of 5 seconds as specified by RFC 3550 section 6.2".
-          In RTP/AVPF, both 0 and MAXUINT are used to avoid specifying an
-          additional limit on the rate of RCTP packets (other than that
-          specified by bandwidth constraints for the session). Other profiles
-          may assign different meanings to the value 0 or MAXUINT.
+          content, in milliseconds. In RTP/AVP, this should be 5000 (5 seconds).
+          If using the RTP/AVPF profile, it can be set to a lower value,
+          the default being 0.
         </tp:docstring>
       </tp:member>
       <tp:member type="a(sss)" tp:type="RTCP_Feedback_Message[]"
