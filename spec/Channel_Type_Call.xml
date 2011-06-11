@@ -916,8 +916,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <tp:type>Call_State</tp:type>_Alerting or
             <tp:type>Call_State</tp:type>_Ended (or a content's direction
             changed) because it was rejected by the remote user.</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.Rejected"/></p>
+          <p>Corresponds to <tp:error-ref>Rejected</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -931,10 +930,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             incoming call this state change reason signifies a missed
             call, or one that was picked up elsewhere before it was
             picked up here.</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.NoAnswer"/> or
-            <tp:error
-              name="org.freedesktop.Telepathy.Error.PickedUpElsewhere"/></p>
+          <p>Corresponds to <tp:error-ref>NoAnswer</tp:error-ref> or
+            <tp:error-ref>PickedUpElsewhere</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -943,8 +940,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed because one
             of the addresses does not exist on the network.</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.DoesNotExist"/></p>
+          <p>Corresponds to <tp:error-ref>DoesNotExist</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -953,9 +949,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed because the
           local user is not authorised.</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-            <tp:error name="org.freedesktop.Telepathy.Error.InsufficientFunds"/>
+          <p>Corresponds to <tp:error-ref>PermissionDenied</tp:error-ref> or
+            <tp:error-ref>InsufficientFunds</tp:error-ref>
             </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -968,8 +963,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <tp:type>Call_State</tp:type>_Ended because the receiver is busy
             (e.g. is already engaged in another call, and has not placed the
             initiator in a call-waiting queue).</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.Busy"/></p>
+          <p>Corresponds to <tp:error-ref>Busy</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -978,8 +972,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>There has been an unexpected error in either the CM or some other
             local component.</p>
-          <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.Confused"/></p>
+          <p>Corresponds to <tp:error-ref>ServiceConfused</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -989,7 +982,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>There has been an unexpected error in the server or some other
             remote component.</p>
           <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.ServiceConfused"/></p>
+            <tp:error-ref>ServiceConfused</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -1000,7 +993,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             signalling part of the call (compare and contrast:
             Streaming_Error).</p>
           <p>Corresponds to
-            <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/></p>
+            <tp:error-ref>NetworkError</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -1008,10 +1001,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Some aspect of the content is unsupported so has to be
             removed from the call.</p>
-          <p>Corresponds to <tp:error
-            name="org.freedesktop.Telepathy.Error.Media.UnsupportedType"/>
-            or <tp:error
-            name="org.freedesktop.Telepathy.Error.Media.CodecsIncompatible"/>
+          <p>Corresponds to <tp:error-ref>Media.UnsupportedType</tp:error-ref>
+            or <tp:error-ref>Media.CodecsIncompatible</tp:error-ref>
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -1019,8 +1010,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:enumvalue suffix="Hardware_Error" value="13">
         <tp:docstring>
           <p>The hardware streaming implementation went into spasm.</p>
-          <p>Corresponds to <tp:error
-            name="org.freedesktop.Telepathy.Error.Media.HardwareError"/></p>
+          <p>Corresponds to <tp:error-ref>Media.HardwareError</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -1028,8 +1018,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           <p>It was not possible for the streaming implementation to connect
             to any of the users participating in this call or content.</p>
-          <p>Corresponds to <tp:error
-            name="org.freedesktop.Telepathy.Error.Media.StreamingError"/></p>
+          <p>Corresponds to <tp:error-ref>Media.StreamingError</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
