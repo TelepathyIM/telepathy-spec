@@ -109,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         something (When the CM has information about when the remote contact is
         notified about the call (or the network is known not to convey such
         information) it should also change to
-        <tp:type>Call_State</tp:type>_Alerting. All changes to
+        <tp:type>Call_State</tp:type>_Ringing. All changes to
         <tp:member-ref>CallState</tp:member-ref> property are signalled using
         the <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
 
@@ -322,7 +322,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
           property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
-          <tp:type>Call_State</tp:type>_Alerting (an incoming
+          <tp:type>Call_State</tp:type>_Ringing (an incoming
           call is ready and waiting for the user to be notified). Calling this method
           SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
           <tp:type>Call_Flags</tp:type>_Ringing, and notify the
@@ -344,7 +344,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The call is no longer in state
-            <tp:type>Call_State</tp:type>_Alerting.
+            <tp:type>Call_State</tp:type>_Ringing.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -361,7 +361,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
           <tp:type>Call_State</tp:type>_Initiating or
-          <tp:type>Call_State</tp:type>_Alerting. Calling this method
+          <tp:type>Call_State</tp:type>_Ringing. Calling this method
           SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
           <tp:type>Call_Flags</tp:type>_Queued, and notify the
           remote contact that the call is in a queue (if the
@@ -384,7 +384,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The call is no longer in state
-            <tp:type>Call_State</tp:type>_Initialising or _Alerting.
+            <tp:type>Call_State</tp:type>_Initialising or _Ringing.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -595,18 +595,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <ul>
           <li>Pending_Initiator → Initialising (for outgoing calls,
             when <tp:member-ref>Accept</tp:member-ref> is called)</li>
-          <li>Initialising → Alerting (for outgoing calls, when
+          <li>Initialising → Ringing (for outgoing calls, when
             the remote client indicates that the user has been notified about
             the call. If the network is known not to provide feedback about whether
             the remote side is ringing, then the call should immediately be
-            set to Alerting.</li>
-          <li>Initialising → Alerting (for incoming calls, when e.g. the
+            set to Ringing.</li>
+          <li>Initialising → Ringing (for incoming calls, when e.g. the
             implementation has been initialised far enough that it is sensible
             to notify the user about the call (to reduce the probability that
             the user will pick up the call and have it immediately fail).
             The UI should then alert the user about the call, and call
             <tp:member-ref>SetRinging</tp:member-ref>)</li>
-          <li>Alerting → Accepted (for outgoing calls to a contact,
+          <li>Ringing → Accepted (for outgoing calls to a contact,
             when the remote contact accepts the call; for incoming calls, when
             <tp:member-ref>Accept</tp:member-ref> is called.)</li>
           <li>Accepted → Active (when the local user successfully
@@ -656,7 +656,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           this state.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Alerting" value="3">
+      <tp:enumvalue suffix="Ringing" value="3">
         <tp:docstring>
           In the outgoing case: at least one called user has been alerted
           about the call (a SIP 180 (Ringing) packet or equivalent has been
@@ -748,7 +748,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           loggers can tell whether the call got as far as alerting the user,
           or whether something went wrong before then). It should be set when
           the SetRinging is called, and unset when the call leaves
-          <tp:type>Call_State</tp:type>_Alerting.
+          <tp:type>Call_State</tp:type>_Ringing.
         </tp:docstring>
       </tp:flag>
 
@@ -757,7 +757,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           This flag exists for observability of the
           <tp:member-ref>SetQueued</tp:member-ref> method. It should be set
           when the SetQueued is called, and unset when the call leaves
-          <tp:type>Call_State</tp:type>_Alerting.
+          <tp:type>Call_State</tp:type>_Ringing.
         </tp:docstring>
       </tp:flag>
 
@@ -913,7 +913,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:added version="0.21.2"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed from
-            <tp:type>Call_State</tp:type>_Alerting or
+            <tp:type>Call_State</tp:type>_Ringing or
             <tp:type>Call_State</tp:type>_Ended (or a content's direction
             changed) because it was rejected by the remote user.</p>
           <p>Corresponds to <tp:error-ref>Rejected</tp:error-ref></p>
@@ -924,7 +924,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:added version="0.21.2"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed from
-            <tp:type>Call_State</tp:type>_Alerting or
+            <tp:type>Call_State</tp:type>_Ringing or
             <tp:type>Call_State</tp:type>_Ended because the initiator
             ended the call before the receiver accepted it. With an
             incoming call this state change reason signifies a missed
@@ -959,7 +959,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:added version="0.21.2"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed from
-            <tp:type>Call_State</tp:type>_Alerting
+            <tp:type>Call_State</tp:type>_Ringing
             <tp:type>Call_State</tp:type>_Ended because the receiver is busy
             (e.g. is already engaged in another call, and has not placed the
             initiator in a call-waiting queue).</p>
