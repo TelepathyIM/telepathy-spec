@@ -387,6 +387,7 @@
   </tp:error>
 
   <tp:error name="Media.Codecs Incompatible">
+    <tp:added version="UNRELEASED"/>
     <tp:docstring>
       Raised when the local streaming implementation has no codecs in common
       with the remote side.
@@ -399,6 +400,7 @@
   </tp:error>
 
   <tp:error name="Media.Streaming Error">
+    <tp:added version="UNRELEASED"/>
     <tp:docstring>
       Raised when the call's streaming implementation has some kind of internal
       error.
