@@ -972,7 +972,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>There has been an unexpected error in either the CM or some other
             local component.</p>
-          <p>Corresponds to <tp:error-ref>ServiceConfused</tp:error-ref></p>
+          <p>Corresponds to <tp:error-ref>Confused</tp:error-ref> or
+          <tp:error-ref>Media.StreamingError</tp:error-ref>
+          </p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -982,7 +984,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>There has been an unexpected error in the server or some other
             remote component.</p>
           <p>Corresponds to
-            <tp:error-ref>ServiceConfused</tp:error-ref></p>
+            <tp:error-ref>ServiceConfused</tp:error-ref>
+          </p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -1007,18 +1010,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Hardware_Error" value="13">
-        <tp:docstring>
-          <p>The hardware streaming implementation went into spasm.</p>
-          <p>Corresponds to <tp:error-ref>Media.HardwareError</tp:error-ref></p>
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Streaming_Error" value="14">
+      <tp:enumvalue suffix="Connectivity_Error" value="13">
         <tp:docstring>
           <p>It was not possible for the streaming implementation to connect
             to any of the users participating in this call or content.</p>
-          <p>Corresponds to <tp:error-ref>Media.StreamingError</tp:error-ref></p>
+          <p>Corresponds to <tp:error-ref>ConnectionFailed</tp:error-ref> or
+            <tp:error-ref>ConnectionLost</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
