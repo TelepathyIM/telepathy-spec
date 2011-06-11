@@ -950,7 +950,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <p>The <tp:member-ref>CallState</tp:member-ref> changed because the
           local user is not authorised.</p>
           <p>Corresponds to <tp:error-ref>PermissionDenied</tp:error-ref> or
-            <tp:error-ref>InsufficientFunds</tp:error-ref>
+            <tp:error-ref>InsufficientBalance</tp:error-ref>
             </p>
         </tp:docstring>
       </tp:enumvalue>
