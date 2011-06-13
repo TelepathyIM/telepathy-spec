@@ -621,7 +621,7 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of mappings describing TURN or Google relay servers
           available for the client to use in its candidate gathering, as
-          determined from the protocol. Map keys are:</p>
+          determined from the protocol. Well-known map keys are:</p>
 
         <dl>
           <dt><code>ip</code> - s</dt>
@@ -653,6 +653,22 @@
           <dt><code>port</code> - q</dt>
           <dd>The UDP or TCP port of the relay server as an ASCII unsigned
             integer</dd>
+
+          <dt><code>unique-id</code> - s</dt>
+          <dd>A string identifying the relay server. If two RelayInfo entries
+            have the same unique-id, but different <code>type</code>s, there
+            is usually little point in connecting to both. Use
+            <code>priority</code> to determine which version to prefer in this
+            case. Can also be used by the streaming implementation to avoid
+            connecting to the same relay multiple times if relaying is
+            required for both audio and video.</dd>
+
+          <dt><code>priority</code> - u</dt>
+          <dd>A number determining which version of a server to prefer (if
+            multiple are present with the same <code>unique-id</code>,
+            the one with the highest priority should be used, or the streaming
+            implementation should use the one whose <code>type</code> has the
+            most desirable properties)</dd>
 
           <dt><code>username</code> - s</dt>
           <dd>The username to use</dd>
