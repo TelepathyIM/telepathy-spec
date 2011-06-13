@@ -327,3 +327,23 @@ p:first-child {
 pre {
 	margin: 0.5em 0 0 0;
 }
+
+.docstring table {
+        border: 1px solid #d3d7cf;
+        background-color: #eeeeec;
+        margin: 0.5em 0 0 0;
+        border-collapse: collapse;
+}
+
+.docstring th,
+.docstring td {
+        padding: 4px;
+}
+
+.docstring th {
+        border-bottom: 1px dotted #d3d7cf;
+}
+
+.docstring tr:nth-child(even) {
+        background-color: #dddddc;
+}

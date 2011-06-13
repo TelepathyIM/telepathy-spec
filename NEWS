@@ -2,434 +2,169 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.21.10 (2011-02-24)
-===================================
-
-“Cold as shadows over European eyes”
-
-New stable API:
-
-• Add SASLAuthentication.MaySaveResponse property indicating whether the
-  password can be saved.
-
-New experimental API:
-
-• Account.Interface.Hidden.DRAFT1 and AccountManager.Interface.Hidden.DRAFT1:
-  new interfaces for flagging certain accounts as hidden, so that they do not
-  appear in the account manager's standard lists of accounts.
-
-• ConnectionManager.Interface.AccountStorage.DRAFT: an interface for connection
-  managers that store account details internally.
-
-• Account.Interface.ExternalPasswordStorage.DRAFT: an interface for Accounts
-  whose passwords are stored externally.
-
-• Channel.Interface.CredentialsStorage.DRAFT: a channel interface for SASL
-  authentication channels that can save the credentials in the connection manager.
-
-• Call.Content.Interface.VideoControl.DRAFT: an interface that allows the
-  connection manager to control the video stream.
-
-Clarifications:
-
-• Document how to implement non-interactive approvers.
-
-• Document how unsetting DBus_Property parameters works in Account and
-  ConnectionManager.
-
-telepathy-spec 0.21.9 (2011-01-28)
+telepathy-spec 0.23.3 (UNRELEASED)
 ==================================
 
-“Are you ready for what's coming?”
-
-“Ready as I'll ever be.”
-
-New stable API:
-
-• Add a FileTransfer.URI property which can be used to tell other
-  Telepathy clients about the location of the transferred
-  file. (fdo#32434, cassidy)
-
-Changes to unstable API:
-
-• Move the Packetization property from Call.Content to
-  Call.Content.Interface.Media (sjoerd)
-
-telepathy-spec 0.21.8 (2010-12-20)
+telepathy-spec 0.23.2 (2011-05-16)
 ==================================
 
-The “I own a high-powered assault rifle; I own a 12-guage double-barrel
-shotgun” release.
+Changes to existing API
+-----------------------
 
-New stable API:
+• ChannelDispatcher.DelegateChannels() now calls HandleChannels once per
+  Channel. It also returns the list of Channels which have been delegated
+  and those which have not. (fdo #37109, Guillaume)
 
-• Add a ContactList.ContactsChangedByID signal, which supplements
-  ContactList.ContactsChanged by providing contact IDs along with
-  handles. Accordingly, ContactsChanged is now deprecated. (fd.o#32467,
-  smcv)
-
-Changes to unstable API:
-
-• Remove the once-implemented but never-used
-  Account.Interface.MinimumPresence. (fd.o#29811, wjt)
-
-Tools changes:
-
-• Allow <annotation>s on interfaces, and interpret standard
-  <annotation>s. (Alex Merry)
-
-• Don't generate ‘Generic Types’ and ‘Errors’ if there's no content for
-  them. (Alex Merry)
-
-telepathy-spec 0.21.7 (2010-12-10)
+telepathy-spec 0.23.1 (2011-05-09)
 ==================================
 
-The "health, safety and Grolsch at work" release.
+This first release in the 0.23 development branch contains all the fixes and
+additions from 0.22.3.
 
-New stable API:
+Enhancements:
 
-• Add ability to explicitly request an SMS channel to a contact. (danni)
+• Channel.Interface.SMS.GetSMSLength() to allow SMS message chunking to be
+  shown to the user. (Danni)
 
-• Add AuthenticationTypes Protocol property. (jonny)
+• ChannelDispatcher.DelegateChannels() to move channels between handlers.
+  (fdo #25293, Guillaume)
 
-• The MessageSent signal should include message-sender etc. (smcv)
+• ChannelDispatcher.PresentChannel(): convenient API to re-ensure an existing
+  channel. (fdo #25293, Guillaume)
 
-Clarifications:
 
-• Explicitly forbid message-sender etc. when calling SendMessage, matching
-  how telepathy-glib behaves (smcv)
-
-Tools changes:
-
-• Produce two devhelp index entries for each symbol. (smcv)
-
-telepathy-spec 0.21.6 (2010-12-01)
+telepathy-spec 0.22.3 (2011-05-09)
 ==================================
 
-The "recent change in the nature of fish" release.
+Fixes:
 
-Changes to stable API:
+• Correct DBus_Property-parameter boilerplate. (fdo #37005, Will)
+
+telepathy-spec 0.22.2 (2011-04-20)
+==================================
+
+The “every cell stayed the same” release.
+
+Once again, this release in the stable series includes some minor API
+additions.
+
+Enhancements:
+
+• Channel.Interface.SMS now includes some sample contact capabilities.
+  (Danni)
+
+• Connection.Interface.Balance now has a ManageCreditURI property.
+  (fd.o#36254, Danni)
+
+• Connection.Interface.SimplePresence now has a
+  MaximumStatusMessageLength property. (fd.o#33054, André)
+
+• SimplePresence defines two new well-known status identifiers: "pstn"
+  and "chat". (fd.o#36159, Danni vs. Will)
+
+Fixes:
+
+• Protocol.Interface.Avatars properties are documented to be immutable.
+  (Guillaume)
+
+• The tables in SimplePresence and Call's HTML documentation look nicer.
+
+telepathy-spec 0.22.1 (2011-03-30)
+==================================
+
+The “we can change the things we know” release.
+
+Unconventionally, this release in the 0.22 stable series of the
+specification contains minor API additions. This is not intended to
+become a trend; once major changes land in the specification and a
+release is made in the 0.23.x unstable series, no new API will be added
+to the stable branch.
+
+• A new error code, InsufficientBalance, has been added, along with a
+  balance-required key for the CallStateDetails dictionary. (Danni)
+
+• Media.StreamHandler has grown two new method/signal pairs, namely
+  SetRemoteFeedbackMessages/SupportedFeedbackMessages and
+  SetRemoteHeaderExtensions/SupportedHeaderExtensions, plus some related
+  types, for enabling exciting RTP header extensions and RTCP feedback
+  messages.
+
+telepathy-spec 0.22.0 (2011-03-21)
+==================================
+
+The “literate small talk” release.
+
+This is a new stable version of telepathy-spec, intended to serve as a
+reference point for future work. There were no API changes since
+development release 0.21.13; significant additions and changes to
+non-DRAFT interfaces from the year-and-a-half of development since
+0.20.0 are summarized below.
+
+The versions of libraries, connection managers and Mission Control
+recommended for use with GNOME 3.0 (such as the upcoming telepathy-glib
+0.14) can be expected to support most of the API from this spec release.
+
+Changes to existing API
+-----------------------
 
 • Handles are no longer expected to be reference-counted - instead, they
-  persist as long as the Connection does. A new property HasImmortalHandles
-  indicates whether this is the case. telepathy-glib 0.13.8 will implement
-  these semantics automatically for most connection managers. (smcv)
+  persist as long as the Connection does. A new property,
+  HasImmortalHandles, indicates whether this is the case. Versions of
+  telepathy-glib since 0.13.8 implement these semantics, and set that
+  property, automatically for most connection managers.
 
-Tools changes:
-
-• add support for tp:immutable="sometimes" (smcv)
-
-• add support for <tp:client-interest/> (danni)
-
-telepathy-spec 0.21.5 (2010-11-25)
-==================================
-
-The "For the fictional pink sentient fungus, see Mi-go" release.
-
-Changes to stable API:
-
-• fd.o #29376: Chan.T.Text now requires Chan.I.Messages (cassidy, smcv)
-
-• fd.o #23155: message-token has been redefined from "globally unique"
+• message-token has been redefined from "globally unique"
   to "whatever's in the underlying protocol", replacing the unimplemented
   protocol-token. This makes it feasible to implement message-token again.
   Note that connection managers implementing message-token should not be
   backported to Maemo 5, since its event logger assumes that message-token
-  is guaranteed to be unique, which is usually unimplementable. (wjt)
+  is guaranteed to be unique, which is usually unimplementable.
 
-Deprecations:
-
-• Most of Chan.T.Text has been superseded by Chan.I.Messages and so is now
-  deprecated (smcv)
-
-• GetPendingMessageContent is deprecated (wjt)
-
-New stable API:
-
-• fd.o #14003: Chan.T.ServerAuthentication and Chan.I.SASLAuthentication
-  provide interactive querying for credentials, allowing connection without
-  saving a password if there is a handler for these channels (eeejay, smcv,
-  jonny)
-
-• Chan.I.Securable indicates whether a channel is secure (smcv, jonny)
-
-• fd.o #28866: ChannelDispatcher and ChannelRequest now support
-  "request hints" (metadata passed through from the requester to the handler),
-  and the SucceededWithChannel signal (wjt, smcv)
-
-• fd.o #20775: Protocol.I.Avatars indicates the expected requirements for
-  avatars (eeejay)
-  · no changes since draft 1
-
-• message-sender-id key in Messages headers, complementing
-  message-sender (smcv)
-
-• Messages.MessageTypes property, superseding GetMessageTypes (smcv)
-
-• Contact_Info_Field_Flag_Overwritten_By_Nickname, indicating that this
-  field will be overwritten when we set the nickname (jonner)
-
-• Account.I.Addressing stores user preferences for use of accounts for
-  non-primary protocols, such as using SIP for telephony (fledermaus)
-
-• fd.o #29914: Conn.I.Powersaving allows connections to be placed in a
-  lower-power-consumption state when a portable device is not in active use
-  · no changes since draft 1
-
-• new errors: Confused, ServerConfused (smcv)
-
-Fixes and clarifications:
-
-• fd.o #27183: mutual subscription is a job for servers or UIs, and should not
-  be enforced by CMs (smcv)
-
-• MIME types produced by CMs must be lower-case; MIME types provided by
-  clients should be normalized to lower-case before comparison (mikhailz)
-
-• Improve wording of requestability templates and add markup for
-  sometimes-requestable properties (wjt)
-
-• fd.o #29560: clarify how Messages signals errors (smcv)
-
-• fd.o #29474: adjust TargetHandleType and Chan.T.Text documentation to
-  reflect the Conference-based approach to MSN used since 0.20 (smcv)
-
-• Delete unused code-generation tools and their tests, and various outdated
-  documents (smcv)
-
-• Update test-specparser.py so it actually passes, and run it in
-  "make check" (smcv)
-
-• fd.o #31661: editorial improvements (wjt)
-
-Changes to experimental API:
-
-• Hints and SucceededWithChannel moved to ChannelDispatcher.I.Hints and
-  ChannelRequest.I.Hints
-
-• More Call changes (jonny, sjoerd, danni)
-  · make CodecOffer and Codec_Offering specific to one contact
-  · fd.o #28725: add InitialTransport
-  · fd.o #28690: add PleaseRestartICE and document ICE restarts
-  · fd.o #31279: add Unknown and Multicast transport types
-
-telepathy-spec 0.21.4 (2010-10-29)
-==================================
-
-The "I had to take out doors, AI, the level boss and levels" release.
-
-New stable API:
-
-• add NewActiveTransportPair method to StreamHandler (lfrb)
-
-Fixes:
-
-• remove ".DRAFT" from MailNotification (smcv)
-
-Changes to experimental API:
-
-• clarify more of Call, and add a Content.Removed signal (jonny)
-
-telepathy-spec 0.21.3 (2010-10-25)
-==================================
-
-The "I used a goto today, gleefully and intentionally" release.
-
-New stable API:
-
-• fd.o #27835: Conn.AddClientInterest, Conn.RemoveClientInterest allow
-  clients to subscribe to specialized interfaces in a generic way (smcv)
-
-• fd.o #30703: Chan.I.DTMF.TonesDelayed and support for 'p', 'x', ',' and 'w'
-  in dialstrings (smcv)
-
-• fd.o #13349: Conn.I.MailNotification is now considered stable. Changes
-  since draft 1:
-  · remove the Subscribe and Unsubscribe methods: you should call
-    AddClientInterest and RemoveClientInterest instead
-
-• fd.o #30088: Protocol.I.Presence is now considered stable, with no
-  changes since draft 1
-
-• a new error code, PickedUpElsewhere, used by Call (jonny)
-
-Changes to experimental API:
-
-• more changes to Call and its related interfaces (jonny)
-  · fd.o #28720: remove Early_Media disposition
-  · fd.o #28719: document Call.Stream.Endpoint
-  · fd.o #28735: document local state of Pending_Send
-  · fd.o #28704: add signals for relay info and STUN servers
-  · fd.o #29595: add Call.Stream.LocalSendingStateChanged
-  · fd.o #29596: split Call.Stream.Members into RemoteMembers and
-    LocalSendingState
-
-Tools changes:
-
-• <tp:xor-requires> allows interfaces to be shared between Call and StreamedMedia
-  (jonny)
-
-telepathy-spec 0.21.2 (2010-10-15)
-==================================
-
-The "Ponderer of Witty Job Titles" release.
-
-New stable API:
-
-• Rejected error code for use with Call (jonny)
-
-• StreamHandler now has StartNamedTelephonyEvent and StartSoundTelephonyEvent
-  signals (ocrete)
-
-Clarifications:
-
-• Chan.I.Messages' three capability-discovery properties
-  (DeliveryReportingSupport, MessagePartSupportFlags and SupportedContentTypes)
-  are now stated to be immutable (smcv)
-
-New experimental API:
-
-• fd.o #30512: Conn.I.Keepalive, an interface to vary keepalive intervals at
-  runtime (wjt)
-
-• fd.o #30043: Handler.FUTURE.BypassObservers indicates that channels handled
-  by the given handler shouldn't cause observers to be invoked (ptlo)
-
-Changes to experimental API:
-
-• Numerous changes to Call and its related interfaces (jonny)
-
-Tools changes:
-
-• fd.o #30511: add markup for immutable properties, requestable channel
-  properties, and connection properties that are also parameters (jonny, wjt)
-
-• Reject <tp:flag> values that are not a power of two, <tp:flags> that are
-  not uint32, and duplicate flag and enum values (jonny)
-
-• Warn on unexpected XML elements and dangling cross-references to errors,
-  and optionally also on dangling cross-references to D-Bus interfaces (jonny)
-
-telepathy-spec 0.21.1 (2010-09-29)
-==================================
-
-The "it's Wednesday, so this must be a spec release" release.
-
-Changes to stable API:
-
-• Account.RequestedPresence must not be Unset, Unknown or Error, while
-  Account.AutomaticPresence must not be any of those or Offline, matching
-  the behaviour that Mission Control has implemented in practice since
-  version 5.1.2 (smcv)
-
-• Account.CurrentPresence now allows a non-empty status or message for
-  accounts that are offline or don't support SimplePresence (smcv)
-
-New stable API:
-
-• Conn.I.ClientTypes is now considered stable, with minor clarifications
-  since draft 1, and the 'game' and 'sms' client types removed pending
-  XMPP Registrar inclusion (jonny)
-
-• The Access_Control_Type enum is a superset of
-  Rich_Presence_Access_Control_Type, which it will supersede in future
-  interfaces; similarly, Access_Control supersedes
-  Rich_Presence_Access_Control (eeejay)
-
-New experimental API:
-
-• Conn.I.CommunicationPolicy allows incoming channels from particular
-  contacts to be forbidden (eeejay)
-
-• Conn.I.Resources allows connections with multiple resources or points of
-  presence, such as on XMPP and MSN, to be represented (jonny)
-
-telepathy-spec 0.21.0 (2010-09-22)
-==================================
-
-The "canteen DoS" release.
-
-New stable API:
-
-• ContactList and ContactGroups are now considered stable, with some
-  clarifications to the wording, but no semantic changes since the drafts in
-  version 0.20.0. (smcv)
-
-telepathy-spec 0.20.1 (2010-09-15)
-==================================
-
-The "I can't build there!" release.
-
-Fixes:
-
-• Correct the tp:name-for-bindings on ServerCertificate to be
-  Server_Certificate, leading to the intended names (server_certificate
-  rather than servercertificate, etc.) in generated bindings. (smcv)
-
-telepathy-spec 0.20.0 (2010-09-14)
-==================================
-
-This is a new stable version of telepathy-spec, intended to serve as a
-reference point for future work. There were no API changes since development
-release 0.19.13; changes from the year of development since 0.18.0 are
-summarized below.
-
-The versions of libraries, connection managers and Mission Control recommended
-for use with GNOME 2.32 (the upcoming telepathy-glib 0.12, telepathy-gabble 0.10
-and Mission Control 5.6 stable branches) can be expected to support most of
-the API from this spec release.
-
-Semantic changes
-----------------
-
-• The timestamps used for "user action time", intended for focus-stealing
-  prevention, are no longer interpreted as seconds since 1970. Instead, they
-  should be interpreted as X-server time on X GUI platforms,
-  with two special values (0 and the maximum 64-bit signed integer) having
-  their own semantics.
+• The Messages interface is now mandatory for Text channels.
 
 Enhancements to core API
 ------------------------
 
-• Connection now has Status, Interfaces properties
-• ConnectionManager now has Protocol objects with more information about
-  protocols (at the time of release, this is supported in telepathy-gabble
-  0.9.x but not in most other connection managers)
-• Account.ChangingPresence indicates when changes are being attempted
-• Account.Service indicates a specific service such as "google-talk"
-• Account has extensible details of the last connection error
-• Observers can have a Recover flag, which provides best-effort crash recovery
-• ChannelDispatchOperation.HandleWithTime can pass through a timestamp for
-  focus-stealing prevention
-• various new error codes
+• The Connection has a pair of new methods, AddClientInterest and
+  RemoveClientInterest, to allow clients to subscribe to potentially
+  bandwidth-costly interfaces (such as MailNotification) in a generic
+  way.
+
+• ChannelDispatcher and ChannelRequest now support "request hints"
+  (metadata passed through from the requester to the handler), and the
+  SucceededWithChannel signal.
 
 New optional interfaces
 -----------------------
 
-• Account.I.Storage indicates which backend an account is stored in
-• Conn.I.Anonymity, Chan.I.Anonymity — controlling caller-ID and similar
-  features
-• Conn.I.Balance — machine-readable account balance, e.g. SkypeOut credit
-• Conn.I.Cellular — extra information about cellular connections
-• Conn.I.ContactInfo — information that contacts provide about themselves,
-  in a vCard-like format
-• Conn.I.ServicePoint, Chan.I.ServicePoint — emergency contact points
-• Chan.T.ServerTLSConnection — interactive approval of any problematic
-  TLS/SSL certificates
-• Chan.T.ContactSearch — searching for contacts by name, address etc.
-• Chan.I.Conference — multi-user text or media conferences
-  which can be made by merging or upgrading 1-1 channels
-• Chan.I.SMS — SMS-specific extensions to Text channels (currently only
-  one property, indicating class 0 "flash" SMSs)
+• The ContactList and ContactGroups interfaces for
+  connections are now considered stable, and a new ContactBlocking
+  interface has been added. Between them, these interfaces replace
+  ContactList channels.
+
+• The Connection.Interface.ClientTypes,
+  Connection.Interface.MailNotification,
+  Connection.Interface.Powersaving, and Protocol.Interface.Presence
+  interfaces are now considered stable.
+
+• Chan.T.ServerAuthentication and Chan.I.SASLAuthentication provide
+  interactive querying for credentials, allowing connection without
+  saving a password if there is a handler for these channels
+
+• Chan.I.Securable indicates whether a channel is secure
+
+• Account.Interface.Addressing stores user preferences for use of
+  accounts for non-primary protocols, such as using SIP for telephony.
 
 Enhancements to optional interfaces
 -----------------------------------
 
-• chat states are state-recoverable
-• a new flag indicates whether Location can be set
+• Add a FileTransfer.URI property which can be used to tell other
+  Telepathy clients about the location of the transferred
+  file.
 
-Changes since 0.19.13
+Changes since 0.21.13
 ---------------------
 
-• improve wording of experimental Conn.I.ClientTypes and Conn.I.PowerSaving
-  interfaces (danni, wjt)
+• A server-message key for the Details dictionary in the ConnectionError
+  signal has been defined. (wjt)
