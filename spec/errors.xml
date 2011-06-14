@@ -399,6 +399,19 @@
     </tp:docstring>
   </tp:error>
 
+  <tp:error name="Media.Unsupported Type">
+    <tp:added version="UNRELEASED"/>
+    <tp:docstring>
+      The media stream type requested is not supported by either the
+      local or remote side.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Media_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
   <tp:error name="Media.Streaming Error">
     <tp:added version="UNRELEASED"/>
     <tp:docstring>

@@ -530,6 +530,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             CM.
           </tp:docstring>
         </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.Media.UnsupportedType">
+          <tp:docstring>
+            The media stream type requested is not supported by either the
+            local or remote side.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
           <tp:docstring>
             The content type requested cannot be added to this
