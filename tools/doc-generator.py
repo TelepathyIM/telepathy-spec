@@ -58,6 +58,7 @@ static = [ 'style.css',
            'jquery.min.js',
            'ui-icons_222222_256x240.png',
            'magic.js',
+           'favicon.png'
          ]
 for s in static:
     shutil.copy(os.path.join(template_path, s), output_path)
