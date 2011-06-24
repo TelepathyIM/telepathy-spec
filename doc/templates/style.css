@@ -49,8 +49,9 @@ div.main {
 }
 
 div.main a[name] {
+	display: block;
 	position: relative;
-	top: -4.5em;
+	top: -5em;
 }
 
 div.outset {
