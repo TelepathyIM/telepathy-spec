@@ -304,7 +304,7 @@
             (<tp:type>Call_Stream_Candidate_Type</tp:type>)</dd>
 
           <dt><code>foundation</code> - s</dt>
-          <dd>The foundation of this candiate</dd>
+          <dd>The foundation of this candidate</dd>
 
           <dt><code>protocol</code> - u</dt>
           <dd>Underlying protocol of the candidate
