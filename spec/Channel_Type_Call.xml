@@ -106,12 +106,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         user is the initiator, the call must be accepted by the handler
         by calling the <tp:member-ref>Accept</tp:member-ref> method.
         At this point, <tp:member-ref>CallState</tp:member-ref> changes
-        to <tp:type>Call_State</tp:type>_Pending_Receiver which signifies
-        that the call is ringing, waiting for the remote contact to
-        accept the call. All changes to
-        <tp:member-ref>CallState</tp:member-ref> property are signalled
-        using the <tp:member-ref>CallStateChanged</tp:member-ref>
-        signal.</p>
+        to <tp:type>Call_State</tp:type>_Initialising, which signifies
+        that the call is waiting for the network to do
+        something (When the CM has information about when the remote contact is
+        notified about the call (or the network is known not to convey such
+        information) it should also change to
+        <tp:type>Call_State</tp:type>_Ringing. All changes to
+        <tp:member-ref>CallState</tp:member-ref> property are signalled using
+        the <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
 
       <p>When the call is accepted by the remote contact, the
         <tp:member-ref>CallStateChanged</tp:member-ref> signal fires
@@ -121,7 +123,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>At this point <a
         href="http://telepathy.freedesktop.org/doc/telepathy-farstream/">telepathy-farstream</a>
         will signal that a pad is available for the handler to show
-        in the user interface.</p>
+        in the user interface. Once media is correctly flowing in both
+        directions, the state will change to
+        <tp:type>Call_State</tp:type>_Active, to inform the user that they
+        have a correctly working call there is nothing amiss.</p>
 
       <h5>Missed calls</h5>
 
@@ -197,7 +202,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:type>Call_State</tp:type>_Accepted and once media is
         being transferred, telepathy-farstream will notify the
         handler of a new pad to be shown to the local user in the
-        UI</p>
+        UI. Once media is correctly flowing in both directions, the state will
+        change to <tp:type>Call_State</tp:type>_Active, to inform the user
+        that they have a correctly working call there is nothing amiss.</p>
 
       <p>To reject the call, the handler should call the
         <tp:member-ref>Hangup</tp:member-ref> method. The
@@ -259,106 +266,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <h4>Multi-party calls</h4>
 
-      [TODO]
-
-      <h4>Call states</h4>
-
-      <p>There are many combinations of the
-        <tp:member-ref>CallState</tp:member-ref> and
-        <tp:member-ref>CallStateReason</tp:member-ref> properties which
-        mean different things. Here is a table to try to make these
-        meanings clearer:</p>
-
-      <table>
-        <tr>
-          <th rowspan="2"><tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref></th>
-          <th rowspan="2"><tp:member-ref>CallState</tp:member-ref></th>
-          <th colspan="3"><tp:member-ref>CallStateReason</tp:member-ref></th>
-          <th rowspan="2">Meaning</th>
-        </tr>
-        <tr>
-          <th>Actor</th>
-          <th>Reason</th>
-          <th>DBus_Reason</th>
-        </tr>
-        <!-- Pending_Initiator -->
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Pending_Initiator</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The outgoing call channel is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref>.</td>
-        </tr>
-        <!-- Pending_Receiver -->
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Pending_Receiver</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The outgoing call is waiting for the remote contact to pick up the call.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Pending_Receiver</td>
-          <td>0</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_Unknown</td>
-          <td>""</td>
-          <td>The incoming call is waiting for the local user to call <tp:member-ref>Accept</tp:member-ref> on the call.</td>
-        </tr>
-        <!-- Accepted -->
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Accepted</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The remote contact accepted the outgoing call.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Accepted</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td>""</td>
-          <td>The local user accepted the incoming call.</td>
-        </tr>
-        <!-- Ended -->
-        <tr>
-          <td>True or False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Self handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>Cancelled</tp:error-ref></td>
-          <td>The local user hung up the incoming or outgoing call.</td>
-        </tr>
-        <tr>
-          <td>True or False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>Terminated</tp:error-ref></td>
-          <td>The remote contact hung up the incoming or outgoing call.</td>
-        </tr>
-        <tr>
-          <td>True</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_No_Answer</td>
-          <td>""</td>
-          <td>The outgoing call was not picked up and the call ended.</td>
-        </tr>
-        <tr>
-          <td>False</td>
-          <td><tp:type>Call_State</tp:type>_Ended</td>
-          <td>Remote contact handle</td>
-          <td><tp:type>Call_State_Change_Reason</tp:type>_User_Requested</td>
-          <td><tp:error-ref>PickedUpElsewhere</tp:error-ref></td>
-          <td>The incoming call was ended because it was picked up elsewhere.</td>
-        </tr>
-      </table>
-
       <h4>Requestable channel classes</h4>
 
       <p>The <tp:dbus-ref
@@ -417,13 +324,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
           property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
-          <tp:type>Call_State</tp:type>_Pending_Receiver (an incoming
-          call waiting on the local user to pick up). While this is
-          the case, this method SHOULD change the
-          <tp:member-ref>CallFlags</tp:member-ref> to include
-          <tp:type>Call_Flags</tp:type>_Locally_Ringing, and notify the
+          <tp:type>Call_State</tp:type>_Ringing (an incoming
+          call is ready and waiting for the user to be notified). Calling this method
+          SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
+          <tp:type>Call_Flags</tp:type>_Ringing, and notify the
           remote contact that the local user has been alerted (if the
-          protocol implements this); repeated calls to this method
+          protocol supports this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
 
         <p>In all other states, this method SHOULD fail with the error
@@ -440,7 +346,47 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
             The call is no longer in state
-            <tp:type>Call_State</tp:type>_Pending_Receiver.
+            <tp:type>Call_State</tp:type>_Ringing.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <method name="SetQueued" tp:name-for-bindings="Set_Queued">
+      <tp:changed version="0.21.2">renamed from Ringing</tp:changed>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Notifies the CM that the local user is already in a call, so this
+          call has been put in a call-waiting style queue.</p>
+
+        <p>This method is only useful if the
+          channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
+          property is False, and
+          the <tp:member-ref>CallState</tp:member-ref> is
+          <tp:type>Call_State</tp:type>_Initiating or
+          <tp:type>Call_State</tp:type>_Ringing. Calling this method
+          SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
+          <tp:type>Call_Flags</tp:type>_Queued, and notify the
+          remote contact that the call is in a queue (if the
+          protocol supports this); repeated calls to this method
+          SHOULD succeed, but have no further effect.</p>
+
+        <p>Queued is a little like Held, but applies to calls that have not
+          been Accepted (the Queued flag should be unset by the CM when Accept
+          is called). It should also be set in response to the state of the
+          world, rather than in response to user action.</p>
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            The call was <tp:dbus-ref namespace="ofdT.Channel"
+            >Requested</tp:dbus-ref>, so ringing does not make sense.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The call is no longer in state
+            <tp:type>Call_State</tp:type>_Initialising or _Ringing.
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -449,16 +395,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="Accept" tp:name-for-bindings="Accept">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>For incoming calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver, accept the
-          incoming call; this changes the
-          <tp:member-ref>CallState</tp:member-ref> to
+          <tp:type>Call_State</tp:type>_Ringing, accept the incoming call.
+          This changes the <tp:member-ref>CallState</tp:member-ref> to
           <tp:type>Call_State</tp:type>_Accepted.</p>
 
         <p>For outgoing calls in state
           <tp:type>Call_State</tp:type>_Pending_Initiator, actually
           call the remote contact; this changes the
           <tp:member-ref>CallState</tp:member-ref> to
-          <tp:type>Call_State</tp:type>_Pending_Receiver.</p>
+          <tp:type>Call_State</tp:type>_Initialising.</p>
 
         <p>Otherwise, this method SHOULD fail with the error NotAvailable.</p>
 
@@ -587,6 +532,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             CM.
           </tp:docstring>
         </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.Media.UnsupportedType">
+          <tp:docstring>
+            The media stream type requested is not supported by either the
+            local or remote side.
+          </tp:docstring>
+        </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
           <tp:docstring>
             The content type requested cannot be added to this
@@ -650,17 +601,33 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The allowed transitions are:</p>
 
         <ul>
-          <li>Pending_Initiator → Pending_Receiver (for outgoing calls,
+          <li>Pending_Initiator → Initialising (for outgoing calls,
             when <tp:member-ref>Accept</tp:member-ref> is called)</li>
-          <li>Pending_Receiver → Accepted (for incoming calls, when
-            <tp:member-ref>Accept</tp:member-ref> is called; for outgoing
-            calls to a contact, when the remote contact accepts the call;
-            for joining a conference call, when the local user successfully
-            joins the conference)</li>
-          <li>Accepted → Pending_Receiver (when transferred to another
-            contact)</li>
-          <li>any state → Ended (when the call is terminated normally, or
-            when an error occurs)</li>
+          <li>Initialising → Ringing (for outgoing calls, when
+            the remote client indicates that the user has been notified about
+            the call. If the network is known not to provide feedback about whether
+            the remote side is ringing, then the call should immediately be
+            set to Ringing.</li>
+          <li>Initialising → Ringing (for incoming calls, when e.g. the
+            implementation has been initialised far enough that it is sensible
+            to notify the user about the call (to reduce the probability that
+            the user will pick up the call and have it immediately fail).
+            The UI should then alert the user about the call, and call
+            <tp:member-ref>SetRinging</tp:member-ref>)</li>
+          <li>Ringing → Accepted (for outgoing calls to a contact,
+            when the remote contact accepts the call; for incoming calls, when
+            <tp:member-ref>Accept</tp:member-ref> is called.)</li>
+          <li>Accepted → Active (when the local user successfully
+            joins the call/conference, and media is known to be flowing
+            successfully; also, when temporary connection problems are
+            resolved (See below)). If the network is known not to provide
+            feedback about when the call is properly connected, the call
+            should immediately be set to Active.</li>
+          <li>Active → Accepted (when there are temporary connection problems
+            that the CM is aware of and able to recover from)</li>
+          <li>any state → Ended (when the call is terminated
+            normally, or when an error occurs that the CM is unable to recover
+            from)</li>
         </ul>
 
         <p>Clients MAY consider unknown values from this enum to be an
@@ -685,17 +652,48 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           called.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Pending_Receiver" value = "2">
+      <tp:enumvalue suffix="Initialising" value="2">
         <tp:docstring>
-          The receiver (the contact being called) hasn't accepted the call yet.
+          Progress has been made in placing the call, but the
+          contact has not been made aware of the call yet. This corresponds to SIP's
+          status code 183 Session Progress, and should be used for the period
+          where the CM is waiting for the streaming implementation to
+          initialise (before sending the initial INVITE or equivalent) and when the
+          outgoing call has reached a gateway or ICE negotiation is pending.
+          UIs should not produce a dialtone or start ringing if the call is in
+          this state.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Accepted" value = "3">
+      <tp:enumvalue suffix="Ringing" value="3">
         <tp:docstring>
-          The contact being called has accepted the call.
+          In the outgoing case: at least one called user has been alerted
+          about the call (a SIP 180 (Ringing) packet or equivalent has been
+          received) but none have answered, so the call cannot go to Accepted
+          (use <tp:type>Call_Member_Flags</tp:type>_Ringing to determine which
+          members have been informed and which haven't, if you care). UIs
+          SHOULD produce a dialtone for outgoing calls in this state.
+
+          In the incoming case, the local user should be informed of the call
+          as soon as the call reaches this state (and
+          <tp:member-ref>SetRinging</tp:member-ref> should be called
+          to inform the CM that this has happened, so that it can relay this
+          fact to the caller using a SIP 180 (Ringing) packet or equivalent).
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Ended" value = "4">
+      <tp:enumvalue suffix="Accepted" value = "4">
+        <tp:docstring>
+          The contact being called has accepted the call, but the call is not
+          in the Active state (The most common reason for this is that the
+          streaming implementation hasn't connected yet).
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Active" value = "5">
+        <tp:docstring>
+          The contact being called has accepted the call, and discourse between
+          at least two parties should now be possible.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Ended" value = "6">
         <tp:docstring>
           The call has ended, either via normal termination or an error.
         </tp:docstring>
@@ -704,43 +702,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:flags name="Call_Flags" value-prefix="Call_Flag" type="u">
       <tp:docstring>
-        A set of flags representing the status of the call as a whole,
-        providing more specific information than the
-        <tp:member-ref>CallState</tp:member-ref>. Many of these flags only make
-        sense in a particular state.
+        A set of flags representing additional information than is available
+        in <tp:member-ref>CallState</tp:member-ref>. Many of these flags only make
+        sense in a particular (or may explain why a call is in a specific
+        state).
       </tp:docstring>
-
-      <tp:flag suffix="Locally_Ringing" value="1">
-        <tp:docstring>
-          The local contact has been alerted about the call but has not
-          responded; if possible, the remote contact(s) have been informed of
-          this fact. This flag only makes sense on incoming calls in
-          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD
-          be set when <tp:member-ref>SetRinging</tp:member-ref> is
-          called successfully, and unset when the state changes.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Queued" value="2">
-        <tp:docstring>
-          The contact is temporarily unavailable, and the call has been placed
-          in a queue (e.g. 182 Queued in SIP, or call-waiting in telephony).
-          This flag only makes sense on outgoing 1-1 calls in
-          state <tp:type>Call_State</tp:type>_Pending_Receiver. It SHOULD be
-          set or unset according to informational messages from other
-          contacts.
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Locally_Held" value="4">
+      <tp:flag suffix="Locally_Held" value="1">
         <tp:docstring>
           The call has been put on hold by the local user, e.g. using
           the <tp:dbus-ref namespace="ofdT.Channel.Interface"
           >Hold</tp:dbus-ref> interface. This flag SHOULD only be set
           if there is at least one Content, and all Contents are
-          locally held; it makes sense on calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver
-          or <tp:type>Call_State</tp:type>_Accepted.
+          locally held.
 
           <tp:rationale>
             Otherwise, in transient situations where some but not all contents
@@ -748,32 +721,61 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             is on hold, which could lead to the user saying something they'll
             regret, while under the impression that the other contacts can't
             hear them!
+
+            This flag exists as a simplified proxy for <tp:dbus-ref
+            namespace="ofdT.Channel.Interface.Hold"
+              >HoldStateChanged</tp:dbus-ref>,
+            to reduce the number of signals that need to be
+            listened to by a simple UI.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Forwarded" value="8">
+      <tp:flag suffix="Locally_Muted" value="2">
         <tp:docstring>
-          The initiator of the call originally called a contact other than the
-          current recipient of the call, but the call was then forwarded or
-          diverted. This flag only makes sense on outgoing calls, in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver or
-          <tp:type>Call_State</tp:type>_Accepted. It SHOULD be set or unset
-          according to informational messages from other contacts.
+          The call has been muted by the local user, e.g. using the
+          <tp:dbus-ref namespace="ofdT.Call.Interface"
+          >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
+          be set if there is at least one Content, and all Contents
+          are locally muted (for the same reason as Locally_Held).
+
+          <tp:rationale>
+            This flag exists to provide a simplified verson of <tp:dbus-ref
+            namespace="ofdT.Call.Interface.Mute.DRAFT"
+              >MuteStateChanged</tp:dbus-ref>,
+            to reduce the number of signals that need to be
+            listened to by a simple UI.
+          </tp:rationale>
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="In_Progress" value="16">
+      <tp:flag suffix="Locally_Ringing" value="4">
         <tp:docstring>
-          Progress has been made in placing the outgoing call, but the
-          contact may not have been made aware of the call yet
-          (so the Ringing state is not appropriate). This corresponds to SIP's
-          status code 183 Session Progress, and could be used when the
-          outgoing call has reached a gateway, for instance.
-          This flag only makes sense on outgoing calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver, and SHOULD be set
-          or unset according to informational messages from servers, gateways
-          and other infrastructure.
+          This flag exists for observability of the
+          <tp:member-ref>SetRinging</tp:member-ref> method (e.g. so that
+          loggers can tell whether the call got as far as alerting the user,
+          or whether something went wrong before then). It should be set when
+          the SetRinging is called, and unset when the call leaves
+          <tp:type>Call_State</tp:type>_Ringing.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Locally_Queued" value="8">
+        <tp:docstring>
+          This flag exists for observability of the
+          <tp:member-ref>SetQueued</tp:member-ref> method. It should be set
+          when the SetQueued is called, and unset when the call leaves
+          <tp:type>Call_State</tp:type>_Ringing.
+        </tp:docstring>
+      </tp:flag>
+
+      <tp:flag suffix="Forwarded" value="16">
+        <tp:docstring>
+          The initiator of the call originally called a contact other than the
+          current recipient of the call, but the call was then forwarded or
+          diverted. This flag only makes sense on outgoing calls. It SHOULD be
+          set or unset according to informational messages from other
+          contacts.
         </tp:docstring>
       </tp:flag>
 
@@ -794,17 +796,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Muted" value="64">
-        <tp:docstring>
-          The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="ofdT.Call.Interface"
-          >Mute.DRAFT</tp:dbus-ref> interface. This flag SHOULD only
-          be set if there is at least one Content, and all Contents
-          are locally muted; it makes sense on calls in state
-          <tp:type>Call_State</tp:type>_Pending_Receiver or
-          <tp:type>Call_State</tp:type>_Accepted.
-        </tp:docstring>
-      </tp:flag>
     </tp:flags>
 
     <property name="CallStateDetails"
@@ -905,7 +896,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="User_Requested" value="1">
+      <tp:enumvalue suffix="Progress_Made" value="1">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          Situation normal. Progress has been made in the setup/teardown of
+          the call (and it didn't require any user interaction).
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="User_Requested" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The change was requested by the contact indicated by the Actor
             member of a <tp:type>Call_State_Reason</tp:type> struct.</p>
@@ -920,7 +918,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Forwarded" value="2">
+      <tp:enumvalue suffix="Forwarded" value="3">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The call was forwarded. If known, the handle of the contact
             the call was forwarded to will be indicated by the Actor member
@@ -928,41 +926,113 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="No_Answer" value="3">
+      <tp:enumvalue suffix="Rejected" value="4">
         <tp:added version="0.21.2"/>
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The <tp:member-ref>CallState</tp:member-ref> changed from
-            <tp:type>Call_State</tp:type>_Pending_Receiver to
+            <tp:type>Call_State</tp:type>_Ringing or
+            <tp:type>Call_State</tp:type>_Ended (or a content's direction
+            changed) because it was rejected by the remote user.</p>
+          <p>Corresponds to <tp:error-ref>Rejected</tp:error-ref></p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="No_Answer" value="5">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The <tp:member-ref>CallState</tp:member-ref> changed from
+            <tp:type>Call_State</tp:type>_Ringing or
             <tp:type>Call_State</tp:type>_Ended because the initiator
             ended the call before the receiver accepted it. With an
             incoming call this state change reason signifies a missed
-            call.</p>
+            call, or one that was picked up elsewhere before it was
+            picked up here.</p>
+          <p>Corresponds to <tp:error-ref>NoAnswer</tp:error-ref> or
+            <tp:error-ref>PickedUpElsewhere</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Unsupported" value="4">
+      <tp:enumvalue suffix="Invalid_Contact" value="6">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The <tp:member-ref>CallState</tp:member-ref> changed because one
+            of the addresses does not exist on the network.</p>
+          <p>Corresponds to <tp:error-ref>DoesNotExist</tp:error-ref></p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Permission_Denied" value="7">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The <tp:member-ref>CallState</tp:member-ref> changed because the
+          local user is not authorised.</p>
+          <p>Corresponds to <tp:error-ref>PermissionDenied</tp:error-ref> or
+            <tp:error-ref>InsufficientBalance</tp:error-ref>
+            </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Busy" value="8">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The <tp:member-ref>CallState</tp:member-ref> changed from
+            <tp:type>Call_State</tp:type>_Ringing
+            <tp:type>Call_State</tp:type>_Ended because the receiver is busy
+            (e.g. is already engaged in another call, and has not placed the
+            initiator in a call-waiting queue).</p>
+          <p>Corresponds to <tp:error-ref>Busy</tp:error-ref></p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Internal_Error" value="9">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>There has been an unexpected error in either the CM or some other
+            local component.</p>
+          <p>Corresponds to <tp:error-ref>Confused</tp:error-ref> or
+          <tp:error-ref>Media.StreamingError</tp:error-ref>
+          </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Service_Error" value="10">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>There has been an unexpected error in the server or some other
+            remote component.</p>
+          <p>Corresponds to
+            <tp:error-ref>ServiceConfused</tp:error-ref>
+          </p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Network_Error" value="11">
+        <tp:added version="0.21.2"/>
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>There has been a network error related to the CM or the
+            signalling part of the call (compare and contrast:
+            Streaming_Error).</p>
+          <p>Corresponds to
+            <tp:error-ref>NetworkError</tp:error-ref></p>
+        </tp:docstring>
+      </tp:enumvalue>
+
+      <tp:enumvalue suffix="Media_Error" value="12">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>Some aspect of the content is unsupported so has to be
             removed from the call.</p>
+          <p>Corresponds to <tp:error-ref>Media.UnsupportedType</tp:error-ref>
+            or <tp:error-ref>Media.CodecsIncompatible</tp:error-ref>
+          </p>
         </tp:docstring>
       </tp:enumvalue>
 
-      <tp:enumvalue suffix="Codec_Negotiation_Failed" value="5">
+      <tp:enumvalue suffix="Connectivity_Error" value="13">
         <tp:docstring>
-          There were no common codecs between all members of this Content.
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Hardware_Error" value="6">
-        <tp:docstring>
-          The hardware streaming implementation went into spasm.
-        </tp:docstring>
-      </tp:enumvalue>
-
-      <tp:enumvalue suffix="Network_Error" value="7">
-        <tp:docstring>
-          It was not possible to connect to any of the users participating in
-          this call or content.
+          <p>It was not possible for the streaming implementation to connect
+            to any of the users participating in this call or content.</p>
+          <p>Corresponds to <tp:error-ref>ConnectionFailed</tp:error-ref> or
+            <tp:error-ref>ConnectionLost</tp:error-ref></p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>

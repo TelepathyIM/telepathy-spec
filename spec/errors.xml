@@ -386,6 +386,45 @@
     </tp:docstring>
   </tp:error>
 
+  <tp:error name="Media.Codecs Incompatible">
+    <tp:added version="UNRELEASED"/>
+    <tp:docstring>
+      Raised when the local streaming implementation has no codecs in common
+      with the remote side.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Media_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
+  <tp:error name="Media.Unsupported Type">
+    <tp:added version="UNRELEASED"/>
+    <tp:docstring>
+      The media stream type requested is not supported by either the
+      local or remote side.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Media_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
+  <tp:error name="Media.Streaming Error">
+    <tp:added version="UNRELEASED"/>
+    <tp:docstring>
+      Raised when the call's streaming implementation has some kind of internal
+      error.
+
+      <tp:rationale>
+        This corresponds to
+        <tp:type>Call_State_Reason</tp:type>_Internal_Error.
+      </tp:rationale>
+    </tp:docstring>
+  </tp:error>
+
   <tp:error name="Connection Refused">
     <tp:docstring>
       Raised when a connection is refused.
