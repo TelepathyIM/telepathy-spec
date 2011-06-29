@@ -148,30 +148,50 @@
       </tp:docstring>
     </property>
 
-    <property name="SSRCs" tp:name-for-bindings="SSRCs"
-      type="au" access="read" tp:immutable="yes">
-      <tp:docstring>
-        Synchronisation Sources, as defined by RFC 3550.
+    <tp:mapping name="Contact_SSRCs_Map">
+      <tp:member name="Contact" type="u" tp:type="Handle">
+        <tp:docstring>
+          The remote contact these SSRCs belong to or 0.
+        </tp:docstring>
+      </tp:member>
+      <tp:member name="SSRCs" type="au">
+        <tp:docstring>
+          The list of maps
+        </tp:docstring>
+      </tp:member>
+    </tp:mapping>
 
-        Some protocols require the negotiation of SSRC identifiers for RTP
+    <property name="SSRCs" tp:name-for-bindings="SSRCs"
+      type="a{uau}" tp:type="Contact_SSRCs_Map" access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A map from Handle to list of Synchronisation Sources, as defined by
+        RFC 3550.</p>
+
+        <p>Some protocols require the negotiation of SSRC identifiers for RTP
         streams. If this is the case, then MediaDescription offers will appear
         with this property set. The streaming implementation should then call
-        <tp:member-ref>Accept</tp:member-ref> with a list containing a single
-        SSRC which does not collide with these,
-        or any previously seen SSRCs. If a new MediaDescription offer
-        appears with an SSRC the same as the one in <tp:dbus-ref
+        <tp:member-ref>Accept</tp:member-ref> with a map from 0 to a
+        list containing a single SSRC (which does not collide with these,
+        or any previously seen SSRCs). If a new MediaDescription offer
+        appears with an SSRC the same as one in <tp:dbus-ref
         namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
         >LocalMediaDescription</tp:dbus-ref>, then the streaming
-        implementation should pick a new SSRC to resolve the collision.
+        implementation should pick a new SSRC to resolve the collision.</p>
 
-        It is expected that this list will always be at most one element long,
+        <p>It is expected that this list will normally be at most one element long,
         but it is kept as a list for extensibility. The concatenation of all
-        SSRCs associated with a Stream hould contain no duplicate entries. If
+        SSRCs associated with a Stream should contain no duplicate entries. If
         there are collisions, then it is the responsibility of the protocol
-        implementation to resolve them and generate new offers.
+        implementation to resolve them and generate new offers.</p>
 
-        If this property is omitted, then the streaming implementation can
-        assume that there is only one MediaDescription per Stream.
+        <p>If this property is omitted, then the streaming implementation can
+        assume that there is only one MediaDescription per Stream.</p>
+
+        <p>If there is a single multicast Call Stream with multiple
+        Remote Members, and all members are forced to use the same
+        MediaDescription, this map can be used by the streaming implementation
+        to determine which video sources belong to which contacts (e.g. in
+        order to put a name under each face in the call)</p>
       </tp:docstring>
     </property>
 
