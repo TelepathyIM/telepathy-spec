@@ -27,8 +27,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This codec offer interface provides a method of signalling for
         RTCP extended reports, documented by <em>RTP Control Protocol
-        Extended Reports (RTCP XR)</em> (RFC 3611).</p>
-
+        Extended Reports (RTCP XR)</em> (RFC 3611). CMs should ignore
+        all RTCP Extended Report parameters that are not listed
+        in this spec at the time of implementation. More parameters can be
+        added to the spec as required.</p>
 
       <p>For more details on what RTCP extended reports can do and how
         to use them, one should refer to
