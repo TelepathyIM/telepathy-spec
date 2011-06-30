@@ -466,6 +466,69 @@
       </tp:docstring>
     </property>
 
+    <signal name="DTMFChangeRequested"
+      tp:name-for-bindings="DTMF_Change_Requested">
+      <tp:docstring>
+        Used by the CM to relay instructions from <tp:dbus-ref
+        namespace="ofdT">Channel.Interface.DTMF</tp:dbus-ref> to the streaming
+        implementation. If any contact in this call supports the
+        telephone-event codec in their MediaDescription, this event should be
+        sent as outlined in RFC 4733. Otherwise, it should be sent as an
+        audible tone.
+      </tp:docstring>
+      <arg name="Event" type="y" tp:type="DTMF_Event">
+        <tp:docstring>
+          The event to send (or stop sending).
+        </tp:docstring>
+      </arg>
+      <arg name="State" type="u" tp:type="Sending_State">
+        <tp:docstring>
+          Either <tp:type>Sending_State</tp:type>_Pending_Send or
+          <tp:type>Sending_State</tp:type>_Pending_Stop_Sending.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <method name="AcknowledgeDTMFChange"
+      tp:name-for-bindings="Acknowledge_DTMF_Change">
+      <tp:docstring>
+        Called by the streaming implementation in response to
+        <tp:member-ref>DTMFChangeRequested</tp:member-ref> to confirm that it
+        has started or stopped sending the event in question.
+      </tp:docstring>
+      <arg name="Event" type="y" tp:type="DTMF_Event" direction="in">
+        <tp:docstring>
+          The event referred to in the corresponding
+          <tp:member-ref>DTMFChangeRequested</tp:member-ref> signal.
+        </tp:docstring>
+      </arg>
+      <arg name="State" type="u" tp:type="Sending_State" direction="in">
+        <tp:docstring>
+          Either <tp:type>Sending_State</tp:type>_Sending or
+          <tp:type>Sending_State</tp:type>_None.
+        </tp:docstring>
+      </arg>
+    </method>
+
+    <property name="CurrentDTMFEvent"
+      tp:name-for-bindings="Current_DTMF_Event" type="y" tp:type="DTMF_Event"
+      access="read">
+      <tp:docstring>
+        The currently requested DTMF event (for state-recoverability of
+        <tp:member-ref>DTMFChangeRequested</tp:member-ref>). Should be ignored
+        if <tp:member-ref>CurrentDTMFState</tp:member-ref> is None.
+      </tp:docstring>
+    </property>
+
+    <property name="CurrentDTMFState"
+      tp:name-for-bindings="Current_DTMF_State" type="u" tp:type="Sending_State"
+      access="read">
+      <tp:docstring>
+        The current DTMF state (for state-recoverability of
+        <tp:member-ref>DTMFChangeRequested</tp:member-ref>).
+      </tp:docstring>
+    </property>
+
     <method name="Error" tp:name-for-bindings="Error">
       <tp:docstring>
         Signal an unrecoverable error for this content, and remove it.
