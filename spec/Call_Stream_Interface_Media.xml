@@ -136,11 +136,13 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called in response to
           <tp:member-ref>SendingStateChanged</tp:member-ref>(Pending_*, *) to
-          indicate that the media state change has completed successfully.</p>
+          indicate that the media state has successfully progressed from
+          Pending_{Start, Stop, Pause} to the corresponding non-pending
+          state.</p>
       </tp:docstring>
       <arg name="State" type="u" tp:type="Stream_Flow_State" direction="in">
         <tp:docstring>
-          The new value of SendingState.
+          The new (non-pending) value of SendingState.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
@@ -195,11 +197,13 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Called in response to
           <tp:member-ref>ReceivingStateChanged</tp:member-ref>(Pending_*, *) to
-          indicate that the media state change has completed successfully.</p>
+          indicate that the media state has successfully progressed from
+          Pending_{Start, Stop, Pause} to the corresponding non-pending
+          state.</p>
       </tp:docstring>
       <arg name="State" type="u" tp:type="Stream_Flow_State" direction="in">
         <tp:docstring>
-          The new value of ReceivingState.
+          The new (non-pending) value of ReceivingState.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
