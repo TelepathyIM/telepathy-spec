@@ -40,8 +40,8 @@
       <h4>ICE restarts</h4>
 
       <p>If the CM wants to do an ICE restart, then the
-        <tp:member-ref>LocalCredentials</tp:member-ref> property is cleared,
-        and the <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is
+        <tp:member-ref>ICERestartPending</tp:member-ref> property is set,
+        and the <tp:member-ref>ICERestartRequested</tp:member-ref> signal is
         emitted. The streaming implementation should then call
         <tp:member-ref>SetCredentials</tp:member-ref> again. This will trigger
         the actual ICE restart, and cause
@@ -526,7 +526,7 @@
         <tp:member-ref>LocalCredentialsChanged</tp:member-ref> signal.
 
         This property will be a pair of empty strings if ICE has not yet been
-        started, or if an ICE restart has been requested.
+        started.
       </tp:docstring>
     </property>
 
@@ -536,12 +536,9 @@
       <tp:docstring>
         Emitted when the value of
         <tp:member-ref>LocalCredentials</tp:member-ref> changes to a non-empty
-        value (signalling an ICE restart, which clears
-        <tp:member-ref>LocalCandidates</tp:member-ref>). This only
-        happens when the streaming implementation calls
-        <tp:member-ref>SetCredentials</tp:member-ref>. When the
-        <tp:member-ref>PleaseRestartICE</tp:member-ref> signal is emitted,
-        LocalCredentials is cleared without emitting this signal.
+        value. This should only happen when the streaming implementation calls
+        <tp:member-ref>SetCredentials</tp:member-ref>, so this signal is
+        mostly useful for debugging.
       </tp:docstring>
       <arg name="Username" type="s" />
       <arg name="Password" type="s" />
@@ -730,19 +727,25 @@
       </tp:docstring>
     </property>
 
-    <signal name="PleaseRestartICE"
-      tp:name-for-bindings="Please_Restart_ICE">
+    <signal name="ICERestartRequested"
+      tp:name-for-bindings="ICE_Restart_Requested">
       <tp:docstring>
         Emitted when the remote side requests an ICE restart (e.g. third party
         call control, when the remote endpoint changes). The streaming
         implementation should call
         <tp:member-ref>SetCredentials</tp:member-ref> again.
-        Note that when this signal is emitted,
-        <tp:member-ref>LocalCredentials</tp:member-ref> is cleared immediately
-        (to aid debugging) but LocalCandidates is only cleared when
-        SetCredentials is called.
       </tp:docstring>
     </signal>
+
+    <property name="ICERestartPending"
+      tp:name-for-bindings="ICE_Restart_Pending" access="read" type="b">
+      <tp:docstring>
+        State recovery for <tp:member-ref>ICERestartRequested</tp:member-ref>.
+        Set when the signal is emitted, and unset when
+        <tp:member-ref>SetCredentials</tp:member-ref> is called.
+        Useful for debugging.
+      </tp:docstring>
+    </property>
 
     <method name="Error" tp:name-for-bindings="Error">
       <tp:docstring>
