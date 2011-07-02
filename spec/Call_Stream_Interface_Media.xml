@@ -398,7 +398,9 @@
       <tp:docstring>
         Add candidates to the
         <tp:member-ref>LocalCandidates</tp:member-ref> property and
-        signal them to the remote contact(s).
+        signal them to the remote contact(s). Note that connection managers
+        MAY delay the sending of candidates until
+        <tp:member-ref>FinishInitialCandidates<tp:member-ref> is called.
       </tp:docstring>
       <arg name="Candidates" direction="in"
         type="a(usua{sv})" tp:type="Candidate[]">
@@ -408,11 +410,15 @@
       </arg>
     </method>
 
-    <method name="CandidatesPrepared"
-      tp:name-for-bindings="Candidates_Prepared">
+    <method name="FinishInitialCandidates"
+      tp:name-for-bindings="Finish_Initial_Candidates">
       <tp:docstring>
         This indicates to the CM that the initial batch of candidates
-        has been added.
+        has been added, and should now be processed/sent to the remote side.
+        <tp:rationale>
+          Protocols supporting Raw UDP SHOULD wait for FinishInitialCandidates,
+          and then set the lowest priority candidate as the Raw UDP candidate.
+        </tp:rationale>
       </tp:docstring>
     </method>
 
