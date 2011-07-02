@@ -466,7 +466,7 @@
       </tp:docstring>
     </property>
 
-    <method name="Error" tp:name-for-bindings="Error">
+    <method name="Fail" tp:name-for-bindings="Fail">
       <tp:docstring>
         Signal an unrecoverable error for this content, and remove it.
       </tp:docstring>

@@ -747,7 +747,7 @@
       </tp:docstring>
     </property>
 
-    <method name="Error" tp:name-for-bindings="Error">
+    <method name="Fail" tp:name-for-bindings="Fail">
       <tp:docstring>
         Signal an unrecoverable error for this stream, and remove it. If all
         streams are removed from a content, then it will also be removed.
