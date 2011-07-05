@@ -175,7 +175,7 @@
         or any previously seen SSRCs). If a new MediaDescription offer
         appears with an SSRC the same as one in <tp:dbus-ref
         namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-        >LocalMediaDescription</tp:dbus-ref>, then the streaming
+        >LocalMediaDescriptions</tp:dbus-ref>, then the streaming
         implementation should pick a new SSRC to resolve the collision.</p>
 
         <p>It is expected that this list will normally be at most one element long,

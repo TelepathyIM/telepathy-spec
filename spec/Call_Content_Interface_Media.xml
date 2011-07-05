@@ -256,6 +256,15 @@
         Otherwise, only parameters which strictly describe the media being sent
         can be changed.
       </tp:docstring>
+      <arg name="Remote_Contact" type="u" tp:type="Handle" direction="in">
+        <tp:docstring>
+          The remote contact that this description should be negotiated with
+          (or 0 to mean "negotiate this with everyone"). Note that encoding
+          the same video multiple times is often needlessly expensive, so
+          differences in MediaDescriptions negotiated with different parties
+          in the call should be limited to payloading parameters if possible.
+        </tp:docstring>
+      </arg>
       <arg name="MediaDescription" direction="in" type="a{sv}"
            tp:type="Media_Description_Properties">
         <tp:docstring>
@@ -292,13 +301,13 @@
       </tp:docstring>
     </property>
 
-    <property name="LocalMediaDescription"
-        tp:name-for-bindings="Local_Media_Description"
-        type="a{sv}"
-        tp:type="Media_Description_Properties" access="read">
+    <property name="LocalMediaDescriptions"
+        tp:name-for-bindings="Local_Media_Descriptions"
+        type="a{ua{sv}}"
+        tp:type="Contact_Media_Description_Properties_Map" access="read">
       <tp:docstring>
-        <p>A map containing the local media description in use.</p>
-      </tp:docstring>
+        <p>A map from contact handles to the descriptions the local side
+           responsed with.</p> </tp:docstring>
     </property>
 
     <signal name="NewMediaDescriptionOffer"
@@ -370,11 +379,18 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Change notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
-              >LocalMediaDescription</tp:dbus-ref>
+              >LocalMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
-      <arg name="Updated_Media_Descriptions" type="a{sv}"
+      <arg name="Remote_Contact" type="u" tp:type="Handle">
+        <tp:docstring>
+          The remote contact that this description was negotiated with
+          (or 0 to mean "negotiated with everyone").
+        </tp:docstring>
+      </arg>
+
+      <arg name="Updated_Media_Description" type="a{sv}"
         tp:type="Media_Description_Properties">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The local content description that was updated</p>
@@ -407,13 +423,16 @@
         <p>Removal notification for
             <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
               >RemoteMediaDescriptions</tp:dbus-ref>
+            and
+            <tp:dbus-ref namespace="ofdT.Call.Content.Interface.Media.DRAFT2"
+              >LocalMediaDescriptions</tp:dbus-ref>
         </p>
       </tp:docstring>
 
       <arg name="Removed_Media_Descriptions" type="au"
           tp:type="Contact_Handle[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The remote content descriptions that are no longer part
+          <p>The local and remote content descriptions that are no longer part
              of this content</p>
         </tp:docstring>
       </arg>
