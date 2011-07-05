@@ -20,7 +20,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Call.Content.MediaDescription.DRAFT"
+  <interface name="org.freedesktop.Telepathy.Call.Content.MediaDescription.DRAFT2"
       tp:causes-havoc="experimental">
     <tp:added version="UNRELEASED">(draft 1)</tp:added>
 
@@ -45,7 +45,7 @@
         <tp:docstring>
           The local description to send to the remote contacts and
           to use in the <tp:dbus-ref
-          namespace="ofdT.Call">Content.DRAFT</tp:dbus-ref>.
+          namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref>.
         </tp:docstring>
       </arg>
       <tp:docstring>
@@ -130,7 +130,7 @@
         The contact handle that this description applies to.
 
         This property can be used as an opaque identifier, and searched for in
-        <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT"
+        <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT2"
         >RemoteMembers</tp:dbus-ref> for each Stream in this Content, to
         determine which Stream this MediaDescription applies to. If multiple
         MediaDescriptions apply to the same Stream, the
@@ -201,14 +201,14 @@
           A mapping containing all properties that define the information from a
           <tp:dbus-ref
             namespace="ofdT.Call.Content"
-            >MediaDescription.DRAFT</tp:dbus-ref> and its interfaces.
+            >MediaDescription.DRAFT2</tp:dbus-ref> and its interfaces.
         </p>
 
         <p>
-          If <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          If <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT2"
             >HasRemoteInformation</tp:dbus-ref> is True, then this mapping
           will always contains at least
-          <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          <tp:dbus-ref namespace="ofdT.Call.Content.MediaDescription.DRAFT2"
             >Codecs</tp:dbus-ref>
         </p>
       </tp:docstring>
