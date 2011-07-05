@@ -115,7 +115,7 @@
 
     <property name="Codecs"
       tp:name-for-bindings="Codecs"
-      type="a(usuua{ss})" tp:type="Codec[]" access="read"
+      type="a(usuuba{ss})" tp:type="Codec[]" access="read"
       tp:immutable="yes">
       <tp:docstring>
         A list of codecs the remote contact supports. When used with

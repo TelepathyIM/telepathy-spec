@@ -157,6 +157,23 @@
           Number of channels of the codec if applicable, otherwise 0.
         </tp:docstring>
       </tp:member>
+      <tp:member name="Updated" type="b">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          This should be set to true in calls to <tp:dbus-ref
+              namespace="ofdT.Call.Content.MediaDescription.DRAFT"
+          >Accept</tp:dbus-ref> and
+          <tp:member-ref>UpdateLocalMediaDescription</tp:member-ref> if this
+          codec has changed in a way that needs to be signalled over the
+          network. If it is set to false, the CM is allowed ignore any
+          differences between the current parameters and the previous ones
+          <tp:rationale>
+            This mechanism may be used to save bandwidth and avoid the CM
+            having to calculate diffs against previous versions of this
+            struct, which can lead to false-positives (e.g. redundant ptime
+            updates).
+          </tp:rationale>
+        </tp:docstring>
+      </tp:member>
       <tp:member name="Parameters" type="a{ss}" tp:type="String_String_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Extra parameters for this codec.
@@ -173,7 +190,7 @@
           A contact handle.
         </tp:docstring>
       </tp:member>
-      <tp:member name="Codecs" type="a(usuua{ss})" tp:type="Codec[]">
+      <tp:member name="Codecs" type="a(usuuba{ss})" tp:type="Codec[]">
         <tp:docstring>
           The codecs that the contact supports.
         </tp:docstring>
