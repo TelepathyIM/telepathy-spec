@@ -304,7 +304,7 @@
             (<tp:type>Call_Stream_Candidate_Type</tp:type>)</dd>
 
           <dt><code>foundation</code> - s</dt>
-          <dd>The foundation of this candiate</dd>
+          <dd>The foundation of this candidate</dd>
 
           <dt><code>protocol</code> - u</dt>
           <dd>Underlying protocol of the candidate
@@ -398,7 +398,9 @@
       <tp:docstring>
         Add candidates to the
         <tp:member-ref>LocalCandidates</tp:member-ref> property and
-        signal them to the remote contact(s).
+        signal them to the remote contact(s). Note that connection managers
+        MAY delay the sending of candidates until
+        <tp:member-ref>FinishInitialCandidates</tp:member-ref> is called.
       </tp:docstring>
       <arg name="Candidates" direction="in"
         type="a(usua{sv})" tp:type="Candidate[]">
@@ -408,11 +410,15 @@
       </arg>
     </method>
 
-    <method name="CandidatesPrepared"
-      tp:name-for-bindings="Candidates_Prepared">
+    <method name="FinishInitialCandidates"
+      tp:name-for-bindings="Finish_Initial_Candidates">
       <tp:docstring>
         This indicates to the CM that the initial batch of candidates
-        has been added.
+        has been added, and should now be processed/sent to the remote side.
+        <tp:rationale>
+          Protocols supporting Raw UDP SHOULD wait for FinishInitialCandidates,
+          and then set the lowest priority candidate as the Raw UDP candidate.
+        </tp:rationale>
       </tp:docstring>
     </method>
 
@@ -747,7 +753,7 @@
       </tp:docstring>
     </property>
 
-    <method name="Error" tp:name-for-bindings="Error">
+    <method name="Fail" tp:name-for-bindings="Fail">
       <tp:docstring>
         Signal an unrecoverable error for this stream, and remove it. If all
         streams are removed from a content, then it will also be removed.

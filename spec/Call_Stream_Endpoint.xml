@@ -352,7 +352,7 @@
         conclusion of ICE.</tp:rationale>
 
         Change notification is given via the
-        the <tp:member-ref>ControllingChanged</tp:member-ref> signal.
+        <tp:member-ref>ControllingChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
