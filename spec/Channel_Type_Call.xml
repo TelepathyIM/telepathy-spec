@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Channel_Type_Call" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+<node name="/Channel_Type_Call1" xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright © 2009-2010 Collabora Limited</tp:copyright>
   <tp:copyright>Copyright © 2009-2010 Nokia Corporation</tp:copyright>
   <tp:license>
@@ -17,13 +17,13 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2"
+  <interface name="org.freedesktop.Telepathy.Channel.Type.Call1"
       tp:causes-havoc="experimental">
     <tp:added version="0.19.0">(draft 1)</tp:added>
 
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires
-      interface="org.freedesktop.Telepathy.Call.Interface.Mute.DRAFT2"/>
+      interface="org.freedesktop.Telepathy.Call1.Interface.Mute"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel type for making audio and video calls. Call
         channels supersede the old <tp:dbus-ref
@@ -54,7 +54,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <h4>Contents</h4>
 
-      <p><tp:dbus-ref namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref>
+      <p><tp:dbus-ref namespace="ofdT.Call1">Content</tp:dbus-ref>
         objects represent the actual media that forms the Call (for
         example an audio content and a video content). Calls always
         have one or more Content objects associated with them. As a
@@ -64,10 +64,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         as the Requestable Channel Classes will document.</p>
 
       <p><tp:dbus-ref
-        namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref> objects have
+        namespace="ofdT.Call1">Content</tp:dbus-ref> objects have
         one or more stream associated with them. More information on
         these streams and how to maniuplate them can be found on the
-        <tp:dbus-ref namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref>
+        <tp:dbus-ref namespace="ofdT.Call1">Content</tp:dbus-ref>
         interface page.</p>
 
       <h4>Outgoing calls</h4>
@@ -79,7 +79,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <pre>
 <tp:dbus-ref namespace="ofdT.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
   ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
-      namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref>,
+      namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>,
   ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
   ...<tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
   ...<tp:member-ref>InitialAudio</tp:member-ref>: True,
@@ -166,7 +166,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   /org/freedesktop/Telepathy/Connection/foo/bar/foo_40bar_2ecom/CallChannel,
   {
     ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
-      namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref>,
+      namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>,
     ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
     ...<tp:dbus-ref namespace="ofdT.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
     ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandle</tp:dbus-ref>: 42,
@@ -193,7 +193,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         The new channel should also be given to telepathy-farstream to
         work out how the two participants will connect together.
         telepathy-farstream will call the appropriate methods on the call's
-        <tp:dbus-ref namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref>s
+        <tp:dbus-ref namespace="ofdT.Call1">Content</tp:dbus-ref>s
         to negotiate codecs and transports.</p>
 
       <p>To pick up the call, the handler should call
@@ -241,9 +241,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>A similar method is used for removing contents from a call,
         except that the <tp:dbus-ref
-        namespace="ofdT.Call.Content.DRAFT2">Remove</tp:dbus-ref> method
+        namespace="ofdT.Call1.Content">Remove</tp:dbus-ref> method
         is on the <tp:dbus-ref
-        namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref> object.</p>
+        namespace="ofdT.Call1">Content</tp:dbus-ref> object.</p>
 
       <h5>Ending the call</h5>
 
@@ -271,12 +271,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>The <tp:dbus-ref
         namespace="ofdT.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
         for <tp:dbus-ref
-        namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref> channels
+        namespace="ofdT.Channel.Type">Call1</tp:dbus-ref> channels
         can be:</p>
 
       <blockquote>
         <pre>
-[( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref>,
+[( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>,
             ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
             ...<tp:member-ref>InitialVideo</tp:member-ref>: True
           },
@@ -285,7 +285,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               ...<tp:member-ref>InitialAudioName</tp:member-ref>
             ]
 ),
-( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref>,
+( Fixed = { ...<tp:dbus-ref namespace="ofdT.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>,
             ...<tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>: Contact,
             ...<tp:member-ref>InitialAudio</tp:member-ref>: True
           },
@@ -302,7 +302,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         class, and vice versa for CMs without audio support.</p>
 
       <p>Handlers should not close <tp:dbus-ref
-        namespace="ofdT.Channel.Type">Call.DRAFT2</tp:dbus-ref> channels
+        namespace="ofdT.Channel.Type">Call1</tp:dbus-ref> channels
         without first calling <tp:member-ref>Hangup</tp:member-ref> on
         the channel. If a Call handler crashes, the <tp:dbus-ref
         namespace="ofdT">ChannelDispatcher</tp:dbus-ref> will call
@@ -411,15 +411,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           client (user interface) is handling the channel.</p>
 
         <p>When this method is called, for each <tp:dbus-ref
-          namespace="ofdT.Call" >Content.DRAFT2</tp:dbus-ref> whose
-          <tp:dbus-ref namespace="ofdT.Call.Content.DRAFT2"
+          namespace="ofdT.Call1" >Content</tp:dbus-ref> whose
+          <tp:dbus-ref namespace="ofdT.Call1.Content"
           >Disposition</tp:dbus-ref> is
           <tp:type>Call_Content_Disposition</tp:type>_Initial, any
           streams where the <tp:dbus-ref
-          namespace="ofdT.Call.Stream.DRAFT2">LocalSendingState</tp:dbus-ref>
+          namespace="ofdT.Call1.Stream">LocalSendingState</tp:dbus-ref>
           is <tp:type>Sending_State</tp:type>_Pending_Send will be
           moved to <tp:type>Sending_State</tp:type>_Sending as if
-          <tp:dbus-ref namespace="ofdT.Call.Stream.DRAFT2"
+          <tp:dbus-ref namespace="ofdT.Call1.Stream"
           >SetSending</tp:dbus-ref>(True) had been called.</p>
       </tp:docstring>
 
@@ -478,8 +478,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <method name="AddContent" tp:name-for-bindings="Add_Content">
       <tp:docstring>
         Request that a new <tp:dbus-ref
-        namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref> of type
-        Content_Type is added to the Call. Handlers should check the
+        namespace="ofdT.Call1">Content</tp:dbus-ref> of type
+        Content_Type is added to the Call1. Handlers should check the
         value of the <tp:member-ref>MutableContents</tp:member-ref>
         property before trying to add another content as it might not
         be allowed.
@@ -516,7 +516,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:docstring>
           Path to the newly-created <tp:dbus-ref
             namespace="org.freedesktop.Telepathy"
-            >Call.Content.DRAFT2</tp:dbus-ref> object.
+            >Call1.Content</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
 
@@ -553,26 +553,26 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <signal name="ContentAdded"
             tp:name-for-bindings="Content_Added">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a new <tp:dbus-ref namespace="ofdT.Call"
-          >Content.DRAFT2</tp:dbus-ref> is added to the call.</p>
+        <p>Emitted when a new <tp:dbus-ref namespace="ofdT.Call1"
+          >Content</tp:dbus-ref> is added to the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          Path to the newly-created <tp:dbus-ref namespace="ofdT.Call"
-          >Content.DRAFT2</tp:dbus-ref> object.
+          Path to the newly-created <tp:dbus-ref namespace="ofdT.Call1"
+          >Content</tp:dbus-ref> object.
         </tp:docstring>
       </arg>
     </signal>
 
     <signal name="ContentRemoved" tp:name-for-bindings="Content_Removed">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when a <tp:dbus-ref namespace="ofdT.Call"
-          >Content.DRAFT2</tp:dbus-ref> is removed from the call.</p>
+        <p>Emitted when a <tp:dbus-ref namespace="ofdT.Call1"
+          >Content</tp:dbus-ref> is removed from the call.</p>
       </tp:docstring>
       <arg name="Content" type="o">
         <tp:docstring>
-          The <tp:dbus-ref namespace="ofdT.Call"
-          >Content.DRAFT2</tp:dbus-ref> which was removed.
+          The <tp:dbus-ref namespace="ofdT.Call1"
+          >Content</tp:dbus-ref> which was removed.
         </tp:docstring>
       </arg>
       <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason">
@@ -586,7 +586,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       tp:name-for-bindings="Contents">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The list of <tp:dbus-ref
-          namespace="ofdT.Call">Content.DRAFT2</tp:dbus-ref> objects that
+          namespace="ofdT.Call1">Content</tp:dbus-ref> objects that
           are part of this call. Change notification is via the
           <tp:member-ref>ContentAdded</tp:member-ref> and
           <tp:member-ref>ContentRemoved</tp:member-ref> signals.
@@ -734,14 +734,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:flag suffix="Locally_Muted" value="2">
         <tp:docstring>
           The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="ofdT.Call.Interface"
-          >Mute.DRAFT2</tp:dbus-ref> interface. This flag SHOULD only
+          <tp:dbus-ref namespace="ofdT.Call1.Interface"
+          >Mute</tp:dbus-ref> interface. This flag SHOULD only
           be set if there is at least one Content, and all Contents
           are locally muted (for the same reason as Locally_Held).
 
           <tp:rationale>
             This flag exists to provide a simplified verson of <tp:dbus-ref
-            namespace="ofdT.Call.Interface.Mute.DRAFT2"
+            namespace="ofdT.Call1.Interface.Mute"
               >MuteStateChanged</tp:dbus-ref>,
             to reduce the number of signals that need to be
             listened to by a simple UI.
@@ -1085,7 +1085,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="s" name="Message">
         <tp:docstring>
           An optional debug message, to expediate debugging the potentially
-          many processes involved in a Call. This may be communicated across
+          many processes involved in a Call1. This may be communicated across
           the network in protocols that support doing so, but it is not
           essential.
         </tp:docstring>
@@ -1157,8 +1157,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>If this is False, the handler is responsible for doing the actual
           media streaming for at least some contents itself. Those contents
-          will have the <tp:dbus-ref namespace="ofdT.Call.Content.Interface"
-          >Media.DRAFT2</tp:dbus-ref> interface, to communicate the necessary
+          will have the <tp:dbus-ref namespace="ofdT.Call1.Content.Interface"
+          >Media</tp:dbus-ref> interface, to communicate the necessary
           information to a streaming implementation. Connection managers SHOULD
           operate like this, if possible.</p>
 
@@ -1326,7 +1326,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           the connection manager should immediately attempt to establish an
           audio stream to the remote contact, making it unnecessary for the
           client to call <tp:dbus-ref
-          namespace="ofdT.Channel.Type.Call.DRAFT2">AddContent</tp:dbus-ref>.</p>
+          namespace="ofdT.Channel.Type.Call1">AddContent</tp:dbus-ref>.</p>
 
         <p>If this property, or InitialVideo, is passed to EnsureChannel
           (as opposed to CreateChannel), the connection manager SHOULD ignore
@@ -1341,7 +1341,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>If True on an unrequested (incoming) channel, this indicates that
           the remote contact initially requested an audio stream; this does
           not imply that that audio stream is still active (as indicated by
-          <tp:dbus-ref namespace="ofdT.Channel.Type.Call.DRAFT2"
+          <tp:dbus-ref namespace="ofdT.Channel.Type.Call1"
           >Contents</tp:dbus-ref>).</p>
 
         <p>The name of this new content can be decided by using the
@@ -1462,7 +1462,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
               must be requested at the start of the call if video is desired.
               User interfaces may use this pseudo-capability as a hint to
               display separate "Audio call" and "Video call" buttons, rather
-              than a single "Call" button with the option to add and remove
+              than a single "Call1" button with the option to add and remove
               video once the call has started for contacts without this flag.
             </p>
           </tp:rationale>
@@ -1484,7 +1484,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="ofdT.Call.Stream.Interface.Media.DRAFT2">Transport</tp:dbus-ref>
+          namespace="ofdT.Call1.Stream.Interface.Media">Transport</tp:dbus-ref>
           property is <tp:type>Stream_Transport_Type</tp:type>_GTalk_P2P.</p>
       </tp:docstring>
     </tp:hct>
@@ -1492,7 +1492,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="ice">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="ofdT.Call.Stream.Interface.Media.DRAFT2">Transport</tp:dbus-ref>
+          namespace="ofdT.Call1.Stream.Interface.Media">Transport</tp:dbus-ref>
           property is <tp:type>Stream_Transport_Type</tp:type>_ICE.</p>
       </tp:docstring>
     </tp:hct>
@@ -1500,7 +1500,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="wlm-2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="ofdT.Call.Stream.Interface.Media.DRAFT2">Transport</tp:dbus-ref>
+          namespace="ofdT.Call1.Stream.Interface.Media">Transport</tp:dbus-ref>
           property is <tp:type>Stream_Transport_Type</tp:type>_WLM_2009.</p>
       </tp:docstring>
     </tp:hct>
@@ -1508,7 +1508,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:hct name="shm">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="ofdT.Call.Stream.Interface.Media.DRAFT2">Transport</tp:dbus-ref>
+          namespace="ofdT.Call1.Stream.Interface.Media">Transport</tp:dbus-ref>
           property is <tp:type>Stream_Transport_Type</tp:type>_SHM.</p>
       </tp:docstring>
     </tp:hct>
@@ -1544,11 +1544,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           property:</p>
 
         <ul>
-          <li><code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2/audio</code></li>
-          <li><code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2/audio/speex</code></li>
-          <li><code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2/video</code></li>
-          <li><code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2/video/theora</code></li>
-          <li><code>org.freedesktop.Telepathy.Channel.Type.Call.DRAFT2/video/h264</code></li>
+          <li><code>org.freedesktop.Telepathy.Channel.Type.Call1/audio</code></li>
+          <li><code>org.freedesktop.Telepathy.Channel.Type.Call1/audio/speex</code></li>
+          <li><code>org.freedesktop.Telepathy.Channel.Type.Call1/video</code></li>
+          <li><code>org.freedesktop.Telepathy.Channel.Type.Call1/video/theora</code></li>
+          <li><code>org.freedesktop.Telepathy.Channel.Type.Call1/video/h264</code></li>
         </ul>
 
         <p>Clients MAY have media signalling abilities without explicitly

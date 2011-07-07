@@ -734,8 +734,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           should put MAXUINT (0xFFFFFFFF).
 
           Implementors and users of Call's <tp:dbus-ref
-          namespace="ofdT.Call.Content.MediaDescription.Interface"
-          >RTCPFeedback.DRAFT2</tp:dbus-ref> should not use the MAXUINT default.
+          namespace="ofdT.Call1.Content.MediaDescription.Interface"
+          >RTCPFeedback</tp:dbus-ref> should not use the MAXUINT default.
           Instead, in RTP/AVP, the default should be 5000 (5 seconds).
           If using the RTP/AVPF profile, it can be set to a lower value,
           the default being 0.
