@@ -26,7 +26,7 @@
     <tp:requires interface="org.freedesktop.Telepathy.Call1.Stream"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>This interfaces deals with how a to connect a stream to an
+      <p>This interface deals with how to connect a stream to an
       endpoint.  It contains all that is required to describe the
       local endpoint, to succesfully establish a connection. While a
       call is established, one may try to connect to multiple remote
