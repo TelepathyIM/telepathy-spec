@@ -98,7 +98,7 @@
         <tp:docstring>The local candidate.</tp:docstring>
       </tp:member>
       <tp:member name="Remote" type="(usua{sv})" tp:type="Candidate">
-        <tp:docstring>The Remote candidate.</tp:docstring>
+        <tp:docstring>The remote candidate.</tp:docstring>
       </tp:member>
     </tp:struct>
 
@@ -122,7 +122,7 @@
       <arg name="Remote_Candidate"
         type="(usua{sv})" tp:type="Candidate">
         <tp:docstring>
-          The Remote candidate that has been selected.
+          The remote candidate that has been selected.
         </tp:docstring>
       </arg>
     </signal>
@@ -131,43 +131,48 @@
       tp:name-for-bindings="Selected_Candidate_Pairs"
       type="a((usua{sv})(usua{sv}))" tp:type="Candidate_Pair[]"
       access="read">
-      <tp:docstring>
-        The candidates that have been selected for use to stream packets
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The candidates that have been selected for use to stream packets
         to the remote contact for each component of the stream.
-
         Change notification is given via the
-        the <tp:member-ref>CandidatePairSelected</tp:member-ref> signal.
+        the <tp:member-ref>CandidatePairSelected</tp:member-ref> signal.</p>
 
-        Note to client implementors (from rfc 5245 section 9.2.2.3):
+        <p>Note to client implementors (from <a
+        href="http://tools.ietf.org/html/rfc5245#section-9.2.2.3">RFC 5245
+        section 9.2.2.3</a>):</p>
+
         <blockquote>
-          If at least one of the pairs is In-Progress, the agent SHOULD wait
+          <p>If at least one of the pairs is In-Progress, the agent SHOULD wait
           for those checks to complete, and as each completes, redo the
-          processing in this section until there are no losing pairs.
+          processing in this section until there are no losing pairs.</p>
         </blockquote>
 
-        Also note that some or all of the local candidates in this list may
+        <p>Also note that some or all of the local candidates in this list may
         represent a peer-reflexive candidate that do not appear in
         <tp:dbus-ref namespace="ofdT.Call1.Stream.Interface.Media"
-        >LocalCandidates</tp:dbus-ref>.
+        >LocalCandidates</tp:dbus-ref>.</p>
 
-        See rfc 5245 Appendix B.6. for more details about why this is.
+        <p>See <a href='http://tools.ietf.org/html/rfc5245#appendix-B.6'>RFC
+        5245 Appendix B.6.</a> for more details about why this is.</p>
       </tp:docstring>
     </property>
 
     <method name="SetSelectedCandidatePair"
       tp:name-for-bindings="Set_Selected_Candidate_Pair">
-      <tp:docstring>
-        Update the entry in
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Update the entry in
         <tp:member-ref>SelectedCandidatePairs</tp:member-ref>
-        for a particular component, and signal it to the remote side.
+        for a particular component, and signal it to the remote side.</p>
 
-        This method should only be called by the controlling side of an
-        ICE session. See CandidatePairSelected for details.
+        <p>This method should only be called by the controlling side of an
+        ICE session. See <tp:member-ref>CandidatePairSelected</tp:member-ref>
+        for details.</p>
+
         <tp:rationale>
-          In the SDP offer/answer model, this signalling will take place as
+          <p>In the SDP offer/answer model, this signalling will take place as
           generating an updated offer.
           Note that updates may be queued up until information about all
-          components of all streams is gathered.
+          components of all streams is gathered.</p>
         </tp:rationale>
       </tp:docstring>
       <arg name="Local_Candidate"
@@ -341,18 +346,17 @@
 
     <property name="Controlling" tp:name-for-bindings="Controlling"
       type="b" access="read">
-      <tp:docstring>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>
         The local side is taking the controlling role (as defined by ICE RFC
-        5245).
+        5245). Change notification is given via the
+        <tp:member-ref>ControllingChanged</tp:member-ref> signal.</p>
 
         <tp:rationale>In ICE, the Caller is normally in controlling mode (and
-        the Callee in controlled-mode). Except if the Caller is doing ICE-Lite,
+        the Callee in controlled-mode), except if the Caller is doing ICE-Lite,
         in which case it's reversed. The Controlling side is responsible for
         selecting nominated pairs, and generating updated offers upon
         conclusion of ICE.</tp:rationale>
-
-        Change notification is given via the
-        <tp:member-ref>ControllingChanged</tp:member-ref> signal.
       </tp:docstring>
     </property>
 
@@ -386,8 +390,8 @@
     <property name="IsICELite" tp:name-for-bindings="Is_ICE_Lite"
       type="b" access="read">
       <tp:docstring>
-        The Remote side is an ICE Lite endpoint (The local side is assumed to
-        always be an ICE Full implementation).
+        The Remote side is an ICE Lite endpoint. (The local side is assumed to
+        always be an ICE Full implementation.)
       </tp:docstring>
     </property>
 
