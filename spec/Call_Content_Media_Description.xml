@@ -156,7 +156,7 @@
       </tp:member>
       <tp:member name="SSRCs" type="au">
         <tp:docstring>
-          The list of maps
+          The list of Synchronisation Sources.
         </tp:docstring>
       </tp:member>
     </tp:mapping>
