@@ -2,8 +2,36 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.23.3 (UNRELEASED)
+telepathy-spec 0.23.3 (2011-07-14)
 ==================================
+
+API additions and clarifications:
+
+• The semantics of the 'supersedes' header in Messages have been clarified, and
+  'original-message-sent' and 'original-message-received' headers have been
+  defined to make the timestamps used for message edits unambiguous.
+  (fd.o#37413, David)
+
+• A tonne of properties on FileTransfer have been marked as requestable and/or
+  immutable. Also, as a clarification, the spec now explicitly says that
+  approvers may set the URI property, and that handlers MUST obey this.
+  (Xavier)
+
+• A new ChannelRequest hint, DelegateToPreferredHandler, has been added.
+  (fd.o#38240, Danni)
+
+Spec HTML improvements:
+
+• Jumping to anchors within the spec HTML will no longer move the text you're
+  looking for underneath the title bar with Webkit. Yay! (Danni (my heroine))
+
+• The generated HTML spec now has a beautiful favicon. (fd.o#38594, Guillaume)
+
+And for spec developers:
+
+• `make upload-branch` now takes an optional UPLOAD_BRANCH_TO Makefile
+  variable, which allows you to override the default server, namely
+  “people.freedesktop.org” (João Paulo Rechi Vita)
 
 telepathy-spec 0.23.2 (2011-05-16)
 ==================================
