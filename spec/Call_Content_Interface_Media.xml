@@ -48,8 +48,8 @@
         appear at some point via the
         <tp:member-ref>NewMediaDescriptionOffer</tp:member-ref> signal.</p>
 
-      <p>If nothing is known about the remote side's Media capabilities,
-        (e.g. outgoing SIP/XMPP call, this <tp:dbus-ref namespace="ofdT.Call1.Content"
+      <p>If nothing is known about the remote side's Media capabilities
+        (e.g. outgoing SIP/XMPP call), this <tp:dbus-ref namespace="ofdT.Call1.Content"
         >MediaDescription</tp:dbus-ref> will pop up with {<tp:dbus-ref
         namespace="ofdT.Call1.Content.MediaDescription"
           >HasRemoteInformation</tp:dbus-ref> = false, <tp:dbus-ref
