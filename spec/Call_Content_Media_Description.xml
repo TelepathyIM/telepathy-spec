@@ -66,9 +66,14 @@
 
     <method name="Reject" tp:name-for-bindings="Reject">
       <tp:docstring>
-        Reject the proposed update to the remote description
-        FIXME add error codes and strings here
+        Reject the proposed update to the remote description.
       </tp:docstring>
+      <arg name="Reason" type="(uuss)" tp:type="Call_State_Reason"
+        direction="out">
+        <tp:docstring>
+          A structured reason for the rejection.
+        </tp:docstring>
+      </arg>
     </method>
 
     <property name="Interfaces" tp:name-for-bindings="Interfaces"
