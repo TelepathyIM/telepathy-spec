@@ -305,6 +305,24 @@ class Base(object):
             n.namespaceURI = None
             n.setAttribute('href', t.get_url())
 
+        # rewrite <tp:value-ref>
+        for n in node.getElementsByTagNameNS(XMLNS_TP, 'value-ref'):
+            type_name = n.getAttribute('type')
+            assert type_name, "value-ref must have a type attribute"
+            t = spec.lookup_type(type_name)
+            assert isinstance(t, EnumLike), ("%s is not an enum or flags type"
+                    % type_name)
+            n.tagName = 'a'
+            n.namespaceURI = None
+            n.setAttribute('href', t.get_url())
+            name = getText(n)
+            short_names = [val.short_name for val in t.values]
+            if name not in short_names:
+                raise ValueError("'%s' is not a valid value of '%s'. "
+                        "Valid values are %s" %
+                        (name, type_name, short_names))
+            n.childNodes[0].data = "%s_%s" % (type_name, type)
+
         # rewrite <tp:error-ref>
         error_ns = spec.spec_namespace + '.Error.'
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'error-ref'):
