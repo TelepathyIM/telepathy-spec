@@ -47,7 +47,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
     <tp:enum name="Local_Mute_State" type="u">
       <tp:docstring>
-        The mute state of a channel.
+        The mute state of (at least part of) the call. See
+        <tp:member-ref>LocalMuteState</tp:member-ref> for more details.
       </tp:docstring>
 
       <tp:enumvalue value="0" suffix="Unmuted">
@@ -102,7 +103,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
       <arg name="MuteState" type="u" tp:type="Local_Mute_State">
         <tp:docstring>
-          True if the content is now muted.
+          The new mute state.
         </tp:docstring>
       </arg>
     </signal>
@@ -110,7 +111,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <property name="LocalMuteState" type="u" tp:type="Local_Mute_State"
       access="read" tp:name-for-bindings="Local_Mute_State">
       <tp:docstring>
-        True if the content is muted.
+        The current mute state of this part of the call. New
+        <tp:dbus-ref namespace="ofdT.Call1">Content</tp:dbus-ref>s should
+        inherit the value of this property from the parent
+        <tp:dbus-ref namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>.
+        Similarly, <tp:dbus-ref namespace="ofdT.Call1">Stream</tp:dbus-ref>s
+        should inherit it from the parent <tp:dbus-ref
+        namespace="ofdT.Call1">Content</tp:dbus-ref>.
       </tp:docstring>
     </property>
 
@@ -123,7 +130,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        <p>Inform the CM that the Call/Content/Stream should been muted or
+        <p>Inform the CM that the Call, Content or Stream should be muted or
           unmuted.</p>
 
         <p>The CM will tell the streaming implementation to Mute Streams as
