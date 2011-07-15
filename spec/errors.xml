@@ -394,7 +394,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:type>Call_State_Reason</tp:type>_Media_Error.
+        <tp:value-ref type="Call_State_Reason">Media_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
@@ -407,7 +407,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:type>Call_State_Reason</tp:type>_Media_Error.
+        <tp:value-ref type="Call_State_Reason">Media_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
@@ -420,7 +420,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:type>Call_State_Reason</tp:type>_Internal_Error.
+        <tp:value-ref type="Call_State_Reason">Internal_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
@@ -576,7 +576,7 @@
         errors bad-format, invalid-xml, etc., which can't happen unless
         the local (or remote) XMPP implementation is faulty. This is
         also analogous to
-        <tp:type>Media_Stream_Error</tp:type>_Invalid_CM_Behavior,
+        <tp:value-ref type="Media_Stream_Error">Invalid_CM_Behavior</tp:value-ref>,
         <code>TP_DBUS_ERROR_INCONSISTENT</code> in telepathy-glib, and
         <code>TELEPATHY_QT4_ERROR_INCONSISTENT</code> in telepathy-qt4.
       </tp:rationale>

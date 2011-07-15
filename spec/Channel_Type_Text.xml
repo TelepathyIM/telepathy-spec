@@ -555,13 +555,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>Simple one-to-one chats (such as streams of private messages in
         XMPP or IRC) should be represented by a Text channel whose
         <tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>
-        is <tp:type>Handle_Type</tp:type>_Contact. The expected way to
+        is <tp:value-ref type="Handle_Type">Contact</tp:value-ref>. The expected way to
         request such a channel is to set the ChannelType, TargetHandleType,
         and either TargetHandle or TargetID in a call to EnsureChannel.</p>
 
       <p>Named chat rooms whose identity can be saved and used again later
         (IRC channels, Jabber MUCs) are expected to be represented by Text
-        channels with <tp:type>Handle_Type</tp:type>_Room and the <tp:dbus-ref
+        channels with <tp:value-ref type="Handle_Type">Room</tp:value-ref> and the <tp:dbus-ref
           namespace="ofdT.Channel.Interface">Group</tp:dbus-ref>
         interface. In protocols where a chatroom can be used as a continuation
         of one or more one-to-one chats, these channels should also have the

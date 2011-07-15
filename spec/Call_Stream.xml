@@ -42,12 +42,12 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>If True, the
             <tp:member-ref>LocalSendingState</tp:member-ref> should
-            change to <tp:type>Sending_State</tp:type>_Sending, if it isn't
+            change to <tp:value-ref type="Sending_State">Sending</tp:value-ref>, if it isn't
             already.</p>
 
           <p>If False, the
             <tp:member-ref>LocalSendingState</tp:member-ref> should
-            change to <tp:type>Sending_State</tp:type>_None, if it isn't
+            change to <tp:value-ref type="Sending_State">None</tp:value-ref>, if it isn't
             already.</p>
         </tp:docstring>
       </arg>
@@ -258,7 +258,7 @@
           special-cased.
         </tp:rationale>
 
-        <p>A value of <tp:type>Sending_State</tp:type>_Pending_Send for
+        <p>A value of <tp:value-ref type="Sending_State">Pending_Send</tp:value-ref> for
           this property indicates that the other side requested the
           local user start sending media (which can be done by calling either
           <tp:member-ref>SetSending</tp:member-ref> or <tp:dbus-ref
@@ -267,10 +267,10 @@
         <p>When <tp:dbus-ref
           namespace="ofdT.Channel.Type.Call1">Accept</tp:dbus-ref> is
           called, all streams with a local sending state of
-          <tp:type>Sending_State</tp:type>_Pending_Send and the associated
+          <tp:value-ref type="Sending_State">Pending_Send</tp:value-ref> and the associated
           <tp:dbus-ref namespace="ofdT.Call1.Content"
           >Disposition</tp:dbus-ref> set to
-          <tp:type>Call_Content_Disposition</tp:type>_Initial are
+          <tp:value-ref type="Call_Content_Disposition">Initial</tp:value-ref> are
           automatically set to sending.</p>
       </tp:docstring>
     </property>

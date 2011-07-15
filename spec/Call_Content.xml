@@ -41,7 +41,7 @@
       <tp:docstring>
         Remove the content from the call. This will cause
         <tp:member-ref>Removed</tp:member-ref>((self_handle,
-        <tp:type>Call_State_Change_Reason</tp:type>_User_Requested, "", "")) to be
+        <tp:value-ref type="Call_State_Change_Reason">User_Requested</tp:value-ref>, "", "")) to be
         emitted.
       </tp:docstring>
 
@@ -123,8 +123,8 @@
           is called on the channel, all streams of this content with
           <tp:dbus-ref
           namespace="ofdT.Call1.Stream">LocalSendingState</tp:dbus-ref>
-          set to <tp:type>Sending_State</tp:type>_Pending_Send will be
-          moved to <tp:type>Sending_State</tp:type>_Sending as if
+          set to <tp:value-ref type="Sending_State">Pending_Send</tp:value-ref> will be
+          moved to <tp:value-ref type="Sending_State">Sending</tp:value-ref> as if
           <tp:dbus-ref
           namespace="ofdT.Call1.Stream">SetSending</tp:dbus-ref>
           (True) had been called.</p>

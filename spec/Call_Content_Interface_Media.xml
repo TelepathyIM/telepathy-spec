@@ -519,8 +519,8 @@
       </arg>
       <arg name="State" type="u" tp:type="Sending_State">
         <tp:docstring>
-          Either <tp:type>Sending_State</tp:type>_Pending_Send or
-          <tp:type>Sending_State</tp:type>_Pending_Stop_Sending.
+          Either <tp:value-ref type="Sending_State">Pending_Send</tp:value-ref> or
+          <tp:value-ref type="Sending_State">Pending_Stop_Sending</tp:value-ref>.
         </tp:docstring>
       </arg>
     </signal>
@@ -540,8 +540,8 @@
       </arg>
       <arg name="State" type="u" tp:type="Sending_State" direction="in">
         <tp:docstring>
-          Either <tp:type>Sending_State</tp:type>_Sending or
-          <tp:type>Sending_State</tp:type>_None.
+          Either <tp:value-ref type="Sending_State">Sending</tp:value-ref> or
+          <tp:value-ref type="Sending_State">None</tp:value-ref>.
         </tp:docstring>
       </arg>
     </method>
