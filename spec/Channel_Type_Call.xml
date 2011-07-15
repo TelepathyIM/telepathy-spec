@@ -108,11 +108,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         At this point, <tp:member-ref>CallState</tp:member-ref> changes
         to <tp:value-ref type="Call_State">Initialising</tp:value-ref>, which signifies
         that the call is waiting for the network to do
-        something (When the CM has information about when the remote contact is
-        notified about the call (or the network is known not to convey such
+        something. When the CM has information indicating that the remote contact has been
+        notified about the call (or immediately if the network is known not to convey such
         information) it should also change to
         <tp:value-ref type="Call_State">Ringing</tp:value-ref>. All changes to
-        <tp:member-ref>CallState</tp:member-ref> property are signalled using
+        the <tp:member-ref>CallState</tp:member-ref> property are signalled using
         the <tp:member-ref>CallStateChanged</tp:member-ref> signal.</p>
 
       <p>When the call is accepted by the remote contact, the
