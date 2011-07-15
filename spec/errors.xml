@@ -394,7 +394,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:value-ref type="Call_State_Reason">Media_Error</tp:value-ref>.
+        <tp:value-ref type="Call_State_Change_Reason">Media_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
@@ -407,7 +407,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:value-ref type="Call_State_Reason">Media_Error</tp:value-ref>.
+        <tp:value-ref type="Call_State_Change_Reason">Media_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>
@@ -420,7 +420,7 @@
 
       <tp:rationale>
         This corresponds to
-        <tp:value-ref type="Call_State_Reason">Internal_Error</tp:value-ref>.
+        <tp:value-ref type="Call_State_Change_Reason">Internal_Error</tp:value-ref>.
       </tp:rationale>
     </tp:docstring>
   </tp:error>

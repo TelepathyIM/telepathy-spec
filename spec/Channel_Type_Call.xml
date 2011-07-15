@@ -327,7 +327,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <tp:value-ref type="Call_State">Ringing</tp:value-ref> (an incoming
           call is ready and waiting for the user to be notified). Calling this method
           SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
-          <tp:value-ref type="Call_Flags">Ringing</tp:value-ref>, and notify the
+          <tp:value-ref type="Call_Flags">Locally_Ringing</tp:value-ref>, and notify the
           remote contact that the local user has been alerted (if the
           protocol supports this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
@@ -362,16 +362,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           channel's <tp:dbus-ref namespace="ofdT.Channel">Requested</tp:dbus-ref>
           property is False, and
           the <tp:member-ref>CallState</tp:member-ref> is
-          <tp:value-ref type="Call_State">Initiating</tp:value-ref> or
+          <tp:value-ref type="Call_State">Initialising</tp:value-ref> or
           <tp:value-ref type="Call_State">Ringing</tp:value-ref>. Calling this method
           SHOULD set <tp:member-ref>CallFlags</tp:member-ref>' bit
-          <tp:value-ref type="Call_Flags">Queued</tp:value-ref>, and notify the
+          <tp:value-ref type="Call_Flags">Locally_Queued</tp:value-ref>, and notify the
           remote contact that the call is in a queue (if the
           protocol supports this); repeated calls to this method
           SHOULD succeed, but have no further effect.</p>
 
-        <p>Queued is a little like Held, but applies to calls that have not
-          been Accepted (the Queued flag should be unset by the CM when Accept
+        <p>Locally_Queued is a little like Locally_Held, but applies to calls that have not
+          been Accepted (the Locally_Queued flag should be unset by the CM when Accept
           is called). It should also be set in response to the state of the
           world, rather than in response to user action.</p>
       </tp:docstring>
@@ -822,7 +822,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           <dt>queue-message - s</dt>
           <dd>An optional human-readable message sent when the local contact
             is being held in a queue. This is only applicable when
-            <tp:value-ref type="Call_Flags">Queued</tp:value-ref> is in the call flags.
+            <tp:value-ref type="Call_Flags">Locally_Queued</tp:value-ref> is in the call flags.
             <tp:rationale>
               SIP 182 notifications can have human-readable messages attached.
             </tp:rationale>
