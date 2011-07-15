@@ -307,21 +307,34 @@ class Base(object):
 
         # rewrite <tp:value-ref>
         for n in node.getElementsByTagNameNS(XMLNS_TP, 'value-ref'):
-            type_name = n.getAttribute('type')
-            assert type_name, "value-ref must have a type attribute"
-            t = spec.lookup_type(type_name)
-            assert isinstance(t, EnumLike), ("%s is not an enum or flags type"
-                    % type_name)
+            if n.hasAttribute('type'):
+                type_name = n.getAttribute('type')
+                value_name = getText(n)
+                t = spec.lookup_type(type_name)
+                assert isinstance(t, EnumLike), ("%s is not an enum or flags type"
+                        % type_name)
+            else:
+                type_name = getText(n)
+                value_name_parts = []
+                while type_name not in spec.types:
+                    type_name, _, rest = type_name.rpartition('_')
+                    value_name_parts.insert(0, rest)
+                    if not type_name:
+                        raise ValueError("No substrings of '%s' describe "
+                                "a valid type." % getText(n))
+                value_name = '_'.join(value_name_parts)
+                t = spec.lookup_type(type_name)
+                assert isinstance(t, EnumLike), ("%s is not an enum or flags type"
+                        % type_name)
+
             n.tagName = 'a'
             n.namespaceURI = None
             n.setAttribute('href', t.get_url())
-            name = getText(n)
             short_names = [val.short_name for val in t.values]
-            if name not in short_names:
+            if value_name not in short_names:
                 raise ValueError("'%s' is not a valid value of '%s'. "
                         "Valid values are %s" %
-                        (name, type_name, short_names))
-            n.childNodes[0].data = "%s_%s" % (type_name, type)
+                        (value_name, type_name, short_names))
 
         # rewrite <tp:error-ref>
         error_ns = spec.spec_namespace + '.Error.'
