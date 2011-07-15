@@ -585,7 +585,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               must be requested at the start of the call if video is desired.
               User interfaces may use this pseudo-capability as a hint to
               display separate "Audio call" and "Video call" buttons, rather
-              than a single "Call1" button with the option to add and remove
+              than a single "Call" button with the option to add and remove
               video once the call has started for contacts without this flag.
             </p>
           </tp:rationale>

@@ -1085,7 +1085,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:member type="s" name="Message">
         <tp:docstring>
           An optional debug message, to expediate debugging the potentially
-          many processes involved in a Call1. This may be communicated across
+          many processes involved in a call. This may be communicated across
           the network in protocols that support doing so, but it is not
           essential.
         </tp:docstring>

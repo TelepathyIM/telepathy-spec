@@ -105,13 +105,13 @@
         The disposition of this content, which defines whether to
         automatically start sending data on the streams when
         <tp:dbus-ref
-        namespace="ofdT.Channel.Type">Call1</tp:dbus-ref> is
+        namespace="ofdT.Channel.Type.Call1">Accept</tp:dbus-ref> is
         called on the channel.
       </tp:docstring>
 
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The content has no specific disposition
+          The content has no specific disposition.
         </tp:docstring>
       </tp:enumvalue>
 

@@ -119,7 +119,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:changed version="0.21.3">renamed back from Mute to SetMuted</tp:changed>
       <arg direction="in" name="Muted" type="b">
         <tp:docstring>
-          True if the client wishes to mute the Content or Call1.
+          True if the client wishes to mute the Content or Call.
         </tp:docstring>
       </arg>
       <tp:docstring>
