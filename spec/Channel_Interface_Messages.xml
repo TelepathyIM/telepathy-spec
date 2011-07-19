@@ -1047,7 +1047,7 @@ USA.</p>
           recipient. If a delivery failure is detected later, this is
           signalled by receiving a message whose <code>message-type</code>
           header maps to
-          <tp:type>Channel_Text_Message_Type</tp:type>_Delivery_Report.
+          <tp:value-ref type="Channel_Text_Message_Type">Delivery_Report</tp:value-ref>.
           Similarly, if delivery is detected to have been successful
           (which is not possible in all protocols), a successful delivery
           report will be signalled.</p>
