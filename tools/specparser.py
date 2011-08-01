@@ -614,16 +614,40 @@ class Typed(Base):
     def __repr__(self):
         return '%s(%s:%s)' % (self.__class__.__name__, self.name, self.dbus_type)
 
-class Property(DBusConstruct, Typed):
-    ACCESS_READ = 1
-    ACCESS_WRITE = 2
-
-    ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
-
+class HasEmitsChangedAnnotation(object):
     EMITS_CHANGED_UNKNOWN = 0
     EMITS_CHANGED_NONE = 1
     EMITS_CHANGED_UPDATES = 2
     EMITS_CHANGED_INVALIDATES = 3
+
+    # According to the D-Bus specification, EmitsChangedSignal defaults
+    # to true, but - realistically - this cannot be assumed for old specs.
+    # As a result, we treat the absence of the annotation as "unknown".
+    __MAPPING = { None: EMITS_CHANGED_UNKNOWN,
+                 'false': EMITS_CHANGED_NONE,
+                 'invalidates': EMITS_CHANGED_INVALIDATES,
+                 'true': EMITS_CHANGED_UPDATES,
+               }
+
+    __ANNOTATION = 'org.freedesktop.DBus.Property.EmitsChangedSignal'
+
+    def _get_emits_changed(self, dom):
+        emits_changed = getAnnotationByName(dom, self.__ANNOTATION)
+
+        try:
+            return self.__MAPPING[emits_changed]
+        except KeyError:
+            print >> sys.stderr, """
+WARNING: <annotation name='%s'/> has unknown value '%s'
+         (in %s)
+                """.strip() % (self.__ANNOTATION, emits_changed, self)
+            return self.EMITS_CHANGED_UNKNOWN;
+
+class Property(DBusConstruct, Typed, HasEmitsChangedAnnotation):
+    ACCESS_READ = 1
+    ACCESS_WRITE = 2
+
+    ACCESS_READWRITE = ACCESS_READ | ACCESS_WRITE
 
     def __init__(self, parent, namespace, dom):
         super(Property, self).__init__(parent, namespace, dom)
@@ -649,20 +673,12 @@ class Property(DBusConstruct, Typed):
         self.requestable = requestable != ''
         self.sometimes_requestable = requestable == 'sometimes'
 
-        # According to the D-Bus specification, EmitsChangedSignal defaults
-        # to true, but - realistically - this cannot be assumed for old specs.
-        # As a result, we treat the absence of the annotation as "unknown".
-        emits_changed = getAnnotationByName(dom, 'org.freedesktop.DBus.Property.EmitsChangedSignal')
-        if emits_changed is None:
-            emits_changed = getAnnotationByName(dom.parentNode, 'org.freedesktop.DBus.Property.EmitsChangedSignal')
-        if emits_changed == 'true':
-            self.emits_changed = self.EMITS_CHANGED_UPDATES;
-        elif emits_changed == 'invalidates':
-            self.emits_changed = self.EMITS_CHANGED_INVALIDATES;
-        elif emits_changed == 'false':
-            self.emits_changed = self.EMITS_CHANGED_NONE;
-        else:
-            self.emits_changed = self.EMITS_CHANGED_UNKNOWN;
+        self.emits_changed = self._get_emits_changed(dom)
+
+        if self.emits_changed == self.EMITS_CHANGED_UNKNOWN:
+            # If the <property> doesn't have the annotation, grab it from the
+            # interface.
+            self.emits_changed = parent.emits_changed
 
     def get_access(self):
         if self.access & self.ACCESS_READ and self.access & self.ACCESS_WRITE:
@@ -745,7 +761,7 @@ class External(object):
     def __repr__(self):
         return '%s(%s)' % (self.__class__.__name__, self.name)
 
-class Interface(Base):
+class Interface(Base, HasEmitsChangedAnnotation):
     def __init__(self, parent, namespace, dom, spec_namespace):
         super(Interface, self).__init__(parent, namespace, dom)
 
@@ -778,6 +794,8 @@ class Interface(Base):
                            .replace('.Connection.', '.Conn.')
                            .replace('.Type.', '.T.')[1:]
             )
+
+        self.emits_changed = self._get_emits_changed(dom)
 
         # build lists of methods, etc., in this interface
         self.methods = build_list(self, Method, self.name,
