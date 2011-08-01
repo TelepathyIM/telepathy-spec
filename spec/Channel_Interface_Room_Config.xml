@@ -104,6 +104,35 @@
       </tp:docstring>
     </property>
 
+    <property name="PasswordProtected" type="b" access="read"
+              tp:name-for-bindings="Password_Protected">
+      <tp:added version="UNRELEASED"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <code>True</code> if contacts joining this channel must provide a
+        password to be granted entry.  Note that this property does not
+        indicate that a password is required <em>right now</em>; see the
+        <tp:dbus-ref namespace='ofdT.Channel.Interface'>Password</tp:dbus-ref>
+        interface for the API used to provide a password while joining a room.
+      </tp:docstring>
+    </property>
+
+    <property name="Password" tp:name-for-bindings="Password" type="s" access="read">
+      <tp:added version="UNRELEASED"/>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        If <tp:member-ref>PasswordProtected</tp:member-ref> is
+        <code>True</code>, the password required to enter the channel, if
+        known. If the password is unknown, or
+        <tp:member-ref>PasswordProtected</tp:member-ref> is
+        <code>False</code>, the empty string.
+
+        <tp:rationale>
+          On XMPP—bless its cotton socks!—non-owners of a MUC cannot see its
+          current password, even if they just provided the password in order to
+          join the room…
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
