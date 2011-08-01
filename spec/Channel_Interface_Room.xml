@@ -305,7 +305,10 @@
           a channel request to join the room. XMPP MUCs have a room name
           concept which is more like a topic, except more
           persistent. This D-Bus property is <strong>not</strong> this
-          XMPP room name, but the bit before the @ in the room jid.</p>
+          XMPP room name, but the bit before the @ in the room jid; see
+          <tp:dbus-ref
+          namespace='ofdT.Channel.Interface'>RoomConfig1.Title</tp:dbus-ref>
+          for that concept.</p>
 
         <p>This property cannot change during the lifetime of the channel. It
           should appear in the <var>Allowed_Properties</var> of a
@@ -330,7 +333,6 @@
           and only if non-empty values are supported.</p>
       </tp:docstring>
     </property>
-
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

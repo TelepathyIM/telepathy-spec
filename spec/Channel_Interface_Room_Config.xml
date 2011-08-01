@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Interface_Room_Config"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+  <tp:copyright>Copyright © 2011 Collabora Ltd.</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public
+      License along with this library; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+      02110-1301, USA.</p>
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.RoomConfig1"
+    tp:causes-havoc="rather uncouth">
+    <tp:added version="0.21.UNRELEASED">version 1</tp:added>
+    <tp:requires interface='org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT'/>
+    <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal"
+                value="true"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>Represents the configuration of a chatroom, some aspects of which may
+        be modifiable by the user, depending on their priviledges. This
+        corresponds to the room configuration on XMPP, and various channel mode
+        flags on IRC.</p>
+
+      <p>The “topic” (on IRC) or “subject” (on XMPP) is not part of this
+        interface; it can be found on the <tp:dbus-ref
+        namespace='ofdT.Channel.Interface'>Subject.DRAFT</tp:dbus-ref>
+        interface.</p>
+    </tp:docstring>
+
+    <property name="Anonymous" tp:name-for-bindings="Anonymous" type="b" access="read">
+      <tp:docstring>
+      <code>True</code> if people may join the channel without other members being made
+      aware of their identity.
+      </tp:docstring>
+    </property>
+    <property name="InviteOnly" tp:name-for-bindings="InviteOnly" type="b" access="read">
+      <tp:docstring>
+      <code>True</code> if people may not join the channel until they have been invited.
+      </tp:docstring>
+    </property>
+    <property name="Limit" tp:name-for-bindings="Limit" type="u" access="read">
+      <tp:docstring>
+      The limit to the number of members; or <tt>0</tt> if there is no limit.
+      </tp:docstring>
+    </property>
+    <property name="Moderated" tp:name-for-bindings="Moderated" type="b" access="read">
+      <tp:docstring>
+      <code>True</code> if channel membership is not sufficient to allow participation.
+      </tp:docstring>
+    </property>
+    <property name="Title" tp:name-for-bindings="Title" type="s" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      A human-visible name for the channel, if it differs from <tp:dbus-ref
+      namespace='ofdT.Channel.Interface'>Room.DRAFT.RoomName</tp:dbus-ref>; the
+      empty string, otherwise.
+
+      <tp:rationale>
+        <p>On XMPP, this represents the <code>muc#roomconfig_roomname</code>
+        field of the <a
+        href='http://xmpp.org/extensions/xep-0045.html#registrar-formtype-owner'><code>muc#roomconfig</code></a>
+        form. So for <code>jdev@conference.jabber.org</code>, for example:</p>
+
+        <ul>
+          <li><tp:dbus-ref
+            namespace='ofdT.Channel.Interface'>Room.DRAFT.RoomName</tp:dbus-ref>
+            = <code>"jdev"</code>;</li>
+          <li><tp:dbus-ref
+            namespace='ofdT.Channel.Interface'>Room.DRAFT.Server</tp:dbus-ref>
+            = <code>"conference.jabber.org"</code>;</li>
+          <li><tp:member-ref>Title</tp:member-ref> = <code>"General Jabber
+            development discussion"</code>.</li>
+        </ul>
+
+        <p>XEP-0045 is awful.</p>
+      </tp:rationale>
+      </tp:docstring>
+    </property>
+    <property name="Description" tp:name-for-bindings="Description" type="s" access="read">
+      <tp:docstring>
+      A human-readable description of the channel's overall purpose; if any.
+      </tp:docstring>
+    </property>
+    <property name="Persistent" tp:name-for-bindings="Persistent" type="b" access="read">
+      <tp:docstring>
+      True if the channel will remain in existence on the server after all
+      members have left it.
+      </tp:docstring>
+    </property>
+    <property name="Private" tp:name-for-bindings="Private" type="b" access="read">
+      <tp:docstring>
+      True if the channel is not visible to non-members.
+      </tp:docstring>
+    </property>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
