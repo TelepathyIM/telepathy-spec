@@ -704,6 +704,14 @@ class Property(DBusConstruct, Typed, HasEmitsChangedAnnotation):
         return ', '.join(descriptions)
 
 class AwkwardTelepathyProperty(Typed):
+    def __init__(self, parent, namespace, dom):
+        Typed.__init__(self, parent, namespace, dom)
+
+        print >> sys.stderr, """
+WARNING: Old-style Telepathy properties are deprecated!
+         (<tp:property> in %s)
+        """.strip() % (parent)
+
     def get_type_name(self):
         return 'Telepathy Property'
 
