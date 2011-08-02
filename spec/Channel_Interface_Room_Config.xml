@@ -133,6 +133,80 @@
       </tp:docstring>
     </property>
 
+    <property name="CanUpdateConfiguration" type="b" access="read"
+              tp:name-for-bindings="Can_Update_Configuration">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        If <code>True</code>, the user may call
+        <tp:member-ref>UpdateConfiguration</tp:member-ref> to change the values
+        of the properties listed in
+        <tp:member-ref>MutableProperties</tp:member-ref>.
+      </tp:docstring>
+    </property>
+
+    <property name="MutableProperties" type="as" access="read"
+              tp:name-for-bindings="Mutable_Properties">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A list of (unqualified) property names on this interface which may
+          be modified using <tp:member-ref>UpdateConfiguration</tp:member-ref>
+          (if <tp:member-ref>CanUpdateConfiguration</tp:member-ref> is
+          <code>True</code>). Properties not listed here cannot be
+          modified.</p>
+
+        <p>For example, IRC does not have the concept of joining a room without
+          other participants knowing your true identity; so on IRC the
+          <tp:member-ref>Anonymous</tp:member-ref> property will always be
+          <code>False</code>, and
+          <tp:member-ref>MutableProperties</tp:member-ref> will not include
+          <code>"Anonymous"</code>.</p>
+      </tp:docstring>
+    </property>
+
+    <method name="UpdateConfiguration" tp:name-for-bindings="Update_Configuration">
+      <arg direction="in" name="Properties" type="a{sv}">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>
+            The new values of one or more properties on this interface. For
+            instance, to set up a channel for discussing top-secret corporate
+            merge plans, this parameter might be:
+          </p>
+
+          <blockquote>
+            <pre>{
+  'Private': True,
+  'InviteOnly': True,
+  'Description': "The first rule of #inteltakeover is: do not talk about #inteltakeover",
+}</pre></blockquote>
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If <tp:member-ref>CanUpdateConfiguration</tp:member-ref> is
+          <code>True</code>, modifies the current values of one or more
+          room properties. This method SHOULD NOT return until the change has
+          been accepted or declined by the server.</p>
+
+        <p>Note that the server may ostensibly accept the changes (thus
+          allowing this method to return success) but signal different values;
+          for example, the server might truncate
+          <tp:member-ref>Title</tp:member-ref> to some maximum length. Callers
+          SHOULD continue to listen for the <code>PropertiesChanged</code>
+          signal, and trust the values it signals over those provided to this
+          method.</p>
+      </tp:docstring>
+
+      <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The user is not allowed to reconfigure this room.
+        </tp:docstring>
+      </tp:error>
+
+      <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          One or more of the specified properties is either unknown, or
+          immutable.
+        </tp:docstring>
+      </tp:error>
+    </method>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->
