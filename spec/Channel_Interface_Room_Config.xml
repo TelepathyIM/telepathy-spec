@@ -22,7 +22,9 @@
 
   <interface name="org.freedesktop.Telepathy.Channel.Interface.RoomConfig1"
     tp:causes-havoc="rather uncouth">
-    <tp:added version="0.21.UNRELEASED">version 1</tp:added>
+    <tp:added version="0.21.UNRELEASED">version 1. This replaces the old-school
+      Telepathy properties on <tp:dbus-ref
+      namespace='ofdT.Channel.Type'>Text</tp:dbus-ref>.</tp:added>
     <tp:requires interface='org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT'/>
     <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal"
                 value="true"/>
