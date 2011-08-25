@@ -267,15 +267,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
           <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
             <p>The Connection_Manager is not installed or does not
-              implement the given Protocol, or one of the properties in the
-              Properties argument is unsupported.</p>
+              implement the given Protocol.</p>
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
           <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-            <p>The Parameters provided omit a required parameter
-              or provide unsupported parameter, or the type of one
-              of the Parameters or Properties is inappropriate.</p>
+            <p>The Parameters provided were unacceptable: they might omit a
+              <tp:value-ref type='Conn_Mgr_Param_Flags'>Required</tp:value-ref>
+              parameter, include an unsupported parameter, or have a value of
+              the wrong type.</p>
           </tp:docstring>
         </tp:error>
       </tp:possible-errors>
