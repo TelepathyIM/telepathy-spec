@@ -150,8 +150,8 @@ class Base(object):
             if (child.nodeType == dom.TEXT_NODE and
                     child.data.strip() != ''):
                 raise BrokenHTML('Text found in node %s of %s, did you mean '
-                        'to use <tp:docstring/>?' %
-                    (self.__class__.__name__, self.parent))
+                        'to use <tp:docstring/>? Offending text:\n\n%s' %
+                    (self.__class__.__name__, self.parent, child.data.strip()))
             elif child.nodeType == dom.ELEMENT_NODE:
                 if child.tagName in ('p', 'em', 'strong', 'ul', 'li', 'dl',
                         'a', 'tt', 'code'):
