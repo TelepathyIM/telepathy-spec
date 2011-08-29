@@ -165,7 +165,9 @@
       <arg direction="in" name="Properties" type="a{sv}">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>
-            The new values of one or more properties on this interface. For
+            The new values of one or more properties on this interface, which
+            must be listed in
+            <tp:member-ref>MutableProperties</tp:member-ref>. For
             instance, to set up a channel for discussing top-secret corporate
             merge plans, this parameter might be:
           </p>
@@ -201,8 +203,14 @@
 
       <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          One or more of the specified properties is either unknown, or
-          immutable.
+          One or more of the specified properties is unknown, or ill-typed.
+        </tp:docstring>
+      </tp:error>
+
+      <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          One or more of the specified properties cannot be modified on this
+          protocol.
         </tp:docstring>
       </tp:error>
     </method>
