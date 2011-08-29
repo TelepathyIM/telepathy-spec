@@ -95,14 +95,14 @@
       </tp:docstring>
     </property>
     <property name="Persistent" tp:name-for-bindings="Persistent" type="b" access="read">
-      <tp:docstring>
-      True if the channel will remain in existence on the server after all
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <code>True</code> if the channel will remain in existence on the server after all
       members have left it.
       </tp:docstring>
     </property>
     <property name="Private" tp:name-for-bindings="Private" type="b" access="read">
-      <tp:docstring>
-      True if the channel is not visible to non-members.
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <code>True</code> if the channel is not visible to non-members.
       </tp:docstring>
     </property>
 
