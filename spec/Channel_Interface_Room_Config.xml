@@ -108,7 +108,6 @@
 
     <property name="PasswordProtected" type="b" access="read"
               tp:name-for-bindings="Password_Protected">
-      <tp:added version="UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <code>True</code> if contacts joining this channel must provide a
         password to be granted entry.  Note that this property does not
@@ -119,7 +118,6 @@
     </property>
 
     <property name="Password" tp:name-for-bindings="Password" type="s" access="read">
-      <tp:added version="UNRELEASED"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         If <tp:member-ref>PasswordProtected</tp:member-ref> is
         <code>True</code>, the password required to enter the channel, if
