@@ -161,6 +161,26 @@
       </tp:docstring>
     </property>
 
+    <property name="ConfigurationRetrieved" type="b" access="read"
+              tp:name-for-bindings="Configuration_Retrieved">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p><code>True</code> once the initial room configuration has been
+          retrieved, or <code>False</code> otherwise. On some services, this
+          may take some time after you've joined a room to fetch the
+          configuration. Once this property changes to <code>True</code>, the
+          other properties on this interface can be assumed to be accurate;
+          this property MUST not change to <code>False</code> after it becomes
+          <code>True</code>.</p>
+
+        <tp:rationale>
+          <p>An application's “configure this room” dialog might choose to
+            display a spinner while this property is <code>False</code>, rather
+            than allowing the user to edit probably-inaccurate
+            configuration.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
     <method name="UpdateConfiguration" tp:name-for-bindings="Update_Configuration">
       <arg direction="in" name="Properties" type="a{sv}">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -211,6 +231,15 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           One or more of the specified properties cannot be modified on this
           protocol.
+        </tp:docstring>
+      </tp:error>
+
+      <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          The room's current configuration has not yet been retrieved, so we
+          cannot update it just yet. The application might like to try again
+          once the <tp:member-ref>ConfigurationRetrieved</tp:member-ref>
+          property becomes <code>True</code>.
         </tp:docstring>
       </tp:error>
     </method>
