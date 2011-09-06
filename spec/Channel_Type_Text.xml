@@ -28,9 +28,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       clunky <tp:dbus-ref
       namespace='org.freedesktop'>Telepathy.Properties</tp:dbus-ref>. They have
       been removed in favour of D-Bus properties on the <tp:dbus-ref
-      namespace='ofdT.Channel.Interface'>Room.DRAFT</tp:dbus-ref>, <tp:dbus-ref
-      namespace='ofdT.Channel.Interface'>Subject.DRAFT</tp:dbus-ref> and
-      <tp:dbus-ref namespace='ofdT.Channel.Interface'>Password</tp:dbus-ref>
+      namespace='ofdT.Channel.Interface'>Room2</tp:dbus-ref>, <tp:dbus-ref
+      namespace='ofdT.Channel.Interface'>Subject2</tp:dbus-ref> and
+      <tp:dbus-ref namespace='ofdT.Channel.Interface'>RoomConfig1</tp:dbus-ref>
       interfaces.</tp:changed>
 
     <tp:simple-type name="Message_ID" type="u" array-name="Message_ID_List">
@@ -604,7 +604,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Opaquely-named rejoinable chatrooms (such as Skype rooms) are
         represented using the properties in the <tp:dbus-ref
-        namespace="ofdT.Channel.Interface">Room.DRAFT</tp:dbus-ref>
+        namespace="ofdT.Channel.Interface">Room2</tp:dbus-ref>
         interface. Instructions and examples of how to request
         such channels are given in said interface's description.</p>
 

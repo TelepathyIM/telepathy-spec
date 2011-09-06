@@ -20,12 +20,11 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="org.freedesktop.Telepathy.Channel.Interface.RoomConfig1"
-    tp:causes-havoc="rather uncouth">
-    <tp:added version="0.21.UNRELEASED">version 1. This replaces the old-school
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.RoomConfig1">
+    <tp:added version="0.23.UNRELEASED">version 1. This replaces the old-school
       Telepathy properties on <tp:dbus-ref
       namespace='ofdT.Channel.Type'>Text</tp:dbus-ref>.</tp:added>
-    <tp:requires interface='org.freedesktop.Telepathy.Channel.Interface.Room.DRAFT'/>
+    <tp:requires interface='org.freedesktop.Telepathy.Channel.Interface.Room2'/>
     <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal"
                 value="true"/>
 
@@ -37,7 +36,7 @@
 
       <p>The “topic” (on IRC) or “subject” (on XMPP) is not part of this
         interface; it can be found on the <tp:dbus-ref
-        namespace='ofdT.Channel.Interface'>Subject.DRAFT</tp:dbus-ref>
+        namespace='ofdT.Channel.Interface'>Subject2</tp:dbus-ref>
         interface.</p>
     </tp:docstring>
 
@@ -65,7 +64,7 @@
     <property name="Title" tp:name-for-bindings="Title" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       A human-visible name for the channel, if it differs from <tp:dbus-ref
-      namespace='ofdT.Channel.Interface'>Room.DRAFT.RoomName</tp:dbus-ref>; the
+      namespace='ofdT.Channel.Interface'>Room2.RoomName</tp:dbus-ref>; the
       empty string, otherwise.
 
       <tp:rationale>
@@ -76,10 +75,10 @@
 
         <ul>
           <li><tp:dbus-ref
-            namespace='ofdT.Channel.Interface'>Room.DRAFT.RoomName</tp:dbus-ref>
+            namespace='ofdT.Channel.Interface'>Room2.RoomName</tp:dbus-ref>
             = <code>"jdev"</code>;</li>
           <li><tp:dbus-ref
-            namespace='ofdT.Channel.Interface'>Room.DRAFT.Server</tp:dbus-ref>
+            namespace='ofdT.Channel.Interface'>Room2.Server</tp:dbus-ref>
             = <code>"conference.jabber.org"</code>;</li>
           <li><tp:member-ref>Title</tp:member-ref> = <code>"General Jabber
             development discussion"</code>.</li>
