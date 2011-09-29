@@ -2,10 +2,32 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.23.3 (UNRELEASED)
+telepathy-spec 0.23.4 (2011-09-29)
 ==================================
 
+API additions and clarifications:
 
+• Always give contact identifiers together with handles in
+  Channel.Interface.Group. This helps clients to create contact objects without
+  extra async operations. Additions are:
+    • Channel.Interface.Group.MemberIdentifiers;
+    • Channel.Interface.Group.SelfContactChanged; and
+    • Channel.Interface.Group.HandleOwnersChangedDetailed.
+
+• AccountManager: remove note about service activation. Mission Control is
+  service-activatable and is probably the only implementation we'll ever have.
+
+• Clarify possible errors returned by AM.CreateAccount.
+
+Spec HTML improvements:
+
+• Now <tp:value-ref> is used to reference a value in a enumeration.
+
+Call DRAFT2 landed
+
+• Call interfaces are now versioned. For example
+  org.freedesktop.Telepathy.Channel.Type.Call.DRAFT is now renamed to
+  org.freedesktop.Telepathy.Channel.Type.Call1.
 
 telepathy-spec 0.23.3 (2011-07-14)
 ==================================
