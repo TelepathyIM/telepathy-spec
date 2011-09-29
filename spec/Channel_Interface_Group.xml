@@ -334,7 +334,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:added version="0.17.6">This signal should not be relied on
         unless Channel_Group_Flag_Properties is present.</tp:added>
-      <tp:deprecated version="0.UNRELEASED">Clients should listen to
+      <tp:deprecated version="0.23.4">Clients should listen to
         <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref> instead to
         get the new identifiers as well.
         </tp:deprecated>
@@ -366,7 +366,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         if the <tp:member-ref>MemberIdentifiers</tp:member-ref> property exists
         </p>
       </tp:docstring>
-      <tp:added version="0.UNRELEASED"/>
+      <tp:added version="0.23.4"/>
 
       <arg name="Added" type="a{uu}" tp:type="Handle_Owner_Map">
         <tp:docstring>
@@ -561,7 +561,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:added version="0.17.6">This signal should not be relied on
         unless Channel_Group_Flag_Properties is present.</tp:added>
-      <tp:deprecated version="0.UNRELEASED">Clients should listen to
+      <tp:deprecated version="0.23.4">Clients should listen to
         <tp:member-ref>SelfContactChanged</tp:member-ref> instead to get the new
         identifier as well.
         </tp:deprecated>
@@ -582,7 +582,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         if the <tp:member-ref>MemberIdentifiers</tp:member-ref> property exists.
         </p>
       </tp:docstring>
-      <tp:added version="0.UNRELEASED"/>
+      <tp:added version="0.23.4"/>
 
       <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
         <tp:docstring>
@@ -628,7 +628,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>RemotePendingMembers</tp:member-ref> and
         <tp:member-ref>HandleOwners</tp:member-ref>.
       </tp:docstring>
-      <tp:added version="0.UNRELEASED"/>
+      <tp:added version="0.23.4"/>
     </property>
 
     <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
