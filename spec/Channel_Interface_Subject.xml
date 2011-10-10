@@ -89,6 +89,16 @@
       </tp:docstring>
     </property>
 
+    <property name="ActorHandle" tp:name-for-bindings="Actor_Handle"
+              type="u" tp:type="Contact_Handle" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The handle corresponding to <tp:member-ref>Actor</tp:member-ref>.</p>
+
+        <p>Change notification for this property is provided by the
+          standard D-Bus <code>PropertiesChanged</code> signal.</p>
+      </tp:docstring>
+    </property>
+
     <property name="Timestamp" tp:name-for-bindings="Timestamp"
               type="x" tp:type="Unix_Timestamp64" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
