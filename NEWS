@@ -2,6 +2,42 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.24.0 (2011-10-10)
+==================================
+
+The “underestimating the future” release.  This is the start of a new
+stable branch of the Telepathy specification.
+
+Changes since 0.23.4:
+
+• Channel.Interface.Room has been undrafted, with a few changes:
+  · The RoomID property has become RoomName;
+  · The Subject property has been split off onto a separate interface,
+    Channel.Interface.Subject (which is also undrafted).
+
+• Channel.Interface.RoomConfig has been defined to replace the remaining
+  klunky Telepathy.Properties on Channel.Type.Text.
+
+• As a result, the Telepathy.Properties interface has been deprecated,
+  since all interfaces which historically used it now have better
+  replacements.
+
+Other notable changes since the 0.22 stable branch:
+
+• Most interfaces now provide both handles and identifiers for contacts.
+  This makes life easier for telepathy-glib and telepathy-qt4 (and, by
+  extension, application authors).
+
+• A new revision of the Call family of interfaces has landed. It is
+  still marked experimental.
+
+• ChannelDispatcher has a pair of new methods, DelegateChannels() and
+  PresentChannel(), to aid user interfaces where channels can be shown
+  in a number of places (like Gnome 3).
+
+• FileTransfer now has a URI property to indicate the on-disk location
+  of the file being sent or received.
+
 telepathy-spec 0.23.4 (2011-09-29)
 ==================================
 
