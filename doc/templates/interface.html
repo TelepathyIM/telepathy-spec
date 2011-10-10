@@ -418,6 +418,7 @@
      $property.get_changed()
      $property.get_deprecated()
 
+     #if not $property.immutable:
      #if $property.emits_changed == $property.EMITS_CHANGED_UPDATES
      <div class="annotation emits-changed emits-changed-updates">
        When this property changes, the
@@ -435,6 +436,7 @@
        The <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
        signal is <strong>not</strong> emitted when this property changes.
      </div>
+     #end if
      #end if
 
       #if $property.is_connection_parameter:
