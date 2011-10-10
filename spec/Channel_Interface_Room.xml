@@ -23,7 +23,7 @@
 
   <interface name="org.freedesktop.Telepathy.Channel.Interface.Room2">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:added version="0.23.UNRELEASED">(version 2)</tp:added>
+    <tp:added version="0.24.0">(version 2)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Different IM protocols use a variety of ways to name chat rooms. The

@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Channel.Interface.MediaSignalling">
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
-    <tp:changed version="UNRELEASED">The old-style Telepathy properties,
+    <tp:changed version="0.24.0">The old-style Telepathy properties,
       deprecated since March 2009, have been removed.</tp:changed>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

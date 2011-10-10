@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     interface="org.freedesktop.Telepathy.Channel.Interface.Messages"/>
     <tp:changed version="0.21.5">The Messages interface is now
       mandatory</tp:changed>
-    <tp:changed version="UNRELEASED">This interface used to have a bunch of
+    <tp:changed version="0.24.0">This interface used to have a bunch of
       clunky <tp:dbus-ref
       namespace='org.freedesktop'>Telepathy.Properties</tp:dbus-ref>. They have
       been removed in favour of D-Bus properties on the <tp:dbus-ref
