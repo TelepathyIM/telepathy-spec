@@ -68,9 +68,6 @@
 
         <p>This property may change during the lifetime of the channel and
           MUST not be included in a channel request.</p>
-
-        <p>Change notification for this property is provided by the
-          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -83,9 +80,6 @@
         <tp:rationale>This property replaces the subject-contact
           Telepathy property of Text channels, as Telepathy properties
           are soon to be deprecated completely.</tp:rationale>
-
-        <p>Change notification for this property is provided by the
-          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -93,9 +87,6 @@
               type="u" tp:type="Contact_Handle" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The handle corresponding to <tp:member-ref>Actor</tp:member-ref>.</p>
-
-        <p>Change notification for this property is provided by the
-          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -108,9 +99,6 @@
         <tp:rationale>This property replaces the subject-timestamp
           Telepathy property of Text channels, as Telepathy properties
           are soon to be deprecated completely.</tp:rationale>
-
-        <p>Change notification for this property is provided by the
-          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
@@ -131,9 +119,6 @@
         <tp:rationale>In XMPP it is impossible to know whether an
           occupant can set the subject as XMPP server implementations
           are wildly inconsistent.</tp:rationale>
-
-        <p>Change notification for this property is provided by the
-          standard D-Bus <code>PropertiesChanged</code> signal.</p>
       </tp:docstring>
     </property>
 
