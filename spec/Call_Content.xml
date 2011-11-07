@@ -23,16 +23,17 @@
   <interface name="org.freedesktop.Telepathy.Call1.Content"
       tp:causes-havoc="experimental">
     <tp:added version="0.19.0">(draft 1)</tp:added>
-    <tp:requires
-      interface="org.freedesktop.Telepathy.Call1.Interface.Mute"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      This object represents one Content inside a <tp:dbus-ref
+      <p>This object represents one Content inside a <tp:dbus-ref
       namespace="ofdT.Channel.Type">Call1</tp:dbus-ref>. For
       example, in an audio/video call there would be one audio content
       and one video content. Each content has one or more <tp:dbus-ref
       namespace="ofdT.Call1">Stream</tp:dbus-ref> objects which
-      represent the actual transport to one or more remote contacts.
+      represent the actual transport to one or more remote contacts.</p>
+      <p>For protocols that support muting all streams of a given content
+      separately, this object MAY also implement the <tp:dbus-ref
+      namespace="ofdT.Call1.Interface">Mute</tp:dbus-ref> interface</p>
     </tp:docstring>
 
     <method name="Remove" tp:name-for-bindings="Remove">
