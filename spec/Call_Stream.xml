@@ -25,11 +25,14 @@
     <tp:added version="0.19.0">(draft 1)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      One stream inside a <tp:dbus-ref
+      <p>One stream inside a <tp:dbus-ref
       namespace="ofdT.Call1">Content</tp:dbus-ref>.  A stream is
       a single flow of packets to and from a single remote endpoint.
       If your call connects to multiple people, you could have
-      multiple streams.
+      multiple streams.</p>
+      <p>For protocols that support muting streams separately, this object MAY
+      also implement the <tp:dbus-ref
+      namespace="ofdT.Call1.Interface">Mute</tp:dbus-ref> interface</p>
     </tp:docstring>
 
     <method name="SetSending" tp:name-for-bindings="Set_Sending">
