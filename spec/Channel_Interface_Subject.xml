@@ -32,7 +32,7 @@
         the <tp:dbus-ref
         namespace="ofdT.Channel.Interface">Room2</tp:dbus-ref>
         interface, but some protocols support subjects in 1-to-1 chats
-        (such as Skype). Note that this interface is not restricted to
+        (such as XMPP). Note that this interface is not restricted to
         Text channels, and can also be used on Call channels.</p>
     </tp:docstring>
 
