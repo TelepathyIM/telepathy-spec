@@ -1057,6 +1057,13 @@ class Mapping(StructLike):
         # rewrite the D-Bus type
         self.dbus_type = 'a{%s}' % ''.join(map(lambda m: m.dbus_type, self.members))
 
+        # not sure why tp:mapping sometimes has a type attribute, but
+        # make sure it's right.
+        t = dom.getAttribute('type')
+        if t and self.dbus_type != t:
+            raise TypeMismatch('%r reports type is %s but actual type is %s'
+                               % (self, t, self.dbus_type))
+
 class Struct(StructLike):
 
     devhelp_name = "struct"
