@@ -73,11 +73,20 @@
         simple string → string hash table one should have exactly one
         member in the value string list.
 
-        <tp:rationale>A string list is used instead of a single string
-          because that is what <a
-          href="http://xmpp.org/extensions/xep-0004.html">data
-          forms</a> use by default, and so one can transfer RDF
-          triples.</tp:rationale>
+        <tp:rationale>
+          This property is an a{sas} primarily because this maps
+          easily to <a
+          href="http://xmpp.org/extensions/xep-0004.html">XEP-0004
+          Data Forms</a>, and allows more structured metadata than
+          a{ss} would. (For instance, a list of RDF triples could be
+          expressed as one long array of strings, or as three-element
+          values for a series of dummy key names, rather than as one
+          big string blob.)
+
+          While it might be convenient for applications to allow keys
+          of arbitrary types, the added convenience would be
+          outweighed by having to define the XMPP representation
+        </tp:rationale>
       </tp:docstring>
 
       <tp:member name="Key" type="s"/>
