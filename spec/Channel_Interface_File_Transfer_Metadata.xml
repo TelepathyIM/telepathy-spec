@@ -66,14 +66,20 @@
       </tp:docstring>
     </property>
 
-    <tp:mapping name="Metadata" type="a{ua{sv}}">
+    <tp:mapping name="Metadata" type="a{sas}">
       <tp:docstring>
         A mapping from string key to a list of strings, used in the
         <tp:member-ref>Metadata</tp:member-ref> property. To emulate a
         simple string → string hash table one should have exactly one
-        member in the value string list. A string list is used instead
-        of a single string so one can transfer RDF triples.
+        member in the value string list.
+
+        <tp:rationale>A string list is used instead of a single string
+          because that is what <a
+          href="http://xmpp.org/extensions/xep-0004.html">data
+          forms</a> use by default, and so one can transfer RDF
+          triples.</tp:rationale>
       </tp:docstring>
+
       <tp:member name="Key" type="s"/>
       <tp:member name="Values" type="as"/>
     </tp:mapping>
