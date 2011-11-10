@@ -2,6 +2,27 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.25.0 (2011-11-10)
+==================================
+
+API additions and clarifications:
+
+• Channel.Interface.FileTransfer.Metdata has been added.
+
+• Channel.Interface.Picture has been added.
+
+• "windows-live" has been added as a known account service name.
+
+• Channel.Interface.Subject: clarify default values for properties in
+  the unknown case.
+
+• RoomConfig: add a PasswordHint property which does what you think it
+  does.
+
+• Room: add Creator, CreatorHandle and CreationTimestamp properties.
+
+• Channel.Type.ContactList has been deprecated.
+
 telepathy-spec 0.24.0 (2011-10-10)
 ==================================
 
