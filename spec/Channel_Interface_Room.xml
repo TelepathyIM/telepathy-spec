@@ -335,7 +335,7 @@
 
     <property name="Creator" tp:name-for-bindings="Creator"
               type="s" access="read" tp:immutable="yes">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.25.0"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The normalized contact ID representing who created the room; or
         the empty string if unknown.
@@ -345,7 +345,7 @@
     <property name="CreatorHandle" tp:name-for-bindings="Creator_Handle"
               type="u" tp:type="Contact_Handle" access="read"
               tp:immutable="yes">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.25.0"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         The handle corresponding to <tp:member-ref>Creator</tp:member-ref>;
         or 0 if <tp:member-ref>Creator</tp:member-ref> is unknown.
@@ -356,7 +356,7 @@
               tp:name-for-bindings="Creation_Timestamp"
               type="x" tp:type="Unix_Timestamp64" access="read"
               tp:immutable="yes">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.25.0"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         A unix timestamp indicating when the room was created; or
         <code>INT_MAX64</code> if unknown.

@@ -23,7 +23,7 @@
   <interface
     name="org.freedesktop.Telepathy.Channel.Interface.FileTransfer.Metadata">
     <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.FileTransfer"/>
-    <tp:added version="0.24.UNRELEASED"/>
+    <tp:added version="0.25.0"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface exists to provide a mechanism to include

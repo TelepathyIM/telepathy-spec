@@ -134,7 +134,7 @@
 
     <property name="PasswordHint" tp:name-for-bindings="Password_Hint"
               type="s" access="read">
-      <tp:added version="UNRELEASED"/>
+      <tp:added version="0.25.0"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <tp:member-ref>PasswordProtected</tp:member-ref> is
           <code>True</code>, an optional hint for the password.</p>
