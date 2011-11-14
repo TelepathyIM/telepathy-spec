@@ -101,6 +101,9 @@ AddressableURISchemes=tel;sip;
           <dd>The X-MSN vCard field. Used for MSN contacts.</dd>
           <dt><code>x-yahoo</code></dt>
           <dd>The X-YAHOO vCard field. Used for Yahoo! IDs.</dd>
+          <dt><code>x-facebook-id</code></dt>
+          <dd>Used for Facebook IDs in XMPP. If the user JID is
+          "-12345@chat.facebook.com" then the x-facebook-id is "12345"</dd>
         </dl>
 
       </tp:docstring>
