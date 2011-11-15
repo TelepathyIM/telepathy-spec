@@ -32,11 +32,14 @@
           handle stream volumes directly (typically when using Raw
           <tp:type>Call_Content_Packetization_Type</tp:type>), this interface may be necessary.</p>
 
-      <p>If this interface is present, the handler should call ReportInputVolume
-          and ReportOutputVolume whenever the the input or output volume is
-          changed. Regardless of whether this is in response to the local user
-          changing volume controls or after updating the stream volumes in
-          response to changes in InputVolume and OutputVolume signalled by the
+      <p>If this interface is present, the handler should call
+          <tp:member-ref>ReportInputVolume</tp:member-ref>
+          and <tp:member-ref>ReportOutputVolume</tp:member-ref> whenever the
+          the input or output volume is changed. Regardless of whether this is
+          in response to the local user changing volume controls or after
+          updating the stream volumes in response to changes in
+          <tp:member-ref>RequestedInputVolume</tp:member-ref> and
+          <tp:member-ref>RequestedOutputVolume</tp:member-ref> signalled by the
           connection manager.</p>
 
       <p>The maximum volume as used in this Interface represent the unamplified
@@ -47,7 +50,7 @@
     <property name="RequestedInputVolume" tp:type="Audio_Control_Volume" type="i" access="read"
       tp:name-for-bindings="Requested_Input_Volume">
       <tp:docstring>
-        The input volume curently requested by the Connection Manager.
+        The input volume as requested by the Connection Manager.
         Initially and on any changes the client should change its input volume
         to match the requested volume.
       </tp:docstring>
@@ -56,11 +59,11 @@
     <method name="ReportInputVolume" tp:name-for-bindings="Report_Input_Volume">
       <arg direction="in" name="Volume" tp:type="Audio_Control_Volume" type="i">
         <tp:docstring>
-          The input volume level currently in use.
+          Report the input volume level as set by the client.
         </tp:docstring>
       </arg>
       <tp:docstring>
-        <p>Inform the CM that the Content input volume has been
+        <p>Report to the CM that the Content input volume has been
           changed by the client.</p>
 
         <p>It is the clients responsibility to change the input volume used for
@@ -72,7 +75,7 @@
     <property name="RequestedOutputVolume" tp:type="Audio_Control_Volume" type="i" access="read"
       tp:name-for-bindings="Requested_Output_Volume">
       <tp:docstring>
-        The input volume curently requested by the Connection Manager.
+        The input volume as requested by the Connection Manager.
         Initially and on any changes the client should change its input volume
         to match the requested volume.
       </tp:docstring>
@@ -81,7 +84,7 @@
     <method name="ReportOutputVolume" tp:name-for-bindings="Report_Output_Volume">
       <arg direction="in" name="Volume" tp:type="Audio_Control_Volume" type="i">
         <tp:docstring>
-          Report the output volume level as currently used by the client.
+          Report the output volume level as set by the client.
         </tp:docstring>
       </arg>
       <tp:docstring>
