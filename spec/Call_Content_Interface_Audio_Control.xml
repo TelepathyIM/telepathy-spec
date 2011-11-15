@@ -30,7 +30,8 @@
           and control, the input and output volumes of an audio stream.
           While generally not needed, if the connection manager needs to
           handle stream volumes directly (typically when using Raw
-          <tp:type>Call_Content_Packetization_Type</tp:type>), this interface may be necessary.</p>
+          <tp:type>Call_Content_Packetization_Type</tp:type>), this interface
+          may be necessary.</p>
 
       <p>If this interface is present, the handler should call
           <tp:member-ref>ReportInputVolume</tp:member-ref>
@@ -47,8 +48,8 @@
          boost the signal to a higher level when this Interface is in use</p>
     </tp:docstring>
 
-    <property name="RequestedInputVolume" tp:type="Audio_Control_Volume" type="i" access="read"
-      tp:name-for-bindings="Requested_Input_Volume">
+    <property name="RequestedInputVolume" tp:type="Audio_Control_Volume"
+      type="i" access="read" tp:name-for-bindings="Requested_Input_Volume">
       <tp:docstring>
         The input volume as requested by the Connection Manager.
         Initially and on any changes the client should change its input volume
@@ -72,8 +73,8 @@
       </tp:docstring>
     </method>
 
-    <property name="RequestedOutputVolume" tp:type="Audio_Control_Volume" type="i" access="read"
-      tp:name-for-bindings="Requested_Output_Volume">
+    <property name="RequestedOutputVolume" tp:type="Audio_Control_Volume"
+      type="i" access="read" tp:name-for-bindings="Requested_Output_Volume">
       <tp:docstring>
         The input volume as requested by the Connection Manager.
         Initially and on any changes the client should change its input volume
@@ -81,7 +82,8 @@
       </tp:docstring>
     </property>
 
-    <method name="ReportOutputVolume" tp:name-for-bindings="Report_Output_Volume">
+    <method name="ReportOutputVolume"
+        tp:name-for-bindings="Report_Output_Volume">
       <arg direction="in" name="Volume" tp:type="Audio_Control_Volume" type="i">
         <tp:docstring>
           Report the output volume level as set by the client.
@@ -92,8 +94,8 @@
           changed by the client.</p>
 
         <p>It is the client's responsibility to change the output volume used
-           for the content. However, the client MUST call this whenever it changes
-           output volume for the content.</p>
+           for the content. However, the client MUST call this whenever it
+           changes output volume for the content.</p>
       </tp:docstring>
     </method>
 
@@ -102,7 +104,8 @@
       <p>A volume value either reported to or requested by the Connection
          Manager. This value should either be -1 for an unknown value or in the
          range of 0-255, with 0 being the minimal volume and 255 being the
-         highest unamplified volume the input or output is capable of (known as 0db)
+         highest unamplified volume the input or output is capable of (known
+         as 0db)
       </p>
     </tp:docstring>
   </tp:simple-type>
