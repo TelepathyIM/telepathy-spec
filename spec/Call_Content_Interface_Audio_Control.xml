@@ -29,22 +29,20 @@
       <p>This interface allows the connection manager to be kept informed of,
           and control, the input and output volumes of an audio stream.
           While generally not needed, if the connection manager needs to
-          handle stream volumes directly (typically when using Raw
-          <tp:type>Call_Content_Packetization_Type</tp:type>), this interface
-          may be necessary.</p>
+          handle stream volumes directly (typically when using
+          <tp:value-ref>Call_Content_Packetization_Type_Raw</tp:value-ref>),
+          this interface may be necessary.</p>
 
       <p>If this interface is present, the handler should call
           <tp:member-ref>ReportInputVolume</tp:member-ref>
           and <tp:member-ref>ReportOutputVolume</tp:member-ref> whenever the
-          the input or output volume is changed. Regardless of whether this is
-          in response to the local user changing volume controls or after
-          updating the stream volumes in response to changes in
+          input and output volume change, both when the user manually modifies
+          the volume and when the volumes are adjusted in response to
           <tp:member-ref>RequestedInputVolume</tp:member-ref> and
-          <tp:member-ref>RequestedOutputVolume</tp:member-ref> signalled by the
-          connection manager.</p>
+          <tp:member-ref>RequestedOutputVolume</tp:member-ref> changing.</p>
 
-      <p>The maximum volume as used in this Interface represent the unamplified
-         hardware volume (0db). No software amplification should be used to
+      <p>The maximum volume as used in this interface represent the unamplified
+         hardware volume (0 dB). No software amplification should be used to
          boost the signal to a higher level when this Interface is in use</p>
     </tp:docstring>
 
@@ -67,7 +65,7 @@
         <p>Report to the CM that the Content input volume has been
           changed by the client.</p>
 
-        <p>It is the clients responsibility to change the input volume used for
+        <p>It is the client's responsibility to change the input volume used for
            the content. However, the client MUST call this whenever it changes
            input volume for the content.</p>
       </tp:docstring>
@@ -105,7 +103,7 @@
          Manager. This value should either be -1 for an unknown value or in the
          range of 0-255, with 0 being the minimal volume and 255 being the
          highest unamplified volume the input or output is capable of (known
-         as 0db)
+         as 0 dB)
       </p>
     </tp:docstring>
   </tp:simple-type>
