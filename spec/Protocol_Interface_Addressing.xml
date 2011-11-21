@@ -22,7 +22,7 @@
 
   <interface
      name="org.freedesktop.Telepathy.Protocol.Interface.Addressing">
-    <tp:added version="0.21.UNRELEASED">(as stable API)</tp:added>
+    <tp:added version="0.25.UNRELEASED">(as stable API)</tp:added>
     <tp:changed version="0.25.UNRELEASED">(renamed NormalizeURI)</tp:changed>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for protocols that support multiple forms of
