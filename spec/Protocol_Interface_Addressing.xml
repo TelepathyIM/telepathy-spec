@@ -61,13 +61,6 @@ AddressableURISchemes=tel;sip;
               schemes that make sense to resolve as a contact.</p>
           </tp:rationale>
 
-        <p>This property should only be used when the connection is
-          offline. When it is connected the addressable fields should be
-          retrieved from the
-          <tp:dbus-ref
-             namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.RequestableChannelClasses</tp:dbus-ref>'s
-             TargetVCardField fixed-property instead.</p>
-
         <p>Connection managers with a <code>.manager</code> file
           MUST cache this property in the protocol's section of the
           <code>.manager</code> file if it is non-empty, using the key
