@@ -2,12 +2,31 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.25.1 (2011-11-23)
+==================================
+
+The “farewell whiskey chess” release.
+
+API additions and clarifications:
+
+• Call1.Content.Interface.AudioControl is a wonderful new interface to
+  allow the connection manager to recommend volume changes during calls.
+
+• The various values of Socket_Access_Control have enjoyed some
+  clarification of their meanings on different tube types.
+
+• Protocol.Interface.Addressing has been undrafted, with NormalizeURI
+  renamed to NormalizeContactURI.
+
+• Connection.Interface.Addressing is still a draft, but its methods have
+  been changed to split the return values into two mappings.
+
 telepathy-spec 0.25.0 (2011-11-10)
 ==================================
 
 API additions and clarifications:
 
-• Channel.Interface.FileTransfer.Metdata has been added.
+• Channel.Interface.FileTransfer.Metadata has been added.
 
 • Channel.Interface.Picture has been added.
 
