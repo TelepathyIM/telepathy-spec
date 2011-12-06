@@ -215,7 +215,7 @@
     <method name="ReportReceivingFailure"
         tp:name-for-bindings="Report_Receiving_Failure">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        Can be called at any point to indicate a failure in the outgoing
+        Can be called at any point to indicate a failure in the incoming
         portion of the stream.
       </tp:docstring>
       <arg name="Reason" type="u" tp:type="Call_State_Change_Reason"
