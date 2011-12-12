@@ -69,17 +69,7 @@
           namespace="im.telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
         if supported, or <tp:dbus-ref
           namespace="im.telepathy">Channel.Close</tp:dbus-ref>
-        otherwise. As a special case, the channel dispatcher SHOULD NOT close
-        <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type">ContactList</tp:dbus-ref>
-        channels, and if Close fails, the channel dispatcher SHOULD ignore
-        that channel.</p>
-
-      <tp:rationale>
-        <p>ContactList channels are strange. We hope to replace them with
-          something better, such as an interface on the Connection, in a
-          future version of this specification.</p>
-      </tp:rationale>
+        otherwise.</p>
 
       <p>When listing channel handlers, priority SHOULD be given to
         channel handlers that are already handling channels from the same

@@ -451,14 +451,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </property>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-    <p>All communication in the Telepathy framework is carried out via channel
-    objects which are created and managed by connections. This interface must
-    be implemented by all channel objects, along with one single channel type,
-    such as <tp:dbus-ref
-    namespace="im.telepathy">Channel.Type.ContactList</tp:dbus-ref>
-    which represents a list of people (such as a buddy list) or <tp:dbus-ref
-    namespace="im.telepathy">Channel.Type.Text</tp:dbus-ref> which
-    represents a channel over which textual messages are sent and received.</p>
+    <p>
+      All communication in the Telepathy framework is carried out via
+      channel objects which are created and managed by
+      connections. This interface must be implemented by all channel
+      objects, along with one single channel type, such as
+      <tp:dbus-ref
+      namespace="im.telepathy">Channel.Type.Text</tp:dbus-ref> which
+      represents a channel over which textual messages are sent and
+      received.</p>
 
     <p>Each Channel's object path MUST start with the object path of
       its associated <tp:dbus-ref

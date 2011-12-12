@@ -35,9 +35,7 @@
           any server or roster, it's possible to list "nearby" contacts.</p>
 
         <p>In Telepathy 0.20 and older, we represented contact lists as a
-          collection of <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type"
-            >ContactList</tp:dbus-ref> channels. This is remarkably difficult to
+          collection of ContactList channels. This is remarkably difficult to
           work with in practice - every client that cares about contact lists
           has to take the union of some hard-to-define set of these
           channels - and conflicts with the idea that channels that cannot

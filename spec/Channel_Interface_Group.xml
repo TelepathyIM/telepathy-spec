@@ -600,14 +600,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       access="read" tp:name-for-bindings="Self_Handle">
       <tp:docstring>
         The handle for the user on this channel (which can also be a
-        local or remote pending member), or 0 if the user is not a member at
-        all (which is likely to be the case, for instance, on <tp:dbus-ref
-        namespace="im.telepathy.Channel.Type">ContactList</tp:dbus-ref>
-        channels). Note that this is different from the result of
-        <tp:dbus-ref
+        local or remote pending member), or 0 if the user is not a
+        member at all (which is likely to be the case, for instance,
+        on the old ContactList channels). Note that this is different
+        from the result of <tp:dbus-ref
         namespace="im.telepathy">Connection.GetSelfHandle</tp:dbus-ref>
-        on some protocols, so the value of this handle should
-        always be used with the methods of this interface.
+        on some protocols, so the value of this handle should always
+        be used with the methods of this interface.
       </tp:docstring>
       <tp:added version="0.17.6">For backwards compatibility,
         clients should fall back to calling GetSelfHandle if
