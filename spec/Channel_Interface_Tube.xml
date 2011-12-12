@@ -229,20 +229,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           connections will be rejected.
         </tp:docstring>
       </tp:enumvalue>
-      <tp:enumvalue suffix="Netmask" value="2">
-        <tp:deprecated version="0.17.25">This has never been implemented.
-        If you want to share a service to your whole LAN, Telepathy is
-        not the way to do it.</tp:deprecated>
-        <tp:docstring>
-          May only be used on IP sockets. The associated variant must contain
-          a struct Socket_Netmask_IPv4 (or Socket_Netmask_IPv6) with
-          signature (sy), containing the string form of an
-          IP address of the appropriate version, and a prefix length "n".
-          The socket can only be accessed if the first n bits of the
-          connecting address match the first n bits of the given address.
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Credentials" value="3">
+      <tp:enumvalue suffix="Credentials" value="2">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The high-level meaning of this access control type is that
             only the same user (e.g. same numeric Unix uid) is allowed to
