@@ -337,12 +337,7 @@
       <tp:enumvalue suffix="Unset" value="0">
         <tp:docstring>
           An invalid presence type used as a null value. This value MUST NOT
-          appear in the <tp:member-ref>Statuses</tp:member-ref> property,
-          or in the result of <tp:dbus-ref
-            namespace="im.telepathy.Connection.Interface.Presence">GetStatuses</tp:dbus-ref>
-          on the deprecated <tp:dbus-ref
-            namespace="im.telepathy.Connection.Interface">Presence</tp:dbus-ref>
-          interface.
+          appear in the <tp:member-ref>Statuses</tp:member-ref> property.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Offline" value="1">
