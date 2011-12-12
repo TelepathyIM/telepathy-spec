@@ -244,6 +244,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
+    <tp:mapping name="Supported_Socket_Map">
+      <tp:docstring>The supported socket address and access-control types
+        for tubes. See GetAvailableStreamTubeTypes.</tp:docstring>
+      <tp:member name="Address_Type" type="u" tp:type="Socket_Address_Type"/>
+      <tp:member name="Access_Control" type="au"
+        tp:type="Socket_Access_Control[]"/>
+    </tp:mapping>
+
     <property name="SupportedSocketTypes" type="a{uau}"
               tp:type="Supported_Socket_Map" access="read"
               tp:name-for-bindings="Supported_Socket_Types">

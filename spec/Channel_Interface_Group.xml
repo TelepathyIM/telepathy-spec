@@ -864,8 +864,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             unconnected parts of the group have rejoined. If this channel
             carries messages (e.g. <tp:dbus-ref
               namespace="im.telepathy.Channel.Type">Text</tp:dbus-ref>
-            or <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type">Tubes</tp:dbus-ref>
             channels) applications must
             assume that the contacts being added are likely to have missed some
             messages as a result of the separation, and that the contacts
