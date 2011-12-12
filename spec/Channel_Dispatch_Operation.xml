@@ -35,15 +35,12 @@
         which are automatically created for some reason, but cannot result
         from outgoing requests for channels.</p>
 
-      <p>More specifically, whenever the
-        <tp:dbus-ref namespace="im.telepathy">Connection.Interface.Requests.NewChannels</tp:dbus-ref>
-        signal contains channels whose
-        <tp:dbus-ref namespace="im.telepathy.Channel">Requested</tp:dbus-ref>
-        property is false, or whenever the
-        <tp:dbus-ref namespace="im.telepathy">Connection.NewChannel</tp:dbus-ref>
-        signal contains a channel with suppress_handler false,
-        one or more ChannelDispatchOperation objects are created for those
-        channels.</p>
+      <p>More specifically, whenever the <tp:dbus-ref
+        namespace="im.telepathy">Connection.Interface.Requests.NewChannels</tp:dbus-ref>
+        signal contains channels whose <tp:dbus-ref
+        namespace="im.telepathy.Channel">Requested</tp:dbus-ref>
+        property is false, one or more ChannelDispatchOperation
+        objects are created for those channels.</p>
 
       <p>(If some channels in a NewChannels signal are in different bundles,
         this is an error. The channel dispatcher SHOULD recover by treating

@@ -419,8 +419,7 @@
           <p>Only allow contacts that are in a certain group.</p>
 
           <p>The associated variant in <tp:type>Access_Control</tp:type> is a
-            <tp:type>Group_Handle</tp:type> representing the permitted
-            group.</p>
+            group handle representing the permitted group.</p>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Open" value="3">
@@ -493,7 +492,7 @@
       <tp:enumvalue suffix="Group" value="2">
         <tp:docstring>
           The associated variant is a handle of type Group (signature 'u',
-          Group_Handle) representing a group of contacts who can see the
+          group handle) representing a group of contacts who can see the
           extended presence information.
         </tp:docstring>
       </tp:enumvalue>

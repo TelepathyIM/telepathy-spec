@@ -603,10 +603,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         local or remote pending member), or 0 if the user is not a
         member at all (which is likely to be the case, for instance,
         on the old ContactList channels). Note that this is different
-        from the result of <tp:dbus-ref
-        namespace="im.telepathy">Connection.GetSelfHandle</tp:dbus-ref>
-        on some protocols, so the value of this handle should always
-        be used with the methods of this interface.
+        from the value of the <tp:dbus-ref
+        namespace="im.telepathy">Connection.SelfHandle</tp:dbus-ref>
+        property on some protocols, so the value of this handle should
+        always be used with the methods of this interface.
       </tp:docstring>
       <tp:added version="0.17.6">For backwards compatibility,
         clients should fall back to calling GetSelfHandle if

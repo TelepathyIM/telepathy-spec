@@ -30,12 +30,6 @@
         represent bundles of channels that should be dispatched together, and
         does not assume any particular properties by which channels are
         uniquely identifiable.</p>
-
-      <p>If this interface is implemented on a connection, then
-        <tp:member-ref>NewChannels</tp:member-ref> MUST be emitted for
-        all new channels, even those created with <tp:dbus-ref
-          namespace="im.telepathy.Connection"
-        >RequestChannel</tp:dbus-ref>.</p>
     </tp:docstring>
 
     <tp:struct name="Channel_Details" array-name="Channel_Details_List">
@@ -108,16 +102,6 @@
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that an entirely new channel is created.</p>
-
-        <tp:rationale>
-          <p>There is deliberately no flag corresponding to the
-            suppress_handler argument to
-            <tp:dbus-ref namespace="im.telepathy">Connection.RequestChannel</tp:dbus-ref>,
-            because passing a FALSE value for that argument is deprecated.
-            Requests made using this interface always behave as though
-            suppress_handler was TRUE.</p>
-        </tp:rationale>
-
       </tp:docstring>
 
       <arg direction="in" name="Request" type="a{sv}"
@@ -242,8 +226,6 @@
               <li>a channel matching the request has already been requested
                 (by a previous call to CreateChannel,
                 <tp:member-ref>EnsureChannel</tp:member-ref>,
-                <tp:dbus-ref
-                  namespace="im.telepathy">Connection.RequestChannel</tp:dbus-ref>
                 or similar) and the protocol requires that only one such
                 channel can exist at a time</li>
             </ul>
@@ -391,7 +373,7 @@
     <signal name="NewChannels" tp:name-for-bindings="New_Channels">
       <tp:added version="0.17.11">(as stable API)</tp:added>
       <tp:changed version="0.17.14">Added a guarantee of ordering
-        relative to NewChannel</tp:changed>
+        relative to the old NewChannel signal (now removed)</tp:changed>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>New channels have been created. The connection manager SHOULD emit
@@ -409,23 +391,6 @@
             MUC (chatroom), so a <tp:dbus-ref
               namespace="im.telepathy.Channel.Type">Text</tp:dbus-ref>
             channel can be created as a side-effect.</p>
-        </tp:rationale>
-
-        <p>Every time NewChannels is emitted, it MUST be followed by
-          a <tp:dbus-ref
-            namespace="im.telepathy">Connection.NewChannel</tp:dbus-ref>
-          signal for each channel.</p>
-
-        <tp:rationale>
-          <p>The double signal emission is for the benefit of older Telepathy
-            clients, which won't be listening for NewChannels.</p>
-
-          <p>The more informative NewChannels signal comes first so that
-            clients that did not examine the connection to find
-            out whether Requests is supported will see the more informative
-            signal for each channel first, and then ignore the less
-            informative signal because it announces a new channel of which
-            they are already aware.</p>
         </tp:rationale>
       </tp:docstring>
 

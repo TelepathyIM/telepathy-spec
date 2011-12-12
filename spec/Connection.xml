@@ -25,28 +25,6 @@ USA.</p>
     <tp:requires interface="im.telepathy.Connection.Interface.Requests"/>
     <tp:requires interface="im.telepathy.Connection.Interface.Contacts"/>
 
-    <tp:struct name="Channel_Info" array-name="Channel_Info_List">
-      <tp:deprecated version="0.17.23"/>
-      <tp:docstring>A struct representing a channel, as returned by
-        ListChannels on the Connection interface.</tp:docstring>
-      <tp:member type="o" name="Channel">
-        <tp:docstring>The object path of the channel, which is on the
-          same bus name as the connection</tp:docstring>
-      </tp:member>
-      <tp:member type="s" tp:type="DBus_Interface" name="Channel_Type">
-        <tp:docstring>The channel's type</tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="Handle_Type" name="Handle_Type">
-        <tp:docstring>The type of the handle that the channel communicates
-          with, or Handle_Type_None if there is no associated
-          handle</tp:docstring>
-      </tp:member>
-      <tp:member type="u" tp:type="Handle" name="Handle">
-        <tp:docstring>The handle that the channel communicates with,
-          or 0 if there is no associated handle</tp:docstring>
-      </tp:member>
-    </tp:struct>
-
     <method name="Connect" tp:name-for-bindings="Connect">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that the connection be established. This will be done
@@ -163,32 +141,8 @@ USA.</p>
         If the connection is not yet in the CONNECTED state, the value of
         this property MAY be zero.
       </tp:docstring>
-      <tp:added version="0.17.10">For compatibility with older
-        versions, clients should fall back to calling the
-        <tp:member-ref>GetSelfHandle</tp:member-ref>
-        method.</tp:added>
+      <tp:added version="0.17.10"/>
     </property>
-
-    <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
-      <arg direction="out" type="u" tp:type="Contact_Handle"
-        name="Self_Handle">
-        <tp:docstring>
-          The value of the <tp:member-ref>SelfHandle</tp:member-ref> property
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring>
-        Returns the value of the SelfHandle property. Change notification
-        is via the SelfHandleChanged signal.
-      </tp:docstring>
-      <tp:deprecated version="0.17.10">Use GetAll to get the
-        SelfHandle property (and all other Connection properties)
-        instead.</tp:deprecated>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-      </tp:possible-errors>
-    </method>
 
     <property name="Status" tp:name-for-bindings="Status"
       access="read" type="u" tp:type="Connection_Status">
@@ -202,9 +156,7 @@ USA.</p>
           SHOULD be removed from the bus entirely, meaning that retrieval of
           this property SHOULD fail.</p>
       </tp:docstring>
-      <tp:added version="0.19.2">Clients SHOULD fall back
-        to calling <tp:member-ref>GetStatus</tp:member-ref> if this
-        property is not supported.</tp:added>
+      <tp:added version="0.19.2"/>
     </property>
 
     <method name="GetStatus" tp:name-for-bindings="Get_Status">
@@ -317,87 +269,6 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="ListChannels" tp:name-for-bindings="List_Channels">
-      <tp:deprecated version="0.17.23">Use the
-        <tp:dbus-ref
-          namespace="im.telepathy.Connection.Interface">Requests.Channels</tp:dbus-ref>
-        property instead.
-      </tp:deprecated>
-
-      <arg direction="out" type="a(osuu)" tp:type="Channel_Info[]"
-        name="Channel_Info">
-        <tp:docstring>
-          An array of structs representing channels.
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring>
-        List all the channels which currently exist on this connection.
-      </tp:docstring>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-      </tp:possible-errors>
-    </method>
-
-    <signal name="NewChannel" tp:name-for-bindings="New_Channel">
-      <tp:deprecated version="0.17.23">Connection managers MUST still
-        emit this signal, but clients SHOULD listen for the <tp:dbus-ref
-          namespace="im.telepathy.Connection.Interface">Requests.NewChannels</tp:dbus-ref>
-        signal instead.
-      </tp:deprecated>
-
-      <arg name="Object_Path" type="o">
-        <tp:docstring>
-          A D-Bus object path for the channel object on this service
-        </tp:docstring>
-      </arg>
-
-      <arg name="Channel_Type" type="s" tp:type="DBus_Interface">
-        <tp:docstring>
-          A D-Bus interface name representing the channel type
-        </tp:docstring>
-      </arg>
-
-      <arg name="Handle_Type" type="u" tp:type="Handle_Type">
-        <tp:docstring>
-          An integer representing the type of handle this channel
-          communicates with, or Handle_Type_None if no handle is specified
-        </tp:docstring>
-      </arg>
-
-      <arg name="Handle" type="u" tp:type="Handle">
-        <tp:docstring>
-          A handle indicating the specific contact, room or list this
-          channel communicates with, or zero if no handle is specified
-        </tp:docstring>
-      </arg>
-
-      <arg name="Suppress_Handler" type="b">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>If true, the channel was requested by a client that intends to
-            present it to the user itself (i.e. it passed suppress_handler=TRUE
-            to the <tp:member-ref>RequestChannel</tp:member-ref> method), so no
-            other handler should be
-            launched. Clients MAY assume that channels where this is true
-            were created by a user request.</p>
-
-          <p>If false, either the channel was created due to incoming
-            information from the service, or the channel was requested by
-            a local client that does not intend to handle the channel itself
-            (this usage is deprecated).</p>
-
-          <p>Clients MUST NOT assume that only incoming channels will have
-            this flag set to false.</p>
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring>
-        Emitted when a new Channel object is created, either through user
-        request or incoming information from the service.
-      </tp:docstring>
-    </signal>
-
     <method name="ReleaseHandles" tp:name-for-bindings="Release_Handles">
       <tp:changed version="0.21.6">If
         <tp:member-ref>HasImmortalHandles</tp:member-ref> is true,
@@ -443,139 +314,6 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
-      <tp:deprecated version="0.17.23">Use
-        <tp:dbus-ref
-          namespace="im.telepathy.Connection.Interface">Requests.CreateChannel</tp:dbus-ref>
-        or <tp:dbus-ref
-          namespace="im.telepathy.Connection.Interface">Requests.EnsureChannel</tp:dbus-ref>
-        instead. Connection managers MAY implement RequestChannel by
-        raising NotImplemented, or implement fewer types of channel via
-        this API.</tp:deprecated>
-
-      <arg direction="in" name="Type" type="s" tp:type="DBus_Interface">
-        <tp:docstring>
-          A D-Bus interface name representing base channel type
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
-        <tp:docstring>
-          An integer representing the handle type, or Handle_Type_None if
-          no handle is specified
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Handle" type="u" tp:type="Handle">
-        <tp:docstring>
-          A nonzero integer handle representing a contact, room, list etc.
-          according to handle_type, or zero if the handle_type is
-          Handle_Type_None
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Suppress_Handler" type="b">
-        <tp:docstring>
-          <p>Clients SHOULD always set this to true.</p>
-
-          <tp:rationale>
-            <p>The historical meaning was that clients that did not
-              intend to take responsibility for displaying the channel to
-              the user could set this to FALSE, in which case the channel
-              dispatcher would launch an appropriate channel handler.</p>
-
-            <p>However, clients whose functionality relies on having a
-              working channel dispatcher should obtain that functionality by
-              calling methods on the channel dispatcher, so that they will
-              get an appropriate error if the channel dispatcher is missing
-              or not working.</p>
-
-            <p>The channel dispatcher itself should set this to true too,
-              so that it will ignore the
-              <tp:member-ref>NewChannel</tp:member-ref> signal that results
-              from the creation of the channel. It can then dispatch the
-              channel returned from this method to an
-              appropriate handler.</p>
-
-            <p>So, there is no sensible use-case for setting this to false,
-              and setting it to false can result in unhandled channels (in
-              the case where clients assume that a channel dispatcher is
-              present, but it isn't).</p>
-          </tp:rationale>
-        </tp:docstring>
-      </arg>
-
-      <arg direction="out" type="o" name="Object_Path">
-        <tp:docstring>
-          The D-Bus object path for the channel created or retrieved
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Request a channel satisfying the specified type and communicating
-          with the contact, room, list etc. indicated by the given
-          handle_type and handle. The handle_type and handle may both be
-          zero to request the creation of a new, empty channel, which may
-          or may not be possible, depending on the protocol and channel
-          type.</p>
-
-        <p>On success, the returned channel will always be of the requested
-          type (i.e. implement the requested channel-type interface).</p>
-
-        <p>If a new, empty channel is requested, on success the returned
-          channel will always be an "anonymous" channel for which the type
-          and handle are both zero.</p>
-
-        <p>If a channel to a contact, room etc. is requested, on success, the
-          returned channel may either be a new or existing channel to
-          the requested entity (i.e. its
-          <tp:dbus-ref
-            namespace="im.telepathy.Channel">TargetHandleType</tp:dbus-ref>
-          and <tp:dbus-ref
-            namespace="im.telepathy.Channel">TargetHandle</tp:dbus-ref>
-          properties are the
-          requested handle type and handle), or a newly created "anonymous"
-          channel associated with the requested handle in some
-          implementation-specific way.</p>
-
-        <p>For example, for a contact handle, the returned channel
-          might be "anonymous", but implement the groups interface and have
-          the requested contact already present among the members.</p>
-
-        <p>If the request cannot be satisfied, an error is raised and no
-          channel is created.</p>
-      </tp:docstring>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-        <tp:error name="im.telepathy.Error.NotImplemented">
-          <tp:docstring>
-            Unknown channel type
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.InvalidHandle">
-          <tp:docstring>
-            The given handle does not exist or cannot be created
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable">
-          <tp:docstring>
-            The requested channel type cannot be created with the given handle
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.NotCapable">
-          <tp:docstring>
-            The requested channel cannot be created because contact doesn't
-            have the required capabilities.
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.Channel.Banned"/>
-        <tp:error name="im.telepathy.Error.Channel.Full"/>
-        <tp:error name="im.telepathy.Error.Channel.InviteOnly"/>
-      </tp:possible-errors>
-    </method>
-
     <tp:enum name="Handle_Type" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
@@ -592,22 +330,6 @@ USA.</p>
       <tp:enumvalue suffix="Room" value="2">
         <tp:docstring>
           A chat room
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="List" value="3">
-        <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-          namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
-        </tp:deprecated>
-        <tp:docstring>
-          A server-generated contact list (see Channel.Interface.Group)
-        </tp:docstring>
-      </tp:enumvalue>
-      <tp:enumvalue suffix="Group" value="4">
-        <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-          namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
-        </tp:deprecated>
-        <tp:docstring>
-          A user-defined contact list (see Channel.Interface.Group)
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -627,24 +349,6 @@ USA.</p>
       array-name="Room_Handle_List">
       <tp:docstring>An unsigned 32-bit integer representing a handle of type
         Handle_Type_Room</tp:docstring>
-    </tp:simple-type>
-
-    <tp:simple-type name="List_Handle" type="u"
-      array-name="List_Handle_List">
-      <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-        namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
-      </tp:deprecated>
-      <tp:docstring>An unsigned 32-bit integer representing a handle of type
-        Handle_Type_List</tp:docstring>
-    </tp:simple-type>
-
-    <tp:simple-type name="Group_Handle" type="u"
-      array-name="Group_Handle_List">
-      <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-        namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
-      </tp:deprecated>
-      <tp:docstring>An unsigned 32-bit integer representing a handle of type
-        Handle_Type_Group</tp:docstring>
     </tp:simple-type>
 
     <method name="RequestHandles" tp:name-for-bindings="Request_Handles">

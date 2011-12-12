@@ -73,8 +73,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request that the user's own identifier is changed on the server.
           If successful, a <tp:member-ref>Renamed</tp:member-ref> signal will
-          be emitted for the current "self handle" as returned by <tp:dbus-ref
-            namespace="im.telepathy.Connection">GetSelfHandle</tp:dbus-ref>.</p>
+          be emitted for the current "self handle" as returned by the <tp:dbus-ref
+            namespace="im.telepathy.Connection">SelfHandle</tp:dbus-ref>
+          property.</p>
         <p>It is protocol-dependent how the identifier that's actually
           used will be derived from the supplied identifier; some sort of
           normalization might take place.</p>

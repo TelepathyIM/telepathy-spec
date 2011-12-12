@@ -63,14 +63,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when information about rooms on the server becomes available.
-        The array contains the room handle (as can be passed to the
-        <tp:dbus-ref
-          namespace="im.telepathy.Connection">RequestChannel</tp:dbus-ref>
-        method with HANDLE_TYPE_ROOM), the channel
-        type, and a dictionary containing further information about the
-        room as available. The following well-known keys and types are
-        recommended for use where appropriate:</p>
+        <p>Emitted when information about rooms on the server becomes
+          available.  The array contains the room handle (as can be
+          passed to the <tp:dbus-ref
+          namespace="imt.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>
+          method with <tp:dbus-ref
+          namespace="imt.Channel">TargetHandleType</tp:dbus-ref>=
+          HANDLE_TYPE_ROOM), the channel type, and a dictionary
+          containing further information about the room as
+          available. The following well-known keys and types are
+          recommended for use where appropriate:</p>
 
         <dl>
           <dt>handle-name (s)</dt>

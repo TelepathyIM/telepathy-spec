@@ -665,10 +665,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>The normalized user ID of the local user on this account (i.e. the
           string returned when the <tp:dbus-ref
           namespace="im.telepathy.Connection">InspectHandles</tp:dbus-ref>
-          method is called on the
-          result of <tp:dbus-ref
-          namespace="im.telepathy.Connection">GetSelfHandle</tp:dbus-ref>
-          for an active connection).</p>
+          method is called on the value of the <tp:dbus-ref
+          namespace="im.telepathy.Connection">SelfHandle</tp:dbus-ref>
+          property for an active connection).</p>
 
         <p>It is unspecified whether this user ID is globally unique.</p>
 
