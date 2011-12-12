@@ -27,11 +27,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The channel's type. This cannot change once the channel has
           been created.</p>
 
-        <p>For compatibility between older connection managers and newer
-          clients, if this is unavailable or is an empty string,
-          clients MUST use the result of calling
-          <tp:member-ref>GetChannelType</tp:member-ref>.</p>
-
         <tp:rationale>
           The GetAll method lets clients retrieve all properties in one
           round-trip, which is desirable.
@@ -54,21 +49,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Extra interfaces provided by this channel. This SHOULD NOT include
           the channel type and the Channel interface itself, and cannot
           change once the channel has been created.</p>
-
-        <p>For compatibility between older connection managers and newer
-          clients, if this is unavailable, or if this is an empty list and
-          <tp:member-ref>ChannelType</tp:member-ref> is an empty string,
-          clients MUST use the result of calling
-          <tp:member-ref>GetInterfaces</tp:member-ref> instead. If this is an
-          empty list but ChannelType is non-empty, clients SHOULD NOT call
-          GetInterfaces; this implies that connection managers that implement
-          the ChannelType property MUST also implement the Interfaces property
-          correctly.</p>
-
-        <tp:rationale>
-          The GetAll method lets clients retrieve all properties in one
-          round-trip, which is desirable.
-        </tp:rationale>
 
         <p>When requesting a channel with a particular value for this
           property, the request must fail without side-effects unless the
@@ -221,75 +201,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         at any point.
       </tp:docstring>
     </signal>
-
-    <method name="GetChannelType" tp:name-for-bindings="Get_Channel_Type">
-      <tp:deprecated version="0.17.7">Use the ChannelType
-        property if possible.</tp:deprecated>
-      <arg direction="out" type="s" tp:type="DBus_Interface"
-        name="Channel_Type">
-        <tp:docstring>The interface name</tp:docstring>
-      </arg>
-      <tp:docstring>
-        Returns the interface name for the type of this channel.  Clients
-        SHOULD use the <tp:member-ref>ChannelType</tp:member-ref> property
-        instead, falling back to this method only if necessary.
-
-        <tp:rationale>
-          The GetAll method lets clients retrieve all properties in one
-          round-trip.
-        </tp:rationale>
-      </tp:docstring>
-    </method>
-
-    <method name="GetHandle" tp:name-for-bindings="Get_Handle">
-      <tp:deprecated version="0.17.7">Use the TargetHandleType
-        and TargetHandle properties if possible.</tp:deprecated>
-      <arg direction="out" type="u" tp:type="Handle_Type"
-        name="Target_Handle_Type">
-        <tp:docstring>
-          The same as TargetHandleType.
-        </tp:docstring>
-      </arg>
-      <arg direction="out" type="u" tp:type="Handle" name="Target_Handle">
-        <tp:docstring>
-          The same as TargetHandle.
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Returns the handle type and number if this channel represents a
-        communication with a particular contact, room or server-stored list, or
-        zero if it is transient and defined only by its contents. Clients
-        SHOULD use the <tp:member-ref>TargetHandle</tp:member-ref> and
-        <tp:member-ref>TargetHandleType</tp:member-ref> properties instead,
-        falling back to this method only if necessary.
-
-        <tp:rationale>
-          The GetAll method lets clients retrieve all properties in one
-          round-trip.
-        </tp:rationale>
-      </tp:docstring>
-    </method>
-
-    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
-      <tp:deprecated version="0.17.7">Use the Interfaces
-        property if possible.</tp:deprecated>
-      <arg direction="out" type="as" tp:type="DBus_Interface[]"
-        name="Interfaces">
-        <tp:docstring>
-          An array of the D-Bus interface names
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Get the optional interfaces implemented by the channel.
-        Clients SHOULD use the <tp:member-ref>Interfaces</tp:member-ref>
-        property instead, falling back to this method only if necessary.
-
-        <tp:rationale>
-          The GetAll method lets clients retrieve all properties in one
-          round-trip.
-        </tp:rationale>
-      </tp:docstring>
-    </method>
 
     <property name="Requested" tp:name-for-bindings="Requested"
       type="b" access="read">
