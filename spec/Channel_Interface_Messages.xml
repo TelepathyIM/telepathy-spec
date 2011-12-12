@@ -764,10 +764,10 @@ USA.</p>
               this part must be retrieved on demand (like MIME's
               <tt>message/external-body</tt>) by a mechanism to be defined later.
 
-              <tp:rationale>The mechanism was meant to be
-                <tp:member-ref>GetPendingMessageContent</tp:member-ref>, but
-                that didn't work out. It's worth leaving the header in in
-                preparation for a future mechanism.
+              <tp:rationale>The mechanism was meant to be the now-deprecated
+                GetPendingMessageContent, but that didn't work
+                out. It's worth leaving the header in in preparation
+                for a future mechanism.
               </tp:rationale>
             </dd>
 
@@ -892,50 +892,6 @@ USA.</p>
           </dl>
       </tp:docstring>
     </tp:simple-type>
-
-    <tp:simple-type type="u" name="Message_Part_Index"
-      array-name="Message_Part_Index_List">
-      <tp:deprecated version="0.21.5">
-        This type is only used by
-        <tp:member-ref>GetPendingMessageContent</tp:member-ref>, which is
-        unimplemented and deprecated.
-      </tp:deprecated>
-      <tp:added version="0.17.17"/>
-      <tp:docstring>
-        The index of a message part within a message.
-      </tp:docstring>
-    </tp:simple-type>
-
-    <tp:mapping name="Message_Part_Content_Map">
-      <tp:added version="0.17.17"/>
-      <tp:deprecated version="0.21.5">
-        This structure is only used by
-        <tp:member-ref>GetPendingMessageContent</tp:member-ref>, which is
-        unimplemented and deprecated.
-      </tp:deprecated>
-      <tp:docstring>
-        A mapping from message part indexes to their content, as returned by
-        <tp:member-ref>GetPendingMessageContent</tp:member-ref>.
-      </tp:docstring>
-
-      <tp:member type="u" tp:type="Message_Part_Index" name="Part">
-        <tp:docstring>
-          Indexes into the array of <tp:type>Message_Part</tp:type>s that
-          represents a message. The "headers" part (which is not a valid
-          argument to GetPendingMessageContent) is considered to be part 0,
-          so the valid part numbers start at 1 (for the second message part).
-        </tp:docstring>
-      </tp:member>
-
-      <tp:member type="v" name="Content">
-        <tp:docstring>
-          The message part's content. The variant MUST contain either type
-          's' or 'ay' (UTF-8 text string, or byte array), following the
-          same rules as for the value of the 'content' key in
-          the <tp:type>Message_Part</tp:type> mappings.
-        </tp:docstring>
-      </tp:member>
-    </tp:mapping>
 
     <tp:simple-type type="s" name="Protocol_Message_Token"
                     array-name="Protocol_Message_Token_List">
@@ -1193,69 +1149,6 @@ USA.</p>
         </tp:docstring>
       </arg>
     </signal>
-
-    <method name="GetPendingMessageContent"
-      tp:name-for-bindings="Get_Pending_Message_Content">
-      <tp:deprecated version='0.21.5'
-                     xmlns="http://www.w3.org/1999/xhtml">
-        This method has never been implemented, and in any case would have been
-        impossible to use correctly when multiple clients (such as a logger and
-        the handler) are interested in a text channel. See <a
-          href='https://bugs.freedesktop.org/show_bug.cgi?id=26417'>freedesktop.org
-        bug #26417</a> for more details.
-      </tp:deprecated>
-      <tp:docstring>
-        Retrieve the content of one or more parts of a pending message.
-        Note that this function may take a considerable amount of time
-        to return if the part's 'needs-retrieval' flag is true; consider
-        extending the default D-Bus method call timeout. Additional API is
-        likely to be added in future, to stream large message parts.
-      </tp:docstring>
-
-      <arg name="Message_ID" type="u" tp:type="Message_ID" direction="in">
-        <tp:docstring>
-          The ID of a pending message
-        </tp:docstring>
-      </arg>
-
-      <arg name="Parts" type="au" direction="in"
-        tp:type="Message_Part_Index[]">
-        <tp:docstring>
-          The desired entries in the array of message parts, identified by
-          their position. The "headers" part (which is not a valid argument
-          to this method) is considered to be part 0, so the valid part
-          numbers start at 1 (for the second Message_Part).
-        </tp:docstring>
-      </arg>
-
-      <arg name="Content" type="a{uv}" direction="out"
-        tp:type="Message_Part_Content_Map">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The content of the requested parts. The keys in this mapping
-            are positions in the array of message parts; the values are
-            either of type 's' or 'ay' (UTF-8 text string, or byte array),
-            following the same rules as for the value of the 'content' key in
-            the <tp:type>Message_Part</tp:type> mappings.</p>
-
-          <p>If the one of the requested part numbers was greater than zero
-            but referred to a part that had no content (i.e. it had no
-            'content-type' key or no 'content' key), it is simply omitted from
-            this mapping; this is not considered to be an error condition.</p>
-        </tp:docstring>
-      </arg>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
-          <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-            Either there is no pending message with the given message ID,
-            or one of the part numbers given was 0 or too large.
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable"/>
-        <tp:error name="im.telepathy.Error.PermissionDenied"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
 
     <signal name="MessageReceived" tp:name-for-bindings="Message_Received">
       <tp:docstring>
