@@ -85,41 +85,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:possible-errors>
     </method>
 
-    <method name="GetAllMembers" tp:name-for-bindings="Get_All_Members">
-      <tp:deprecated version="0.17.6">Use GetAll on the D-Bus
-        Properties D-Bus interface to get properties including Members,
-        RemotePendingMembers and LocalPendingMembers instead, falling back to
-        this method and GetLocalPendingMembersWithInfo if necessary.
-      </tp:deprecated>
-
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Members">
-        <tp:docstring>
-          array of handles of current members
-        </tp:docstring>
-      </arg>
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Local_Pending">
-        <tp:docstring>
-          array of handles of local pending members
-        </tp:docstring>
-      </arg>
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Remote_Pending">
-        <tp:docstring>
-          array of handles of remote pending members
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Returns arrays of all current, local and remote pending channel
-        members.
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
-
     <tp:flags name="Channel_Group_Flags" value-prefix="Channel_Group_Flag" type="u">
       <tp:flag suffix="Can_Add" value="1">
         <tp:docstring>
@@ -180,13 +145,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:flag suffix="Channel_Specific_Handles" value="256">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>
-            The members of this group have handles which are specific to
-            this channel, and are not valid as general-purpose handles on
-            the connection. Depending on the channel, it may be possible to
-            check the <tp:member-ref>HandleOwners</tp:member-ref> property or
-            call <tp:member-ref>GetHandleOwners</tp:member-ref> to find the
-            owners of these handles, which should be done if you wish to (e.g.)
-            subscribe to the contact's presence.
+            The members of this group have handles which are specific
+            to this channel, and are not valid as general-purpose
+            handles on the connection. Depending on the channel, it
+            may be possible to check the
+            <tp:member-ref>HandleOwners</tp:member-ref> property to
+            find the owners of these handles, which should be done if
+            you wish to (e.g.)  subscribe to the contact's presence.
           </p>
 
           <p>
@@ -206,16 +171,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:flag>
       <tp:flag suffix="Handle_Owners_Not_Available" value="1024">
         <tp:docstring>
-          In rooms with channel specific handles (ie Channel_Specific_Handles
+          In rooms with channel specific handles (i.e. Channel_Specific_Handles
           flag is set), this flag indicates that no handle owners are
           available, apart from the owner of the
           <tp:member-ref>SelfHandle</tp:member-ref>.
 
           <tp:rationale>
-            This used to be an important optimization to avoid repeated
-            GetHandleOwners calls, before we introduced the
+            This used to be an important optimization to avoid
+            repeated calls to the now-removed GetHandleOwners method,
+            before we introduced the
             <tp:member-ref>HandleOwners</tp:member-ref> property and
-            <tp:member-ref>HandleOwnersChanged</tp:member-ref> signal.
+            <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref>
+            signal.
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
@@ -265,37 +232,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         which operations are currently valid. Change notification is via
         the <tp:member-ref>GroupFlagsChanged</tp:member-ref> signal.
       </tp:docstring>
-      <tp:added version="0.17.6">For backwards compatibility,
-        clients should fall back to calling GetGroupFlags if
-        Channel_Group_Flag_Properties is not present.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
-
-    <method name="GetGroupFlags" tp:name-for-bindings="Get_Group_Flags">
-      <arg direction="out" type="u" tp:type="Channel_Group_Flags"
-        name="Group_Flags">
-        <tp:docstring>
-          The value of the GroupFlags property
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        Returns the value of the <tp:member-ref>GroupFlags</tp:member-ref> property.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Use GetAll on the D-Bus
-        Properties D-Bus interface to get properties including GroupFlags
-        instead, falling back to this method if necessary.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
 
     <tp:mapping name="Handle_Owner_Map">
       <tp:docstring>
         A map from channel-specific handles to their owners.
       </tp:docstring>
-      <tp:added version="0.17.6">For backwards compatibility,
-        clients should fall back to calling GetHandleOwners if
-        Channel_Group_Flag_Properties is not present.</tp:added>
+      <tp:added version="0.17.6"/>
 
       <tp:member type="u" name="Channel_Specific_Handle"
         tp:type="Contact_Handle">
@@ -321,40 +265,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Handles which are channel-specific, but for which the owner is
         unknown, MUST appear in this mapping with 0 as owner. Change
         notification is via the
-        <tp:member-ref>HandleOwnersChanged</tp:member-ref> signal.
+        <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref>
+        signal.
       </tp:docstring>
       <tp:added version="0.17.6"/>
     </property>
-
-    <signal name="HandleOwnersChanged"
-      tp:name-for-bindings="Handle_Owners_Changed">
-      <tp:docstring>
-        Emitted whenever the <tp:member-ref>HandleOwners</tp:member-ref>
-        property changes.
-      </tp:docstring>
-      <tp:added version="0.17.6">This signal should not be relied on
-        unless Channel_Group_Flag_Properties is present.</tp:added>
-      <tp:deprecated version="0.23.4">Clients should listen to
-        <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref> instead to
-        get the new identifiers as well.
-        </tp:deprecated>
-
-      <arg name="Added" type="a{uu}" tp:type="Handle_Owner_Map">
-        <tp:docstring>
-          A map from channel-specific handles to their owners, in which the
-          keys include all the handles that were added to the keys of the
-          HandleOwners property, and all the handles in that property whose
-          owner has changed
-        </tp:docstring>
-      </arg>
-      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          The channel-specific handles that were removed from the keys of the
-          HandleOwners property, as a result of the contact leaving this group
-          in a previous <tp:member-ref>MembersChanged</tp:member-ref> signal
-        </tp:docstring>
-      </arg>
-    </signal>
 
     <signal name="HandleOwnersChangedDetailed"
       tp:name-for-bindings="Handle_Owners_Changed_Detailed">
@@ -394,116 +309,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
-    <method name="GetHandleOwners" tp:name-for-bindings="Get_Handle_Owners">
-      <arg direction="in" name="Handles" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          A list of integer handles representing members of the channel
-        </tp:docstring>
-      </arg>
-      <arg direction="out" type="au" tp:type="Contact_Handle[]" name="Owners">
-        <tp:docstring>
-          An array of integer handles representing the owner handles of
-          the given room members, in the same order, or 0 if the
-          owner is not available
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        If the CHANNEL_GROUP_FLAG_CHANNEL_SPECIFIC_HANDLES flag is set on
-        the channel, then the handles of the group members are specific
-        to this channel, and are not meaningful in a connection-wide
-        context such as contact lists. This method allows you to find
-        the owner of the handle if it can be discovered in this channel,
-        or 0 if the owner is not available.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Clients should use the
-        HandleOwners property and HandleOwnersChanged signal if
-        Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-        <tp:error name="im.telepathy.Error.InvalidHandle"/>
-        <tp:error name="im.telepathy.Error.NotAvailable">
-          <tp:docstring>
-            This channel doesn't have the CHANNEL_SPECIFIC_HANDLES flag,
-            so handles in this channel are globally meaningful and calling
-            this method is not necessary
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
-          <tp:docstring>
-            One of the given handles is not a member
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
-    <method name="GetLocalPendingMembers"
-      tp:name-for-bindings="Get_Local_Pending_Members">
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Handles"/>
-      <tp:docstring>
-        Returns the To_Be_Added handle (only) for each structure in the
-        <tp:member-ref>LocalPendingMembers</tp:member-ref> property.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Use the LocalPendingMembers
-        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
-
-    <method name="GetLocalPendingMembersWithInfo"
-      tp:name-for-bindings="Get_Local_Pending_Members_With_Info">
-      <tp:added version="0.15.0" />
-      <tp:docstring>
-        Returns the <tp:member-ref>LocalPendingMembers</tp:member-ref> property.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Use the LocalPendingMembers
-        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <arg direction="out" type="a(uuus)" tp:type="Local_Pending_Info[]"
-        name="Info">
-        <tp:docstring>
-          An array of structs containing:
-          <ul>
-            <li>
-              A handle representing the contact requesting channel membership
-            </li>
-            <li>
-              A handle representing the contact making the request, or 0 if
-              unknown
-            </li>
-            <li>
-              The reason for the request: one of the values of
-              <tp:type>Channel_Group_Change_Reason</tp:type>
-            </li>
-            <li>
-              A string message containing the reason for the request if any (or
-              blank if none)
-            </li>
-          </ul>
-        </tp:docstring>
-      </arg>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
-
-    <property name="LocalPendingMembers" access="read"
-      type="a(uuus)" tp:type="Local_Pending_Info[]"
-      tp:name-for-bindings="Local_Pending_Members">
-      <tp:docstring>
-        An array of structs containing handles representing contacts
-        requesting channel membership and awaiting local approval with
-        <tp:member-ref>AddMembers</tp:member-ref>.
-      </tp:docstring>
-      <tp:added version="0.17.6">If Channel_Group_Flag_Properties is
-        not present, clients should fall back to using the
-        deprecated GetLocalPendingMembersWithInfo method, or fall back
-        from that to the deprecated GetAllMembers method.</tp:added>
-    </property>
-
     <property name="Members" tp:name-for-bindings="Members"
       access="read" type="au" tp:type="Contact_Handle[]">
       <tp:docstring>
@@ -512,20 +317,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.6">If Channel_Group_Flag_Properties
         is not set, fall back to calling GetAllMembers.</tp:added>
     </property>
-
-    <method name="GetMembers" tp:name-for-bindings="Get_Members">
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Handles"/>
-      <tp:docstring>
-        Returns the <tp:member-ref>Members</tp:member-ref> property.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Use the Members
-        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
 
     <property name="RemotePendingMembers" access="read" type="au"
       tp:type="Contact_Handle[]" tp:name-for-bindings="Remote_Pending_Members">
@@ -536,42 +327,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:added version="0.17.6">If Channel_Group_Flag_Properties
         is not set, fall back to calling GetAllMembers.</tp:added>
     </property>
-
-    <method name="GetRemotePendingMembers"
-      tp:name-for-bindings="Get_Remote_Pending_Members">
-      <arg direction="out" type="au" tp:type="Contact_Handle[]"
-        name="Handles"/>
-      <tp:docstring>
-        Returns an array of handles representing contacts who have been
-        invited to the channel and are awaiting remote approval.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Use the
-        <tp:member-ref>RemotePendingMembers</tp:member-ref>
-        property, if Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
-
-    <signal name="SelfHandleChanged" tp:name-for-bindings="Self_Handle_Changed">
-      <tp:docstring>
-        Emitted whenever the <tp:member-ref>SelfHandle</tp:member-ref> property
-        changes.
-      </tp:docstring>
-      <tp:added version="0.17.6">This signal should not be relied on
-        unless Channel_Group_Flag_Properties is present.</tp:added>
-      <tp:deprecated version="0.23.4">Clients should listen to
-        <tp:member-ref>SelfContactChanged</tp:member-ref> instead to get the new
-        identifier as well.
-        </tp:deprecated>
-
-      <arg type="u" tp:type="Contact_Handle" name="Self_Handle">
-        <tp:docstring>
-          The new value of the SelfHandle property.
-        </tp:docstring>
-      </arg>
-    </signal>
 
     <signal name="SelfContactChanged" tp:name-for-bindings="Self_Contact_Changed">
       <tp:docstring>
@@ -622,29 +377,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         least the identifiers for
         <tp:member-ref>SelfHandle</tp:member-ref>,
         <tp:member-ref>Members</tp:member-ref>,
-        <tp:member-ref>LocalPendingMembers</tp:member-ref> (and their actors if
-        any),
         <tp:member-ref>RemotePendingMembers</tp:member-ref> and
         <tp:member-ref>HandleOwners</tp:member-ref>.
       </tp:docstring>
       <tp:added version="0.23.4"/>
     </property>
-
-    <method name="GetSelfHandle" tp:name-for-bindings="Get_Self_Handle">
-      <arg direction="out" type="u" tp:type="Contact_Handle"
-        name="Self_Handle"/>
-      <tp:docstring>
-        Returns the value of the <tp:member-ref>SelfHandle</tp:member-ref>
-        property.
-      </tp:docstring>
-      <tp:deprecated version="0.17.6">Clients should retrieve the
-        SelfHandle property using GetAll instead,
-        if Channel_Group_Flag_Properties is present.</tp:deprecated>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-      </tp:possible-errors>
-    </method>
 
     <signal name="GroupFlagsChanged" tp:name-for-bindings="Group_Flags_Changed">
       <arg name="Added" type="u" tp:type="Channel_Group_Flags">
@@ -658,9 +395,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring>
-        Emitted when the flags as returned by
-        <tp:member-ref>GetGroupFlags</tp:member-ref> are changed.
-        The user interface should be updated as appropriate.
+        Emitted when the flags as retrieved by the
+        <tp:member-ref>GroupFlags</tp:member-ref> property are
+        changed. The user interface should be updated as appropriate.
       </tp:docstring>
     </signal>
 
@@ -668,7 +405,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The reason for a set of handles to move to one of
           <tp:member-ref>Members</tp:member-ref>,
-          <tp:member-ref>LocalPendingMembers</tp:member-ref> or
           <tp:member-ref>RemotePendingMembers</tp:member-ref>, or to be removed
           from the group. A client may supply a reason when attempting to
           remove members from a group with
@@ -930,7 +666,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           MUST be represented in the value of the
           <tp:member-ref>HandleOwners</tp:member-ref> property.
           In practice, this will mean that
-          <tp:member-ref>HandleOwnersChanged</tp:member-ref> is
+          <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref> is
           emitted <em>before</em> emitting a MembersChanged signal in which
           channel-specific handles are added, but that it is emitted
           <em>after</em> emitting a MembersChanged signal in which
@@ -1055,13 +791,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>All channel-specific handles that are mentioned in this signal
           MUST be represented in the value of the
-          <tp:member-ref>HandleOwners</tp:member-ref> property.  In practice,
-          this will mean that
-          <tp:member-ref>HandleOwnersChanged</tp:member-ref> is emitted
-          <em>before</em> emitting a MembersChangedDetailed signal in which
-          channel-specific handles are added, but that it is emitted
-          <em>after</em> emitting a MembersChangedDetailed signal in which
-          channel-specific handles are removed.</p>
+          <tp:member-ref>HandleOwners</tp:member-ref> property.</p>
       </tp:docstring>
       <tp:added version="0.17.16"/>
     </signal>
@@ -1167,11 +897,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     cannot be presumed by the channel's existence (for example, a channel you
     may request membership of but your request may not be granted).</p>
 
-  <p>This interface implements three lists: a list of current members
-    (<tp:member-ref>Members</tp:member-ref>), and two lists of local pending
-    and remote pending members
-    (<tp:member-ref>LocalPendingMembers</tp:member-ref> and
-    <tp:member-ref>RemotePendingMembers</tp:member-ref>, respectively).
+  <p>This interface implements two lists: a list of current members
+    (<tp:member-ref>Members</tp:member-ref>), and a list of remote
+    pending members (<tp:member-ref>RemotePendingMembers</tp:member-ref>).
     Contacts on the remote
     pending list have been invited to the channel, but the remote user has not
     accepted the invitation. Contacts on the local pending list have requested
