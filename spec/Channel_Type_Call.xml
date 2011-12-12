@@ -25,11 +25,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     <tp:requires
       interface="im.telepathy.Call1.Interface.Mute"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-      <p>A channel type for making audio and video calls. Call
-        channels supersede the old <tp:dbus-ref
-        namespace="imt.Channel.Type">StreamedMedia</tp:dbus-ref>
-        channel type. Call channels are much more flexible than its
-        predecessor and allow more than two participants.</p>
+      <p>A channel type for making audio and video calls. Call channels
+        supersede the old StreamedMedia channel type. Call channels
+        are much more flexible than its predecessor and allow more
+        than two participants.</p>
 
       <p>Handlers are advised against executing all the media
         signalling, codec and candidate negotiation themselves but
@@ -593,6 +592,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </p>
       </tp:docstring>
     </property>
+
+    <tp:enum name="Media_Stream_Type" type="u"
+      array-name="Media_Stream_Type_List">
+      <tp:enumvalue suffix="Audio" value="0">
+        <tp:docstring>An audio stream</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Video" value="1">
+        <tp:docstring>A video stream</tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
 
     <tp:enum type="u" name="Call_State">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

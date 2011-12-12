@@ -214,10 +214,10 @@
         <code>
 ( Fixed = {<br/>
     ...<tp:dbus-ref namespace='imt.Channel'>ChannelType</tp:dbus-ref>:
-      ...<tp:dbus-ref namespace='imt.Channel.Type'>StreamedMedia</tp:dbus-ref><br/>
+      ...<tp:dbus-ref namespace='imt.Channel.Type'>Call1</tp:dbus-ref><br/>
   },<br/>
   Allowed = [ <tp:member-ref>InitialChannels</tp:member-ref>,
-              <tp:dbus-ref namespace='imt.Channel.Type.StreamedMedia'
+              <tp:dbus-ref namespace='imt.Channel.Type.Call1'
                           >InitialAudio</tp:dbus-ref>
             ]<br/>
 )

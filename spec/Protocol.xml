@@ -193,7 +193,7 @@ allowed=im.telepathy.Channel.TargetHandle;im.telepathy.Channel.TargetID;
 
         <p>For instance, this <code>.manager</code> file could represent
           a connection manager that supports 1-1 Text messages and
-          StreamedMedia audio calls:</p>
+          Call audio calls:</p>
 
 <pre>[Protocol jabber]
 param-account=s required
@@ -206,9 +206,9 @@ im.telepathy.Channel.TargetHandleType u=1
 allowed=im.telepathy.Channel.TargetHandle;im.telepathy.Channel.TargetID;
 
 [rcc1]
-im.telepathy.Channel.ChannelType s=im.telepathy.Channel.Type.StreamedMedia
+im.telepathy.Channel.ChannelType s=im.telepathy.Channel.Type.Call1
 im.telepathy.Channel.TargetHandleType u=1
-allowed=im.telepathy.Channel.TargetHandle;im.telepathy.Channel.TargetID;im.telepathy.Channel.Type.StreamedMedia.InitialAudio;
+allowed=im.telepathy.Channel.TargetHandle;im.telepathy.Channel.TargetID;im.telepathy.Channel.Type.Call1.InitialAudio;
 </pre>
       </tp:docstring>
     </property>

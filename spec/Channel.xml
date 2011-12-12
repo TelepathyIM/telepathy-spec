@@ -430,7 +430,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             condition:</p>
 
           <ul>
-            <li>New StreamedMedia channel C is signalled with initiator
+            <li>New Call channel C is signalled with initiator
               handle I</li>
             <li>Client calls <tp:dbus-ref
               namespace="im.telepathy.Connection">InspectHandles</tp:dbus-ref>(CONTACT,

@@ -291,6 +291,14 @@
       </tp:enumvalue>
     </tp:enum>
 
+    <tp:enum name="Media_Stream_Base_Proto" type="u">
+      <tp:enumvalue suffix="UDP" value="0">
+        <tp:docstring>UDP (User Datagram Protocol)</tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="TCP" value="1">
+        <tp:docstring>TCP (Transmission Control Protocol)</tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
 
     <tp:mapping name="Candidate_Info">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

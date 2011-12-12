@@ -87,7 +87,7 @@
         20s to accept the channel.</p>
 
       <p>When an unanswered <tp:dbus-ref
-          namespace='imt.Channel.Type'>StreamedMedia</tp:dbus-ref> call is
+          namespace='imt.Channel.Type'>Call1</tp:dbus-ref> call is
         forwarded, both the contact and the self handle should be removed from
         the group with the self handle as the actor, and
         <tp:type>Channel_Group_Change_Reason</tp:type> <code>No_Answer</code> or

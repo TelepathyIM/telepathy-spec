@@ -99,10 +99,10 @@
           channel handler. If a <tp:dbus-ref
             namespace="im.telepathy.Channel.Type">Text</tp:dbus-ref>
           channel is added to an existing bundle containing a <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Type">Call1</tp:dbus-ref>
           channel, there shouldn't be
           any approvers, flashing icons or notification bubbles, if the
-          the UI for the StreamedMedia channel can just add a text box
+          the UI for the Call channel can just add a text box
           and display the message.</p>
       </tp:rationale>
 
@@ -339,10 +339,12 @@
               namespace="im.telepathy">Channel.Interface.Destroyable.Destroy</tp:dbus-ref>
             if the destructive behaviour of that method is desired.</p>
 
-          <p>Similarly, an Approver for StreamedMedia channels can close the
-            channel with a reason (e.g. "busy") if desired. The channel
-            dispatcher, which is designed to have no specific knowledge
-            of particular channel types, can't do that.</p>
+          <p>Similarly, an Approver for <tp:dbus-ref
+            namespace="imt.Channel.Type">Call1</tp:dbus-ref> channels
+            can close the channel with a reason (e.g. "busy") if
+            desired. The channel dispatcher, which is designed to have
+            no specific knowledge of particular channel types, can't
+            do that.</p>
         </tp:rationale>
 
         <p>If successful, this method will cause the ChannelDispatchOperation

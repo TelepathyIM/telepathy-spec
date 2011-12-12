@@ -51,7 +51,7 @@
             namespace="im.telepathy.Channel.Type">Text</tp:dbus-ref>
           messages, carrying out streaming for
           <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Type">Call1</tp:dbus-ref>
           channels, doing the actual data transfer for file transfers,
           setting up the out-of-band connection for Tubes). The
           <tp:dbus-ref

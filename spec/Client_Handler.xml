@@ -38,10 +38,8 @@
         perform actions that only make sense to do once, such as acknowledging
         <tp:dbus-ref namespace="im.telepathy.Channel.Type">Text</tp:dbus-ref>
         messages, doing the actual streaming for <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-        channels with the <tp:dbus-ref
-          namespace="im.telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
-        interface, or transferring the file in <tp:dbus-ref
+          namespace="im.telepathy.Channel.Type">Call1</tp:dbus-ref>
+        channels, or transferring the file in <tp:dbus-ref
           namespace="im.telepathy.Channel.Type">FileTransfer</tp:dbus-ref>
         channels.</p>
 
@@ -92,18 +90,20 @@
           handled, without invoking approvers.</p>
 
         <tp:rationale>
-          <p>The intended usage is to allow a client handling one channel to
-            pick up closely related channels. Suppose a client capable of
-            handling both Text and StreamedMedia,
-            <code>im.telepathy.Client.Empathy</code>, is
-            handling a StreamedMedia channel. That client can take a second
-            well-known bus name, say
+          <p>The intended usage is to allow a client handling one
+            channel to pick up closely related channels. Suppose a
+            client capable of handling both Text and <tp:dbus-ref
+            namespace="imt.Channel.Type">Call1</tp:dbus-ref>,
+            <code>im.telepathy.Client.Empathy</code>, is handling a
+            Call channel. That client can take a second well-known bus
+            name, say
             <code>im.telepathy.Client.Empathy._1._42.Bundle1</code>,
             and configure an object at
             <code>/im/telepathy/Client/Empathy/_1/_42/Bundle1</code>
-            with BypassApproval = TRUE,
-            whose <tp:member-ref>HandlerChannelFilter</tp:member-ref>
-            matches closely related Text channels by their Bundle property.</p>
+            with BypassApproval = TRUE, whose
+            <tp:member-ref>HandlerChannelFilter</tp:member-ref>
+            matches closely related Text channels by their Bundle
+            property.</p>
         </tp:rationale>
 
         <p>For service-activatable handlers, this property should be specified
@@ -133,7 +133,7 @@ BypassApproval=true
         </tp:rationale>
 
         <p>So far, all client capabilities are defined by the <tp:dbus-ref
-            namespace="im.telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Type">Call1</tp:dbus-ref>
           interface.</p>
       </tp:docstring>
     </tp:simple-type>

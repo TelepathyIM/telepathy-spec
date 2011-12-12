@@ -705,12 +705,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The change is due to a user going offline. Also used when
             user is already offline, but this wasn't known previously.</p>
 
-          <p>If a one-to-one <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-            call fails because the contact being called is offline, the
-            connection manager SHOULD indicate this by removing both the
-            <tp:member-ref>SelfHandle</tp:member-ref> and the other contact's
-            handle from the Group interface with reason Offline.</p>
+          <p>If a one-to-one StreamedMedia call fails because the
+            contact being called is offline, the connection manager
+            SHOULD indicate this by removing both the
+            <tp:member-ref>SelfHandle</tp:member-ref> and the other
+            contact's handle from the Group interface with reason
+            Offline.</p>
 
           <tp:rationale>
             For 1-1 calls, the call terminates as a result of removing the
@@ -737,12 +737,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The change is due to a busy indication.</p>
 
-          <p>If a one-to-one <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-            call fails because the contact being called is busy, the
-            connection manager SHOULD indicate this by removing both the
-            <tp:member-ref>SelfHandle</tp:member-ref> and the other contact's
-            handle from the Group interface with reason Busy.</p>
+          <p>If a one-to-one StreamedMedia call fails because the
+            contact being called is busy, the connection manager
+            SHOULD indicate this by removing both the
+            <tp:member-ref>SelfHandle</tp:member-ref> and the other
+            contact's handle from the Group interface with reason
+            Busy.</p>
 
           <tp:rationale>
             For 1-1 calls, the call terminates as a result of removing the
@@ -811,13 +811,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The change is because the requested contact did not respond.</p>
 
-          <p>If a one-to-one <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-            call fails because the contact being called did not respond, or the
-            local user did not respond to an incoming call, the
-            connection manager SHOULD indicate this by removing both the
-            <tp:member-ref>SelfHandle</tp:member-ref> and the other contact's
-            handle from the Group interface with reason No_Answer.</p>
+          <p>If a one-to-one StreamedMedia call fails because the
+            contact being called did not respond, or the local user
+            did not respond to an incoming call, the connection
+            manager SHOULD indicate this by removing both the
+            <tp:member-ref>SelfHandle</tp:member-ref> and the other
+            contact's handle from the Group interface with reason
+            No_Answer.</p>
 
           <tp:rationale>
             Documenting existing practice.
@@ -938,11 +938,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel-specific handles are added, but that it is emitted
           <em>after</em> emitting a MembersChanged signal in which
           channel-specific handles are removed.</p>
-
-        <p>See <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-          for an overview of how group state changes are used to indicate the
-          progress of a call.</p>
       </tp:docstring>
     </signal>
 
@@ -1070,11 +1065,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           channel-specific handles are added, but that it is emitted
           <em>after</em> emitting a MembersChangedDetailed signal in which
           channel-specific handles are removed.</p>
-
-        <p>See <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-          for an overview of how group state changes are used to indicate the
-          progress of a call.</p>
       </tp:docstring>
       <tp:added version="0.17.16"/>
     </signal>
@@ -1097,10 +1087,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>If the <tp:member-ref>SelfHandle</tp:member-ref> is in a Group,
           it can be removed via this method, in order to leave the group
-          gracefully. This is the recommended way to leave a chatroom, close
-          or reject a <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
-          call, and so on.</p>
+          gracefully. This is the recommended way to leave a chatroom.</p>
 
         <p>Accordingly, connection managers SHOULD support
           doing this, regardless of the value of
