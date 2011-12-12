@@ -32,12 +32,11 @@ USA.</p>
       <ul>
         <li>messages with attachments (like MIME multipart/mixed)</li>
         <li>groups of alternatives (like MIME multipart/alternative)</li>
-        <li>delivery reports (which replace <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type">Text.SendError</tp:dbus-ref>),
-          addding support for protocols where the message content is not echoed
-          back to the sender on failure and for receiving positive
-          acknowledgements, as well as ensuring that incoming delivery reports
-          are not lost if no client is handling the channel yet;</li>
+        <li>delivery reports, adding support for protocols where the
+          message content is not echoed back to the sender on failure
+          and for receiving positive acknowledgements, as well as
+          ensuring that incoming delivery reports are not lost if no
+          client is handling the channel yet;</li>
         <li>any extra types of message we need in future</li>
       </ul>
 
@@ -65,18 +64,6 @@ USA.</p>
           might have been acknowledged before the handler even got to see the
           channel, and hence could not be shown to the user.</p>
       </tp:rationale>
-
-      <p>If this interface is present, clients that support it SHOULD
-        listen for the <tp:member-ref>MessageSent</tp:member-ref> and
-        <tp:member-ref>MessageReceived</tp:member-ref> signals, and
-        ignore the <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type.Text">Sent</tp:dbus-ref>,
-        <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
-        and <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type.Text">Received</tp:dbus-ref>
-        signals on the Text interface (which are guaranteed to duplicate
-        signals from this interface).</p>
 
       <p>Although this specification supports formatted (rich-text)
         messages with unformatted alternatives, implementations SHOULD NOT
@@ -148,11 +135,7 @@ USA.</p>
       tp:type="Channel_Text_Message_Type[]" access="read"
       tp:name-for-bindings="Message_Types"
       tp:immutable="yes">
-      <tp:added version="0.21.5">
-        This supersedes <tp:dbus-ref namespace="imt.Channel.Type.Text"
-          >GetMessageTypes</tp:dbus-ref>; fall back to that method for
-        compatibility with older connection managers.
-      </tp:added>
+      <tp:added version="0.21.5"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of message types which may be sent on this channel.</p>
       </tp:docstring>
@@ -378,23 +361,6 @@ USA.</p>
             the <tp:type>Delivery_Report_Header_Key</tp:type> type. The second
             and subsequent parts, if present, are a human-readable report from
             the IM service.</p>
-
-          <p>For backwards- and forwards-compatibility, whenever a delivery
-            error report is signalled—that is, with <tt>delivery-status</tt>
-            mapping to <tp:type>Delivery_Status</tp:type> Temporarily_Failed or
-            Permanently_Failed—<tp:dbus-ref
-              namespace="im.telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
-            SHOULD also be emitted; whenever <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type.Text">SendError</tp:dbus-ref>
-            is emitted, a delivery report MUST also be signalled.
-            Delivery report messages on this interface MUST be represented in
-            emissions of <tp:dbus-ref
-              namespace="im.telepathy.Channel.Type.Text">Received</tp:dbus-ref>
-            as messages with the Non_Text_Content
-            <tp:type>Channel_Text_Message_Flags</tp:type>; clients which
-            understand this interface SHOULD ignore the SendError signal in
-            favour of listening for delivery reports, as mentioned in the
-            introduction.</p>
 
           <p>The result of attempting to send delivery reports using
             <tp:member-ref>SendMessage</tp:member-ref> is currently
@@ -674,20 +640,16 @@ USA.</p>
               unsupported.)</dd>
 
             <dt>scrollback (b)</dt>
-            <dd>If present and true, the incoming message was part of a
-              replay of message history (this matches the Scrollback flag in
-              <tp:type>Channel_Text_Message_Flags</tp:type>). This flag
-              does not make sense on outgoing messages and SHOULD NOT
-              appear there.</dd>
+            <dd>If present and true, the incoming message was part of
+              a replay of message history. This flag does not make sense
+              on outgoing messages and SHOULD NOT appear there.</dd>
 
             <dt>rescued (b)</dt>
             <dd>If present and true, the incoming message has been seen in
               a previous channel during the lifetime of the Connection,
               but had not been acknowledged when that channel closed, causing
               an identical channel (in which the message now appears) to open.
-              This matches the Rescued flag in
-              <tp:type>Channel_Text_Message_Flags</tp:type>; it
-              does not make sense on outgoing messages, and SHOULD NOT
+              It does not make sense on outgoing messages, and SHOULD NOT
               appear there.</dd>
           </dl>
 
@@ -1022,10 +984,7 @@ USA.</p>
         <p>Submit a message to the server for sending.
           If this method returns successfully, the message has been submitted
           to the server and the <tp:member-ref>MessageSent</tp:member-ref>
-          signal is emitted. A corresponding
-          <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
-          signal on the Text interface MUST also be emitted.</p>
+          signal is emitted.</p>
 
         <p>This method MUST return before the MessageSent signal is
           emitted.</p>
@@ -1144,12 +1103,7 @@ USA.</p>
 
     <signal name="MessageSent" tp:name-for-bindings="Message_Sent">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Signals that a message has been submitted for sending. This
-          MUST be emitted exactly once per emission of the <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type.Text">Sent</tp:dbus-ref>
-          signal on the Text interface, for backwards-compatibility; clients
-          SHOULD ignore the latter if this interface is present, as mentioned
-          in the introduction.</p>
+        <p>Signals that a message has been submitted for sending.</p>
 
         <p>This SHOULD be emitted as soon as the CM determines it's
           theoretically possible to send the message (e.g. the parameters are
@@ -1209,11 +1163,7 @@ USA.</p>
       tp:type="Message_Part[][]" tp:name-for-bindings="Pending_Messages">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A list of incoming messages that have neither been acknowledged nor
-          rejected. This list is a more detailed version of the one returned
-          by <tp:dbus-ref
-            namespace="im.telepathy.Channel.Type">Text.ListPendingMessages</tp:dbus-ref>,
-          and contains the same messages, uniquely identified by the same
-          pending message IDs. Its items can be removed using
+          rejected. Its items can be removed using
           <tp:dbus-ref
             namespace="im.telepathy.Channel.Type">Text.AcknowledgePendingMessages</tp:dbus-ref>.</p>
 
@@ -1310,12 +1260,7 @@ USA.</p>
     <signal name="MessageReceived" tp:name-for-bindings="Message_Received">
       <tp:docstring>
         Signals that a message has been received and added to the pending
-        messages queue. This MUST be emitted exactly once per emission of the
-        <tp:dbus-ref
-          namespace="im.telepathy.Channel.Type.Text">Received</tp:dbus-ref>
-        signal on the Text interface, for backwards-compatibility; clients
-        SHOULD ignore the latter in favour of this signal if this interface is
-        present, as mentioned in the introduction.
+        messages queue.
       </tp:docstring>
 
       <arg type="aa{sv}" tp:type="Message_Part[]" name="Message">
