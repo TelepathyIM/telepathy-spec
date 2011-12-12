@@ -629,40 +629,6 @@
       </arg>
     </signal>
 
-    <signal name="ContactsChanged"
-      tp:name-for-bindings="Contacts_Changed">
-      <tp:deprecated version="0.21.8">Connection managers MUST still
-        emit this signal, but clients SHOULD listen for the
-        <tp:member-ref>ContactsChangedWithID</tp:member-ref> signal in
-        addition, and ignore this signal after ContactsChangedWithID has been
-        emitted at least once.
-      </tp:deprecated>
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted immediately after
-          <tp:member-ref>ContactsChangedWithID</tp:member-ref>, under the same
-          circumstances.</p>
-
-        <p>If clients receive this signal without first receiving a
-          corresponding <tp:member-ref>ContactsChangedWithID</tp:member-ref>,
-          they MUST assume that only this signal will be emitted.</p>
-      </tp:docstring>
-
-      <arg type="a{u(uus)}" name="Changes" tp:type="Contact_Subscription_Map">
-        <tp:docstring>
-          The same as the corresponding argument to
-          <tp:member-ref>ContactsChangedWithID</tp:member-ref>.
-        </tp:docstring>
-      </arg>
-
-      <arg name="Removals" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          The same as the corresponding argument to
-          <tp:member-ref>ContactsChangedWithID</tp:member-ref>, except that it
-          only includes handles and not identifiers.
-        </tp:docstring>
-      </arg>
-    </signal>
-
     <property name="CanChangeContactList" type="b" access="read"
       tp:name-for-bindings="Can_Change_Contact_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -743,7 +709,7 @@
           situations).</p>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChangedWithID</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
@@ -883,7 +849,7 @@
         </tp:rationale>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChangedWithID</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
