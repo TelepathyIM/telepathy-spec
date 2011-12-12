@@ -72,12 +72,6 @@ USA.</p>
       </tp:docstring>
     </signal>
 
-    <tp:property name="wobbly" type="b">
-      <tp:docstring>
-        Whether or not this badger is wobbly.
-      </tp:docstring>
-    </tp:property>
-
     <property name="Introspective" tp:name-for-bindings="Introspective"
       type="b" access="read">
       <tp:docstring>

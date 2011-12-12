@@ -703,18 +703,6 @@ class Property(DBusConstruct, Typed, HasEmitsChangedAnnotation):
 
         return ', '.join(descriptions)
 
-class AwkwardTelepathyProperty(Typed):
-    def __init__(self, parent, namespace, dom):
-        Typed.__init__(self, parent, namespace, dom)
-
-        print >> sys.stderr, """
-WARNING: Old-style Telepathy properties are deprecated!
-         (<tp:property> in %s)
-        """.strip() % (parent)
-
-    def get_type_name(self):
-        return 'Telepathy Property'
-
 class Arg(Typed):
     DIRECTION_IN, DIRECTION_OUT, DIRECTION_UNSPECIFIED = range(3)
 
@@ -812,8 +800,6 @@ class Interface(Base, HasEmitsChangedAnnotation):
                                      dom.getElementsByTagName('property'))
         self.signals = build_list(self, Signal, self.name,
                                   dom.getElementsByTagName('signal'))
-        self.tpproperties = build_list(self, AwkwardTelepathyProperty,
-                self.name, dom.getElementsByTagNameNS(XMLNS_TP, 'property'))
 
         hct_elems = (
             dom.getElementsByTagNameNS(XMLNS_TP, 'handler-capability-token') +
@@ -1315,7 +1301,7 @@ class Spec(SectionBase):
                 self.everything[interface.name] = interface
 
                 for things in [ 'methods', 'signals', 'properties',
-                                'tpproperties', 'contact_attributes',
+                                'contact_attributes',
                                 'handler_capability_tokens',
                                 'client_interests' ]:
                     for thing in getattr(interface, things):
