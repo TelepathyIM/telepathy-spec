@@ -18,16 +18,16 @@ You should have received a copy of the GNU Lesser General Public
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.Tubes">
+  <interface name="im.telepathy.Channel.Type.Tubes">
 
     <tp:deprecated version="0.17.25">Client implementations
       SHOULD use <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Type">StreamTube</tp:dbus-ref> and
+        namespace="im.telepathy.Channel.Type">StreamTube</tp:dbus-ref> and
         <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Type">DBusTube</tp:dbus-ref>
+        namespace="im.telepathy.Channel.Type">DBusTube</tp:dbus-ref>
       instead.</tp:deprecated>
 
-    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <tp:requires interface="im.telepathy.Channel"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A "tube" is a mechanism for arbitrary data transfer. Two types of
         data transfer are currently specified: D-Bus messages, and streams of
@@ -83,14 +83,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:enumvalue suffix="DBus" value="0">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The tube is D-Bus tube as described by the
-            org.freedesktop.Telepathy.Channel.Type.DBusTube interface.</p>
+            im.telepathy.Channel.Type.DBusTube interface.</p>
         </tp:docstring>
       </tp:enumvalue>
 
       <tp:enumvalue suffix="Stream" value="1">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The tube is stream tube as described by the
-            org.freedesktop.Telepathy.Channel.Type.StreamTube interface.</p>
+            im.telepathy.Channel.Type.StreamTube interface.</p>
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -212,14 +212,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The contact associated with this channel doesn't have tubes
             capabilities.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             The connection manager doesn't support D-Bus tubes.
           </tp:docstring>
@@ -285,14 +285,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The contact associated with this channel doesn't have tube
             capabilities.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             The connection manager doesn't support stream tubes, or
             does not support the given address type or access-control type.
@@ -359,7 +359,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The given tube ID is invalid or does not refer to a D-Bus
             tube.
@@ -406,13 +406,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The given tube ID is invalid or does not refer to a stream
             tube.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             The given address type or access-control mechanism is not supported.
           </tp:docstring>
@@ -446,7 +446,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument" />
+        <tp:error name="im.telepathy.Error.InvalidArgument" />
       </tp:possible-errors>
     </method>
 
@@ -482,12 +482,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The tube is not a D-Bus tube.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             This tube is not in the "open" state.
           </tp:docstring>
@@ -516,12 +516,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The tube is not a multi-user D-Bus tube.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             This tube is not in the "open" state.
           </tp:docstring>
@@ -578,12 +578,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The tube is not a stream tube.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             This tube is not in the "open" state.
           </tp:docstring>

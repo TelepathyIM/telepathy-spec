@@ -18,9 +18,9 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Capabilities">
-    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities"/>
+  <interface name="im.telepathy.Connection.Interface.Capabilities">
+    <tp:requires interface="im.telepathy.Connection"/>
+    <tp:requires interface="im.telepathy.Connection.Interface.ContactCapabilities"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections where it is possible to know what channel
@@ -58,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       implemented correctly. This usage is now deprecated.</tp:changed>
 
     <tp:deprecated version="0.19.8">Client implementations SHOULD use <tp:dbus-ref
-      namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
+      namespace="im.telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
       instead.</tp:deprecated>
     <tp:changed version="0.19.8">Connection managers implementing
       Capabilities MUST implement ContactCapabilities too.</tp:changed>
@@ -68,7 +68,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:flag suffix="Create" value="1">
         <tp:docstring>
           The given channel type and handle can be given to <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection">RequestChannel</tp:dbus-ref>
+          namespace="im.telepathy.Connection">RequestChannel</tp:dbus-ref>
           to create a new channel of this type.
         </tp:docstring>
       </tp:flag>
@@ -155,7 +155,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Upon a successful invocation of this method, the
         <tp:member-ref>CapabilitiesChanged</tp:member-ref>
         signal will be emitted for the user's own handle ( <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Connection.GetSelfHandle</tp:dbus-ref>)
+          namespace="im.telepathy">Connection.GetSelfHandle</tp:dbus-ref>)
         by the connection manager to indicate the changes
         that have been made.  This signal should also be monitored to ensure
         that the set is kept accurate - for example, a client may remove
@@ -163,13 +163,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         which are still provided by another client.</p>
 
         <p>On connections managed by the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>,
+            namespace="im.telepathy">ChannelDispatcher</tp:dbus-ref>,
           this method SHOULD NOT be used by clients other than the
           ChannelDispatcher itself.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
 
@@ -226,14 +226,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Returns an array of capabilities for the given contact handles.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             The handle does not represent a contact and is not zero
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
 

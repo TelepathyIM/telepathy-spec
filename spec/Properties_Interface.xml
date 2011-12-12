@@ -18,7 +18,7 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Properties">
+  <interface name="im.telepathy.Properties">
     <tp:deprecated version="0.24.0">All uses of this interface have been
       expunged, and it may now be laid to rest.</tp:deprecated>
 
@@ -76,13 +76,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             Some property identifier requested is invalid
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied">
+        <tp:error name="im.telepathy.Error.PermissionDenied">
           <tp:docstring>
             Some property requested does not have the PROPERTY_FLAG_READ flag
           </tp:docstring>
@@ -164,11 +164,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       </arg>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

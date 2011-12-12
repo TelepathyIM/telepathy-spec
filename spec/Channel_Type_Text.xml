@@ -18,19 +18,19 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.Text">
-    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+  <interface name="im.telepathy.Channel.Type.Text">
+    <tp:requires interface="im.telepathy.Channel"/>
     <tp:requires
-    interface="org.freedesktop.Telepathy.Channel.Interface.Messages"/>
+    interface="im.telepathy.Channel.Interface.Messages"/>
     <tp:changed version="0.21.5">The Messages interface is now
       mandatory</tp:changed>
     <tp:changed version="0.24.0">This interface used to have a bunch of
       clunky <tp:dbus-ref
       namespace='org.freedesktop'>Telepathy.Properties</tp:dbus-ref>. They have
       been removed in favour of D-Bus properties on the <tp:dbus-ref
-      namespace='ofdT.Channel.Interface'>Room2</tp:dbus-ref>, <tp:dbus-ref
-      namespace='ofdT.Channel.Interface'>Subject2</tp:dbus-ref> and
-      <tp:dbus-ref namespace='ofdT.Channel.Interface'>RoomConfig1</tp:dbus-ref>
+      namespace='imt.Channel.Interface'>Room2</tp:dbus-ref>, <tp:dbus-ref
+      namespace='imt.Channel.Interface'>Subject2</tp:dbus-ref> and
+      <tp:dbus-ref namespace='imt.Channel.Interface'>RoomConfig1</tp:dbus-ref>
       interfaces.</tp:changed>
 
     <tp:simple-type name="Message_ID" type="u" array-name="Message_ID_List">
@@ -72,7 +72,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the user (or equivalent), so they can be removed from the pending queue.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             A given message ID was not found, so no action was taken
           </tp:docstring>
@@ -82,7 +82,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="GetMessageTypes" tp:name-for-bindings="Get_Message_Types">
       <tp:deprecated version="0.21.5">Consulting
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >MessageTypes</tp:dbus-ref> is preferred.
       </tp:deprecated>
       <arg direction="out" type="au" tp:type="Channel_Text_Message_Type[]"
@@ -100,7 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <method name="ListPendingMessages"
       tp:name-for-bindings="List_Pending_Messages">
       <tp:deprecated version="0.21.5">Consulting
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >PendingMessages</tp:dbus-ref> is preferred.
       </tp:deprecated>
       <arg direction="in" name="Clear" type="b">
@@ -147,7 +147,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="Received" tp:name-for-bindings="Received">
       <tp:deprecated version="0.21.5">The
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >MessageReceived</tp:dbus-ref> signal is more informative.
       </tp:deprecated>
       <arg name="ID" type="u">
@@ -191,7 +191,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="Send" tp:name-for-bindings="Send">
       <tp:deprecated version="0.21.5">The
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >SendMessage</tp:dbus-ref> method is more flexible.
       </tp:deprecated>
       <arg direction="in" name="Type" type="u" tp:type="Channel_Text_Message_Type">
@@ -216,15 +216,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           <p>When a Text channel implements the <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Channel.Interface">Messages</tp:dbus-ref>
+              namespace="im.telepathy.Channel.Interface">Messages</tp:dbus-ref>
             interface, that "SHOULD" becomes a "MUST".</p>
         </tp:rationale>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
 
@@ -264,7 +264,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="SendError" tp:name-for-bindings="Send_Error">
       <tp:deprecated version="0.21.5">Delivery reporting is now
-        provided by the <tp:dbus-ref namespace="ofdT.Channel.Interface"
+        provided by the <tp:dbus-ref namespace="imt.Channel.Interface"
           >Messages</tp:dbus-ref> interface.
       </tp:deprecated>
       <arg name="Error" type="u" tp:type="Channel_Text_Send_Error">
@@ -303,7 +303,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <signal name="Sent" tp:name-for-bindings="Sent">
       <tp:deprecated version="0.21.5">The
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >MessageSent</tp:dbus-ref> signal is more informative.
       </tp:deprecated>
       <arg name="Timestamp" type="u" tp:type="Unix_Timestamp">
@@ -367,7 +367,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           A delivery report. This message type MUST NOT appear unless the
           channel supports the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface">Messages</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Interface">Messages</tp:dbus-ref>
           interface; see <tp:type>Message_Part</tp:type> for the format that
           delivery reports must take.
         </tp:docstring>
@@ -376,7 +376,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <tp:flags name="Channel_Text_Message_Flags" value-prefix="Channel_Text_Message_Flag" type="u">
       <tp:deprecated version="0.21.5">The
-        <tp:dbus-ref namespace="ofdT.Channel.Interface"
+        <tp:dbus-ref namespace="imt.Channel.Interface"
           >Messages</tp:dbus-ref> interface has an extensible data structure
         including separate booleans for most of these flags.
       </tp:deprecated>
@@ -392,7 +392,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>The incoming message contained non-text content which cannot be
             represented by this interface, but has been signalled
             in the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface">Messages</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Interface">Messages</tp:dbus-ref>
             interface.</p>
 
           <p>Connection managers SHOULD only set this flag if the non-text
@@ -424,7 +424,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The incoming message has been seen in a previous channel during
             the lifetime of the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>, but
+            namespace="im.telepathy">Connection</tp:dbus-ref>, but
             had not been acknowledged
             when that channel closed, causing an identical channel (the
             channel in which the message now appears) to open.</p>
@@ -447,17 +447,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <p>Most of the methods and signals on this interface are deprecated,
         since they only support plain-text messages with limited metadata.
         See the mandatory <tp:dbus-ref
-          namespace="ofdT.Channel.Interface">Messages</tp:dbus-ref>
+          namespace="imt.Channel.Interface">Messages</tp:dbus-ref>
         interface for the modern equivalents.</p>
 
       <p>When a message is received, an identifier is assigned and a
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >MessageReceived</tp:dbus-ref> signal emitted, and the message
         is placed in a pending queue represented by the
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >PendingMessages</tp:dbus-ref> property.
         When the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client">Handler</tp:dbus-ref>
+          namespace="im.telepathy.Client">Handler</tp:dbus-ref>
         for a channel has handled the message by showing it to the user
         (or equivalent), it should acknowledge the receipt of that message
         using the <tp:member-ref>AcknowledgePendingMessages</tp:member-ref>
@@ -466,7 +466,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         lifetime of the channel.</p>
 
       <p>Sending messages can be requested using the
-        <tp:dbus-ref namespace="ofdT.Channel.Interface.Messages"
+        <tp:dbus-ref namespace="imt.Channel.Interface.Messages"
           >SendMessage</tp:dbus-ref> method, which will return
         successfully when the message has been submitted for sending, or
         return an error with no signal emission if there is an immediate
@@ -476,52 +476,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Simple one-to-one chats (such as streams of private messages in
         XMPP or IRC) should be represented by a Text channel whose
-        <tp:dbus-ref namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt.Channel">TargetHandleType</tp:dbus-ref>
         is <tp:value-ref type="Handle_Type">Contact</tp:value-ref>. The
         expected way to request such a channel is to set the <tp:dbus-ref
-        namespace='ofdT.Channel'>ChannelType</tp:dbus-ref>, <tp:dbus-ref
-        namespace='ofdT.Channel'>TargetHandleType</tp:dbus-ref>,
+        namespace='imt.Channel'>ChannelType</tp:dbus-ref>, <tp:dbus-ref
+        namespace='imt.Channel'>TargetHandleType</tp:dbus-ref>,
         and either <tp:dbus-ref
-        namespace='ofdT.Channel'>TargetHandle</tp:dbus-ref> or <tp:dbus-ref
-        namespace='ofdT.Channel'>TargetID</tp:dbus-ref> in a call to
+        namespace='imt.Channel'>TargetHandle</tp:dbus-ref> or <tp:dbus-ref
+        namespace='imt.Channel'>TargetID</tp:dbus-ref> in a call to
         <tp:dbus-ref
-        namespace='ofdT.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>.</p>
+        namespace='imt.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>.</p>
 
       <p>Named chat rooms whose identity can be saved and used again later
         (IRC channels, Jabber MUCs) are expected to be represented by Text
         channels with <tp:dbus-ref
-        namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref> =
+        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> =
         <tp:value-ref type="Handle_Type">Room</tp:value-ref> and the
-        <tp:dbus-ref namespace="ofdT.Channel.Interface">Group</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt.Channel.Interface">Group</tp:dbus-ref>
         interface. In protocols where a chatroom can be used as a continuation
         of one or more one-to-one chats, these channels should also have the
-        <tp:dbus-ref namespace="ofdT.Channel.Interface">Conference</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt.Channel.Interface">Conference</tp:dbus-ref>
         interface.</p>
 
       <p>Unnamed, transient chat rooms which cannot be rejoined by their
         unique identifier (e.g. a conversation on MSN which has, or once had,
         three or more participants) are expected to be represented by Text
         channels with <tp:dbus-ref
-        namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref> = <tp:value-ref
+        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> = <tp:value-ref
         type="Handle_Type">None</tp:value-ref> (and hence <tp:dbus-ref
-        namespace="ofdT.Channel">TargetHandle</tp:dbus-ref> = 0),
-        <tp:dbus-ref namespace="ofdT.Channel.Interface">Group</tp:dbus-ref>
+        namespace="imt.Channel">TargetHandle</tp:dbus-ref> = 0),
+        <tp:dbus-ref namespace="imt.Channel.Interface">Group</tp:dbus-ref>
         interface, and optionally the
-        <tp:dbus-ref namespace="ofdT.Channel.Interface">Conference</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt.Channel.Interface">Conference</tp:dbus-ref>
         interface.</p>
 
       <p>On protocols like MSN where a conversation with a user is actually
         just a nameless chat room starting with exactly two members, to which
         more members can be invited, the initial one-to-one conversation
         SHOULD be represented with <tp:dbus-ref
-        namespace="ofdT.Channel">TargetHandleType</tp:dbus-ref> =
+        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> =
         <tp:value-ref type="Handle_Type">Contact</tp:value-ref>. If a third
         participant
         joins or is invited, this SHOULD be represented by signalling
         a new <tp:dbus-ref
-          namespace="ofdT.Channel.Interface">Conference</tp:dbus-ref> channel
+          namespace="imt.Channel.Interface">Conference</tp:dbus-ref> channel
         with the one-to-one channel in its <tp:dbus-ref
-          namespace="ofdT.Channel.Interface.Conference"
+          namespace="imt.Channel.Interface.Conference"
           >InitialChannels</tp:dbus-ref>, migrating the underlying protocol
         object from the one-to-one channel to the Conference channel,
         and creating a new protocol-level conversation if the one-to-one
@@ -540,12 +540,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the connection manager MUST allow this, but SHOULD open a new channel
         to deliver those messages, signalling it as a new channel with the
         <tp:dbus-ref
-          namespace="ofdT.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          namespace="imt.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
         signal. The new channel should resemble the old channel, but have
-        <tp:dbus-ref namespace='ofdT.Channel'>Requested</tp:dbus-ref> = FALSE
+        <tp:dbus-ref namespace='imt.Channel'>Requested</tp:dbus-ref> = FALSE
         regardless of its previous value; the <tp:dbus-ref
-        namespace='ofdT.Channel'>InitiatorHandle</tp:dbus-ref>
-        and <tp:dbus-ref namespace='ofdT.Channel'>InitiatorID</tp:dbus-ref>
+        namespace='imt.Channel'>InitiatorHandle</tp:dbus-ref>
+        and <tp:dbus-ref namespace='imt.Channel'>InitiatorID</tp:dbus-ref>
         should correspond to the sender of one of the pending
         messages.</p>
 
@@ -584,7 +584,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
 
       <p>As a result, Text channels SHOULD implement <tp:dbus-ref
-          namespace="ofdT">Channel.Interface.Destroyable</tp:dbus-ref>.</p>
+          namespace="imt">Channel.Interface.Destroyable</tp:dbus-ref>.</p>
 
       <tp:rationale>
         <p>This "respawning" behaviour becomes problematic if there is no
@@ -604,7 +604,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Opaquely-named rejoinable chatrooms (such as Skype rooms) are
         represented using the properties in the <tp:dbus-ref
-        namespace="ofdT.Channel.Interface">Room2</tp:dbus-ref>
+        namespace="imt.Channel.Interface">Room2</tp:dbus-ref>
         interface. Instructions and examples of how to request
         such channels are given in said interface's description.</p>
 

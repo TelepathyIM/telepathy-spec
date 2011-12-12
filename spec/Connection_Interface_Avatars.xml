@@ -18,8 +18,8 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Avatars">
-    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+  <interface name="im.telepathy.Connection.Interface.Avatars">
+    <tp:requires interface="im.telepathy.Connection"/>
 
     <tp:simple-type name="Avatar_Token" type="s"
       array-name="Avatar_Token_List">
@@ -284,10 +284,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Get the required format of avatars on this connection.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -312,11 +312,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>GetKnownAvatarTokens</tp:member-ref> instead.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -345,11 +345,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         map until an avatar is explicitly set or cleared.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -377,11 +377,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Telepathy clients is deprecated; use RequestAvatars instead.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The contact does not currently have an avatar.
           </tp:docstring>
@@ -404,8 +404,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         avatar) the AvatarRetrieved signal is not emitted for that contact.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
       </tp:possible-errors>
     </method>
 
@@ -431,11 +431,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>GetAvatarRequirements</tp:member-ref>.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -445,8 +445,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Remove the avatar image for this connection.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
 

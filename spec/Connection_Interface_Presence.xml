@@ -24,9 +24,9 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.Presence">
-    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.SimplePresence"/>
+  <interface name="im.telepathy.Connection.Interface.Presence">
+    <tp:requires interface="im.telepathy.Connection"/>
+    <tp:requires interface="im.telepathy.Connection.Interface.SimplePresence"/>
 
     <tp:mapping name="Multiple_Status_Map">
       <tp:docstring>Mapping used in
@@ -83,11 +83,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>PresenceUpdate</tp:member-ref> signals being emitted.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
     <method name="ClearStatus" tp:name-for-bindings="Clear_Status">
@@ -98,9 +98,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:member-ref>PresenceUpdate</tp:member-ref> signals being emitted.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
     <method name="GetPresence" tp:name-for-bindings="Get_Presence">
@@ -125,9 +125,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         it will not wake up each client connected to the PresenceUpdate signal.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
     <method name="GetStatuses" tp:name-for-bindings="Get_Statuses">
@@ -151,8 +151,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         be available on some servers.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
     <signal name="PresenceUpdate" tp:name-for-bindings="Presence_Update">
@@ -186,10 +186,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         actually result in it being replaced by a default available status.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>The status requested is not currently set</tp:docstring>
         </tp:error>
       </tp:possible-errors>
@@ -205,16 +205,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         signal will be emitted when they are received. This is not the same as
         subscribing to the presence of a contact, which must be done using the
         'subscription' <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Type">ContactList</tp:dbus-ref>,
+        namespace="im.telepathy.Channel.Type">ContactList</tp:dbus-ref>,
         and on some protocols presence information may not be available unless
         a subscription exists.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The presence of the requested contacts is not reported to this connection
           </tp:docstring>
@@ -233,9 +233,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the server.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             This protocol has no concept of idle time
           </tp:docstring>
@@ -261,7 +261,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <tp:rationale>
           <p>The same rationale as for <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence.SetPresence</tp:dbus-ref>
+              namespace="im.telepathy.Connection.Interface">SimplePresence.SetPresence</tp:dbus-ref>
             applies.</p>
         </tp:rationale>
 
@@ -274,17 +274,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           a certain status, Disconnected will be returned.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument"/>
+        <tp:error name="im.telepathy.Error.PermissionDenied"/>
       </tp:possible-errors>
     </method>
 
     <tp:deprecated version="0.17.21">Client implementations
       SHOULD use <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
+        namespace="im.telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
       instead.</tp:deprecated>
     <tp:changed version="0.17.23">Connection managers implementing
       Presence MUST implement SimplePresence too.</tp:changed>
@@ -309,7 +309,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <p>Each status has an arbitrary string identifier which should have an agreed
     meaning between the connection manager and any client which is expected to
     make use of it. The well-known values defined by the <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
+        namespace="im.telepathy.Connection.Interface">SimplePresence</tp:dbus-ref>
       interface SHOULD be used where possible</p>
 
     <p>As well as these well-known status identifiers, every status also has a

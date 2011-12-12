@@ -18,21 +18,21 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Media.SessionHandler">
+  <interface name="im.telepathy.Media.SessionHandler">
     <method name="Error" tp:name-for-bindings="Error">
       <arg direction="in" name="Error_Code" type="u"
         tp:type="Media_Stream_Error"/>
       <arg direction="in" name="Message" type="s"/>
       <tp:deprecated version="0.13.4">
         Use <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Media">StreamHandler.Error</tp:dbus-ref>
+          namespace="im.telepathy.Media">StreamHandler.Error</tp:dbus-ref>
         on each StreamHandler object instead.
       </tp:deprecated>
       <tp:docstring>
         Informs the connection manager that an error occured in this session.
         If used, the connection manager must terminate the session and all of
         the streams within it, and may also emit a <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">StreamError</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Type.StreamedMedia">StreamError</tp:dbus-ref>
         signal on the channel for each stream within the session.
       </tp:docstring>
     </method>
@@ -40,7 +40,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="Stream_Handler" type="o">
         <tp:docstring>
           The path of a new object implementing the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media">StreamHandler</tp:dbus-ref>
+            namespace="im.telepathy.Media">StreamHandler</tp:dbus-ref>
           interface.
         </tp:docstring>
       </arg>

@@ -18,9 +18,9 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Interface.MediaSignalling">
-    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Channel.Type.StreamedMedia"/>
+  <interface name="im.telepathy.Channel.Interface.MediaSignalling">
+    <tp:requires interface="im.telepathy.Channel"/>
+    <tp:requires interface="im.telepathy.Channel.Type.StreamedMedia"/>
     <tp:changed version="0.24.0">The old-style Telepathy properties,
       deprecated since March 2009, have been removed.</tp:changed>
 
@@ -90,7 +90,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg name="Session_Handler" type="o">
         <tp:docstring>
           Object path of the new <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Media.SessionHandler</tp:dbus-ref>
+          namespace="im.telepathy">Media.SessionHandler</tp:dbus-ref>
           object
         </tp:docstring>
       </arg>
@@ -109,7 +109,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:hct name="gtalk-p2p">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
+            namespace="im.telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
           property is <code>gtalk-p2p</code>.</p>
       </tp:docstring>
     </tp:hct>
@@ -117,7 +117,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:hct name="ice-udp">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
+            namespace="im.telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
           property is <code>ice-udp</code>.</p>
       </tp:docstring>
     </tp:hct>
@@ -125,7 +125,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:hct name="wlm-8.5">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
+          namespace="im.telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
           property is <code>wlm-8.5</code>.</p>
       </tp:docstring>
     </tp:hct>
@@ -133,7 +133,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:hct name="wlm-2009">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The client can implement streaming for streams whose <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
+            namespace="im.telepathy.Media.StreamHandler">NATTraversal</tp:dbus-ref>
           property is <code>wlm-2009</code>.</p>
       </tp:docstring>
     </tp:hct>
@@ -165,11 +165,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>For example, a client could advertise support for
           Speex, Theora and H264 by having three
           handler capability tokens,
-          <code>org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/audio/speex</code>,
-          <code>org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/theora</code> and
-          <code>org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264</code>,
+          <code>im.telepathy.Channel.Interface.MediaSignalling/audio/speex</code>,
+          <code>im.telepathy.Channel.Interface.MediaSignalling/video/theora</code> and
+          <code>im.telepathy.Channel.Interface.MediaSignalling/video/h264</code>,
           in its <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler">Capabilities</tp:dbus-ref>
+            namespace="im.telepathy.Client.Handler">Capabilities</tp:dbus-ref>
           property.</p>
 
         <p>Clients MAY have media signalling abilities without explicitly

@@ -21,9 +21,9 @@ License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
 USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection">
-    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Requests"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Connection.Interface.Contacts"/>
+  <interface name="im.telepathy.Connection">
+    <tp:requires interface="im.telepathy.Connection.Interface.Requests"/>
+    <tp:requires interface="im.telepathy.Connection.Interface.Contacts"/>
 
     <tp:struct name="Channel_Info" array-name="Channel_Info_List">
       <tp:deprecated version="0.17.23"/>
@@ -111,7 +111,7 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected">
+        <tp:error name="im.telepathy.Error.Disconnected">
           <tp:docstring>
              Before version 0.17.8 calling GetInterfaces while
              on a connection that is not yet CONNECTED wasn't allowed. If a
@@ -186,7 +186,7 @@ USA.</p>
         instead.</tp:deprecated>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
 
@@ -264,13 +264,13 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The handle type is invalid
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             One of the given handles is not valid
           </tp:docstring>
@@ -303,13 +303,13 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The handle type is invalid
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             One of the given handles is not valid
           </tp:docstring>
@@ -320,7 +320,7 @@ USA.</p>
     <method name="ListChannels" tp:name-for-bindings="List_Channels">
       <tp:deprecated version="0.17.23">Use the
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.Channels</tp:dbus-ref>
+          namespace="im.telepathy.Connection.Interface">Requests.Channels</tp:dbus-ref>
         property instead.
       </tp:deprecated>
 
@@ -336,14 +336,14 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.Disconnected"/>
       </tp:possible-errors>
     </method>
 
     <signal name="NewChannel" tp:name-for-bindings="New_Channel">
       <tp:deprecated version="0.17.23">Connection managers MUST still
         emit this signal, but clients SHOULD listen for the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.NewChannels</tp:dbus-ref>
+          namespace="im.telepathy.Connection.Interface">Requests.NewChannels</tp:dbus-ref>
         signal instead.
       </tp:deprecated>
 
@@ -429,13 +429,13 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             The handle type is invalid
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             One of the given handles is not valid
           </tp:docstring>
@@ -446,9 +446,9 @@ USA.</p>
     <method name="RequestChannel" tp:name-for-bindings="Request_Channel">
       <tp:deprecated version="0.17.23">Use
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.CreateChannel</tp:dbus-ref>
+          namespace="im.telepathy.Connection.Interface">Requests.CreateChannel</tp:dbus-ref>
         or <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Connection.Interface">Requests.EnsureChannel</tp:dbus-ref>
+          namespace="im.telepathy.Connection.Interface">Requests.EnsureChannel</tp:dbus-ref>
         instead. Connection managers MAY implement RequestChannel by
         raising NotImplemented, or implement fewer types of channel via
         this API.</tp:deprecated>
@@ -530,9 +530,9 @@ USA.</p>
           returned channel may either be a new or existing channel to
           the requested entity (i.e. its
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+            namespace="im.telepathy.Channel">TargetHandleType</tp:dbus-ref>
           and <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+            namespace="im.telepathy.Channel">TargetHandle</tp:dbus-ref>
           properties are the
           requested handle type and handle), or a newly created "anonymous"
           channel associated with the requested handle in some
@@ -547,32 +547,32 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             Unknown channel type
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             The given handle does not exist or cannot be created
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The requested channel type cannot be created with the given handle
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
+        <tp:error name="im.telepathy.Error.NotCapable">
           <tp:docstring>
             The requested channel cannot be created because contact doesn't
             have the required capabilities.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Banned"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.Full"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.Channel.InviteOnly"/>
+        <tp:error name="im.telepathy.Error.Channel.Banned"/>
+        <tp:error name="im.telepathy.Error.Channel.Full"/>
+        <tp:error name="im.telepathy.Error.Channel.InviteOnly"/>
       </tp:possible-errors>
     </method>
 
@@ -596,7 +596,7 @@ USA.</p>
       </tp:enumvalue>
       <tp:enumvalue suffix="List" value="3">
         <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Connection.Interface.ContactList</tp:dbus-ref>
+          namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
         </tp:deprecated>
         <tp:docstring>
           A server-generated contact list (see Channel.Interface.Group)
@@ -604,7 +604,7 @@ USA.</p>
       </tp:enumvalue>
       <tp:enumvalue suffix="Group" value="4">
         <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Connection.Interface.ContactList</tp:dbus-ref>
+          namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
         </tp:deprecated>
         <tp:docstring>
           A user-defined contact list (see Channel.Interface.Group)
@@ -632,7 +632,7 @@ USA.</p>
     <tp:simple-type name="List_Handle" type="u"
       array-name="List_Handle_List">
       <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Connection.Interface.ContactList</tp:dbus-ref>
+        namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
       </tp:deprecated>
       <tp:docstring>An unsigned 32-bit integer representing a handle of type
         Handle_Type_List</tp:docstring>
@@ -641,7 +641,7 @@ USA.</p>
     <tp:simple-type name="Group_Handle" type="u"
       array-name="Group_Handle_List">
       <tp:deprecated version="0.25.0">Replaced by <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy">Connection.Interface.ContactList</tp:dbus-ref>
+        namespace="im.telepathy">Connection.Interface.ContactList</tp:dbus-ref>
       </tp:deprecated>
       <tp:docstring>An unsigned 32-bit integer representing a handle of type
         Handle_Type_Group</tp:docstring>
@@ -690,8 +690,8 @@ USA.</p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle">
           <tp:docstring>
             The given identifier does not identify a valid entity of the given
             type.
@@ -703,7 +703,7 @@ USA.</p>
             </tp:rationale>
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             The given handle type is not valid, or is not implemented on this
             connection.
@@ -757,7 +757,7 @@ USA.</p>
             reasons SHOULD be treated like this reason.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.<tp:error-ref>Disconnected</tp:error-ref></code>.</p>
+            <code>im.telepathy.Error.<tp:error-ref>Disconnected</tp:error-ref></code>.</p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -769,7 +769,7 @@ USA.</p>
             if and only if the disconnection was requested by the user.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cancelled</code>.</p>
+            <code>im.telepathy.Error.Cancelled</code>.</p>
         </tp:docstring>
       </tp:enumvalue>
 
@@ -779,15 +779,15 @@ USA.</p>
 
           <p>When the status changes from Connecting to Disconnected for this
             reason, the equivalent D-Bus error is either
-            <code>org.freedesktop.Telepathy.Error.NetworkError</code>,
-            <code>org.freedesktop.Telepathy.Error.ConnectionRefused</code>,
-            <code>org.freedesktop.Telepathy.Error.ConnectionFailed</code>
+            <code>im.telepathy.Error.NetworkError</code>,
+            <code>im.telepathy.Error.ConnectionRefused</code>,
+            <code>im.telepathy.Error.ConnectionFailed</code>
             or some more specific error.</p>
 
           <p>When the status changes from Connected to Disconnected for this
             reason, the equivalent D-Bus error is either
-            <code>org.freedesktop.Telepathy.Error.NetworkError</code>,
-            <code>org.freedesktop.Telepathy.Error.ConnectionLost</code>
+            <code>im.telepathy.Error.NetworkError</code>,
+            <code>im.telepathy.Error.ConnectionLost</code>
             or some more specific error.</p>
         </tp:docstring>
       </tp:enumvalue>
@@ -797,7 +797,7 @@ USA.</p>
           <p>The username or password was invalid.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.AuthenticationFailed</code>.
+            <code>im.telepathy.Error.AuthenticationFailed</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -809,9 +809,9 @@ USA.</p>
             connection was created.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.EncryptionNotAvailable</code>
+            <code>im.telepathy.Error.EncryptionNotAvailable</code>
             if encryption was not available at all, or
-            <code>org.freedesktop.Telepathy.Error.EncryptionError</code>
+            <code>im.telepathy.Error.EncryptionError</code>
             if encryption failed.</p>
         </tp:docstring>
       </tp:enumvalue>
@@ -828,7 +828,7 @@ USA.</p>
               and true, the requested account could not be created on the
               server because it already exists.
               The equivalent D-Bus error is
-              <code>org.freedesktop.Telepathy.Error.RegistrationExists</code>.
+              <code>im.telepathy.Error.RegistrationExists</code>.
             </li>
 
             <li>If the status change is from Connecting to Disconnected
@@ -836,7 +836,7 @@ USA.</p>
               manager could not connect to the specified account because
               a connection to that account already exists.
               The equivalent D-Bus error is
-              <code>org.freedesktop.Telepathy.Error.AlreadyConnected</code>.
+              <code>im.telepathy.Error.AlreadyConnected</code>.
 
               <tp:rationale>
                 In some protocols, like XMPP (when connecting with the same
@@ -850,7 +850,7 @@ USA.</p>
               a new connection to the same account (perhaps from a different
               client or location) was established.
               The equivalent D-Bus error is
-              <code>org.freedesktop.Telepathy.Error.ConnectionReplaced</code>.
+              <code>im.telepathy.Error.ConnectionReplaced</code>.
 
               <tp:rationale>
                 In some protocols, like MSNP (when connecting twice with the
@@ -867,7 +867,7 @@ USA.</p>
           <p>The server did not provide a SSL certificate.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.NotProvided</code>.
+            <code>im.telepathy.Error.Cert.NotProvided</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -880,7 +880,7 @@ USA.</p>
             that.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Untrusted</code>.
+            <code>im.telepathy.Error.Cert.Untrusted</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -890,7 +890,7 @@ USA.</p>
           <p>The server's SSL certificate has expired.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Expired</code>.
+            <code>im.telepathy.Error.Cert.Expired</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -900,7 +900,7 @@ USA.</p>
           <p>The server's SSL certificate is not yet valid.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.NotActivated</code>.
+            <code>im.telepathy.Error.Cert.NotActivated</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -910,7 +910,7 @@ USA.</p>
           <p>The server's SSL certificate did not match its hostname.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.HostnameMismatch</code>.
+            <code>im.telepathy.Error.Cert.HostnameMismatch</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -921,7 +921,7 @@ USA.</p>
             fingerprint.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.FingerprintMismatch</code>.
+            <code>im.telepathy.Error.Cert.FingerprintMismatch</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -931,7 +931,7 @@ USA.</p>
           <p>The server's SSL certificate is self-signed.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.SelfSigned</code>.
+            <code>im.telepathy.Error.Cert.SelfSigned</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -942,7 +942,7 @@ USA.</p>
             certificate.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Invalid</code>.
+            <code>im.telepathy.Error.Cert.Invalid</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -952,7 +952,7 @@ USA.</p>
           <p>The server's SSL certificate has been revoked.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Revoked</code>.
+            <code>im.telepathy.Error.Cert.Revoked</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -963,7 +963,7 @@ USA.</p>
 	  or is cryptographically weak.</p>
 
           <p>When disconnected for this reason, the equivalent D-Bus error is
-            <code>org.freedesktop.Telepathy.Error.Cert.Insecure</code>.
+            <code>im.telepathy.Error.Cert.Insecure</code>.
           </p>
         </tp:docstring>
       </tp:enumvalue>
@@ -975,7 +975,7 @@ USA.</p>
 	  library.</p>
 
 	  <p>When disconnected for this reason, the equivalent D-Bus error is
-	    <code>org.freedesktop.Telepathy.Error.Cert.LimitExceeded</code>
+	    <code>im.telepathy.Error.Cert.LimitExceeded</code>
 	  </p>
 	</tp:docstring>
       </tp:enumvalue>
@@ -1020,7 +1020,7 @@ USA.</p>
           <tp:type>Connection_Status_Reason</tp:type>, or may be a more
           specific Telepathy error
           (such as
-          <code>org.freedesktop.Telepathy.Error.ConnectionRefused</code>
+          <code>im.telepathy.Error.ConnectionRefused</code>
           for Connection_Status_Reason_Network_Error)
           or a protocol-specific or connection-manager-specific error in a
           suitable namespace.
@@ -1086,7 +1086,7 @@ USA.</p>
         <p>The same string that would be returned by
           <tp:member-ref>InspectHandles</tp:member-ref>. As a special case,
           this is always present in the result of <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
+            namespace="im.telepathy.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
           whether it was explicitly requested or not.</p>
       </tp:docstring>
     </tp:contact-attribute>
@@ -1131,7 +1131,7 @@ USA.</p>
             there is no active subscription.</p>
 
           <p>One situation where this is useful is <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Connection.Interface"
+              namespace="im.telepathy.Connection.Interface"
               >Location</tp:dbus-ref>: on XMPP, location updates are received
             over PEP. If the Connection advertises the
             <code>geoloc+notify</code> capability, it will be sent location
@@ -1142,7 +1142,7 @@ USA.</p>
           <p>Another example of a protocol that benefits from this method is
             the Google XMPP Mail Notification extension, which can be used
             to implement <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Connection.Interface"
+              namespace="im.telepathy.Connection.Interface"
               >MailNotification</tp:dbus-ref>. In this protocol, the CM
             receives a notification that something has changed, but to get
             more information, the CM must request this information. Knowing
@@ -1230,9 +1230,9 @@ USA.</p>
 
       <p>In order to allow Connection objects to be discovered by new clients,
         the object path and well-known bus name MUST be of the form
-        <code>/org/freedesktop/Telepathy/Connection/cmname/proto/account</code>
+        <code>/im/telepathy/Connection/cmname/proto/account</code>
         and
-        <code>org.freedesktop.Telepathy.Connection.cmname.proto.account</code>
+        <code>im.telepathy.Connection.cmname.proto.account</code>
         where:</p>
 
       <ul>
@@ -1240,7 +1240,7 @@ USA.</p>
           <tp:type>Connection_Manager_Name</tp:type> that appears
           in the connection manager's object path and well-known bus name</li>
         <li><em>proto</em> is the <tp:type>Protocol</tp:type> name as seen in
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.ConnectionManager">ListProtocols</tp:dbus-ref>,
+          <tp:dbus-ref namespace="im.telepathy.ConnectionManager">ListProtocols</tp:dbus-ref>,
           but with "-" replaced with "_" to get a valid
           object path/bus name</li>
         <li><em>account</em> is some non-empty sequence of ASCII letters,

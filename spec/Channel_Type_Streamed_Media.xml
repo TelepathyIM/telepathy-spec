@@ -18,9 +18,9 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">
-    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
-    <tp:requires interface="org.freedesktop.Telepathy.Channel.Interface.Group"/>
+  <interface name="im.telepathy.Channel.Type.StreamedMedia">
+    <tp:requires interface="im.telepathy.Channel"/>
+    <tp:requires interface="im.telepathy.Channel.Interface.Group"/>
 
     <tp:enum name="Media_Stream_Type" type="u"
       array-name="Media_Stream_Type_List">
@@ -132,18 +132,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Clients SHOULD NOT attempt to terminate calls by removing all the
           streams; instead, clients SHOULD terminate calls by removing the
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface">Group.SelfHandle</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Interface">Group.SelfHandle</tp:dbus-ref>
           from the channel, using either
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembers</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Interface.Group">RemoveMembers</tp:dbus-ref>
           or
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>.
+            namespace="im.telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>.
           </p>
       </tp:docstring>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             A stream identifier is unknown
           </tp:docstring>
@@ -184,12 +184,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the remote end has accepted or rejected the change.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             A stream identifier is unknown
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             The requested direction is not available on this stream
           </tp:docstring>
@@ -246,24 +246,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:changed version="0.17.2">
         <p>It is valid to use a handle which is neither
           a current nor pending member in this channel's <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface">Group</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface">Group</tp:dbus-ref>
           interface. If
           so, that handle will be added to the remote-pending set only when
           an attempt has actually been made to contact them. For further
           call-state notification, use the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface">CallState</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface">CallState</tp:dbus-ref>
           interface, if
           supported. This usage was not allowed in spec versions below
           0.17.2.</p>
       </tp:changed>
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.InvalidArgument">
           <tp:docstring>
             A stream type given is invalid.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             A stream type given is not implemented by the connection manager.
             Since 0.17.23, connection managers SHOULD raise this error
@@ -275,14 +275,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             </tp:rationale>
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy.Error.NotAvailable">
           <tp:docstring>
             That contact's client does not implement one of the given stream
             types. For this method, clients SHOULD consider this error and
             NotCapable to be equivalent.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotCapable">
+        <tp:error name="im.telepathy.Error.NotCapable">
           <tp:docstring>
             That contact's client does not implement one of the given stream
             types. Since 0.17.23, connection managers SHOULD raise
@@ -454,7 +454,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           the connection manager should immediately attempt to establish an
           audio stream to the remote contact, making it unnecessary for the
           client to call <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">RequestStreams</tp:dbus-ref>.</p>
+            namespace="im.telepathy.Channel.Type.StreamedMedia">RequestStreams</tp:dbus-ref>.</p>
 
         <p>If this property, or InitialVideo, is passed to EnsureChannel
           (as opposed to CreateChannel), the connection manager SHOULD ignore
@@ -470,24 +470,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           the remote contact initially requested an audio stream; this does
           not imply that that audio stream is still active (as indicated by
           <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type.StreamedMedia">ListStreams</tp:dbus-ref>).</p>
+            namespace="im.telepathy.Channel.Type.StreamedMedia">ListStreams</tp:dbus-ref>).</p>
 
         <p>This property is immutable (cannot change), and therefore SHOULD
           appear wherever immutable properties are reported, e.g. <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+            namespace="im.telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
           signals.</p>
 
         <tp:rationale><p>This reduces D-Bus round trips.</p></tp:rationale>
 
         <p>Connection managers capable of signalling audio calls to contacts
           SHOULD include a channel class in <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
+            namespace="im.telepathy.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
           with <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>
+            namespace="im.telepathy.Channel">ChannelType</tp:dbus-ref>
           = <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
+            namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>
           and <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+            namespace="im.telepathy.Channel">TargetHandleType</tp:dbus-ref>
           = Contact in the fixed properties dictionary, and InitialAudio
           (and also InitialVideo, if applicable) in the allowed properties
           list. Clients wishing to discover whether a connection manager
@@ -500,7 +500,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:rationale>
 
         <p>Connection managers that support the <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
+            namespace="im.telepathy.Connection.Interface">ContactCapabilities</tp:dbus-ref>
           interface SHOULD represent the capabilities of receiving audio
           and/or video calls by including a channel class in
           a contact's capabilities with ChannelType = StreamedMedia
@@ -518,12 +518,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Clients that are willing to receive audio and/or video calls
           SHOULD include the following among their channel classes if
           calling <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.ContactCapabilities">UpdateCapabilities</tp:dbus-ref>
+            namespace="im.telepathy.Connection.Interface.ContactCapabilities">UpdateCapabilities</tp:dbus-ref>
           (clients of a <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy">ChannelDispatcher</tp:dbus-ref>
+            namespace="im.telepathy">ChannelDispatcher</tp:dbus-ref>
           SHOULD instead arrange for the ChannelDispatcher to do this,
           by including the filters in their <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>
+            namespace="im.telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>
           properties):</p>
 
         <ul>
@@ -592,7 +592,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>This property is immutable, and therefore SHOULD be announced
           in <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
+            namespace="im.telepathy.Connection.Interface.Requests">NewChannels</tp:dbus-ref>,
           etc.</p>
       </tp:docstring>
     </property>
@@ -606,7 +606,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and signals of the Group interface.</p>
 
       <p>In general this should be used in conjunction with the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
         interface to exchange connection candidates and codec choices with
         whichever component is responsible for the streams. However, in certain
         applications where no candidate exchange is necessary (eg the streams
@@ -622,37 +622,37 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <blockquote>
         <pre>
 <tp:dbus-ref
-    namespace="org.freedesktop.Telepathy.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
+    namespace="im.telepathy.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
   <tp:dbus-ref
-    namespace="org.freedesktop.Telepathy.Channel">ChannelType</tp:dbus-ref>: <tp:dbus-ref
-    namespace="org.freedesktop.Telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>,
+    namespace="im.telepathy.Channel">ChannelType</tp:dbus-ref>: <tp:dbus-ref
+    namespace="im.telepathy.Channel.Type">StreamedMedia</tp:dbus-ref>,
   <tp:dbus-ref
-    namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>: Contact,
+    namespace="im.telepathy.Channel">TargetHandleType</tp:dbus-ref>: Contact,
   <tp:dbus-ref
-    namespace="org.freedesktop.Telepathy.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
+    namespace="im.telepathy.Channel">TargetID</tp:dbus-ref>: 'foo@example.com',
   <tp:member-ref>InitialAudio</tp:member-ref>: True,
 )</pre></blockquote>
 
       <p>As always, <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref>
+          namespace="im.telepathy.Channel">TargetHandle</tp:dbus-ref>
         may be used in place of TargetID if the contact's handle is already
         known. To make an audio-and-video call, the client should also specify
         <tp:member-ref>InitialVideo</tp:member-ref>.  The connection manager
         SHOULD return a channel whose immutable properties contain the local
-        user as the <tp:dbus-ref namespace='ofdT.Channel'>InitiatorHandle</tp:dbus-ref>,
-        the remote contact as the <tp:dbus-ref namespace='ofdT.Channel'>TargetHandle</tp:dbus-ref>,
-        <tp:dbus-ref namespace='ofdT.Channel'>Requested</tp:dbus-ref> = <code>True</code>
+        user as the <tp:dbus-ref namespace='imt.Channel'>InitiatorHandle</tp:dbus-ref>,
+        the remote contact as the <tp:dbus-ref namespace='imt.Channel'>TargetHandle</tp:dbus-ref>,
+        <tp:dbus-ref namespace='imt.Channel'>Requested</tp:dbus-ref> = <code>True</code>
         (indicating that the call is outgoing); the <tp:dbus-ref
-          namespace='ofdT.Channel.Interface'>Group</tp:dbus-ref> interface should
+          namespace='imt.Channel.Interface'>Group</tp:dbus-ref> interface should
         initially have the local user in <tp:dbus-ref
-          namespace='ofdT.Channel.Interface.Group'>Members</tp:dbus-ref> and the remote
+          namespace='imt.Channel.Interface.Group'>Members</tp:dbus-ref> and the remote
         contact in <tp:dbus-ref
-          namespace='ofdT.Channel.Interface.Group'>RemotePendingMembers</tp:dbus-ref>, to
+          namespace='imt.Channel.Interface.Group'>RemotePendingMembers</tp:dbus-ref>, to
         indicate that we are awaiting their response.</p>
 
       <p>The contact answering the call is represented by the CM signalling
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>,
+          namespace="im.telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>,
         moving the remote contact to Members, with the remote contact as the
         <var>Actor</var> and <var>Reason</var> <code>None</code>. The contact
         rejecting the call is represented by both contacts being removed from
@@ -660,7 +660,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <var>Reason</var> set appropriately. The local user may hang up at any
         time by calling
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>
         to remove themself, with an appropriate reason; the CM SHOULD relay the
         reason to the remote contact, and emit MembersChanged removing both
         contacts from the group with the self handle as the <var>Actor</var>.</p>
@@ -673,31 +673,31 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <h4>Incoming calls</h4>
 
       <p>Incoming calls' immutable properties should contain <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">TargetHandleType</tp:dbus-ref>
+          namespace="im.telepathy.Channel">TargetHandleType</tp:dbus-ref>
         = Contact, both <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">TargetHandle</tp:dbus-ref> and
+          namespace="im.telepathy.Channel">TargetHandle</tp:dbus-ref> and
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel">InitiatorHandle</tp:dbus-ref>
+          namespace="im.telepathy.Channel">InitiatorHandle</tp:dbus-ref>
         set to the remote contact, <tp:dbus-ref
-        namespace='ofdT.Channel'>Requested</tp:dbus-ref> = <code>False</code>
+        namespace='imt.Channel'>Requested</tp:dbus-ref> = <code>False</code>
         (indicating that this is an incoming call), and appropriate values of
         <tp:member-ref>InitialAudio</tp:member-ref> and
         <tp:member-ref>InitialVideo</tp:member-ref>; the Group interface should
         initially have the local user in <tp:dbus-ref
-        namespace="ofdT.Channel.Interface.Group">LocalPendingMembers</tp:dbus-ref>
+        namespace="imt.Channel.Interface.Group">LocalPendingMembers</tp:dbus-ref>
         and the remote contact in <tp:dbus-ref
-        namespace="ofdT.Channel.Interface.Group">Members</tp:dbus-ref>,
+        namespace="imt.Channel.Interface.Group">Members</tp:dbus-ref>,
         indicating that the contact is awaiting our response.</p>
 
       <p>To accept the call, use <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface.Group">AddMembers</tp:dbus-ref>
         to move the local user to the group's members. To reject the call, use
         <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>
         to remove the local member from the group, with an appropriate reason.
         If the remote user ends the call before it is answered, this is
         represented by <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>
+          namespace="im.telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>
         removing both parties from the group with the remote contact as the
         <var>Actor</var>, and <var>Reason</var> set appropriately.</p>
 
@@ -707,7 +707,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         local component may time out the call (indicating this with reason
         <code>No_Answer</code>; for example, the CM may have forwarded the call
         to another number, as configured using <tp:dbus-ref
-        namespace='ofdT.Connection.Interface'>Forwarding.DRAFT</tp:dbus-ref>),
+        namespace='imt.Connection.Interface'>Forwarding.DRAFT</tp:dbus-ref>),
         or something may have gone wrong with the call
         (indicated by reason <code>Error</code>). Such calls SHOULD be
         considered missed, just as if the remote contact had hung up before the
@@ -747,10 +747,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:member-ref>RemoveStreams</tp:member-ref> (for example, to downgrade
       an audio-video call to audio-only). The call may be ended by calling
       <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembers</tp:dbus-ref>
+        namespace="im.telepathy.Channel.Interface.Group">RemoveMembers</tp:dbus-ref>
       or <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>; the call ending is signalled by the CM emitting <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>,
+        namespace="im.telepathy.Channel.Interface.Group">RemoveMembersWithReason</tp:dbus-ref>; the call ending is signalled by the CM emitting <tp:dbus-ref
+        namespace="im.telepathy.Channel.Interface.Group">MembersChanged</tp:dbus-ref>,
       removing both parties from the group.</p>
 
     <h4>Handler filters</h4>
@@ -758,18 +758,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <p>For historical reasons, handlers must specify more than one filter if
       they want to correctly advertise support for audio and/or video calls. If
       they can handle channels using the <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
+        namespace="im.telepathy.Channel.Interface">MediaSignalling</tp:dbus-ref>
       interface, they should also advertise various
       <tp:type>Handler_Capability_Token</tp:type>s to indicate which codecs and
       transports they support. See <tp:member-ref>InitialAudio</tp:member-ref>
       and <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Channel.Interface">MediaSignalling/video/h264</tp:dbus-ref>
+        namespace="im.telepathy.Channel.Interface">MediaSignalling/video/h264</tp:dbus-ref>
       for the gory details. In summary:</p>
 
     <dl>
       <dt>To advertise support for streamed media in general, include the
         following filter in <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>:</dt>
+          namespace="im.telepathy.Client.Handler">HandlerChannelFilter</tp:dbus-ref>:</dt>
       <dd><pre>
 { '...Channel.ChannelType': '...Channel.Type.StreamedMedia' ,
   '...Channel.TargetHandleType': Contact,
@@ -793,11 +793,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <dt>If you use telepathy-farsight, and have H.264 support, you probably
         want these <tp:dbus-ref
-        namespace="org.freedesktop.Telepathy.Client.Handler">Capabilities</tp:dbus-ref>:</dt>
+        namespace="im.telepathy.Client.Handler">Capabilities</tp:dbus-ref>:</dt>
       <dd><pre>
-[ "org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/ice-udp",
-  "org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/gtalk-p2p",
-  "org.freedesktop.Telepathy.Channel.Interface.MediaSignalling/video/h264",
+[ "im.telepathy.Channel.Interface.MediaSignalling/ice-udp",
+  "im.telepathy.Channel.Interface.MediaSignalling/gtalk-p2p",
+  "im.telepathy.Channel.Interface.MediaSignalling/video/h264",
 ]</pre></dd>
     </dl>
     </tp:docstring>
@@ -806,7 +806,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The channel-type-specific capability flags used for
         Channel.Type.StreamedMedia in the <tp:dbus-ref
-          namespace="org.freedesktop.Telepathy">Connection.Interface.Capabilities</tp:dbus-ref>
+          namespace="im.telepathy">Connection.Interface.Capabilities</tp:dbus-ref>
         interface. See the <tp:member-ref>InitialAudio</tp:member-ref>
         property for details of the mechanisms that will replace this.
       </tp:docstring>

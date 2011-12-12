@@ -18,7 +18,7 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Media.StreamHandler">
+  <interface name="im.telepathy.Media.StreamHandler">
 
     <tp:docstring>
     Handles signalling the information pertaining to a specific media stream.
@@ -734,7 +734,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           should put MAXUINT (0xFFFFFFFF).
 
           Implementors and users of Call's <tp:dbus-ref
-          namespace="ofdT.Call1.Content.MediaDescription.Interface"
+          namespace="imt.Call1.Content.MediaDescription.Interface"
           >RTCPFeedback</tp:dbus-ref> should not use the MAXUINT default.
           Instead, in RTP/AVP, the default should be 5000 (5 seconds).
           If using the RTP/AVPF profile, it can be set to a lower value,

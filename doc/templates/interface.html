@@ -210,8 +210,8 @@
     <h1>Client Interests</h1>
     <div>
      Set using the
-     <a href="Connection.html#org.freedesktop.Telepathy.Connection.AddClientInterest">AddClientInterest</a> and
-     <a href="Connection.html#org.freedesktop.Telepathy.Connection.RemoveClientInterest">RemoveClientInterest</a> methods.
+     <a href="Connection.html#im.telepathy.Connection.AddClientInterest">AddClientInterest</a> and
+     <a href="Connection.html#im.telepathy.Connection.RemoveClientInterest">RemoveClientInterest</a> methods.
     </div>
     #for $interest in $interface.client_interests
     <div class="inset client-interest">
@@ -364,7 +364,7 @@
        #if $interface.is_channel_related:
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
-       of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
+       of <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
        signals.
        #else
        change.
@@ -376,7 +376,7 @@
        #if $interface.is_channel_related:
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
-       of <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
+       of <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.NewChannels">NewChannels</a>
        signals.
        #else
        change.
@@ -388,29 +388,29 @@
      <div class="annotation requestable">Depending on the protocol, this
        property may be <strong>requestable</strong>, which means that it may be
        allowed in the properties hash of a channel request such as in the
-       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and
-       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
        on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        If supported on this protocol, the property should appear in either the
        Fixed_Properties or Allowed_Properties of
-       a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
+       a <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #elif $property.requestable:
      <div class="annotation requestable">This property
        is <strong>requestable</strong>, which means that it is allowed
        in the properties hash of a channel request such as in the
-       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and 
-       <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
        on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        The property should also appear in either the Fixed_Properties
        or Allowed_Properties of
-       a <a href="Connection_Interface_Requests.html#org.freedesktop.Telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
+       a <a href="Connection_Interface_Requests.html#im.telepathy.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #end if
 
@@ -447,10 +447,10 @@
           href="Connection_Manager.html#Conn_Mgr_Param_Flags">DBus_Property</a>
           flag. Clients SHOULD update this property by
           calling <a
-            href="Account.html#org.freedesktop.Telepathy.Account.UpdateParameters">UpdateParameters</a>
+            href="Account.html#im.telepathy.Account.UpdateParameters">UpdateParameters</a>
           on the relevant <a href="Account.html">Account</a> rather than
           setting the property directly; change notification is via <a
-            href="Account.html#org.freedesktop.Telepathy.Account.AccountPropertyChanged">AccountPropertyChanged</a>.
+            href="Account.html#im.telepathy.Account.AccountPropertyChanged">AccountPropertyChanged</a>.
           </p>
       </div>
       #end if
@@ -467,7 +467,7 @@
     <h1>Telepathy Properties</h1>
     <div>
      Accessed using the <a
-       href="Properties_Interface.html">org.freedesktop.Telepathy.Properties</a>
+       href="Properties_Interface.html">im.telepathy.Properties</a>
      interface.
     </div>
     #for $property in $interface.tpproperties
@@ -493,7 +493,7 @@
     <h1>Contact Attributes</h1>
     <div>
       Attributes that a contact can have, accessed with the
-      org.freedesktop.Telepathy.Connection.Interface.Contacts interface.
+      im.telepathy.Connection.Interface.Contacts interface.
     </div>
     #for $token in $interface.contact_attributes
     <div class="inset contact-attribute">

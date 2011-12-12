@@ -18,8 +18,8 @@
       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,
       USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Connection.Interface.ContactList">
-    <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+  <interface name="im.telepathy.Connection.Interface.ContactList">
+    <tp:requires interface="im.telepathy.Connection"/>
     <tp:added version="0.21.0">(as stable API)</tp:added>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -36,7 +36,7 @@
 
         <p>In Telepathy 0.20 and older, we represented contact lists as a
           collection of <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel.Type"
+            namespace="im.telepathy.Channel.Type"
             >ContactList</tp:dbus-ref> channels. This is remarkably difficult to
           work with in practice - every client that cares about contact lists
           has to take the union of some hard-to-define set of these
@@ -163,7 +163,7 @@
           <p>A list of strings indicating which D-Bus interfaces the calling
             process is interested in. Equivalent to the corresponding argument
             to <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
+              namespace="im.telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>,
             except that if this list does not contain the ContactList
             interface itself, it is treated as though that interface was also
@@ -175,8 +175,8 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>If true, all handles that appear as keys in the result have been
             held on behalf of the calling process, as if by a call to
-            <tp:dbus-ref namespace="ofdT">Connection.HoldHandles</tp:dbus-ref>.
-            (If <tp:dbus-ref namespace="ofdT.Connection"
+            <tp:dbus-ref namespace="imt">Connection.HoldHandles</tp:dbus-ref>.
+            (If <tp:dbus-ref namespace="imt.Connection"
               >HasImmortalHandles</tp:dbus-ref> is true, which SHOULD be the
             case in all new connection managers, this has no effect.)</p>
         </tp:docstring>
@@ -187,22 +187,22 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary mapping the contact handles to contact attributes,
             equivalent to the result of <tp:dbus-ref
-              namespace="org.freedesktop.Telepathy.Connection.Interface.Contacts"
+              namespace="im.telepathy.Connection.Interface.Contacts"
               >GetContactAttributes</tp:dbus-ref>.</p>
 
         </tp:docstring>
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.ServiceBusy"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented"/>
+        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy.Error.ServiceBusy"/>
+        <tp:error name="im.telepathy.Error.NotYet">
           <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
             <p>The <tp:member-ref>ContactListState</tp:member-ref> is
               None or Waiting. In particular, this error is raised if the
-              <tp:dbus-ref namespace="ofdT.Connection">Status</tp:dbus-ref>
+              <tp:dbus-ref namespace="imt.Connection">Status</tp:dbus-ref>
               is not yet Connection_Status_Connected.</p>
           </tp:docstring>
         </tp:error>
@@ -266,7 +266,7 @@
         <p>If this attribute is not Yes, the local user cannot generally
           expect to receive presence from this contact. Their presence status
           as returned by <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.SimplePresence">GetPresences</tp:dbus-ref>
+            namespace="im.telepathy.Connection.Interface.SimplePresence">GetPresences</tp:dbus-ref>
           is likely to be (Unknown, "unknown", ""), unless the local user
           can temporarily see their presence for some other reason (for
           instance, on XMPP, contacts seen in chatrooms will temporarily
@@ -675,7 +675,7 @@
           <tp:member-ref>RemoveContacts</tp:member-ref> methods.</p>
 
         <p>If false, all of those methods will always fail; they SHOULD raise
-          the error org.freedesktop.Telepathy.Error.NotImplemented.</p>
+          the error im.telepathy.Error.NotImplemented.</p>
 
         <tp:rationale>
           <p>In XEP-0174 "Serverless Messaging" (link-local XMPP), presence is
@@ -708,11 +708,11 @@
         </tp:rationale>
 
         <p>Before calling this method on a connection where <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
+            namespace="im.telepathy.Connection.Interface.Aliasing"
             >GetAliasFlags</tp:dbus-ref> returns the <code>User_Set</code> flag,
           user interfaces SHOULD obtain, from the user, an alias to
           identify the contact in future, and store it using <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Connection.Interface.Aliasing"
+            namespace="im.telepathy.Connection.Interface.Aliasing"
             >SetAliases</tp:dbus-ref>.</p>
 
         <p>The user MAY be
@@ -799,16 +799,16 @@
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotYet">
           <tp:docstring>
             The <tp:member-ref>ContactListState</tp:member-ref> is None
             or Waiting.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action, because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
@@ -908,16 +908,16 @@
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action, because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+        <tp:error name="im.telepathy.Error.NotYet">
           <tp:docstring>
             The <tp:member-ref>ContactListState</tp:member-ref> is None
             or Waiting.
@@ -970,16 +970,16 @@
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+        <tp:error name="im.telepathy.Error.NotYet">
           <tp:docstring>
             The <tp:member-ref>ContactListState</tp:member-ref> is None
             or Waiting.
@@ -1019,10 +1019,10 @@
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
@@ -1062,16 +1062,16 @@
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="org.freedesktop.Telepathy.Error.Disconnected"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.InvalidHandle"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy.Error.Disconnected"/>
+        <tp:error name="im.telepathy.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy.Error.NotImplemented">
           <tp:docstring>
             It was not possible to perform the requested action because
             <tp:member-ref>CanChangeContactList</tp:member-ref> is false.
           </tp:docstring>
         </tp:error>
-        <tp:error name="org.freedesktop.Telepathy.Error.NotYet">
+        <tp:error name="im.telepathy.Error.NotYet">
           <tp:docstring>
             The <tp:member-ref>ContactListState</tp:member-ref> is None
             or Waiting.

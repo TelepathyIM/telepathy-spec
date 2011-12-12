@@ -375,9 +375,9 @@ WARNING: Key '%s' not known in namespace '%s'
             namespace = n.getAttribute('namespace')
             key = getText(n)
 
-            if namespace.startswith('ofdT.') or namespace == 'ofdT':
-                namespace = namespace.replace('ofdT',
-                    'org.freedesktop.Telepathy')
+            if namespace.startswith('imt.') or namespace == 'imt':
+                namespace = namespace.replace('imt',
+                    'im.telepathy')
 
             try:
                 o = spec.lookup(key, namespace=namespace)
@@ -399,8 +399,8 @@ WARNING: Key '%s' not known in namespace '%s'
             namespace = n.getAttribute('namespace')
 
             if namespace:
-                if namespace.startswith('ofdT.'):
-                    namespace = 'org.freedesktop.Telepathy.' + namespace[5:]
+                if namespace.startswith('imt.'):
+                    namespace = namespace.replace('imt', 'im.telepathy')
             else:
                 namespace = root_namespace
 
@@ -1372,7 +1372,7 @@ def build_dict(parent, type_, namespace, nodes):
     """Build a dictionary of D-Bus names to Python objects representing that
        name using the XML node for that item in the spec.
 
-       e.g. 'org.freedesktop.Telepathy.Channel' : Interface(Channel)
+       e.g. 'im.telepathy.Channel' : Interface(Channel)
 
        Works for any Python object inheriting from 'Base' whose XML node
        implements the 'name' attribute.
