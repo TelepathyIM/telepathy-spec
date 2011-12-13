@@ -20,6 +20,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="im.telepathy.Channel.Interface.Group">
     <tp:requires interface="im.telepathy.Channel"/>
+    <tp:changed version="UNRELEASED">Deprecated methods, signals, and
+      properties have all been removed.</tp:changed>
 
     <tp:struct name="Local_Pending_Info" array-name="Local_Pending_Info_List">
       <tp:docstring>A structure representing a contact whose attempt to

@@ -23,6 +23,8 @@ USA.</p>
     name="im.telepathy.Channel.Interface.Messages">
     <tp:requires interface="im.telepathy.Channel.Type.Text"/>
     <tp:added version="0.17.16">(as stable API)</tp:added>
+    <tp:changed version="UNRELEASED">Deprecated types and methods have
+      all been removed.</tp:changed>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>This interface extends the <tp:dbus-ref

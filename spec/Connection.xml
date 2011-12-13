@@ -1010,6 +1010,9 @@ USA.</p>
       are now mandatory. Their functionality will be merged into the main
       Connection interface at some point in future.</tp:changed>
 
+    <tp:changed version="UNRELEASED">All deprecated types, methods,
+      and signals have been removed from this interface.</tp:changed>
+
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

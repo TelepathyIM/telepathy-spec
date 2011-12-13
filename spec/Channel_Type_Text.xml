@@ -31,6 +31,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       namespace='imt.Channel.Interface'>Subject2</tp:dbus-ref> and
       <tp:dbus-ref namespace='imt.Channel.Interface'>RoomConfig1</tp:dbus-ref>
       interfaces.</tp:changed>
+    <tp:changed version="UNRELEASED">Deprecated methods and types have
+      removed from this interface.</tp:changed>
 
     <tp:simple-type name="Message_ID" type="u" array-name="Message_ID_List">
       <tp:docstring>

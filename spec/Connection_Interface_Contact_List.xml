@@ -21,6 +21,9 @@
   <interface name="im.telepathy.Connection.Interface.ContactList">
     <tp:requires interface="im.telepathy.Connection"/>
     <tp:added version="0.21.0">(as stable API)</tp:added>
+    <tp:changed version="UNRELEASED">The deprecated ContactsChanged
+      signal has been removed in favour of
+      <tp:member-ref>ContactsChangedWithID</tp:member-ref>.</tp:changed>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections that have any concept of a list of
