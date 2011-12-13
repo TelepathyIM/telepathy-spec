@@ -96,7 +96,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If <code>True</code>, then this channel is exclusively for
           receiving class 0 SMSes (and no SMSes can be sent using <tp:dbus-ref
-          namespace='imt.Channel.Interface.Messages'>SendMessage</tp:dbus-ref>
+          namespace='imt.Channel.Type.Text'>SendMessage</tp:dbus-ref>
           on this channel). If <code>False</code>, no incoming class 0 SMSes
           will appear on this channel.</p>
 
