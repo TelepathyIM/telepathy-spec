@@ -290,9 +290,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 <xi:include href="errors.xml"/>
 <xi:include href="generic-types.xml"/>
 
-<!-- Never implemented, vague
-<xi:include href="Connection_Interface_Privacy.xml"/> -->
-<!-- Causes havoc, never implemented, unclear requirements
-<xi:include href="Channel_Interface_Transfer.xml"/> -->
-
 </tp:spec>
