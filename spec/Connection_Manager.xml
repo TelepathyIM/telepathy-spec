@@ -18,7 +18,7 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="im.telepathy.ConnectionManager">
+  <interface name="im.telepathy1.ConnectionManager">
 
     <tp:simple-type name="Connection_Manager_Name" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -150,7 +150,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>This parameter is also a D-Bus property on the resulting
             <tp:dbus-ref
-              namespace="imt">Connection</tp:dbus-ref>; a
+              namespace="imt1">Connection</tp:dbus-ref>; a
             parameter named <code>com.example.Duck.Macaroni</code> with this
             flag corresponds to the <code>Macaroni</code> property on the
             <code>com.example.Duck</code> interface.  Its value can be queried
@@ -158,7 +158,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <code>org.freedesktop.DBus.Properties</code> interface.</p>
 
           <p>When a new value for a parameter with this flag is passed to
-            <tp:dbus-ref namespace="imt">Account.UpdateParameters</tp:dbus-ref>,
+            <tp:dbus-ref namespace="imt1">Account.UpdateParameters</tp:dbus-ref>,
             the account manager will attempt to update its value on any running
             connections. Similarly, if the parameter also has the
             <code>Has_Default</code> flag, and is passed in the second argument
@@ -166,16 +166,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             to any running
             connections. Thus, clients generally do not need to directly access
             or update the connection property; instead, they SHOULD manipulate
-            <tp:dbus-ref namespace="imt">Account.Parameters</tp:dbus-ref>.</p>
+            <tp:dbus-ref namespace="imt1">Account.Parameters</tp:dbus-ref>.</p>
 
           <tp:rationale>
             <p>This allows runtime-configurable options to be stored and
               maintained by the <tp:dbus-ref
-              namespace='imt'>AccountManager</tp:dbus-ref>, without needing to
+              namespace='imt1'>AccountManager</tp:dbus-ref>, without needing to
               invent a separate account preference for “properties that should
               be set on the connection as soon as it is created”. It was
               originally invented to manage <tp:dbus-ref
-                namespace='imt.Connection.Interface'>Cellular</tp:dbus-ref>
+                namespace='imt1.Connection.Interface'>Cellular1</tp:dbus-ref>
               preferences.</p>
           </tp:rationale>
         </tp:docstring>
@@ -197,8 +197,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Get a list of the parameters which may be specified in the
-        <tp:dbus-ref namespace='imt.Account'>Parameters</tp:dbus-ref> of an
-        <tp:dbus-ref namespace='imt'>Account</tp:dbus-ref> (or, for
+        <tp:dbus-ref namespace='imt1.Account'>Parameters</tp:dbus-ref> of an
+        <tp:dbus-ref namespace='imt1'>Account</tp:dbus-ref> (or, for
         specialised applications which do not use the account manager, passed
         to <tp:member-ref>RequestConnection</tp:member-ref>). Some parameters
         are mandatory, and some parameters only make sense when registering new
@@ -206,7 +206,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         documentation for more details.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy1.Error.NotImplemented">
           <tp:docstring>
             The requested protocol is not supported by this manager
           </tp:docstring>
@@ -218,7 +218,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A map from protocol identifiers supported by a connection
           manager to the immutable properties of the corresponding
-          <tp:dbus-ref namespace="im.telepathy"
+          <tp:dbus-ref namespace="im.telepathy1"
             >Protocol</tp:dbus-ref> objects.</p>
       </tp:docstring>
 
@@ -238,7 +238,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A map from protocol identifiers supported by this connection
           manager to the immutable properties of the corresponding
-          <tp:dbus-ref namespace="im.telepathy"
+          <tp:dbus-ref namespace="im.telepathy1"
             >Protocol</tp:dbus-ref> objects.</p>
 
         <tp:rationale>
@@ -284,7 +284,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring>
         Emitted when a new <tp:dbus-ref
-        namespace="im.telepathy">Connection</tp:dbus-ref> object
+        namespace="im.telepathy1">Connection</tp:dbus-ref> object
         is created.
       </tp:docstring>
     </signal>
@@ -316,22 +316,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request a
-          <tp:dbus-ref namespace="im.telepathy">Connection</tp:dbus-ref>
+          <tp:dbus-ref namespace="im.telepathy1">Connection</tp:dbus-ref>
           object representing a given account on a given
           protocol with the given parameters. The method returns the bus name
           and the object path where the new Connection object can be found,
           which should have the status of Connection_Status_Disconnected, to
           allow signal handlers to be attached before connecting is started
           with the
-          <tp:dbus-ref namespace="im.telepathy.Connection">Connect</tp:dbus-ref>
+          <tp:dbus-ref namespace="im.telepathy1.Connection">Connect</tp:dbus-ref>
           method.</p>
 
         <p><strong>Most applications should not use this method</strong>: they
           should instead use the the <tp:dbus-ref
-          namespace='imt.Account'>Connection</tp:dbus-ref> property on an
-          <tp:dbus-ref namespace='imt'>Account</tp:dbus-ref> object obtained
+          namespace='imt1.Account'>Connection</tp:dbus-ref> property on an
+          <tp:dbus-ref namespace='imt1'>Account</tp:dbus-ref> object obtained
           from the <tp:dbus-ref
-          namespace='imt'>AccountManager</tp:dbus-ref>. This method is used
+          namespace='imt1'>AccountManager</tp:dbus-ref>. This method is used
           internally by the account manager to create connections when
           needed.</p>
 
@@ -366,18 +366,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the creation of new connections.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-        <tp:error name="im.telepathy.Error.NotImplemented">
+        <tp:error name="im.telepathy1.Error.NetworkError"/>
+        <tp:error name="im.telepathy1.Error.NotImplemented">
           <tp:docstring>
             The requested protocol is not supported by this manager
           </tp:docstring>
         </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable">
+        <tp:error name="im.telepathy1.Error.NotAvailable">
           <tp:docstring>
             The requested connection already appears to exist
           </tp:docstring>
         </tp:error>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy1.Error.InvalidArgument">
           <tp:docstring>
             Unrecognised connection parameters
           </tp:docstring>
@@ -391,7 +391,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>Well-known connection parameter names, along with their expected
           type. Where possible, connection managers should use names and types
           from this list in the <tp:dbus-ref
-          namespace='imt.Protocol'>Parameters</tp:dbus-ref> that may be passed
+          namespace='imt1.Protocol'>Parameters</tp:dbus-ref> that may be passed
           to <tp:member-ref>RequestConnection</tp:member-ref>.</p>
 
         <dl>
@@ -445,7 +445,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
               pings.</p>
 
             <p>This parameter is superseded by the <tp:dbus-ref
-                namespace='imt.Connection.Interface.Keepalive.DRAFT'>KeepaliveInterval</tp:dbus-ref>
+                namespace='imt1.Connection.Interface.Keepalive1'>KeepaliveInterval</tp:dbus-ref>
               property, which can be updated on an already-established
               connection as well as being specified when requesting the
               connection. Clients SHOULD provide that parameter instead, if
@@ -496,7 +496,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:type>Connection_Manager_Name</tp:type> for syntax).</p>
 
     <p>The connection manager must then provide a well-known bus name of
-      <code>im.telepathy.ConnectionManager.<em>cmname</em></code>
+      <code>im.telepathy1.ConnectionManager.<em>cmname</em></code>
       where <em>cmname</em> is its connection manager name. If it makes sense
       to start the connection manager using D-Bus service activation, it
       must register that well-known name for service activation by installing

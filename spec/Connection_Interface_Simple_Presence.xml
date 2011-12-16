@@ -19,8 +19,8 @@
       Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="im.telepathy.Connection.Interface.SimplePresence">
-    <tp:requires interface="im.telepathy.Connection"/>
+  <interface name="im.telepathy1.Connection.Interface.SimplePresence1">
+    <tp:requires interface="im.telepathy1.Connection"/>
 
     <tp:struct name="Simple_Presence">
       <tp:docstring>
@@ -158,7 +158,7 @@
 
           <tp:rationale>
             <p>To go offline, call <tp:dbus-ref
-                namespace="im.telepathy.Connection">Disconnect</tp:dbus-ref>
+                namespace="im.telepathy1.Connection">Disconnect</tp:dbus-ref>
             instead. The "error" and "unknown" statuses make no sense.</p>
           </tp:rationale>
         </tp:docstring>
@@ -186,8 +186,8 @@
           presences might change upon connecting.</p>
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy1.Error.NetworkError"/>
+        <tp:error name="im.telepathy1.Error.InvalidArgument">
           <tp:docstring>
             Either the specified status is not supported, the specified
             status cannot be set on the user themselves, or a non-empty
@@ -195,7 +195,7 @@
             accept a message.
           </tp:docstring>
         </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy1.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -227,15 +227,15 @@
         PresencesChanged signal; no additional network requests are made.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.Disconnected"/>
-        <tp:error name="im.telepathy.Error.InvalidHandle"/>
-        <tp:error name="im.telepathy.Error.NetworkError">
+        <tp:error name="im.telepathy1.Error.Disconnected"/>
+        <tp:error name="im.telepathy1.Error.InvalidHandle"/>
+        <tp:error name="im.telepathy1.Error.NetworkError">
           <tp:docstring>
             While discovering the subscribe list in order to distinguish
             between Unknown and Offline statuses, a network error occurred.
           </tp:docstring>
         </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable"/>
+        <tp:error name="im.telepathy1.Error.NotAvailable"/>
       </tp:possible-errors>
     </method>
 
@@ -392,7 +392,7 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A type for communication access control. These control
           policies are used in
-          <tp:dbus-ref namespace="im.telepathy.Connection.Interface">CommunicationPolicy.DRAFT</tp:dbus-ref>
+          <tp:dbus-ref namespace="im.telepathy1.Connection.Interface">CommunicationPolicy1</tp:dbus-ref>
           as well as most rich presence interfaces.</p>
 
         <p>New interfaces should use this type, and NOT
@@ -472,7 +472,7 @@
           (XEP-0060).</p>
         </tp:rationale>
 
-        <p><tp:dbus-ref namespace="im.telepathy.Connection.Interface">Location</tp:dbus-ref>
+        <p><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">Location1</tp:dbus-ref>
           uses this for historical reasons, new interfaces will use
           <tp:type>Access_Control_Type</tp:type>.</p>
       </tp:docstring>
@@ -535,9 +535,9 @@
           This type isn't actually used by the SimplePresence interface, but
           it's included here so it can be referenced by rich presence interfaces
           such as <tp:dbus-ref
-                     namespace="im.telepathy.Connection.Interface">Location</tp:dbus-ref>.</p>
+                     namespace="im.telepathy1.Connection.Interface">Location1</tp:dbus-ref>.</p>
 
-        <p><tp:dbus-ref namespace="im.telepathy.Connection.Interface">Location</tp:dbus-ref>
+        <p><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">Location1</tp:dbus-ref>
           uses this for historical reasons, new interfaces will use
           <tp:type>Access_Control_Type</tp:type>.</p>
       </tp:docstring>

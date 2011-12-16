@@ -19,10 +19,10 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="im.telepathy.Call1.Content.Interface.AudioControl"
+  <interface name="im.telepathy1.Call1.Content.Interface.AudioControl1"
     tp:causes-havoc="experimental">
     <tp:added version="0.25.1">(draft 1)</tp:added>
-    <tp:requires interface="im.telepathy.Call1.Content.Interface.Media"/>
+    <tp:requires interface="im.telepathy1.Call1.Content.Interface.Media"/>
     <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal" value="true"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">

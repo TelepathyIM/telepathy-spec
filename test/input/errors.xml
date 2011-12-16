@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<tp:errors xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace='im.telepathy'>
+<tp:errors xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0" namespace='im.telepathy1'>
   <tp:error name="Spec AutoGen Test.Misc Error">
     <tp:docstring>
       Raised whenever appropriate.

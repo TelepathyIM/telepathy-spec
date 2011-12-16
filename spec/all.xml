@@ -173,7 +173,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <tp:section name="Text-specific interfaces">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>These interfaces may only appear on channels of type <tp:dbus-ref
-        namespace='imt.Channel.Type'>Text</tp:dbus-ref>.</p>
+        namespace='imt1.Channel.Type'>Text</tp:dbus-ref>.</p>
     </tp:docstring>
 
     <xi:include href="Channel_Interface_Chat_State.xml"/>
@@ -184,7 +184,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <tp:section name="Call-related interfaces">
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
      <p>These interfaces are only applicable to channels of type <tp:dbus-ref
-       namespace='imt.Channel.Type'>Call1</tp:dbus-ref>.</p>
+       namespace='imt1.Channel.Type'>Call1</tp:dbus-ref>.</p>
     </tp:docstring>
 
     <xi:include href="Channel_Interface_DTMF.xml"/>
@@ -195,8 +195,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
      <p>These interfaces provide functionality for ad-hoc conference calls and
        chat rooms. They are primarily intended for <tp:dbus-ref
-       namespace='imt.Channel.Type'>Text</tp:dbus-ref> and
-       <tp:dbus-ref namespace='imt.Channel.Type'>Call1</tp:dbus-ref>
+       namespace='imt1.Channel.Type'>Text</tp:dbus-ref> and
+       <tp:dbus-ref namespace='imt1.Channel.Type'>Call1</tp:dbus-ref>
        channels, but may also appear on other types of channel.</p>
     </tp:docstring>
 

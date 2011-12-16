@@ -18,14 +18,14 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="im.telepathy.Channel.Type.Text">
-    <tp:requires interface="im.telepathy.Channel"/>
+  <interface name="im.telepathy1.Channel.Type.Text">
+    <tp:requires interface="im.telepathy1.Channel"/>
     <tp:changed version="0.24.0">This interface used to have a bunch of
       clunky Telepathy.Properties. They have been removed in favour of
       D-Bus properties on the <tp:dbus-ref
-      namespace='imt.Channel.Interface'>Room2</tp:dbus-ref>, <tp:dbus-ref
-      namespace='imt.Channel.Interface'>Subject2</tp:dbus-ref> and
-      <tp:dbus-ref namespace='imt.Channel.Interface'>RoomConfig1</tp:dbus-ref>
+      namespace='imt1.Channel.Interface'>Room2</tp:dbus-ref>, <tp:dbus-ref
+      namespace='imt1.Channel.Interface'>Subject2</tp:dbus-ref> and
+      <tp:dbus-ref namespace='imt1.Channel.Interface'>RoomConfig1</tp:dbus-ref>
       interfaces.</tp:changed>
     <tp:changed version="UNRELEASED">Deprecated methods and types have
       removed from this interface. Additionally, this interface has
@@ -53,7 +53,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the user (or equivalent), so they can be removed from the pending queue.
       </tp:docstring>
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy1.Error.InvalidArgument">
           <tp:docstring>
             A given message ID was not found, so no action was taken
           </tp:docstring>
@@ -605,7 +605,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             <dt>message-sender-id (s)</dt>
             <dd>The identifier of the contact who sent the message,
               i.e. the result of calling <tp:dbus-ref
-                namespace="imt.Connection">InspectHandles</tp:dbus-ref>
+                namespace="imt1.Connection">InspectHandles</tp:dbus-ref>
               on <code>message-sender</code>. If omitted, clients MUST
               fall back to looking at <code>message-sender</code>.</dd>
 
@@ -1057,14 +1057,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
 
       <tp:possible-errors>
-        <tp:error name="im.telepathy.Error.InvalidArgument">
+        <tp:error name="im.telepathy1.Error.InvalidArgument">
           <tp:docstring>
             The requested message is malformed and cannot be sent.
           </tp:docstring>
         </tp:error>
-        <tp:error name="im.telepathy.Error.NotAvailable"/>
-        <tp:error name="im.telepathy.Error.PermissionDenied"/>
-        <tp:error name="im.telepathy.Error.NetworkError"/>
+        <tp:error name="im.telepathy1.Error.NotAvailable"/>
+        <tp:error name="im.telepathy1.Error.PermissionDenied"/>
+        <tp:error name="im.telepathy1.Error.NetworkError"/>
       </tp:possible-errors>
     </method>
 
@@ -1398,18 +1398,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         and the message is placed in a pending queue represented by the
         <tp:member-ref>PendingMessages</tp:member-ref> property.
         When the <tp:dbus-ref
-          namespace="im.telepathy.Client">Handler</tp:dbus-ref>
+          namespace="im.telepathy1.Client">Handler</tp:dbus-ref>
         for a channel has handled the message by showing it to the user
         (or equivalent), it should acknowledge the receipt of that message
         using the <tp:member-ref>AcknowledgePendingMessages</tp:member-ref>
         method, and the message will then be removed from the pending queue.
         Numeric identifiers for received messages may be reused over the
         lifetime of the channel. Only the <tp:dbus-ref
-          namespace="im.telepathy.Client">Handler</tp:dbus-ref>
+          namespace="im.telepathy1.Client">Handler</tp:dbus-ref>
         for a channel should acknowledge messages; <tp:dbus-ref
-          namespace="im.telepathy.Client">Observer</tp:dbus-ref>s
+          namespace="im.telepathy1.Client">Observer</tp:dbus-ref>s
         (such as loggers) and <tp:dbus-ref
-          namespace="im.telepathy.Client">Approver</tp:dbus-ref>s
+          namespace="im.telepathy1.Client">Approver</tp:dbus-ref>s
         for the channel may listen for incoming messages, and send
         messages of their own, but SHOULD NOT acknowledge messages.</p>
 
@@ -1432,52 +1432,52 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Simple one-to-one chats (such as streams of private messages in
         XMPP or IRC) should be represented by a Text channel whose
-        <tp:dbus-ref namespace="imt.Channel">TargetHandleType</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt1.Channel">TargetHandleType</tp:dbus-ref>
         is <tp:value-ref type="Handle_Type">Contact</tp:value-ref>. The
         expected way to request such a channel is to set the <tp:dbus-ref
-        namespace='imt.Channel'>ChannelType</tp:dbus-ref>, <tp:dbus-ref
-        namespace='imt.Channel'>TargetHandleType</tp:dbus-ref>,
+        namespace='imt1.Channel'>ChannelType</tp:dbus-ref>, <tp:dbus-ref
+        namespace='imt1.Channel'>TargetHandleType</tp:dbus-ref>,
         and either <tp:dbus-ref
-        namespace='imt.Channel'>TargetHandle</tp:dbus-ref> or <tp:dbus-ref
-        namespace='imt.Channel'>TargetID</tp:dbus-ref> in a call to
+        namespace='imt1.Channel'>TargetHandle</tp:dbus-ref> or <tp:dbus-ref
+        namespace='imt1.Channel'>TargetID</tp:dbus-ref> in a call to
         <tp:dbus-ref
-        namespace='imt.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>.</p>
+        namespace='imt1.ChannelDispatcher'>EnsureChannel</tp:dbus-ref>.</p>
 
       <p>Named chat rooms whose identity can be saved and used again later
         (IRC channels, Jabber MUCs) are expected to be represented by Text
         channels with <tp:dbus-ref
-        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> =
+        namespace="imt1.Channel">TargetHandleType</tp:dbus-ref> =
         <tp:value-ref type="Handle_Type">Room</tp:value-ref> and the
-        <tp:dbus-ref namespace="imt.Channel.Interface">Group</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt1.Channel.Interface">Group1</tp:dbus-ref>
         interface. In protocols where a chatroom can be used as a continuation
         of one or more one-to-one chats, these channels should also have the
-        <tp:dbus-ref namespace="imt.Channel.Interface">Conference</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt1.Channel.Interface">Conference1</tp:dbus-ref>
         interface.</p>
 
       <p>Unnamed, transient chat rooms which cannot be rejoined by their
         unique identifier (e.g. a conversation on MSN which has, or once had,
         three or more participants) are expected to be represented by Text
         channels with <tp:dbus-ref
-        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> = <tp:value-ref
+        namespace="imt1.Channel">TargetHandleType</tp:dbus-ref> = <tp:value-ref
         type="Handle_Type">None</tp:value-ref> (and hence <tp:dbus-ref
-        namespace="imt.Channel">TargetHandle</tp:dbus-ref> = 0),
-        <tp:dbus-ref namespace="imt.Channel.Interface">Group</tp:dbus-ref>
+        namespace="imt1.Channel">TargetHandle</tp:dbus-ref> = 0),
+        <tp:dbus-ref namespace="imt1.Channel.Interface">Group1</tp:dbus-ref>
         interface, and optionally the
-        <tp:dbus-ref namespace="imt.Channel.Interface">Conference</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt1.Channel.Interface">Conference1</tp:dbus-ref>
         interface.</p>
 
       <p>On protocols like MSN where a conversation with a user is actually
         just a nameless chat room starting with exactly two members, to which
         more members can be invited, the initial one-to-one conversation
         SHOULD be represented with <tp:dbus-ref
-        namespace="imt.Channel">TargetHandleType</tp:dbus-ref> =
+        namespace="imt1.Channel">TargetHandleType</tp:dbus-ref> =
         <tp:value-ref type="Handle_Type">Contact</tp:value-ref>. If a third
         participant
         joins or is invited, this SHOULD be represented by signalling
         a new <tp:dbus-ref
-          namespace="imt.Channel.Interface">Conference</tp:dbus-ref> channel
+          namespace="imt1.Channel.Interface">Conference1</tp:dbus-ref> channel
         with the one-to-one channel in its <tp:dbus-ref
-          namespace="imt.Channel.Interface.Conference"
+          namespace="imt1.Channel.Interface.Conference1"
           >InitialChannels</tp:dbus-ref>, migrating the underlying protocol
         object from the one-to-one channel to the Conference channel,
         and creating a new protocol-level conversation if the one-to-one
@@ -1496,12 +1496,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         the connection manager MUST allow this, but SHOULD open a new channel
         to deliver those messages, signalling it as a new channel with the
         <tp:dbus-ref
-          namespace="imt.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+          namespace="imt1.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
         signal. The new channel should resemble the old channel, but have
-        <tp:dbus-ref namespace='imt.Channel'>Requested</tp:dbus-ref> = FALSE
+        <tp:dbus-ref namespace='imt1.Channel'>Requested</tp:dbus-ref> = FALSE
         regardless of its previous value; the <tp:dbus-ref
-        namespace='imt.Channel'>InitiatorHandle</tp:dbus-ref>
-        and <tp:dbus-ref namespace='imt.Channel'>InitiatorID</tp:dbus-ref>
+        namespace='imt1.Channel'>InitiatorHandle</tp:dbus-ref>
+        and <tp:dbus-ref namespace='imt1.Channel'>InitiatorID</tp:dbus-ref>
         should correspond to the sender of one of the pending
         messages.</p>
 
@@ -1540,7 +1540,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
 
       <p>As a result, Text channels SHOULD implement <tp:dbus-ref
-          namespace="imt">Channel.Interface.Destroyable</tp:dbus-ref>.</p>
+          namespace="imt1">Channel.Interface.Destroyable1</tp:dbus-ref>.</p>
 
       <tp:rationale>
         <p>This "respawning" behaviour becomes problematic if there is no
@@ -1560,7 +1560,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Opaquely-named rejoinable chatrooms (such as Skype rooms) are
         represented using the properties in the <tp:dbus-ref
-        namespace="imt.Channel.Interface">Room2</tp:dbus-ref>
+        namespace="imt1.Channel.Interface">Room2</tp:dbus-ref>
         interface. Instructions and examples of how to request
         such channels are given in said interface's description.</p>
 
