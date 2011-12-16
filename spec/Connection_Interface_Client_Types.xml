@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         client types of the most available resource will be returned. In
         other words, the returned client types are those for the resource whose
         presence will be retreived using the
-        <tp:dbus-ref namespace="imt1.Connection.Interface">SimplePresence1</tp:dbus-ref>
+        <tp:dbus-ref namespace="imt1.Connection.Interface">Presence1</tp:dbus-ref>
         interface.</p>
 
       <p>For example, if a contact has two resources:</p>

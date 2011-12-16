@@ -52,7 +52,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         below:</p>
 
       <ul>
-        <li><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">SimplePresence1/presence</tp:dbus-ref></li>
+        <li><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">Presence1/presence</tp:dbus-ref></li>
         <li><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">ContactCapabilities1/capabilities</tp:dbus-ref></li>
         <li><tp:dbus-ref namespace="im.telepathy1.Connection.Interface">ClientTypes1/client-types</tp:dbus-ref></li>
       </ul>

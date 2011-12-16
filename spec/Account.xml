@@ -555,7 +555,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:type>Connection_Presence_Type</tp:type> SHOULD be
         Connection_Presence_Type_Offline.
         If the connection is online but does not support the <tp:dbus-ref
-        namespace="im.telepathy1.Connection.Interface">SimplePresence1</tp:dbus-ref>
+        namespace="im.telepathy1.Connection.Interface">Presence1</tp:dbus-ref>
         interface, the type SHOULD be Connection_Presence_Type_Unset.
         The account manager is expected to set this by observing signals
         from the Connection.

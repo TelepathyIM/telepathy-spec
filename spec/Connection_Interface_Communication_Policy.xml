@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
      name="im.telepathy1.Connection.Interface.CommunicationPolicy1"
      tp:causes-havoc="experimental">
     <tp:added version="0.21.1">(draft 1)</tp:added>
-    <tp:requires interface="im.telepathy1.Connection.Interface.SimplePresence1"/>
+    <tp:requires interface="im.telepathy1.Connection.Interface.Presence1"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>
