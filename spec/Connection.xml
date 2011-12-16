@@ -69,36 +69,8 @@ USA.</p>
             interfaces for the remainder of the Connection's lifetime.</p>
         </tp:rationale>
       </tp:docstring>
-      <tp:added version="0.19.2">Clients SHOULD fall back
-        to calling <tp:member-ref>GetInterfaces</tp:member-ref> if this
-        property is not supported.</tp:added>
+      <tp:added version="0.19.2"/>
     </property>
-
-    <method name="GetInterfaces" tp:name-for-bindings="Get_Interfaces">
-      <arg direction="out" type="as" tp:type="DBus_Interface[]"
-        name="Interfaces">
-        <tp:docstring>
-          The value of the <tp:member-ref>Interfaces</tp:member-ref> property
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Returns the set of optional interfaces supported by this
-          connection. See <tp:member-ref>Interfaces</tp:member-ref> for more
-          details.</p>
-      </tp:docstring>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy1.Error.Disconnected">
-          <tp:docstring>
-             Before version 0.17.8 calling GetInterfaces while
-             on a connection that is not yet CONNECTED wasn't allowed. If a
-             CM returns this error, its list of interfaces should be regarded
-             as empty until it becomes CONNECTED.
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
 
     <method name="GetProtocol" tp:name-for-bindings="Get_Protocol">
       <arg direction="out" type="s" tp:type="Protocol" name="Protocol">
@@ -158,20 +130,6 @@ USA.</p>
       </tp:docstring>
       <tp:added version="0.19.2"/>
     </property>
-
-    <method name="GetStatus" tp:name-for-bindings="Get_Status">
-      <arg direction="out" type="u" tp:type="Connection_Status"
-        name="Status">
-        <tp:docstring>
-          The value of the <tp:member-ref>Status</tp:member-ref> property
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring>
-        Get the current status as defined in the
-        <tp:member-ref>StatusChanged</tp:member-ref> signal.
-      </tp:docstring>
-    </method>
 
     <method name="HoldHandles" tp:name-for-bindings="Hold_Handles">
       <tp:changed version="0.21.6">If
@@ -437,13 +395,13 @@ USA.</p>
       </tp:enumvalue>
       <tp:enumvalue suffix="Disconnected" value="2">
         <tp:docstring>
-          If this is retrieved from <tp:member-ref>GetStatus</tp:member-ref> or
-          <tp:member-ref>Status</tp:member-ref>, it indicates that connection
-          has not yet been attempted. If seen in a
-          <tp:member-ref>StatusChanged</tp:member-ref> signal, it indicates
-          that the connection has failed; the Connection object SHOULD be
-          removed from D-Bus immediately, and all subsequent method calls
-          SHOULD fail.
+          If this is retrieved from
+          <tp:member-ref>Status</tp:member-ref>, it indicates that
+          connection has not yet been attempted. If seen in a
+          <tp:member-ref>StatusChanged</tp:member-ref> signal, it
+          indicates that the connection has failed; the Connection
+          object SHOULD be removed from D-Bus immediately, and all
+          subsequent method calls SHOULD fail.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
