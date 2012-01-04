@@ -44,25 +44,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:rationale>
     </tp:docstring>
 
-    <property name="Bundle" tp:name-for-bindings="Bundle"
-      type="o" access="read">
-      <tp:added version="0.17.9">(in Channel.FUTURE
-        pseudo-interface)</tp:added>
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The
-          <tp:dbus-ref namespace="im.telepathy1">ChannelBundle</tp:dbus-ref>
-          to which this channel belongs.</p>
-
-        <p>A channel's Bundle property can never change.</p>
-
-        <p>Older connection managers might not have this property. Clients
-          (particularly the channel dispatcher) SHOULD recover by considering
-          each channel to be in a bundle containing only that channel,
-          distinct from all other bundles, which has no additional
-          interfaces.</p>
-      </tp:docstring>
-    </property>
-
   </interface>
 </node>
 <!-- vim:set sw=2 sts=2 et ft=xml: -->

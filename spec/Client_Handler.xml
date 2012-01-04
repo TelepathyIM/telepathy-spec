@@ -67,9 +67,7 @@
       type="aa{sv}" access="read" tp:type="Channel_Class[]">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels that this channel handler can
-          deal with. It will be offered to approvers as a potential
-          channel handler for bundles that contain only suitable channels,
-          or for suitable channels that must be handled separately.</p>
+          deal with.</p>
 
         <p>This property works in exactly the same way as the
           <tp:dbus-ref namespace="im.telepathy1">Client.Observer.ObserverChannelFilter</tp:dbus-ref>
@@ -88,23 +86,6 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, channels destined for this handler are automatically
           handled, without invoking approvers.</p>
-
-        <tp:rationale>
-          <p>The intended usage is to allow a client handling one
-            channel to pick up closely related channels. Suppose a
-            client capable of handling both Text and <tp:dbus-ref
-            namespace="imt1.Channel.Type">Call1</tp:dbus-ref>,
-            <code>im.telepathy1.Client.Empathy</code>, is handling a
-            Call channel. That client can take a second well-known bus
-            name, say
-            <code>im.telepathy1.Client.Empathy._1._42.Bundle1</code>,
-            and configure an object at
-            <code>/im/telepathy/Client/Empathy/_1/_42/Bundle1</code>
-            with BypassApproval = TRUE, whose
-            <tp:member-ref>HandlerChannelFilter</tp:member-ref>
-            matches closely related Text channels by their Bundle
-            property.</p>
-        </tp:rationale>
 
         <p>For service-activatable handlers, this property should be specified
           in the handler's <tt>.client</tt> file as follows:</p>
