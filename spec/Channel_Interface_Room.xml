@@ -21,7 +21,7 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface name="im.telepathy1.Channel.Interface.Room2">
+  <interface name="im.telepathy1.Channel.Interface.Room1">
     <tp:requires interface="im.telepathy1.Channel"/>
     <tp:added version="0.24.0">(version 2)</tp:added>
 

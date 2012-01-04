@@ -24,7 +24,7 @@
     <tp:added version="0.24.0">version 1. This replaces the old-school
       Telepathy properties on <tp:dbus-ref
       namespace='imt1.Channel.Type'>Text</tp:dbus-ref>.</tp:added>
-    <tp:requires interface='im.telepathy1.Channel.Interface.Room2'/>
+    <tp:requires interface='im.telepathy1.Channel.Interface.Room1'/>
     <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal"
                 value="true"/>
 
@@ -36,7 +36,7 @@
 
       <p>The “topic” (on IRC) or “subject” (on XMPP) is not part of this
         interface; it can be found on the <tp:dbus-ref
-        namespace='imt1.Channel.Interface'>Subject2</tp:dbus-ref>
+        namespace='imt1.Channel.Interface'>Subject1</tp:dbus-ref>
         interface.</p>
     </tp:docstring>
 
@@ -64,7 +64,7 @@
     <property name="Title" tp:name-for-bindings="Title" type="s" access="read">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       A human-visible name for the channel, if it differs from <tp:dbus-ref
-      namespace='imt1.Channel.Interface'>Room2.RoomName</tp:dbus-ref>; the
+      namespace='imt1.Channel.Interface'>Room1.RoomName</tp:dbus-ref>; the
       empty string, otherwise.
 
       <tp:rationale>
@@ -75,10 +75,10 @@
 
         <ul>
           <li><tp:dbus-ref
-            namespace='imt1.Channel.Interface'>Room2.RoomName</tp:dbus-ref>
+            namespace='imt1.Channel.Interface'>Room1.RoomName</tp:dbus-ref>
             = <code>"jdev"</code>;</li>
           <li><tp:dbus-ref
-            namespace='imt1.Channel.Interface'>Room2.Server</tp:dbus-ref>
+            namespace='imt1.Channel.Interface'>Room1.Server</tp:dbus-ref>
             = <code>"conference.jabber.org"</code>;</li>
           <li><tp:member-ref>Title</tp:member-ref> = <code>"General Jabber
             development discussion"</code>.</li>
