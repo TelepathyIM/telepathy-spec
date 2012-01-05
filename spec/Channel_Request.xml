@@ -205,13 +205,6 @@
       </arg>
     </signal>
 
-    <signal name="Succeeded" tp:name-for-bindings="Succeeded">
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The channel request has succeeded. It is no longer present,
-          and further methods must not be called on it.</p>
-      </tp:docstring>
-    </signal>
-
     <property name="Hints" tp:name-for-bindings="Hints"
       type="a{sv}" access="read">
       <tp:added version="0.21.5"/>
@@ -294,12 +287,11 @@
       </tp:docstring>
     </property>
 
-    <signal name="SucceededWithChannel" tp:name-for-bindings="Succeeded_With_Channel">
+    <signal name="Succeeded" tp:name-for-bindings="Succeeded">
       <tp:added version="0.21.5"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Variant of the <tp:dbus-ref
-            namespace="imt1.ChannelRequest">Succeeded</tp:dbus-ref> signal
-        allowing to get the channel which has been created.</p>
+        <p>The channel request has succeeded. It is no longer present,
+          and further methods must not be called on it.</p>
 
         <p>This signal MUST be emitted before
           the <tp:member-ref>Succeeded</tp:member-ref> signal.</p>
