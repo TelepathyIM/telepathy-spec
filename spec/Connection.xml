@@ -72,17 +72,12 @@ USA.</p>
       <tp:added version="0.19.2"/>
     </property>
 
-    <method name="GetProtocol" tp:name-for-bindings="Get_Protocol">
-      <arg direction="out" type="s" tp:type="Protocol" name="Protocol">
-        <tp:docstring>
-          A string identifier for the protocol
-        </tp:docstring>
-      </arg>
-
+    <property name="Protocol" tp:name-for-bindings="Protocol"
+      access="read" type="s" tp:type="Protocol">
       <tp:docstring>
-        Get the protocol this connection is using.
+        A string identifier for the protocol.
       </tp:docstring>
-    </method>
+    </property>
 
     <signal name="SelfHandleChanged"
         tp:name-for-bindings="Self_Handle_Changed">
