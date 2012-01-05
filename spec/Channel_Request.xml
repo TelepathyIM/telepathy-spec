@@ -301,11 +301,7 @@
             namespace="imt1.ChannelRequest">Succeeded</tp:dbus-ref> signal
         allowing to get the channel which has been created.</p>
 
-        <p>This signal MUST be emitted if the
-          <tp:dbus-ref namespace="imt1">ChannelDispatcher</tp:dbus-ref>'s
-          <tp:dbus-ref
-            namespace="imt1.ChannelDispatcher">SupportsRequestHints</tp:dbus-ref>
-          property is true. If supported, it MUST be emitted before
+        <p>This signal MUST be emitted before
           the <tp:member-ref>Succeeded</tp:member-ref> signal.</p>
       </tp:docstring>
 
