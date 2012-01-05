@@ -766,7 +766,7 @@ USA.</p>
           <tp:type>Connection_Manager_Name</tp:type> that appears
           in the connection manager's object path and well-known bus name</li>
         <li><em>proto</em> is the <tp:type>Protocol</tp:type> name as seen in
-          <tp:dbus-ref namespace="im.telepathy1.ConnectionManager">ListProtocols</tp:dbus-ref>,
+          <tp:dbus-ref namespace="imt1.ConnectionManager">Protocols</tp:dbus-ref>,
           but with "-" replaced with "_" to get a valid
           object path/bus name</li>
         <li><em>account</em> is some non-empty sequence of ASCII letters,
