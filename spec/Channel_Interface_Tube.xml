@@ -36,27 +36,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>Tube channels can be requested for <tp:type>Handle_Type</tp:type>
         Contact (for 1-1 communication) or Room (to communicate with others in
         the room simultaneously).</p>
-
-      <p>As an exception to the usual handling of capabilities, connection managers
-        for protocols with capability discovery (such as XMPP) SHOULD advertise the
-        capability representing each Tube type that they support
-       (<tp:dbus-ref namespace="im.telepathy1">Channel.Type.DBusTube1</tp:dbus-ref> and/or
-        <tp:dbus-ref namespace="im.telepathy1">Channel.Type.StreamTube1</tp:dbus-ref>)
-        even if no client has indicated via
-        <tp:dbus-ref
-          namespace="im.telepathy1.Connection.Interface.ContactCapabilities1">UpdateCapabilities</tp:dbus-ref>
-        that such a tube is supported. They SHOULD also allow clients to offer tubes with any
-        <tp:dbus-ref
-          namespace="im.telepathy1.Channel.Type.StreamTube1">Service</tp:dbus-ref> or
-        <tp:dbus-ref
-          namespace="im.telepathy1.Channel.Type.DBusTube1">ServiceName</tp:dbus-ref>
-        to any contact which supports the corresponding tube capability.</p>
-
-      <tp:rationale>
-        <p>This lowers the barrier to entry for those writing new tube
-          applications, and preserves interoperability with older versions of
-          the Telepathy stack which did not support rich capabilities.</p>
-      </tp:rationale>
     </tp:docstring>
 
     <property name="Parameters" type="a{sv}" tp:type="String_Variant_Map"

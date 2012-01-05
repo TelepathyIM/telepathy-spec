@@ -474,10 +474,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           defined; it's provided as a hook for possible future
           functionality.</p>
 
-        <p>To be compatible with older connection managers, if retrieving
-          this property fails, clients SHOULD assume that its value is
-          an empty list.</p>
-
         <p>Connection managers with a non-empty list of Interfaces MUST
           represent them in the <code>.manager</code> file, if they have one,
           as an <code>Interfaces</code> key in the

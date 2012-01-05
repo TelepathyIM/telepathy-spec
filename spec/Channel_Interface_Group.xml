@@ -365,9 +365,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         property on some protocols, so the value of this handle should
         always be used with the methods of this interface.
       </tp:docstring>
-      <tp:added version="0.17.6">For backwards compatibility,
-        clients should fall back to calling GetSelfHandle if
-        Channel_Group_Flag_Properties is not present.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
 
     <property name="MemberIdentifiers" type="a{us}" tp:type="Handle_Identifier_Map"

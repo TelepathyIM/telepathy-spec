@@ -39,26 +39,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
         <p>Contacts in this channel, but who are not listed in this map,
           may be assumed to be in the Inactive state.</p>
-
-        <p>In implementations that do not have this property, its value may be
-          assumed to be empty until a
-          <tp:member-ref>ChatStateChanged</tp:member-ref> signal indicates
-          otherwise.</p>
-
-        <tp:rationale>
-          <p>This property was not present in older versions of telepathy-spec,
-            because chat states in XMPP are not state-recoverable (if you
-            miss the change notification signal, there's no way to know the
-            state). However, this property still allows clients to recover
-            state changes that were seen by the CM before the client started
-            to deal with the channel.</p>
-
-          <p>In CMs that follow older spec versions, assuming Inactive will
-            mean that initial chat states will always be assumed to be
-            Inactive, which is the best we can do. XEP 0085 specifies
-            Inactive as the "neutral" state to be assumed unless told
-            otherwise.</p>
-        </tp:rationale>
       </tp:docstring>
     </property>
 

@@ -431,10 +431,6 @@ Recover=true
             specified in the observer's <tt>.client</tt> file as
             follows:</p>
 
-          <p>If this property is not implemented (telepathy-mission-control
-            5.7.5 and older), the channel dispatcher SHOULD consider it as
-            being false.</p>
-
 <pre>
 [im.telepathy1.Client.Observer]
 DelayApprovers=true
