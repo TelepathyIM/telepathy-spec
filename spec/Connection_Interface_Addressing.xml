@@ -113,13 +113,6 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request contacts and retrieve their attributes using a given field
           in their vCards.</p>
-
-        <p>The connection manager should record that these handles are in
-          use by the client who invokes this method, and must not
-          deallocate the handles until the client disconnects from the
-          bus or calls the
-          <tp:dbus-ref namespace="im.telepathy1">Connection.ReleaseHandles</tp:dbus-ref>
-          method.</p>
       </tp:docstring>
 
       <tp:possible-errors>
@@ -187,13 +180,6 @@
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Request contacts and retrieve their attributes using URI addresses.</p>
-
-        <p>The connection manager should record that these handles are in
-          use by the client who invokes this method, and must not
-          deallocate the handles until the client disconnects from the
-          bus or calls the
-          <tp:dbus-ref namespace="im.telepathy1">Connection.ReleaseHandles</tp:dbus-ref>
-          method.</p>
       </tp:docstring>
 
       <tp:possible-errors>
