@@ -22,8 +22,8 @@
     <tp:requires interface="im.telepathy1.Connection"/>
     <tp:added version="0.21.0">(as stable API)</tp:added>
     <tp:changed version="UNRELEASED">The deprecated ContactsChanged
-      signal has been removed in favour of
-      <tp:member-ref>ContactsChangedWithID</tp:member-ref>.</tp:changed>
+      signal has been replaced with the ContactsChangedWithID
+      version.</tp:changed>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>An interface for connections that have any concept of a list of
@@ -566,8 +566,8 @@
       </tp:member>
     </tp:mapping>
 
-    <signal name="ContactsChangedWithID"
-      tp:name-for-bindings="Contacts_Changed_With_ID">
+    <signal name="ContactsChanged"
+      tp:name-for-bindings="Contacts_Changed">
       <tp:added version="0.21.8"/>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when the contact list becomes available, when contacts'
@@ -701,7 +701,7 @@
           situations).</p>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactsChangedWithID</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
@@ -870,7 +870,7 @@
         </tp:rationale>
 
         <p>Any state changes that immediately result from this request MUST
-          be signalled via <tp:member-ref>ContactsChangedWithID</tp:member-ref>
+          be signalled via <tp:member-ref>ContactsChanged</tp:member-ref>
           before this method returns.</p>
 
         <tp:rationale>
