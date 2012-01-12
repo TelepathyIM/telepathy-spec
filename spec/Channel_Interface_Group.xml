@@ -188,13 +188,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Properties" value="2048">
-        <tp:docstring>
-          This flag indicates that all the properties introduced in
-          specification 0.17.6 are fully supported.
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Message_Depart" value="4096">
+      <tp:flag suffix="Message_Depart" value="2048">
         <tp:added version="0.17.21"/>
         <tp:docstring>
           A message may be sent to the server when calling
@@ -299,8 +293,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The members of this channel.
       </tp:docstring>
-      <tp:added version="0.17.6">If Channel_Group_Flag_Properties
-        is not set, fall back to calling GetAllMembers.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
 
     <property name="RemotePendingMembers" access="read" type="au"
@@ -309,8 +302,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         An array of handles representing contacts who have been
         invited to the channel and are awaiting remote approval.
       </tp:docstring>
-      <tp:added version="0.17.6">If Channel_Group_Flag_Properties
-        is not set, fall back to calling GetAllMembers.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
 
     <signal name="SelfContactChanged" tp:name-for-bindings="Self_Contact_Changed">
