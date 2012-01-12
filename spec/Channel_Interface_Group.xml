@@ -408,7 +408,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <tp:member-ref>RemotePendingMembers</tp:member-ref>, or to be removed
           from the group. A client may supply a reason when attempting to
           remove members from a group with
-          <tp:member-ref>RemoveMembersWithReason</tp:member-ref>, and reasons
+          <tp:member-ref>RemoveMembers</tp:member-ref>, and reasons
           are supplied by the CM when emitting
           <tp:member-ref>MembersChanged</tp:member-ref> and
           <tp:member-ref>MembersChangedDetailed</tp:member-ref>. Some reason
@@ -807,6 +807,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           A string message, which can be blank if desired
         </tp:docstring>
       </arg>
+      <arg direction="in" name="Reason" type="u"
+           tp:type="Channel_Group_Change_Reason">
+        <tp:docstring>
+          A reason for the change
+        </tp:docstring>
+      </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Requests the removal of contacts from a channel, reject their
           request for channel membership on the pending local list, or
@@ -843,39 +849,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Channel_Group_Flag_Message_Rescind
           <tp:member-ref>GroupFlags</tp:member-ref> to see in which cases this
           message should be provided.</p>
-      </tp:docstring>
-      <tp:possible-errors>
-        <tp:error name="im.telepathy1.Error.Disconnected"/>
-        <tp:error name="im.telepathy1.Error.NetworkError"/>
-        <tp:error name="im.telepathy1.Error.NotAvailable"/>
-        <tp:error name="im.telepathy1.Error.PermissionDenied"/>
-        <tp:error name="im.telepathy1.Error.InvalidHandle"/>
-      </tp:possible-errors>
-    </method>
 
-    <method name="RemoveMembersWithReason"
-      tp:name-for-bindings="Remove_Members_With_Reason">
-      <arg direction="in" name="Contacts" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          An array of contact handles to remove from the channel
-        </tp:docstring>
-      </arg>
-      <arg direction="in" name="Message" type="s">
-        <tp:docstring>
-          A string message, which can be blank if desired
-        </tp:docstring>
-      </arg>
-      <arg direction="in" name="Reason" type="u"
-           tp:type="Channel_Group_Change_Reason">
-        <tp:docstring>
-          A reason for the change
-        </tp:docstring>
-      </arg>
-      <tp:docstring>
-        As <tp:member-ref>RemoveMembers</tp:member-ref>, but a reason code may
-        be provided where
-        appropriate. The reason code may be ignored if the underlying
-        protocol is unable to represent the given reason.
+          <p>The reason code may be ignored if the underlying
+            protocol is unable to represent the given reason.</p>
       </tp:docstring>
       <tp:possible-errors>
         <tp:error name="im.telepathy1.Error.Disconnected"/>
