@@ -194,24 +194,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           specification 0.17.6 are fully supported.
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Members_Changed_Detailed" value="4096">
-        <tp:docstring>
-          Indicates that <tp:member-ref>MembersChangedDetailed</tp:member-ref>
-          will be emitted for changes to this group's members in addition to
-          <tp:member-ref>MembersChanged</tp:member-ref>.
-          Clients can then connect to the former and ignore emission of the
-          latter. This flag's state MUST NOT change over the lifetime of a
-          channel.
-
-          <tp:rationale>
-            If it were allowed to change, client bindings would have to always
-            connect to MembersChanged just in case the flag ever went away (and
-            generally be unnecessarily complicated), which would mostly negate
-            the point of having this flag in the first place.
-          </tp:rationale>
-        </tp:docstring>
-      </tp:flag>
-      <tp:flag suffix="Message_Depart" value="8192">
+      <tp:flag suffix="Message_Depart" value="4096">
         <tp:added version="0.17.21"/>
         <tp:docstring>
           A message may be sent to the server when calling
@@ -410,8 +393,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           remove members from a group with
           <tp:member-ref>RemoveMembers</tp:member-ref>, and reasons
           are supplied by the CM when emitting
-          <tp:member-ref>MembersChanged</tp:member-ref> and
-          <tp:member-ref>MembersChangedDetailed</tp:member-ref>. Some reason
+          <tp:member-ref>MembersChanged</tp:member-ref>. Some reason
           codes have different meanings depending on the <var>Actor</var> in a
           MembersChanged signal.</p>
       </tp:docstring>
@@ -619,61 +601,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:enumvalue>
     </tp:enum>
 
-    <signal name="MembersChanged" tp:name-for-bindings="Members_Changed">
-      <arg name="Message" type="s">
-        <tp:docstring>
-          A string message from the server, or blank if not
-        </tp:docstring>
-      </arg>
-      <arg name="Added" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          A list of members added to the channel
-        </tp:docstring>
-      </arg>
-      <arg name="Removed" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          A list of members removed from the channel
-        </tp:docstring>
-      </arg>
-      <arg name="Local_Pending" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          A list of members who are pending local approval
-        </tp:docstring>
-      </arg>
-      <arg name="Remote_Pending" type="au" tp:type="Contact_Handle[]">
-        <tp:docstring>
-          A list of members who are pending remote approval
-        </tp:docstring>
-      </arg>
-      <arg name="Actor" type="u" tp:type="Contact_Handle">
-        <tp:docstring>
-          The contact handle of the person who made the change, or 0
-          if not known
-        </tp:docstring>
-      </arg>
-      <arg name="Reason" type="u" tp:type="Channel_Group_Change_Reason">
-        <tp:docstring>
-          A reason for the change
-        </tp:docstring>
-      </arg>
-      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Emitted when contacts join any of the three lists (members, local
-          pending or remote pending) or when they leave any of the three lists.
-          There may also be a message from the server regarding this change,
-          which may be displayed to the user if desired.</p>
-
-        <p>All channel-specific handles that are mentioned in this signal
-          MUST be represented in the value of the
-          <tp:member-ref>HandleOwners</tp:member-ref> property.
-          In practice, this will mean that
-          <tp:member-ref>HandleOwnersChanged</tp:member-ref> is
-          emitted <em>before</em> emitting a MembersChanged signal in which
-          channel-specific handles are added, but that it is emitted
-          <em>after</em> emitting a MembersChanged signal in which
-          channel-specific handles are removed.</p>
-      </tp:docstring>
-    </signal>
-
     <tp:mapping name="Handle_Identifier_Map">
       <tp:docstring>
         A map from handles to the corresponding normalized string identifier.
@@ -694,8 +621,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
-    <signal name="MembersChangedDetailed"
-      tp:name-for-bindings="Members_Changed_Detailed">
+    <signal name="MembersChanged"
+      tp:name-for-bindings="Members_Changed">
       <arg name="Added" type="au" tp:type="Contact_Handle[]">
         <tp:docstring>
           A list of members added to the channel
@@ -783,11 +710,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Emitted when contacts join any of the three lists (members, local
           pending or remote pending) or when they leave any of the three
-          lists. This signal provides a superset of the information provided by
-          <tp:member-ref>MembersChanged</tp:member-ref>;
-          if the channel's <tp:member-ref>GroupFlags</tp:member-ref>
-          contains Members_Changed_Detailed, then clients may listen exclusively
-          to this signal in preference to that signal.</p>
+          lists.</p>
 
         <p>All channel-specific handles that are mentioned in this signal
           MUST be represented in the value of the
@@ -883,19 +806,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     their request before they may join. A single contact should never appear on
     more than one of the three lists. The lists are empty when the channel is
     created, and the <tp:member-ref>MembersChanged</tp:member-ref> signal
-    (and, if the channel's <tp:member-ref>GroupFlags</tp:member-ref> contains
-    Members_Changed_Detailed, the
-    <tp:member-ref>MembersChangedDetailed</tp:member-ref> signal)
-    should be emitted when information
-    is retrieved from the server, or changes occur.</p>
+    should be emitted when information is retrieved from the server,
+    or changes occur.</p>
 
-  <p>If the <tp:member-ref>MembersChanged</tp:member-ref> or
-    <tp:member-ref>MembersChangedDetailed</tp:member-ref> signal indicates
+  <p>If the <tp:member-ref>MembersChanged</tp:member-ref> signal indicates
     that the <tp:member-ref>SelfHandle</tp:member-ref> has been removed from
     the channel, and the channel subsequently emits <tp:dbus-ref
       namespace="im.telepathy1.Channel">Closed</tp:dbus-ref>,
-    clients SHOULD consider the details given in the MembersChanged or
-    MembersChangedDetailed signal to be the reason why the channel closed.</p>
+    clients SHOULD consider the details given in the MembersChanged
+    signal to be the reason why the channel closed.</p>
 
   <p>Addition of members to the channel may be requested by using
     <tp:member-ref>AddMembers</tp:member-ref>. If
