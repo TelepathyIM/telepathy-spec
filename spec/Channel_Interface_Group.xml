@@ -288,6 +288,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
+    <property name="LocalPendingMembers" access="read"
+      type="a(uuus)" tp:type="Local_Pending_Info[]"
+      tp:name-for-bindings="Local_Pending_Members">
+      <tp:docstring>
+        An array of structs containing handles representing contacts
+        requesting channel membership and awaiting local approval with
+        <tp:member-ref>AddMembers</tp:member-ref>.
+      </tp:docstring>
+      <tp:added version="0.17.6"/>
+    </property>
+
     <property name="Members" tp:name-for-bindings="Members"
       access="read" type="au" tp:type="Contact_Handle[]">
       <tp:docstring>
