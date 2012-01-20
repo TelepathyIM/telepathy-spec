@@ -1,0 +1,303 @@
+<?xml version="1.0" ?>
+<node name="/Channel_Interface_Captcha_Authentication"
+      xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright> Copyright © 2010 Collabora Limited </tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.CaptchaAuthentication">
+    <tp:added version="0.21.5">(as stable API)</tp:added>
+    <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>A channel interface for Captcha authentication.
+        When this interface appears on a <tp:dbus-ref
+          namespace="ofdT.Channel.Type">ServerAuthentication</tp:dbus-ref>
+        channel, it represents authentication with the server. In future,
+        it could also be used to authenticate with secondary services,
+        or even to authenticate end-to-end connections with contacts. As a result,
+        this interface does not REQUIRE <tp:dbus-ref namespace="ofdT.Channel.Type"
+        >ServerAuthentication</tp:dbus-ref> to allow for a potential future
+        Channel.Type.PeerAuthentication interface.</p>
+
+      <p>In any protocol that requires a captcha, the connection manager can
+        use this channel to let a user interface carry out a simple Captcha
+        handshake with it, as a way to test the user is human
+        interactively.</p>
+
+      <p>For channels managed by a
+        <tp:dbus-ref namespace="ofdT">ChannelDispatcher</tp:dbus-ref>,
+        only the channel's <tp:dbus-ref
+          namespace="ofdT.Client">Handler</tp:dbus-ref> may call the
+        methods on this interface. Other clients MAY observe the
+        authentication process by watching its signals and properties.</p>
+
+      <tp:rationale>
+        <p>There can only be one Handler, which is a good fit for Captcha's
+          1-1 conversation between a client and a server.</p>
+      </tp:rationale>
+    </tp:docstring>
+
+    <tp:struct name="Captcha">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A struct containing captcha data marked with its MIME type.</p>
+
+        <p>May be set to an empty byte-array and an empty string, indicating
+          no captcha.</p>
+      </tp:docstring>
+      <tp:member type="ay" name="Captcha_Data"/>
+      <tp:member type="s" name="MIME_Type"/>
+    </tp:struct>
+
+    <property name="Captcha" tp:name-for-bindings="Captcha"
+      type="(ays)" tp:type="Captcha" access="read">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The captcha data challenge to respond to.</p>
+
+        <p>When the channel's handler is ready to proceed, it should respond
+          to the challenge by calling <tp:member-ref>Respond</tp:member-ref>.
+          Alternatively, it may call <tp:member-ref>AbortCaptcha</tp:member-ref>
+          to abort authentication.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="CanRefresh" tp:name-for-bindings="Can_Refresh"
+      type="b" access="read" tp:immutable="yes">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If true, <tp:member-ref>RefreshCaptcha</tp:member-ref>
+          can be expected to work when in the Local_Pending state. If
+          false, <tp:member-ref>RefreshCaptcha</tp:member-ref> isn't
+          supported and won't work.</p>
+
+        <tp:rationale>
+          <p>Refreshing the captcha isn't required to work, although
+            some protocols and implementations allow it. This is usually
+            done in case a given captcha is too difficult to read.</p>
+        </tp:rationale>
+      </tp:docstring>
+    </property>
+
+    <property type="u" tp:type="Captcha_Status" access="read"
+      name="CaptchaStatus" tp:name-for-bindings="Captcha_Status">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        The current status of this channel.
+        Change notification is via the
+        <tp:member-ref>CaptchaStatusChanged</tp:member-ref> signal.
+      </tp:docstring>
+    </property>
+
+    <property type="s" tp:type="DBus_Error_Name" access="read"
+      name="CaptchaError" tp:name-for-bindings="Captcha_Error">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The reason for the <tp:member-ref>CaptchaStatus</tp:member-ref>, or
+          an empty string if the state is neither
+          Incorrect_Captcha nor Failed.</p>
+
+        <p>In particular, an ordinary authentication failure (as would
+          be produced for an incorrect password) SHOULD be represented by
+          <tp:error-ref>AuthenticationFailed</tp:error-ref>,
+          cancellation by the user's request SHOULD be represented
+          by <tp:error-ref>Cancelled</tp:error-ref>, and
+          cancellation by a local process due to inconsistent or invalid
+          challenges from the server SHOULD be represented by
+          <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
+
+        <p>If this interface appears on a <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication</tp:dbus-ref>
+          channel, and connection to the server fails with an authentication
+          failure, this error code SHOULD be copied into the
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>
+          signal.</p>
+      </tp:docstring>
+    </property>
+
+    <property name="CaptchaErrorDetails"
+      tp:name-for-bindings="Captcha_Error_Details"
+      access="read" type="a{sv}" tp:type="String_Variant_Map">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>If <tp:member-ref>CaptchaError</tp:member-ref> is non-empty,
+          any additional information about the last
+          disconnection; otherwise, the empty map. The keys and values are
+          the same as for the second argument of
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>.</p>
+
+        <p>If this interface appears on a <tp:dbus-ref
+            namespace="ofdT.Channel.Type">ServerAuthentication</tp:dbus-ref>
+          channel, and connection to the server fails with an authentication
+          failure, these details SHOULD be copied into the
+          <tp:dbus-ref
+            namespace="ofdT">Connection.ConnectionError</tp:dbus-ref>
+          signal.</p>
+      </tp:docstring>
+    </property>
+
+    <method name="Respond" tp:name-for-bindings="Respond">
+      <arg direction="in" name="Response_Data" type="s">
+        <tp:docstring>
+          The response data as a string.
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Send a response to the current captcha challenge contained within
+          the <tp:member-ref>Captcha</tp:member-ref> property.</p>
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Either the state is not Local_Pending, no challenge has been
+            received yet, or you have already responded to the last challenge.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="RefreshCaptcha" tp:name-for-bindings="Refresh_Captcha">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request a new captcha challenge.</p>
+      </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            Either the state is not Local_Pending, no challenge has been
+            received yet, or you have already responded to the last challenge.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
+    </method>
+
+    <method name="AbortCaptcha" tp:name-for-bindings="Abort_Captcha">
+      <arg direction="in" name="Reason" type="u" tp:type="Captcha_Abort_Reason">
+        <tp:docstring>
+          Reason for abort.
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="Debug_Message" type="s">
+        <tp:docstring>
+          Debug message for abort.
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Abort the current authentication try.</p>
+
+        <p>If the current status is Captcha_Status_Captcha_Failed,
+          this method returns successfully, but has
+          no further effect. If the current status is
+          Captcha_Status_Local_Prending, then it changes the channel's
+          state to Captcha_Status_Client_Failed, with an appropriate
+          error name and reason code. Otherwise, NotAvailable is raised.</p>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The current state is either Succeeded, Incorrect_Response,
+            or Remote_Pending.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+    <signal name="CaptchaStatusChanged" tp:name-for-bindings="Captcha_Status_Changed">
+      <tp:docstring>
+        Emitted when the status of the channel changes.
+      </tp:docstring>
+      <arg type="u" tp:type="Captcha_Status" name="Status">
+        <tp:docstring>
+          The new value of <tp:member-ref>CaptchaStatus</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+      <arg type="s" tp:type="DBus_Error_Name" name="Reason">
+        <tp:docstring>
+          The new value of <tp:member-ref>CaptchaError</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+      <arg type="a{sv}" tp:type="String_Variant_Map" name="Details">
+        <tp:docstring>
+          The new value of <tp:member-ref>CaptchaErrorDetails</tp:member-ref>.
+        </tp:docstring>
+      </arg>
+    </signal>
+
+    <tp:enum name="Captcha_Abort_Reason" type="u">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>A reason why Captcha authentication was aborted by the client.</p>
+      </tp:docstring>
+
+      <tp:enumvalue suffix="Invalid_Challenge" value="0">
+        <tp:docstring>
+          The server sent an invalid challenge or data.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="User_Abort" value="1">
+        <tp:docstring>
+          The user aborted the authentication.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+    <tp:enum name="Captcha_Status" type="u" plural="Captcha_Statuses">
+      <tp:enumvalue suffix="Local_Pending" value="0">
+        <tp:docstring>
+          The challenge/response exchange is in progress and waiting for
+          a local action. The Handler SHOULD call either
+          <tp:member-ref>Respond</tp:member-ref> or
+          <tp:member-ref>AbortCaptcha</tp:member-ref> at any time.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Remote_Pending" value="1">
+        <tp:docstring>
+          The challenge/response exchange is in progress and waiting for
+          a response from the server. The
+          <tp:member-ref>Captcha</tp:member-ref> property MAY not be
+          valid in this state.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Succeeded" value="2">
+        <tp:docstring>
+          Everyone is happy. Connection to the server will proceed as soon as
+          this state is reached. The Handler SHOULD call <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          to close the channel.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Incorrect_Response" value="3">
+        <tp:docstring>
+          The server has indicated an authentication failure.
+          If the server allows another attempt, the
+          <tp:member-ref>Captcha</tp:member-ref> will be updated
+          and the state will be changed to Local_Pending, after which
+          the handler may once again call
+          <tp:member-ref>Respond</tp:member-ref>.
+          Otherwise, the state will shortly be changed to Captcha_Failed
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Captcha_Failed" value="4">
+        <tp:docstring>
+          The server has indicated no more authentication attempts
+          are allowed. This state means no more attempts may be made and
+          the handler should give up completely, by calling <tp:dbus-ref
+            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          on the channel.
+        </tp:docstring>
+      </tp:enumvalue>
+    </tp:enum>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->
