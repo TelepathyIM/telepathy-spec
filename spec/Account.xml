@@ -175,7 +175,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </tp:docstring>
     </property>
 
-    <property name="Valid" tp:name-for-bindings="Valid"
+    <property name="Usable" tp:name-for-bindings="Usable"
       type="b" access="read">
       <tp:docstring>
         If true, this account is considered by the account manager to be
@@ -597,7 +597,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         non-offline <tp:member-ref>RequestedPresence</tp:member-ref> becomes
         able to go online (for instance because
         <tp:member-ref>Enabled</tp:member-ref> or
-        <tp:member-ref>Valid</tp:member-ref> changes to True),
+        <tp:member-ref>Usable</tp:member-ref> changes to True),
         ChangingPresence MUST change to True, and the two property changes MUST
         be emitted in the same
         <tp:member-ref>AccountPropertyChanged</tp:member-ref> signal, before the
@@ -630,7 +630,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <p>Re-connect this account. If the account is currently disconnected
           and the requested presence is offline, or if the account
           is not <tp:member-ref>Enabled</tp:member-ref> or not
-          <tp:member-ref>Valid</tp:member-ref>, this does nothing.</p>
+          <tp:member-ref>Usable</tp:member-ref>, this does nothing.</p>
 
         <p>If the account is disconnected and the requested presence is not
           offline, this forces an attempt to connect with the requested
