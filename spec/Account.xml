@@ -400,7 +400,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </method>
 
     <property name="AutomaticPresence" type="(uss)" access="readwrite"
-      tp:type="Simple_Presence" tp:name-for-bindings="Automatic_Presence">
+      tp:type="Presence" tp:name-for-bindings="Automatic_Presence">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The presence status that this account should have if it is brought
           online.</p>
@@ -549,7 +549,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="CurrentPresence" type="(uss)" access="read"
-      tp:type="Simple_Presence" tp:name-for-bindings="Current_Presence">
+      tp:type="Presence" tp:name-for-bindings="Current_Presence">
       <tp:docstring>
         The actual presence. If the connection is not online, the
         <tp:type>Connection_Presence_Type</tp:type> SHOULD be
@@ -563,7 +563,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
     </property>
 
     <property name="RequestedPresence" type="(uss)" access="readwrite"
-      tp:type="Simple_Presence" tp:name-for-bindings="Requested_Presence">
+      tp:type="Presence" tp:name-for-bindings="Requested_Presence">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The requested presence for this account. When this is changed, the
         account manager should attempt to manipulate the connection manager to
