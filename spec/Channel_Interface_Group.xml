@@ -188,7 +188,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
-      <tp:flag suffix="Message_Depart" value="8192">
+      <tp:flag suffix="Message_Depart" value="2048">
         <tp:added version="0.17.21"/>
         <tp:docstring>
           A message may be sent to the server when calling
@@ -300,8 +300,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The members of this channel.
       </tp:docstring>
-      <tp:added version="0.17.6">If Channel_Group_Flag_Properties
-        is not set, fall back to calling GetAllMembers.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
 
     <property name="RemotePendingMembers" access="read" type="au"
@@ -310,8 +309,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         An array of handles representing contacts who have been
         invited to the channel and are awaiting remote approval.
       </tp:docstring>
-      <tp:added version="0.17.6">If Channel_Group_Flag_Properties
-        is not set, fall back to calling GetAllMembers.</tp:added>
+      <tp:added version="0.17.6"/>
     </property>
 
     <signal name="SelfContactChanged" tp:name-for-bindings="Self_Contact_Changed">
@@ -810,8 +808,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     their request before they may join. A single contact should never appear on
     more than one of the three lists. The lists are empty when the channel is
     created, and the <tp:member-ref>MembersChanged</tp:member-ref> signal
-    should be emitted when information
-    is retrieved from the server, or changes occur.</p>
+    should be emitted when information is retrieved from the server,
+    or changes occur.</p>
 
   <p>If the <tp:member-ref>MembersChanged</tp:member-ref> signal indicates
     that the <tp:member-ref>SelfHandle</tp:member-ref> has been removed from
