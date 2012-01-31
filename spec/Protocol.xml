@@ -31,20 +31,15 @@
 
       <p>Each Protocol object has the same well-known bus name as its parent
         ConnectionManager. Its object path is formed by taking the
-        ConnectionManager's object path and appending '/', followed by the
-        <tp:type>Protocol_Name</tp:type> with any hyphen/minus '-'
-        converted to underscores '_'.</p>
+        ConnectionManager's object path and appending '/' followed by the
+        <tp:type>Protocol_Name</tp:type>.</p>
 
-      <tp:rationale>
-        <p>This is the same as the representation of protocol names
-          in Account object paths, and in Connection object paths and bus
-          names. For instance, telepathy-gabble and telepathy-salut would
-          implement objects at
-          <code>/im/telepathy1/ConnectionManager/gabble/jabber</code>
-          and
-          <code>/im/telepathy1/ConnectionManager/salut/local_xmpp</code>,
-          respectively.</p>
-      </tp:rationale>
+      <p>For instance, telepathy-gabble and telepathy-salut would
+        implement objects at
+        <code>/im/telepathy1/ConnectionManager/gabble/jabber</code>
+        and
+        <code>/im/telepathy1/ConnectionManager/salut/local_xmpp</code>,
+        respectively.</p>
 
       <p>If the ConnectionManager has a <tt>.manager</tt> file, each
         Protocol's immutable properties must be represented in that file;
