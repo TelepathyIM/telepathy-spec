@@ -349,7 +349,7 @@
           Additional information about the removal, which may include
           the same well-known keys as the Details argument of
           <tp:dbus-ref namespace="imt1.Channel.Interface.Group1"
-            >MembersChangedDetailed</tp:dbus-ref>, with the same semantics.
+            >MembersChanged</tp:dbus-ref>, with the same semantics.
         </tp:docstring>
       </arg>
     </signal>
