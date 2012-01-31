@@ -284,6 +284,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
     </signal>
 
+    <property name="LocalPendingMembers" access="read"
+      type="a(uuus)" tp:type="Local_Pending_Info[]"
+      tp:name-for-bindings="Local_Pending_Members">
+      <tp:docstring>
+        An array of structs containing handles representing contacts
+        requesting channel membership and awaiting local approval with
+        <tp:member-ref>AddMembers</tp:member-ref>.
+      </tp:docstring>
+      <tp:added version="0.17.6"/>
+    </property>
+
     <property name="Members" tp:name-for-bindings="Members"
       access="read" type="au" tp:type="Contact_Handle[]">
       <tp:docstring>
@@ -378,6 +389,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>The reason for a set of handles to move to one of
           <tp:member-ref>Members</tp:member-ref>,
+          <tp:member-ref>LocalPendingMembers</tp:member-ref> or
           <tp:member-ref>RemotePendingMembers</tp:member-ref>, or to be removed
           from the group. A client may supply a reason when attempting to
           remove members from a group with
@@ -786,9 +798,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     cannot be presumed by the channel's existence (for example, a channel you
     may request membership of but your request may not be granted).</p>
 
-  <p>This interface implements two lists: a list of current members
-    (<tp:member-ref>Members</tp:member-ref>), and a list of remote
-    pending members (<tp:member-ref>RemotePendingMembers</tp:member-ref>).
+  <p>This interface implements three lists: a list of current members
+    (<tp:member-ref>Members</tp:member-ref>), and two lists of local pending
+    and remote pending members
+    (<tp:member-ref>LocalPendingMembers</tp:member-ref> and
+    <tp:member-ref>RemotePendingMembers</tp:member-ref>, respectively).
     Contacts on the remote
     pending list have been invited to the channel, but the remote user has not
     accepted the invitation. Contacts on the local pending list have requested
