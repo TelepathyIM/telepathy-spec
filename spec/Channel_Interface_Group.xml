@@ -244,14 +244,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         Handles which are channel-specific, but for which the owner is
         unknown, MUST appear in this mapping with 0 as owner. Change
         notification is via the
-        <tp:member-ref>HandleOwnersChangedDetailed</tp:member-ref>
+        <tp:member-ref>HandleOwnersChanged</tp:member-ref>
         signal.
       </tp:docstring>
       <tp:added version="0.17.6"/>
     </property>
 
-    <signal name="HandleOwnersChangedDetailed"
-      tp:name-for-bindings="Handle_Owners_Changed_Detailed">
+    <signal name="HandleOwnersChanged"
+      tp:name-for-bindings="Handle_Owners_Changed">
       <tp:docstring>
         <p>Emitted whenever the <tp:member-ref>HandleOwners</tp:member-ref>
         property changes.</p>
