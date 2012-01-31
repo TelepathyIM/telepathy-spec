@@ -27,7 +27,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <p>The current account manager is defined to be the process that owns
         the well-known bus name <tt>im.telepathy1.AccountManager</tt> on
         the session bus. This process must export an
-        <tt>/im/telepathy/AccountManager</tt> object with the
+        <tt>/im/telepathy1/AccountManager</tt> object with the
         AccountManager interface.</p>
     </tp:docstring>
     <tp:added version="0.17.2"/>

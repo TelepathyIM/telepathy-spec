@@ -26,7 +26,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>Accounts are uniquely identified by object path. The object path
         of an Account MUST take the form
-        <code>/im/telepathy/Account/<em>cm</em>/<em>proto</em>/<em>acct</em></code>, where:</p>
+        <code>/im/telepathy1/Account/<em>cm</em>/<em>proto</em>/<em>acct</em></code>, where:</p>
 
       <ul>
         <li><em>cm</em> is the same <tp:type>Connection_Manager_Name</tp:type>

@@ -756,7 +756,7 @@ USA.</p>
 
       <p>In order to allow Connection objects to be discovered by new clients,
         the object path and well-known bus name MUST be of the form
-        <code>/im/telepathy/Connection/cmname/proto/account</code>
+        <code>/im/telepathy1/Connection/cmname/proto/account</code>
         and
         <code>im.telepathy1.Connection.cmname.proto.account</code>
         where:</p>

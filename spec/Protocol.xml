@@ -40,9 +40,9 @@
           in Account object paths, and in Connection object paths and bus
           names. For instance, telepathy-gabble and telepathy-salut would
           implement objects at
-          <code>/im/telepathy/ConnectionManager/gabble/jabber</code>
+          <code>/im/telepathy1/ConnectionManager/gabble/jabber</code>
           and
-          <code>/im/telepathy/ConnectionManager/salut/local_xmpp</code>,
+          <code>/im/telepathy1/ConnectionManager/salut/local_xmpp</code>,
           respectively.</p>
       </tp:rationale>
 

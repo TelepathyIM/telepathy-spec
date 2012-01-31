@@ -464,7 +464,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <p>When the connection manager is running, it must have an object
       implementing the ConnectionManager interface at the object path
-      <code>/im/telepathy/ConnectionManager/<em>cmname</em></code>.
+      <code>/im/telepathy1/ConnectionManager/<em>cmname</em></code>.
     </p>
 
     <p>Connection managers' capabilities can be determined dynamically by
