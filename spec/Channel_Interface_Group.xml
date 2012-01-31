@@ -255,10 +255,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         <p>Emitted whenever the <tp:member-ref>HandleOwners</tp:member-ref>
         property changes.</p>
-
-        <p>Clients can assume this signal is emitted by the Connection Manager
-        if the <tp:member-ref>MemberIdentifiers</tp:member-ref> property exists
-        </p>
       </tp:docstring>
       <tp:added version="0.23.4"/>
 
