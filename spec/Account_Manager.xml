@@ -203,7 +203,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       </arg>
 
       <arg name="Protocol" direction="in" type="s"
-        tp:type="Protocol">
+        tp:type="Protocol_Name">
         <tp:docstring>The protocol, e.g. "local-xmpp".</tp:docstring>
       </arg>
 

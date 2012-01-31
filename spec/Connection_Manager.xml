@@ -56,7 +56,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         characters were not specified</tp:changed>
     </tp:simple-type>
 
-    <tp:simple-type name="Protocol" type="s" array-name="Protocol_List">
+    <tp:simple-type name="Protocol_Name" type="s" array-name="Protocol_Name_List">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>An instant messaging protocol. It must consist only of ASCII
           letters, digits and hyphen/minus signs (U+002D "-"), and must start
@@ -189,7 +189,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             >Protocol</tp:dbus-ref> objects.</p>
       </tp:docstring>
 
-      <tp:member name="Protocol" type="s" tp:type="Protocol">
+      <tp:member name="Name" type="s" tp:type="Protocol_Name">
         <tp:docstring>A protocol name</tp:docstring>
       </tp:member>
 
@@ -228,7 +228,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The object path of the Connection object on this service
         </tp:docstring>
       </arg>
-      <arg name="Protocol" type="s" tp:type="Protocol">
+      <arg name="Protocol" type="s" tp:type="Protocol_Name">
         <tp:docstring>
           The identifier for the protocol this connection uses
         </tp:docstring>
@@ -241,7 +241,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </signal>
 
     <method name="RequestConnection" tp:name-for-bindings="Request_Connection">
-      <arg direction="in" name="Protocol" type="s" tp:type="Protocol">
+      <arg direction="in" name="Protocol" type="s" tp:type="Protocol_Name">
         <tp:docstring>
           The protocol identifier
         </tp:docstring>
