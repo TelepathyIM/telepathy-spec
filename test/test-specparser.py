@@ -19,8 +19,8 @@ Spec(telepathy-spec tools test case)
 >>> spec.interfaces
 [Interface(im.telepathy1.SpecAutoGenTest)]
 
->>> spec.errors
-{u'im.telepathy1.SpecAutoGenTest.OtherError': Error(im.telepathy1.SpecAutoGenTest.OtherError), u'im.telepathy1.SpecAutoGenTest.MiscError': Error(im.telepathy1.SpecAutoGenTest.MiscError)}
+>>> sorted(spec.errors.items())
+[(u'im.telepathy1.SpecAutoGenTest.MiscError', Error(im.telepathy1.SpecAutoGenTest.MiscError)), (u'im.telepathy1.SpecAutoGenTest.OtherError', Error(im.telepathy1.SpecAutoGenTest.OtherError))]
 
 >>> spec.generic_types
 []
@@ -81,13 +81,13 @@ None
 [(u'LowBit', u'1'), (u'HighBit', u'128')]
 
 >>> sorted(spec.everything.items())
-[(u'im.telepathy1.SpecAutoGenTest', ClientInterest(im.telepathy1.SpecAutoGenTest)), (u'im.telepathy1.SpecAutoGenTest.DoStuff', Method(im.telepathy1.SpecAutoGenTest.DoStuff)), (u'im.telepathy1.SpecAutoGenTest.Introspective', Property(im.telepathy1.SpecAutoGenTest.Introspective:b)), (u'im.telepathy1.SpecAutoGenTest.StuffHappened', Signal(im.telepathy1.SpecAutoGenTest.StuffHappened)), (u'im.telepathy1.SpecAutoGenTest.wobbly', AwkwardTelepathyProperty(im.telepathy1.SpecAutoGenTest.wobbly:b)), (u'im.telepathy1.SpecAutoGenTest/badgers', ClientInterest(im.telepathy1.SpecAutoGenTest/badgers))]
+[(u'im.telepathy1.SpecAutoGenTest', ClientInterest(im.telepathy1.SpecAutoGenTest)), (u'im.telepathy1.SpecAutoGenTest.DoStuff', Method(im.telepathy1.SpecAutoGenTest.DoStuff)), (u'im.telepathy1.SpecAutoGenTest.Introspective', Property(im.telepathy1.SpecAutoGenTest.Introspective:b)), (u'im.telepathy1.SpecAutoGenTest.StuffHappened', Signal(im.telepathy1.SpecAutoGenTest.StuffHappened)), (u'im.telepathy1.SpecAutoGenTest/badgers', ClientInterest(im.telepathy1.SpecAutoGenTest/badgers))]
 
 
 >>> map (lambda o: i.added, spec.everything.values ())
-[None, None, None, None, None, None]
+[None, None, None, None, None]
 >>> map (lambda o: i.deprecated, spec.everything.values ())
-[None, None, None, None, None, None]
+[None, None, None, None, None]
     """
 
 if __name__ == '__main__':
