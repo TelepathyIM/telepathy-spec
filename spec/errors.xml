@@ -638,7 +638,7 @@
   </tp:error>
 
   <tp:error name="Captcha Not Supported">
-    <tp:added version="0.21.5.UNRELEASED"/>
+    <tp:added version="0.UNRELEASED"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>Raised if the <tp:dbus-ref 
         namespace="ofdT.Channel.Interface">CaptchaAuthentication1</tp:dbus-ref> 
