@@ -17,9 +17,11 @@ Lesser General Public License for more details.</p>
 License along with this library; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
   </tp:license>
-  <interface name="org.freedesktop.Telepathy.Channel.Interface.CaptchaAuthentication">
-    <tp:added version="0.21.5">(as stable API)</tp:added>
+  <interface name="org.freedesktop.Telepathy.Channel.Interface.CaptchaAuthentication1">
+    <tp:added version="0.21.5">(version 1)</tp:added>
     <tp:requires interface="org.freedesktop.Telepathy.Channel"/>
+    <annotation name="org.freedesktop.DBus.Property.EmitsChangedSignal"
+      value="true"/>
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
       <p>A channel interface for captcha authentication.
         When this interface appears on a <tp:dbus-ref
@@ -43,9 +45,27 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         methods on this interface. Other clients MAY observe the
         authentication process by watching its signals and properties.</p>
 
+      <p>The most commonly used form of captcha challenge is OCR (recognition
+        of distorted letters or words in an image), but for accessibility
+        reasons, this interface also allows various other types of challenge,
+        such as plain-text questions or recognition of words in audio. Its
+        structure is modelled on XMPP's
+        <a href="http://xmpp.org/extensions/xep-0158.html">XEP-0158</a>,
+        but can be used with other protocols by mapping their semantics
+        into those used in XMPP.</p>
+
       <tp:rationale>
-        <p>There can only be one Handler, which is a good fit for captcha's
-          1-1 conversation between a client and a server.</p>
+        <p>It is important to support multiple types of captcha
+          challenge to avoid discriminating against certain users; for
+          instance, blind or partially-sighted users cannot be expected
+          to answer an OCR challenge.</p>
+
+        <p>XEP-0158 supports a superset of all other known protocols' captcha
+          interfaces, and is sufficiently elaborate that we expect it will
+          continue to do so.</p>
+
+        <p>There can only be one Handler, which is a good fit for the
+          question/answer model implied by captchas.</p>
       </tp:rationale>
     </tp:docstring>
 
@@ -56,19 +76,25 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:docstring>
       <tp:member type="u" name="ID">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The ID with which to reference this captcha method.
+          <p>The ID with which to reference this captcha method
+            when retrieving its data and answering it.
             They are unique within this channel instance only.</p>
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Type">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Type as defined in XEP-0158.</p>
+          <p>The type of challenge
+            <a href="http://xmpp.org/extensions/xep-0158.html#challenge">
+            as defined by XEP-0158</a>. For instance, the commonly-used
+            "type the letters/words you see in this image" challenge is
+            represented by <code>ocr</code></p>
         </tp:docstring>
       </tp:member>
       <tp:member type="s" name="Label">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>Label is as defined in XEP-0158. In particular for "qa"
-            it's the question.</p>
+          <p>A human-readable label for the challenge, as defined in XEP-0158.
+            In particular, when Type = <code>qa</code>, this is a plain-text
+            question for the user to answer.</p>
         </tp:docstring>
       </tp:member>
       <tp:member type="u" name="Flags" tp:type="Captcha_Flags">
@@ -96,8 +122,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </tp:member>
     </tp:mapping>
 
-    <property name="CanRefreshCaptcha"
-      tp:name-for-bindings="Can_Refresh_Captcha"
+    <property name="CanRetryCaptcha"
+      tp:name-for-bindings="Can_Retry_Captcha"
       type="b" access="read" tp:immutable="yes">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>If true, <tp:member-ref>GetCaptchas</tp:member-ref>
@@ -117,9 +143,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     <property type="u" tp:type="Captcha_Status" access="read"
       name="CaptchaStatus" tp:name-for-bindings="Captcha_Status">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        The current status of this channel.
-        Change notification is via the
-        <tp:member-ref>CaptchaStatusChanged</tp:member-ref> signal.
+        <p>The current status of this channel.</p>
+
+        <p>Because only the Handler should call methods on this interface,
+          the Handler MAY reduce round-trips by not fetching the initial
+          value of this property, and instead assume that is initially
+          Local_Pending.</p>
+
+        <tp:rationale>
+          <p>This assumption normally avoids the need to call GetAll(),
+            since the values of <tp:member-ref>CaptchaError</tp:member-ref>
+            and <tp:member-ref>CaptchaErrorDetails</tp:member-ref>
+            are also implied by this assumption, and the only other
+            property is <tp:member-ref>CanRetryCaptcha</tp:member-ref>,
+            which is immutable.</p>
+        </tp:rationale>
       </tp:docstring>
     </property>
 
@@ -129,13 +167,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The reason for the <tp:member-ref>CaptchaStatus</tp:member-ref>, or
           an empty string if the state is neither Try_Again nor Failed.</p>
 
-        <p>Typical values: "", Cancelled, AuthenticationFailed, NotAvailable</p>
+        <p>Typical values: "", Cancelled, AuthenticationFailed,
+          CaptchaNotSupported</p>
 
         <p>In particular, an ordinary authentication failure (as would
           be produced for an incorrect answer) SHOULD be represented by
           <tp:error-ref>AuthenticationFailed</tp:error-ref>,
           cancellation by the user's request SHOULD be represented
-          by <tp:error-ref>Cancelled</tp:error-ref>, and
+          by <tp:error-ref>Cancelled</tp:error-ref>, cancellation due
+          to the inability to display the captcha to the user or otherwise
+          answer it SHOULD be represented by
+          <tp:error-ref>CaptchaNotSupported</tp:error-ref>, and
           cancellation by a local process due to inconsistent or invalid
           challenges from the server SHOULD be represented by
           <tp:error-ref>ServiceConfused</tp:error-ref>.</p>
@@ -181,26 +223,46 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="out" name="Number_Required" type="u">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           The number of captcha methods required to be answered
-          in order to successfully complete this captcha challenge.
+          in order to successfully complete this captcha challenge
+          (most frequently 1, but XMPP allows servers to demand that
+          more than one captcha is answered).
         </tp:docstring>
       </arg>
-      <arg direction="out" name="Language" type="s">
+      <arg direction="out" name="Language" type="s" tp:type="Language_Tag">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          The language of each label in Captcha_Info if available,
-          or "" if unknown.
+          The language of each Label in Captcha_Info if available,
+          for instance en_US, or "" if unknown.
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Gets information regarding each of the captcha methods
           available and which and how many need to be successfully answered</p>
+
+        <p>To call this method successfully, the state must be Local_Pending
+          or Try_Again. If it is Local_Pending, it remains Local_Pending. If
+          called more than once while in Local_Pending state, or if the state
+          is Try_Again, this method fetches a new set of captcha challenges,
+          if possible, and the state returns to Local_Pending.</p>
+
+        <tp:rationale>
+          <p>For instance, you could call GetCaptchas again from Local_Pending
+            state if the user indicates that they can't understand the
+            initially-offered captcha.</p>
+
+          <p>This is a method, not a property, so that it can be used to
+            fetch more than one set of captcha challenges, and so that
+            change notification is not required. Only the Handler should
+            call this method and calling GetAll would not reduce round-trips,
+            so the usual reasons to prefer a property do not apply here.</p>
+        </tp:rationale>
       </tp:docstring>
 
       <tp:possible-errors>
         <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
           <tp:docstring>
-            Either the state is not Local_Pending or it has already
-            been called and <tp:member-ref>CanRefreshCaptcha</tp:member-ref>
-            is False.
+            Either the state is not Local_Pending or Try_Again, or it has
+            already been called and
+            <tp:member-ref>CanRetryCaptcha</tp:member-ref> is False.
           </tp:docstring>
         </tp:error>
         <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
@@ -216,6 +278,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="Mime_Types" type="as">
         <tp:docstring>
           MIME types supported by the handler in order of priority.
+          <tp:rationale>
+            XEP-0158 allows the same captcha to be make available in
+            multiple formats, for instance the same spoken question as
+            audio/x-wav, application/ogg and audio/speex.
+          </tp:rationale>
         </tp:docstring>
       </arg>
       <arg direction="out" name="Mime_Type" type="s">
@@ -230,9 +297,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>Fetch and return the captcha data, giving highest priority
-          to MIME types earlier in the list if possible. The CM is
-          expected to implement HTTP, for instance, if captchas in this
-          protocol generally require it.</p>
+          to MIME types earlier in the list if possible. In protocols
+          where captchas are downloaded out-of-band (for instance via HTTP),
+          the connection manager is expected to do so.</p>
         <p>Returns an empty array if the type was "qa"</p>
         <tp:rationale>
           <p>If audio-based and image-based captchas are both available,
@@ -271,12 +338,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <arg direction="in" name="Reason"
         type="u" tp:type="Captcha_Cancel_Reason">
         <tp:docstring>
-          Reason for cancelling.
+          Reason for cancelling. This MAY be used to choose an error
+          response to the remote server, and SHOULD also be reflected
+          in the <tp:member-ref>CaptchaError</tp:member-ref>.
         </tp:docstring>
       </arg>
       <arg direction="in" name="Debug_Message" type="s">
         <tp:docstring>
-          Debug message to describe reason for cancelling.
+          A textual description of the reason for cancelling, supplied
+          by the Handler. This message SHOULD NOT be sent to the remote
+          server, but SHOULD be copied into the 'debug-message' field
+          of the <tp:member-ref>CaptchaErrorDetails</tp:member-ref> and
+          <tp:dbus-ref namespace="ofdT.Connection">ConnectionError</tp:dbus-ref>.
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -292,28 +365,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:error>
       </tp:possible-errors>
     </method>
-
-    <signal name="CaptchaStatusChanged"
-      tp:name-for-bindings="Captcha_Status_Changed">
-      <tp:docstring>
-        Emitted when the status of the channel changes.
-      </tp:docstring>
-      <arg type="u" tp:type="Captcha_Status" name="Status">
-        <tp:docstring>
-          The new value of <tp:member-ref>CaptchaStatus</tp:member-ref>.
-        </tp:docstring>
-      </arg>
-      <arg type="s" tp:type="DBus_Error_Name" name="Reason">
-        <tp:docstring>
-          The new value of <tp:member-ref>CaptchaError</tp:member-ref>.
-        </tp:docstring>
-      </arg>
-      <arg type="a{sv}" tp:type="String_Variant_Map" name="Details">
-        <tp:docstring>
-          The new value of <tp:member-ref>CaptchaErrorDetails</tp:member-ref>.
-        </tp:docstring>
-      </arg>
-    </signal>
 
     <tp:flags name="Captcha_Flags" type="u">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -335,12 +386,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <tp:enumvalue suffix="User_Cancelled" value="0">
         <tp:docstring>
-          The user aborted the authentication.
+          The user aborted the authentication. If this is used, the
+          <tp:member-ref>CaptchaError</tp:member-ref> SHOULD be set to
+          <tp:error-ref>Cancelled</tp:error-ref>
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Not_Supported" value="1">
         <tp:docstring>
-          The handler doesn't support the given/required captcha types.
+          The Handler doesn't support the given/required captcha types.
+          If this is used, the <tp:member-ref>CaptchaError</tp:member-ref>
+          SHOULD be set to <tp:error-ref>CaptchaNotSupported</tp:error-ref>.
+        </tp:docstring>
+      </tp:enumvalue>
+      <tp:enumvalue suffix="Service_Confused" value="2">
+        <tp:docstring>
+          The Handler doesn't understand the captcha data received. The
+          challenger may be sending gibberish.
+          If this is used, the <tp:member-ref>CaptchaError</tp:member-ref>
+          SHOULD be set to <tp:error-ref>ServiceConfused</tp:error-ref>.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
@@ -352,7 +415,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           a local action. Call <tp:member-ref>AnswerCaptchas</tp:member-ref>
           to go to the Remote_Pending state, or call
           <tp:member-ref>CancelCaptcha</tp:member-ref> followed by 
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref>
           to give up.
         </tp:docstring>
       </tp:enumvalue>
@@ -362,7 +425,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           a response from the server. Wait for a reply from the server,
           which will result in the Succeeded, Try_Again, or Failed state,
           or call <tp:member-ref>CancelCaptcha</tp:member-ref> followed by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref>
           to give up.
         </tp:docstring>
       </tp:enumvalue>
@@ -371,7 +434,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           Everyone is happy. Connection to the server will proceed as soon as
           this state is reached. There is nothing useful to do in this state
           except to call <tp:dbus-ref
-            namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+            namespace="ofdT.Channel">Close</tp:dbus-ref>
           to close the channel.
         </tp:docstring>
       </tp:enumvalue>
@@ -379,9 +442,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           The server has indicated an authentication failure.
           Call <tp:member-ref>GetCaptchas</tp:member-ref> again to get
-          a new captcha (if possible), or
+          a new captcha, or
           <tp:member-ref>CancelCaptcha</tp:member-ref> followed by
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
+          <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref>
           to give up.
         </tp:docstring>
       </tp:enumvalue>
@@ -389,8 +452,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           Authentication has failed in some way. There is nothing
           useful to do in this state except to close the channel with
-          <tp:dbus-ref namespace="org.freedesktop.Telepathy.Channel">Close</tp:dbus-ref>
-          to close the channel.
+          <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref>.
         </tp:docstring>
       </tp:enumvalue>
     </tp:enum>
