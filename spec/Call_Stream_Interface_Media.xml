@@ -407,6 +407,16 @@
           and then set the lowest priority candidate as the Raw UDP candidate.
         </tp:rationale>
       </tp:docstring>
+
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The minimal required candidates have not been set. For
+            example, for an RTP protocol, at least one candidate on the
+            component 1 (RTP) must have been set.
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
     </method>
 
     <tp:enum type="u" name="Stream_Transport_Type">
