@@ -279,7 +279,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <tp:docstring>
           MIME types supported by the handler in order of priority.
           <tp:rationale>
-            XEP-0158 allows the same captcha to be make available in
+            XEP-0158 allows the same captcha to be made available in
             multiple formats, for instance the same spoken question as
             audio/x-wav, application/ogg and audio/speex.
           </tp:rationale>
