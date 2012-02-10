@@ -102,6 +102,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           <p>One flag defined: Required. Most captchas will have no flags.</p>
         </tp:docstring>
       </tp:member>
+      <tp:member type="as" name="Available_MIME_Types">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>A list of MIME types the server is offering to provide
+            for this captcha method.</p>
+        </tp:docstring>
+      </tp:member>
     </tp:struct>
 
     <tp:mapping name="Captcha_Answers">
@@ -215,7 +221,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="GetCaptchas" tp:name-for-bindings="Get_Captchas">
       <arg direction="out" name="Captcha_Info"
-        type="a(ussu)" tp:type="Captcha_Info[]">
+        type="a(ussuas)" tp:type="Captcha_Info[]">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           Information about each of the available captcha methods.
         </tp:docstring>
@@ -275,19 +281,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The ID of the captcha of which to retrieve data.
         </tp:docstring>
       </arg>
-      <arg direction="in" name="Mime_Types" type="as">
+      <arg direction="in" name="Mime_Type" type="s">
         <tp:docstring>
-          MIME types supported by the handler in order of priority.
+          MIME type picked by the Handler, chosen from the list of MIME
+          types received in <tp:member-ref>GetCaptchas</tp:member-ref>.
           <tp:rationale>
             XEP-0158 allows the same captcha to be made available in
             multiple formats, for instance the same spoken question as
             audio/x-wav, application/ogg and audio/speex.
           </tp:rationale>
-        </tp:docstring>
-      </arg>
-      <arg direction="out" name="Mime_Type" type="s">
-        <tp:docstring>
-          MIME type selected by the CM of the returned data.
         </tp:docstring>
       </arg>
       <arg direction="out" name="Captcha_Data" type="ay">
@@ -296,8 +298,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Fetch and return the captcha data, giving highest priority
-          to MIME types earlier in the list if possible. In protocols
+        <p>Fetch and return the captcha data. In protocols
           where captchas are downloaded out-of-band (for instance via HTTP),
           the connection manager is expected to do so.</p>
         <p>Returns an empty array if the type was "qa"</p>
@@ -309,6 +310,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
             the time taken for the user to solve the captcha.</p>
         </tp:rationale>
       </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The state is not in Local_Pending or
+            <tp:member-ref>GetCaptchas</tp:member-ref> had never been called.
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NetworkError"/>
+      </tp:possible-errors>
     </method>
 
     <method name="AnswerCaptchas" tp:name-for-bindings="Answer_Captchas">
