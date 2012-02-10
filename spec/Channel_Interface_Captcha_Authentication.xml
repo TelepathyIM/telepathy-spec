@@ -398,7 +398,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           SHOULD be set to <tp:error-ref>CaptchaNotSupported</tp:error-ref>.
           This SHOULD also be used if
           <tp:dbus-ref namespace="ofdT.Channel">Close</tp:dbus-ref> is called
-          before <tp:member-ref>Cancel</tp:member-ref>.
+          before <tp:member-ref>CancelCaptcha</tp:member-ref>.
           <tp:rationale>
             If no Handler supports captcha channels,
             the ChannelDispatcher will just call
