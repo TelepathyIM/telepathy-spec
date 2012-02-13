@@ -397,13 +397,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
     </method>
 
     <property name="LocationAccessControlTypes" type="au" access="read"
-      tp:type="Rich_Presence_Access_Control_Type[]" tp:name-for-bindings="Location_Access_Control_Types">
+      tp:type="Access_Control_Type[]" tp:name-for-bindings="Location_Access_Control_Types">
       <tp:docstring>The types of access control that are supported by this
         connection.</tp:docstring>
     </property>
 
     <property name="LocationAccessControl" type="(uv)" access="readwrite"
-      tp:type="Rich_Presence_Access_Control" tp:name-for-bindings="Location_Access_Control">
+      tp:type="Access_Control" tp:name-for-bindings="Location_Access_Control">
       <tp:docstring>The current access control mechanism and settings
         for this connection. Before publishing location for the first time,
         if this has not been set by a client, implementations SHOULD
