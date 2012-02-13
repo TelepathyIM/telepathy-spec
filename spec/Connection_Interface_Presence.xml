@@ -408,8 +408,10 @@
       </tp:enumvalue>
       <tp:enumvalue suffix="Publish_List" value="1">
         <tp:docstring>
-          Allow contacts in the user's 'publish' list. The associated
-          variant in <tp:type>Access_Control</tp:type> is ignored.
+          Allow contacts whose
+          <tp:token-ref namespace="imt1.Connection.Interface.ContactList1">publish</tp:token-ref>
+          state is Yes, i.e. those who can normally see the local user's presence.
+          The associated variant in <tp:type>Access_Control</tp:type> is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Group" value="2">
@@ -431,9 +433,12 @@
       </tp:enumvalue>
       <tp:enumvalue suffix="Subscribe_Or_Publish_List" value="4">
         <tp:docstring>
-          Allow all contacts in the user's 'subscribe' or 'publish'
-          list. The associated variant in <tp:type>Access_Control</tp:type> is
-          ignored.
+          Allow contacts whose
+          <tp:token-ref namespace="imt1.Connection.Interface.ContactList1">subscribe</tp:token-ref>
+          and/or <tp:token-ref namespace="imt1.Connection.Interface.ContactList1">publish</tp:token-ref>
+          state is Yes, i.e. those whose presence can normally be seen by the
+          local user, and those who can normally see the local user's presence.
+          The associated variant in <tp:type>Access_Control</tp:type> is ignored.
         </tp:docstring>
       </tp:enumvalue>
       <tp:enumvalue suffix="Closed" value="5">
