@@ -203,11 +203,20 @@
 
     <tp:mapping name="VCard_Field_Address_Map" array-name="">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A mapping of vCard fields and addresses that repreent
-          the given contact.</p>
+        <p>A mapping of vCard fields and addresses equivalent to a
+          particular contact's protocol identifier. For instance,
+          on XMPP this would contain <code>x-jabber</code> for all
+          contacts, and <code>x-facebook-id</code> for contacts on
+          Facebook's server.</p>
       </tp:docstring>
-      <tp:member type="s" name="VCard_Field"/>
-      <tp:member type="s" name="Address"/>
+      <tp:member type="s" name="VCard_Field">
+        <tp:docstring>A vCard field, such as
+          <code>x-jabber</code>.</tp:docstring>
+      </tp:member>
+      <tp:member type="s" name="Address">
+        <tp:docstring>The value of that vCard field for the
+          contact.</tp:docstring>
+      </tp:member>
     </tp:mapping>
 
     <tp:contact-attribute name="addresses" type="a{ss}"
