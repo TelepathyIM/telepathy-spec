@@ -731,24 +731,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:docstring>
       </tp:flag>
 
-      <tp:flag suffix="Locally_Muted" value="2">
-        <tp:docstring>
-          The call has been muted by the local user, e.g. using the
-          <tp:dbus-ref namespace="ofdT.Call1.Interface"
-          >Mute</tp:dbus-ref> interface. This flag SHOULD only
-          be set if there is at least one Content, and all Contents
-          are locally muted (for the same reason as Locally_Held).
-
-          <tp:rationale>
-            This flag exists to provide a simplified verson of <tp:dbus-ref
-            namespace="ofdT.Call1.Interface.Mute"
-              >MuteStateChanged</tp:dbus-ref>,
-            to reduce the number of signals that need to be
-            listened to by a simple UI.
-          </tp:rationale>
-        </tp:docstring>
-      </tp:flag>
-
       <tp:flag suffix="Locally_Ringing" value="4">
         <tp:docstring>
           This flag exists for observability of the
@@ -1211,20 +1193,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <p>This is a flag per member, not a flag for the call as a whole,
               because in conference calls, any member could put the conference
               on hold.</p>
-          </tp:rationale>
-        </tp:docstring>
-      </tp:flag>
-
-      <tp:flag suffix="Muted" value="4">
-        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The call member has muted their participation in this call. Note
-            that many protocols will not signal this flag, so clients should
-            not rely on it being set.</p>
-
-          <tp:rationale>
-            <p>This is a flag per member, not a flag for the call as a whole,
-              because in conference calls, any member could mute their own
-              streams.</p>
           </tp:rationale>
         </tp:docstring>
       </tp:flag>
