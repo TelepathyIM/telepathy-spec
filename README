@@ -67,6 +67,47 @@ a way that will not break if we do these:
 If any changes not mentioned here would break your library's API and you want
 us to avoid them, please ask for clarification on the mailing list.
 
+Policy on versioned interfaces
+==============================
+
+Some newer Telepathy interfaces have a version number, e.g. Subject2.
+These interfaces follow the following rules:
+
+If the interface has the tp:causes-havoc attribute, it is considered to be
+a draft. Incompatible changes will cause the version number to be
+incremented, but will not change the "node name" (the name attribute on the
+node XML element, used to name generated code) or the filename (which should
+always correspond to the node name). For instance, if Foo1 was never
+considered stable, then Foo1 and Foo2 would both have node name /Foo.
+Stable libraries should not expose these interfaces as API.
+
+If an interface with the tp:causes-havoc attribute is considered to be
+stable without further incompatible changes, that attribute will be removed,
+at which point that interface may be included in stable libraries as described
+below. Implementations of the last draft version and the final version will
+interoperate, since the interface name is the same; this is the
+version-numbering scheme's major advantage over the older convention of
+a .DRAFT suffix, in which case the last draft version could never interoperate
+with the final version despite being identical.
+
+If the interface does not have the tp:causes-havoc attribute, it is
+considered to be stable. Incompatible changes will not be made, and such
+interfaces can be included in a stable library, using the node name as
+the basis for code generation. For instance, Chan.I.Subject2 has node name
+/Channel_Interface_Subject, and generates code like
+TpSvcChannelInterfaceSubject in telepathy-glib.
+
+If a stable interface is found to require incompatible changes, it will be
+deprecated instead, and the incompatible changes will be made in a new copy
+of that interface with a higher version number. This time, the node name
+does have to include the version number, so that stable libraries which
+already committed to generating code for the old version can continue to
+do so, while also generating code for the new version. For instance,
+now that Chan.I.Subject2 is considered stable, if we make incompatible
+changes (leading to Chan.I.Subject3), the new version will have node name
+/Channel_Interface_Subject3, and hence generate code like
+TpSvcChannelInterfaceSubject3 in telepathy-glib.
+
 Contact info
 ============
 
