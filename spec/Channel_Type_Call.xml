@@ -826,6 +826,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             The value of this key has the same units and scale as
             <tp:dbus-ref namespace="ofdT.Connection.Interface.Balance">AccountBalance</tp:dbus-ref>.
             </dd>
+
+          <dt>forwarded-to - u</dt>
+          <dd>Optionally included when the
+            <tp:member-ref>CallStateReason</tp:member-ref> is
+            Forwarded. It indicates the handle to whom the Call was
+            forwarded.</dd>
         </dl>
       </tp:docstring>
     </property>
@@ -904,9 +910,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <tp:enumvalue suffix="Forwarded" value="3">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The call was forwarded. If known, the handle of the contact
-            the call was forwarded to will be indicated by the Actor member
-            of a <tp:type>Call_State_Reason</tp:type> struct.</p>
+          <p>The call was forwarded. If known, the handle of the
+          contact the call was forwarded to will be indicated by the
+          "forwarded-to" member of a
+          <tp:member-ref>CallStateDetails</tp:member-ref> dictionnary
+          in the <tp:member-ref>CallStateChanged</tp:member-ref>
+          signal.</p>
         </tp:docstring>
       </tp:enumvalue>
 
