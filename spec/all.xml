@@ -216,19 +216,19 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
  </tp:section>
 
  <tp:section name="Calls">
-   <xi:include href="Call_Content.xml"/>
-   <xi:include href="Call_Content_Interface_Media.xml"/>
-   <xi:include href="Call_Interface_Mute.xml"/>
-   <xi:include href="Call_Content_Interface_Video_Control1.xml"/>
-   <xi:include href="Call_Content_Interface_Audio_Control1.xml"/>
-   <xi:include href="Call_Content_Media_Description.xml"/>
-   <xi:include href="Call_Content_Media_Description_Interface_RTP_Header_Extensions1.xml"/>
-   <xi:include href="Call_Content_Media_Description_Interface_RTCP_Feedback1.xml"/>
+   <xi:include href="Call1_Content.xml"/>
+   <xi:include href="Call1_Content_Interface_Media.xml"/>
+   <xi:include href="Call1_Interface_Mute.xml"/>
+   <xi:include href="Call1_Content_Interface_Video_Control1.xml"/>
+   <xi:include href="Call1_Content_Interface_Audio_Control1.xml"/>
+   <xi:include href="Call1_Content_Media_Description.xml"/>
+   <xi:include href="Call1_Content_Media_Description_Interface_RTP_Header_Extensions1.xml"/>
+   <xi:include href="Call1_Content_Media_Description_Interface_RTCP_Feedback1.xml"/>
    <xi:include
-   href="Call_Content_Media_Description_Interface_RTCP_Extended_Reports1.xml"/>
-   <xi:include href="Call_Stream.xml"/>
-   <xi:include href="Call_Stream_Interface_Media.xml"/>
-   <xi:include href="Call_Stream_Endpoint.xml"/>
+   href="Call1_Content_Media_Description_Interface_RTCP_Extended_Reports1.xml"/>
+   <xi:include href="Call1_Stream.xml"/>
+   <xi:include href="Call1_Stream_Interface_Media.xml"/>
+   <xi:include href="Call1_Stream_Endpoint.xml"/>
  </tp:section>
 
  <tp:section name="Debugging">

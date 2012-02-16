@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Call_Content"
+<node name="/Call1_Content"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright © 2009-2010 Collabora Ltd.</tp:copyright>
   <tp:copyright>Copyright © 2009-2010 Nokia Corporation</tp:copyright>

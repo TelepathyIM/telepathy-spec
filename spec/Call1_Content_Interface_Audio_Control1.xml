@@ -1,5 +1,5 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
-<node name="/Call_Content_Interface_Audio_Control1"
+<node name="/Call1_Content_Interface_Audio_Control1"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright © 2009-2011 Collabora Ltd.</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
