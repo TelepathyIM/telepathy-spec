@@ -28,18 +28,11 @@ Report all errata, feature requests and "to-do" items here:
 API stability policy
 ====================
 
-We use an "odd/even" versioning scheme where the minor version (the y in
-x.y.z) determines stability - stable branches have y even, development
-branches have y odd.
+[Telepathy 1.0 has not yet been released, so this policy does not apply yet.]
 
-The following interfaces can change at any time, so please do not include them
-in libraries:
-
-* interfaces whose names end with .DRAFT or .FUTURE
-* interfaces with the tp:causes-havoc attribute
-
-Otherwise, we will not make the following changes in a stable branch, and we
-avoid them where possible even in development branches:
+The following changes are considered to be an API break, and will not be made
+in released interfaces unless the interface's name is also changed, usually by
+incrementing the version number at the end.
 
 * Removing or renaming methods, signals or properties
 * Changing the D-Bus type signature of a method or signal's arguments
@@ -47,10 +40,12 @@ avoid them where possible even in development branches:
   of a property
 * Removing or renaming types (tp:struct etc.)
 * Changing the D-Bus type signature of a type (tp:struct etc.)
+* Changing the name attribute of the <node> XML element
 
 We do *not* consider the following changes to be an API break, and reserve the
-right to make them at any time. Telepathy libraries/bindings should be done in
-a way that will not break if we do these:
+right to make them at any time, without changing the interface name.
+Telepathy libraries/bindings should be done in a way that will not break
+if we do these.
 
 * Adding new methods or properties
 * Adding new signals, if that does not make old connection managers (that will
@@ -66,6 +61,20 @@ a way that will not break if we do these:
 
 If any changes not mentioned here would break your library's API and you want
 us to avoid them, please ask for clarification on the mailing list.
+
+Core interfaces such as Channel, Connection and Account do not have a version
+number at the end. Incompatible changes to these interfaces will only be made
+in a new major version of telepathy-spec (which would rename all interfaces
+by replacing im.telepathy1 with im.telepathy2 throughout).
+
+The "node name" (name attribute of the <node> XML element) reflects the name
+and version of the interface, and the intended naming for generated code:
+for instance, <node name="/Channel_Interface_Subject1"> can generate
+functions, constants etc. whose names contain channel_interface_subject1,
+ChannelInterfaceSubject1, channelInterfaceSubject1 or
+CHANNEL_INTERFACE_SUBJECT1, as appropriate for the relevant language's naming
+conventions. The "node name" should always correspond to the filename of the
+XML.
 
 Contact info
 ============
