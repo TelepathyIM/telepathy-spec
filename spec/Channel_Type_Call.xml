@@ -832,6 +832,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
             <tp:member-ref>CallStateReason</tp:member-ref> is
             Forwarded. It indicates the handle to whom the Call was
             forwarded.</dd>
+
+          <dt>forwarded-to-id - s</dt>
+          <dd>The string that would result from inspecting the
+            <code>forwarded-to</code> key
+            (i.e. the contact's identifier in the IM protocol).</dd>
         </dl>
       </tp:docstring>
     </property>
