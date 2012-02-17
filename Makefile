@@ -59,9 +59,9 @@ clean:
 
 maintainer-upload-snapshot: doc/spec/index.html
 	@install -d tmp
-	rsync $(DOC_RSYNC_FLAGS) doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
-	@echo The snapshot lives at:
-	@echo '  ' http://telepathy.freedesktop.org/spec-snapshot/
+	rsync $(DOC_RSYNC_FLAGS) doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-next/
+	@echo "The 'next' snapshot lives at:"
+	@echo '  ' http://telepathy.freedesktop.org/spec-next/
 
 maintainer-upload-release: doc/spec/index.html check
 	@install -d tmp
