@@ -2,8 +2,15 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.25.3 (UNRELEASED)
+==================================
+
+...
+
 telepathy-spec 0.25.2 (2012-02-20)
 ==================================
+
+The "you know what they said? Well, some of it was true" release.
 
 New stable API:
 
