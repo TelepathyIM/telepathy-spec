@@ -626,7 +626,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       CMs with no .manager file was not explicitly required.</tp:changed>
     <tp:changed version="0.17.16">Prior to version 0.17.16 the serialization
       of string arrays (signature 'as') was not defined</tp:changed>
-    <tp:changed version="0.UNRELEASED">Prior to version 0.UNRELEASED the
+    <tp:changed version="0.25.2">Prior to version 0.25.2 the
       serialization of object-path arrays (signature 'ao') was not
       defined</tp:changed>
   </interface>
