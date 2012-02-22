@@ -2,6 +2,63 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.25.3 (UNRELEASED)
+==================================
+
+...
+
+telepathy-spec 0.25.2 (2012-02-20)
+==================================
+
+The "you know what they said? Well, some of it was true" release.
+
+New stable API:
+
+• The Call1 family of interfaces (except for the Mute interface) is now
+  considered stable, with significant changes since 0.25.1:
+
+  · Content.Removed signal removed, use Call1.ContentRemoved instead
+  · Content.I.DTMF added; this supersedes everything in Channel.I.DTMF
+    except the InitialTones property
+  · Various redundant contact handles removed from Content.I.Media
+  · MediaDescription.Reject has an "in" argument, not a nonsensical "out"
+    argument
+  · Stream.I.Media no longer has Pending_Pause or Paused states
+  · The Ringing state has been renamed to Initialising to avoid confusion
+    with the Ringing flag
+  · Call1.AddContent takes an initial direction as its new last parameter
+  · Call_Flag_Locally_Muted has been removed and the other Call_Flags
+    have been renumbered
+  · Call_Member_Flag_Ringing has been removed and the other Call_Member_Flags
+    have been renumbered
+  · The destination of a forwarded call is published in the CallStateDetails,
+    rather than abusing the Actor member of CallStateReason
+
+• Connection.I.Addressing1 is now stable, and identical to
+  Connection.I.Addressing.DRAFT in 0.25.1 except for its name
+
+• Account.Supersedes has been added
+
+• Connection.I.ContactList.DownloadAtConnection has been added, together with
+  the Download method
+
+• A serialization has been defined for arrays of object path in .manager
+  files (and by extension, anything sharing that format)
+
+Clarifications:
+
+• Account.Service should also be used for IRC networks
+
+• Channel.I.DTMF.InitialTones should only be used in conjunction with
+  InitialAudio=TRUE
+
+• The policy for versioned interfaces is now documented
+
+Changes to experimental API:
+
+• Channel.I.Addressing1 is the new name for Channel.I.Addressing.DRAFT,
+  but is still considered experimental
+
 telepathy-spec 0.25.1 (2011-11-23)
 ==================================
 

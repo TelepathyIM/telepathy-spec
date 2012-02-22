@@ -20,10 +20,8 @@
       02110-1301, USA.</p>
   </tp:license>
 
-  <interface
-      name="im.telepathy1.Call1.Content.Interface.Media"
-      tp:causes-havoc="experimental">
-    <tp:added version="0.23.4">(draft 2)</tp:added>
+  <interface name="im.telepathy1.Call1.Content.Interface.Media">
+    <tp:added version="0.25.2">(as stable API)</tp:added>
     <tp:requires interface="im.telepathy1.Call1.Content"/>
 
     <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -325,11 +323,6 @@
         <tp:docstring>
           The object path of the new media description. This replaces any
           previous media description.
-        </tp:docstring>
-      </arg>
-      <arg name="Contact" type="u">
-        <tp:docstring>
-          The remote contact the media description belongs to.
         </tp:docstring>
       </arg>
       <arg name="Properties" type="a{sv}"
