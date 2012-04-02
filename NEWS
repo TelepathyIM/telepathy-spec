@@ -2,10 +2,26 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.25.3 (UNRELEASED)
+telepathy-spec 0.26.0 (2012-04-02)
 ==================================
 
-...
+This is the start of a new stable branch of the Telepathy
+specification.
+
+Changes since 0.25.2:
+
+• Small miscellaneous fixes to Call-related interfaces.
+
+Other notable changes since the 0.24 stable branch:
+
+• The Call1 family of interfaces is now considered stable after
+  substantial from previous drafts.
+
+• A Metadata file transfer interface has been added to transfer extra
+  data about a transfer in the channel.
+
+• A Picture channel interface has been added to retrieve and set
+  pictures for text channels and calls.
 
 telepathy-spec 0.25.2 (2012-02-20)
 ==================================
