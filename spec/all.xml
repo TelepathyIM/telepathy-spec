@@ -149,7 +149,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_Tubes.xml"/>
   </tp:section>
 
-  <tp:section name="Channel Interfaces">
+  <tp:section name="Channel interfaces">
    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
      A Channel may also implement one or more of the following interfaces,
@@ -244,7 +244,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Call_Stream.xml"/>
    <xi:include href="Call_Interface_Mute.xml"/>
  </tp:section>
- <tp:section name="Calls Media">
+
+ <tp:section name="Call media interfaces">
    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
      <p>
        These interfaces are used when a <tp:dbus-ref
