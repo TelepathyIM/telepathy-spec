@@ -2,6 +2,13 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.27.0 (UNRELEASED)
+==================================
+
+This is the first release in the 0.27 development branch.
+
+...
+
 telepathy-spec 0.26.0 (2012-04-02)
 ==================================
 
