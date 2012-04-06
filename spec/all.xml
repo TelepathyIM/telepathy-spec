@@ -106,6 +106,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Connection_Interface_Mail_Notification1.xml"/>
    <xi:include href="Connection_Interface_Power_Saving1.xml"/>
    <xi:include href="Connection_Interface_Service_Point1.xml"/>
+   <xi:include href="Connection_Interface_Sidecars1.xml"/>
   </tp:section>
  </tp:section>
 
