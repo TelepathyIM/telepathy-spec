@@ -2,12 +2,18 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.27.0 (UNRELEASED)
+telepathy-spec 0.27.0 (2012-05-09)
 ==================================
 
 This is the first release in the 0.27 development branch.
 
-...
+Changes since 0.26.0:
+
+• Mark ConnectionManager's Protocols and Protocol.I.Presence's Statuses
+  properties immutable (Andre Moreira Magalhae)
+
+• Add GetContactByID to get contact attributes for a single contact identifier
+  (Xavier Claessens)
 
 telepathy-spec 0.26.0 (2012-04-02)
 ==================================
