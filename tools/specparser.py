@@ -575,6 +575,10 @@ class Typed(Base):
         if self.dbus_type == '':
             raise UntypedItem("Node referred to by '%s' has no type" % dom.toxml())
 
+        if 'n' in self.dbus_type or 'q' in self.dbus_type:
+            raise UntypedItem("Node referred to by '%r' has type '%s' which is unsupported "
+                              "by dbus-glib; use 'u' instead" % (self, self.dbus_type))
+
     def get_type(self):
         return self.get_spec().lookup_type(self.type)
 
