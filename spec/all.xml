@@ -141,7 +141,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Channel_Type_Text.xml"/>
   </tp:section>
 
-  <tp:section name="Channel Interfaces">
+  <tp:section name="Channel interfaces">
    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
     <p>
      A Channel may also implement one or more of the following interfaces,
@@ -218,9 +218,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
  <tp:section name="Calls">
    <xi:include href="Call1_Content.xml"/>
-   <xi:include href="Call1_Content_Interface_Media.xml"/>
-   <xi:include href="Call1_Interface_Mute.xml"/>
+   <xi:include href="Call1_Stream.xml"/>
    <xi:include href="Call1_Content_Interface_DTMF1.xml"/>
+   <xi:include href="Call1_Interface_Mute.xml"/>
+ </tp:section>
+
+ <tp:section name="Call media interfaces">
+   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+     <p>
+       These interfaces are used when a <tp:dbus-ref
+       namespace='ofdT.Channel.Type'>Call1</tp:dbus-ref> channel
+       doesn't have <tp:dbus-ref
+       namespace="ofdT.Channel.Type.Call1">HardwareStreaming</tp:dbus-ref> to
+       implement the media streaming aspects of a call.
+     </p>
+   </tp:docstring>
+   <xi:include href="Call1_Content_Interface_Media.xml"/>
    <xi:include href="Call1_Content_Interface_Video_Control1.xml"/>
    <xi:include href="Call1_Content_Interface_Audio_Control1.xml"/>
    <xi:include href="Call1_Content_Media_Description.xml"/>
@@ -228,7 +241,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Call1_Content_Media_Description_Interface_RTCP_Feedback1.xml"/>
    <xi:include
    href="Call1_Content_Media_Description_Interface_RTCP_Extended_Reports1.xml"/>
-   <xi:include href="Call1_Stream.xml"/>
    <xi:include href="Call1_Stream_Interface_Media.xml"/>
    <xi:include href="Call1_Stream_Endpoint.xml"/>
  </tp:section>
