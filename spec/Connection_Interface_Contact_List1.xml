@@ -665,8 +665,8 @@
 
         <p>Before calling this method on a connection where <tp:dbus-ref
             namespace="im.telepathy1.Connection.Interface.Aliasing1"
-            >GetAliasFlags</tp:dbus-ref> returns the <code>User_Set</code> flag,
-          user interfaces SHOULD obtain, from the user, an alias to
+            >AliasFlags</tp:dbus-ref> property has the <code>User_Set</code>
+          flag, user interfaces SHOULD obtain, from the user, an alias to
           identify the contact in future, and store it using <tp:dbus-ref
             namespace="im.telepathy1.Connection.Interface.Aliasing1"
             >SetAliases</tp:dbus-ref>.</p>
