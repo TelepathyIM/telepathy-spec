@@ -254,12 +254,11 @@
         </tp:rationale>
 
         <p>If this attribute is not Yes, the local user cannot generally
-          expect to receive presence from this contact. Their presence status
-          as returned by <tp:dbus-ref
-            namespace="im.telepathy1.Connection.Interface.Presence1">GetPresences</tp:dbus-ref>
-          is likely to be (Unknown, "unknown", ""), unless the local user
-          can temporarily see their presence for some other reason (for
-          instance, on XMPP, contacts seen in chatrooms will temporarily
+          expect to receive presence from this contact. Their <tp:token-ref
+            namespace="im.telepathy1.Connection.Interface.Presence1">presence</tp:token-ref>
+          contact attribute is likely to be (Unknown, "unknown", ""), unless the
+          local user can temporarily see their presence for some other reason
+          (for instance, on XMPP, contacts seen in chatrooms will temporarily
           have available presence).</p>
 
         <p>If this attribute is Ask, this indicates that the local user has
