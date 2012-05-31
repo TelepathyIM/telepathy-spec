@@ -204,8 +204,7 @@
 
       <arg direction="out" name="Handle" type="u" tp:type="Contact_Handle">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-          <p>The contact's handle, as returned by <tp:dbus-ref
-          namespace="imt1.Connection">RequestHandles</tp:dbus-ref></p>
+          <p>The contact's handle</p>
         </tp:docstring>
       </arg>
 

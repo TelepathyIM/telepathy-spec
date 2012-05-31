@@ -132,17 +132,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           present. Properties from
           <tp:dbus-ref namespace="im.telepathy1.Channel.Interface">Addressing1</tp:dbus-ref>
           MUST NOT be present.The request MUST fail with error InvalidHandle,
-          without side-effects, if the requested TargetID would not be
-          accepted by
-          <tp:dbus-ref namespace="im.telepathy1.Connection">RequestHandles</tp:dbus-ref>.</p>
+          without side-effects, if the requested TargetID is invalid.</p>
 
         <p>The returned channel must be related to the handle corresponding
           to the given identifier, in the same way as if TargetHandle
           had been part of the request instead.</p>
 
         <tp:rationale>
-          <p>Requesting channels with a string identifier saves a round-trip
-            (the call to RequestHandles). It also allows the channel
+          <p>Requesting channels with a string identifier allows the channel
             dispatcher to accept a channel request for an account that is not
             yet connected (and thus has no valid handles), bring the account
             online, and pass on the same parameters to the new connection's
