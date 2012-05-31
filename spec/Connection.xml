@@ -145,45 +145,6 @@ USA.</p>
       <tp:added version="0.19.2"/>
     </property>
 
-    <method name="InspectHandles" tp:name-for-bindings="Inspect_Handles">
-      <arg direction="in" name="Handle_Type" type="u" tp:type="Handle_Type">
-        <tp:docstring>
-          The type of handle to be inspected
-        </tp:docstring>
-      </arg>
-
-      <arg direction="in" name="Handles" type="au" tp:type="Handle[]">
-        <tp:docstring>
-          An array of integer handles of this type
-        </tp:docstring>
-      </arg>
-
-      <arg direction="out" type="as" name="Identifiers">
-        <tp:docstring>
-          An array of identifiers corresponding to the given handles, in the same order.
-        </tp:docstring>
-      </arg>
-
-      <tp:docstring>
-        Return a string representation for a number of handles of a given
-        type.
-      </tp:docstring>
-
-      <tp:possible-errors>
-        <tp:error name="im.telepathy1.Error.Disconnected"/>
-        <tp:error name="im.telepathy1.Error.InvalidArgument">
-          <tp:docstring>
-            The handle type is invalid
-          </tp:docstring>
-        </tp:error>
-        <tp:error name="im.telepathy1.Error.InvalidHandle">
-          <tp:docstring>
-            One of the given handles is not valid
-          </tp:docstring>
-        </tp:error>
-      </tp:possible-errors>
-    </method>
-
     <tp:enum name="Handle_Type" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
@@ -586,8 +547,8 @@ USA.</p>
 
     <tp:contact-attribute name="contact-id" type="s">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>The same string that would be returned by
-          <tp:member-ref>InspectHandles</tp:member-ref>. As a special case,
+        <p>The normalized contact's identifier. Not necessarily the same string
+          as passed to GetContactByID. As a special case,
           this is always present in the result of <tp:dbus-ref
             namespace="im.telepathy1.Connection.Interface.Contacts">GetContactAttributes</tp:dbus-ref>,
           whether it was explicitly requested or not.</p>
