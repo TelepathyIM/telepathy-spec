@@ -1151,7 +1151,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         <tp:rationale>
           <p>A connection manager might be intended for a specialized hardware
             device, which will take care of the audio streaming (e.g.
-            telepathy-yafono, which uses GSM hardware which does the actual
+            telepathy-ring, which uses GSM hardware which does the actual
             audio streaming for the call).</p>
         </tp:rationale>
 
