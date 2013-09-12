@@ -2,10 +2,22 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.27.0.1 (UNRELEASED)
+telepathy-spec 0.27.1 (UNRELEASED)
 ==================================
 
-...
+Changes:
+
+• The handle-name property in room lists' room details is now mandatory
+  (Xavier)
+
+New stable API:
+
+• Account.Interface.Addressing has change-notification via the standard
+  D-Bus Properties.PropertiesChanged signal (fd.o #40393, Guillaume)
+
+Clarifications:
+
+• More Tubes properties are marked up as immutable (Will)
 
 telepathy-spec 0.27.0 (2012-05-09)
 ==================================
