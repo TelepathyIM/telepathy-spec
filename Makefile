@@ -16,7 +16,11 @@ DISTNAME := telepathy-spec-$(VERSION)
 GENERATED_FILES = \
 	doc/spec/index.html \
 	FIXME.out \
+	doc/spec/NEWS \
 	$(NULL)
+
+doc/spec/NEWS: NEWS
+	install -m644 $< $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	rm -rf doc/spec
