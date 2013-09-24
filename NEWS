@@ -2,6 +2,17 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.27.2 (2013-09-24)
+==================================
+
+API additions and clarifications:
+
+• The Connection.SelfID property has been added containing the identifier of
+  the user on the connection.
+
+• The Connection.SelfHandleChanged signal has been deprecated and replaced
+  by the new Connection.SelfContactChanged signal.
+
 telepathy-spec 0.27.1 (2013-09-16)
 ==================================
 
