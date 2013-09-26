@@ -16,7 +16,11 @@ DISTNAME := telepathy-spec-$(VERSION)
 GENERATED_FILES = \
 	doc/spec/index.html \
 	FIXME.out \
+	doc/spec/NEWS \
 	$(NULL)
+
+doc/spec/NEWS: NEWS
+	install -m644 $< $@
 
 doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLATES)
 	rm -rf doc/spec
@@ -74,8 +78,7 @@ maintainer-upload-release: doc/spec/index.html check
 	gpg --verify telepathy-spec-$(VERSION).tar.gz.asc
 	rsync -vzP telepathy-spec-$(VERSION).tar.gz telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/
 	rsync -vzP telepathy-spec-$(VERSION).tar.gz.asc telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/releases/telepathy-spec/
-	rsync $(DOC_RSYNC_FLAGS) doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec/
-	rsync $(DOC_RSYNC_FLAGS) doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-snapshot/
+	rsync $(DOC_RSYNC_FLAGS) doc/spec/ telepathy.freedesktop.org:/srv/telepathy.freedesktop.org/www/spec-next/
 
 dist: check
 	@install -d tmp
