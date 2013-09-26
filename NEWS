@@ -1,5 +1,7 @@
-Telepathy 0.99.1 (2013-09-16)
+Telepathy 0.99.1 (2013-09-17)
 =============================
+
+The “house of cards” release.
 
 This is the first snapshot towards Telepathy 1, a new major version of
 Telepathy. It is not usable yet - we're releasing this snapshot so we
