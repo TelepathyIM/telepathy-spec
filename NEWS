@@ -1,3 +1,11 @@
+Telepathy 0.99.2 (2013-09-27)
+=============================
+
+The “no surprises” release.
+
+• Connection manager names may now start with an underscore, because
+  there's no reason not to (the relevant D-Bus constructs all allow it).
+
 Telepathy 0.99.1 (2013-09-17)
 =============================
 
