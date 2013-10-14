@@ -27,9 +27,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
           The handle of the original identifier
         </tp:docstring>
       </arg>
-      <arg name="New" type="u" tp:type="Contact_Handle">
+      <arg name="New_Handle" type="u" tp:type="Contact_Handle">
         <tp:docstring>
           The handle of the new identifier
+        </tp:docstring>
+      </arg>
+      <arg name="New_Identifier" type="s">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The normalized identifier corresponding to New_Handle.</p>
+
+          <tp:rationale>
+            <p>Providing this immediately means that client libraries
+              can do useful things with this signal (log the change,
+              construct contact objects, etc.) without an additional
+              round-trip to find the corresponding string.</p>
+          </tp:rationale>
         </tp:docstring>
       </arg>
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
