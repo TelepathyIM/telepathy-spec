@@ -2,6 +2,24 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.27.3 (UNRELEASED)
+==================================
+
+The “Not lamp” release.
+
+New stable API:
+
+• Conn.I.Renaming, as implemented in telepathy-idle since 2007
+
+• Chan.T.FileTransfer.FileCollection property, as implemented under a
+  different interface name in telepathy-gabble since 0.10
+
+• CD.I.Messages1, as implemented under a different interface name
+  in telepathy-mission-control since 5.8
+
+• Conn.I.Sidecars1, as implemented under a different interface name
+  in telepathy-gabble and telepathy-salut
+
 telepathy-spec 0.27.2 (2013-09-24)
 ==================================
 
