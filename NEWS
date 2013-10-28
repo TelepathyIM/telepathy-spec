@@ -2,7 +2,7 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
-telepathy-spec 0.27.3 (UNRELEASED)
+telepathy-spec 0.27.3 (2013-10-28)
 ==================================
 
 The “Not lamp” release.
@@ -19,6 +19,9 @@ New stable API:
 
 • Conn.I.Sidecars1, as implemented under a different interface name
   in telepathy-gabble and telepathy-salut
+
+• Conn.I.IRC_Command1, a new interface to send arbitrary IRC commands to the
+  server
 
 telepathy-spec 0.27.2 (2013-09-24)
 ==================================

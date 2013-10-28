@@ -22,9 +22,10 @@ USA.</p>
   </tp:license>
   <interface name="org.freedesktop.Telepathy.Connection.Interface.Sidecars1">
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <tp:added version="0.27.3"/>
 
     <method name="EnsureSidecar" tp:name-for-bindings="Ensure_Sidecar">
-      <tp:added version="0.UNRELEASED">(as stable API)</tp:added>
+      <tp:added version="0.27.3">(as stable API)</tp:added>
 
       <arg direction="in" name="Main_Interface" type="s"
            tp:type="DBus_Interface">

@@ -19,6 +19,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   <interface name="org.freedesktop.Telepathy.Connection.Interface.IRCCommand1"
     tp:causes-havoc='not well-tested'>
     <tp:requires interface="org.freedesktop.Telepathy.Connection"/>
+    <tp:added version="0.27.3"/>
+
     <method name="Send" tp:name-for-bindings="Send">
       <arg direction="in" name="Command" type="s">
         <tp:docstring>
