@@ -1,3 +1,22 @@
+Telepathy 0.99.4 (UNRELEASED)
+============================
+
+New stable API:
+
+• Conn.I.Renaming, as implemented in telepathy-idle since 2007
+
+• Chan.T.FileTransfer.FileCollection property, as implemented under a
+  different interface name in telepathy-gabble since 0.10
+
+• CD.I.Messages1, as implemented under a different interface name
+  in telepathy-mission-control since 5.8
+
+• Conn.I.Sidecars1, as implemented under a different interface name
+  in telepathy-gabble and telepathy-salut
+
+• Conn.I.IRC_Command1, a new interface to send arbitrary IRC commands to the
+  server
+
 Telepathy 0.99.3 (2013-10-28)
 =============================
 

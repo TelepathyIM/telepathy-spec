@@ -20,7 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </tp:license>
   <interface name="im.telepathy1.Connection.Interface.Renaming1">
     <tp:requires interface="im.telepathy1.Connection"/>
-    <tp:added version="0.UNRELEASED">(as stable API)</tp:added>
+    <tp:added version="0.27.3">(as stable API)</tp:added>
     <signal name="Renamed" tp:name-for-bindings="Renamed">
       <arg name="Original" type="u" tp:type="Contact_Handle">
         <tp:docstring>
