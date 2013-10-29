@@ -498,7 +498,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       defaulting to $HOME/.local/share if unset, followed by
       colon-separated paths from $XDG_DATA_DIRS, defaulting to
       /usr/local/share:/usr/share if unset) for the first file named
-      <code>telepathy/managers/<em>cmname</em>.manager</code> that can be
+      <code>telepathy-1/managers/<em>cmname</em>.manager</code> that can be
       read without error and contains a group whose name is the name of this
       interface. This file has the same syntax as a
       <a href="http://standards.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html">freedesktop.org Desktop Entry file</a>.</p>
