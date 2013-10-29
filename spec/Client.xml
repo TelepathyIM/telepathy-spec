@@ -75,7 +75,7 @@
         its properties when appropriate.</p>
 
       <p>As an optimization, activatable clients SHOULD install a file
-        <code><a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">$XDG_DATA_DIRS</a>/telepathy/clients/<em>clientname</em>.client</code>
+        <code><a href="http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html">$XDG_DATA_DIRS</a>/telepathy-1/clients/<em>clientname</em>.client</code>
         containing a cached version of its immutable properties,
         so that for most clients, the channel dispatcher can
         just read a file to discover capabilities, instead of
