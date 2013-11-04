@@ -65,7 +65,7 @@ us to avoid them, please ask for clarification on the mailing list.
 Core interfaces such as Channel, Connection and Account do not have a version
 number at the end. Incompatible changes to these interfaces will only be made
 in a new major version of telepathy-spec (which would rename all interfaces
-by replacing im.telepathy1 with im.telepathy2 throughout).
+by replacing im.telepathy.v1 with im.telepathy.v2 throughout).
 
 The "node name" (name attribute of the <node> XML element) reflects the name
 and version of the interface, and the intended naming for generated code:

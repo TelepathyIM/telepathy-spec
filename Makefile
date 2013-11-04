@@ -26,7 +26,7 @@ doc/spec/index.html: $(XMLS) tools/doc-generator.py tools/specparser.py $(TEMPLA
 	rm -rf doc/spec
 	install -d doc/spec
 	$(PYTHON) tools/doc-generator.py spec/all.xml doc/spec/ telepathy-spec \
-		im.telepathy1
+		im.telepathy.v1
 
 all: $(GENERATED_FILES)
 	@echo "Your spec HTML starts at:"

@@ -12,15 +12,15 @@ spec_path = os.path.join (test_dir, 'input/all.xml')
 
 def test_specparser ():
     """
->>> spec = specparser.parse (spec_path, 'im.telepathy1.SpecAutoGenTest')
+>>> spec = specparser.parse (spec_path, 'im.telepathy.v1.SpecAutoGenTest')
 >>> spec
 Spec(telepathy-spec tools test case)
 
 >>> spec.interfaces
-[Interface(im.telepathy1.SpecAutoGenTest)]
+[Interface(im.telepathy.v1.SpecAutoGenTest)]
 
 >>> sorted(spec.errors.items())
-[(u'im.telepathy1.SpecAutoGenTest.MiscError', Error(im.telepathy1.SpecAutoGenTest.MiscError)), (u'im.telepathy1.SpecAutoGenTest.OtherError', Error(im.telepathy1.SpecAutoGenTest.OtherError))]
+[(u'im.telepathy.v1.SpecAutoGenTest.MiscError', Error(im.telepathy.v1.SpecAutoGenTest.MiscError)), (u'im.telepathy.v1.SpecAutoGenTest.OtherError', Error(im.telepathy.v1.SpecAutoGenTest.OtherError))]
 
 >>> spec.generic_types
 []
@@ -29,36 +29,36 @@ Spec(telepathy-spec tools test case)
 
 >>> i = spec.interfaces[0]
 >>> i
-Interface(im.telepathy1.SpecAutoGenTest)
+Interface(im.telepathy.v1.SpecAutoGenTest)
 
 >>> print i.causes_havoc
 None
 
 >>> i.methods
-[Method(im.telepathy1.SpecAutoGenTest.DoStuff)]
+[Method(im.telepathy.v1.SpecAutoGenTest.DoStuff)]
 
 >>> i.methods[0].args
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 AttributeError: 'Method' object has no attribute 'args'
 >>> i.methods[0].in_args
-[Arg(im.telepathy1.SpecAutoGenTest.DoStuff.badger:b), Arg(im.telepathy1.SpecAutoGenTest.DoStuff.mushroom:a{sv}), Arg(im.telepathy1.SpecAutoGenTest.DoStuff.snake:s)]
+[Arg(im.telepathy.v1.SpecAutoGenTest.DoStuff.badger:b), Arg(im.telepathy.v1.SpecAutoGenTest.DoStuff.mushroom:a{sv}), Arg(im.telepathy.v1.SpecAutoGenTest.DoStuff.snake:s)]
 >>> i.methods[0].out_args
-[Arg(im.telepathy1.SpecAutoGenTest.DoStuff.misc:a(uv))]
+[Arg(im.telepathy.v1.SpecAutoGenTest.DoStuff.misc:a(uv))]
 
 >>> i.methods[0].possible_errors
-[PossibleError(im.telepathy1.SpecAutoGenTest.MiscError), PossibleError(im.telepathy1.SpecAutoGenTest.OtherError)]
+[PossibleError(im.telepathy.v1.SpecAutoGenTest.MiscError), PossibleError(im.telepathy.v1.SpecAutoGenTest.OtherError)]
 >>> map (lambda e: e.get_error (), i.methods[0].possible_errors)
-[Error(im.telepathy1.SpecAutoGenTest.MiscError), Error(im.telepathy1.SpecAutoGenTest.OtherError)]
+[Error(im.telepathy.v1.SpecAutoGenTest.MiscError), Error(im.telepathy.v1.SpecAutoGenTest.OtherError)]
 
 >>> i.signals
-[Signal(im.telepathy1.SpecAutoGenTest.StuffHappened)]
+[Signal(im.telepathy.v1.SpecAutoGenTest.StuffHappened)]
 
 >>> i.signals[0].args
-[Arg(im.telepathy1.SpecAutoGenTest.StuffHappened.stoat:ay), Arg(im.telepathy1.SpecAutoGenTest.StuffHappened.ferret:s), Arg(im.telepathy1.SpecAutoGenTest.StuffHappened.weasel:b)]
+[Arg(im.telepathy.v1.SpecAutoGenTest.StuffHappened.stoat:ay), Arg(im.telepathy.v1.SpecAutoGenTest.StuffHappened.ferret:s), Arg(im.telepathy.v1.SpecAutoGenTest.StuffHappened.weasel:b)]
 
 >>> i.properties
-[Property(im.telepathy1.SpecAutoGenTest.Introspective:b)]
+[Property(im.telepathy.v1.SpecAutoGenTest.Introspective:b)]
 
 >>> i.properties[0].type
 ''
@@ -81,7 +81,7 @@ None
 [(u'LowBit', u'1'), (u'HighBit', u'128')]
 
 >>> sorted(spec.everything.items())
-[(u'im.telepathy1.SpecAutoGenTest', ClientInterest(im.telepathy1.SpecAutoGenTest)), (u'im.telepathy1.SpecAutoGenTest.DoStuff', Method(im.telepathy1.SpecAutoGenTest.DoStuff)), (u'im.telepathy1.SpecAutoGenTest.Introspective', Property(im.telepathy1.SpecAutoGenTest.Introspective:b)), (u'im.telepathy1.SpecAutoGenTest.StuffHappened', Signal(im.telepathy1.SpecAutoGenTest.StuffHappened)), (u'im.telepathy1.SpecAutoGenTest/badgers', ClientInterest(im.telepathy1.SpecAutoGenTest/badgers))]
+[(u'im.telepathy.v1.SpecAutoGenTest', ClientInterest(im.telepathy.v1.SpecAutoGenTest)), (u'im.telepathy.v1.SpecAutoGenTest.DoStuff', Method(im.telepathy.v1.SpecAutoGenTest.DoStuff)), (u'im.telepathy.v1.SpecAutoGenTest.Introspective', Property(im.telepathy.v1.SpecAutoGenTest.Introspective:b)), (u'im.telepathy.v1.SpecAutoGenTest.StuffHappened', Signal(im.telepathy.v1.SpecAutoGenTest.StuffHappened)), (u'im.telepathy.v1.SpecAutoGenTest/badgers', ClientInterest(im.telepathy.v1.SpecAutoGenTest/badgers))]
 
 
 >>> map (lambda o: i.added, spec.everything.values ())
