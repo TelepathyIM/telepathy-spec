@@ -868,7 +868,7 @@ USA.</p>
               race condition would be likely to exist in some cases:</p>
 
             <ul>
-              <li>NewChannels or Get("Channels") includes a property P with
+              <li>NewChannel or Get("Channels") includes a property P with
                 value V1</li>
               <li>Client creates a proxy object for the channel</li>
               <li>The value of P changes to V2</li>
@@ -950,12 +950,12 @@ USA.</p>
       <arg name="Channel" direction="out" type="o">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The Channel object, which MUST NOT be signalled with
-            <tp:member-ref>NewChannels</tp:member-ref> until after this method
+            <tp:member-ref>NewChannel</tp:member-ref> until after this method
             returns.</p>
 
           <tp:rationale>
             <p>This allows the requester to alter its handling of
-              NewChannels by knowing whether one of the channels satisfied
+              NewChannel by knowing whether one of the channels satisfied
               a request it made.</p>
           </tp:rationale>
         </tp:docstring>
@@ -1090,12 +1090,12 @@ USA.</p>
         <tp:docstring>
           The Channel object. If it was created as a result of this method
           call, it MUST NOT be signalled by
-          <tp:member-ref>NewChannels</tp:member-ref> until after this method
+          <tp:member-ref>NewChannel</tp:member-ref> until after this method
           returns.
 
           <tp:rationale>
             <p>This allows the requester to alter its handling of
-              NewChannels by knowing whether one of the channels satisfied
+              NewChannel by knowing whether one of the channels satisfied
               a request it made.</p>
           </tp:rationale>
         </tp:docstring>
@@ -1171,14 +1171,15 @@ USA.</p>
       </tp:possible-errors>
     </method>
 
-    <signal name="NewChannels" tp:name-for-bindings="New_Channels">
-      <tp:added version="0.99.UNRELEASED">(as part of Connection)</tp:added>
+    <signal name="NewChannel" tp:name-for-bindings="New_Channel">
+      <tp:added version="0.99.UNRELEASED"/>
 
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>A new channel has been created. The connection manager
-          SHOULD emit a single signal for each channel created.</p>
+        <p>A new channel has been created.</p>
 
-        <p>For example, joining a MUC Tube in XMPP requires joining the
+        <p>Unlike in some previous Telepathy versions, the connection manager
+          cannot emit a single signal for multiple channels.
+          For example, joining a MUC Tube in XMPP requires joining the
           corresponding MUC (chatroom). Either the connection manager
           should announce a new <tp:dbus-ref
           namespace="imt1.Channel.Type">Text</tp:dbus-ref> channel
@@ -1194,9 +1195,17 @@ USA.</p>
         </tp:rationale>
       </tp:docstring>
 
-      <arg name="Channels" type="a(oa{sv})" tp:type="Channel_Details[]">
+      <arg name="Channel" type="o">
         <tp:docstring>
-          The channels and their details.
+          The object path of the channel.
+        </tp:docstring>
+      </arg>
+
+      <arg name="Properties" type="a{sv}"
+        tp:type="Qualified_Property_Value_Map">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The same properties of the channel that would appear in the
+            <tp:type>Channel_Details</tp:type> struct.</p>
         </tp:docstring>
       </arg>
     </signal>
@@ -1207,7 +1216,7 @@ USA.</p>
       <tp:docstring>
         A list of all the channels which currently exist on this connection.
         Change notification is via the
-        <tp:member-ref>NewChannels</tp:member-ref> and
+        <tp:member-ref>NewChannel</tp:member-ref> and
         <tp:member-ref>ChannelClosed</tp:member-ref> signals.
       </tp:docstring>
     </property>

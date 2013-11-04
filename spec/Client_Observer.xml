@@ -120,10 +120,10 @@
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
         <p>A specification of the channels in which this observer is
           interested. The <tp:member-ref>ObserveChannels</tp:member-ref> method
-          should be called by the channel dispatcher whenever any of the new
-          channels in a <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection">NewChannels</tp:dbus-ref>
-          signal match this description.</p>
+          should be called by the channel dispatcher whenever the new
+          channel in a <tp:dbus-ref
+            namespace="im.telepathy.v1.Connection">NewChannel</tp:dbus-ref>
+          signal matches this description.</p>
 
         <p>Only certain D-Bus types have useful semantics for matching like this,
           so only certain types are allowed:</p>
@@ -253,19 +253,10 @@ Recover=true
 
     <method name="ObserveChannels" tp:name-for-bindings="Observe_Channels">
       <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
-        <p>Called by the channel dispatcher when channels in which the
+        <p>Called by the channel dispatcher when a channel in which the
           observer has registered an interest are announced in a <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection">NewChannels</tp:dbus-ref>
+            namespace="im.telepathy.v1.Connection">NewChannel</tp:dbus-ref>
           signal.</p>
-
-        <p>If the same NewChannels signal announces some channels that match
-          the filter, and some that do not, then only a subset of the channels
-          (those that do match the filter) are passed to this method.</p>
-
-        <p>If the channel dispatcher will split up the channels from a single
-          NewChannels signal and dispatch them separately (for instance
-          because no installed Handler can handle all of them), it will call
-          ObserveChannels several times.</p>
 
         <p>The observer MUST NOT return from this method call until it is ready
           for a handler for the channel to run (which may change the channel's
