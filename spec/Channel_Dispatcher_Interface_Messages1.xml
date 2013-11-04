@@ -126,7 +126,7 @@
 
         <p>This method may raise any error that would be raised by the
           <tp:dbus-ref
-            namespace="imt1.Connection.Interface">Requests.EnsureChannel</tp:dbus-ref>
+            namespace="imt1.Connection">EnsureChannel</tp:dbus-ref>
           or <tp:dbus-ref
             namespace="imt1.Channel.Type">Text.SendMessage</tp:dbus-ref>
           methods, or signalled by the <tp:dbus-ref

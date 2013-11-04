@@ -138,7 +138,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
           other end.</p>
         <p>When requesting a channel with
           <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>,
+            namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>,
           this property MUST be included in the request.</p>
       </tp:docstring>
     </property>
@@ -190,7 +190,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
         </tp:rationale>
 
         <p>When requesting a channel with
-          <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>,
+          <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>,
           this property MUST NOT be included in the request.</p>
 
       </tp:docstring>

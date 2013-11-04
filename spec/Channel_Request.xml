@@ -154,7 +154,7 @@
 
         <p>If the connection manager has already been asked to create a
           channel but has not produced one yet (e.g. if <tp:dbus-ref
-            namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+            namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
           has been called, but has not yet returned), then the
           ChannelDispatcher will remember that the request has been cancelled.
           When the channel appears, it will be closed (if it was newly
@@ -191,7 +191,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The name of a D-Bus error. This can come from various sources,
             including the error raised by <tp:dbus-ref
-              namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>,
+              namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>,
             or an error generated
             to represent failure to establish the <tp:dbus-ref
               namespace="im.telepathy.v1">Connection</tp:dbus-ref>.</p>
@@ -322,7 +322,7 @@
         tp:type="Qualified_Property_Value_Map">
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>The same immutable properties of the Channel that would appear
-            in a <tp:dbus-ref namespace="imt1.Connection.Interface.Requests"
+            in a <tp:dbus-ref namespace="imt1.Connection"
               >NewChannels</tp:dbus-ref> signal.</p>
         </tp:docstring>
       </arg>

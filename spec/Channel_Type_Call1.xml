@@ -75,7 +75,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <blockquote>
         <pre>
-<tp:dbus-ref namespace="imt1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
+<tp:dbus-ref namespace="imt1.Connection">CreateChannel</tp:dbus-ref>({
   ...<tp:dbus-ref namespace="imt1.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
       namespace="imt1.Channel.Type">Call1</tp:dbus-ref>,
   ...<tp:dbus-ref namespace="imt1.Channel">TargetHandleType</tp:dbus-ref>: Contact,
@@ -155,12 +155,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
       <p>When an incoming call occurs, something like the following
         <tp:dbus-ref
-        namespace="imt1.Connection.Interface.Requests">NewChannels</tp:dbus-ref>
+        namespace="imt1.Connection">NewChannels</tp:dbus-ref>
         signal will occur:</p>
 
       <blockquote>
         <pre>
-<tp:dbus-ref namespace="imt1.Connection.Interface.Requests">NewChannels</tp:dbus-ref>([
+<tp:dbus-ref namespace="imt1.Connection">NewChannels</tp:dbus-ref>([
   /im/telepathy/v1/Connection/foo/bar/foo_40bar_2ecom/CallChannel,
   {
     ...<tp:dbus-ref namespace="imt1.Channel">ChannelType</tp:dbus-ref>: ...<tp:dbus-ref
@@ -267,7 +267,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
       <h4>Requestable channel classes</h4>
 
       <p>The <tp:dbus-ref
-        namespace="imt1.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
+        namespace="imt1.Connection">RequestableChannelClasses</tp:dbus-ref>
         for <tp:dbus-ref
         namespace="imt1.Channel.Type">Call1</tp:dbus-ref> channels
         can be:</p>

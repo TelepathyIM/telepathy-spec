@@ -102,7 +102,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         been created.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. Protocols which do not have a content-type property with file
         transfers should set this value to application/octet-stream.</p>
       </tp:docstring>
@@ -120,7 +120,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         be set to monkey.pdf.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. This property cannot be empty and MUST be set to a sensible value.</p>
       </tp:docstring>
     </property>
@@ -138,7 +138,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         to the byte.</p>
 
         <p>This property is mandatory when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. If this information isn't provided in the protocol, connection managers MUST set it
         to UINT64_MAX.</p>
       </tp:docstring>
@@ -151,15 +151,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>The type of the <tp:member-ref>ContentHash</tp:member-ref> property.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. However, if you wish to include the <tp:member-ref>ContentHash</tp:member-ref>
         property you MUST also include this property. If you omit this property from a
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method call then its value will be assumed to be File_Hash_Type_None.</p>
 
         <p>For each supported hash type, implementations SHOULD include an entry
           in <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>
+            namespace="im.telepathy.v1.Connection">RequestableChannelClasses</tp:dbus-ref>
           with this property fixed to that hash type. If the protocol supports
           offering a file without a content hash, implementations SHOULD list
           this property in Allowed in a requestable channel class, mapping hash
@@ -177,7 +177,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         property.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. Its value MUST correspond to the appropriate type of the
         <tp:member-ref>ContentHashType</tp:member-ref> property. If the
         ContentHashType property is not set, or set to File_Hash_Type_None,
@@ -192,7 +192,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         channel has been created.</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method. If this property was not provided by the remote party, connection managers MUST set it to
         the empty string.</p>
       </tp:docstring>
@@ -206,7 +206,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         cannot change once the channel has been created</p>
 
         <p>This property is optional when requesting the channel with the
-        <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>
+        <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>
         method.</p>
       </tp:docstring>
     </property>
