@@ -67,6 +67,17 @@ USA.</p>
             to have evaluated the server's functionality and enabled any extra
             interfaces for the remainder of the Connection's lifetime.</p>
         </tp:rationale>
+
+        <p>As a special case, the mandatory <tp:dbus-ref
+            namespace="imt1.Connection.Interface">Requests</tp:dbus-ref>
+          interface SHOULD NOT be listed in this property.</p>
+
+        <tp:rationale>
+          <p>It has been mandatory since Telepathy 0.18 in 2009,
+            and contains essential functionality for this interface,
+            so there seems no point in wasting bytes on capability discovery
+            for it.</p>
+        </tp:rationale>
       </tp:docstring>
       <tp:added version="0.19.2"/>
     </property>
