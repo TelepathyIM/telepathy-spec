@@ -1,3 +1,21 @@
+Telepathy 0.99.5 (2013-11-11)
+=============================
+
+The “high and dry” release.
+
+API breaks:
+
+• All D-Bus namespaces have changed from im.telepathy1 to im.telepathy.v1
+
+• The Renaming1.Renamed signal carries the identifier, not just the handle
+
+• .manager and .client files go in $XDG_DATA_DIRS/telepathy-1 instead
+  of $XDG_DATA_DIRS/telepathy, to be parallel-installable with Telepathy 0
+
+New stable API:
+
+• IRCCommand1 is marked as stable
+
 Telepathy 0.99.4 (2013-10-29)
 =============================
 
