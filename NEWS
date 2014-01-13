@@ -1,7 +1,21 @@
-Telepathy 0.99.6 (UNRELEASED)
+Telepathy 0.99.6 (2014-01-13)
 =============================
 
-…
+The “little by little” release.
+
+API breaks:
+
+• all remaining functionality of Connection.I.Contacts has moved to
+  the core Connection interface (fd.o #50093, Simon)
+
+• the Connection.I.Requests interface is still separate (so that its
+  signals do not wake up uninterested clients), but is implicitly present
+  and so no longer needs to be listed in Connection.Interfaces (fd.o #50093,
+  Simon)
+
+Other changes:
+
+• X-TELEPATHY-PASSWORD is not mandatory if unimplementable (fd.o #64354, Simon)
 
 Telepathy 0.99.5 (2013-11-11)
 =============================

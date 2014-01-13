@@ -925,7 +925,7 @@ USA.</p>
       and signals have been removed from this interface including
       anything to do with handle reference counting.</tp:changed>
 
-    <tp:changed version="0.99.UNRELEASED">The former Contacts interface
+    <tp:changed version="0.99.6">The former Contacts interface
       is now part of Connection.</tp:changed>
   </interface>
 </node>
