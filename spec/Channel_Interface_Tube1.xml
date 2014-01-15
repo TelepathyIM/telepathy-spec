@@ -70,7 +70,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>When requesting a tube with
           <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>,
+            namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>,
           this property MUST NOT be included in the request; instead, it is set
           when <tp:dbus-ref
             namespace="im.telepathy.v1.Channel.Type">StreamTube1.Offer</tp:dbus-ref>
@@ -81,7 +81,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>When receiving an incoming tube, this property is immutable and so advertised in the
           <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection">NewChannel</tp:dbus-ref>
+            namespace="im.telepathy.v1.Connection.Interface.Requests">NewChannel</tp:dbus-ref>
           signal.</p>
       </tp:docstring>
     </property>
@@ -93,7 +93,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
         <p>When requesting a tube with
           <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>,
+            namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>,
           this property MUST NOT be included in the request.</p>
       </tp:docstring>
     </property>

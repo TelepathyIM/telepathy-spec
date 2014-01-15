@@ -46,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
       <p>Channels of this type cannot be requested with methods such as
         <tp:dbus-ref
-          namespace="imt1.Connection">CreateChannel</tp:dbus-ref>.
+          namespace="imt1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>.
         They always have <tp:dbus-ref
           namespace="imt1.Channel">Requested</tp:dbus-ref> = False,
         <tp:dbus-ref

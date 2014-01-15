@@ -153,7 +153,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary containing desirable properties. This has the same
             semantics as the corresponding parameter to
-            <tp:dbus-ref namespace="im.telepathy.v1">Connection.CreateChannel</tp:dbus-ref>.
+            <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.CreateChannel</tp:dbus-ref>.
           </p>
 
           <p>Certain properties will not necessarily make sense in this
@@ -318,7 +318,7 @@
         <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
           <p>A dictionary containing desirable properties. This has the same
             semantics as the corresponding parameter to
-            <tp:dbus-ref namespace="im.telepathy.v1">Connection.EnsureChannel</tp:dbus-ref>.
+            <tp:dbus-ref namespace="im.telepathy.v1">Connection.Interface.Requests.EnsureChannel</tp:dbus-ref>.
           </p>
 
           <p>Certain properties will not necessarily make sense in this
@@ -361,7 +361,7 @@
             so it can try to dispatch subsequent channels in the same bundle
             to the same handler. If the requested channel already exists (that
             is, <tp:dbus-ref
-              namespace="im.telepathy.v1">Connection.EnsureChannel</tp:dbus-ref>
+              namespace="im.telepathy.v1">Connection.Interface.Requests.EnsureChannel</tp:dbus-ref>
             returns <code>Yours=False</code>) then the channel dispatcher
             SHOULD re-dispatch the channel to its existing handler, and MUST
             NOT dispatch it to this client (unless it is the existing handler);

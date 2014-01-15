@@ -36,7 +36,7 @@
         from outgoing requests for channels.</p>
 
       <p>More specifically, whenever the <tp:dbus-ref
-        namespace="im.telepathy.v1">Connection.NewChannel</tp:dbus-ref>
+        namespace="im.telepathy.v1">Connection.Interface.Requests.NewChannel</tp:dbus-ref>
         signal contains a channel whose <tp:dbus-ref
         namespace="im.telepathy.v1.Channel">Requested</tp:dbus-ref>
         property is false, a ChannelDispatchOperation

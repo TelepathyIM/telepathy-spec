@@ -348,7 +348,7 @@
        #if $interface.is_channel_related:
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
-       of <a href="Connection.html#im.telepathy.v1.Connection.NewChannel">NewChannel</a>
+       of <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.NewChannel">NewChannel</a>
        signals.
        #else
        change.
@@ -360,7 +360,7 @@
        #if $interface.is_channel_related:
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
-       of <a href="Connection.html#im.telepathy.v1.Connection.NewChannel">NewChannel</a>
+       of <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.NewChannel">NewChannel</a>
        signals.
        #else
        change.
@@ -372,29 +372,29 @@
      <div class="annotation requestable">Depending on the protocol, this
        property may be <strong>requestable</strong>, which means that it may be
        allowed in the properties hash of a channel request such as in the
-       <a href="Connection.html#im.telepathy.v1.Connection.CreateChannel">CreateChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and
-       <a href="Connection.html#im.telepathy.v1.Connection.EnsureChannel">EnsureChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
-       on <a href="Connection.html">Connection</a>
+       on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        If supported on this protocol, the property should appear in either the
        Fixed_Properties or Allowed_Properties of
-       a <a href="Connection.html#im.telepathy.v1.Connection.RequestableChannelClasses">RequestableChannelClass</a>
+       a <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #elif $property.requestable:
      <div class="annotation requestable">This property
        is <strong>requestable</strong>, which means that it is allowed
        in the properties hash of a channel request such as in the
-       <a href="Connection.html#im.telepathy.v1.Connection.CreateChannel">CreateChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.CreateChannel">CreateChannel</a>
        and 
-       <a href="Connection.html#im.telepathy.v1.Connection.EnsureChannel">EnsureChannel</a>
+       <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.EnsureChannel">EnsureChannel</a>
        methods
-       on <a href="Connection.html">Connection</a>
+       on <a href="Connection_Interface_Requests.html">Requests</a>
        and <a href="Channel_Dispatcher.html">ChannelDispatcher</a>.
        The property should also appear in either the Fixed_Properties
        or Allowed_Properties of
-       a <a href="Connection.html#im.telepathy.v1.Connection.RequestableChannelClasses">RequestableChannelClass</a>
+       a <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
      #end if
 

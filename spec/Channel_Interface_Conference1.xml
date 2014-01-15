@@ -50,7 +50,7 @@
         If <tp:member-ref>InitialInviteeHandles</tp:member-ref> and
         <tp:member-ref>InitialInviteeIDs</tp:member-ref> are
         <var>Allowed_Properties</var> in <tp:dbus-ref
-          namespace="im.telepathy.v1.Connection">RequestableChannelClasses</tp:dbus-ref>,
+          namespace="im.telepathy.v1.Connection.Interface.Requests">RequestableChannelClasses</tp:dbus-ref>,
         ad-hoc conferences to a set of contacts may be created by requesting a
         channel, specifying
         <tp:member-ref>InitialInviteeHandles</tp:member-ref> and/or
@@ -114,7 +114,7 @@
         into a single conference call by calling:</p>
 
       <blockquote>
-        <code><tp:dbus-ref namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>({
+        <code><tp:dbus-ref namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>({
             ...<tp:dbus-ref namespace="im.telepathy.v1.Channel">ChannelType</tp:dbus-ref>: ...Call,
             ...<tp:member-ref>InitialChannels</tp:member-ref>: [C1, C2]
           })</code>
@@ -153,7 +153,7 @@
         the room), call:</p>
 
       <blockquote>
-        <code><tp:dbus-ref namespace="im.telepathy.v1.Connection">EnsureChannel</tp:dbus-ref>({
+        <code><tp:dbus-ref namespace="im.telepathy.v1.Connection.Interface.Requests">EnsureChannel</tp:dbus-ref>({
             ...ChannelType: ...Text,
             ...<tp:dbus-ref namespace="im.telepathy.v1.Channel">TargetHandleType</tp:dbus-ref>: ...Room,
             ...<tp:dbus-ref namespace="im.telepathy.v1.Channel">TargetID</tp:dbus-ref>: 'telepathy@conf.example.com',
@@ -204,7 +204,7 @@
         TargetHandle of C1 into Cn), then immediately inviting the
         TargetHandle of C2, the TargetHandle of C3, etc. into Cn as well.</p>
 
-      <h4>Sample <tp:dbus-ref namespace='imt1.Connection'
+      <h4>Sample <tp:dbus-ref namespace='imt1.Connection.Interface.Requests'
                              >RequestableChannelClasses</tp:dbus-ref></h4>
 
       <p>A GSM connection might advertise the following channel class for
@@ -366,7 +366,7 @@
           <tp:member-ref>InitialInviteeHandles</tp:member-ref> and
           <tp:member-ref>InitialInviteeIDs</tp:member-ref> are
           <var>Allowed_Properties</var> in <tp:dbus-ref
-            namespace='imt1.Connection'
+            namespace='imt1.Connection.Interface.Requests'
             >RequestableChannelClasses</tp:dbus-ref>, then requests with zero
           or one channel paths SHOULD also succeed; otherwise, clients SHOULD
           NOT make requests with zero or one paths for this property.</p>
@@ -428,7 +428,7 @@
           (as opposed to merging several channels into one new conference
           channel), this property SHOULD be requestable, and appear in the allowed
           properties in <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection"
+            namespace="im.telepathy.v1.Connection.Interface.Requests"
             >RequestableChannelClasses</tp:dbus-ref>. Otherwise, this property
           SHOULD NOT be requestable, and its value SHOULD always be the empty
           list.</p>
@@ -521,7 +521,7 @@
 
         <p>This property SHOULD be requestable, and appear in the allowed
           properties in <tp:dbus-ref
-            namespace="im.telepathy.v1.Connection"
+            namespace="im.telepathy.v1.Connection.Interface.Requests"
             >RequestableChannelClasses</tp:dbus-ref>, in protocols where
           invitations can have an accompanying text message.</p>
 

@@ -31,7 +31,7 @@
       <tp:dbus-ref namespace="im.telepathy.v1.Channel">TargetHandleType</tp:dbus-ref>
       = None and <tp:dbus-ref namespace="im.telepathy.v1.Channel">TargetHandle</tp:dbus-ref>
       = 0, and cannot be requested with methods such as <tp:dbus-ref
-      namespace="im.telepathy.v1.Connection">CreateChannel</tp:dbus-ref>.
+      namespace="im.telepathy.v1.Connection.Interface.Requests">CreateChannel</tp:dbus-ref>.
       Also, they SHOULD be dispatched while the
       <tp:dbus-ref namespace="im.telepathy.v1">Connection</tp:dbus-ref>
       owning them is in the CONNECTING state.</p>
