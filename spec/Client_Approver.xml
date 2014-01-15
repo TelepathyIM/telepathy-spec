@@ -130,6 +130,14 @@
         </tp:rationale>
       </tp:docstring>
 
+      <arg name="DispatchOperation" type="o" direction="in">
+        <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+          <p>The
+          <tp:dbus-ref namespace="im.telepathy.v1">ChannelDispatchOperation</tp:dbus-ref>
+            to be processed.</p>
+        </tp:docstring>
+      </arg>
+
       <arg name="Properties" type="a{sv}"
         tp:type="Qualified_Property_Value_Map" direction="in">
         <tp:docstring>
