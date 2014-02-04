@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="AddFavouriteContact"
             tp:name-for-bindings="Add_Favourite_Contact">
-      <arg direction="in" name="Account" type="o" tp:type="Account">
+      <arg direction="in" name="Account" type="o">
         <tp:docstring>
         The object path for the TpAccount to which the contact belongs
         </tp:docstring>
@@ -61,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="RemoveFavouriteContact"
             tp:name-for-bindings="Remove_Favourite_Contact">
-      <arg direction="in" name="Account" type="o" tp:type="Account">
+      <arg direction="in" name="Account" type="o">
         <tp:docstring>
         The object path for the TpAccount to which the contact belongs
         </tp:docstring>
@@ -87,7 +87,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="ClearAccount"
             tp:name-for-bindings="Clear_Account">
-      <arg direction="in" name="Account" type="o" tp:type="Account">
+      <arg direction="in" name="Account" type="o">
         <tp:docstring>
         The object path for the TpAccount in which logs will be cleared.
         </tp:docstring>
@@ -100,7 +100,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
 
     <method name="ClearEntity"
             tp:name-for-bindings="Clear_Entity">
-      <arg direction="in" name="Account" type="o" tp:type="Account">
+      <arg direction="in" name="Account" type="o">
         <tp:docstring>
         The object path for the TpAccount in which logs will be cleared.
         </tp:docstring>
@@ -129,7 +129,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         The set of favourite contacts has changed.
       </tp:docstring>
 
-      <arg name="Account" type="o" tp:type="Account">
+      <arg name="Account" type="o">
         <tp:docstring>
           An account associated with the contact.
         </tp:docstring>
