@@ -340,8 +340,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
       <tp:docstring>
         The handle for the user on this channel (which can also be a
         local or remote pending member), or 0 if the user is not a
-        member at all (which is likely to be the case, for instance,
-        on the old ContactList channels). Note that this is different
+        member at all. Note that this is different
         from the value of the <tp:dbus-ref
         namespace="im.telepathy.v1">Connection.SelfHandle</tp:dbus-ref>
         property on some protocols, so the value of this handle should
