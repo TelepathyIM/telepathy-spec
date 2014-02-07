@@ -140,10 +140,12 @@ BypassApproval=true
 
 <pre>
 [im.telepathy.v1.Client.Handler.Capabilities]
-im.telepathy.v1.Channel.Interface.MediaSignalling/ice-udp=true
-im.telepathy.v1.Channel.Interface.MediaSignalling/audio/speex=true
-im.telepathy.v1.Channel.Interface.MediaSignalling/video/theora=true
-im.telepathy.v1.Channel.Interface.MediaSignalling/video/h264=true
+im.telepathy.v1.Channel.Type.Call1/audio=true
+im.telepathy.v1.Channel.Type.Call1/video=true
+im.telepathy.v1.Channel.Type.Call1/ice=true
+im.telepathy.v1.Channel.Type.Call1/audio/speex=true
+im.telepathy.v1.Channel.Type.Call1/video/theora=true
+im.telepathy.v1.Channel.Type.Call1/video/h264=true
 </pre>
 
         <p>Like the <tp:member-ref>HandlerChannelFilter</tp:member-ref>
