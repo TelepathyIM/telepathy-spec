@@ -148,7 +148,7 @@ USA.</p>
       <tp:added version="0.19.2"/>
     </property>
 
-    <tp:enum name="Handle_Type" type="u">
+    <tp:enum name="Entity_Type" type="u">
       <tp:enumvalue suffix="None" value="0">
         <tp:docstring>
           A "null" handle type used to indicate the absence of a handle.
@@ -176,13 +176,13 @@ USA.</p>
     <tp:simple-type name="Contact_Handle" type="u"
       array-name="Contact_Handle_List">
       <tp:docstring>An unsigned 32-bit integer representing a handle of type
-        Handle_Type_Contact</tp:docstring>
+        Entity_Type_Contact</tp:docstring>
     </tp:simple-type>
 
     <tp:simple-type name="Room_Handle" type="u"
       array-name="Room_Handle_List">
       <tp:docstring>An unsigned 32-bit integer representing a handle of type
-        Handle_Type_Room</tp:docstring>
+        Entity_Type_Room</tp:docstring>
     </tp:simple-type>
 
     <tp:enum name="Connection_Status" plural="Connection_Statuses" type="u">
@@ -950,7 +950,7 @@ USA.</p>
 
           <tp:rationale>
             <p>For instance, if
-              TargetHandleType takes a value that is not Handle_Type_None,
+              TargetHandleType takes a value that is not Entity_Type_None,
               one or the other of TargetHandle and TargetID is required.
               Clients are expected to understand the documented relationship
               between the properties, so we do not have separate arrays
