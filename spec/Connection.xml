@@ -212,6 +212,19 @@ USA.</p>
           on XMPP, or the channel name "#telepathy" on IRC.</p>
         </tp:docstring>
       </tp:enumvalue>
+      <tp:enumvalue suffix="Self" value="3">
+        <tp:docstring>
+          <p>Not used within Telepathy itself, but reserved for use by
+            telepathy-logger.</p>
+
+          <tp:rationale>
+            telepathy-logger uses this type to represents the owner of the
+            account whose channel has been logged to. We don't need this
+            concept in Telepathy itself but it's convenient to use the same
+            enum across the whole API.
+          </tp:rationale>
+        </tp:docstring>
+      </tp:enumvalue>
     </tp:enum>
 
     <tp:simple-type name="Handle" type="u" array-name="Handle_List">
