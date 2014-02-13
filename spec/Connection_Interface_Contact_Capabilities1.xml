@@ -202,7 +202,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
         <p>In particular, requestable channel classes for channels with
           target handle type Contact MUST list <tp:dbus-ref
             namespace="im.telepathy.v1.Channel"
-            >TargetHandleType</tp:dbus-ref> among their fixed properties when
+            >TargetEntityType</tp:dbus-ref> among their fixed properties when
           they appear here, and clients MAY assume that this will be the
           case.</p>
 

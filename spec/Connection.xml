@@ -922,7 +922,7 @@ USA.</p>
         <p>Channel classes SHOULD always include the keys
           <tp:dbus-ref>im.telepathy.v1.Channel.ChannelType</tp:dbus-ref>
           and
-          <tp:dbus-ref>im.telepathy.v1.Channel.TargetHandleType</tp:dbus-ref>.</p>
+          <tp:dbus-ref>im.telepathy.v1.Channel.TargetEntityType</tp:dbus-ref>.</p>
       </tp:docstring>
 
       <tp:member type="s" name="Key" tp:type="DBus_Qualified_Member">
@@ -963,9 +963,9 @@ USA.</p>
             we'd need to represent it like this:</p>
 
           <ul>
-            <li>class 1: ChannelType = Text, TargetHandleType = CONTACT</li>
+            <li>class 1: ChannelType = Text, TargetEntityType = CONTACT</li>
             <li>class 2: Channel.ChannelType = Text,
-              Channel.TargetHandleType = CONTACT,
+              Channel.TargetEntityType = CONTACT,
               Encryption.Encrypted = TRUE</li>
           </ul>
         </tp:rationale>
@@ -1013,7 +1013,7 @@ USA.</p>
 
           <tp:rationale>
             <p>For instance, if
-              TargetHandleType takes a value that is not Entity_Type_None,
+              TargetEntityType takes a value that is not Entity_Type_None,
               one or the other of TargetHandle and TargetID is required.
               Clients are expected to understand the documented relationship
               between the properties, so we do not have separate arrays

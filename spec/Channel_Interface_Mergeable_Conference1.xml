@@ -78,7 +78,7 @@
               >ChannelType</tp:dbus-ref>
             as this one, but with <tp:dbus-ref
               namespace="im.telepathy.v1.Channel"
-              >TargetHandleType</tp:dbus-ref> = CONTACT.</p>
+              >TargetEntityType</tp:dbus-ref> = CONTACT.</p>
         </tp:docstring>
       </arg>
 
