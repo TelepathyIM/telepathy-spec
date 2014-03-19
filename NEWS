@@ -1,3 +1,31 @@
+Telepathy 0.99.8 (2014-03-19)
+=============================
+
+The “like spinning plates” release.
+
+API breaks:
+
+• Account.AccountPropertyChanged has been replaced with
+  the standard o.fd.DBus.Properties.PropertiesChanged
+
+• Handle_Type is now Entity_Type, and all uses of the term have also been
+  renamed (TargetEntityType, etc.)
+
+• HandleChannel's Requests_Satisfied parameter has changed from ao
+  (array of object path) to a{oa{sv}} (map from object path to its immutable
+  properties), replacing Handler_Info["request-properties"]. Observer
+  has had a similar change.
+
+Deleted draft API that never had a satisfactory implementation:
+
+• Account.I.ExternalPasswordStorage1
+• Channel.I.CredentialsStorage1
+• CM.I.AccountStorage1
+
+Additions:
+
+• The Logger's D-Bus API is now part of the main spec.
+
 Telepathy 0.99.7 (2014-01-29)
 =============================
 
