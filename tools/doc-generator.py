@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # doc-generator.py
 #
-# Generates HTML documentation from the parsed spec using Cheetah templates.
+# Generates HTML documentation from the parsed spec
 #
 # Copyright (C) 2009 Collabora Ltd.
 #
@@ -27,12 +27,13 @@ import sys
 import os
 import os.path
 import shutil
+import itertools
 
 try:
-    from Cheetah.Template import Template
-except ImportError, e:
-    print >> sys.stderr, e
-    print >> sys.stderr, "Install `python-cheetah'?"
+    from jinja2 import Template
+except ImportError as e:
+    print(e, file=sys.stderr)
+    print("Install `jinja2'?", file=sys.stderr)
     sys.exit(-1)
 
 import specparser
@@ -68,54 +69,58 @@ def load_template(filename):
         file = open(os.path.join(template_path, filename))
         template_def = file.read()
         file.close()
-    except IOError, e:
-        print >> sys.stderr, "Could not load template file `%s'" % filename
-        print >> sys.stderr, e
+    except IOError as e:
+        print("Could not load template file `%s'" % filename, file=sys.stderr)
+        print(e, file=sys.stderr)
         sys.exit(-1)
 
     return template_def
+
+def render_template(name, context, target=None):
+    if target is None:
+        target = name
+    template_def = load_template(name)
+    t = Template(template_def).render(context)
+    with open(os.path.join(output_path, target), 'w') as out:
+      out.write(t)
 
 spec = specparser.parse(spec_file, namespace, allow_externals=allow_externals)
 
 # write out HTML files for each of the interfaces
 
+all_values = list(spec.everything.values()) + list(spec.errors.values()) + list(spec.types.values())
+
+star = [ (item.short_name, item) for item in all_values ]
+star.sort(key = lambda t: t[0].title())
+groups = [ (l, list(g)) for l, g in (itertools.groupby(star, key = lambda t: t[0][0].upper())) ]
+letters = set(map(lambda t: t[0], groups))
+all_letters = list(map(chr, range(ord('A'), ord('Z')+1)))
+
+context = { 'spec': spec, 'star': star, 'groups': groups,
+            'letters': letters, 'all_letters': all_letters }
+render_template('fullindex.html', context)
+
+context = { 'spec': spec, 'name': project, 'all_values': all_values }
+render_template('devhelp.devhelp2', context, target=('%s.devhelp2' % project))
+
 # Not using render_template here to avoid recompiling it n times.
-namespace = { 'spec': spec }
+context = { 'spec': spec }
 template_def = load_template('interface.html')
-t = Template(template_def, namespaces = [namespace])
+t = Template(template_def)
 for interface in spec.interfaces:
-    namespace['interface'] = interface
-
+    context['interface'] = interface
     # open the output file
-    out = open(os.path.join(output_path, '%s.html'
-        % interface.name_for_bindings), 'w')
-    print >> out, unicode(t).encode('utf-8')
-    out.close()
+    with open(os.path.join(output_path, '%s.html'
+        % interface.name_for_bindings), 'w') as out:
+      out.write(t.render(context))
 
-def render_template(name, namespaces, target=None):
-    if target is None:
-        target = name
-
-    namespace = { 'spec': spec }
-    template_def = load_template(name)
-    t = Template(template_def, namespaces=namespaces)
-    out = open(os.path.join(output_path, target), 'w')
-    print >> out, unicode(t).encode('utf-8')
-    out.close()
-
-namespaces = { 'spec': spec }
-
+context = { 'spec': spec }
 if len(spec.generic_types) > 0:
-    render_template('generic-types.html', namespaces)
+    render_template('generic-types.html', context)
 if len(spec.errors) > 0:
-    render_template('errors.html', namespaces)
-render_template('interfaces.html', namespaces)
-render_template('fullindex.html', namespaces)
-
-dh_namespaces = { 'spec': spec, 'name': project }
-render_template('devhelp.devhelp2', dh_namespaces,
-    target=('%s.devhelp2' % project))
+    render_template('errors.html', context)
+render_template('interfaces.html', context)
 
 # write out the TOC last, because this is the file used as the target in the
 # Makefile.
-render_template('index.html', namespaces)
+render_template('index.html', context)

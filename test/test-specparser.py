@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 import os.path
@@ -19,19 +19,21 @@ Spec(telepathy-spec tools test case)
 >>> spec.interfaces
 [Interface(org.freedesktop.Telepathy.SpecAutoGenTest)]
 
->>> spec.errors
-{u'org.freedesktop.Telepathy.SpecAutoGenTest.OtherError': Error(org.freedesktop.Telepathy.SpecAutoGenTest.OtherError), u'org.freedesktop.Telepathy.SpecAutoGenTest.MiscError': Error(org.freedesktop.Telepathy.SpecAutoGenTest.MiscError)}
+>>> sorted(spec.errors.items())
+[('org.freedesktop.Telepathy.SpecAutoGenTest.MiscError', Error(org.freedesktop.Telepathy.SpecAutoGenTest.MiscError)), ('org.freedesktop.Telepathy.SpecAutoGenTest.OtherError', Error(org.freedesktop.Telepathy.SpecAutoGenTest.OtherError))]
 
 >>> spec.generic_types
 []
->>> spec.types
-{u'Adjective': Enum(Adjective), u'Test_Flags': Flags(Test_Flags), u'UV': Struct(UV)}
+>>> sorted(spec.types)
+['Adjective', 'Test_Flags', 'UV']
+>>> [ spec.types[x] for x in sorted(spec.types) ]
+[Enum(Adjective), Flags(Test_Flags), Struct(UV)]
 
 >>> i = spec.interfaces[0]
 >>> i
 Interface(org.freedesktop.Telepathy.SpecAutoGenTest)
 
->>> print i.causes_havoc
+>>> print(i.causes_havoc)
 None
 
 >>> i.methods
@@ -48,7 +50,7 @@ AttributeError: 'Method' object has no attribute 'args'
 
 >>> i.methods[0].possible_errors
 [PossibleError(org.freedesktop.Telepathy.SpecAutoGenTest.MiscError), PossibleError(org.freedesktop.Telepathy.SpecAutoGenTest.OtherError)]
->>> map (lambda e: e.get_error (), i.methods[0].possible_errors)
+>>> list(map (lambda e: e.get_error (), i.methods[0].possible_errors))
 [Error(org.freedesktop.Telepathy.SpecAutoGenTest.MiscError), Error(org.freedesktop.Telepathy.SpecAutoGenTest.OtherError)]
 
 >>> i.signals
@@ -63,8 +65,8 @@ AttributeError: 'Method' object has no attribute 'args'
 >>> i.properties[0].type
 ''
 >>> i.properties[0].dbus_type
-u'b'
->>> print i.properties[0].get_type ()
+'b'
+>>> print(i.properties[0].get_type())
 None
 
 >>> i.types
@@ -72,21 +74,21 @@ None
 
 >>> i.types[0].values
 [EnumValue(Adjective.Leveraging), EnumValue(Adjective.Synergistic)]
->>> map (lambda v: (v.short_name, v.value), i.types[0].values)
-[(u'Leveraging', u'0'), (u'Synergistic', u'1')]
+>>> list(map (lambda v: (v.short_name, v.value), i.types[0].values))
+[('Leveraging', '0'), ('Synergistic', '1')]
 
 >>> i.types[1].values
 [EnumValue(Test_Flags.LowBit), EnumValue(Test_Flags.HighBit)]
->>> map (lambda v: (v.short_name, v.value), i.types[1].values)
-[(u'LowBit', u'1'), (u'HighBit', u'128')]
+>>> list(map (lambda v: (v.short_name, v.value), i.types[1].values))
+[('LowBit', '1'), ('HighBit', '128')]
 
 >>> sorted(spec.everything.items())
-[(u'org.freedesktop.Telepathy.SpecAutoGenTest', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff', Method(org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.Introspective', Property(org.freedesktop.Telepathy.SpecAutoGenTest.Introspective:b)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened', Signal(org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened)), (u'org.freedesktop.Telepathy.SpecAutoGenTest.wobbly', AwkwardTelepathyProperty(org.freedesktop.Telepathy.SpecAutoGenTest.wobbly:b)), (u'org.freedesktop.Telepathy.SpecAutoGenTest/badgers', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest/badgers))]
+[('org.freedesktop.Telepathy.SpecAutoGenTest', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest)), ('org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff', Method(org.freedesktop.Telepathy.SpecAutoGenTest.DoStuff)), ('org.freedesktop.Telepathy.SpecAutoGenTest.Introspective', Property(org.freedesktop.Telepathy.SpecAutoGenTest.Introspective:b)), ('org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened', Signal(org.freedesktop.Telepathy.SpecAutoGenTest.StuffHappened)), ('org.freedesktop.Telepathy.SpecAutoGenTest.wobbly', AwkwardTelepathyProperty(org.freedesktop.Telepathy.SpecAutoGenTest.wobbly:b)), ('org.freedesktop.Telepathy.SpecAutoGenTest/badgers', ClientInterest(org.freedesktop.Telepathy.SpecAutoGenTest/badgers))]
 
 
->>> map (lambda o: i.added, spec.everything.values ())
+>>> list(map (lambda o: i.added, spec.everything.values ()))
 [None, None, None, None, None, None]
->>> map (lambda o: i.deprecated, spec.everything.values ())
+>>> list(map (lambda o: i.deprecated, spec.everything.values ()))
 [None, None, None, None, None, None]
     """
 

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # specparser.py
 #
@@ -24,6 +25,7 @@
 
 import sys
 import xml.dom.minidom
+import functools
 
 import xincludator
 
@@ -51,14 +53,14 @@ class Xzibit(Exception):
         self.child = child
 
     def __str__(self):
-        print """
+        print ("""
     Nested <%s>s are forbidden.
     Parent:
         %s...
     Child:
         %s...
         """ % (self.parent.nodeName, self.parent.toxml()[:100],
-               self.child.toxml()[:100])
+               self.child.toxml()[:100]))
 
 def getText(dom):
     try:
@@ -70,17 +72,17 @@ def getText(dom):
         return ''
 
 def getChildrenByName(dom, namespace, name):
-    return filter(lambda n: n.nodeType == n.ELEMENT_NODE and \
+    return list(filter(lambda n: n.nodeType == n.ELEMENT_NODE and \
                             n.namespaceURI == namespace and \
                             n.localName == name,
-                  dom.childNodes)
+                      dom.childNodes))
 
 def getChildrenByNameAndAttribute(dom, namespace, name, attribute, value):
-    return filter(lambda n: n.nodeType == n.ELEMENT_NODE and \
+    return list(filter(lambda n: n.nodeType == n.ELEMENT_NODE and \
                             n.namespaceURI == namespace and \
                             n.localName == name and \
                             n.getAttribute(attribute) == value,
-                  dom.childNodes)
+                      dom.childNodes))
 
 def getOnlyChildByName(dom, namespace, name):
     kids = getChildrenByName(dom, namespace, name)
@@ -228,7 +230,7 @@ class Base(object):
 
             self._convert_to_html(node)
 
-            return node.toxml().encode('ascii', 'xmlcharrefreplace')
+            return node.toxml()
 
     def get_added(self):
         return self._get_generic_with_ver(self.added, 'added',
@@ -264,7 +266,7 @@ class Base(object):
 
             self._convert_to_html(node)
 
-            return node.toxml().encode('ascii', 'xmlcharrefreplace')
+            return node.toxml()
 
     def _convert_to_html(self, node):
         spec = self.get_spec()
@@ -342,10 +344,10 @@ class Base(object):
             try:
                 e = spec.errors[error_ns + getText(n)]
             except KeyError:
-                print >> sys.stderr, """
+                print("""
 WARNING: Error '%s' not known in error namespace '%s'
          (<tp:error-ref> in %s)
-                """.strip() % (getText(n), error_ns[:-1], self)
+                """.strip() % (getText(n), error_ns[:-1], self), file=sys.stderr)
                 continue
 
             n.tagName = 'a'
@@ -359,10 +361,10 @@ WARNING: Error '%s' not known in error namespace '%s'
             try:
                 o = spec.lookup(key, namespace=root_namespace)
             except KeyError:
-                print >> sys.stderr, """
+                print("""
 WARNING: Key '%s' not known in namespace '%s'
          (<tp:member-ref> in %s)
-                """.strip() % (key, root_namespace, self)
+                """.strip() % (key, root_namespace, self), file=sys.stderr)
                 continue
 
             n.tagName = 'a'
@@ -382,10 +384,10 @@ WARNING: Key '%s' not known in namespace '%s'
             try:
                 o = spec.lookup(key, namespace=namespace)
             except KeyError:
-                print >> sys.stderr, """
+                print("""
 WARNING: Key '%s' not known in namespace '%s'
          (<tp:dbus-ref> in %s)
-                """.strip() % (key, namespace, self)
+                """.strip() % (key, namespace, self), file=sys.stderr)
                 continue
 
             n.tagName = 'a'
@@ -415,10 +417,10 @@ WARNING: Key '%s' not known in namespace '%s'
                 except KeyError:
                     o = spec.lookup(key, None)
             except KeyError:
-                print >> sys.stderr, """
+                print("""
 WARNING: Key '%s' not known in namespace '%s'
          (<tp:dbus-ref> in %s)
-                """.strip() % (key, namespace, self)
+                """.strip() % (key, namespace, self), file=sys.stderr)
                 continue
 
             n.tagName = 'a'
@@ -498,10 +500,10 @@ class PossibleError(Base):
             return spec.errors[self.name]
         except KeyError:
             if not spec.allow_externals:
-                print >> sys.stderr, """
+                print("""
 WARNING: Error not known: '%s'
          (<tp:possible-error> in %s)
-                """.strip() % (self.name, self.parent)
+                """.strip() % (self.name, self.parent), file=sys.stderr)
 
             return External(self.name)
 
@@ -528,8 +530,8 @@ class Method(DBusConstruct):
                           dom.getElementsByTagName('arg'))
 
         # separate arguments as input and output arguments
-        self.in_args = filter(lambda a: a.direction == Arg.DIRECTION_IN, args)
-        self.out_args = filter(lambda a: a.direction == Arg.DIRECTION_OUT, args)
+        self.in_args = list(filter(lambda a: a.direction == Arg.DIRECTION_IN, args))
+        self.out_args = list(filter(lambda a: a.direction == Arg.DIRECTION_OUT, args))
 
         for arg in args:
             if arg.direction == Arg.DIRECTION_IN or \
@@ -637,10 +639,11 @@ class HasEmitsChangedAnnotation(object):
         try:
             return self.__MAPPING[emits_changed]
         except KeyError:
-            print >> sys.stderr, """
+            print("""
 WARNING: <annotation name='%s'/> has unknown value '%s'
          (in %s)
-                """.strip() % (self.__ANNOTATION, emits_changed, self)
+                """.strip() % (self.__ANNOTATION, emits_changed, self),
+                file=sys.stderr)
             return self.EMITS_CHANGED_UNKNOWN;
 
 class Property(DBusConstruct, Typed, HasEmitsChangedAnnotation):
@@ -707,10 +710,11 @@ class AwkwardTelepathyProperty(Typed):
     def __init__(self, parent, namespace, dom):
         Typed.__init__(self, parent, namespace, dom)
 
-        print >> sys.stderr, """
+        print("""
 WARNING: Old-style Telepathy properties are deprecated!
          (<tp:property> in %s)
-        """.strip() % (parent)
+        """.strip() % (parent),
+        file=sys.stderr)
 
     def get_type_name(self):
         return 'Telepathy Property'
@@ -861,10 +865,10 @@ class Interface(Base, HasEmitsChangedAnnotation):
             return spec.lookup(r)
         except KeyError:
             if not spec.allow_externals:
-                print >> sys.stderr, """
+                print("""
 WARNING: Interface not known: '%s'
          (<tp:requires> in %s)
-                """.strip() % (r, self)
+                """.strip() % (r, self), file=sys.stderr)
 
             return External(r)
 
@@ -912,10 +916,11 @@ WARNING: Interface not known: '%s'
             ]
 
         if unexpected:
-            print >> sys.stderr, """
+            print("""
 WARNING: Unknown element(s): %s
          (in interface '%s')
-                """.strip() % (', '.join([x.tagName for x in unexpected]), self.name)
+                """.strip() % (', '.join([x.tagName for x in unexpected]), self.name),
+                file=sys.stderr)
 
 class Error(Base):
     def get_url(self):
@@ -1287,7 +1292,7 @@ class Spec(SectionBase):
                 key=lambda e: e.name)
 
         # build a list of generic types
-        self.generic_types = reduce (lambda a, b: a + b,
+        self.generic_types = functools.reduce (lambda a, b: a + b,
                 map(lambda l: parse_types(self, l),
                         dom.getElementsByTagNameNS(XMLNS_TP, 'generic-types')),
                 [])
@@ -1333,12 +1338,12 @@ class Spec(SectionBase):
         except IndexError:
             self.version = None
 
-        self.copyrights = map(getText,
-                              getChildrenByName(node, XMLNS_TP, 'copyright'))
+        self.copyrights = list(map(getText,
+                                   getChildrenByName(node, XMLNS_TP, 'copyright')))
 
         try:
             license = getChildrenByName(node, XMLNS_TP, 'license')[0]
-            self.license = map(getText, license.getElementsByTagName('p'))
+            self.license = list(map(getText, license.getElementsByTagName('p')))
         except IndexError:
             self.license = []
 
@@ -1385,7 +1390,7 @@ def build_dict(parent, type_, namespace, nodes):
     return dict(build_tuple(n) for n in nodes)
 
 def build_list(parent, type_, namespace, nodes):
-    return map(lambda node: type_(parent, namespace, node), nodes)
+    return list(map(lambda node: type_(parent, namespace, node), nodes))
 
 def parse_types(parent, dom, namespace = None):
     """Parse all of the types of type nodes mentioned in 't' from the node

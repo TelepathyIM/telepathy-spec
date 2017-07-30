@@ -1,24 +1,22 @@
 <?xml version="1.0"?>
-<book xmlns="http://www.devhelp.net/book" title="$spec.title" name="$name" link="index.html">
+<book xmlns="http://www.devhelp.net/book" title="{{ spec.title }}" name="{{ name }}" link="index.html">
  <chapters>
-#for $interface in $spec.interfaces
-  <sub name="$interface.name" link="$interface.get_url()"/>
-#end for
-#if len($spec.generic_types) > 0
+{% for interface in spec.interfaces %}
+  <sub name="{{ interface.name }}" link="{{ interface.get_url() }}"/>
+{% endfor %}
+{% if spec.generic_types|length > 0 %}
   <sub name="Generic Types" link="generic-types.html"/>
-#end if
-#if len($spec.errors) > 0
+{% endif %}
+{% if spec.errors|length > 0 %}
   <sub name="Errors" link="errors.html"/>
-#end if
+{% endif %}
   <sub name="Full Index" link="fullindex.html"/>
  </chapters>
  <functions>
-#for $obj in $spec.everything.values() + $spec.types.values() + $spec.errors.values()
-#for $entry in $obj.get_index_entries()
-  <keyword type="$obj.devhelp_name" name="$entry" link="$obj.get_url()" #slurp
-#if $obj.is_deprecated: deprecated="true" #slurp
-/>
-#end for
-#end for
+{% for obj in all_values %}
+{% for entry in obj.get_index_entries() %}
+  <keyword type="{{ obj.devhelp_name }}" name="{{ entry }}" link="{{ obj.get_url() }}" {% if obj.is_deprecated %} deprecated="true" {% endif %} />
+{% endfor %}
+{% endfor %}
  </functions>
 </book>

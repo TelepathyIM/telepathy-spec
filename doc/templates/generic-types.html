@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
   <title>Generic Types</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css" type="text/css"/>
   <link rel="shortcut icon" type="image/png" media="all" href="favicon.png" />
  </head>
@@ -19,40 +20,40 @@
      <a name="summary"></a>
      <h3>Generic Types</h3>
      <table class="summary">
-      #for $type in $spec.generic_types
-       #if $type.is_deprecated
+      {% for type in spec.generic_types %}
+       {% if type.is_deprecated %}
         <tr class="deprecated">
-       #else
+       {% else %}
         <tr>
-       #end if
-       <td><a href="$type.get_url()">$type.short_name</a></td>
-       <td>$type.get_type_name()</td>
-       <td>$type.dbus_type</td>
+       {% endif %}
+       <td><a href="{{ type.get_url() }}">{{ type.short_name }}</a></td>
+       <td>{{ type.get_type_name() }}</td>
+       <td>{{ type.dbus_type }}</td>
        <td>
-        #if $type.is_deprecated: (deprecated)
+        {% if type.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
      </table>
     </div>
 
    <div class="outset types type">
     <a name="types"></a>
     <h1>Generic Types</h1>
-    #for $type in $spec.generic_types
+    {% for type in spec.generic_types %}
      <div class="inset type">
-      <a name="$type.get_anchor()"></a>
-      <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
+      <a name="{{ type.get_anchor() }}"></a>
+      <span class="permalink">{{ type.get_type_name() }} (<a href="{{ type.get_url() }}">Permalink</a>)</span>
       <h2>
-       $type.short_name &mdash; $type.dbus_type
+       {{ type.short_name }} &mdash; {{ type.dbus_type }}
       </h2>
 
-      $type.get_added()
-      $type.get_deprecated()
-      $type.get_docstring()
-      $type.get_breakdown()
+      {{ type.get_added() }}
+      {{ type.get_deprecated() }}
+      {{ type.get_docstring() }}
+      {{ type.get_breakdown() }}
      </div>
-    #end for
+    {% endfor %}
    </div>
    </div>
 

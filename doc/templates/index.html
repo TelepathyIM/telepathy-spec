@@ -2,87 +2,88 @@
 <!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
-  <title>$spec.title &mdash; v$spec.version</title>
+  <title>{{ spec.title }} &mdash; v{{ spec.version }}</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css" type="text/css"/>
   <link rel="shortcut icon" type="image/png" media="all" href="favicon.png" />
  </head>
  <body>
   <div class="header">
-   <h1>$spec.title</h1>
+   <h1>{{ spec.title }}</h1>
    <a href="#interfaces">Interfaces</a>
    (<a href="interfaces.html">Compact</a>)
-#if len($spec.generic_types) > 0
+{% if spec.generic_types|length > 0 %}
    | <a href="generic-types.html">Generic Types</a>
-#end if
-#if len($spec.errors) > 0
+{% endif %}
+{% if spec.errors|length > 0 %}
    | <a href="errors.html">Errors</a>
-#end if
+{% endif %}
    | <a href="fullindex.html">Full Index</a>
   </div>
 
   <div class="main">
-  <h3 class="version">Version $spec.version</h3>
+  <h3 class="version">Version {{ spec.version }}</h3>
   <div class="legal">
    <ul class="copyrights">
-    #for c in $spec.copyrights
-    <li>$c</li>
-    #end for
+    {% for c in spec.copyrights %}
+    <li>{{ c }}</li>
+    {% endfor %}
    </ul>
 
-   #for $para in $spec.license
-   <p>$para</p>
-   #end for
+   {% for l in spec.license %}
+   <p>{{ l }}</p>
+   {% endfor %}
   </div>
 
   <a name="interfaces"></a>
   <h3>Interfaces</h3>
   <ul>
-  #def output($items)
-   #for $item in $items
-    #if $item.__class__.__name__ == 'Section'
-     #set $anchor = $item.short_name.replace(' ', '-')
+  {% macro output(items) -%}
+   {% for item in items %}
+    {% if item.__class__.__name__ == 'Section' %}
+     {% set anchor = item.short_name.replace(' ', '-') %}
      <li class="chapter">
-      <a name="$anchor"></a>
-      $item.short_name
-      <span class="permalink">(<a href="#$anchor">Permalink</a>)</span>
+      <a name="{{ anchor }}"></a>
+      {{ item.short_name }}
+      <span class="permalink">(<a href="#{{ anchor }}">Permalink</a>)</span>
      </li>
-     $item.get_docstring()
+     {{ item.get_docstring() }}
      <ul>
-      $output($item.items)
+      {{ output(item.items) }}
      </ul>
-    #else
-     #if $item.causes_havoc
+    {% else %}
+     {% if item.causes_havoc %}
       <li class="causes-havoc">
-     #elif $item.is_deprecated
+     {% elif item.is_deprecated %}
       <li class="deprecated">
-     #else
+     {% else %}
       <li>
-     #end if
-      <a href="$item.get_url()">$item.name</a>
-      #if $item.causes_havoc
+     {% endif %}
+      <a href="{{ item.get_url() }}">{{ item.name }}</a>
+      {% if item.causes_havoc %}
        (unstable)
-      #elif $item.is_deprecated
+      {% elif item.is_deprecated %}
        (deprecated)
-      #end if
+      {% endif %}
      </li>
-    #end if
-   #end for
-  #end def
-  $output($spec.items)
+    {% endif %}
+   {% endfor %}
+  {%- endmacro %}
+  {{ output(spec.items) }}
   </ul>
 
-#if len($spec.generic_types) > 0 or len($spec.errors) > 0
+{% if spec.generic_types|length > 0 or spec.errors|length > 0 %}
   <a name="other"></a>
   <h3>Other</h3>
   <ul>
-  #if len($spec.generic_types) > 0
+  {% if spec.generic_types|length > 0 %}
    <li><a href="generic-types.html">Generic Types</a></li>
-  #end if
-  #if len($spec.errors) > 0
+  {% endif %}
+  {% if spec.errors|length > 0 %}
    <li><a href="errors.html">Errors</a></li>
-  #end if
+  {% endif %}
   </ul>
-#end if
+{% endif %}
 
   </div>
  </body>
