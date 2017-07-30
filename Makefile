@@ -3,7 +3,7 @@ all:
 GIT = git
 GZIP = gzip
 TAR = tar
-PYTHON = python
+PYTHON = python3
 
 DOC_RSYNC_FLAGS=-rvzPp --chmod=Dg+s,ug+rwX,o=rX --delete
 

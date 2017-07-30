@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
   <title>Errors</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css" type="text/css"/>
   <link rel="shortcut icon" type="image/png" media="all" href="favicon.png" />
  </head>
@@ -19,45 +20,45 @@
     <a name="summary"></a>
     <h3>Errors</h3>
     <table class="summary">
-     #for $error in $spec.sorted_errors
-      #if $error.is_deprecated
+     {% for error in spec.sorted_errors %}
+      {% if error.is_deprecated %}
        <tr class="deprecated">
-      #else
+      {% else %}
        <tr>
-      #end if
-       <td><a href="$error.get_url()">$error.short_name</a></td>
+      {% endif %}
+       <td><a href="{{ error.get_url() }}">{{ error.short_name }}</a></td>
        <td>
-        #if $error.is_deprecated: (deprecated)
+        {% if error.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-     #end for
+     {% endfor %}
     </table>
    </div>
 
-   #if $spec.errors_section
-    $spec.errors_section.get_docstring()
-   #end if
+   {% if spec.errors_section %}
+    {{ spec.errors_section.get_docstring() }}
+   {% endif %}
 
    <div class="outset errors error">
     <a name="errors"></a>
     <h1>Errors</h1>
-    #for $error in $spec.sorted_errors
+    {% for error in spec.sorted_errors %}
      <div class="inset error">
-      <a name="$error.get_anchor()"></a>
-      <span class="permalink">(<a href="$error.get_url()">Permalink</a>)</span>
+      <a name="{{ error.get_anchor() }}"></a>
+      <span class="permalink">(<a href="{{ error.get_url() }}">Permalink</a>)</span>
       <h2>
-       $error.short_name
+       {{ error.short_name }}
       </h2>
 
       <div class="indent">
-        <code>$error.name</code>
+        <code>{{ error.name }}</code>
       </div>
 
-      $error.get_added()
-      $error.get_deprecated()
-      $error.get_docstring()
+      {{ error.get_added() }}
+      {{ error.get_deprecated() }}
+      {{ error.get_docstring() }}
      </div>
-    #end for
+    {% endfor %}
    </div>
    </div>
 

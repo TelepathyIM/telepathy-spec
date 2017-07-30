@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" "">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
  <head>
-  <title>$interface.really_short_name &mdash; $spec.title</title>
+  <title>{{ interface.really_short_name }} &mdash; {{ spec.title }}</title>
+  <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css" type="text/css"/>
   <link rel="shortcut icon" type="image/png" media="all" href="favicon.png" />
   <script src="jquery.min.js"></script>
@@ -10,185 +11,193 @@
  </head>
  <body>
   <div class="header">
-  <h1>Interface <abbr title='$interface.name'>$interface.short_name</abbr></h1>
+  <h1>Interface <abbr title='{{ interface.name }}'>{{ interface.short_name }}</abbr></h1>
    <a href="index.html">Interface Index</a>
    (<a href="interfaces.html">Compact</a>)
    | <a href="#summary">Summary</a>
-   #if $interface.client_interests: | <a href="#client-interests">Client Interests</a>
-   #if $interface.docstring: | <a href="#description">Description</a>
-   #if $interface.methods: | <a href="#methods">Methods</a>
-   #if $interface.signals: | <a href="#signals">Signals</a>
-   #if $interface.properties: | <a href="#properties">Properties</a>
-   #if $interface.contact_attributes: | <a href="#contact-attributes">Contact Attributes</a>
-   #if $interface.handler_capability_tokens: | <a href="#handler-capability-tokens">Handler Capability Tokens</a>
-   #if $interface.types: | <a href="#types">Types</a>
+   {% if interface.client_interests %} | <a href="#client-interests">Client Interests</a> {% endif %}
+   {% if interface.docstring %} | <a href="#description">Description</a> {% endif %}
+   {% if interface.methods %} | <a href="#methods">Methods</a> {% endif %}
+   {% if interface.signals %} | <a href="#signals">Signals</a> {% endif %}
+   {% if interface.properties %} | <a href="#properties">Properties</a> {% endif %}
+   {% if interface.contact_attributes %} | <a href="#contact-attributes">Contact Attributes</a> {% endif %}
+   {% if interface.handler_capability_tokens %} | <a href="#handler-capability-tokens">Handler Capability Tokens</a> {% endif %}
+   {% if interface.types %} | <a href="#types">Types</a> {% endif %}
   </div>
   <div class="main">
 
-    #if $interface.methods or $interface.signals or $interface.properties or $interface.types
+    {% if interface.methods or interface.signals or interface.properties or interface.types %}
     <div class="summary">
      <a name="summary"></a>
-     #if $interface.client_interests
+     {% if interface.client_interests %}
      <h3>Client Interests</h3>
      <table class="summary">
-      #for $interest in $interface.client_interests
-      <td><a href="$interest.get_url()">$interest.name</a></td>
-      #end for
+      {% for interest in interface.client_interests %}
+      <td><a href="{{ interest.get_url() }}">{{ interest.name }}</a></td>
+      {% endfor %}
      </table>
-     #end if
-     #if $interface.methods
+     {% endif %}
+     {% if interface.methods %}
      <h3>Methods</h3>
      <table class="summary">
-      #for $method in $interface.methods
-       #if $method.is_deprecated
+      {% for method in interface.methods %}
+       {% if method.is_deprecated %}
         <tr class="deprecated">
-       #else
+       {% else %}
         <tr>
-       #end if
-       <td><a href="$method.get_url()">$method.short_name</a></td>
-       <td>($method.get_in_args())</td>
+       {% endif %}
+       <td><a href="{{ method.get_url() }}">{{ method.short_name }}</a></td>
+       <td>({{ method.get_in_args() }})</td>
        <td>&#8594;</td>
-       <td>$method.get_out_args()</td>
+       <td>{{ method.get_out_args() }}</td>
        <td>
-        #if $method.is_deprecated: (deprecated)
+        {% if method.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
      </table>
-     #end if
+     {% endif %}
 
-     #if $interface.signals
+     {% if interface.signals %}
      <h3>Signals</h3>
      <table class="summary">
-      #for $signal in $interface.signals
-       #if $signal.is_deprecated
+      {% for signal in interface.signals %}
+       {% if signal.is_deprecated %}
         <tr class="deprecated">
-       #else
+       {% else %}
         <tr>
-       #end if
-       <td><a href="$signal.get_url()">$signal.short_name</a></td>
+       {% endif %}
+       <td><a href="{{ signal.get_url() }}">{{ signal.short_name }}</a></td>
        <td>($signal.get_args())</td>
        <td>
-        #if $signal.is_deprecated: (deprecated)
+        {% if signal.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
      </table>
-    #end if
+    {% endif %}
 
-     #if $interface.properties
+     {% if interface.properties %}
      <h3>Properties</h3>
      <table class="summary">
-      #for $property in $interface.properties
-       #if $property.is_deprecated
+      {% for property in interface.properties %}
+       {% if property.is_deprecated %}
         <tr class="deprecated">
-       #else
+       {% else %}
         <tr>
-       #end if
-       <td><a href="$property.get_url()">$property.short_name</a></td>
+       {% endif %}
+       <td><a href="{{ property.get_url() }}">{{ property.short_name }}</a></td>
        <td>
-        $property.dbus_type
-        #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
+        {{ property.dbus_type }}
+        {% if property.type %}
+          (<a href="{{ property.get_type_url() }}" title="{{ property.get_type_title() }}">
+              {{ property.get_type().short_name }}</a>)
+        {% endif %}
        </td>
-       <td>$property.get_access()</td>
-       <td>$property.get_flag_summary()</td>
+       <td>{{ property.get_access() }}</td>
+       <td>{{ property.get_flag_summary() }}</td>
        <td>
-        #if $property.is_deprecated: (deprecated)
+        {% if property.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
     </table>
-    #end if
+    {% endif %}
 
-     #if $interface.contact_attributes
+     {% if interface.contact_attributes %}
      <h3>Contact Attributes</h3>
      <table class="summary">
-      #for $token in $interface.contact_attributes
+      {% for token in interface.contact_attributes %}
        <tr class="contact-attribute">
-       <td><a href="$token.get_url()">$token.name</a></td>
+       <td><a href="{{ token.get_url() }}">{{ token.name }}</a></td>
        <td>
-        $token.dbus_type
-        #if $token.type: (<a href="$token.get_type_url()" title="$token.get_type_title()">$token.get_type().short_name</a>)
+        {{ token.dbus_type }}
+        {% if token.type %}
+        (<a href="{{ token.get_type_url() }}" title="{{ token.get_type_title() }}">
+            {{ token.get_type().short_name }}</a>)
+        {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
     </table>
-    #end if
+    {% endif %}
 
-     #if $interface.handler_capability_tokens
+     {% if interface.handler_capability_tokens %}
      <h3>Handler Capability Tokens</h3>
      <table class="summary">
-      #for $token in $interface.handler_capability_tokens
+      {% for token in interface.handler_capability_tokens %}
        <tr class="handler-capability-token">
-         <td><a href="$token.get_url()">$token.name</a>
-           #if $token.is_family
+         <td><a href="{{ token.get_url() }}">{{ token.name }}</a>
+           {% if token.is_family %}
              (etc.)
-           #end if
+           {% endif %}
          </td>
        <td>
        </td>
       </tr>
-      #end for
+      {% endfor %}
     </table>
-    #end if
+    {% endif %}
 
-     #if $interface.types
+     {% if interface.types %}
      <h3>Types</h3>
      <table class="summary">
-      #for $type in $interface.types
-       #if type.is_deprecated
+      {% for type in interface.types %}
+       {% if type.is_deprecated %}
         <tr class="deprecated">
-       #else
+       {% else %}
         <tr>
-       #end if
-       <td><a href="$type.get_url()">$type.short_name</a></td>
-       <td>$type.get_type_name()</td>
-       <td>$type.dbus_type</td>
+       {% endif %}
+       <td><a href="{{ type.get_url() }}">{{ type.short_name }}</a></td>
+       <td>{{ type.get_type_name() }}</td>
+       <td>{{ type.dbus_type }}</td>
        <td>
-        #if $type.is_deprecated: (deprecated)
+        {% if type.is_deprecated %} (deprecated) {% endif %}
        </td>
       </tr>
-      #end for
+      {% endfor %}
      </table>
-    #end if
+    {% endif %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.causes_havoc
+   {% if interface.causes_havoc %}
    <div class="annotation havoc"><span class="warning">WARNING:</span>
-    This interface is $interface.causes_havoc and is likely to cause havoc
+    This interface is {{ interface.causes_havoc }} and is likely to cause havoc
     to your API/ABI if bindings are generated. Do not include this interface
     in libraries that care about compatibility.
    </div>
-   #end if
-   $interface.get_added()
-   $interface.get_changed()
-   $interface.get_deprecated()
+   {% endif %}
+   {{ interface.get_added() }}
+   {{ interface.get_changed() }}
+   {{ interface.get_deprecated() }}
 
-   #if $interface.requires or $interface.xor_requires
+   {% if interface.requires or interface.xor_requires %}
    <div class="requires">
     Objects implementing this interface must also implement:
     <ul>
-    #for $req in $interface.get_xor_requires()
+    {% for req in interface.get_xor_requires() %}
      <li>
-      #echo " <strong>or</strong> ".join(['<a href="' + x.get_url() + '''"
-             title="''' + x.get_title() + '">' + x.name + '</a>' for x in req])
+      {% for x in req %}
+       <a href="{{ x.get_url() }}" title="{{ x.get_title() }}">{{ x.name }}</a>
+       {% if not loop.last %} <strong>or</strong> {% endif %}
+      {% endfor %}
      </li>
-    #end for
-    #for $req in $interface.get_requires()
-     <li><a href="$req.get_url()" title="$req.get_title()">$req.name</a></li>
-    #end for
+    {% endfor %}
+    {% for req in interface.get_requires() %}
+     <li><a href="{{ req.get_url() }}" title="{{ req.get_title() }}">{{ req.name }}</a></li>
+    {% endfor %}
     </ul>
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.docstring
+   {% if interface.docstring %}
     <a name="description"></a>
     <h3>Description</h3>
-    $interface.get_docstring()
-   #end if
+    {{ interface.get_docstring() }}
+   {% endif %}
 
-   #if $interface.client_interests
+   {% if interface.client_interests %}
    <div class="outset client-interests client-interest">
     <a name="client-interests"></a>
     <h1>Client Interests</h1>
@@ -197,133 +206,139 @@
      <a href="Connection.html#im.telepathy.v1.Connection.AddClientInterest">AddClientInterest</a> and
      <a href="Connection.html#im.telepathy.v1.Connection.RemoveClientInterest">RemoveClientInterest</a> methods.
     </div>
-    #for $interest in $interface.client_interests
+    {% for interest in interface.client_interests %}
     <div class="inset client-interest">
-     <a name="$interest.get_anchor()"></a>
-     <span class="permalink">(<a href="$interest.get_url()">Permalink</a>)</span>
-     <h2>$interest.name</h2>
+     <a name="{{ interest.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ interest.get_url() }}">Permalink</a>)</span>
+     <h2>{{ interest.name }}</h2>
 
-     $interest.get_docstring()
+     {{ interest.get_docstring() }}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.methods
+   {% if interface.methods %}
    <div class="outset methods method">
     <a name="methods"></a>
     <h1>Methods</h1>
-    #for $method in $interface.methods
+    {% for method in interface.methods %}
     <div class="inset method">
-     <a name="$method.get_anchor()"></a>
-     <span class="permalink">(<a href="$method.get_url()">Permalink</a>)</span>
-     <h2>$method.short_name ($method.get_in_args()) &#8594; $method.get_out_args()</h2>
+     <a name="{{ method.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ method.get_url() }}">Permalink</a>)</span>
+     <h2>{{ method.short_name }} ({{ method.get_in_args() }}) &#8594; {{ method.get_out_args() }}</h2>
 
-     $method.get_added()
-     $method.get_changed()
-     $method.get_deprecated()
+     {{ method.get_added() }}
+     {{ method.get_changed() }}
+     {{ method.get_deprecated() }}
 
-     #if $method.no_reply
+     {% if method.no_reply %}
      <div class="annotation no-reply">The caller should not expect a reply when calling this method.</div>
-     #end if
+     {% endif %}
 
-     #if $method.in_args
+     {% if method.in_args %}
      <div class="indent">
       <h3>Parameters</h3>
       <ul>
-      #for $arg in $method.in_args
+      {% for arg in method.in_args %}
        <li>
-        $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
+        {{ arg.short_name }} &mdash; {{ arg.dbus_type }}
+        {% if arg.get_type() %}
+          (<a href="{{ arg.get_type_url() }}" title="{{ arg.get_type_title() }}">{{ arg.get_type().short_name }}</a>)
+        {% endif %}
        </li>
-       $arg.get_added()
-       $arg.get_changed()
-       $arg.get_deprecated()
-       $arg.get_docstring()
-      #end for
+       {{ arg.get_added() }}
+       {{ arg.get_changed() }}
+       {{ arg.get_deprecated() }}
+       {{ arg.get_docstring() }}
+      {% endfor %}
       </ul>
      </div>
-     #end if
+     {% endif %}
 
-     #if $method.out_args
+     {% if method.out_args %}
      <div class="indent">
       <h3>Returns</h3>
       <ul>
-      #for $arg in $method.out_args
+      {% for arg in method.out_args %}
        <li>
-        $arg.short_name &mdash; $arg.dbus_type
-        #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
+        {{ arg.short_name }} &mdash; {{ arg.dbus_type }}
+        {% if arg.get_type() %}
+          (<a href="{{ arg.get_type_url() }}" title="{{ arg.get_type_title() }}">{{ arg.get_type().short_name }}</a>)
+        {% endif %}
        </li>
-       $arg.get_added()
-       $arg.get_changed()
-       $arg.get_deprecated()
-       $arg.get_docstring()
-      #end for
+       {{ arg.get_added() }}
+       {{ arg.get_changed() }}
+       {{ arg.get_deprecated() }}
+       {{ arg.get_docstring() }}
+      {% endfor %}
       </ul>
      </div>
-     #end if
+     {% endif %}
 
-     $method.get_docstring()
+     {{ method.get_docstring() }}
 
-     #if $method.possible_errors
+     {% if method.possible_errors %}
      <hr/>
      <div class="indent">
       <h3>Possible Errors</h3>
       <ul>
-      #for $error in $method.possible_errors
-       <li><a href="$error.get_url()" title="$error.get_title()">$error.get_error().short_name</a></li>
-       $error.get_added()
-       $error.get_changed()
-       $error.get_deprecated()
-       $error.get_docstring()
-      #end for
+      {% for error in method.possible_errors %}
+       <li><a href="{{ error.get_url() }}" title="{{ error.get_title() }}">{{ error.get_error().short_name }}</a></li>
+       {{ error.get_added() }}
+       {{ error.get_changed() }}
+       {{ error.get_deprecated() }}
+       {{ error.get_docstring() }}
+      {% endfor %}
       </ul>
      </div>
-     #end if
+     {% endif %}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.signals
+   {% if interface.signals %}
    <div class="outset signals signal">
     <a name="signals"></a>
     <h1>Signals</h1>
-    #for $signal in $interface.signals
+    {% for signal in interface.signals %}
     <div class="inset signal">
-     <a name="$signal.get_anchor()"></a>
-     <span class="permalink">(<a href="$signal.get_url()">Permalink</a>)</span>
-     <h2>$signal.short_name ($signal.get_args())</h2>
+     <a name="{{ signal.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ signal.get_url() }}">Permalink</a>)</span>
+     <h2>{{ signal.short_name }} ({{ signal.get_args() }})</h2>
 
-     $signal.get_added()
-     $signal.get_changed()
-     $signal.get_deprecated()
+     {{ signal.get_added() }}
+     {{ signal.get_changed() }}
+     {{ signal.get_deprecated() }}
 
-     #if $signal.args
+     {% if signal.args %}
      <div class="indent">
       <h3>Parameters</h3>
       <ul>
-      #for $arg in $signal.args
+      {% for arg in signal.args %}
        <li>
-       $arg.short_name &mdash; $arg.dbus_type
-       #if $arg.get_type(): (<a href="$arg.get_type_url()" title="$arg.get_type_title()">$arg.get_type().short_name</a>)
+       {{ arg.short_name }} &mdash; {{ arg.dbus_type }}
+       {% if arg.get_type() %}
+        (<a href="{{ arg.get_type_url() }}" title="{{ arg.get_type_title() }}">{{ arg.get_type().short_name }}</a>)
+       {% endif %}
        </li>
-       $arg.get_added()
-       $arg.get_changed()
-       $arg.get_deprecated()
-       $arg.get_docstring()
-      #end for
+       {{ arg.get_added() }}
+       {{ arg.get_changed() }}
+       {{ arg.get_deprecated() }}
+       {{ arg.get_docstring() }}
+      {% endfor %}
       </ul>
      </div>
-     #end if
+     {% endif %}
 
-     $signal.get_docstring()
+     {{ signal.get_docstring() }}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.properties
+   {% if interface.properties %}
    <div class="outset properties property">
     <a name="properties"></a>
     <h1>Properties</h1>
@@ -332,43 +347,45 @@
        href="http://dbus.freedesktop.org/doc/dbus-specification.html#standard-interfaces-properties">org.freedesktop.DBus.Properties</a>
      interface.
     </div>
-    #for $property in $interface.properties
+    {% for property in interface.properties %}
     <div class="inset property">
-     <a name="$property.get_anchor()"></a>
-     <span class="permalink">(<a href="$property.get_url()">Permalink</a>)</span>
+     <a name="{{ property.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ property.get_url() }}">Permalink</a>)</span>
      <h2>
-      $property.short_name &mdash; $property.dbus_type
-      #if $property.type: (<a href="$property.get_type_url()" title="$property.get_type_title()">$property.get_type().short_name</a>)
+      {{ property.short_name }} &mdash; {{ property.dbus_type }}
+      {% if property.type %}
+        (<a href="{{ property.get_type_url() }}" title="{{ property.get_type_title() }}">{{ property.get_type().short_name }}</a>)
+      {% endif %}
      </h2>
-      <div class="access">$property.get_access()</div>
+      <div class="access">{{ property.get_access() }}</div>
 
-     #if $property.sometimes_immutable:
+     {% if property.sometimes_immutable %}
      <div class="annotation immutable">Depending on the protocol, this
        property may be <strong>immutable</strong> which means that it can never
-       #if $interface.is_channel_related:
+       {% if interface.is_channel_related %}
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
        of <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.NewChannel">NewChannel</a>
        signals.
-       #else
+       {% else %}
        change.
-       #end if
+       {% endif %}
      </div>
-     #elif $property.immutable:
+     {% elif property.immutable %}
      <div class="annotation immutable">This property is
        <strong>immutable</strong> which means that it can never
-       #if $interface.is_channel_related:
+       {% if interface.is_channel_related %}
        change once the channel has been created. Immutable properties SHOULD
        appear in the channel detail list
        of <a href="Connection_Interface_Requests.html#im.telepathy.v1.Connection.Interface.Requests.NewChannel">NewChannel</a>
        signals.
-       #else
+       {% else %}
        change.
-       #end if
+       {% endif %}
      </div>
-     #end if
+     {% endif %}
 
-     #if $property.sometimes_requestable:
+     {% if property.sometimes_requestable %}
      <div class="annotation requestable">Depending on the protocol, this
        property may be <strong>requestable</strong>, which means that it may be
        allowed in the properties hash of a channel request such as in the
@@ -382,7 +399,7 @@
        Fixed_Properties or Allowed_Properties of
        a <a href="Connection.html#im.telepathy.v1.Connection.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
-     #elif $property.requestable:
+     {% elif property.requestable %}
      <div class="annotation requestable">This property
        is <strong>requestable</strong>, which means that it is allowed
        in the properties hash of a channel request such as in the
@@ -396,38 +413,38 @@
        or Allowed_Properties of
        a <a href="Connection.html#im.telepathy.v1.Connection.RequestableChannelClasses">RequestableChannelClass</a>
        advertised by the CM.</div>
-     #end if
+     {% endif %}
 
-     $property.get_added()
-     $property.get_changed()
-     $property.get_deprecated()
+     {{ property.get_added() }}
+     {{ property.get_changed() }}
+     {{ property.get_deprecated() }}
 
-     #if not $property.immutable:
-     #if $property.emits_changed == $property.EMITS_CHANGED_UPDATES
+     {% if not property.immutable %}
+     {% if property.emits_changed == property.EMITS_CHANGED_UPDATES %}
      <div class="annotation emits-changed emits-changed-updates">
        When this property changes, the
        <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
        signal is emitted with the new value.
      </div>
-     #elif $property.emits_changed == $property.EMITS_CHANGED_INVALIDATES
+     {% elif property.emits_changed == property.EMITS_CHANGED_INVALIDATES %}
      <div class="annotation emits-changed emits-changed-invalidates">
        When this property changes, the
        <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
        signal is emitted, but the new value is not sent.
      </div>
-     #elif $property.emits_changed == $property.EMITS_CHANGED_NONE
+     {% elif property.emits_changed == property.EMITS_CHANGED_NONE %}
      <div class="annotation emits-changed emits-changed-none">
        The <code>org.freedesktop.DBus.Properties.PropertiesChanged</code>
        signal is <strong>not</strong> emitted when this property changes.
      </div>
-     #end if
-     #end if
+     {% endif %}
+     {% endif %}
 
-      #if $property.is_connection_parameter:
+      {% if property.is_connection_parameter %}
       <div class="annotation connection-parameter">
         <p><span class='note'>Note:</span> Connections implementing this
           property SHOULD provide a corresponding parameter named
-          <tt>$property.name</tt> with the <a
+          <tt>{{ property.name }}</tt> with the <a
           href="Connection_Manager.html#Conn_Mgr_Param_Flags">DBus_Property</a>
           flag. Clients SHOULD update this property by
           calling <a
@@ -437,15 +454,15 @@
             href="Account.html#im.telepathy.v1.Account.AccountPropertyChanged">AccountPropertyChanged</a>.
           </p>
       </div>
-      #end if
+      {% endif %}
 
-     $property.get_docstring()
+     {{ property.get_docstring() }}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.contact_attributes
+   {% if interface.contact_attributes %}
    <div class="outset contact-attributes">
     <a name="contact-attributes"></a>
     <h1>Contact Attributes</h1>
@@ -453,70 +470,72 @@
       Attributes that a contact can have, accessed with the
       im.telepathy.v1.Connection.Interface.Contacts interface.
     </div>
-    #for $token in $interface.contact_attributes
+    {% for token in interface.contact_attributes %}
     <div class="inset contact-attribute">
-     <a name="$token.get_anchor()"></a>
-     <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
+     <a name="{{ token.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ token.get_url() }}">Permalink</a>)</span>
      <h2>
-      $token.name &mdash; $token.dbus_type
-      #if $token.type: (<a href="$token.get_type_url()" title="$token.get_type_title()">$token.get_type().short_name</a>)
+      {{ token.name }} &mdash; {{ token.dbus_type }}
+      {% if token.type %}
+       (<a href="{{ token.get_type_url() }}" title="{{ token.get_type_title() }}">{{ token.get_type().short_name }}</a>)
+      {% endif %}
      </h2>
-     $token.get_added()
-     $token.get_changed()
-     $token.get_deprecated()
-     $token.get_docstring()
+     {{ token.get_added() }}
+     {{ token.get_changed() }}
+     {{ token.get_deprecated() }}
+     {{ token.get_docstring() }}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.handler_capability_tokens
+   {% if interface.handler_capability_tokens %}
    <div class="outset handler-capability-tokens">
     <a name="handler-capability-tokens"></a>
     <h1>Handler Capability Tokens</h1>
     <div>
       Tokens representing capabilities that a Client.Handler can have.
     </div>
-    #for $token in $interface.handler_capability_tokens
+    {% for token in interface.handler_capability_tokens %}
     <div class="inset handler-capability-token">
-     <a name="$token.get_anchor()"></a>
-     <span class="permalink">(<a href="$token.get_url()">Permalink</a>)</span>
+     <a name="{{ token.get_anchor() }}"></a>
+     <span class="permalink">(<a href="{{ token.get_url() }}">Permalink</a>)</span>
      <h2>
-      $token.name
-      #if $token.is_family
+      {{ token.name }}
+      {% if token.is_family %}
       (etc.)
-      #end if
+      {% endif %}
      </h2>
-     $token.get_added()
-     $token.get_changed()
-     $token.get_deprecated()
-     $token.get_docstring()
+     {{ token.get_added() }}
+     {{ token.get_changed() }}
+     {{ token.get_deprecated() }}
+     {{ token.get_docstring() }}
     </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
-   #if $interface.types
+   {% if interface.types %}
    <div class="outset types type">
     <a name="types"></a>
     <h1>Types</h1>
-    #for $type in $interface.types
+    {% for type in interface.types %}
      <div class="inset type">
-      <a name="$type.get_anchor()"></a>
-      <span class="permalink">$type.get_type_name() (<a href="$type.get_url()">Permalink</a>)</span>
+      <a name="{{ type.get_anchor() }}"></a>
+      <span class="permalink">{{ type.get_type_name() }} (<a href="{{ type.get_url() }}">Permalink</a>)</span>
       <h2>
-       $type.short_name &mdash; $type.dbus_type
+       {{ type.short_name }} &mdash; {{ type.dbus_type }}
       </h2>
 
-      $type.get_added()
-      $type.get_changed()
-      $type.get_deprecated()
-      $type.get_docstring()
-      $type.get_breakdown()
+      {{ type.get_added() }}
+      {{ type.get_changed() }}
+      {{ type.get_deprecated() }}
+      {{ type.get_docstring() }}
+      {{ type.get_breakdown() }}
      </div>
-    #end for
+    {% endfor %}
    </div>
-   #end if
+   {% endif %}
 
    </div>
 
