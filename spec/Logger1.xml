@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<node name="/Logger"
+<node name="/Logger1"
   xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
   <tp:copyright>Copyright © 2009-2011 Collabora Ltd.</tp:copyright>
   <tp:license xmlns="http://www.w3.org/1999/xhtml">
