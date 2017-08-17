@@ -68,7 +68,7 @@
         <tr>
        {% endif %}
        <td><a href="{{ signal.get_url() }}">{{ signal.short_name }}</a></td>
-       <td>($signal.get_args())</td>
+       <td>({{ signal.get_args() }})</td>
        <td>
         {% if signal.is_deprecated %} (deprecated) {% endif %}
        </td>
