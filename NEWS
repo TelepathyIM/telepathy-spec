@@ -2,6 +2,26 @@ This file contains the same edited highlights as the announcement emails.
 For full details, see the ChangeLog in tarballs, or "git log" in Git
 checkouts.
 
+telepathy-spec 0.27.4 (2019-11-16)
+==================================
+
+The "Small" release.
+
+Changes since 0.27.3:
+
+• Chan.I.Messages defines a new well-known header key: "silent".
+
+• Conn.I.IRC_Command1 is now actually marked stable.
+
+• ConnectionManager defines a new well-known parameter: "account-path-suffix".
+
+• Chan.I.SASLAuthentication mechanism X-TELEPATHY-PASSWORD is not mandatory
+  if unimplementable.
+
+• Tools ported to Python 3.
+
+• Documentation now uses jinja2 instead of Cheetah for templates.
+
 telepathy-spec 0.27.3 (2013-10-28)
 ==================================
 
