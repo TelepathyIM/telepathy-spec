@@ -32,11 +32,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
   </p>
  </tp:docstring>
  <xi:include href="Connection_Manager.xml"/>
+ <xi:include href="Connection_Manager_Interface_Account_Api.xml"/>
  <xi:include href="Connection_Manager_Interface_Account_Storage.xml"/>
  <xi:include href="Protocol.xml"/>
  <xi:include href="Protocol_Interface_Addressing.xml"/>
  <xi:include href="Protocol_Interface_Avatars.xml"/>
  <xi:include href="Protocol_Interface_Presence.xml"/>
+
+ <tp:section name="AccountApi">
+  <xi:include href="Account_Api.xml"/>
+  <xi:include href="Account_Api_Interface_Contacts.xml"/>
+ </tp:section>
 
  <tp:section name="Connection Object">
   <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
@@ -105,6 +111,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</
    <xi:include href="Connection_Interface_Forwarding.xml"/>
    <xi:include href="Connection_Interface_Keepalive.xml"/>
    <xi:include href="Connection_Interface_Mail_Notification.xml"/>
+   <xi:include href="Connection_Interface_Message_Read.xml"/>
    <xi:include href="Connection_Interface_Power_Saving.xml"/>
    <xi:include href="Connection_Interface_Service_Point.xml"/>
    <xi:include href="Connection_Interface_Sidecars1.xml"/>

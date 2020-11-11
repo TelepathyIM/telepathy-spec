@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<node name="/AccountApi"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+  <tp:copyright>Copyright © 2020 Alexander Akulich</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+</p>
+  </tp:license>
+  <interface name="org.freedesktop.Telepathy.AccountApi">
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An AccountApi object provides access to account-specific API available
+      without an active Connection.</p>
+
+      <p>AccountApi instances are uniquely identified by object path. The
+      object path of an AccountApi MUST take the form
+        <code>/org/freedesktop/Telepathy/AccountApi/<em>cm</em>/<em>proto</em>/<em>acct</em></code>, where:</p>
+
+      <ul>
+        <li><em>cm</em> is the same <tp:type>Connection_Manager_Name</tp:type>
+          that appears in the connection manager's well-known bus name and
+          object path</li>
+        <li><em>proto</em> is the <tp:type>Protocol</tp:type> name as seen in
+          <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">ConnectionManager.ListProtocols</tp:dbus-ref>,
+          but with "-" replaced with "_"
+          (i.e. the same as in the object-path of a <tp:dbus-ref
+          namespace="org.freedesktop.Telepathy">Connection</tp:dbus-ref>)</li>
+        <li><em>acct</em> is an arbitrary string of ASCII letters, digits
+          and underscores, starting with a letter or underscore, which
+          uniquely identifies this account</li>
+        <li>Clients SHOULD parse the object path to discover the
+          connection manager and protocol</li>
+        <li>Clients MUST NOT attempt to parse <em>acct</em></li>
+        <li>Clients MUST NOT assume that <em>acct</em> matches
+          the connection-specific part of a Connection's object-path and
+          bus name</li>
+        <li>The account manager SHOULD choose <em>acct</em> such that if
+          an account is deleted, its object path will be re-used if and only
+          if the new account is in some sense "the same"
+          (incorporating the 'account' parameter in some way is
+          recommended)</li>
+      </ul>
+    </tp:docstring>
+    <tp:added version="0.UNRELEASED">(draft 1)</tp:added>
+
+    <property name="Interfaces" tp:name-for-bindings="Interfaces"
+      access="read" type="as" tp:type="DBus_Interface[]">
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>The set of optional interfaces supported by this AccountApi
+          instance.</p>
+      </tp:docstring>
+    </property>
+
+  </interface>
+</node>
+<!-- vim:set sw=2 sts=2 et ft=xml: -->

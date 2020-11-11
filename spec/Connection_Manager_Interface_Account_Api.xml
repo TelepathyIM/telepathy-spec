@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<node name="/Connection_Manager_Interface_Account_Api"
+  xmlns:tp="http://telepathy.freedesktop.org/wiki/DbusSpec#extensions-v0">
+
+  <tp:copyright>Copyright © 2020 Alexander Akulich</tp:copyright>
+  <tp:license xmlns="http://www.w3.org/1999/xhtml">
+    <p>This library is free software; you can redistribute it and/or
+      modify it under the terms of the GNU Lesser General Public
+      License as published by the Free Software Foundation; either
+      version 2.1 of the License, or (at your option) any later version.</p>
+
+    <p>This library is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+      Lesser General Public License for more details.</p>
+
+    <p>You should have received a copy of the GNU Lesser General Public
+      License along with this library; if not, write to the Free Software
+      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+      02110-1301, USA.</p>
+  </tp:license>
+
+  <interface name="org.freedesktop.Telepathy.ConnectionManager.Interface.AccountApi.DRAFT"
+    tp:causes-havoc="experimental">
+    <tp:added version="0.UNRELEASED">(draft 1)</tp:added>
+    <tp:requires interface="org.freedesktop.Telepathy.ConnectionManager"/>
+
+    <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+      <p>An interface for connection managers that expose account API
+        available without an active Connection.</p>
+    </tp:docstring>
+
+    <signal name="NewApiInstance" tp:name-for-bindings="New_Api_Instance">
+      <arg name="Bus_Name" type="s" tp:type="DBus_Bus_Name">
+        <tp:docstring>
+          The D-Bus service where the AccountApi object can be found
+        </tp:docstring>
+      </arg>
+      <arg name="Object_Path" type="o">
+        <tp:docstring>
+          The object path of the AccountApi object on this service
+        </tp:docstring>
+      </arg>
+      <arg name="Protocol" type="s" tp:type="Protocol">
+        <tp:docstring>
+          The identifier for the protocol this connection uses
+        </tp:docstring>
+      </arg>
+      <tp:docstring>
+        Emitted when a new <tp:dbus-ref
+        namespace="org.freedesktop.Telepathy">AccountApi</tp:dbus-ref> object
+        is created.
+      </tp:docstring>
+    </signal>
+
+    <method name="RequestApi" tp:name-for-bindings="Request_Api">
+      <arg direction="in" name="Protocol" type="s" tp:type="Protocol">
+        <tp:docstring>
+          The protocol identifier
+        </tp:docstring>
+      </arg>
+      <arg direction="in" name="Parameters" type="a{sv}"
+        tp:type="String_Variant_Map">
+        <tp:docstring>
+          A dictionary mapping parameter names to values of the appropriate
+          type, as indicated by
+          <tp:dbus-ref namespace="ofdT.ConnectionManager">GetParameters</tp:dbus-ref>
+          and the well-known list of names and value types documented on the
+          <tp:type>Connection_Parameter_Name</tp:type> type.
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="s" tp:type="DBus_Bus_Name" name="Bus_Name">
+        <tp:docstring>
+          A D-Bus service name where the new AccountApi object can be found
+        </tp:docstring>
+      </arg>
+      <arg direction="out" type="o" name="Object_Path">
+        <tp:docstring>
+          The D-Bus object path to the AccountApi on this service
+        </tp:docstring>
+      </arg>
+      <tp:docstring xmlns="http://www.w3.org/1999/xhtml">
+        <p>Request a
+          <tp:dbus-ref namespace="org.freedesktop.Telepathy">AccountApi</tp:dbus-ref>
+          object representing a given account on a given
+          protocol with the given parameters. The method returns the bus name
+          and the object path where the new AccountApi object can be found.</p>
+
+        <p>The parameters which must and may be provided in the parameters
+        dictionary can be discovered with the
+        <tp:dbus-ref namespace="ofdT.ConnectionManager">GetParameters</tp:dbus-ref>
+        method. These
+        parameters, their types, and their default values may be cached
+        in files so that all available connection managers do not need to be
+        started to discover which protocols are available.</p>
+
+        <p>Every successful RequestApi call will cause the emission of a
+        <tp:member-ref>NewApiInstance</tp:member-ref> signal for the same newly
+        created object. The
+        requester can use the returned object path and service name
+        independently of the emission of that signal. In that case this signal
+        emission is most useful for, e.g. other processes that are monitoring
+        the creation of new connections.</p>
+      </tp:docstring>
+      <tp:possible-errors>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotImplemented">
+          <tp:docstring>
+            The requested protocol is not supported by this manager
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.NotAvailable">
+          <tp:docstring>
+            The requested API object already appears to exist
+          </tp:docstring>
+        </tp:error>
+        <tp:error name="org.freedesktop.Telepathy.Error.InvalidArgument">
+          <tp:docstring>
+            Unrecognised connection parameters
+          </tp:docstring>
+        </tp:error>
+      </tp:possible-errors>
+    </method>
+
+  </interface>
+</node>
